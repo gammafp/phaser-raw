@@ -1,0 +1,23 @@
+{
+  "name": "churrasco",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-commonjs": "^0.10.4"
+  },
+  "dependencies": {
+    "eventemitter3": "^5.0.1",
+    "fs-extra": "^11.3.0",
+    "phaser": "^3.90.0",
+    "phaser3spectorjs": "^0.0.8"
+  }
+}
