@@ -2,7 +2,9 @@
 
 This is a small project done in spare time that aims to convert Phaser files to TypeScript in order to have code that integrates more easily into TS projects and improve workflow.
 
-Phaser framework is a library created by Richard Davey and Phaser Studio Team.
+**Phaser framework is a library created by Richard Davey and Phaser Studio Team.
+Please visit the [official website](https://phaser.io/) for more information and oficial repository [here](https://github.com/photonstorm/phaser).**
+
 
 ![screenshot](./screenshot.png)
 
@@ -19,7 +21,7 @@ What is an obvious error? Any error that arises from converting the code to Type
 
 We will return to fix these errors later.
 
-- [ ] Create a base project with a simple example
+- [x] Create a base project with a simple example
 - [ ] Convert all files to TS - current state
 - [ ] Refactor the code to be more TS friendly - if is possible
 - [ ] Add documentation
