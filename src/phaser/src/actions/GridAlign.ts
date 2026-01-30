@@ -5,12 +5,13 @@
  */
 
 import { QuickSet as AlignIn } from '../display/align/in/QuickSet';
+import { NOOP } from '../utils/NOOP';
 
 // TODO: Convert this
 var CONST = require('../display/align/const');
 var GetFastValue = require('../utils/object/GetFastValue');
-var NOOP = require('../utils/NOOP');
 var Zone = require('../gameobjects/zone/Zone');
+//
 
 const tempZone = new Zone({ sys: { queueDepthSort: NOOP, events: { once: NOOP } } }, 0, 0, 1, 1).setOrigin(0, 0);
 
