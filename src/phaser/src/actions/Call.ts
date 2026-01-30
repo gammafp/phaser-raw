@@ -18,16 +18,18 @@
  *
  * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that was passed to this Action.
  */
-var Call = function (items, callback, context)
+export const Call = <G extends any[]>(
+    items: G,
+    callback: (item: G[number]) => void,
+    context?: any
+): G =>
 {
-    for (var i = 0; i < items.length; i++)
+    for (let i = 0; i < items.length; i++)
     {
-        var item = items[i];
+        const item = items[i];
 
         callback.call(context, item);
     }
 
     return items;
 };
-
-module.exports = Call;

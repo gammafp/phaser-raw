@@ -26,15 +26,18 @@
  *
  * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
-var PropertyValueInc = function (items, key, value, step, index, direction)
+export const PropertyValueInc = <G extends any[]>(
+    items: G,
+    key: string,
+    value: number,
+    step: number = 0,
+    index: number = 0,
+    direction: number = 1
+): G =>
 {
-    if (step === undefined) { step = 0; }
-    if (index === undefined) { index = 0; }
-    if (direction === undefined) { direction = 1; }
-
-    var i;
-    var t = 0;
-    var end = items.length;
+    let i: number;
+    let t = 0;
+    const end = items.length;
 
     if (direction === 1)
     {
@@ -57,5 +60,3 @@ var PropertyValueInc = function (items, key, value, step, index, direction)
 
     return items;
 };
-
-module.exports = PropertyValueInc;

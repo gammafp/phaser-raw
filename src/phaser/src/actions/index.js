@@ -1,3 +1,13 @@
+import { AlignTo } from './AlignTo';
+import { Angle } from './Angle';
+import { Call } from './Call';
+import { GetFirst } from './GetFirst';
+import { GetLast } from './GetLast';
+import { GridAlign } from './GridAlign';
+import { IncAlpha } from './IncAlpha';
+
+import { PropertyValueInc } from './PropertyValueInc';
+
 /**
  * @author       Richard Davey <rich@phaser.io>
  * @copyright    2013-2025 Phaser Studio Inc.
@@ -10,13 +20,13 @@
 
 module.exports = {
 
-    AlignTo: require('./AlignTo'),
-    Angle: require('./Angle'),
-    Call: require('./Call'),
-    GetFirst: require('./GetFirst'),
-    GetLast: require('./GetLast'),
-    GridAlign: require('./GridAlign'),
-    IncAlpha: require('./IncAlpha'),
+    AlignTo: AlignTo,
+    Angle: Angle,
+    Call: Call,
+    GetFirst: GetFirst,
+    GetLast: GetLast,
+    GridAlign: GridAlign,
+    IncAlpha: IncAlpha,
     IncX: require('./IncX'),
     IncXY: require('./IncXY'),
     IncY: require('./IncY'),
@@ -26,7 +36,7 @@ module.exports = {
     PlaceOnRectangle: require('./PlaceOnRectangle'),
     PlaceOnTriangle: require('./PlaceOnTriangle'),
     PlayAnimation: require('./PlayAnimation'),
-    PropertyValueInc: require('./PropertyValueInc'),
+    PropertyValueInc: PropertyValueInc,
     PropertyValueSet: require('./PropertyValueSet'),
     RandomCircle: require('./RandomCircle'),
     RandomEllipse: require('./RandomEllipse'),

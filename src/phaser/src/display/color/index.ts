@@ -46,6 +46,4 @@ Color.RGBToHSV = RGBToHSV;
 Color.RGBToString = RGBToString;
 Color.ValueToColor = ValueToColor;
 
-console.log(Color)
-
 export default Color;

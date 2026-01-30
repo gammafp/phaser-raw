@@ -22,17 +22,19 @@
  *
  * @return {?(object|Phaser.GameObjects.GameObject)} The last object in the array that matches the comparison object, or `null` if no match was found.
  */
-var GetLast = function (items, compare, index)
+export const GetLast = <G extends any[]>(
+    items: G,
+    compare: Record<string, any>,
+    index: number = 0
+): G[number] | null =>
 {
-    if (index === undefined) { index = 0; }
-
-    for (var i = items.length - 1; i >= index; i--)
+    for (let i = items.length - 1; i >= index; i--)
     {
-        var item = items[i];
+        const item = items[i];
 
-        var match = true;
+        let match = true;
 
-        for (var property in compare)
+        for (const property in compare)
         {
             if (item[property] !== compare[property])
             {
@@ -48,5 +50,3 @@ var GetLast = function (items, compare, index)
 
     return null;
 };
-
-module.exports = GetLast;

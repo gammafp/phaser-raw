@@ -28,13 +28,17 @@ import { QuickSet } from '../display/align/to/QuickSet';
  *
  * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
-var AlignTo = function (items, position, offsetX, offsetY)
-{
-    var target = items[0];
+export const AlignTo = (
+    items: Phaser.GameObjects.GameObject[],
+    position: number,
+    offsetX: number = 0,
+    offsetY: number = 0
+): Phaser.GameObjects.GameObject[] => {
+    let target = items[0];
 
-    for (var i = 1; i < items.length; i++)
+    for (let i = 1; i < items.length; i++)
     {
-        var item = items[i];
+        let item = items[i];
 
         QuickSet(item, target, position, offsetX, offsetY);
 
@@ -43,5 +47,3 @@ var AlignTo = function (items, position, offsetX, offsetY)
 
     return items;
 };
-
-module.exports = AlignTo;

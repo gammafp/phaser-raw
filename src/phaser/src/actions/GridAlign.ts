@@ -5,12 +5,14 @@
  */
 
 import { QuickSet as AlignIn } from '../display/align/in/QuickSet';
+
+// TODO: Convert this
 var CONST = require('../display/align/const');
 var GetFastValue = require('../utils/object/GetFastValue');
-import { NOOP } from '../utils/NOOP';
+var NOOP = require('../utils/NOOP');
 var Zone = require('../gameobjects/zone/Zone');
 
-var tempZone = new Zone({ sys: { queueDepthSort: NOOP, events: { once: NOOP } } }, 0, 0, 1, 1).setOrigin(0, 0);
+const tempZone = new Zone({ sys: { queueDepthSort: NOOP, events: { once: NOOP } } }, 0, 0, 1, 1).setOrigin(0, 0);
 
 /**
  * Takes an array of Game Objects, or any objects that have public `x` and `y` properties,
@@ -26,32 +28,33 @@ var tempZone = new Zone({ sys: { queueDepthSort: NOOP, events: { once: NOOP } } 
  *
  * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
-var GridAlign = function (items, options)
+export const GridAlign = <G extends any[]>(
+    items: G,
+    options: Record<string, any> = {}
+): G =>
 {
-    if (options === undefined) { options = {}; }
+    const widthSet = options.hasOwnProperty('width');
+    const heightSet = options.hasOwnProperty('height');
 
-    var widthSet = options.hasOwnProperty('width');
-    var heightSet = options.hasOwnProperty('height');
+    const width = GetFastValue(options, 'width', -1);
+    const height = GetFastValue(options, 'height', -1);
 
-    var width = GetFastValue(options, 'width', -1);
-    var height = GetFastValue(options, 'height', -1);
+    const cellWidth = GetFastValue(options, 'cellWidth', 1);
+    const cellHeight = GetFastValue(options, 'cellHeight', cellWidth);
 
-    var cellWidth = GetFastValue(options, 'cellWidth', 1);
-    var cellHeight = GetFastValue(options, 'cellHeight', cellWidth);
+    const position = GetFastValue(options, 'position', CONST.TOP_LEFT);
+    const x = GetFastValue(options, 'x', 0);
+    const y = GetFastValue(options, 'y', 0);
 
-    var position = GetFastValue(options, 'position', CONST.TOP_LEFT);
-    var x = GetFastValue(options, 'x', 0);
-    var y = GetFastValue(options, 'y', 0);
-
-    var cx = 0;
-    var cy = 0;
-    var w = (width * cellWidth);
-    var h = (height * cellHeight);
+    let cx = 0;
+    let cy = 0;
+    const w = (width * cellWidth);
+    const h = (height * cellHeight);
 
     tempZone.setPosition(x, y);
     tempZone.setSize(cellWidth, cellHeight);
 
-    for (var i = 0; i < items.length; i++)
+    for (let i = 0; i < items.length; i++)
     {
         AlignIn(items[i], tempZone, position);
 
@@ -109,5 +112,3 @@ var GridAlign = function (items, options)
 
     return items;
 };
-
-module.exports = GridAlign;
