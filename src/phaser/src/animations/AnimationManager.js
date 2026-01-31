@@ -4,17 +4,20 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../utils/object/GetFastValue';
+import { GetValue } from '../utils/object/GetValue';
+import { NumberArray } from '../utils/array/NumberArray';
+import { Pad } from '../utils/string/Pad';
+
 var Animation = require('./Animation');
 var Class = require('../utils/Class');
 var CustomMap = require('../structs/Map');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var GameEvents = require('../core/events');
-var GetFastValue = require('../utils/object/GetFastValue');
-var GetValue = require('../utils/object/GetValue');
 var MATH_CONST = require('../math/const');
-var NumberArray = require('../utils/array/NumberArray');
-import { Pad } from '../utils/string/Pad';
 
 /**
  * @classdesc

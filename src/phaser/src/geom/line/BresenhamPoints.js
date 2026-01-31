@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this algorithm to TypeScript
+
 /**
  * Using Bresenham's line algorithm this will return an array of all coordinates on this line.
  *

@@ -4,10 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../../../utils/object/GetFastValue';
+
 var Class = require('../../../utils/Class');
 var FX = require('../pipelines/fx');
 var FX_CONST = require('../../../fx/const');
-var GetFastValue = require('../../../utils/object/GetFastValue');
 var PreFXPipeline = require('./PreFXPipeline');
 var Shaders = require('../shaders');
 var Utils = require('../Utils');

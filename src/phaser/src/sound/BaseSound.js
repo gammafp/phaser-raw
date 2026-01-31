@@ -5,11 +5,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { Extend } from '../utils/object/Extend';
+import { NOOP } from '../utils/NOOP';
+
 var Class = require('../utils/Class');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
-var Extend = require('../utils/object/Extend');
-import { NOOP } from '../utils/NOOP';
 
 /**
  * @classdesc

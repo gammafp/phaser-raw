@@ -5,6 +5,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this stable sort algorithm to TypeScript
+
 var Device = require('../../device');
 
 /**

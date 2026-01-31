@@ -4,7 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Extend = require('../../../utils/object/Extend');
+// TODO: Convert this file to TypeScript
+
+import { Extend } from '../../../utils/object/Extend';
 
 /**
  * Copy properties from tileset to tiles.

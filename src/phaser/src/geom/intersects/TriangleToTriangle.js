@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this to TypeScript
+
 var ContainsArray = require('../triangle/ContainsArray');
 var Decompose = require('../triangle/Decompose');
 var LineToLine = require('./LineToLine');

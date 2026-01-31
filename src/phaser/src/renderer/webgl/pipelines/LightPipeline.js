@@ -5,8 +5,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../../../utils/object/GetFastValue';
+
 var Class = require('../../../utils/Class');
-var GetFastValue = require('../../../utils/object/GetFastValue');
 var LightShaderSourceFS = require('../shaders/Light-frag');
 var MultiPipeline = require('./MultiPipeline');
 var TransformMatrix = require('../../../gameobjects/components/TransformMatrix');

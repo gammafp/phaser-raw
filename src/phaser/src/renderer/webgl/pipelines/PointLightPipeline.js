@@ -4,8 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../../../utils/object/GetFastValue';
+
 var Class = require('../../../utils/Class');
-var GetFastValue = require('../../../utils/object/GetFastValue');
 var PointLightShaderSourceFS = require('../shaders/PointLight-frag');
 var PointLightShaderSourceVS = require('../shaders/PointLight-vert');
 var WebGLPipeline = require('../WebGLPipeline');

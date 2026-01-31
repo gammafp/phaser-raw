@@ -4,11 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { CenterOn } from '../../../geom/rectangle/CenterOn';
+import { GetFastValue } from '../../../utils/object/GetFastValue';
+
 var BlendModes = require('../../BlendModes');
-var CenterOn = require('../../../geom/rectangle/CenterOn');
 var Class = require('../../../utils/Class');
 var ColorMatrixFS = require('../shaders/ColorMatrix-frag');
-var GetFastValue = require('../../../utils/object/GetFastValue');
 var MultiPipeline = require('./MultiPipeline');
 var PostFXFS = require('../shaders/PostFX-frag');
 var Rectangle = require('../../../geom/rectangle/Rectangle');

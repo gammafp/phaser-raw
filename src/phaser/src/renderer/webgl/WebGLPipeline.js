@@ -4,11 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { DeepCopy } from '../../utils/object/DeepCopy';
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
 var Class = require('../../utils/Class');
-var DeepCopy = require('../../utils/object/DeepCopy');
 var EventEmitter = require('eventemitter3');
 var Events = require('./pipelines/events');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var Matrix4 = require('../../math/Matrix4');
 var RendererEvents = require('../events');
 var RenderTarget = require('./RenderTarget');

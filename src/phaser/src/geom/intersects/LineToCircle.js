@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this to TypeScript
+
 var Contains = require('../circle/Contains');
 var Point = require('../point/Point');
 

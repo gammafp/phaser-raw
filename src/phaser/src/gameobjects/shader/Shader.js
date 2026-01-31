@@ -4,12 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { Extend } from '../../utils/object/Extend';
+import { SetValue } from '../../utils/object/SetValue';
+
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
-var GetFastValue = require('../../utils/object/GetFastValue');
-var Extend = require('../../utils/object/Extend');
-var SetValue = require('../../utils/object/SetValue');
 var ShaderRender = require('./ShaderRender');
 var TransformMatrix = require('../components/TransformMatrix');
 var ArrayEach = require('../../utils/array/Each');

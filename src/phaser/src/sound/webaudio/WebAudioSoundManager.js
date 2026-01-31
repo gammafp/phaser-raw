@@ -5,13 +5,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Base64ToArrayBuffer = require('../../utils/base64/Base64ToArrayBuffer');
+// TODO: Convert this file to TypeScript
+
+import { Base64ToArrayBuffer } from '../../utils/base64/Base64ToArrayBuffer';
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
 var BaseSoundManager = require('../BaseSoundManager');
 var Class = require('../../utils/Class');
 var Events = require('../events');
 var GameEvents = require('../../core/events');
 var WebAudioSound = require('./WebAudioSound');
-var GetFastValue = require('../../utils/object/GetFastValue');
 
 /**
  * @classdesc

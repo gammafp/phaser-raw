@@ -4,12 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { Between } from '../math/Between';
+import { GetFastValue } from '../utils/object/GetFastValue';
+
 var Animation = require('./Animation');
-var Between = require('../math/Between');
 var Class = require('../utils/Class');
 var CustomMap = require('../structs/Map');
 var Events = require('./events');
-var GetFastValue = require('../utils/object/GetFastValue');
 
 /**
  * @classdesc

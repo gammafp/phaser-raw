@@ -4,13 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { SnapCeil } from '../../math/snap/SnapCeil';
+
 var Class = require('../../utils/Class');
 var CONST = require('./pipelines/const');
 var CustomMap = require('../../structs/Map');
 var Device = require('../../device/');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var RenderTarget = require('./RenderTarget');
-var SnapCeil = require('../../math/snap/SnapCeil');
 
 //  Default Phaser 3 Pipelines
 var BitmapMaskPipeline = require('./pipelines/BitmapMaskPipeline');

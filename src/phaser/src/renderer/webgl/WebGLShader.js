@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { Each as ArrayEach } from '../../utils/array/Each';
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
 var Class = require('../../utils/Class');
-var ArrayEach = require('../../utils/array/Each');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var WEBGL_CONST = require('./const');
 
 /**

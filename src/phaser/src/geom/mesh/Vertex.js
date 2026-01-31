@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this to TypeScript class
+
 var Class = require('../../utils/Class');
 var Utils = require('../../renderer/webgl/Utils');
 var Vector3 = require('../../math/Vector3');

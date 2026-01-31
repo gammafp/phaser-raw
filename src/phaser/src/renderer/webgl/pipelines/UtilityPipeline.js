@@ -4,13 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../../../utils/object/GetFastValue';
+
 var AddBlendFS = require('../shaders/AddBlend-frag');
 var BlendModes = require('../../BlendModes');
 var Class = require('../../../utils/Class');
 var ColorMatrix = require('../../../display/ColorMatrix');
 var ColorMatrixFS = require('../shaders/ColorMatrix-frag');
 var CopyFS = require('../shaders/Copy-frag');
-var GetFastValue = require('../../../utils/object/GetFastValue');
 var LinearBlendFS = require('../shaders/LinearBlend-frag');
 var QuadVS = require('../shaders/Quad-vert');
 var WebGLPipeline = require('../WebGLPipeline');

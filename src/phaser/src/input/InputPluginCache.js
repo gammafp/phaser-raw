@@ -4,7 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GetValue = require('../utils/object/GetValue');
+// TODO: Convert this file to TypeScript
+
+import { GetValue } from '../utils/object/GetValue';
 
 //  Contains the plugins that Phaser uses globally and locally.
 //  These are the source objects, not instantiated.

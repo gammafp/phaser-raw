@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this to TypeScript
+
 var LineToCircle = require('./LineToCircle');
 var Contains = require('../triangle/Contains');
 

@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { Clamp } from '../math/Clamp';
+import { Extend } from '../utils/object/Extend';
+
 var Class = require('../utils/Class');
-var Clamp = require('../math/Clamp');
-var Extend = require('../utils/object/Extend');
 
 /**
  * @classdesc

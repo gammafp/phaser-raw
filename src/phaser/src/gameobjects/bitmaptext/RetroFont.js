@@ -4,8 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { Extend } from '../../utils/object/Extend';
+
 var RETRO_FONT_CONST = require('./const');
-var Extend = require('../../utils/object/Extend');
 
 /**
  * @namespace Phaser.GameObjects.RetroFont

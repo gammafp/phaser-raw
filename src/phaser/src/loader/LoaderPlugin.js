@@ -4,15 +4,18 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../utils/object/GetFastValue';
+import { GetValue } from '../utils/object/GetValue';
+import { IsPlainObject } from '../utils/object/IsPlainObject';
+
 var Class = require('../utils/Class');
 var CONST = require('./const');
 var CustomSet = require('../structs/Set');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var FileTypesManager = require('./FileTypesManager');
-var GetFastValue = require('../utils/object/GetFastValue');
-var GetValue = require('../utils/object/GetValue');
-var IsPlainObject = require('../utils/object/IsPlainObject');
 var PluginCache = require('../plugins/PluginCache');
 var SceneEvents = require('../scene/events');
 var XHRSettings = require('./XHRSettings');

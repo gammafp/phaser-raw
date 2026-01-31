@@ -6,8 +6,11 @@
 
 require('./polyfills/requestVideoFrame');
 
+// TODO: Convert this file to TypeScript
+
+import { Extend } from './utils/object/Extend';
+
 var CONST = require('./const');
-var Extend = require('./utils/object/Extend');
 
 /**
  * @namespace Phaser

@@ -4,7 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GetFastValue = require('../utils/object/GetFastValue');
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../utils/object/GetFastValue';
 
 /**
  * Builds an array of which plugins (not including physics plugins) should be activated for the given Scene.

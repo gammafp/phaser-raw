@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this Floyd-Rivest algorithm to TypeScript
+
 /**
  * @ignore
  */

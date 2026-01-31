@@ -4,19 +4,20 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../utils/object/GetFastValue';
+import { GetValue } from '../utils/object/GetValue';
+import { IsPlainObject } from '../utils/object/IsPlainObject';
+import { NOOP } from '../utils/NOOP';
+import { ValueToColor } from '../display/color/ValueToColor';
+
 var Class = require('../utils/Class');
 var CONST = require('../const');
 var DefaultPlugins = require('../plugins/DefaultPlugins');
 var Device = require('../device');
-var GetFastValue = require('../utils/object/GetFastValue');
-var GetValue = require('../utils/object/GetValue');
-var IsPlainObject = require('../utils/object/IsPlainObject');
-import { NOOP } from '../utils/NOOP';
-
 var PhaserMath = require('../math/');
-
 var PIPELINE_CONST = require('../renderer/webgl/pipelines/const');
-import { ValueToColor } from '../display/color/ValueToColor';
 
 /**
  * @classdesc

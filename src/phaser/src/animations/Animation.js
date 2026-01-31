@@ -4,13 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Clamp = require('../math/Clamp');
+// TODO: Convert this file to TypeScript
+
+import { Clamp } from '../math/Clamp';
+import { FindClosestInSorted } from '../utils/array/FindClosestInSorted';
+import { GetValue } from '../utils/object/GetValue';
+import { SortByDigits } from '../utils/array/SortByDigits';
+
 var Class = require('../utils/Class');
 var Events = require('./events');
-var FindClosestInSorted = require('../utils/array/FindClosestInSorted');
 var Frame = require('./AnimationFrame');
-var GetValue = require('../utils/object/GetValue');
-var SortByDigits = require('../utils/array/SortByDigits');
 
 /**
  * @classdesc

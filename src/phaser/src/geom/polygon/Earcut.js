@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this complex algorithm to TypeScript
+
 /**
  * This module implements a modified ear slicing algorithm, optimized by z-order curve hashing and extended to
  * handle holes, twisted polygons, degeneracies and self-intersections in a way that doesn't guarantee correctness

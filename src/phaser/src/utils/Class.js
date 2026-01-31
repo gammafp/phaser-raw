@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this Class system to TypeScript
+
 //  Taken from klasse by mattdesl https://github.com/mattdesl/klasse
 
 function hasGetterOrSetter (def)

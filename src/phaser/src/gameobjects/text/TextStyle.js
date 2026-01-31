@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { GetValue } from '../../utils/object/GetValue';
+
 var Class = require('../../utils/Class');
-var GetAdvancedValue = require('../../utils/object/GetAdvancedValue');
-var GetValue = require('../../utils/object/GetValue');
 var MeasureText = require('./MeasureText');
 
 //  Key: [ Object Key, Default Value ]

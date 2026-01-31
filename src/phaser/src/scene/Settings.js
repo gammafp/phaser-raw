@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetValue } from '../utils/object/GetValue';
+import { Merge } from '../utils/object/Merge';
+
 var CONST = require('./const');
-var GetValue = require('../utils/object/GetValue');
-var Merge = require('../utils/object/Merge');
 var InjectionMap = require('./InjectionMap');
 
 /**
