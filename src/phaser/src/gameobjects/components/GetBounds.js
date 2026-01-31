@@ -4,8 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { RotateAround } from '../../math/RotateAround';
+
 var Rectangle = require('../../geom/rectangle/Rectangle');
-var RotateAround = require('../../math/RotateAround');
 var Vector2 = require('../../math/Vector2');
 
 /**

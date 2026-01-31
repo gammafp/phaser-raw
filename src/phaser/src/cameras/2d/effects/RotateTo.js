@@ -4,10 +4,13 @@
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Clamp = require('../../../math/Clamp');
+// TODO: Convert this file to TypeScript
+
+import { Clamp } from '../../../math/Clamp';
+import { EaseMap } from '../../../math/easing/EaseMap';
+
 var Class = require('../../../utils/Class');
 var Events = require('../events');
-var EaseMap = require('../../../math/easing/EaseMap');
 
 /**
  * @classdesc

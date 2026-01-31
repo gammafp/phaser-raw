@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Clamp = require('../../../math/Clamp');
+// TODO: Convert this file to TypeScript
+
+import { Clamp } from '../../../math/Clamp';
+import { EaseMap } from '../../../math/easing/EaseMap';
+
 var Class = require('../../../utils/Class');
-var EaseMap = require('../../../math/easing/EaseMap');
 var Events = require('../events');
 var Vector2 = require('../../../math/Vector2');
 

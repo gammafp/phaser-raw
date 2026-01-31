@@ -4,8 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetValue } from '../../utils/object/GetValue';
+
 var Class = require('../../utils/Class');
-var GetValue = require('../../utils/object/GetValue');
 
 /**
  * @classdesc

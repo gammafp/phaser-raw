@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var DeepCopy = require('../../utils/object/DeepCopy');
+// TODO: Convert this file to TypeScript
+
+import { DeepCopy } from '../../utils/object/DeepCopy';
+import { SpliceOne } from '../../utils/array/SpliceOne';
+
 var FX = require('../components/FX');
-var SpliceOne = require('../../utils/array/SpliceOne');
 
 /**
  * Provides methods used for setting the WebGL rendering post pipeline of a Game Object.

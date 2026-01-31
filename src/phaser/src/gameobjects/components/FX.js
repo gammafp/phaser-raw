@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { SpliceOne } from '../../utils/array/SpliceOne';
+
 var Class = require('../../utils/Class');
 var Effects = require('../../fx/');
-var SpliceOne = require('../../utils/array/SpliceOne');
 
 /**
  * @classdesc

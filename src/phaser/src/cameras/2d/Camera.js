@@ -4,14 +4,17 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { CenterOn } from '../../geom/rectangle/CenterOn';
+import { Clamp } from '../../math/Clamp';
+import { Linear } from '../../math/Linear';
+
 var BaseCamera = require('./BaseCamera');
-var CenterOn = require('../../geom/rectangle/CenterOn');
-var Clamp = require('../../math/Clamp');
 var Class = require('../../utils/Class');
 var Components = require('../../gameobjects/components');
 var Effects = require('./effects');
 var Events = require('./events');
-var Linear = require('../../math/Linear');
 var Rectangle = require('../../geom/rectangle/Rectangle');
 var Vector2 = require('../../math/Vector2');
 

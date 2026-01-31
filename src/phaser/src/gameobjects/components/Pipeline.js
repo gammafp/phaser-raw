@@ -4,7 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var DeepCopy = require('../../utils/object/DeepCopy');
+// TODO: Convert this file to TypeScript
+
+import { DeepCopy } from '../../utils/object/DeepCopy';
 
 /**
  * Provides methods used for setting the WebGL rendering pipeline of a Game Object.

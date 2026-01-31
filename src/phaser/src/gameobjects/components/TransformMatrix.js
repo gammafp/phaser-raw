@@ -4,8 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { MATH_CONST } from '../../math/const';
+
 var Class = require('../../utils/Class');
-var MATH_CONST = require('../../math/const');
 var Vector2 = require('../../math/Vector2');
 
 /**
