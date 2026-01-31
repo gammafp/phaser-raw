@@ -4,8 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { IsSizePowerOfTwo } from '../../../math/pow2/IsSizePowerOfTwo';
+
 var Class = require('../../../utils/Class');
-var IsSizePowerOfTwo = require('../../../math/pow2/IsSizePowerOfTwo');
 
 /**
  * @classdesc

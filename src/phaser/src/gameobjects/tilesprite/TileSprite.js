@@ -4,14 +4,17 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetPowerOfTwo } from '../../math/pow2/GetPowerOfTwo';
+import { UUID } from '../../utils/string';
+
 var CanvasPool = require('../../display/canvas/CanvasPool');
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
-var GetPowerOfTwo = require('../../math/pow2/GetPowerOfTwo');
 var Smoothing = require('../../display/canvas/Smoothing');
 var TileSpriteRender = require('./TileSpriteRender');
-import { UUID } from '../../utils/string';
 var Vector2 = require('../../math/Vector2');
 
 //  bitmask flag for GameObject.renderMask

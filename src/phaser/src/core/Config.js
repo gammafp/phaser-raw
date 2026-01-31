@@ -12,7 +12,9 @@ var GetFastValue = require('../utils/object/GetFastValue');
 var GetValue = require('../utils/object/GetValue');
 var IsPlainObject = require('../utils/object/IsPlainObject');
 import { NOOP } from '../utils/NOOP';
+
 var PhaserMath = require('../math/');
+
 var PIPELINE_CONST = require('../renderer/webgl/pipelines/const');
 import { ValueToColor } from '../display/color/ValueToColor';
 

@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this - depends on Vector3, Matrix4, Quaternion classes
+
 var Vector3 = require('../math/Vector3');
 var Matrix4 = require('../math/Matrix4');
 var Quaternion = require('../math/Quaternion');

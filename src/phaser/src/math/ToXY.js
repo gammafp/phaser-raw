@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this - depends on Vector2 class
+
 var Vector2 = require('./Vector2');
 
 /**

@@ -4,7 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var EaseMap = require('../../math/easing/EaseMap');
+// TODO: Convert this file to TypeScript
+
+import { EaseMap } from '../../math/easing/EaseMap';
 import { UppercaseFirst } from '../../utils/string/UppercaseFirst';
 
 /**

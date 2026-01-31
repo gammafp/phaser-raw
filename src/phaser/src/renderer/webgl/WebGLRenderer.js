@@ -5,7 +5,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
 import { NOOP } from '../../utils/NOOP';
+import { IsSizePowerOfTwo } from '../../math/pow2/IsSizePowerOfTwo';
+
 var ArrayEach = require('../../utils/array/Each');
 var ArrayRemove = require('../../utils/array/Remove');
 var CameraEvents = require('../../cameras/2d/events');
@@ -13,7 +17,6 @@ var Class = require('../../utils/Class');
 var CONST = require('../../const');
 var EventEmitter = require('eventemitter3');
 var Events = require('../events');
-var IsSizePowerOfTwo = require('../../math/pow2/IsSizePowerOfTwo');
 var Matrix4 = require('../../math/Matrix4');
 var PipelineManager = require('./PipelineManager');
 var RenderTarget = require('./RenderTarget');

@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this to TypeScript class
+
 //  Adapted from [gl-matrix](https://github.com/toji/gl-matrix) by toji
 //  and [vecmath](https://github.com/mattdesl/vecmath) by mattdesl
 
