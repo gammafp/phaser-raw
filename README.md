@@ -13,19 +13,6 @@ Please visit the [official website](https://phaser.io/) for more information and
 2. Run `npm install`
 3. Run `npm run dev`
 
-## Roadmap:
-
-Important: We ignore the obvious TypeScript errors in this first attempt.
-What is an obvious error? Any error that arises from converting the code to TypeScript but works fine in the JavaScript version.
-
-We will return to fix these errors later.
-
-- [x] Create a base project with a simple example
-- [ ] Convert all files to TS - current state
-- [ ] Refactor the code to be more TS friendly - if is possible
-- [ ] Add documentation
-- [ ] Add examples
-
 ## Phaser's folder
 
 The Phaser source code is located inside the `src/phaser` folder.
