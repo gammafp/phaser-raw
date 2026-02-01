@@ -44,245 +44,61 @@ Los todo recomendados son:
 - [ ] src/display/color - needs refactor - and fix types
 
 ## Global Summary
-![5%](https://progress-bar.xyz/5)
+![26%](https://progress-bar.xyz/26)
 
-- Total files: 2000
-- TS files: 93
-- JS files: 1907
-- Percentage: 5%
+- Total files: 2001
+- TS files: 521
+- JS files: 1480
+- Percentage: 26.04%
 
 ## Progress by Namespace
 
-  - [ ] actions (5%)
-    - [x] typedefs (100%)
-  - [ ] animations (0%)
-    - [ ] events (0%)
-    - [ ] typedefs (0%)
-  - [ ] cache (0%)
-    - [ ] events (0%)
-  - [ ] cameras (0%)
-    - [ ] 2d (0%)
-      - [ ] effects (0%)
-      - [ ] events (0%)
-      - [ ] typedefs (0%)
-    - [ ] controls (0%)
-      - [ ] typedefs (0%)
-  - [ ] core (0%)
-    - [ ] events (0%)
-    - [ ] typedefs (0%)
-  - [ ] create (0%)
-    - [ ] palettes (0%)
-    - [ ] typedefs (0%)
-  - [ ] curves (0%)
-    - [ ] path (0%)
-    - [ ] typedefs (0%)
-  - [ ] data (0%)
-    - [ ] events (0%)
-  - [ ] device (0%)
-  - [ ] display (77%)
-    - [ ] align (93%)
-      - [x] in (100%)
-      - [x] to (100%)
-    - [x] bounds (100%)
-    - [ ] canvas (0%)
-    - [x] color (100%)
-    - [ ] mask (0%)
-    - [ ] shader (0%)
-    - [ ] typedefs (0%)
-  - [x] dom (100%)
-  - [ ] events (0%)
-  - [ ] fx (0%)
-  - [ ] gameobjects (0%)
-    - [ ] bitmaptext (0%)
-      - [ ] dynamic (0%)
-      - [ ] static (0%)
-      - [ ] typedefs (0%)
-    - [ ] blitter (0%)
-    - [ ] components (0%)
-    - [ ] container (0%)
-      - [ ] typedefs (0%)
-    - [ ] domelement (0%)
-    - [ ] events (0%)
-    - [ ] extern (0%)
-    - [ ] graphics (0%)
-      - [ ] typedefs (0%)
-    - [ ] group (0%)
-      - [ ] typedefs (0%)
-    - [ ] image (0%)
-    - [ ] layer (0%)
-    - [ ] lights (0%)
-    - [ ] mesh (0%)
-      - [ ] typedefs (0%)
-    - [ ] nineslice (0%)
-      - [ ] typedefs (0%)
-    - [ ] particles (0%)
-      - [ ] events (0%)
-      - [ ] typedefs (0%)
-      - [ ] zones (0%)
-    - [ ] pathfollower (0%)
-      - [ ] typedefs (0%)
-    - [ ] plane (0%)
-      - [ ] typedefs (0%)
-    - [ ] pointlight (0%)
-    - [ ] rendertexture (0%)
-      - [ ] typedefs (0%)
-    - [ ] rope (0%)
-      - [ ] typedefs (0%)
-    - [ ] shader (0%)
-      - [ ] typedefs (0%)
-    - [ ] shape (0%)
-      - [ ] arc (0%)
-      - [ ] curve (0%)
-      - [ ] ellipse (0%)
-      - [ ] grid (0%)
-      - [ ] isobox (0%)
-      - [ ] isotriangle (0%)
-      - [ ] line (0%)
-      - [ ] polygon (0%)
-      - [ ] rectangle (0%)
-      - [ ] star (0%)
-      - [ ] triangle (0%)
-    - [ ] sprite (0%)
-      - [ ] typedefs (0%)
-    - [ ] text (0%)
-      - [ ] typedefs (0%)
-    - [ ] tilesprite (0%)
-      - [ ] typedefs (0%)
-    - [ ] typedefs (0%)
-    - [ ] video (0%)
-      - [ ] typedefs (0%)
-    - [ ] zone (0%)
-      - [ ] typedefs (0%)
-  - [ ] geom (0%)
-    - [ ] circle (0%)
-    - [ ] ellipse (0%)
-    - [ ] intersects (0%)
-    - [ ] line (0%)
-    - [ ] mesh (0%)
-      - [ ] typedefs (0%)
-    - [ ] point (0%)
-    - [ ] polygon (0%)
-    - [ ] rectangle (0%)
-    - [ ] triangle (0%)
-    - [ ] typedefs (0%)
-  - [ ] input (0%)
-    - [ ] events (0%)
-    - [ ] gamepad (0%)
-      - [ ] configs (0%)
-      - [ ] events (0%)
-      - [ ] typedefs (0%)
-    - [ ] keyboard (0%)
-      - [ ] combo (0%)
-      - [ ] events (0%)
-      - [ ] keys (0%)
-      - [ ] typedefs (0%)
-    - [ ] mouse (0%)
-    - [ ] touch (0%)
-    - [ ] typedefs (0%)
-  - [ ] loader (0%)
-    - [ ] events (0%)
-    - [ ] filetypes (0%)
-      - [ ] typedefs (0%)
-    - [ ] typedefs (0%)
-  - [ ] math (0%)
-    - [ ] angle (0%)
-    - [ ] distance (0%)
-    - [ ] easing (0%)
-      - [ ] back (0%)
-      - [ ] bounce (0%)
-      - [ ] circular (0%)
-      - [ ] cubic (0%)
-      - [ ] elastic (0%)
-      - [ ] expo (0%)
-      - [ ] linear (0%)
-      - [ ] quadratic (0%)
-      - [ ] quartic (0%)
-      - [ ] quintic (0%)
-      - [ ] sine (0%)
-      - [ ] stepped (0%)
-    - [ ] fuzzy (0%)
-    - [ ] interpolation (0%)
-    - [ ] pow2 (0%)
-    - [ ] random-data-generator (0%)
-    - [ ] snap (0%)
-    - [ ] typedefs (0%)
-  - [ ] physics (0%)
-    - [ ] arcade (0%)
-      - [ ] components (0%)
-      - [ ] events (0%)
-      - [ ] tilemap (0%)
-      - [ ] typedefs (0%)
-    - [ ] matter-js (0%)
-      - [ ] components (0%)
-      - [ ] events (0%)
-      - [ ] lib (0%)
-        - [ ] body (0%)
-        - [ ] collision (0%)
-        - [ ] constraint (0%)
-        - [ ] core (0%)
-        - [ ] factory (0%)
-        - [ ] geometry (0%)
-        - [ ] plugins (0%)
-        - [ ] render (0%)
-      - [ ] poly-decomp (0%)
-      - [ ] typedefs (0%)
-  - [ ] plugins (0%)
-    - [ ] typedefs (0%)
-  - [ ] polyfills (0%)
-  - [ ] renderer (0%)
-    - [ ] canvas (0%)
-      - [ ] utils (0%)
-    - [ ] events (0%)
-    - [ ] snapshot (0%)
-      - [ ] typedefs (0%)
-    - [ ] webgl (0%)
-      - [ ] pipelines (0%)
-        - [ ] events (0%)
-        - [ ] fx (0%)
-      - [ ] shaders (0%)
-      - [ ] typedefs (0%)
-      - [ ] wrappers (0%)
-  - [ ] scale (0%)
-    - [ ] const (0%)
-    - [ ] events (0%)
-  - [ ] scene (7%)
-    - [ ] events (0%)
-    - [ ] typedefs (0%)
-  - [ ] sound (0%)
-    - [ ] events (0%)
-    - [ ] html5 (0%)
-    - [ ] noaudio (0%)
-    - [ ] typedefs (0%)
-    - [ ] webaudio (0%)
-  - [ ] structs (0%)
-    - [ ] events (0%)
-  - [ ] textures (0%)
-    - [ ] events (0%)
-    - [ ] parsers (0%)
-    - [ ] typedefs (0%)
-  - [ ] tilemaps (0%)
-    - [ ] components (0%)
-    - [ ] const (0%)
-    - [ ] mapdata (0%)
-    - [ ] parsers (0%)
-      - [ ] impact (0%)
-      - [ ] tiled (0%)
-    - [ ] typedefs (0%)
-  - [ ] time (0%)
-    - [ ] events (0%)
-    - [ ] typedefs (0%)
-  - [ ] tweens (0%)
-    - [ ] builders (0%)
-    - [ ] events (0%)
-    - [ ] tween (0%)
-    - [ ] typedefs (0%)
-  - [x] types (100%)
-    - [x] actions (100%)
-  - [ ] utils (12%)
-    - [ ] array (0%)
-      - [ ] matrix (0%)
-    - [ ] base64 (0%)
-    - [ ] object (0%)
-    - [x] string (100%)
+### ✅ Fully Converted (100%)
+  - [x] actions (100%) - 57 files
+  - [x] dom (100%) - 10 files
+  - [x] types (100%) - 3 files
+
+### 🔄 High Progress (>75%)
+  - [ ] utils (96.10%) - 74/77 files
+  - [ ] math (87.92%) - 131/149 files
+  - [ ] geom (84.36%) - 178/211 files
+  - [ ] display (76.83%) - 63/82 files
+
+### ⏳ In Progress
+  - [ ] scene (6.82%) - 3/44 files
+
+### 📋 Not Started (0%)
+  - [ ] animations (0%) - 26 files
+  - [ ] cache (0%) - 6 files
+  - [ ] cameras (0%) - 46 files
+  - [ ] core (0%) - 48 files
+  - [ ] create (0%) - 11 files
+  - [ ] curves (0%) - 14 files
+  - [ ] data (0%) - 9 files
+  - [ ] device (0%) - 9 files
+  - [ ] events (0%) - 2 files
+  - [ ] fx (0%) - 17 files
+  - [ ] gameobjects (0%) - 372 files
+  - [ ] input (0%) - 109 files
+  - [ ] loader (0%) - 97 files
+  - [ ] physics (0%) - 166 files
+  - [ ] plugins (0%) - 10 files
+  - [ ] polyfills (0%) - 10 files
+  - [ ] renderer (0%) - 117 files
+  - [ ] scale (0%) - 14 files
+  - [ ] sound (0%) - 43 files
+  - [ ] structs (0%) - 10 files
+  - [ ] textures (0%) - 35 files
+  - [ ] tilemaps (0%) - 124 files
+  - [ ] time (0%) - 10 files
+  - [ ] tweens (0%) - 59 files
+
+## Recent Changes
+
+**Last update:** Modernización de imports ES6 completada
+- ✅ 186 archivos JS modernizados con `import { X } from 'path'`
+- ✅ 521 módulos TypeScript con tree-shaking funcional
+- ✅ 0 errores de compatibilidad de imports
+- ✅ Build validation passing
 
 *Now it’s just the two of us, raw and exposed.*
