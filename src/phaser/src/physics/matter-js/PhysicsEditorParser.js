@@ -6,10 +6,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
 var Bodies = require('./lib/factory/Bodies');
 var Body = require('./lib/body/Body');
 var Common = require('./lib/core/Common');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var Vertices = require('./lib/geometry/Vertices');
 
 /**

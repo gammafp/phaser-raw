@@ -4,11 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { Remove } from '../utils/array/Remove';
+
 var Class = require('../utils/Class');
 var PluginCache = require('../plugins/PluginCache');
 var SceneEvents = require('../scene/events');
 var TimerEvent = require('./TimerEvent');
-var Remove = require('../utils/array/Remove');
 
 /**
  * @classdesc

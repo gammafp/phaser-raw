@@ -4,6 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { Merge } from '../../utils/object/Merge';
+
 var Bounds = require('./lib/geometry/Bounds');
 var Class = require('../../utils/Class');
 var Composite = require('./lib/body/Composite');
@@ -11,7 +15,6 @@ var Constraint = require('./lib/constraint/Constraint');
 var Detector = require('./lib/collision/Detector');
 var Events = require('./events');
 var InputEvents = require('../../input/events');
-var Merge = require('../../utils/object/Merge');
 var Sleeping = require('./lib/core/Sleeping');
 var Vector2 = require('../../math/Vector2');
 var Vertices = require('./lib/geometry/Vertices');

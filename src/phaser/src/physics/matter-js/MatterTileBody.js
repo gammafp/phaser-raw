@@ -4,14 +4,17 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { DeepCopy } from '../../utils/object/DeepCopy';
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { HasValue } from '../../utils/object/HasValue';
+
 var Bodies = require('./lib/factory/Bodies');
 var Body = require('./lib/body/Body');
 var Class = require('../../utils/Class');
 var Components = require('./components');
-var DeepCopy = require('../../utils/object/DeepCopy');
 var EventEmitter = require('eventemitter3');
-var GetFastValue = require('../../utils/object/GetFastValue');
-var HasValue = require('../../utils/object/HasValue');
 var Vertices = require('./lib/geometry/Vertices');
 
 /**

@@ -4,7 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var DeepCopy = require('../../utils/object/DeepCopy');
+// TODO: Convert this file to TypeScript
+
+import { DeepCopy } from '../../utils/object/DeepCopy';
+
 var GetTilesWithin = require('./GetTilesWithin');
 var ReplaceByIndex = require('./ReplaceByIndex');
 

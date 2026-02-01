@@ -4,8 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var SnapCeil = require('../../math/snap/SnapCeil');
-var SnapFloor = require('../../math/snap/SnapFloor');
+// TODO: Convert this file to TypeScript
+
+import { SnapCeil } from '../../math/snap/SnapCeil';
+import { SnapFloor } from '../../math/snap/SnapFloor';
 
 /**
  * Returns the bounds in the given layer that are within the camera's viewport.

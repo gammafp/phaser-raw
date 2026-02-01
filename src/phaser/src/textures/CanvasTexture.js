@@ -4,11 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var Clamp = require('../math/Clamp');
+// TODO: Convert this file to TypeScript
+
+import { Clamp } from '../math/Clamp';
 import { Color } from '../display/color/Color';
+import { IsSizePowerOfTwo } from '../math/pow2/IsSizePowerOfTwo';
+
+var Class = require('../utils/Class');
 var CONST = require('../const');
-var IsSizePowerOfTwo = require('../math/pow2/IsSizePowerOfTwo');
 var Texture = require('./Texture');
 
 /**

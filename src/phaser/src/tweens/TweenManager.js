@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var ArrayRemove = require('../utils/array/Remove');
+// TODO: Convert this file to TypeScript
+
+import { Remove as ArrayRemove } from '../utils/array/Remove';
+import { Flatten } from '../utils/array/Flatten';
+
 var Class = require('../utils/Class');
-var Flatten = require('../utils/array/Flatten');
 var NumberTweenBuilder = require('./builders/NumberTweenBuilder');
 var PluginCache = require('../plugins/PluginCache');
 var SceneEvents = require('../scene/events');

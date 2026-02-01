@@ -4,7 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GetFastValue = require('../../utils/object/GetFastValue');
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../../utils/object/GetFastValue';
 
 /**
  * Gets the tiles in the given rectangular area (in tile coordinates) of the layer.

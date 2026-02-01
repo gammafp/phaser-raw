@@ -5,10 +5,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { Clamp } from '../../math/Clamp';
+
 var BaseSound = require('../BaseSound');
 var Class = require('../../utils/Class');
 var Events = require('../events');
-var Clamp = require('../../math/Clamp');
 
 /**
  * @classdesc

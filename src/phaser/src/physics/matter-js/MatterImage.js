@@ -4,10 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
 var Class = require('../../utils/Class');
 var Components = require('./components');
 var GameObject = require('../../gameobjects/GameObject');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var Image = require('../../gameobjects/image/Image');
 var Pipeline = require('../../gameobjects/components/Pipeline');
 var Vector2 = require('../../math/Vector2');

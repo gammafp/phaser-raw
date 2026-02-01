@@ -4,15 +4,18 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../utils/object/GetFastValue';
+import { Remove } from '../utils/array/Remove';
+
 var Class = require('../utils/Class');
 var GameEvents = require('../core/events');
 var EventEmitter = require('eventemitter3');
 var FileTypesManager = require('../loader/FileTypesManager');
 var GameObjectCreator = require('../gameobjects/GameObjectCreator');
 var GameObjectFactory = require('../gameobjects/GameObjectFactory');
-var GetFastValue = require('../utils/object/GetFastValue');
 var PluginCache = require('./PluginCache');
-var Remove = require('../utils/array/Remove');
 var CONST = require('../const');
 
 /**

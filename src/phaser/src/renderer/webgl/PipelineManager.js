@@ -8,6 +8,8 @@
 
 import { GetFastValue } from '../../utils/object/GetFastValue';
 import { SnapCeil } from '../../math/snap/SnapCeil';
+import { Each as ArrayEach } from '../../utils/array/Each';
+import { Remove as ArrayRemove } from '../../utils/array/Remove';
 
 var Class = require('../../utils/Class');
 var CONST = require('./pipelines/const');
@@ -27,8 +29,6 @@ var PointLightPipeline = require('./pipelines/PointLightPipeline');
 var RopePipeline = require('./pipelines/RopePipeline');
 var SinglePipeline = require('./pipelines/SinglePipeline');
 var UtilityPipeline = require('./pipelines/UtilityPipeline');
-var ArrayEach = require('../../utils/array/Each');
-var ArrayRemove = require('../../utils/array/Remove');
 
 /**
  * @classdesc

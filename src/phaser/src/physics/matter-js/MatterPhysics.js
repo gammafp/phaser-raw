@@ -4,6 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { DistanceBetween } from '../../math/distance/DistanceBetween';
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { GetValue } from '../../utils/object/GetValue';
+import { Merge } from '../../utils/object/Merge';
+
 var ALIGN_CONST = require('../../display/align/const');
 var Axes = require('./lib/geometry/Axes');
 var Bodies = require('./lib/factory/Bodies');
@@ -17,11 +24,7 @@ var Composite = require('./lib/body/Composite');
 var Composites = require('./lib/factory/Composites');
 var Constraint = require('./lib/constraint/Constraint');
 var Detector = require('./lib/collision/Detector');
-var DistanceBetween = require('../../math/distance/DistanceBetween');
 var Factory = require('./Factory');
-var GetFastValue = require('../../utils/object/GetFastValue');
-var GetValue = require('../../utils/object/GetValue');
-var Merge = require('../../utils/object/Merge');
 var Pair = require('./lib/collision/Pair');
 var Pairs = require('./lib/collision/Pairs');
 var PluginCache = require('../../plugins/PluginCache');

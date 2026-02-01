@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { HasValue } from '../../utils/object/HasValue';
+
 var SetTileCollision = require('./SetTileCollision');
 var CalculateFacesWithin = require('./CalculateFacesWithin');
-var HasValue = require('../../utils/object/HasValue');
 
 /**
  * Sets collision on the tiles within a layer by checking tile properties. If a tile has a property

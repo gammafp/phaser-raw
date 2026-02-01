@@ -4,7 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Clone = require('../../utils/object/Clone');
+// TODO: Convert this file to TypeScript
+
+import { Clone } from '../../utils/object/Clone';
 
 /**
  * Parses a Texture Atlas JSON Hash and adds the Frames to the Texture.

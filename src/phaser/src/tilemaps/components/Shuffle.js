@@ -4,8 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { Shuffle as ShuffleArray } from '../../utils/array/Shuffle';
+
 var GetTilesWithin = require('./GetTilesWithin');
-var ShuffleArray = require('../../utils/array/Shuffle');
 
 /**
  * Shuffles the tiles in a rectangular region (specified in tile coordinates) within the given

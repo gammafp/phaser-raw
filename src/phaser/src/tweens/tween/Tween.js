@@ -4,12 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { MATH_CONST } from '../../math/const';
+
 var BaseTween = require('./BaseTween');
 var Class = require('../../utils/Class');
 var Events = require('../events');
 var GameObjectCreator = require('../../gameobjects/GameObjectCreator');
 var GameObjectFactory = require('../../gameobjects/GameObjectFactory');
-var MATH_CONST = require('../../math/const');
 var TWEEN_CONST = require('./const');
 var TweenData = require('./TweenData');
 var TweenFrameData = require('./TweenFrameData');

@@ -4,10 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { Color } from '../display/color/Color';
+import { GetValue } from '../utils/object/GetValue';
+import { IsPlainObject } from '../utils/object/IsPlainObject';
+
 var CanvasPool = require('../display/canvas/CanvasPool');
 var CanvasTexture = require('./CanvasTexture');
 var Class = require('../utils/Class');
-import { Color } from '../display/color/Color';
 var CONST = require('../const');
 var DynamicTexture = require('./DynamicTexture');
 var EventEmitter = require('eventemitter3');
@@ -15,9 +20,7 @@ var Events = require('./events');
 var Frame = require('./Frame');
 var GameEvents = require('../core/events');
 var GenerateTexture = require('../create/GenerateTexture');
-var GetValue = require('../utils/object/GetValue');
 var ImageGameObject = require('../gameobjects/image/Image');
-var IsPlainObject = require('../utils/object/IsPlainObject');
 var Parser = require('./parsers');
 var Rectangle = require('../geom/rectangle/Rectangle');
 var Texture = require('./Texture');

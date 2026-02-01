@@ -4,11 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../../../utils/object/GetFastValue';
+
 var Base64Decode = require('./Base64Decode');
 var CONST = require('../../const/ORIENTATION_CONST');
 var CreateGroupLayer = require('./CreateGroupLayer');
 var FromOrientationString = require('../FromOrientationString');
-var GetFastValue = require('../../../utils/object/GetFastValue');
 var LayerData = require('../../mapdata/LayerData');
 var ParseGID = require('./ParseGID');
 var Tile = require('../../Tile');

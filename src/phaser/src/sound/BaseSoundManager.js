@@ -5,14 +5,17 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { Clone } from '../utils/object/Clone';
+import { GetAll } from '../utils/array/GetAll';
+import { GetFirst } from '../utils/array/GetFirst';
+import { NOOP } from '../utils/NOOP';
+
 var Class = require('../utils/Class');
-var Clone = require('../utils/object/Clone');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var GameEvents = require('../core/events');
-var GetAll = require('../utils/array/GetAll');
-var GetFirst = require('../utils/array/GetFirst');
-import { NOOP } from '../utils/NOOP';
 var Vector2 = require('../math/Vector2');
 
 /**

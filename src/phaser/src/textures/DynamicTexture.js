@@ -4,13 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../utils/object/GetFastValue';
+
 var BlendModes = require('../renderer/BlendModes');
 var Camera = require('../cameras/2d/Camera');
 var CanvasPool = require('../display/canvas/CanvasPool');
 var Class = require('../utils/Class');
 var CONST = require('../const');
 var Frame = require('./Frame');
-var GetFastValue = require('../utils/object/GetFastValue');
 var PIPELINES = require('../renderer/webgl/pipelines/const');
 var RenderTarget = require('../renderer/webgl/RenderTarget');
 var Texture = require('./Texture');

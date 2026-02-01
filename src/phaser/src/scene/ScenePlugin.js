@@ -4,10 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Clamp = require('../math/Clamp');
+// TODO: Convert this file to TypeScript
+
+import { Clamp } from '../math/Clamp';
+import { GetFastValue } from '../utils/object/GetFastValue';
+
 var Class = require('../utils/Class');
 var Events = require('./events');
-var GetFastValue = require('../utils/object/GetFastValue');
 var PluginCache = require('../plugins/PluginCache');
 
 /**

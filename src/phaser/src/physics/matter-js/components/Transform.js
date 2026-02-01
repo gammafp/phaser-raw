@@ -4,10 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { MATH_CONST } from '../../../math/const';
+import { WrapAngle } from '../../../math/angle/Wrap';
+import { WrapAngleDegrees } from '../../../math/angle/WrapDegrees';
+
 var Body = require('../lib/body/Body');
-var MATH_CONST = require('../../../math/const');
-var WrapAngle = require('../../../math/angle/Wrap');
-var WrapAngleDegrees = require('../../../math/angle/WrapDegrees');
 
 //  global bitmask flag for GameObject.renderMask (used by Scale)
 var _FLAG = 4; // 0100

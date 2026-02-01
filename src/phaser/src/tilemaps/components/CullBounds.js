@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { SnapCeil } from '../../math/snap/SnapCeil';
+import { SnapFloor } from '../../math/snap/SnapFloor';
+
 var Rectangle = require('../../geom/rectangle/Rectangle');
-var SnapCeil = require('../../math/snap/SnapCeil');
-var SnapFloor = require('../../math/snap/SnapFloor');
 
 var bounds = new Rectangle();
 

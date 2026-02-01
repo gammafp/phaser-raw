@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var CanvasPool = require('../../display/canvas/CanvasPool');
+// TODO: Convert this file to TypeScript
+
 import { Color } from '../../display/color/Color';
-var GetFastValue = require('../../utils/object/GetFastValue');
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
+var CanvasPool = require('../../display/canvas/CanvasPool');
 
 /**
  * Takes a snapshot of an area from the current frame displayed by a canvas.

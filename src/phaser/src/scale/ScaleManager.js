@@ -4,19 +4,22 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var CONST = require('./const');
-var Class = require('../utils/Class');
-var Clamp = require('../math/Clamp');
-var EventEmitter = require('eventemitter3');
-var Events = require('./events');
-var GameEvents = require('../core/events');
+// TODO: Convert this file to TypeScript
+
+import { Clamp } from '../math/Clamp';
 import { GetInnerHeight } from '../dom/GetInnerHeight';
 import { GetTarget } from '../dom/GetTarget';
 import { GetScreenOrientation } from '../dom/GetScreenOrientation';
 import { NOOP } from '../utils/NOOP';
+import { SnapFloor } from '../math/snap/SnapFloor';
+
+var CONST = require('./const');
+var Class = require('../utils/Class');
+var EventEmitter = require('eventemitter3');
+var Events = require('./events');
+var GameEvents = require('../core/events');
 var Rectangle = require('../geom/rectangle/Rectangle');
 var Size = require('../structs/Size');
-var SnapFloor = require('../math/snap/SnapFloor');
 var Vector2 = require('../math/Vector2');
 var Camera = require('../cameras/2d/Camera');
 
