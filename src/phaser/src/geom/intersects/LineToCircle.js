@@ -6,7 +6,8 @@
 
 // TODO: Convert this to TypeScript
 
-var Contains = require('../circle/Contains');
+import { Contains } from '../circle/Contains';
+
 var Point = require('../point/Point');
 
 var tmp = new Point();

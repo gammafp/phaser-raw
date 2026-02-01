@@ -1,7 +1,10 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013–2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
+ *
+ * Modifications:
+ *   TypeScript conversion and refactors by Francisco Pereira
  */
 
 require('./polyfills/requestVideoFrame');

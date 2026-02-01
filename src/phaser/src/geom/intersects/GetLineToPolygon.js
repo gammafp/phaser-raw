@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetLineToPoints } from './GetLineToPoints';
+
 var Vector3 = require('../../math/Vector3');
 var Vector4 = require('../../math/Vector4');
-var GetLineToPoints = require('./GetLineToPoints');
 
 //  Temp vec3
 var tempIntersect = new Vector3();

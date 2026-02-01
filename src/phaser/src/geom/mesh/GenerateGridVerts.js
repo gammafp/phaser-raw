@@ -6,8 +6,9 @@
 
 // TODO: Convert this complex generator to TypeScript
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
 var Face = require('./Face');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var Matrix4 = require('../../math/Matrix4');
 var Vector3 = require('../../math/Vector3');
 var Vertex = require('./Vertex');

@@ -6,7 +6,8 @@
 
 // TODO: Convert this to TypeScript
 
-var DistanceBetweenPoints = require('../../math/distance/DistanceBetweenPoints');
+import { DistanceBetweenPoints } from '../../math/distance/DistanceBetweenPoints';
+
 var GetEaseFunction = require('../../tweens/builders/GetEaseFunction');
 var Point = require('../point/Point');
 

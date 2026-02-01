@@ -6,13 +6,14 @@
 
 // TODO: Convert this to TypeScript class
 
+import { Contains } from './Contains';
+import { GetPoint } from './GetPoint';
+import { GetPoints } from './GetPoints';
+import { GEOM_CONST } from '../const';
+import { Random } from './Random';
+
 var Class = require('../../utils/Class');
-var Contains = require('./Contains');
-var GetPoint = require('./GetPoint');
-var GetPoints = require('./GetPoints');
-var GEOM_CONST = require('../const');
 var Line = require('../line/Line');
-var Random = require('./Random');
 
 /**
  * @classdesc

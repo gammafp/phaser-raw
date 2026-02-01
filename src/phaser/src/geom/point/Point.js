@@ -6,8 +6,9 @@
 
 // TODO: Convert this to TypeScript class
 
+import { GEOM_CONST } from '../const';
+
 var Class = require('../../utils/Class');
-var GEOM_CONST = require('../const');
 
 /**
  * @classdesc
