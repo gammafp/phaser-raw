@@ -5,7 +5,6 @@ This is a small project done in spare time that aims to convert Phaser files to 
 **Phaser framework is a library created by Richard Davey and Phaser Studio Team.
 Please visit the [official website](https://phaser.io/) for more information and oficial repository [here](https://github.com/photonstorm/phaser).**
 
-
 ![screenshot](./screenshot.png)
 
 ## How to run the project
@@ -101,4 +100,4 @@ Recommended TODOs are:
 - ✅ 0 import compatibility errors
 - ✅ Build validation passing
 
-*Now it’s just the two of us, raw and exposed.*
+**TypeScript conversion by Francisco Pereira.**
