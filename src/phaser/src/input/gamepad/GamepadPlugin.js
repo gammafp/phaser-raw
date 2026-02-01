@@ -4,11 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetValue } from '../../utils/object/GetValue';
+
 var Class = require('../../utils/Class');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var Gamepad = require('./Gamepad');
-var GetValue = require('../../utils/object/GetValue');
 var InputPluginCache = require('../InputPluginCache');
 var InputEvents = require('../events');
 

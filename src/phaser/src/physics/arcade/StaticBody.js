@@ -4,11 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var CircleContains = require('../../geom/circle/Contains');
+// TODO: Convert this file to TypeScript
+
+import { CircleContains } from '../../geom/circle/Contains';
+import { RectangleContains } from '../../geom/rectangle/Contains';
+
 var Class = require('../../utils/Class');
 var CollisionComponent = require('./components/Collision');
 var CONST = require('./const');
-var RectangleContains = require('../../geom/rectangle/Contains');
 var SetCollisionObject = require('./SetCollisionObject');
 var Vector2 = require('../../math/Vector2');
 

@@ -4,18 +4,20 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
 import { AddToDOM } from '../../dom/AddToDOM';
+import { GetValue } from '../../utils/object/GetValue';
+import { RemoveFromDOM } from '../../dom/RemoveFromDOM';
+import { UUID } from '../../utils/string';
 
 var CanvasPool = require('../../display/canvas/CanvasPool');
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
 var GetTextSize = require('./GetTextSize');
-var GetValue = require('../../utils/object/GetValue');
-import { RemoveFromDOM } from '../../dom/RemoveFromDOM';
 var TextRender = require('./TextRender');
 var TextStyle = require('./TextStyle');
-import { UUID } from '../../utils/string';
 
 /**
  * @classdesc

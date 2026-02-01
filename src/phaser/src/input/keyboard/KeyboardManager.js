@@ -4,9 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { NOOP } from '../../utils/NOOP';
+// TODO: Convert this file to TypeScript
 
-var ArrayRemove = require('../../utils/array/Remove');
+import { NOOP } from '../../utils/NOOP';
+import { Remove as ArrayRemove } from '../../utils/array/Remove';
+
 var Class = require('../../utils/Class');
 var GameEvents = require('../../core/events');
 var InputEvents = require('../events');

@@ -5,8 +5,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { CircleToRectangle } from './CircleToRectangle';
+
 var GetLineToCircle = require('./GetLineToCircle');
-var CircleToRectangle = require('./CircleToRectangle');
 
 /**
  * Checks for intersection between a circle and a rectangle,

@@ -4,27 +4,30 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { Contains as CircleContains } from '../geom/circle/Contains';
+import { DistanceBetween } from '../math/distance/DistanceBetween';
+import { Contains as EllipseContains } from '../geom/ellipse/Contains';
+import { GetFastValue } from '../utils/object/GetFastValue';
+import { IsPlainObject } from '../utils/object/IsPlainObject';
+import { Contains as RectangleContains } from '../geom/rectangle/Contains';
+import { Contains as TriangleContains } from '../geom/triangle/Contains';
+import { GEOM_CONST } from '../geom/const';
+
 var Circle = require('../geom/circle/Circle');
-var CircleContains = require('../geom/circle/Contains');
 var Class = require('../utils/Class');
 var CONST = require('./const');
 var CreateInteractiveObject = require('./CreateInteractiveObject');
 var CreatePixelPerfectHandler = require('./CreatePixelPerfectHandler');
-var DistanceBetween = require('../math/distance/DistanceBetween');
 var Ellipse = require('../geom/ellipse/Ellipse');
-var EllipseContains = require('../geom/ellipse/Contains');
 var Events = require('./events');
 var EventEmitter = require('eventemitter3');
-var GetFastValue = require('../utils/object/GetFastValue');
-var GEOM_CONST = require('../geom/const');
 var InputPluginCache = require('./InputPluginCache');
-var IsPlainObject = require('../utils/object/IsPlainObject');
 var PluginCache = require('../plugins/PluginCache');
 var Rectangle = require('../geom/rectangle/Rectangle');
-var RectangleContains = require('../geom/rectangle/Contains');
 var SceneEvents = require('../scene/events');
 var Triangle = require('../geom/triangle/Triangle');
-var TriangleContains = require('../geom/triangle/Contains');
 
 /**
  * @classdesc

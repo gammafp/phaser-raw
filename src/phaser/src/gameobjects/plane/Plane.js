@@ -4,12 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { IntegerToRGB } from '../../display/color/IntegerToRGB';
+import { UUID } from '../../utils/string';
+
 var AnimationState = require('../../animations/AnimationState');
 var Class = require('../../utils/Class');
 var GenerateGridVerts = require('../../geom/mesh/GenerateGridVerts');
-var IntegerToRGB = require('../../display/color/IntegerToRGB');
 var Mesh = require('../mesh/Mesh');
-import { UUID } from '../../utils/string';
 
 /**
  * @classdesc

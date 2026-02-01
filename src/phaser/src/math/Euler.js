@@ -6,10 +6,11 @@
 
 // TODO: Convert this to TypeScript class
 
-var Clamp = require('./Clamp');
+import { Clamp } from './Clamp';
+import { NOOP } from '../utils/NOOP';
+
 var Class = require('../utils/Class');
 var Matrix4 = require('./Matrix4');
-import { NOOP } from '../utils/NOOP';
 
 var tempMatrix = new Matrix4();
 

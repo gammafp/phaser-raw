@@ -5,8 +5,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { LineToLine } from './LineToLine';
+
 var Point = require('../point/Point');
-var LineToLine = require('./LineToLine');
 var LineToRectangle = require('./LineToRectangle');
 
 /**

@@ -9,6 +9,7 @@ require('./polyfills/requestVideoFrame');
 // TODO: Convert this file to TypeScript
 
 import { Extend } from './utils/object/Extend';
+import { Scene } from './scene/Scene';
 
 var CONST = require('./const');
 
@@ -45,7 +46,7 @@ var Phaser = {
     Renderer: require('./renderer'),
     Scale: require('./scale'),
     ScaleModes: require('./renderer/ScaleModes'),
-    Scene: require('./scene/Scene'),
+    Scene: Scene,
     Scenes: require('./scene'),
     Structs: require('./structs'),
     Textures: require('./textures'),

@@ -4,11 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { IsPlainObject } from '../../utils/object/IsPlainObject';
+
 var Class = require('../../utils/Class');
 var FileTypesManager = require('../FileTypesManager');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var ImageFile = require('./ImageFile');
-var IsPlainObject = require('../../utils/object/IsPlainObject');
 var MultiFile = require('../MultiFile');
 var TextFile = require('./TextFile');
 

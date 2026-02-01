@@ -5,8 +5,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+import { RectangleToRectangle } from './RectangleToRectangle';
+
 var GetLineToRectangle = require('./GetLineToRectangle');
-var RectangleToRectangle = require('./RectangleToRectangle');
 
 /**
  * Checks if two Rectangles intersect and returns the intersection points as a Point object array.

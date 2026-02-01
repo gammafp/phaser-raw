@@ -4,8 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { RectangleToRectangle } from './RectangleToRectangle';
+
 var Rectangle = require('../rectangle/Rectangle');
-var RectangleToRectangle = require('./RectangleToRectangle');
 
 /**
  * Checks if two Rectangle shapes intersect and returns the area of this intersection as Rectangle object.

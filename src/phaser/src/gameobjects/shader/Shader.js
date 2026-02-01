@@ -9,13 +9,13 @@
 import { GetFastValue } from '../../utils/object/GetFastValue';
 import { Extend } from '../../utils/object/Extend';
 import { SetValue } from '../../utils/object/SetValue';
+import { Each as ArrayEach } from '../../utils/array/Each';
 
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
 var ShaderRender = require('./ShaderRender');
 var TransformMatrix = require('../components/TransformMatrix');
-var ArrayEach = require('../../utils/array/Each');
 var RenderEvents = require('../../renderer/events');
 
 /**

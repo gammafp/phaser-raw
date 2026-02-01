@@ -1,7 +1,10 @@
+// TODO: Convert this file to TypeScript
+
+import { CircleToCircle } from '../../../geom/intersects/CircleToCircle';
+import { CircleToRectangle } from '../../../geom/intersects/CircleToRectangle';
+
 var OverlapRect = require('./OverlapRect');
 var Circle = require('../../../geom/circle/Circle');
-var CircleToCircle = require('../../../geom/intersects/CircleToCircle');
-var CircleToRectangle = require('../../../geom/intersects/CircleToRectangle');
 
 /**
  * This method will search the given circular area and return an array of all physics bodies that

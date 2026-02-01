@@ -4,13 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { DegToRad } from '../../math/DegToRad';
+import { DistanceBetween } from '../../math/distance/DistanceBetween';
+import { DistanceSquared } from '../../math/distance/DistanceSquared';
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { Merge } from '../../utils/object/Merge';
+
 var Class = require('../../utils/Class');
-var DegToRad = require('../../math/DegToRad');
-var DistanceBetween = require('../../math/distance/DistanceBetween');
-var DistanceSquared = require('../../math/distance/DistanceSquared');
 var Factory = require('./Factory');
-var GetFastValue = require('../../utils/object/GetFastValue');
-var Merge = require('../../utils/object/Merge');
 var OverlapCirc = require('./components/OverlapCirc');
 var OverlapRect = require('./components/OverlapRect');
 var PluginCache = require('../../plugins/PluginCache');

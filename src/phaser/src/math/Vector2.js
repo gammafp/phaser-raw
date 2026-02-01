@@ -9,8 +9,9 @@
 //  Adapted from [gl-matrix](https://github.com/toji/gl-matrix) by toji
 //  and [vecmath](https://github.com/mattdesl/vecmath) by mattdesl
 
+import { Equal as FuzzyEqual } from '../math/fuzzy/Equal';
+
 var Class = require('../utils/Class');
-var FuzzyEqual = require('../math/fuzzy/Equal');
 
 /**
  * @classdesc

@@ -4,37 +4,40 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { CopyFrom } from '../../geom/rectangle/CopyFrom';
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { GetRandom } from '../../utils/array/GetRandom';
+import { HasAll } from '../../utils/object/HasAll';
+import { HasAny } from '../../utils/object/HasAny';
+import { HasValue } from '../../utils/object/HasValue';
+import { Inflate } from '../../geom/rectangle/Inflate';
+import { MergeRect } from '../../geom/rectangle/MergeRect';
+import { MergeRight } from '../../utils/object/MergeRight';
+import { RectangleToRectangle } from '../../geom/intersects/RectangleToRectangle';
+import { Remove } from '../../utils/array/Remove';
+import { Wrap } from '../../math/Wrap';
+
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var ComponentsToJSON = require('../components/ToJSON');
-var CopyFrom = require('../../geom/rectangle/CopyFrom');
 var DeathZone = require('./zones/DeathZone');
 var EdgeZone = require('./zones/EdgeZone');
 var EmitterColorOp = require('./EmitterColorOp');
 var EmitterOp = require('./EmitterOp');
 var Events = require('./events');
 var GameObject = require('../GameObject');
-var GetFastValue = require('../../utils/object/GetFastValue');
-var GetRandom = require('../../utils/array/GetRandom');
 var GravityWell = require('./GravityWell');
-var HasAll = require('../../utils/object/HasAll');
-var HasAny = require('../../utils/object/HasAny');
-var HasValue = require('../../utils/object/HasValue');
-var Inflate = require('../../geom/rectangle/Inflate');
 var List = require('../../structs/List');
-var MergeRect = require('../../geom/rectangle/MergeRect');
-var MergeRight = require('../../utils/object/MergeRight');
 var Particle = require('./Particle');
 var ParticleBounds = require('./ParticleBounds');
 var RandomZone = require('./zones/RandomZone');
 var Rectangle = require('../../geom/rectangle/Rectangle');
-var RectangleToRectangle = require('../../geom/intersects/RectangleToRectangle');
-var Remove = require('../../utils/array/Remove');
 var Render = require('./ParticleEmitterRender');
 var StableSort = require('../../utils/array/StableSort');
 var TransformMatrix = require('../components/TransformMatrix');
 var Vector2 = require('../../math/Vector2');
-var Wrap = require('../../math/Wrap');
 
 /**
  * Names of simple configuration properties.

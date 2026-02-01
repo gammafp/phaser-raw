@@ -5,8 +5,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { CircleToCircle } from './CircleToCircle';
+
 var Point = require('../point/Point');
-var CircleToCircle = require('./CircleToCircle');
 
 /**
  * Checks if two Circles intersect and returns the intersection points as a Point object array.

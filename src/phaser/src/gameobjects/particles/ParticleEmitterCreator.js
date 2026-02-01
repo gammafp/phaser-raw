@@ -4,10 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
 var BuildGameObject = require('../BuildGameObject');
 var GameObjectCreator = require('../GameObjectCreator');
-var GetAdvancedValue = require('../../utils/object/GetAdvancedValue');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var ParticleEmitter = require('./ParticleEmitter');
 
 /**
