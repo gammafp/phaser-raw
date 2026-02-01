@@ -64,7 +64,11 @@ function processFile(filename: string, dir: string): void {
     }
     
     // Convert initialize: function ClassName(...) to constructor(...)
-    classContent = classContent.replace(/\binitialize\s*:\s*function\s*\w+\s*/g, 'constructor');
+    // Handle cases with newlines and comments between initialize: and function
+    classContent = classContent.replace(/\binitialize\s*:\s*([\s\S]*?)function\s*\w+\s*/g, 'constructor$1');
+    
+    // Convert methods assigned to NOOP: methodName: NOOP, -> methodName() {}
+    classContent = classContent.replace(/(^ {4})(\w+)\s*:\s*NOOP\s*,/gm, '$1$2() {}');
     
     // Convert var ClassName = new Class({...}); to var ClassName = class extends X {...};
     classContent = classContent.replace(newClassPattern, `$1class${extend} $3$4`);
