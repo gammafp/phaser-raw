@@ -36,7 +36,7 @@ The Phaser source code is located inside the `src/phaser` folder.
 I have added "// TODO: Fix types" in files that have been converted to TS and need a review with the new converted class types.
 While not all code has been converted, phaser.d.ts will be used for intermediate types.
 
-Los todo recomendados son:
+Recommended TODOs are:
 // TODO: Fix types
 // TODO: Refactor
 // TODO: Check this code (if there are doubts about whether the code is correct.)
@@ -95,10 +95,10 @@ Los todo recomendados son:
 
 ## Recent Changes
 
-**Last update:** Modernización de imports ES6 completada
-- ✅ 186 archivos JS modernizados con `import { X } from 'path'`
-- ✅ 521 módulos TypeScript con tree-shaking funcional
-- ✅ 0 errores de compatibilidad de imports
+**Last update:** ES6 imports modernization completed
+- ✅ 186 JS files modernized with `import { X } from 'path'`
+- ✅ 521 TypeScript modules with functional tree-shaking
+- ✅ 0 import compatibility errors
 - ✅ Build validation passing
 
 *Now it’s just the two of us, raw and exposed.*
