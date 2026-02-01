@@ -1,13 +1,12 @@
 /**
  * @author       Florian Vazelle
  * @author       Geoffrey Glaive
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
 import { TriangleToTriangle } from './TriangleToTriangle';
-
-const GetTriangleToLine = require('./GetTriangleToLine');
+import { GetTriangleToLine } from './GetTriangleToLine';
 
 /**
  * Checks if two Triangles intersect, and returns the intersection points as a Point object array.
