@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var DegToRad = require('../../math/DegToRad');
+// TODO: Convert this file to TypeScript
+
+import { DegToRad } from '../../math/DegToRad';
+import { GetValue } from '../../utils/object/GetValue';
+
 var GetBoolean = require('../../tweens/builders/GetBoolean');
-var GetValue = require('../../utils/object/GetValue');
 var TWEEN_CONST = require('../../tweens/tween/const');
 var Vector2 = require('../../math/Vector2');
 

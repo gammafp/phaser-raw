@@ -4,8 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetAdvancedValue } from '../utils/object/GetAdvancedValue';
+
 var BlendModes = require('../renderer/BlendModes');
-var GetAdvancedValue = require('../utils/object/GetAdvancedValue');
 
 /**
  * Builds a Game Object using the provided configuration object.

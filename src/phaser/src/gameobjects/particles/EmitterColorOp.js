@@ -4,12 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetColor } from '../../display/color/GetColor';
+import { IntegerToRGB } from '../../display/color/IntegerToRGB';
+
 var Class = require('../../utils/Class');
 var EmitterOp = require('./EmitterOp');
-import { GetColor } from '../../display/color/GetColor';
 var GetEaseFunction = require('../../tweens/builders/GetEaseFunction');
 var GetInterpolationFunction = require('../../tweens/builders/GetInterpolationFunction');
-var IntegerToRGB = require('../../display/color/IntegerToRGB');
 
 /**
  * @classdesc

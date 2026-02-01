@@ -5,6 +5,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { Union } from '../../geom/rectangle/Union';
+
 var ArrayUtils = require('../../utils/array');
 var BlendModes = require('../../renderer/BlendModes');
 var Class = require('../../utils/Class');
@@ -13,7 +17,6 @@ var Events = require('../events');
 var GameObject = require('../GameObject');
 var Rectangle = require('../../geom/rectangle/Rectangle');
 var Render = require('./ContainerRender');
-var Union = require('../../geom/rectangle/Union');
 var Vector2 = require('../../math/Vector2');
 
 var tempTransformMatrix = new Components.TransformMatrix();

@@ -4,10 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+
 var BuildGameObject = require('../BuildGameObject');
 var Layer = require('./Layer');
 var GameObjectCreator = require('../GameObjectCreator');
-var GetAdvancedValue = require('../../utils/object/GetAdvancedValue');
 
 /**
  * Creates a new Layer Game Object and returns it.

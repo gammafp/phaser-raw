@@ -4,15 +4,18 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { GetValue } from '../../utils/object/GetValue';
+import { MATH_CONST } from '../../math/const';
+
 var BaseCamera = require('../../cameras/2d/BaseCamera');
 var Class = require('../../utils/Class');
 var Commands = require('./Commands');
 var Components = require('../components');
 var Ellipse = require('../../geom/ellipse/Ellipse');
 var GameObject = require('../GameObject');
-var GetFastValue = require('../../utils/object/GetFastValue');
-var GetValue = require('../../utils/object/GetValue');
-var MATH_CONST = require('../../math/const');
 var Render = require('./GraphicsRender');
 
 /**

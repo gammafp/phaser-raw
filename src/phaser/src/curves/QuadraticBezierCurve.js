@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { QuadraticBezierInterpolation } from '../math/interpolation/QuadraticBezierInterpolation';
+
 var Class = require('../utils/Class');
 var Curve = require('./Curve');
-var QuadraticBezierInterpolation = require('../math/interpolation/QuadraticBezierInterpolation');
 var Vector2 = require('../math/Vector2');
 
 /**

@@ -4,15 +4,18 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Between = require('../../math/Between');
-var Clamp = require('../../math/Clamp');
+// TODO: Convert this file to TypeScript
+
+import { Between } from '../../math/Between';
+import { Clamp } from '../../math/Clamp';
+import { FloatBetween } from '../../math/FloatBetween';
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { SnapTo } from '../../math/snap/SnapTo';
+import { Wrap } from '../../math/Wrap';
+
 var Class = require('../../utils/Class');
-var FloatBetween = require('../../math/FloatBetween');
 var GetEaseFunction = require('../../tweens/builders/GetEaseFunction');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var GetInterpolationFunction = require('../../tweens/builders/GetInterpolationFunction');
-var SnapTo = require('../../math/snap/SnapTo');
-var Wrap = require('../../math/Wrap');
 
 /**
  * @classdesc

@@ -4,12 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { RemoveFromDOM } from '../../dom/RemoveFromDOM';
+import { IsPlainObject } from '../../utils/object/IsPlainObject';
+
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var DOMElementRender = require('./DOMElementRender');
 var GameObject = require('../GameObject');
-var IsPlainObject = require('../../utils/object/IsPlainObject');
-import { RemoveFromDOM } from '../../dom/RemoveFromDOM';
 var SCENE_EVENTS = require('../../scene/events');
 var Vector4 = require('../../math/Vector4');
 
