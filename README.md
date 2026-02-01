@@ -87,4 +87,6 @@ Recommended TODOs are:
 - ✅ 0 import compatibility errors
 - ✅ Build validation passing
 
+*A work in progress toward a fully typed Phaser experience.*
+
 **TypeScript conversion by Francisco Pereira.**
