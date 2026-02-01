@@ -11,13 +11,14 @@ import { GetValue } from '../utils/object/GetValue';
 import { NumberArray } from '../utils/array/NumberArray';
 import { Pad } from '../utils/string/Pad';
 
+import { MATH_CONST } from '../math/const';
+
 var Animation = require('./Animation');
 var Class = require('../utils/Class');
 var CustomMap = require('../structs/Map');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var GameEvents = require('../core/events');
-var MATH_CONST = require('../math/const');
 
 /**
  * @classdesc

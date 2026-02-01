@@ -4,7 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
+
+import { MATH_CONST } from '../../math/const';
 
 var Class = require('../../utils/Class');
 var CubicBezierCurve = require('../CubicBezierCurve');
@@ -16,7 +20,6 @@ var QuadraticBezierCurve = require('../QuadraticBezierCurve');
 var Rectangle = require('../../geom/rectangle/Rectangle');
 var SplineCurve = require('../SplineCurve');
 var Vector2 = require('../../math/Vector2');
-var MATH_CONST = require('../../math/const');
 
 /**
  * @classdesc

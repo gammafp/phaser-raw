@@ -4,10 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
 
+import { CubicBezierInterpolation as CubicBezier } from '../math/interpolation/CubicBezierInterpolation';
+
 var Class = require('../utils/Class');
-var CubicBezier = require('../math/interpolation/CubicBezierInterpolation');
 var Curve = require('./Curve');
 var Vector2 = require('../math/Vector2');
 

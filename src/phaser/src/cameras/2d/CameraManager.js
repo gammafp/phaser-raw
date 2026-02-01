@@ -7,10 +7,10 @@
 // TODO: Convert this file to TypeScript
 
 import { Contains as RectangleContains } from '../../geom/rectangle/Contains';
+import { GetFastValue } from '../../utils/object/GetFastValue';
 
 var Camera = require('./Camera');
 var Class = require('../../utils/Class');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var PluginCache = require('../../plugins/PluginCache');
 var ScaleEvents = require('../../scale/events');
 var SceneEvents = require('../../scene/events');

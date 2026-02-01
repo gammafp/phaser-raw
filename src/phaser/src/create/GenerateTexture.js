@@ -4,9 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { GetValue } from '../utils/object/GetValue';
+
 var Arne16 = require('./palettes/Arne16');
 var CanvasPool = require('../display/canvas/CanvasPool');
-var GetValue = require('../utils/object/GetValue');
 
 /**
  * Generates a texture based on the given Create configuration object.

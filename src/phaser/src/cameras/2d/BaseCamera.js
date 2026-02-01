@@ -4,14 +4,17 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { DegToRad } from '../../math/DegToRad';
+import { ValueToColor } from '../../display/color/ValueToColor';
+
 var Class = require('../../utils/Class');
 var Components = require('../../gameobjects/components');
-var DegToRad = require('../../math/DegToRad');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var Rectangle = require('../../geom/rectangle/Rectangle');
 var TransformMatrix = require('../../gameobjects/components/TransformMatrix');
-import { ValueToColor } from '../../display/color/ValueToColor';
 var Vector2 = require('../../math/Vector2');
 
 /**

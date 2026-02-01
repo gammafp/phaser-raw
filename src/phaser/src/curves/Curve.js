@@ -4,8 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
+import { FromPoints } from '../geom/rectangle/FromPoints';
+
 var Class = require('../utils/Class');
-var FromPoints = require('../geom/rectangle/FromPoints');
 var Rectangle = require('../geom/rectangle/Rectangle');
 var Vector2 = require('../math/Vector2');
 

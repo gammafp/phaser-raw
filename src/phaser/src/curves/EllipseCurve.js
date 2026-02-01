@@ -4,13 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
+
+import { DegToRad } from '../math/DegToRad';
+import { GetValue } from '../utils/object/GetValue';
+import { RadToDeg } from '../math/RadToDeg';
 
 var Class = require('../utils/Class');
 var Curve = require('./Curve');
-var DegToRad = require('../math/DegToRad');
-var GetValue = require('../utils/object/GetValue');
-var RadToDeg = require('../math/RadToDeg');
 var Vector2 = require('../math/Vector2');
 
 /**

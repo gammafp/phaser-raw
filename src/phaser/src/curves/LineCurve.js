@@ -4,11 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this file to TypeScript
+
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
+
+import { FromPoints } from '../geom/rectangle/FromPoints';
 
 var Class = require('../utils/Class');
 var Curve = require('./Curve');
-var FromPoints = require('../geom/rectangle/FromPoints');
 var Rectangle = require('../geom/rectangle/Rectangle');
 var Vector2 = require('../math/Vector2');
 
