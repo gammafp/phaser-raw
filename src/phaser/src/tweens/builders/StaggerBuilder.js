@@ -8,8 +8,7 @@
 
 import { GetValue } from '../../utils/object/GetValue';
 import { MATH_CONST } from '../../math/const';
-
-var GetEaseFunction = require('./GetEaseFunction');
+import { GetEaseFunction } from './GetEaseFunction';
 
 /**
  * Creates a Stagger function to be used by a Tween property.

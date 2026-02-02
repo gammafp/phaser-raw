@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetValue } from '../../utils/object/GetValue';
 
 /**
@@ -20,9 +18,9 @@ import { GetValue } from '../../utils/object/GetValue';
  *
  * @return {array} An array of targets (may contain only one element), or `null` if no targets were specified.
  */
-var GetTargets = function (config)
+export const GetTargets = (config: any): any[] | null =>
 {
-    var targets = GetValue(config, 'targets', null);
+    let targets = GetValue(config, 'targets', null);
 
     if (targets === null)
     {
@@ -41,5 +39,3 @@ var GetTargets = function (config)
 
     return targets;
 };
-
-module.exports = GetTargets;

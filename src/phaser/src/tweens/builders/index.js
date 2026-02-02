@@ -9,17 +9,20 @@
  */
 
 import { GetBoolean } from './GetBoolean';
+import { GetEaseFunction } from './GetEaseFunction';
+import { GetInterpolationFunction } from './GetInterpolationFunction';
 import { GetNewValue } from './GetNewValue';
 import { GetProps } from './GetProps';
+import { GetTargets } from './GetTargets';
 
 module.exports = {
 
     GetBoolean,
-    GetEaseFunction: require('./GetEaseFunction'),
-    GetInterpolationFunction: require('./GetInterpolationFunction'),
+    GetEaseFunction,
+    GetInterpolationFunction,
     GetNewValue,
     GetProps,
-    GetTargets: require('./GetTargets'),
+    GetTargets,
     GetValueOp: require('./GetValueOp'),
     NumberTweenBuilder: require('./NumberTweenBuilder'),
     StaggerBuilder: require('./StaggerBuilder'),
