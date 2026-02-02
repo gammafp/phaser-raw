@@ -7,8 +7,7 @@
 // TODO: Convert this file to TypeScript
 
 import { Extend } from '../utils/object/Extend';
-
-var CONST = require('./const');
+import { SCENE_CONST } from './const';
 
 /**
  * @namespace Phaser.Scenes
@@ -28,6 +27,6 @@ var Scene = {
 };
 
 //   Merge in the consts
-Scene = Extend(false, Scene, CONST);
+Scene = Extend(false, Scene, SCENE_CONST);
 
 module.exports = Scene;

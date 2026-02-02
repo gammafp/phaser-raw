@@ -8,8 +8,8 @@
 
 import { GetValue } from '../utils/object/GetValue';
 import { Merge } from '../utils/object/Merge';
+import { SCENE_CONST as CONST } from './const';
 
-var CONST = require('./const');
 var InjectionMap = require('./InjectionMap');
 
 /**

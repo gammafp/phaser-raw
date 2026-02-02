@@ -7,8 +7,8 @@
 import type { Scene } from 'phaser';
 import { NOOP } from '../utils/NOOP';
 import { PLUGIN_FBINSTANT } from '../FEATURES';
+import { SCENE_CONST as CONST } from './const';
 
-var CONST = require('./const');
 var DefaultPlugins = require('../plugins/DefaultPlugins');
 var Events = require('./events');
 var GetPhysicsPlugins = require('./GetPhysicsPlugins');

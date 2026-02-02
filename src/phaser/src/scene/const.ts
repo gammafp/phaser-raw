@@ -10,7 +10,7 @@
  * @ignore
  */
 
-var CONST = {
+export const SCENE_CONST = {
 
     /**
      * Scene state.
@@ -113,5 +113,3 @@ var CONST = {
     DESTROYED: 9
 
 };
-
-module.exports = CONST;

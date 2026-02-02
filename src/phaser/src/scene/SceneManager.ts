@@ -7,8 +7,8 @@
 import { NOOP } from '../utils/NOOP';
 import { Scene } from './Scene';
 import { Systems } from './Systems';
+import { SCENE_CONST as CONST } from './const';
 
-var CONST = require('./const');
 var Events = require('./events');
 var GameEvents = require('../core/events');
 var GetValue = require('../utils/object/GetValue');
