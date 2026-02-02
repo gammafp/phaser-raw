@@ -29,4 +29,4 @@
  * @param {MatterJS.BodyType} bodyA - The first body of the first colliding pair. The `event.pairs` array may contain more colliding bodies.
  * @param {MatterJS.BodyType} bodyB - The second body of the first colliding pair. The `event.pairs` array may contain more colliding bodies.
  */
-module.exports = 'collisionactive';
+export const COLLISION_ACTIVE = 'collisionactive';

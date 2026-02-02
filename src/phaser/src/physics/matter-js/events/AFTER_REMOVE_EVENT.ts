@@ -26,4 +26,4 @@
  *
  * @param {Phaser.Physics.Matter.Events.AfterRemoveEvent} event - The Remove Event object.
  */
-module.exports = 'afterremove';
+export const AFTER_REMOVE = 'afterremove';

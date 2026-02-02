@@ -25,4 +25,4 @@
  * @param {Phaser.Physics.Matter.Events.SleepStartEvent} event - The Sleep Event object.
  * @param {MatterJS.BodyType} body - The body that has gone to sleep.
  */
-module.exports = 'sleepstart';
+export const SLEEP_START = 'sleepstart';

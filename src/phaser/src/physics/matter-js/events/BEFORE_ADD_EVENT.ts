@@ -26,4 +26,4 @@
  *
  * @param {Phaser.Physics.Matter.Events.BeforeAddEvent} event - The Add Event object.
  */
-module.exports = 'beforeadd';
+export const BEFORE_ADD = 'beforeadd';

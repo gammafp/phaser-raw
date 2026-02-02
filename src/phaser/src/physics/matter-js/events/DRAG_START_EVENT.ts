@@ -20,4 +20,4 @@
  * @param {MatterJS.BodyType} part - The part of the body that was clicked on.
  * @param {Phaser.Physics.Matter.PointerConstraint} constraint - The Pointer Constraint that is dragging the body.
  */
-module.exports = 'dragstart';
+export const DRAG_START = 'dragstart';

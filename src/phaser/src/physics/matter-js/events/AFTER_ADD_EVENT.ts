@@ -26,4 +26,4 @@
  *
  * @param {Phaser.Physics.Matter.Events.AfterAddEvent} event - The Add Event object.
  */
-module.exports = 'afteradd';
+export const AFTER_ADD = 'afteradd';

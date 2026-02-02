@@ -25,4 +25,4 @@
  *
  * @param {Phaser.Physics.Matter.Events.AfterUpdateEvent} event - The Update Event object.
  */
-module.exports = 'afterupdate';
+export const AFTER_UPDATE = 'afterupdate';

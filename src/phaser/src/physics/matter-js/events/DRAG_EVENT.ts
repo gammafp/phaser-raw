@@ -19,4 +19,4 @@
  * @param {MatterJS.BodyType} body - The Body that is being dragged. This is a Matter Body, not a Phaser Game Object.
  * @param {Phaser.Physics.Matter.PointerConstraint} constraint - The Pointer Constraint that is dragging the body.
  */
-module.exports = 'drag';
+export const DRAG = 'drag';

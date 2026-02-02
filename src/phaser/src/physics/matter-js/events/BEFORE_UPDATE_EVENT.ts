@@ -25,4 +25,4 @@
  *
  * @param {Phaser.Physics.Matter.Events.BeforeUpdateEvent} event - The Update Event object.
  */
-module.exports = 'beforeupdate';
+export const BEFORE_UPDATE = 'beforeupdate';

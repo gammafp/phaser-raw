@@ -26,4 +26,4 @@
  *
  * @param {Phaser.Physics.Matter.Events.BeforeRemoveEvent} event - The Remove Event object.
  */
-module.exports = 'beforeremove';
+export const BEFORE_REMOVE = 'beforeremove';
