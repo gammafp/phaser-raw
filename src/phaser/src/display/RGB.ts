@@ -4,7 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
 import { NOOP } from '../utils/NOOP';
 
 /**
@@ -21,9 +20,13 @@ import { NOOP } from '../utils/NOOP';
  * @param {number} [green=0] - The green color value. A number between 0 and 1.
  * @param {number} [blue=0] - The blue color value. A number between 0 and 1.
  */
-var RGB = class {
+export class RGB {
 
-    constructor(red, green, blue)
+    _rgb: number[];
+    onChangeCallback: Function;
+    dirty: boolean;
+
+    constructor(red?: number, green?: number, blue?: number)
     {
         /**
          * Cached RGB values.
@@ -71,7 +74,7 @@ var RGB = class {
      *
      * @return {this} This RGB instance.
      */
-    set(red, green, blue)
+    set(red?: number, green?: number, blue?: number): this
     {
         if (red === undefined) { red = 0; }
         if (green === undefined) { green = 0; }
@@ -97,9 +100,9 @@ var RGB = class {
      *
      * @return {boolean} `true` if the given values match those in this object, otherwise `false`.
      */
-    equals(red, green, blue)
+    equals(red: number, green: number, blue: number): boolean
     {
-        var rgb = this._rgb;
+        const rgb = this._rgb;
 
         return (rgb[0] === red && rgb[1] === green && rgb[2] === blue);
     }
@@ -112,11 +115,11 @@ var RGB = class {
      * @method Phaser.Display.RGB#onChange
      * @since 3.50.0
      */
-    onChange()
+    onChange(): void
     {
         this.dirty = true;
 
-        var rgb = this._rgb;
+        const rgb = this._rgb;
 
         this.onChangeCallback.call(this, rgb[0], rgb[1], rgb[2]);
     }
@@ -131,13 +134,12 @@ var RGB = class {
      * @type {number}
      * @since 3.50.0
      */
-
-    get r()
+    get r(): number
     {
         return this._rgb[0];
     }
 
-    set r(value)
+    set r(value: number)
     {
         this._rgb[0] = value;
         this.onChange();
@@ -153,13 +155,12 @@ var RGB = class {
      * @type {number}
      * @since 3.50.0
      */
-
-    get g()
+    get g(): number
     {
         return this._rgb[1];
     }
 
-    set g(value)
+    set g(value: number)
     {
         this._rgb[1] = value;
         this.onChange();
@@ -175,13 +176,12 @@ var RGB = class {
      * @type {number}
      * @since 3.50.0
      */
-
-    get b()
+    get b(): number
     {
         return this._rgb[2];
     }
 
-    set b(value)
+    set b(value: number)
     {
         this._rgb[2] = value;
         this.onChange();
@@ -193,11 +193,9 @@ var RGB = class {
      * @method Phaser.Display.RGB#destroy
      * @since 3.50.0
      */
-    destroy()
+    destroy(): void
     {
         this.onChangeCallback = null;
     }
 
-};
-
-module.exports = RGB;
+}

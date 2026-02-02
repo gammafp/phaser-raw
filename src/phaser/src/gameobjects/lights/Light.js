@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { RGB } from '../../display/RGB';
+
 var Circle = require('../../geom/circle/Circle');
 var Class = require('../../utils/Class');
 var Components = require('../components');
-var RGB = require('../../display/RGB');
 var Utils = require('../../renderer/webgl/Utils');
 
 /**

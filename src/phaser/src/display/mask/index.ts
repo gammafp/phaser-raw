@@ -8,9 +8,5 @@
  * @namespace Phaser.Display.Masks
  */
 
-module.exports = {
-
-    BitmapMask: require('./BitmapMask'),
-    GeometryMask: require('./GeometryMask')
-
-};
+export { BitmapMask } from './BitmapMask';
+export { GeometryMask } from './GeometryMask';

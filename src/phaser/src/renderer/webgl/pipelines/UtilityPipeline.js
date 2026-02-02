@@ -7,11 +7,11 @@
 // TODO: Convert this file to TypeScript
 
 import { GetFastValue } from '../../../utils/object/GetFastValue';
+import { ColorMatrix } from '../../../display/ColorMatrix';
 
 var AddBlendFS = require('../shaders/AddBlend-frag');
 var BlendModes = require('../../BlendModes');
 var Class = require('../../../utils/Class');
-var ColorMatrix = require('../../../display/ColorMatrix');
 var ColorMatrixFS = require('../shaders/ColorMatrix-frag');
 var CopyFS = require('../shaders/Copy-frag');
 var LinearBlendFS = require('../shaders/LinearBlend-frag');

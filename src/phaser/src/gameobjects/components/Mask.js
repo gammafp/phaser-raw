@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var BitmapMask = require('../../display/mask/BitmapMask');
-var GeometryMask = require('../../display/mask/GeometryMask');
+import { BitmapMask } from '../../display/mask/BitmapMask';
+import { GeometryMask } from '../../display/mask/GeometryMask';
 
 /**
  * Provides methods used for getting and setting the mask of a Game Object.

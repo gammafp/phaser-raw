@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../../utils/Class');
-
 /**
  * @classdesc
  * A Geometry Mask can be applied to a Game Object to hide any pixels of it which don't intersect
@@ -32,9 +30,14 @@ var Class = require('../../utils/Class');
  * @param {Phaser.Scene} scene - This parameter is not used.
  * @param {Phaser.GameObjects.Graphics} graphicsGeometry - The Graphics Game Object to use for the Geometry Mask. Doesn't have to be in the Display List.
  */
-var GeometryMask = class {
+export class GeometryMask {
 
-    constructor(scene, graphicsGeometry)
+    geometryMask: any;
+    invertAlpha: boolean;
+    isStencil: boolean;
+    level: number;
+
+    constructor(scene: any, graphicsGeometry: any)
     {
         /**
          * The Graphics object which describes the Geometry Mask.
@@ -72,7 +75,7 @@ var GeometryMask = class {
          * and is set in the applyStencil method.
          *
          * @name Phaser.Display.Masks.GeometryMask#level
-         * @type {boolean}
+         * @type {number}
          * @since 3.17.0
          */
         this.level = 0;
@@ -88,7 +91,7 @@ var GeometryMask = class {
      *
      * @return {this} This Geometry Mask
      */
-    setShape(graphicsGeometry)
+    setShape(graphicsGeometry: any): this
     {
         this.geometryMask = graphicsGeometry;
 
@@ -109,7 +112,7 @@ var GeometryMask = class {
      *
      * @return {this} This Geometry Mask
      */
-    setInvertAlpha(value)
+    setInvertAlpha(value?: boolean): this
     {
         if (value === undefined) { value = true; }
 
@@ -128,9 +131,9 @@ var GeometryMask = class {
      * @param {Phaser.GameObjects.GameObject} child - The Game Object being rendered.
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera the Game Object is being rendered through.
      */
-    preRenderWebGL(renderer, child, camera)
+    preRenderWebGL(renderer: any, child: any, camera: any): void
     {
-        var gl = renderer.gl;
+        const gl = renderer.gl;
 
         //  Force flushing before drawing to stencil buffer
         renderer.flush();
@@ -165,12 +168,12 @@ var GeometryMask = class {
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera the Game Object is being rendered through.
      * @param {boolean} inc - Is this an INCR stencil or a DECR stencil?
      */
-    applyStencil(renderer, camera, inc)
+    applyStencil(renderer: any, camera: any, inc: boolean): void
     {
-        var gl = renderer.gl;
-        var geometryMask = this.geometryMask;
-        var level = renderer.maskCount;
-        var mask = 0xff;
+        const gl = renderer.gl;
+        const geometryMask = this.geometryMask;
+        let level = renderer.maskCount;
+        const mask = 0xff;
 
         gl.colorMask(false, false, false, false);
 
@@ -216,9 +219,9 @@ var GeometryMask = class {
      *
      * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - The WebGL Renderer instance to draw flush.
      */
-    postRenderWebGL(renderer)
+    postRenderWebGL(renderer: any): void
     {
-        var gl = renderer.gl;
+        const gl = renderer.gl;
 
         renderer.maskStack.pop();
 
@@ -227,7 +230,7 @@ var GeometryMask = class {
         //  Force flush before disabling stencil test
         renderer.flush();
 
-        var current = renderer.currentMask;
+        const current = renderer.currentMask;
 
         if (renderer.maskStack.length === 0)
         {
@@ -238,7 +241,7 @@ var GeometryMask = class {
         }
         else
         {
-            var prev = renderer.maskStack[renderer.maskStack.length - 1];
+            const prev = renderer.maskStack[renderer.maskStack.length - 1];
 
             prev.mask.applyStencil(renderer, prev.camera, false);
 
@@ -264,9 +267,9 @@ var GeometryMask = class {
      * @param {Phaser.GameObjects.GameObject} mask - The Game Object being rendered.
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera the Game Object is being rendered through.
      */
-    preRenderCanvas(renderer, mask, camera)
+    preRenderCanvas(renderer: any, mask: any, camera: any): void
     {
-        var geometryMask = this.geometryMask;
+        const geometryMask = this.geometryMask;
 
         renderer.currentContext.save();
 
@@ -283,7 +286,7 @@ var GeometryMask = class {
      *
      * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - The Canvas Renderer instance being restored.
      */
-    postRenderCanvas(renderer)
+    postRenderCanvas(renderer: any): void
     {
         renderer.currentContext.restore();
     }
@@ -297,11 +300,9 @@ var GeometryMask = class {
      * @method Phaser.Display.Masks.GeometryMask#destroy
      * @since 3.7.0
      */
-    destroy()
+    destroy(): void
     {
         this.geometryMask = null;
     }
 
-};
-
-module.exports = GeometryMask;
+}

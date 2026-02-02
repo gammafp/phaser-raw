@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../../utils/Class');
-
 /**
  * @classdesc
  * A BaseShader is a small resource class that contains the data required for a WebGL Shader to be created.
@@ -32,9 +30,14 @@ var Class = require('../../utils/Class');
  * @param {string} [vertexSrc] - The vertex source for the shader.
  * @param {any} [uniforms] - Optional object defining the uniforms the shader uses.
  */
-var BaseShader = class {
+export class BaseShader {
 
-    constructor(key, fragmentSrc, vertexSrc, uniforms)
+    key: string;
+    fragmentSrc: string;
+    vertexSrc: string;
+    uniforms: any;
+
+    constructor(key: string, fragmentSrc?: string, vertexSrc?: string, uniforms?: any)
     {
         if (!fragmentSrc || fragmentSrc === '')
         {
@@ -113,6 +116,4 @@ var BaseShader = class {
         this.uniforms = uniforms;
     }
 
-};
-
-module.exports = BaseShader;
+}

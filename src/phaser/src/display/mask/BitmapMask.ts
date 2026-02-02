@@ -4,9 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../../utils/Class');
-var GameObjectFactory = require('../../gameobjects/GameObjectFactory');
-
 /**
  * @classdesc
  * A Bitmap Mask combines the alpha (opacity) of a masked pixel with the alpha of another pixel.
@@ -49,45 +46,49 @@ var GameObjectFactory = require('../../gameobjects/GameObjectFactory');
  * @param {(string|Phaser.Textures.Texture)} [texture] - If creating a Game Object, the key, or instance of the Texture it will use to render with, as stored in the Texture Manager.
  * @param {(string|number|Phaser.Textures.Frame)} [frame] - If creating a Game Object, an optional frame from the Texture this Game Object is rendering with.
  */
-var BitmapMask = class {
+export class BitmapMask {
 
-    constructor(scene, maskObject, x, y, texture, frame)
+    /**
+     * The Game Object that is used as the mask. Must use a texture, such as a Sprite.
+     *
+     * @name Phaser.Display.Masks.BitmapMask#bitmapMask
+     * @type {(Phaser.GameObjects.GameObject|Phaser.Textures.DynamicTexture)}
+     * @since 3.0.0
+     */
+    bitmapMask: any;
+
+    /**
+     * Whether to invert the masks alpha.
+     *
+     * If `true`, the alpha of the masking pixel will be inverted before it's multiplied with the masked pixel.
+     *
+     * Essentially, this means that a masked area will be visible only if the corresponding area in the mask is invisible.
+     *
+     * @name Phaser.Display.Masks.BitmapMask#invertAlpha
+     * @type {boolean}
+     * @since 3.1.2
+     */
+    invertAlpha: boolean;
+
+    /**
+     * Is this mask a stencil mask? This is false by default and should not be changed.
+     *
+     * @name Phaser.Display.Masks.BitmapMask#isStencil
+     * @type {boolean}
+     * @readonly
+     * @since 3.17.0
+     */
+    readonly isStencil: boolean;
+
+    constructor(scene: any, maskObject?: any, x?: number, y?: number, texture?: any, frame?: any)
     {
         if (!maskObject)
         {
             maskObject = scene.sys.make.image({ x: x, y: y, key: texture, frame: frame, add: false });
         }
 
-        /**
-         * The Game Object that is used as the mask. Must use a texture, such as a Sprite.
-         *
-         * @name Phaser.Display.Masks.BitmapMask#bitmapMask
-         * @type {(Phaser.GameObjects.GameObject|Phaser.Textures.DynamicTexture)}
-         * @since 3.0.0
-         */
         this.bitmapMask = maskObject;
-
-        /**
-         * Whether to invert the masks alpha.
-         *
-         * If `true`, the alpha of the masking pixel will be inverted before it's multiplied with the masked pixel.
-         *
-         * Essentially, this means that a masked area will be visible only if the corresponding area in the mask is invisible.
-         *
-         * @name Phaser.Display.Masks.BitmapMask#invertAlpha
-         * @type {boolean}
-         * @since 3.1.2
-         */
         this.invertAlpha = false;
-
-        /**
-         * Is this mask a stencil mask? This is false by default and should not be changed.
-         *
-         * @name Phaser.Display.Masks.BitmapMask#isStencil
-         * @type {boolean}
-         * @readonly
-         * @since 3.17.0
-         */
         this.isStencil = false;
     }
 
@@ -103,7 +104,7 @@ var BitmapMask = class {
      *
      * @param {(Phaser.GameObjects.GameObject|Phaser.Textures.DynamicTexture)} maskObject - The Game Object or Dynamic Texture that will be used as the mask. If a Game Object, it must have a texture, such as a Sprite.
      */
-    setBitmap(maskObject)
+    setBitmap(maskObject: any): void
     {
         this.bitmapMask = maskObject;
     }
@@ -120,7 +121,7 @@ var BitmapMask = class {
      * @param {Phaser.GameObjects.GameObject} maskedObject - The masked Game Object which will be drawn.
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to render to.
      */
-    preRenderWebGL(renderer, maskedObject, camera)
+    preRenderWebGL(renderer: any, maskedObject: any, camera: any): void
     {
         renderer.pipelines.BITMAPMASK_PIPELINE.beginMask(this, maskedObject, camera);
     }
@@ -137,7 +138,7 @@ var BitmapMask = class {
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to render to.
      * @param {Phaser.Renderer.WebGL.RenderTarget} [renderTarget] - Optional WebGL RenderTarget.
      */
-    postRenderWebGL(renderer, camera, renderTarget)
+    postRenderWebGL(renderer: any, camera: any, renderTarget?: any): void
     {
         renderer.pipelines.BITMAPMASK_PIPELINE.endMask(this, camera, renderTarget);
     }
@@ -152,7 +153,7 @@ var BitmapMask = class {
      * @param {Phaser.GameObjects.GameObject} mask - The masked Game Object which would be rendered.
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to render to.
      */
-    preRenderCanvas()
+    preRenderCanvas(): void
     {
         // NOOP
     }
@@ -165,7 +166,7 @@ var BitmapMask = class {
      *
      * @param {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)} renderer - The Canvas Renderer which would be rendered to.
      */
-    postRenderCanvas()
+    postRenderCanvas(): void
     {
         // NOOP
     }
@@ -179,56 +180,9 @@ var BitmapMask = class {
      * @method Phaser.Display.Masks.BitmapMask#destroy
      * @since 3.7.0
      */
-    destroy()
+    destroy(): void
     {
         this.bitmapMask = null;
     }
 
-};
-
-/**
- * A Bitmap Mask combines the alpha (opacity) of a masked pixel with the alpha of another pixel.
- * Unlike the Geometry Mask, which is a clipping path, a Bitmap Mask behaves like an alpha mask,
- * not a clipping path. It is only available when using the WebGL Renderer.
- *
- * A Bitmap Mask can use any Game Object, or Dynamic Texture, to determine the alpha of each pixel of the masked Game Object(s).
- * For any given point of a masked Game Object's texture, the pixel's alpha will be multiplied by the alpha
- * of the pixel at the same position in the Bitmap Mask's Game Object. The color of the pixel from the
- * Bitmap Mask doesn't matter.
- *
- * For example, if a pure blue pixel with an alpha of 0.95 is masked with a pure red pixel with an
- * alpha of 0.5, the resulting pixel will be pure blue with an alpha of 0.475. Naturally, this means
- * that a pixel in the mask with an alpha of 0 will hide the corresponding pixel in all masked Game Objects
- *  A pixel with an alpha of 1 in the masked Game Object will receive the same alpha as the
- * corresponding pixel in the mask.
- *
- * Note: You cannot combine Bitmap Masks and Blend Modes on the same Game Object. You can, however,
- * combine Geometry Masks and Blend Modes together.
- *
- * The Bitmap Mask's location matches the location of its Game Object, not the location of the
- * masked objects. Moving or transforming the underlying Game Object will change the mask
- * (and affect the visibility of any masked objects), whereas moving or transforming a masked object
- * will not affect the mask.
- *
- * The Bitmap Mask will not render its Game Object by itself. If the Game Object is not in a
- * Scene's display list, it will only be used for the mask and its full texture will not be directly
- * visible. Adding the underlying Game Object to a Scene will not cause any problems - it will
- * render as a normal Game Object and will also serve as a mask.
- *
- * @method Phaser.GameObjects.GameObjectFactory#bitmapMask
- * @since 3.60.0
- *
- * @param {(Phaser.GameObjects.GameObject|Phaser.Textures.DynamicTexture)} [maskObject] - The Game Object or Texture that will be used as the mask. If `null` it will generate an Image Game Object using the rest of the arguments.
- * @param {number} [x] - If creating a Game Object, the horizontal position in the world.
- * @param {number} [y] - If creating a Game Object, the vertical position in the world.
- * @param {(string|Phaser.Textures.Texture)} [texture] - If creating a Game Object, the key, or instance of the Texture it will use to render with, as stored in the Texture Manager.
- * @param {(string|number|Phaser.Textures.Frame)} [frame] - If creating a Game Object, an optional frame from the Texture this Game Object is rendering with.
- *
- * @return {Phaser.Display.Masks.BitmapMask} The Bitmap Mask that was created.
- */
-GameObjectFactory.register('bitmapMask', function (maskObject, x, y, key, frame)
-{
-    return new BitmapMask(this.scene, maskObject, x, y, key, frame);
-});
-
-module.exports = BitmapMask;
+}

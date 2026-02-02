@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { ColorMatrix as BaseColorMatrix } from '../display/ColorMatrix';
+
 var Class = require('../utils/Class');
-var BaseColorMatrix = require('../display/ColorMatrix');
 var FX_CONST = require('./const');
 
 /**

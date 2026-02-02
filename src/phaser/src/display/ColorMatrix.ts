@@ -4,9 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-
-var tempMatrix = new Float32Array(20);
+const tempMatrix = new Float32Array(20);
 
 /**
  * @classdesc
@@ -21,50 +19,55 @@ var tempMatrix = new Float32Array(20);
  * @constructor
  * @since 3.50.0
  */
-var ColorMatrix = class {
+export class ColorMatrix {
+
+    /**
+     * Internal ColorMatrix array.
+     *
+     * @name Phaser.Display.ColorMatrix#_matrix
+     * @type {Float32Array}
+     * @private
+     * @since 3.50.0
+     */
+    private _matrix: Float32Array;
+
+    /**
+     * The value that determines how much of the original color is used
+     * when mixing the colors. A value between 0 (all original) and 1 (all final)
+     *
+     * @name Phaser.Display.ColorMatrix#alpha
+     * @type {number}
+     * @since 3.50.0
+     */
+    alpha: number;
+
+    /**
+     * Is the ColorMatrix array dirty?
+     *
+     * @name Phaser.Display.ColorMatrix#_dirty
+     * @type {boolean}
+     * @private
+     * @since 3.50.0
+     */
+    private _dirty: boolean;
+
+    /**
+     * The matrix data as a Float32Array.
+     *
+     * Returned by the `getData` method.
+     *
+     * @name Phaser.Display.ColorMatrix#data
+     * @type {Float32Array}
+     * @private
+     * @since 3.50.0
+     */
+    private _data: Float32Array;
 
     constructor()
     {
-        /**
-         * Internal ColorMatrix array.
-         *
-         * @name Phaser.Display.ColorMatrix#_matrix
-         * @type {Float32Array}
-         * @private
-         * @since 3.50.0
-         */
         this._matrix = new Float32Array(20);
-
-        /**
-         * The value that determines how much of the original color is used
-         * when mixing the colors. A value between 0 (all original) and 1 (all final)
-         *
-         * @name Phaser.Display.ColorMatrix#alpha
-         * @type {number}
-         * @since 3.50.0
-         */
         this.alpha = 1;
-
-        /**
-         * Is the ColorMatrix array dirty?
-         *
-         * @name Phaser.Display.ColorMatrix#_dirty
-         * @type {boolean}
-         * @private
-         * @since 3.50.0
-         */
         this._dirty = true;
-
-        /**
-         * The matrix data as a Float32Array.
-         *
-         * Returned by the `getData` method.
-         *
-         * @name Phaser.Display.ColorMatrix#data
-         * @type {Float32Array}
-         * @private
-         * @since 3.50.0
-         */
         this._data = new Float32Array(20);
 
         this.reset();
@@ -80,7 +83,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    set(value)
+    set(value: number[] | Float32Array): this
     {
         this._matrix.set(value);
 
@@ -98,9 +101,9 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    reset()
+    reset(): this
     {
-        var m = this._matrix;
+        const m = this._matrix;
 
         m.fill(0);
 
@@ -126,9 +129,9 @@ var ColorMatrix = class {
      *
      * @return {Float32Array} The ColorMatrix as a Float32Array.
      */
-    getData()
+    getData(): Float32Array
     {
-        var data = this._data;
+        const data = this._data;
 
         if (this._dirty)
         {
@@ -156,12 +159,12 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    brightness(value, multiply)
+    brightness(value?: number, multiply?: boolean): this
     {
         if (value === undefined) { value = 0; }
         if (multiply === undefined) { multiply = false; }
 
-        var b = value;
+        const b = value;
 
         return this.multiply([
             b, 0, 0, 0, 0,
@@ -182,13 +185,13 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    saturate(value, multiply)
+    saturate(value?: number, multiply?: boolean): this
     {
         if (value === undefined) { value = 0; }
         if (multiply === undefined) { multiply = false; }
 
-        var x = (value * 2 / 3) + 1;
-        var y = ((x - 1) * -0.5);
+        const x = (value * 2 / 3) + 1;
+        const y = ((x - 1) * -0.5);
 
         return this.multiply([
             x, y, y, 0, 0,
@@ -201,14 +204,14 @@ var ColorMatrix = class {
     /**
      * Desaturates this ColorMatrix (removes color from it).
      *
-     * @method Phaser.Display.ColorMatrix#saturation
+     * @method Phaser.Display.ColorMatrix#desaturate
      * @since 3.50.0
      *
      * @param {boolean} [multiply=false] - Multiply the resulting ColorMatrix (`true`), or set it (`false`) ?
      *
      * @return {this} This ColorMatrix instance.
      */
-    desaturate(multiply)
+    desaturate(multiply?: boolean): this
     {
         if (multiply === undefined) { multiply = false; }
 
@@ -226,18 +229,18 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    hue(rotation, multiply)
+    hue(rotation?: number, multiply?: boolean): this
     {
         if (rotation === undefined) { rotation = 0; }
         if (multiply === undefined) { multiply = false; }
 
         rotation = rotation / 180 * Math.PI;
 
-        var cos = Math.cos(rotation);
-        var sin = Math.sin(rotation);
-        var lumR = 0.213;
-        var lumG = 0.715;
-        var lumB = 0.072;
+        const cos = Math.cos(rotation);
+        const sin = Math.sin(rotation);
+        const lumR = 0.213;
+        const lumG = 0.715;
+        const lumB = 0.072;
 
         return this.multiply([
             lumR + cos * (1 - lumR) + sin * (-lumR),lumG + cos * (-lumG) + sin * (-lumG),lumB + cos * (-lumB) + sin * (1 - lumB), 0, 0,
@@ -258,7 +261,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    grayscale(value, multiply)
+    grayscale(value?: number, multiply?: boolean): this
     {
         if (value === undefined) { value = 1; }
         if (multiply === undefined) { multiply = false; }
@@ -276,7 +279,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    blackWhite(multiply)
+    blackWhite(multiply?: boolean): this
     {
         if (multiply === undefined) { multiply = false; }
 
@@ -294,13 +297,13 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    contrast(value, multiply)
+    contrast(value?: number, multiply?: boolean): this
     {
         if (value === undefined) { value = 0; }
         if (multiply === undefined) { multiply = false; }
 
-        var v = value + 1;
-        var o = -0.5 * (v - 1);
+        const v = value + 1;
+        const o = -0.5 * (v - 1);
 
         return this.multiply([
             v, 0, 0, 0, o,
@@ -320,7 +323,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    negative(multiply)
+    negative(multiply?: boolean): this
     {
         if (multiply === undefined) { multiply = false; }
 
@@ -337,7 +340,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    desaturateLuminance(multiply)
+    desaturateLuminance(multiply?: boolean): this
     {
         if (multiply === undefined) { multiply = false; }
 
@@ -354,7 +357,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    sepia(multiply)
+    sepia(multiply?: boolean): this
     {
         if (multiply === undefined) { multiply = false; }
 
@@ -372,7 +375,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    night(intensity, multiply)
+    night(intensity?: number, multiply?: boolean): this
     {
         if (intensity === undefined) { intensity = 0.1; }
         if (multiply === undefined) { multiply = false; }
@@ -395,7 +398,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    lsd(multiply)
+    lsd(multiply?: boolean): this
     {
         if (multiply === undefined) { multiply = false; }
 
@@ -412,7 +415,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    brown(multiply)
+    brown(multiply?: boolean): this
     {
         if (multiply === undefined) { multiply = false; }
 
@@ -429,7 +432,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    vintagePinhole(multiply)
+    vintagePinhole(multiply?: boolean): this
     {
         if (multiply === undefined) { multiply = false; }
 
@@ -446,7 +449,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    kodachrome(multiply)
+    kodachrome(multiply?: boolean): this
     {
         if (multiply === undefined) { multiply = false; }
 
@@ -463,7 +466,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    technicolor(multiply)
+    technicolor(multiply?: boolean): this
     {
         if (multiply === undefined) { multiply = false; }
 
@@ -480,7 +483,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    polaroid(multiply)
+    polaroid(multiply?: boolean): this
     {
         if (multiply === undefined) { multiply = false; }
 
@@ -497,7 +500,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    shiftToBGR(multiply)
+    shiftToBGR(multiply?: boolean): this
     {
         if (multiply === undefined) { multiply = false; }
 
@@ -515,7 +518,7 @@ var ColorMatrix = class {
      *
      * @return {this} This ColorMatrix instance.
      */
-    multiply(a, multiply)
+    multiply(a: number[], multiply?: boolean): this
     {
         if (multiply === undefined) { multiply = false; }
 
@@ -526,8 +529,8 @@ var ColorMatrix = class {
             this.reset();
         }
 
-        var m = this._matrix;
-        var c = tempMatrix;
+        const m = this._matrix;
+        const c = tempMatrix;
 
         //  copy _matrix to tempMatrox
         c.set(m);
@@ -568,7 +571,7 @@ var ColorMatrix = class {
         return this;
     }
 
-};
+}
 
 /**
  * A constant array used by the ColorMatrix class for black_white operations.
@@ -679,5 +682,3 @@ ColorMatrix.POLAROID = [ 1.438, -0.062, -0.062, 0, 0, -0.122, 1.378, -0.122, 0, 
  * @since 3.60.0
  */
 ColorMatrix.SHIFT_BGR = [ 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0 ];
-
-module.exports = ColorMatrix;

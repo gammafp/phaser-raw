@@ -7,9 +7,9 @@
 // TODO: Convert this file to TypeScript
 
 import { GetFastValue } from '../../../utils/object/GetFastValue';
+import { ColorMatrix } from '../../../display/ColorMatrix';
 
 var Class = require('../../../utils/Class');
-var ColorMatrix = require('../../../display/ColorMatrix');
 var ShaderSourceFS = require('../shaders/PostFX-frag');
 var ShaderSourceVS = require('../shaders/Quad-vert');
 var WebGLPipeline = require('../WebGLPipeline');

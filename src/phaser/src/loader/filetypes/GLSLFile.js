@@ -8,13 +8,12 @@
 
 import { GetFastValue } from '../../utils/object/GetFastValue';
 import { IsPlainObject } from '../../utils/object/IsPlainObject';
-
 import { LOADER_CONST as CONST } from '../const';
+import { BaseShader as Shader } from '../../display/shader/BaseShader';
 
 var Class = require('../../utils/Class');
 var File = require('../File');
 var FileTypesManager = require('../FileTypesManager');
-var Shader = require('../../display/shader/BaseShader');
 
 /**
  * @classdesc

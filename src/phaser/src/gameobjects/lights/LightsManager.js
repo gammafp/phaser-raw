@@ -9,11 +9,11 @@
 import { CircleToRectangle } from '../../geom/intersects/CircleToRectangle';
 import { DistanceBetween } from '../../math/distance/DistanceBetween';
 import { SpliceOne } from '../../utils/array/SpliceOne';
+import { RGB } from '../../display/RGB';
 
 var Class = require('../../utils/Class');
 var Light = require('./Light');
 var PointLight = require('../pointlight/PointLight');
-var RGB = require('../../display/RGB');
 var StableSort = require('../../utils/array/StableSort');
 var Utils = require('../../renderer/webgl/Utils');
 
