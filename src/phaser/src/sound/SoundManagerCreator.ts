@@ -5,9 +5,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var HTML5AudioSoundManager = require('./html5/HTML5AudioSoundManager');
-var NoAudioSoundManager = require('./noaudio/NoAudioSoundManager');
-var WebAudioSoundManager = require('./webaudio/WebAudioSoundManager');
+const HTML5AudioSoundManager = require('./html5/HTML5AudioSoundManager');
+const NoAudioSoundManager = require('./noaudio/NoAudioSoundManager');
+const WebAudioSoundManager = require('./webaudio/WebAudioSoundManager');
 
 /**
  * Creates a Web Audio, HTML5 Audio or No Audio Sound Manager based on config and device settings.
@@ -21,12 +21,12 @@ var WebAudioSoundManager = require('./webaudio/WebAudioSoundManager');
  *
  * @return {(Phaser.Sound.HTML5AudioSoundManager|Phaser.Sound.WebAudioSoundManager|Phaser.Sound.NoAudioSoundManager)} The Sound Manager instance that was created.
  */
-var SoundManagerCreator = {
+export const SoundManagerCreator = {
 
-    create: function (game)
+    create: (game: any): any =>
     {
-        var audioConfig = game.config.audio;
-        var deviceAudio = game.device.audio;
+        const audioConfig = game.config.audio;
+        const deviceAudio = game.device.audio;
 
         if (audioConfig.noAudio || (!deviceAudio.webAudio && !deviceAudio.audioData))
         {
@@ -42,5 +42,3 @@ var SoundManagerCreator = {
     }
 
 };
-
-module.exports = SoundManagerCreator;

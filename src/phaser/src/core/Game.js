@@ -6,6 +6,7 @@
 
 import { SceneManager } from '../scene/SceneManager';
 import { AddToDOM } from '../dom/AddToDOM';
+import { SoundManagerCreator } from '../sound/SoundManagerCreator';
 
 var AnimationManager = require('../animations/AnimationManager');
 var CacheManager = require('../cache/CacheManager');
@@ -28,11 +29,6 @@ var TextureEvents = require('../textures/events');
 var TextureManager = require('../textures/TextureManager');
 var TimeStep = require('./TimeStep');
 var VisibilityHandler = require('./VisibilityHandler');
-
-if (typeof FEATURE_SOUND)
-{
-    var SoundManagerCreator = require('../sound/SoundManagerCreator');
-}
 
 if (typeof PLUGIN_FBINSTANT)
 {
