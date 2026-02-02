@@ -24,7 +24,7 @@ The Phaser source code is located inside the `src/phaser` folder.
 **Last Update:** 2026-02-02
 
 ### Global Summary
-![52.55%](https://progress-bar.xyz/52.55)
+![52.55%](https://progress-bar.xyz/52)
 
 - **Total files** (excluding typedefs): 1,648
 - **TypeScript files**: 866
