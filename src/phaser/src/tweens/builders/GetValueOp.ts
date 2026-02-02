@@ -4,42 +4,48 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { Between } from '../../math/Between';
 import { FloatBetween } from '../../math/FloatBetween';
 
+type TweenCallbackFunction = (target?: any, key?: string, value?: any, targetIndex?: number, totalTargets?: number, tween?: any, tweenData?: any) => any;
+
+interface ValueOpCallbacks {
+    getActive: TweenCallbackFunction | null;
+    getEnd: TweenCallbackFunction;
+    getStart: TweenCallbackFunction;
+}
+
 /**
  * @ignore
  */
-function hasGetActive (def)
+const hasGetActive = (def: any): boolean =>
 {
     return (!!def.getActive && typeof def.getActive === 'function');
-}
+};
 
 /**
  * @ignore
  */
-function hasGetStart (def)
+const hasGetStart = (def: any): boolean =>
 {
     return (!!def.getStart && typeof def.getStart === 'function');
-}
+};
 
 /**
  * @ignore
  */
-function hasGetEnd (def)
+const hasGetEnd = (def: any): boolean =>
 {
     return (!!def.getEnd && typeof def.getEnd === 'function');
-}
+};
 
 /**
  * @ignore
  */
-function hasGetters (def)
+const hasGetters = (def: any): boolean =>
 {
     return hasGetStart(def) || hasGetEnd(def) || hasGetActive(def);
-}
+};
 
 /**
  * Returns `getActive`, `getStart` and `getEnd` functions for a TweenData based on a target property and end value.
@@ -69,20 +75,20 @@ function hasGetters (def)
  *
  * @return {function} An array of functions, `getActive`, `getStart` and `getEnd`, which return the starting and the ending value of the property based on the provided value.
  */
-var GetValueOp = function (key, propertyValue)
+export const GetValueOp = (key: string, propertyValue: any): ValueOpCallbacks =>
 {
-    var callbacks;
+    let callbacks: ValueOpCallbacks | undefined;
 
     //  The returned value sets what the property will be at the END of the Tween (usually called at the start of the Tween)
-    var getEnd = function (target, key, value) { return value; };
+    let getEnd: TweenCallbackFunction = (target, key, value) => value;
 
     //  The returned value sets what the property will be at the START of the Tween (usually called at the end of the Tween)
-    var getStart = function (target, key, value) { return value; };
+    let getStart: TweenCallbackFunction = (target, key, value) => value;
 
     //  What to set the property to the moment the TweenData is invoked
-    var getActive = null;
+    let getActive: TweenCallbackFunction | null = null;
 
-    var t = typeof(propertyValue);
+    const t = typeof(propertyValue);
 
     if (t === 'number')
     {
@@ -91,7 +97,7 @@ var GetValueOp = function (key, propertyValue)
         //     y: 300
         // }
 
-        getEnd = function ()
+        getEnd = () =>
         {
             return propertyValue;
         };
@@ -103,12 +109,12 @@ var GetValueOp = function (key, propertyValue)
         //     y: [ 10, 500, 10 ]
         // }
 
-        getStart = function ()
+        getStart = () =>
         {
             return propertyValue[0];
         };
 
-        getEnd = function ()
+        getEnd = () =>
         {
             return propertyValue[propertyValue.length - 1];
         };
@@ -124,33 +130,33 @@ var GetValueOp = function (key, propertyValue)
         //     p: 'int(10, 100)' - random int
         // }
 
-        var op = propertyValue.toLowerCase();
-        var isRandom = (op.substring(0, 6) === 'random');
-        var isInt = (op.substring(0, 3) === 'int');
+        let op = propertyValue.toLowerCase();
+        const isRandom = (op.substring(0, 6) === 'random');
+        const isInt = (op.substring(0, 3) === 'int');
 
         if (isRandom || isInt)
         {
             //  random(0.5, 3.45)
             //  int(10, 100)
-            var brace1 = op.indexOf('(');
-            var brace2 = op.indexOf(')');
-            var comma = op.indexOf(',');
+            const brace1 = op.indexOf('(');
+            const brace2 = op.indexOf(')');
+            const comma = op.indexOf(',');
 
             if (brace1 && brace2 && comma)
             {
-                var value1 = parseFloat(op.substring(brace1 + 1, comma));
-                var value2 = parseFloat(op.substring(comma + 1, brace2));
+                const value1 = parseFloat(op.substring(brace1 + 1, comma));
+                const value2 = parseFloat(op.substring(comma + 1, brace2));
 
                 if (isRandom)
                 {
-                    getEnd = function ()
+                    getEnd = () =>
                     {
                         return FloatBetween(value1, value2);
                     };
                 }
                 else
                 {
-                    getEnd = function ()
+                    getEnd = () =>
                     {
                         return Between(value1, value2);
                     };
@@ -164,40 +170,40 @@ var GetValueOp = function (key, propertyValue)
         else
         {
             op = op[0];
-            var num = parseFloat(propertyValue.substr(2));
+            const num = parseFloat(propertyValue.substr(2));
 
             switch (op)
             {
                 case '+':
-                    getEnd = function (target, key, value)
+                    getEnd = (target, key, value) =>
                     {
                         return value + num;
                     };
                     break;
 
                 case '-':
-                    getEnd = function (target, key, value)
+                    getEnd = (target, key, value) =>
                     {
                         return value - num;
                     };
                     break;
 
                 case '*':
-                    getEnd = function (target, key, value)
+                    getEnd = (target, key, value) =>
                     {
                         return value * num;
                     };
                     break;
 
                 case '/':
-                    getEnd = function (target, key, value)
+                    getEnd = (target, key, value) =>
                     {
                         return value / num;
                     };
                     break;
 
                 default:
-                    getEnd = function ()
+                    getEnd = () =>
                     {
                         return parseFloat(propertyValue);
                     };
@@ -285,9 +291,9 @@ var GetValueOp = function (key, propertyValue)
             //     y: { start: 300, from: 300, to: 500 }
             // }
 
-            var hasTo = propertyValue.hasOwnProperty('to');
-            var hasFrom = propertyValue.hasOwnProperty('from');
-            var hasStart = propertyValue.hasOwnProperty('start');
+            const hasTo = propertyValue.hasOwnProperty('to');
+            const hasFrom = propertyValue.hasOwnProperty('from');
+            const hasStart = propertyValue.hasOwnProperty('start');
 
             if (hasTo && (hasFrom || hasStart))
             {
@@ -295,14 +301,14 @@ var GetValueOp = function (key, propertyValue)
 
                 if (hasStart)
                 {
-                    var startCallbacks = GetValueOp(key, propertyValue.start);
+                    const startCallbacks = GetValueOp(key, propertyValue.start);
 
                     callbacks.getActive = startCallbacks.getEnd;
                 }
 
                 if (hasFrom)
                 {
-                    var fromCallbacks = GetValueOp(key, propertyValue.from);
+                    const fromCallbacks = GetValueOp(key, propertyValue.from);
 
                     callbacks.getStart = fromCallbacks.getEnd;
                 }
@@ -322,5 +328,3 @@ var GetValueOp = function (key, propertyValue)
 
     return callbacks;
 };
-
-module.exports = GetValueOp;

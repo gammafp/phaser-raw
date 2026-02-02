@@ -16,10 +16,10 @@ import { GetInterpolationFunction } from './GetInterpolationFunction';
 import { GetNewValue } from './GetNewValue';
 import { GetProps } from './GetProps';
 import { GetTargets } from './GetTargets';
+import { GetValueOp } from './GetValueOp';
 
 var BaseTween = require('../tween/BaseTween');
 var Defaults = require('../tween/Defaults');
-var GetValueOp = require('./GetValueOp');
 var Tween = require('../tween/Tween');
 
 /**

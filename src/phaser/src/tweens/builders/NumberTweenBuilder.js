@@ -13,10 +13,10 @@ import { MergeRight } from '../../utils/object/MergeRight';
 import { GetBoolean } from './GetBoolean';
 import { GetEaseFunction } from './GetEaseFunction';
 import { GetNewValue } from './GetNewValue';
+import { GetValueOp } from './GetValueOp';
 
 var BaseTween = require('../tween/BaseTween');
 var Defaults = require('../tween/Defaults');
-var GetValueOp = require('./GetValueOp');
 var Tween = require('../tween/Tween');
 
 /**

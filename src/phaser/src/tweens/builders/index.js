@@ -14,6 +14,7 @@ import { GetInterpolationFunction } from './GetInterpolationFunction';
 import { GetNewValue } from './GetNewValue';
 import { GetProps } from './GetProps';
 import { GetTargets } from './GetTargets';
+import { GetValueOp } from './GetValueOp';
 
 module.exports = {
 
@@ -23,7 +24,7 @@ module.exports = {
     GetNewValue,
     GetProps,
     GetTargets,
-    GetValueOp: require('./GetValueOp'),
+    GetValueOp,
     NumberTweenBuilder: require('./NumberTweenBuilder'),
     StaggerBuilder: require('./StaggerBuilder'),
     TweenBuilder: require('./TweenBuilder')
