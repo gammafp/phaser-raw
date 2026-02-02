@@ -26,6 +26,10 @@ const walk = async (dir: string, counts: Counts): Promise<void> => {
     const fullPath = join(dir, entry.name);
 
     if (entry.isDirectory()) {
+      // Skip typedefs folders - they contain JSDoc types that will be removed in TS
+      if (entry.name === 'typedefs') {
+        continue;
+      }
       await walk(fullPath, counts);
       continue;
     }

@@ -16,9 +16,14 @@ export class Start extends Phaser.Scene {
 
         //  The ship sprite is CC0 from https://ansimuz.itch.io - check out his other work!
         this.load.spritesheet('ship', 'assets/spaceship.png', { frameWidth: 176, frameHeight: 96 });
+
+        this.load.audio('music', 'assets/banjo.mp3');
     }
 
     create() {
+        const music = this.sound.add('music');
+        music.play();
+
         this.background = this.add.tileSprite(640, 360, 1280, 720, 'background');
 
         const logo = this.add.image(640, 200, 'logo');

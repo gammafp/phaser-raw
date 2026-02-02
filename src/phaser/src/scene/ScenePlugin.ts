@@ -4,14 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { Clamp } from '../math/Clamp';
 import { GetFastValue } from '../utils/object/GetFastValue';
 
-var Class = require('../utils/Class');
-var Events = require('./events');
-var PluginCache = require('../plugins/PluginCache');
+const Events = require('./events');
+const PluginCache = require('../plugins/PluginCache');
 
 /**
  * @classdesc
@@ -32,11 +29,23 @@ var PluginCache = require('../plugins/PluginCache');
  *
  * @param {Phaser.Scene} scene - The Scene that this ScenePlugin belongs to.
  */
-var ScenePlugin = new Class({
+export class ScenePlugin {
 
-    initialize:
+    scene: any;
+    systems: any;
+    settings: any;
+    key: string;
+    manager: any;
+    transitionProgress: number;
+    _elapsed: number;
+    _target: any | null;
+    _duration: number;
+    _onUpdate: Function | undefined;
+    _onUpdateScope: any;
+    _willSleep: boolean;
+    _willRemove: boolean;
 
-    function ScenePlugin (scene)
+    constructor(scene: any)
     {
         /**
          * The Scene that this ScenePlugin belongs to.
@@ -165,7 +174,7 @@ var ScenePlugin = new Class({
 
         scene.sys.events.once(Events.BOOT, this.boot, this);
         scene.sys.events.on(Events.START, this.pluginStart, this);
-    },
+    }
 
     /**
      * This method is called automatically, only once, when the Scene is first created.
@@ -175,10 +184,10 @@ var ScenePlugin = new Class({
      * @private
      * @since 3.0.0
      */
-    boot: function ()
+    boot(): void
     {
         this.systems.events.once(Events.DESTROY, this.destroy, this);
-    },
+    }
 
     /**
      * This method is called automatically by the Scene when it is starting up.
@@ -189,12 +198,12 @@ var ScenePlugin = new Class({
      * @private
      * @since 3.5.0
      */
-    pluginStart: function ()
+    pluginStart(): void
     {
         this._target = null;
 
         this.systems.events.once(Events.SHUTDOWN, this.shutdown, this);
-    },
+    }
 
     /**
      * Shutdown this Scene and run the given one.
@@ -212,7 +221,7 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    start: function (key, data)
+    start(key?: string | any, data?: any): this
     {
         if (key === undefined) { key = this.key; }
 
@@ -220,7 +229,7 @@ var ScenePlugin = new Class({
         this.manager.queueOp('start', key, data);
 
         return this;
-    },
+    }
 
     /**
      * Restarts this Scene.
@@ -234,15 +243,15 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    restart: function (data)
+    restart(data?: any): this
     {
-        var key = this.key;
+        const key = this.key;
 
         this.manager.queueOp('stop', key);
         this.manager.queueOp('start', key, data);
 
         return this;
-    },
+    }
 
     /**
      * This will start a transition from the current Scene to the target Scene given.
@@ -284,20 +293,20 @@ var ScenePlugin = new Class({
      *
      * @return {boolean} `true` is the transition was started, otherwise `false`.
      */
-    transition: function (config)
+    transition(config?: any): boolean
     {
         if (config === undefined) { config = {}; }
 
-        var key = GetFastValue(config, 'target', false);
+        const key = GetFastValue(config, 'target', false);
 
-        var target = this.manager.getScene(key);
+        const target = this.manager.getScene(key);
 
         if (!key || !this.checkValidTransition(target))
         {
             return false;
         }
 
-        var duration = GetFastValue(config, 'duration', 1000);
+        const duration = GetFastValue(config, 'duration', 1000);
 
         this._elapsed = 0;
         this._target = target;
@@ -305,7 +314,7 @@ var ScenePlugin = new Class({
         this._willSleep = GetFastValue(config, 'sleep', false);
         this._willRemove = GetFastValue(config, 'remove', false);
 
-        var callback = GetFastValue(config, 'onUpdate', null);
+        const callback = GetFastValue(config, 'onUpdate', null);
 
         if (callback)
         {
@@ -313,11 +322,11 @@ var ScenePlugin = new Class({
             this._onUpdateScope = GetFastValue(config, 'onUpdateScope', this.scene);
         }
 
-        var allowInput = GetFastValue(config, 'allowInput', false);
+        const allowInput = GetFastValue(config, 'allowInput', false);
 
         this.settings.transitionAllowInput = allowInput;
 
-        var targetSettings = target.sys.settings;
+        const targetSettings = target.sys.settings;
 
         targetSettings.isTransition = true;
         targetSettings.transitionFrom = this.scene;
@@ -342,9 +351,9 @@ var ScenePlugin = new Class({
             this.manager.start(key, GetFastValue(config, 'data'));
         }
 
-        var onStartCallback = GetFastValue(config, 'onStart', null);
+        const onStartCallback = GetFastValue(config, 'onStart', null);
 
-        var onStartScope = GetFastValue(config, 'onStartScope', this.scene);
+        const onStartScope = GetFastValue(config, 'onStartScope', this.scene);
 
         if (onStartCallback)
         {
@@ -354,7 +363,7 @@ var ScenePlugin = new Class({
         this.systems.events.emit(Events.TRANSITION_OUT, target, duration);
 
         return true;
-    },
+    }
 
     /**
      * Checks to see if this Scene can transition to the target Scene or not.
@@ -367,7 +376,7 @@ var ScenePlugin = new Class({
      *
      * @return {boolean} `true` if this Scene can transition, otherwise `false`.
      */
-    checkValidTransition: function (target)
+    checkValidTransition(target: any): boolean
     {
         //  Not a valid target if it doesn't exist, isn't active or is already transitioning in or out
         if (!target || target.sys.isActive() || target.sys.isTransitioning() || target === this.scene || this.systems.isTransitioning())
@@ -376,7 +385,7 @@ var ScenePlugin = new Class({
         }
 
         return true;
-    },
+    }
 
     /**
      * A single game step. This is only called if the parent Scene is transitioning
@@ -389,7 +398,7 @@ var ScenePlugin = new Class({
      * @param {number} time - The current time. Either a High Resolution Timer value if it comes from Request Animation Frame, or Date.now if using SetTimeout.
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    step: function (time, delta)
+    step(time: number, delta: number): void
     {
         this._elapsed += delta;
 
@@ -404,7 +413,7 @@ var ScenePlugin = new Class({
         {
             this.transitionComplete();
         }
-    },
+    }
 
     /**
      * Called by `step` when the transition out of this scene to another is over.
@@ -414,10 +423,10 @@ var ScenePlugin = new Class({
      * @fires Phaser.Scenes.Events#TRANSITION_COMPLETE
      * @since 3.5.0
      */
-    transitionComplete: function ()
+    transitionComplete(): void
     {
-        var targetSys = this._target.sys;
-        var targetSettings = this._target.sys.settings;
+        const targetSys = this._target.sys;
+        const targetSettings = this._target.sys.settings;
 
         //  Notify target scene
         targetSys.events.emit(Events.TRANSITION_COMPLETE, this.scene);
@@ -445,13 +454,16 @@ var ScenePlugin = new Class({
         {
             this.manager.stop(this.key);
         }
-    },
+    }
 
     /**
      * Add the Scene into the Scene Manager and start it if 'autoStart' is true or the Scene config 'active' property is set.
      *
      * @method Phaser.Scenes.ScenePlugin#add
      * @since 3.0.0
+     *
+     * @generic {Phaser.Scene} T
+     * @genericUse {(T|string)} - [key]
      *
      * @param {string} key - A unique key used to reference the Scene, i.e. `MainMenu` or `Level1`.
      * @param {(Phaser.Types.Scenes.SceneType)} sceneConfig - The config for the Scene
@@ -460,10 +472,10 @@ var ScenePlugin = new Class({
      *
      * @return {?Phaser.Scene} The added Scene, if it was added immediately, otherwise `null`.
      */
-    add: function (key, sceneConfig, autoStart, data)
+    add(key: string, sceneConfig: any, autoStart?: boolean, data?: any): any
     {
         return this.manager.add(key, sceneConfig, autoStart, data);
-    },
+    }
 
     /**
      * Launch the given Scene and run it in parallel with this one.
@@ -481,7 +493,7 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    launch: function (key, data)
+    launch(key: string | any, data?: any): this
     {
         if (key && key !== this.key)
         {
@@ -489,7 +501,7 @@ var ScenePlugin = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Runs the given Scene, but does not change the state of this Scene.
@@ -513,7 +525,7 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    run: function (key, data)
+    run(key: string | any, data?: any): this
     {
         if (key && key !== this.key)
         {
@@ -521,7 +533,7 @@ var ScenePlugin = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Pause the Scene - this stops the update step from happening but it still renders.
@@ -539,14 +551,14 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    pause: function (key, data)
+    pause(key?: string | any, data?: any): this
     {
         if (key === undefined) { key = this.key; }
 
         this.manager.queueOp('pause', key, data);
 
         return this;
-    },
+    }
 
     /**
      * Resume the Scene - starts the update loop again.
@@ -564,14 +576,14 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    resume: function (key, data)
+    resume(key?: string | any, data?: any): this
     {
         if (key === undefined) { key = this.key; }
 
         this.manager.queueOp('resume', key, data);
 
         return this;
-    },
+    }
 
     /**
      * Makes the Scene sleep (no update, no render) but doesn't shutdown.
@@ -589,14 +601,14 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    sleep: function (key, data)
+    sleep(key?: string | any, data?: any): this
     {
         if (key === undefined) { key = this.key; }
 
         this.manager.queueOp('sleep', key, data);
 
         return this;
-    },
+    }
 
     /**
      * Makes the Scene wake-up (starts update and render)
@@ -614,14 +626,14 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    wake: function (key, data)
+    wake(key?: string | any, data?: any): this
     {
         if (key === undefined) { key = this.key; }
 
         this.manager.queueOp('wake', key, data);
 
         return this;
-    },
+    }
 
     /**
      * Makes this Scene sleep then starts the Scene given.
@@ -639,7 +651,7 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    switch: function (key, data)
+    switch(key: string | any, data?: any): this
     {
         if (key !== this.key)
         {
@@ -647,7 +659,7 @@ var ScenePlugin = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Shutdown the Scene, clearing display list, timers, etc.
@@ -665,14 +677,14 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    stop: function (key, data)
+    stop(key?: string | any, data?: any): this
     {
         if (key === undefined) { key = this.key; }
 
         this.manager.queueOp('stop', key, data);
 
         return this;
-    },
+    }
 
     /**
      * Sets the active state of the given Scene.
@@ -689,11 +701,11 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    setActive: function (value, key, data)
+    setActive(value: boolean, key?: string | any, data?: any): this
     {
         if (key === undefined) { key = this.key; }
 
-        var scene = this.manager.getScene(key);
+        const scene = this.manager.getScene(key);
 
         if (scene)
         {
@@ -701,7 +713,7 @@ var ScenePlugin = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Sets the visible state of the given Scene.
@@ -717,11 +729,11 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    setVisible: function (value, key)
+    setVisible(value: boolean, key?: string | any): this
     {
         if (key === undefined) { key = this.key; }
 
-        var scene = this.manager.getScene(key);
+        const scene = this.manager.getScene(key);
 
         if (scene)
         {
@@ -729,7 +741,7 @@ var ScenePlugin = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Checks if the given Scene is sleeping or not?
@@ -744,12 +756,12 @@ var ScenePlugin = new Class({
      *
      * @return {boolean} Whether the Scene is sleeping, or `null` if no matching Scene was found.
      */
-    isSleeping: function (key)
+    isSleeping(key?: string | any): boolean
     {
         if (key === undefined) { key = this.key; }
 
         return this.manager.isSleeping(key);
-    },
+    }
 
     /**
      * Checks if the given Scene is running or not?
@@ -764,12 +776,12 @@ var ScenePlugin = new Class({
      *
      * @return {boolean} Whether the Scene is running, or `null` if no matching Scene was found.
      */
-    isActive: function (key)
+    isActive(key?: string | any): boolean
     {
         if (key === undefined) { key = this.key; }
 
         return this.manager.isActive(key);
-    },
+    }
 
     /**
      * Checks if the given Scene is paused or not?
@@ -784,12 +796,12 @@ var ScenePlugin = new Class({
      *
      * @return {boolean} Whether the Scene is paused, or `null` if no matching Scene was found.
      */
-    isPaused: function (key)
+    isPaused(key?: string | any): boolean
     {
         if (key === undefined) { key = this.key; }
 
         return this.manager.isPaused(key);
-    },
+    }
 
     /**
      * Checks if the given Scene is visible or not?
@@ -804,12 +816,12 @@ var ScenePlugin = new Class({
      *
      * @return {boolean} Whether the Scene is visible, or `null` if no matching Scene was found.
      */
-    isVisible: function (key)
+    isVisible(key?: string | any): boolean
     {
         if (key === undefined) { key = this.key; }
 
         return this.manager.isVisible(key);
-    },
+    }
 
     /**
      * Swaps the position of two scenes in the Scenes list.
@@ -827,7 +839,7 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    swapPosition: function (keyA, keyB)
+    swapPosition(keyA: string | any, keyB?: string | any): this
     {
         if (keyB === undefined) { keyB = this.key; }
 
@@ -837,7 +849,7 @@ var ScenePlugin = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Moves a Scene so it is immediately above another Scene in the Scenes list.
@@ -856,7 +868,7 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    moveAbove: function (keyA, keyB)
+    moveAbove(keyA: string | any, keyB?: string | any): this
     {
         if (keyB === undefined) { keyB = this.key; }
 
@@ -866,7 +878,7 @@ var ScenePlugin = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Moves a Scene so it is immediately below another Scene in the Scenes list.
@@ -885,7 +897,7 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    moveBelow: function (keyA, keyB)
+    moveBelow(keyA: string | any, keyB?: string | any): this
     {
         if (keyB === undefined) { keyB = this.key; }
 
@@ -895,7 +907,7 @@ var ScenePlugin = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Removes a Scene from the SceneManager.
@@ -916,14 +928,14 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    remove: function (key)
+    remove(key?: string | any): this
     {
         if (key === undefined) { key = this.key; }
 
         this.manager.remove(key);
 
         return this;
-    },
+    }
 
     /**
      * Moves a Scene up one position in the Scenes list.
@@ -938,14 +950,14 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    moveUp: function (key)
+    moveUp(key?: string | any): this
     {
         if (key === undefined) { key = this.key; }
 
         this.manager.moveUp(key);
 
         return this;
-    },
+    }
 
     /**
      * Moves a Scene down one position in the Scenes list.
@@ -960,14 +972,14 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    moveDown: function (key)
+    moveDown(key?: string | any): this
     {
         if (key === undefined) { key = this.key; }
 
         this.manager.moveDown(key);
 
         return this;
-    },
+    }
 
     /**
      * Brings a Scene to the top of the Scenes list.
@@ -984,14 +996,14 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    bringToTop: function (key)
+    bringToTop(key?: string | any): this
     {
         if (key === undefined) { key = this.key; }
 
         this.manager.bringToTop(key);
 
         return this;
-    },
+    }
 
     /**
      * Sends a Scene to the back of the Scenes list.
@@ -1008,14 +1020,14 @@ var ScenePlugin = new Class({
      *
      * @return {this} This Scene Plugin instance.
      */
-    sendToBack: function (key)
+    sendToBack(key?: string | any): this
     {
         if (key === undefined) { key = this.key; }
 
         this.manager.sendToBack(key);
 
         return this;
-    },
+    }
 
     /**
      * Retrieves a Scene based on the given key.
@@ -1034,10 +1046,10 @@ var ScenePlugin = new Class({
      *
      * @return {Phaser.Scene} The Scene.
      */
-    get: function (key)
+    get(key: string | any): any
     {
         return this.manager.getScene(key);
-    },
+    }
 
     /**
      * Return the status of the Scene.
@@ -1052,15 +1064,15 @@ var ScenePlugin = new Class({
      *
      * @return {number} The Scene status. This maps to the `Phaser.Scene` constants, such as `Phaser.Scene.LOADING`.
      */
-    getStatus: function (key)
+    getStatus(key: string | any): number | undefined
     {
-        var scene = this.manager.getScene(key);
+        const scene = this.manager.getScene(key);
 
         if (scene)
         {
             return scene.sys.getStatus();
         }
-    },
+    }
 
     /**
      * Retrieves the numeric index of a Scene in the Scenes list.
@@ -1075,12 +1087,12 @@ var ScenePlugin = new Class({
      *
      * @return {number} The index of the Scene.
      */
-    getIndex: function (key)
+    getIndex(key?: string | any): number
     {
         if (key === undefined) { key = this.key; }
 
         return this.manager.getIndex(key);
-    },
+    }
 
     /**
      * The Scene that owns this plugin is shutting down.
@@ -1091,13 +1103,13 @@ var ScenePlugin = new Class({
      * @private
      * @since 3.0.0
      */
-    shutdown: function ()
+    shutdown(): void
     {
-        var eventEmitter = this.systems.events;
+        const eventEmitter = this.systems.events;
 
         eventEmitter.off(Events.SHUTDOWN, this.shutdown, this);
         eventEmitter.off(Events.TRANSITION_OUT);
-    },
+    }
 
     /**
      * The Scene that owns this plugin is being destroyed.
@@ -1108,7 +1120,7 @@ var ScenePlugin = new Class({
      * @private
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy(): void
     {
         this.shutdown();
 
@@ -1120,8 +1132,6 @@ var ScenePlugin = new Class({
         this.manager = null;
     }
 
-});
+}
 
 PluginCache.register('ScenePlugin', ScenePlugin, 'scenePlugin');
-
-module.exports = ScenePlugin;
