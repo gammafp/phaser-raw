@@ -11,9 +11,10 @@ import { NOOP } from '../../utils/NOOP';
 import { IsSizePowerOfTwo } from '../../math/pow2/IsSizePowerOfTwo';
 import { Each as ArrayEach } from '../../utils/array/Each';
 import { Remove as ArrayRemove } from '../../utils/array/Remove';
+import { PHASER_CONST as CONST } from '../../const';
+
 var CameraEvents = require('../../cameras/2d/events');
 var Class = require('../../utils/Class');
-var CONST = require('../../const');
 var EventEmitter = require('eventemitter3');
 var Events = require('../events');
 var Matrix4 = require('../../math/Matrix4');

@@ -7,8 +7,7 @@
 // TODO: Convert this file to TypeScript
 
 import { Extend } from '../utils/object/Extend';
-
-var CONST = require('./const');
+import { PHASER_CONST as CONST } from '../const';
 
 /**
  * @namespace Phaser.Scale

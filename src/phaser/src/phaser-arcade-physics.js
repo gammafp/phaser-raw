@@ -4,14 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-require('./polyfills/requestVideoFrame');
+import './polyfills/requestVideoFrame';
 
 // TODO: Convert this file to TypeScript
 
 import { Extend } from './utils/object/Extend';
 import { Scene } from './scene/Scene';
-
-var CONST = require('./const');
+import { PHASER_CONST as CONST } from './const';
 
 /**
  * @namespace Phaser

@@ -4,7 +4,7 @@
 */
 if (!Array.prototype.forEach)
 {
-    Array.prototype.forEach = function (fun /*, thisArg */)
+    Array.prototype.forEach = function (fun: Function /*, thisArg */)
     {
         'use strict';
 
@@ -13,17 +13,17 @@ if (!Array.prototype.forEach)
             throw new TypeError();
         }
 
-        var t = Object(this);
-        var len = t.length >>> 0;
+        const t = Object(this);
+        const len = t.length >>> 0;
 
         if (typeof fun !== 'function')
         {
             throw new TypeError();
         }
 
-        var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+        const thisArg = arguments.length >= 2 ? arguments[1] : void 0;
 
-        for (var i = 0; i < len; i++)
+        for (let i = 0; i < len; i++)
         {
             if (i in t)
             {

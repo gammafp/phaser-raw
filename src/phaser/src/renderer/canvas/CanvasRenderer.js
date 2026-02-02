@@ -5,10 +5,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { PHASER_CONST as CONST } from '../../const';
+
 var CameraEvents = require('../../cameras/2d/events');
 var CanvasSnapshot = require('../snapshot/CanvasSnapshot');
 var Class = require('../../utils/Class');
-var CONST = require('../../const');
 var EventEmitter = require('eventemitter3');
 var Events = require('../events');
 var GetBlendModes = require('./utils/GetBlendModes');

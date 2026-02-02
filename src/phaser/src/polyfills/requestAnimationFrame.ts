@@ -6,27 +6,27 @@
 // https://github.com/Financial-Times/polyfill-service/tree/master/polyfills/requestAnimationFrame
 
 // requestAnimationFrame
-var lastTime = Date.now();
+let lastTime = Date.now();
 
-var vendors = [ 'ms', 'moz', 'webkit', 'o' ];
+const vendors = [ 'ms', 'moz', 'webkit', 'o' ];
 
-for (var x = 0; x < vendors.length && !window.requestAnimationFrame; x++)
+for (let x = 0; x < vendors.length && !window.requestAnimationFrame; x++)
 {
-    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
-    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+    (window as any).requestAnimationFrame = (window as any)[vendors[x] + 'RequestAnimationFrame'];
+    (window as any).cancelAnimationFrame = (window as any)[vendors[x] + 'CancelAnimationFrame'] || (window as any)[vendors[x] + 'CancelRequestAnimationFrame'];
 }
 
 if (!window.requestAnimationFrame)
 {
-    window.requestAnimationFrame = function (callback)
+    window.requestAnimationFrame = function (callback: FrameRequestCallback): number
     {
         if (typeof callback !== 'function')
         {
             throw new TypeError(callback + 'is not a function');
         }
 
-        var currentTime = Date.now();
-        var delay = 16 + lastTime - currentTime;
+        const currentTime = Date.now();
+        let delay = 16 + lastTime - currentTime;
 
         if (delay < 0)
         {
@@ -44,7 +44,7 @@ if (!window.requestAnimationFrame)
 
 if (!window.cancelAnimationFrame)
 {
-    window.cancelAnimationFrame = function(id)
+    window.cancelAnimationFrame = function(id: number): void
     {
         clearTimeout(id);
     };

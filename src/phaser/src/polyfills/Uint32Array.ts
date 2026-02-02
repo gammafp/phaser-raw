@@ -5,11 +5,11 @@
 */
 if (typeof window.Uint32Array !== 'function' && typeof window.Uint32Array !== 'object')
 {
-    var CheapArray = function (fakeType)
+    const CheapArray = function (fakeType: string)
     {
-        var proto = new Array(); // jshint ignore:line
+        const proto = new Array(); // jshint ignore:line
 
-        window[fakeType] = function(arg) {
+        (window as any)[fakeType] = function(arg: any) {
 
             if (typeof(arg) === 'number')
             {
@@ -17,7 +17,7 @@ if (typeof window.Uint32Array !== 'function' && typeof window.Uint32Array !== 'o
 
                 this.length = arg;
 
-                for (var i = 0; i < this.length; i++)
+                for (let i = 0; i < this.length; i++)
                 {
                     this[i] = 0;
                 }
@@ -28,15 +28,15 @@ if (typeof window.Uint32Array !== 'function' && typeof window.Uint32Array !== 'o
 
                 this.length = arg.length;
 
-                for (var i = 0; i < this.length; i++)
+                for (let i = 0; i < this.length; i++)
                 {
                     this[i] = arg[i];
                 }
             }
         };
 
-        window[fakeType].prototype = proto;
-        window[fakeType].constructor = window[fakeType];
+        (window as any)[fakeType].prototype = proto;
+        (window as any)[fakeType].constructor = (window as any)[fakeType];
     };
 
     CheapArray('Float32Array'); // jshint ignore:line

@@ -9,7 +9,7 @@
 
 require('./polyfills/requestVideoFrame');
 
-var CONST = require('./const');
+import { PHASER_CONST as CONST } from './const';
 
 /**
  * @namespace Phaser

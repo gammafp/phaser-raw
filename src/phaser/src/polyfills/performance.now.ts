@@ -5,7 +5,7 @@
 
     if ('performance' in window === false)
     {
-        window.performance = {};
+        (window as any).performance = {};
     }
 
     //  Thanks IE8
@@ -15,7 +15,7 @@
 
     if ('now' in window.performance === false)
     {
-        var nowOffset = Date.now();
+        let nowOffset = Date.now();
 
         if (performance.timing && performance.timing.navigationStart)
         {

@@ -1,0 +1,9 @@
+import './Array.forEach';
+import './Array.isArray';
+import './AudioContextMonkeyPatch';
+import './console';
+import './Math.trunc';
+import './performance.now';
+import './requestAnimationFrame';
+import './requestVideoFrame';
+import './Uint32Array';

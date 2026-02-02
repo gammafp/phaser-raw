@@ -6,7 +6,7 @@
 
 import { CanvasInterpolation } from '../display/canvas/CanvasInterpolation';
 import { CanvasPool } from '../display/canvas/CanvasPool';
-var CONST = require('../const');
+import { PHASER_CONST as CONST } from '../const';
 var Features = require('../device/Features');
 
 /**

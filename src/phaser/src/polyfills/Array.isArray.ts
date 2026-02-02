@@ -3,7 +3,7 @@
 */
 if (!Array.isArray)
 {
-    Array.isArray = function (arg)
+    Array.isArray = function (arg: any): arg is any[]
     {
         return Object.prototype.toString.call(arg) === '[object Array]';
     };

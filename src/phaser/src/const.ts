@@ -10,7 +10,10 @@
  * @ignore
  */
 
-var CONST = {
+const BlendModes = require('./renderer/BlendModes');
+const ScaleModes = require('./renderer/ScaleModes');
+
+export const PHASER_CONST = {
 
     /**
      * Phaser Release Version
@@ -32,9 +35,9 @@ var CONST = {
      */
     LOG_VERSION: 'v390',
 
-    BlendModes: require('./renderer/BlendModes'),
+    BlendModes: BlendModes,
 
-    ScaleModes: require('./renderer/ScaleModes'),
+    ScaleModes: ScaleModes,
 
     /**
      * This setting will auto-detect if the browser is capable of suppporting WebGL.
@@ -144,5 +147,3 @@ var CONST = {
     RIGHT: 8
 
 };
-
-module.exports = CONST;

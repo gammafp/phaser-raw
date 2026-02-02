@@ -9,10 +9,11 @@
 import { GetFastValue } from '../utils/object/GetFastValue';
 import { CanvasPool } from '../display/canvas/CanvasPool';
 
+import { PHASER_CONST as CONST } from '../const';
+
 var BlendModes = require('../renderer/BlendModes');
 var Camera = require('../cameras/2d/Camera');
 var Class = require('../utils/Class');
-var CONST = require('../const');
 var Frame = require('./Frame');
 var PIPELINES = require('../renderer/webgl/pipelines/const');
 var RenderTarget = require('../renderer/webgl/RenderTarget');

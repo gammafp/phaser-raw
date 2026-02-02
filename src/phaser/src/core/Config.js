@@ -11,9 +11,9 @@ import { GetValue } from '../utils/object/GetValue';
 import { IsPlainObject } from '../utils/object/IsPlainObject';
 import { NOOP } from '../utils/NOOP';
 import { ValueToColor } from '../display/color/ValueToColor';
+import { PHASER_CONST as CONST } from '../const';
 
 var Class = require('../utils/Class');
-var CONST = require('../const');
 var DefaultPlugins = require('../plugins/DefaultPlugins');
 var Device = require('../device');
 var PhaserMath = require('../math/');

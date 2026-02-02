@@ -11,9 +11,10 @@ import { GetValue } from '../utils/object/GetValue';
 import { IsPlainObject } from '../utils/object/IsPlainObject';
 import { GenerateTexture } from '../create/GenerateTexture';
 import { CanvasPool } from '../display/canvas/CanvasPool';
+import { PHASER_CONST as CONST } from '../const';
+
 var CanvasTexture = require('./CanvasTexture');
 var Class = require('../utils/Class');
-var CONST = require('../const');
 var DynamicTexture = require('./DynamicTexture');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
