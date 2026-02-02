@@ -12,7 +12,7 @@ import { IsPlainObject } from '../../utils/object/IsPlainObject';
 var Class = require('../../utils/Class');
 import { FileTypesManager } from '../FileTypesManager';
 var ImageFile = require('./ImageFile');
-var MultiFile = require('../MultiFile');
+import { MultiFile } from '../MultiFile';
 var XMLFile = require('./XMLFile');
 
 /**

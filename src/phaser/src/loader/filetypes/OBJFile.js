@@ -12,7 +12,7 @@ import { ParseObjMaterial } from '../../geom/mesh/ParseObjMaterial';
 
 var Class = require('../../utils/Class');
 import { FileTypesManager } from '../FileTypesManager';
-var MultiFile = require('../MultiFile');
+import { MultiFile } from '../MultiFile';
 var ParseObj = require('../../geom/mesh/ParseObj');
 var TextFile = require('./TextFile');
 

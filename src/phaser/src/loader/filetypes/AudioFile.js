@@ -11,7 +11,7 @@ import { IsPlainObject } from '../../utils/object/IsPlainObject';
 import { LOADER_CONST as CONST } from '../const';
 
 var Class = require('../../utils/Class');
-var File = require('../File');
+import { File } from '../File';
 import { FileTypesManager } from '../FileTypesManager';
 var HTML5AudioFile = require('./HTML5AudioFile');
 
@@ -35,14 +35,10 @@ var HTML5AudioFile = require('./HTML5AudioFile');
  * @param {Phaser.Types.Loader.XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
  * @param {AudioContext} [audioContext] - The AudioContext this file will use to process itself.
  */
-var AudioFile = new Class({
+var AudioFile = class extends File {
 
-    Extends: File,
-
-    initialize:
-
-    //  URL is an object created by AudioFile.findAudioURL
-    function AudioFile (loader, key, urlConfig, xhrSettings, audioContext)
+    constructor//  URL is an object created by AudioFile.findAudioURL
+    (loader, key, urlConfig, xhrSettings, audioContext)
     {
         if (IsPlainObject(key))
         {
@@ -64,8 +60,8 @@ var AudioFile = new Class({
             config: { context: audioContext }
         };
 
-        File.call(this, loader, fileConfig);
-    },
+        super(loader, fileConfig);
+    }
 
     /**
      * Called automatically by Loader.nextFile.
@@ -74,7 +70,7 @@ var AudioFile = new Class({
      * @method Phaser.Loader.FileTypes.AudioFile#onProcess
      * @since 3.0.0
      */
-    onProcess: function ()
+    onProcess()
     {
         this.state = CONST.FILE_PROCESSING;
 
@@ -100,7 +96,7 @@ var AudioFile = new Class({
         this.config.context = null;
     }
 
-});
+};
 
 AudioFile.create = function (loader, key, urls, config, xhrSettings)
 {

@@ -13,7 +13,7 @@ var Class = require('../../utils/Class');
 import { FileTypesManager } from '../FileTypesManager';
 var ImageFile = require('./ImageFile');
 var JSONFile = require('./JSONFile');
-var MultiFile = require('../MultiFile');
+import { MultiFile } from '../MultiFile';
 
 /**
  * @classdesc

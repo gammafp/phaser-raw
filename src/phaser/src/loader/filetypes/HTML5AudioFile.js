@@ -11,7 +11,7 @@ import { IsPlainObject } from '../../utils/object/IsPlainObject';
 
 var Class = require('../../utils/Class');
 var Events = require('../events');
-var File = require('../File');
+import { File } from '../File';
 import { GetURL } from '../GetURL';
 
 /**

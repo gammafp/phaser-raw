@@ -11,7 +11,7 @@ import { IsPlainObject } from '../../utils/object/IsPlainObject';
 
 var Class = require('../../utils/Class');
 import { FileTypesManager } from '../FileTypesManager';
-var MultiFile = require('../MultiFile');
+import { MultiFile } from '../MultiFile';
 var ScriptFile = require('./ScriptFile');
 
 /**

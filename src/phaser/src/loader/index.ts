@@ -15,12 +15,12 @@ import { LOADER_CONST } from './const';
  * @namespace Phaser.Loader
  */
 
-const File = require('./File');
+import { File } from './File';
 import { FileTypesManager } from './FileTypesManager';
 import { GetURL } from './GetURL';
 const LoaderPlugin = require('./LoaderPlugin');
 import { MergeXHRSettings } from './MergeXHRSettings';
-const MultiFile = require('./MultiFile');
+import { MultiFile } from './MultiFile';
 import { XHRLoader } from './XHRLoader';
 import { XHRSettings } from './XHRSettings';
 

@@ -5,9 +5,11 @@
  */
 
 import { LOADER_CONST as CONST } from './const';
+import { FILE_COMPLETE, FILE_KEY_COMPLETE } from './events';
 
-var Class = require('../utils/Class');
-var Events = require('./events');
+// TODO: Replace with proper types when File and LoaderPlugin are converted to TypeScript
+type LoaderPlugin = any;
+type File = any;
 
 /**
  * @classdesc
@@ -26,16 +28,137 @@ var Events = require('./events');
  * @param {string} key - The key of the file within the loader.
  * @param {Phaser.Loader.File[]} files - An array of Files that make-up this MultiFile.
  */
-var MultiFile = new Class({
+export class MultiFile {
 
-    initialize:
+    /**
+     * A reference to the Loader that is going to load this file.
+     *
+     * @name Phaser.Loader.MultiFile#loader
+     * @type {Phaser.Loader.LoaderPlugin}
+     * @since 3.7.0
+     */
+    loader: LoaderPlugin;
 
-    function MultiFile (loader, type, key, files)
+    /**
+     * The file type string for sorting within the Loader.
+     *
+     * @name Phaser.Loader.MultiFile#type
+     * @type {string}
+     * @since 3.7.0
+     */
+    type: string;
+
+    /**
+     * Unique cache key (unique within its file type)
+     *
+     * @name Phaser.Loader.MultiFile#key
+     * @type {string}
+     * @since 3.7.0
+     */
+    key: string;
+
+    /**
+     * The current index being used by multi-file loaders to avoid key clashes.
+     *
+     * @name Phaser.Loader.MultiFile#multiKeyIndex
+     * @type {number}
+     * @private
+     * @since 3.20.0
+     */
+    multiKeyIndex: number;
+
+    /**
+     * Array of files that make up this MultiFile.
+     *
+     * @name Phaser.Loader.MultiFile#files
+     * @type {Phaser.Loader.File[]}
+     * @since 3.7.0
+     */
+    files: File[];
+
+    /**
+     * The current state of the file. One of the FILE_CONST values.
+     *
+     * @name Phaser.Loader.MultiFile#state
+     * @type {number}
+     * @since 3.60.0
+     */
+    state: number;
+
+    /**
+     * The completion status of this MultiFile.
+     *
+     * @name Phaser.Loader.MultiFile#complete
+     * @type {boolean}
+     * @default false
+     * @since 3.7.0
+     */
+    complete: boolean;
+
+    /**
+     * The number of files to load.
+     *
+     * @name Phaser.Loader.MultiFile#pending
+     * @type {number}
+     * @since 3.7.0
+     */
+    pending: number;
+
+    /**
+     * The number of files that failed to load.
+     *
+     * @name Phaser.Loader.MultiFile#failed
+     * @type {number}
+     * @default 0
+     * @since 3.7.0
+     */
+    failed: number;
+
+    /**
+     * A storage container for transient data that the loading files need.
+     *
+     * @name Phaser.Loader.MultiFile#config
+     * @type {any}
+     * @since 3.7.0
+     */
+    config: any;
+
+    /**
+     * A reference to the Loaders baseURL at the time this MultiFile was created.
+     * Used to populate child-files.
+     *
+     * @name Phaser.Loader.MultiFile#baseURL
+     * @type {string}
+     * @since 3.20.0
+     */
+    baseURL: string;
+
+    /**
+     * A reference to the Loaders path at the time this MultiFile was created.
+     * Used to populate child-files.
+     *
+     * @name Phaser.Loader.MultiFile#path
+     * @type {string}
+     * @since 3.20.0
+     */
+    path: string;
+
+    /**
+     * A reference to the Loaders prefix at the time this MultiFile was created.
+     * Used to populate child-files.
+     *
+     * @name Phaser.Loader.MultiFile#prefix
+     * @type {string}
+     * @since 3.20.0
+     */
+    prefix: string;
+
+    constructor(loader: LoaderPlugin, type: string, key: string, files: File[])
     {
-        var finalFiles = [];
+        const finalFiles: File[] = [];
 
         //  Clean out any potential 'null' or 'undefined' file entries
-        files.forEach(function (file)
+        files.forEach(function (file: File)
         {
             if (file)
             {
@@ -70,7 +193,7 @@ var MultiFile = new Class({
          */
         this.key = key;
 
-        var loadKey = this.key;
+        const loadKey = this.key;
 
         if (loader.prefix && loader.prefix !== '')
         {
@@ -175,11 +298,11 @@ var MultiFile = new Class({
         this.prefix = loader.prefix;
 
         //  Link the files
-        for (var i = 0; i < finalFiles.length; i++)
+        for (let i = 0; i < finalFiles.length; i++)
         {
             finalFiles[i].multiFile = this;
         }
-    },
+    }
 
     /**
      * Checks if this MultiFile is ready to process its children or not.
@@ -189,10 +312,10 @@ var MultiFile = new Class({
      *
      * @return {boolean} `true` if all children of this MultiFile have loaded, otherwise `false`.
      */
-    isReadyToProcess: function ()
+    isReadyToProcess(): boolean
     {
         return (this.pending === 0 && this.failed === 0 && !this.complete);
-    },
+    }
 
     /**
      * Adds another child to this MultiFile, increases the pending count and resets the completion status.
@@ -204,7 +327,7 @@ var MultiFile = new Class({
      *
      * @return {Phaser.Loader.MultiFile} This MultiFile instance.
      */
-    addToMultiFile: function (file)
+    addToMultiFile(file: File): MultiFile
     {
         this.files.push(file);
 
@@ -215,7 +338,7 @@ var MultiFile = new Class({
         this.complete = false;
 
         return this;
-    },
+    }
 
     /**
      * Called by each File when it finishes loading.
@@ -225,15 +348,15 @@ var MultiFile = new Class({
      *
      * @param {Phaser.Loader.File} file - The File that has completed processing.
      */
-    onFileComplete: function (file)
+    onFileComplete(file: File): void
     {
-        var index = this.files.indexOf(file);
+        const index = this.files.indexOf(file);
 
         if (index !== -1)
         {
             this.pending--;
         }
-    },
+    }
 
     /**
      * Called by each File that fails to load.
@@ -243,9 +366,9 @@ var MultiFile = new Class({
      *
      * @param {Phaser.Loader.File} file - The File that has failed to load.
      */
-    onFileFailed: function (file)
+    onFileFailed(file: File): void
     {
-        var index = this.files.indexOf(file);
+        const index = this.files.indexOf(file);
 
         if (index !== -1)
         {
@@ -254,7 +377,7 @@ var MultiFile = new Class({
             // eslint-disable-next-line no-console
             console.error('File failed: %s "%s" (via %s "%s")', this.type, this.key, file.type, file.key);
         }
-    },
+    }
 
     /**
      * Called once all children of this multi file have been added to their caches and is now
@@ -267,28 +390,28 @@ var MultiFile = new Class({
      * @fires Phaser.Loader.Events#FILE_KEY_COMPLETE
      * @since 3.60.0
      */
-    pendingDestroy: function ()
+    pendingDestroy(): void
     {
         if (this.state === CONST.FILE_PENDING_DESTROY)
         {
             return;
         }
 
-        var key = this.key;
-        var type = this.type;
+        const key = this.key;
+        const type = this.type;
 
-        this.loader.emit(Events.FILE_COMPLETE, key, type);
-        this.loader.emit(Events.FILE_KEY_COMPLETE + type + '-' + key, key, type);
+        this.loader.emit(FILE_COMPLETE, key, type);
+        this.loader.emit(FILE_KEY_COMPLETE + type + '-' + key, key, type);
 
         this.loader.flagForRemoval(this);
 
-        for (var i = 0; i < this.files.length; i++)
+        for (let i = 0; i < this.files.length; i++)
         {
             this.files[i].pendingDestroy();
         }
 
         this.state = CONST.FILE_PENDING_DESTROY;
-    },
+    }
 
     /**
      * Destroy this Multi File and any references it holds.
@@ -296,13 +419,11 @@ var MultiFile = new Class({
      * @method Phaser.Loader.MultiFile#destroy
      * @since 3.60.0
      */
-    destroy: function ()
+    destroy(): void
     {
         this.loader = null;
         this.files = null;
         this.config = null;
     }
 
-});
-
-module.exports = MultiFile;
+}

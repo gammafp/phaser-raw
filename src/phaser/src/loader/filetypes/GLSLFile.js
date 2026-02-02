@@ -12,7 +12,7 @@ import { LOADER_CONST as CONST } from '../const';
 import { BaseShader as Shader } from '../../display/shader/BaseShader';
 
 var Class = require('../../utils/Class');
-var File = require('../File');
+import { File } from '../File';
 import { FileTypesManager } from '../FileTypesManager';
 
 /**

@@ -18,7 +18,7 @@ var ImageFile = require('./ImageFile');
 var JSONFile = require('./JSONFile');
 var KTXParser = require('../../textures/parsers/KTXParser');
 var MultiAtlasFile = require('./MultiAtlasFile');
-var MultiFile = require('../MultiFile');
+import { MultiFile } from '../MultiFile';
 var PVRParser = require('../../textures/parsers/PVRParser');
 var verifyCompressedTexture = require('../../textures/parsers/VerifyCompressedTexture');
 

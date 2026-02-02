@@ -13,7 +13,7 @@ import { IsPlainObject } from '../../utils/object/IsPlainObject';
 import { LOADER_CONST as CONST } from '../const';
 
 var Class = require('../../utils/Class');
-var File = require('../File');
+import { File } from '../File';
 import { FileTypesManager } from '../FileTypesManager';
 
 /**

@@ -13,7 +13,7 @@ var AudioFile = require('./AudioFile');
 var Class = require('../../utils/Class');
 import { FileTypesManager } from '../FileTypesManager';
 var JSONFile = require('./JSONFile');
-var MultiFile = require('../MultiFile');
+import { MultiFile } from '../MultiFile';
 
 /**
  * @classdesc
