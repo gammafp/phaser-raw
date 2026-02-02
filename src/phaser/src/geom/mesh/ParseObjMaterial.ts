@@ -24,24 +24,24 @@ import { GetColor } from '../../display/color/GetColor';
  *
  * @return {object} The parsed material colors, where each property of the object matches the material name.
  */
-var ParseObjMaterial = function (mtl)
+export const ParseObjMaterial = (mtl: string): Record<string, number> =>
 {
-    var output = {};
+    const output: Record<string, number> = {};
 
-    var lines = mtl.split('\n');
+    const lines = mtl.split('\n');
 
-    var currentMaterial = '';
+    let currentMaterial = '';
 
-    for (var i = 0; i < lines.length; i++)
+    for (let i = 0; i < lines.length; i++)
     {
-        var line = lines[i].trim();
+        const line = lines[i].trim();
 
         if (line.indexOf('#') === 0 || line === '')
         {
             continue;
         }
 
-        var lineItems = line.replace(/\s\s+/g, ' ').trim().split(' ');
+        const lineItems = line.replace(/\s\s+/g, ' ').trim().split(' ');
 
         switch (lineItems[0].toLowerCase())
         {
@@ -55,9 +55,9 @@ var ParseObjMaterial = function (mtl)
             //  Support r, [g], [b] format, where g and b are optional
             case 'kd':
             {
-                var r = Math.floor(lineItems[1] * 255);
-                var g = (lineItems.length >= 2) ? Math.floor(lineItems[2] * 255) : r;
-                var b = (lineItems.length >= 3) ? Math.floor(lineItems[3] * 255) : r;
+                const r = Math.floor(lineItems[1] * 255);
+                const g = (lineItems.length >= 2) ? Math.floor(lineItems[2] * 255) : r;
+                const b = (lineItems.length >= 3) ? Math.floor(lineItems[3] * 255) : r;
 
                 output[currentMaterial] = GetColor(r, g, b);
 
@@ -68,5 +68,3 @@ var ParseObjMaterial = function (mtl)
 
     return output;
 };
-
-export default ParseObjMaterial;

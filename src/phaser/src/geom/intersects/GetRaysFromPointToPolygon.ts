@@ -4,38 +4,39 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Vector4 = require('../../math/Vector4');
-var GetLineToPolygon = require('./GetLineToPolygon');
-var Line = require('../line/Line');
+import { GetLineToPolygon } from './GetLineToPolygon';
+
+const Vector4 = require('../../math/Vector4');
+const Line = require('../line/Line');
 
 //  Temp calculation segment
-var segment = new Line();
+const segment = new Line();
 
 /**
  * @ignore
  */
-function CheckIntersects (angle, x, y, polygons, intersects)
+const CheckIntersects = (angle: number, x: number, y: number, polygons: any, intersects: any[]): void =>
 {
-    var dx = Math.cos(angle);
-    var dy = Math.sin(angle);
+    const dx = Math.cos(angle);
+    const dy = Math.sin(angle);
 
     segment.setTo(x, y, x + dx, y + dy);
 
-    var closestIntersect = GetLineToPolygon(segment, polygons, true);
+    const closestIntersect = GetLineToPolygon(segment, polygons, true);
 
     if (closestIntersect)
     {
         intersects.push(new Vector4(closestIntersect.x, closestIntersect.y, angle, closestIntersect.w));
     }
-}
+};
 
 /**
  * @ignore
  */
-function SortIntersects (a, b)
+const SortIntersects = (a: any, b: any): number =>
 {
     return a.z - b.z;
-}
+};
 
 /**
  * Projects rays out from the given point to each line segment of the polygons.
@@ -59,23 +60,23 @@ function SortIntersects (a, b)
  *
  * @return {Phaser.Math.Vector4[]} An array containing all intersections in Vector4s.
  */
-var GetRaysFromPointToPolygon = function (x, y, polygons)
+export const GetRaysFromPointToPolygon = (x: number, y: number, polygons: any): any[] =>
 {
     if (!Array.isArray(polygons))
     {
         polygons = [ polygons ];
     }
 
-    var intersects = [];
-    var angles = [];
+    const intersects: any[] = [];
+    const angles: number[] = [];
 
-    for (var i = 0; i < polygons.length; i++)
+    for (let i = 0; i < polygons.length; i++)
     {
-        var points = polygons[i].points;
+        const points = polygons[i].points;
 
-        for (var p = 0; p < points.length; p++)
+        for (let p = 0; p < points.length; p++)
         {
-            var angle = Math.atan2(points[p].y - y, points[p].x - x);
+            const angle = Math.atan2(points[p].y - y, points[p].x - x);
 
             if (angles.indexOf(angle) === -1)
             {
@@ -92,5 +93,3 @@ var GetRaysFromPointToPolygon = function (x, y, polygons)
 
     return intersects.sort(SortIntersects);
 };
-
-module.exports = GetRaysFromPointToPolygon;

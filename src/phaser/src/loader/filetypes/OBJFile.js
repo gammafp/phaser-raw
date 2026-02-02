@@ -8,12 +8,12 @@
 
 import { GetFastValue } from '../../utils/object/GetFastValue';
 import { IsPlainObject } from '../../utils/object/IsPlainObject';
+import { ParseObjMaterial } from '../../geom/mesh/ParseObjMaterial';
 
 var Class = require('../../utils/Class');
 var FileTypesManager = require('../FileTypesManager');
 var MultiFile = require('../MultiFile');
 var ParseObj = require('../../geom/mesh/ParseObj');
-var ParseObjMaterial = require('../../geom/mesh/ParseObjMaterial');
 var TextFile = require('./TextFile');
 
 /**

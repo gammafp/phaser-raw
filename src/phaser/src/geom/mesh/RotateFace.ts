@@ -19,29 +19,29 @@
  * @param {number} [cx] - An optional center of rotation. If not given, the Face in-center is used.
  * @param {number} [cy] - An optional center of rotation. If not given, the Face in-center is used.
  */
-var RotateFace = function (face, angle, cx, cy)
+export const RotateFace = (face: any, angle: number, cx?: number, cy?: number): void =>
 {
-    var x;
-    var y;
+    let x;
+    let y;
 
     //  No point of rotation? Use the inCenter instead, then.
     if (cx === undefined && cy === undefined)
     {
-        var inCenter = face.getInCenter();
+        const inCenter = face.getInCenter();
 
         x = inCenter.x;
         y = inCenter.y;
     }
 
-    var c = Math.cos(angle);
-    var s = Math.sin(angle);
+    const c = Math.cos(angle);
+    const s = Math.sin(angle);
 
-    var v1 = face.vertex1;
-    var v2 = face.vertex2;
-    var v3 = face.vertex3;
+    const v1 = face.vertex1;
+    const v2 = face.vertex2;
+    const v3 = face.vertex3;
 
-    var tx = v1.x - x;
-    var ty = v1.y - y;
+    let tx = v1.x - x;
+    let ty = v1.y - y;
 
     v1.set(tx * c - ty * s + x, tx * s + ty * c + y);
 
@@ -55,5 +55,3 @@ var RotateFace = function (face, angle, cx, cy)
 
     v3.set(tx * c - ty * s + x, tx * s + ty * c + y);
 };
-
-module.exports = RotateFace;
