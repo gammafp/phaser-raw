@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var ALIGN_CONST = {
+export const ALIGN_CONST = {
 
     /**
     * A constant representing a top-left alignment or position.
@@ -124,5 +124,3 @@ var ALIGN_CONST = {
     BOTTOM_RIGHT: 12
 
 };
-
-module.exports = ALIGN_CONST;

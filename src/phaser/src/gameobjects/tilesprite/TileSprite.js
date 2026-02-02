@@ -8,12 +8,11 @@
 
 import { GetPowerOfTwo } from '../../math/pow2/GetPowerOfTwo';
 import { UUID } from '../../utils/string';
-
-var CanvasPool = require('../../display/canvas/CanvasPool');
+import { CanvasPool } from '../../display/canvas/CanvasPool';
+import { Smoothing } from '../../display/canvas/Smoothing';
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
-var Smoothing = require('../../display/canvas/Smoothing');
 var TileSpriteRender = require('./TileSpriteRender');
 var Vector2 = require('../../math/Vector2');
 

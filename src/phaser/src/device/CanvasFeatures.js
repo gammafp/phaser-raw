@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var CanvasPool = require('../display/canvas/CanvasPool');
+import { CanvasPool } from '../display/canvas/CanvasPool';
 
 /**
  * Determines the canvas features of the browser running this Phaser Game instance.

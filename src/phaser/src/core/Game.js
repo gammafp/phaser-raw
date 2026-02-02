@@ -8,9 +8,10 @@ import { SceneManager } from '../scene/SceneManager';
 import { AddToDOM } from '../dom/AddToDOM';
 import { SoundManagerCreator } from '../sound/SoundManagerCreator';
 
+import { CanvasPool } from '../display/canvas/CanvasPool';
+
 var AnimationManager = require('../animations/AnimationManager');
 var CacheManager = require('../cache/CacheManager');
-var CanvasPool = require('../display/canvas/CanvasPool');
 var Class = require('../utils/Class');
 var Config = require('./Config');
 import { CreateDOMContainer } from '../dom/CreateDOMContainer';

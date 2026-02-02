@@ -8,8 +8,7 @@
 
 import { Color } from '../../display/color/Color';
 import { GetFastValue } from '../../utils/object/GetFastValue';
-
-var CanvasPool = require('../../display/canvas/CanvasPool');
+import { CanvasPool } from '../../display/canvas/CanvasPool';
 
 /**
  * Takes a snapshot of an area from the current frame displayed by a WebGL canvas.

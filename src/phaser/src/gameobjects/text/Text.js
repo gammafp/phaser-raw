@@ -10,8 +10,7 @@ import { AddToDOM } from '../../dom/AddToDOM';
 import { GetValue } from '../../utils/object/GetValue';
 import { RemoveFromDOM } from '../../dom/RemoveFromDOM';
 import { UUID } from '../../utils/string';
-
-var CanvasPool = require('../../display/canvas/CanvasPool');
+import { CanvasPool } from '../../display/canvas/CanvasPool';
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');

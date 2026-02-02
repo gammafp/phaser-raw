@@ -7,10 +7,10 @@
 // TODO: Convert this file to TypeScript
 
 import { GetFastValue } from '../utils/object/GetFastValue';
+import { CanvasPool } from '../display/canvas/CanvasPool';
 
 var BlendModes = require('../renderer/BlendModes');
 var Camera = require('../cameras/2d/Camera');
-var CanvasPool = require('../display/canvas/CanvasPool');
 var Class = require('../utils/Class');
 var CONST = require('../const');
 var Frame = require('./Frame');

@@ -10,8 +10,7 @@ import { DistanceBetween } from '../../math/distance/DistanceBetween';
 import { GetFastValue } from '../../utils/object/GetFastValue';
 import { GetValue } from '../../utils/object/GetValue';
 import { Merge } from '../../utils/object/Merge';
-
-var ALIGN_CONST = require('../../display/align/const');
+import { ALIGN_CONST } from '../../display/align/const';
 var Axes = require('./lib/geometry/Axes');
 var Bodies = require('./lib/factory/Bodies');
 var Body = require('./lib/body/Body');

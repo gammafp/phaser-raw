@@ -32,11 +32,9 @@ var Class = require('../../utils/Class');
  * @param {Phaser.Scene} scene - This parameter is not used.
  * @param {Phaser.GameObjects.Graphics} graphicsGeometry - The Graphics Game Object to use for the Geometry Mask. Doesn't have to be in the Display List.
  */
-var GeometryMask = new Class({
+var GeometryMask = class {
 
-    initialize:
-
-    function GeometryMask (scene, graphicsGeometry)
+    constructor(scene, graphicsGeometry)
     {
         /**
          * The Graphics object which describes the Geometry Mask.
@@ -78,7 +76,7 @@ var GeometryMask = new Class({
          * @since 3.17.0
          */
         this.level = 0;
-    },
+    }
 
     /**
      * Sets a new Graphics object for the Geometry Mask.
@@ -90,12 +88,12 @@ var GeometryMask = new Class({
      *
      * @return {this} This Geometry Mask
      */
-    setShape: function (graphicsGeometry)
+    setShape(graphicsGeometry)
     {
         this.geometryMask = graphicsGeometry;
 
         return this;
-    },
+    }
 
     /**
      * Sets the `invertAlpha` property of this Geometry Mask.
@@ -111,14 +109,14 @@ var GeometryMask = new Class({
      *
      * @return {this} This Geometry Mask
      */
-    setInvertAlpha: function (value)
+    setInvertAlpha(value)
     {
         if (value === undefined) { value = true; }
 
         this.invertAlpha = value;
 
         return this;
-    },
+    }
 
     /**
      * Renders the Geometry Mask's underlying Graphics object to the OpenGL stencil buffer and enables the stencil test, which clips rendered pixels according to the mask.
@@ -130,7 +128,7 @@ var GeometryMask = new Class({
      * @param {Phaser.GameObjects.GameObject} child - The Game Object being rendered.
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera the Game Object is being rendered through.
      */
-    preRenderWebGL: function (renderer, child, camera)
+    preRenderWebGL(renderer, child, camera)
     {
         var gl = renderer.gl;
 
@@ -155,7 +153,7 @@ var GeometryMask = new Class({
         this.applyStencil(renderer, camera, true);
 
         renderer.maskCount++;
-    },
+    }
 
     /**
      * Applies the current stencil mask to the renderer.
@@ -167,7 +165,7 @@ var GeometryMask = new Class({
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera the Game Object is being rendered through.
      * @param {boolean} inc - Is this an INCR stencil or a DECR stencil?
      */
-    applyStencil: function (renderer, camera, inc)
+    applyStencil(renderer, camera, inc)
     {
         var gl = renderer.gl;
         var geometryMask = this.geometryMask;
@@ -208,7 +206,7 @@ var GeometryMask = new Class({
         {
             gl.stencilFunc(gl.EQUAL, level, mask);
         }
-    },
+    }
 
     /**
      * Flushes all rendered pixels and disables the stencil test of a WebGL context, thus disabling the mask for it.
@@ -218,7 +216,7 @@ var GeometryMask = new Class({
      *
      * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - The WebGL Renderer instance to draw flush.
      */
-    postRenderWebGL: function (renderer)
+    postRenderWebGL(renderer)
     {
         var gl = renderer.gl;
 
@@ -254,7 +252,7 @@ var GeometryMask = new Class({
                 current.mask = null;
             }
         }
-    },
+    }
 
     /**
      * Sets the clipping path of a 2D canvas context to the Geometry Mask's underlying Graphics object.
@@ -266,7 +264,7 @@ var GeometryMask = new Class({
      * @param {Phaser.GameObjects.GameObject} mask - The Game Object being rendered.
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera the Game Object is being rendered through.
      */
-    preRenderCanvas: function (renderer, mask, camera)
+    preRenderCanvas(renderer, mask, camera)
     {
         var geometryMask = this.geometryMask;
 
@@ -275,7 +273,7 @@ var GeometryMask = new Class({
         geometryMask.renderCanvas(renderer, geometryMask, camera, null, null, true);
 
         renderer.currentContext.clip();
-    },
+    }
 
     /**
      * Restore the canvas context's previous clipping path, thus turning off the mask for it.
@@ -285,10 +283,10 @@ var GeometryMask = new Class({
      *
      * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - The Canvas Renderer instance being restored.
      */
-    postRenderCanvas: function (renderer)
+    postRenderCanvas(renderer)
     {
         renderer.currentContext.restore();
-    },
+    }
 
     /**
      * Destroys this GeometryMask and nulls any references it holds.
@@ -299,11 +297,11 @@ var GeometryMask = new Class({
      * @method Phaser.Display.Masks.GeometryMask#destroy
      * @since 3.7.0
      */
-    destroy: function ()
+    destroy()
     {
         this.geometryMask = null;
     }
 
-});
+};
 
 module.exports = GeometryMask;

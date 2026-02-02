@@ -15,7 +15,7 @@
  *
  * @return {HTMLCanvasElement} The canvas element.
  */
-var TouchAction = function (canvas, value)
+export const TouchAction = (canvas: HTMLCanvasElement, value?: string): HTMLCanvasElement =>
 {
     if (value === undefined) { value = 'none'; }
 
@@ -25,5 +25,3 @@ var TouchAction = function (canvas, value)
 
     return canvas;
 };
-
-module.exports = TouchAction;

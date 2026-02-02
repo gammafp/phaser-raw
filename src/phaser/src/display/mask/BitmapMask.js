@@ -49,11 +49,9 @@ var GameObjectFactory = require('../../gameobjects/GameObjectFactory');
  * @param {(string|Phaser.Textures.Texture)} [texture] - If creating a Game Object, the key, or instance of the Texture it will use to render with, as stored in the Texture Manager.
  * @param {(string|number|Phaser.Textures.Frame)} [frame] - If creating a Game Object, an optional frame from the Texture this Game Object is rendering with.
  */
-var BitmapMask = new Class({
+var BitmapMask = class {
 
-    initialize:
-
-    function BitmapMask (scene, maskObject, x, y, texture, frame)
+    constructor(scene, maskObject, x, y, texture, frame)
     {
         if (!maskObject)
         {
@@ -91,7 +89,7 @@ var BitmapMask = new Class({
          * @since 3.17.0
          */
         this.isStencil = false;
-    },
+    }
 
     /**
      * Sets a new Game Object or Dynamic Texture for this Bitmap Mask to use.
@@ -105,10 +103,10 @@ var BitmapMask = new Class({
      *
      * @param {(Phaser.GameObjects.GameObject|Phaser.Textures.DynamicTexture)} maskObject - The Game Object or Dynamic Texture that will be used as the mask. If a Game Object, it must have a texture, such as a Sprite.
      */
-    setBitmap: function (maskObject)
+    setBitmap(maskObject)
     {
         this.bitmapMask = maskObject;
-    },
+    }
 
     /**
      * Prepares the WebGL Renderer to render a Game Object with this mask applied.
@@ -122,10 +120,10 @@ var BitmapMask = new Class({
      * @param {Phaser.GameObjects.GameObject} maskedObject - The masked Game Object which will be drawn.
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to render to.
      */
-    preRenderWebGL: function (renderer, maskedObject, camera)
+    preRenderWebGL(renderer, maskedObject, camera)
     {
         renderer.pipelines.BITMAPMASK_PIPELINE.beginMask(this, maskedObject, camera);
-    },
+    }
 
     /**
      * Finalizes rendering of a masked Game Object.
@@ -139,10 +137,10 @@ var BitmapMask = new Class({
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to render to.
      * @param {Phaser.Renderer.WebGL.RenderTarget} [renderTarget] - Optional WebGL RenderTarget.
      */
-    postRenderWebGL: function (renderer, camera, renderTarget)
+    postRenderWebGL(renderer, camera, renderTarget)
     {
         renderer.pipelines.BITMAPMASK_PIPELINE.endMask(this, camera, renderTarget);
-    },
+    }
 
     /**
      * This is a NOOP method. Bitmap Masks are not supported by the Canvas Renderer.
@@ -154,10 +152,10 @@ var BitmapMask = new Class({
      * @param {Phaser.GameObjects.GameObject} mask - The masked Game Object which would be rendered.
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to render to.
      */
-    preRenderCanvas: function ()
+    preRenderCanvas()
     {
         // NOOP
-    },
+    }
 
     /**
      * This is a NOOP method. Bitmap Masks are not supported by the Canvas Renderer.
@@ -167,10 +165,10 @@ var BitmapMask = new Class({
      *
      * @param {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)} renderer - The Canvas Renderer which would be rendered to.
      */
-    postRenderCanvas: function ()
+    postRenderCanvas()
     {
         // NOOP
-    },
+    }
 
     /**
      * Destroys this BitmapMask and nulls any references it holds.
@@ -181,12 +179,12 @@ var BitmapMask = new Class({
      * @method Phaser.Display.Masks.BitmapMask#destroy
      * @since 3.7.0
      */
-    destroy: function ()
+    destroy()
     {
         this.bitmapMask = null;
     }
 
-});
+};
 
 /**
  * A Bitmap Mask combines the alpha (opacity) of a masked pixel with the alpha of another pixel.

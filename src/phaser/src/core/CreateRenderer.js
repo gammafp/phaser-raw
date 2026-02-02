@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var CanvasInterpolation = require('../display/canvas/CanvasInterpolation');
-var CanvasPool = require('../display/canvas/CanvasPool');
+import { CanvasInterpolation } from '../display/canvas/CanvasInterpolation';
+import { CanvasPool } from '../display/canvas/CanvasPool';
 var CONST = require('../const');
 var Features = require('../device/Features');
 

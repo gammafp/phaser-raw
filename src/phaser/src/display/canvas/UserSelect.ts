@@ -15,11 +15,11 @@
  *
  * @return {HTMLCanvasElement} The canvas element.
  */
-var UserSelect = function (canvas, value)
+export const UserSelect = (canvas: HTMLCanvasElement, value?: string): HTMLCanvasElement =>
 {
     if (value === undefined) { value = 'none'; }
 
-    var vendors = [
+    const vendors = [
         '-webkit-',
         '-khtml-',
         '-moz-',
@@ -27,7 +27,7 @@ var UserSelect = function (canvas, value)
         ''
     ];
 
-    vendors.forEach(function (vendor)
+    vendors.forEach((vendor) =>
     {
         canvas.style[vendor + 'user-select'] = value;
     });
@@ -37,5 +37,3 @@ var UserSelect = function (canvas, value)
 
     return canvas;
 };
-
-module.exports = UserSelect;

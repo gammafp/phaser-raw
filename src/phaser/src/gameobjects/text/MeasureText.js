@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var CanvasPool = require('../../display/canvas/CanvasPool');
+import { CanvasPool } from '../../display/canvas/CanvasPool';
 
 /**
  * Calculates the ascent, descent and fontSize of a given font style.

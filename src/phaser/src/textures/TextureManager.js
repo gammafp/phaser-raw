@@ -10,8 +10,7 @@ import { Color } from '../display/color/Color';
 import { GetValue } from '../utils/object/GetValue';
 import { IsPlainObject } from '../utils/object/IsPlainObject';
 import { GenerateTexture } from '../create/GenerateTexture';
-
-var CanvasPool = require('../display/canvas/CanvasPool');
+import { CanvasPool } from '../display/canvas/CanvasPool';
 var CanvasTexture = require('./CanvasTexture');
 var Class = require('../utils/Class');
 var CONST = require('../const');

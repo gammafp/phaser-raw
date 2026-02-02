@@ -32,11 +32,9 @@ var Class = require('../../utils/Class');
  * @param {string} [vertexSrc] - The vertex source for the shader.
  * @param {any} [uniforms] - Optional object defining the uniforms the shader uses.
  */
-var BaseShader = new Class({
+var BaseShader = class {
 
-    initialize:
-
-    function BaseShader (key, fragmentSrc, vertexSrc, uniforms)
+    constructor(key, fragmentSrc, vertexSrc, uniforms)
     {
         if (!fragmentSrc || fragmentSrc === '')
         {
@@ -115,6 +113,6 @@ var BaseShader = new Class({
         this.uniforms = uniforms;
     }
 
-});
+};
 
 module.exports = BaseShader;

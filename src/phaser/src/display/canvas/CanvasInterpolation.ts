@@ -8,7 +8,7 @@
  * @namespace Phaser.Display.Canvas.CanvasInterpolation
  * @since 3.0.0
  */
-var CanvasInterpolation = {
+export const CanvasInterpolation = {
 
     /**
      * Sets the CSS image-rendering property on the given canvas to be 'crisp' (aka 'optimize contrast' on webkit).
@@ -20,11 +20,11 @@ var CanvasInterpolation = {
      * 
      * @return {HTMLCanvasElement} The canvas.
      */
-    setCrisp: function (canvas)
+    setCrisp: (canvas: HTMLCanvasElement): HTMLCanvasElement =>
     {
-        var types = [ 'optimizeSpeed', '-moz-crisp-edges', '-o-crisp-edges', '-webkit-optimize-contrast', 'optimize-contrast', 'crisp-edges', 'pixelated' ];
+        const types = [ 'optimizeSpeed', '-moz-crisp-edges', '-o-crisp-edges', '-webkit-optimize-contrast', 'optimize-contrast', 'crisp-edges', 'pixelated' ];
 
-        types.forEach(function (type)
+        types.forEach((type) =>
         {
             canvas.style['image-rendering'] = type;
         });
@@ -44,7 +44,7 @@ var CanvasInterpolation = {
      * 
      * @return {HTMLCanvasElement} The canvas.
      */
-    setBicubic: function (canvas)
+    setBicubic: (canvas: HTMLCanvasElement): HTMLCanvasElement =>
     {
         canvas.style['image-rendering'] = 'auto';
         canvas.style.msInterpolationMode = 'bicubic';
@@ -53,5 +53,3 @@ var CanvasInterpolation = {
     }
 
 };
-
-module.exports = CanvasInterpolation;
