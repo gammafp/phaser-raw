@@ -11,7 +11,7 @@ import { IsPlainObject } from '../../utils/object/IsPlainObject';
 import { ParseObjMaterial } from '../../geom/mesh/ParseObjMaterial';
 
 var Class = require('../../utils/Class');
-var FileTypesManager = require('../FileTypesManager');
+import { FileTypesManager } from '../FileTypesManager';
 var MultiFile = require('../MultiFile');
 var ParseObj = require('../../geom/mesh/ParseObj');
 var TextFile = require('./TextFile');

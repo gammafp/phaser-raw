@@ -16,13 +16,13 @@ import { LOADER_CONST } from './const';
  */
 
 const File = require('./File');
-const FileTypesManager = require('./FileTypesManager');
-const GetURL = require('./GetURL');
+import { FileTypesManager } from './FileTypesManager';
+import { GetURL } from './GetURL';
 const LoaderPlugin = require('./LoaderPlugin');
-const MergeXHRSettings = require('./MergeXHRSettings');
+import { MergeXHRSettings } from './MergeXHRSettings';
 const MultiFile = require('./MultiFile');
-const XHRLoader = require('./XHRLoader');
-const XHRSettings = require('./XHRSettings');
+import { XHRLoader } from './XHRLoader';
+import { XHRSettings } from './XHRSettings';
 
 let Loader: any = {
 

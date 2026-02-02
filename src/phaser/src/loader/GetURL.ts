@@ -15,7 +15,7 @@
  *
  * @return {string} The URL the File will use.
  */
-var GetURL = function (file, baseURL)
+export const GetURL = (file: any, baseURL: string): string | boolean =>
 {
     if (!file.url)
     {
@@ -31,5 +31,3 @@ var GetURL = function (file, baseURL)
         return baseURL + file.url;
     }
 };
-
-module.exports = GetURL;

@@ -5,7 +5,7 @@
  */
 
 var Class = require('../../utils/Class');
-var FileTypesManager = require('../FileTypesManager');
+import { FileTypesManager } from '../FileTypesManager';
 var JSONFile = require('./JSONFile');
 var TILEMAP_FORMATS = require('../../tilemaps/Formats');
 

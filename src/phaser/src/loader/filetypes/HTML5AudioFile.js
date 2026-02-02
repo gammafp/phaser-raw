@@ -12,7 +12,7 @@ import { IsPlainObject } from '../../utils/object/IsPlainObject';
 var Class = require('../../utils/Class');
 var Events = require('../events');
 var File = require('../File');
-var GetURL = require('../GetURL');
+import { GetURL } from '../GetURL';
 
 /**
  * @classdesc

@@ -13,7 +13,7 @@ import { Merge } from '../../utils/object/Merge';
 var AtlasJSONFile = require('./AtlasJSONFile');
 var BinaryFile = require('./BinaryFile');
 var Class = require('../../utils/Class');
-var FileTypesManager = require('../FileTypesManager');
+import { FileTypesManager } from '../FileTypesManager';
 var ImageFile = require('./ImageFile');
 var JSONFile = require('./JSONFile');
 var KTXParser = require('../../textures/parsers/KTXParser');

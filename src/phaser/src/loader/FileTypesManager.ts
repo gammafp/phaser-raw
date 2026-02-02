@@ -4,13 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var types = {};
+let types: Record<string, Function> = {};
 
 /**
  * @namespace Phaser.Loader.FileTypesManager
  */
 
-var FileTypesManager = {
+export const FileTypesManager = {
 
     /**
      * Static method called when a LoaderPlugin is created.
@@ -23,9 +23,9 @@ var FileTypesManager = {
      *
      * @param {Phaser.Loader.LoaderPlugin} loader - The LoaderPlugin to install the types into.
      */
-    install: function (loader)
+    install: (loader: any): void =>
     {
-        for (var key in types)
+        for (const key in types)
         {
             loader[key] = types[key];
         }
@@ -42,7 +42,7 @@ var FileTypesManager = {
      * @param {string} key - The key that will be used as the method name in the LoaderPlugin.
      * @param {function} factoryFunction - The function that will be called when LoaderPlugin.key is invoked.
      */
-    register: function (key, factoryFunction)
+    register: (key: string, factoryFunction: Function): void =>
     {
         types[key] = factoryFunction;
     },
@@ -53,11 +53,9 @@ var FileTypesManager = {
      * @method Phaser.Loader.FileTypesManager.destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy: (): void =>
     {
         types = {};
     }
 
 };
-
-module.exports = FileTypesManager;

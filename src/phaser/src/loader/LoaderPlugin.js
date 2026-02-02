@@ -15,10 +15,10 @@ var Class = require('../utils/Class');
 var CustomSet = require('../structs/Set');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
-var FileTypesManager = require('./FileTypesManager');
+import { FileTypesManager } from './FileTypesManager';
 var PluginCache = require('../plugins/PluginCache');
 var SceneEvents = require('../scene/events');
-var XHRSettings = require('./XHRSettings');
+import { XHRSettings } from './XHRSettings';
 
 /**
  * @classdesc

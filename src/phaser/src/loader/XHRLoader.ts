@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var MergeXHRSettings = require('./MergeXHRSettings');
+import { MergeXHRSettings } from './MergeXHRSettings';
 
 /**
  * Creates a new XMLHttpRequest (xhr) object based on the given File and XHRSettings
@@ -19,15 +19,15 @@ var MergeXHRSettings = require('./MergeXHRSettings');
  *
  * @return {XMLHttpRequest} The XHR object, or a FakeXHR Object in the base of base64 data.
  */
-var XHRLoader = function (file, globalXHRSettings)
+export const XHRLoader = (file: any, globalXHRSettings: any): XMLHttpRequest | void =>
 {
-    var config = MergeXHRSettings(globalXHRSettings, file.xhrSettings);
+    const config = MergeXHRSettings(globalXHRSettings, file.xhrSettings);
 
     if (file.base64)
     {
-        var base64Data = file.url.split(';base64,').pop() || file.url.split(',').pop();
+        const base64Data = file.url.split(';base64,').pop() || file.url.split(',').pop();
 
-        var fakeXHR;
+        let fakeXHR: any;
 
         if (file.xhrSettings.responseType === 'arraybuffer')
         {
@@ -50,7 +50,7 @@ var XHRLoader = function (file, globalXHRSettings)
         return;
     }
 
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
 
     xhr.open('GET', file.src, config.async, config.user, config.password);
 
@@ -59,7 +59,7 @@ var XHRLoader = function (file, globalXHRSettings)
 
     if (config.headers)
     {
-        for (var key in config.headers)
+        for (const key in config.headers)
         {
             xhr.setRequestHeader(key, config.headers[key]);
         }
@@ -99,5 +99,3 @@ var XHRLoader = function (file, globalXHRSettings)
 
     return xhr;
 };
-
-module.exports = XHRLoader;

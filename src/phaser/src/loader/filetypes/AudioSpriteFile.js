@@ -11,7 +11,7 @@ import { IsPlainObject } from '../../utils/object/IsPlainObject';
 
 var AudioFile = require('./AudioFile');
 var Class = require('../../utils/Class');
-var FileTypesManager = require('../FileTypesManager');
+import { FileTypesManager } from '../FileTypesManager';
 var JSONFile = require('./JSONFile');
 var MultiFile = require('../MultiFile');
 

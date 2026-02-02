@@ -4,11 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { Extend } from '../utils/object/Extend';
-
-var XHRSettings = require('./XHRSettings');
+import { XHRSettings } from './XHRSettings';
 
 /**
  * Takes two XHRSettings Objects and creates a new XHRSettings object from them.
@@ -24,13 +21,13 @@ var XHRSettings = require('./XHRSettings');
  *
  * @return {Phaser.Types.Loader.XHRSettingsObject} A newly formed XHRSettings object.
  */
-var MergeXHRSettings = function (global, local)
+export const MergeXHRSettings = (global: any, local: any): any =>
 {
-    var output = (global === undefined) ? XHRSettings() : Extend({}, global);
+    let output = (global === undefined) ? XHRSettings() : Extend({}, global);
 
     if (local)
     {
-        for (var setting in local)
+        for (const setting in local)
         {
             if (local[setting] !== undefined)
             {
@@ -41,5 +38,3 @@ var MergeXHRSettings = function (global, local)
 
     return output;
 };
-
-module.exports = MergeXHRSettings;

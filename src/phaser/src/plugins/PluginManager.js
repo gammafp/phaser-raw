@@ -10,11 +10,11 @@ import { GetFastValue } from '../utils/object/GetFastValue';
 import { Remove } from '../utils/array/Remove';
 
 import { PHASER_CONST as CONST } from '../const';
+import { FileTypesManager } from '../loader/FileTypesManager';
 
 var Class = require('../utils/Class');
 var GameEvents = require('../core/events');
 var EventEmitter = require('eventemitter3');
-var FileTypesManager = require('../loader/FileTypesManager');
 var GameObjectCreator = require('../gameobjects/GameObjectCreator');
 var GameObjectFactory = require('../gameobjects/GameObjectFactory');
 var PluginCache = require('./PluginCache');

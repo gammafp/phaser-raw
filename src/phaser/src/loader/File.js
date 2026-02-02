@@ -11,10 +11,10 @@ import { LOADER_CONST as CONST } from './const';
 
 var Class = require('../utils/Class');
 var Events = require('./events');
-var GetURL = require('./GetURL');
-var MergeXHRSettings = require('./MergeXHRSettings');
-var XHRLoader = require('./XHRLoader');
-var XHRSettings = require('./XHRSettings');
+import { GetURL } from './GetURL';
+import { MergeXHRSettings } from './MergeXHRSettings';
+import { XHRLoader } from './XHRLoader';
+import { XHRSettings } from './XHRSettings';
 
 /**
  * @classdesc

@@ -10,7 +10,7 @@ import { GetFastValue } from '../../utils/object/GetFastValue';
 import { IsPlainObject } from '../../utils/object/IsPlainObject';
 
 var Class = require('../../utils/Class');
-var FileTypesManager = require('../FileTypesManager');
+import { FileTypesManager } from '../FileTypesManager';
 var MultiFile = require('../MultiFile');
 var ScriptFile = require('./ScriptFile');
 

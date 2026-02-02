@@ -13,7 +13,7 @@ import { LOADER_CONST as CONST } from '../const';
 
 var Class = require('../../utils/Class');
 var File = require('../File');
-var FileTypesManager = require('../FileTypesManager');
+import { FileTypesManager } from '../FileTypesManager';
 var TILEMAP_FORMATS = require('../../tilemaps/Formats');
 
 /**

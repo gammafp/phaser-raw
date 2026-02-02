@@ -13,7 +13,7 @@ import { BaseShader as Shader } from '../../display/shader/BaseShader';
 
 var Class = require('../../utils/Class');
 var File = require('../File');
-var FileTypesManager = require('../FileTypesManager');
+import { FileTypesManager } from '../FileTypesManager';
 
 /**
  * @classdesc

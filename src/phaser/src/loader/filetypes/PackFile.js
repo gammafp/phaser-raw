@@ -7,7 +7,7 @@
 import { LOADER_CONST as CONST } from '../const';
 
 var Class = require('../../utils/Class');
-var FileTypesManager = require('../FileTypesManager');
+import { FileTypesManager } from '../FileTypesManager';
 var JSONFile = require('./JSONFile');
 
 /**

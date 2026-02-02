@@ -19,7 +19,7 @@
  *
  * @return {Phaser.Types.Loader.XHRSettingsObject} The XHRSettings object as used by the Loader.
  */
-var XHRSettings = function (responseType, async, user, password, timeout, withCredentials)
+export const XHRSettings = (responseType?: XMLHttpRequestResponseType, async?: boolean, user?: string, password?: string, timeout?: number, withCredentials?: boolean): any =>
 {
     if (responseType === undefined) { responseType = ''; }
     if (async === undefined) { async = true; }
@@ -60,5 +60,3 @@ var XHRSettings = function (responseType, async, user, password, timeout, withCr
 
     };
 };
-
-module.exports = XHRSettings;
