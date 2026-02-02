@@ -23,4 +23,4 @@
  * @param {Phaser.Input.Gamepad} pad - A reference to the Gamepad which was connected.
  * @param {Event} event - The native DOM Event that triggered the connection.
  */
-module.exports = 'connected';
+export const CONNECTED = 'connected';

@@ -29,4 +29,4 @@
  *
  * @param {Phaser.Tweens.Tween} tween - A reference to the Tween instance that emitted the event.
  */
-module.exports = 'resume';
+export const TWEEN_RESUME = 'resume';

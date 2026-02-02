@@ -18,4 +18,4 @@
  * @param {Phaser.Input.Gamepad} pad - A reference to the Gamepad which was disconnected.
  * @param {Event} event - The native DOM Event that triggered the disconnection.
  */
-module.exports = 'disconnected';
+export const DISCONNECTED = 'disconnected';

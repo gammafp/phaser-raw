@@ -21,4 +21,4 @@
  * @param {Phaser.Input.Gamepad.Button} button - A reference to the Button which was pressed.
  * @param {number} value - The value of the button at the time it was pressed. Between 0 and 1. Some Gamepads have pressure-sensitive buttons.
  */
-module.exports = 'down';
+export const BUTTON_DOWN = 'down';

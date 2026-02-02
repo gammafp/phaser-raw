@@ -40,4 +40,4 @@
  * @param {number} current - The current value of the property being set on the target.
  * @param {number} previous - The previous value of the property being set on the target.
  */
-module.exports = 'yoyo';
+export const TWEEN_YOYO = 'yoyo';

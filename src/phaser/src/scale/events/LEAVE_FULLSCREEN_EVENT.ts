@@ -12,4 +12,4 @@
  * @type {string}
  * @since 3.16.1
  */
-module.exports = 'leavefullscreen';
+export const LEAVE_FULLSCREEN = 'leavefullscreen';

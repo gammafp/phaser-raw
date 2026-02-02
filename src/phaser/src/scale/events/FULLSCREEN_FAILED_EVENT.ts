@@ -5,10 +5,10 @@
  */
 
 /**
- * The Scale Manager has successfully entered fullscreen mode.
+ * The Scale Manager tried to enter fullscreen mode but failed.
  *
- * @event Phaser.Scale.Events#ENTER_FULLSCREEN
+ * @event Phaser.Scale.Events#FULLSCREEN_FAILED
  * @type {string}
- * @since 3.16.1
+ * @since 3.17.0
  */
-module.exports = 'enterfullscreen';
+export const FULLSCREEN_FAILED = 'fullscreenfailed';

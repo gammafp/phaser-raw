@@ -35,4 +35,4 @@
  * @param {number} current - The current value of the property that was tweened.
  * @param {number} previous - The previous value of the property that was tweened, prior to this update.
  */
-module.exports = 'update';
+export const TWEEN_UPDATE = 'update';

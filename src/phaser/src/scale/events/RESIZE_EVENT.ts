@@ -22,4 +22,4 @@
  * @param {number} previousWidth - If the `gameSize` has changed, this value contains its previous width, otherwise it contains the current width.
  * @param {number} previousHeight - If the `gameSize` has changed, this value contains its previous height, otherwise it contains the current height.
  */
-module.exports = 'resize';
+export const RESIZE = 'resize';

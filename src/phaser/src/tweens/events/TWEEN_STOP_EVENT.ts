@@ -28,4 +28,4 @@
  * @param {Phaser.Tweens.Tween} tween - A reference to the Tween instance that emitted the event.
  * @param {(any|any[])} targets - The targets of the Tween. If this Tween has multiple targets this will be an array of the targets.
  */
-module.exports = 'stop';
+export const TWEEN_STOP = 'stop';

@@ -15,4 +15,4 @@
  *
  * @param {string} orientation - The new orientation value. Either `Phaser.Scale.Orientation.LANDSCAPE` or `Phaser.Scale.Orientation.PORTRAIT`.
  */
-module.exports = 'orientationchange';
+export const ORIENTATION_CHANGE = 'orientationchange';
