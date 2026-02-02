@@ -4,15 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
 
 import { CatmullRom } from '../math/CatmullRom';
+import { Curve } from './Curve';
 
-var Class = require('../utils/Class');
-var Curve = require('./Curve');
-var Vector2 = require('../math/Vector2');
+const Vector2 = require('../math/Vector2');
 
 /**
  * @classdesc
@@ -26,17 +23,15 @@ var Vector2 = require('../math/Vector2');
  *
  * @param {(Phaser.Math.Vector2[]|number[]|number[][])} [points] - The points that configure the curve.
  */
-var SplineCurve = new Class({
+export class SplineCurve extends Curve {
 
-    Extends: Curve,
+    points: any[];
 
-    initialize:
-
-    function SplineCurve (points)
+    constructor(points?: any[])
     {
         if (points === undefined) { points = []; }
 
-        Curve.call(this, 'SplineCurve');
+        super('SplineCurve');
 
         /**
          * The Vector2 points that configure the curve.
@@ -49,7 +44,7 @@ var SplineCurve = new Class({
         this.points = [];
 
         this.addPoints(points);
-    },
+    }
 
     /**
      * Add a list of points to the current list of Vector2 points of the curve.
@@ -61,11 +56,11 @@ var SplineCurve = new Class({
      *
      * @return {this} This curve object.
      */
-    addPoints: function (points)
+    addPoints(points: any[]): this
     {
-        for (var i = 0; i < points.length; i++)
+        for (let i = 0; i < points.length; i++)
         {
-            var p = new Vector2();
+            const p = new Vector2();
 
             if (typeof points[i] === 'number')
             {
@@ -89,7 +84,7 @@ var SplineCurve = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Add a point to the current list of Vector2 points of the curve.
@@ -102,14 +97,14 @@ var SplineCurve = new Class({
      *
      * @return {Phaser.Math.Vector2} The new Vector2 added to the curve
      */
-    addPoint: function (x, y)
+    addPoint(x: number, y: number): any
     {
-        var vec = new Vector2(x, y);
+        const vec = new Vector2(x, y);
 
         this.points.push(vec);
 
         return vec;
-    },
+    }
 
     /**
      * Gets the starting point on the curve.
@@ -123,12 +118,12 @@ var SplineCurve = new Class({
      *
      * @return {Phaser.Math.Vector2} The coordinates of the point on the curve. If an `out` object was given this will be returned.
      */
-    getStartPoint: function (out)
+    getStartPoint(out?: any): any
     {
         if (out === undefined) { out = new Vector2(); }
 
         return out.copy(this.points[0]);
-    },
+    }
 
     /**
      * Get the resolution of the curve.
@@ -140,10 +135,10 @@ var SplineCurve = new Class({
      *
      * @return {number} The curve resolution.
      */
-    getResolution: function (divisions)
+    getResolution(divisions: number): number
     {
         return divisions * this.points.length;
-    },
+    }
 
     /**
      * Get point at relative position in curve according to length.
@@ -158,25 +153,25 @@ var SplineCurve = new Class({
      *
      * @return {Phaser.Math.Vector2} The coordinates of the point on the curve. If an `out` object was given this will be returned.
      */
-    getPoint: function (t, out)
+    getPoint(t: number, out?: any): any
     {
         if (out === undefined) { out = new Vector2(); }
 
-        var points = this.points;
+        const points = this.points;
 
-        var point = (points.length - 1) * t;
+        const point = (points.length - 1) * t;
 
-        var intPoint = Math.floor(point);
+        const intPoint = Math.floor(point);
 
-        var weight = point - intPoint;
+        const weight = point - intPoint;
 
-        var p0 = points[(intPoint === 0) ? intPoint : intPoint - 1];
-        var p1 = points[intPoint];
-        var p2 = points[(intPoint > points.length - 2) ? points.length - 1 : intPoint + 1];
-        var p3 = points[(intPoint > points.length - 3) ? points.length - 1 : intPoint + 2];
+        const p0 = points[(intPoint === 0) ? intPoint : intPoint - 1];
+        const p1 = points[intPoint];
+        const p2 = points[(intPoint > points.length - 2) ? points.length - 1 : intPoint + 1];
+        const p3 = points[(intPoint > points.length - 3) ? points.length - 1 : intPoint + 2];
 
         return out.set(CatmullRom(weight, p0.x, p1.x, p2.x, p3.x), CatmullRom(weight, p0.y, p1.y, p2.y, p3.y));
-    },
+    }
 
     /**
      * Exports a JSON object containing this curve data.
@@ -186,11 +181,11 @@ var SplineCurve = new Class({
      *
      * @return {Phaser.Types.Curves.JSONCurve} The JSON object containing this curve data.
      */
-    toJSON: function ()
+    toJSON(): any
     {
-        var points = [];
+        const points: number[] = [];
 
-        for (var i = 0; i < this.points.length; i++)
+        for (let i = 0; i < this.points.length; i++)
         {
             points.push(this.points[i].x);
             points.push(this.points[i].y);
@@ -202,21 +197,19 @@ var SplineCurve = new Class({
         };
     }
 
-});
+    /**
+     * Imports a JSON object containing this curve data.
+     *
+     * @function Phaser.Curves.Spline.fromJSON
+     * @since 3.0.0
+     *
+     * @param {Phaser.Types.Curves.JSONCurve} data - The JSON object containing this curve data.
+     *
+     * @return {Phaser.Curves.Spline} The spline curve created.
+     */
+    static fromJSON(data: any): SplineCurve
+    {
+        return new SplineCurve(data.points);
+    }
 
-/**
- * Imports a JSON object containing this curve data.
- *
- * @function Phaser.Curves.Spline.fromJSON
- * @since 3.0.0
- *
- * @param {Phaser.Types.Curves.JSONCurve} data - The JSON object containing this curve data.
- *
- * @return {Phaser.Curves.Spline} The spline curve created.
- */
-SplineCurve.fromJSON = function (data)
-{
-    return new SplineCurve(data.points);
-};
-
-module.exports = SplineCurve;
+}

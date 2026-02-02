@@ -4,17 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
 
 import { DegToRad } from '../math/DegToRad';
 import { GetValue } from '../utils/object/GetValue';
 import { RadToDeg } from '../math/RadToDeg';
+import { Curve } from './Curve';
 
-var Class = require('../utils/Class');
-var Curve = require('./Curve');
-var Vector2 = require('../math/Vector2');
+const Vector2 = require('../math/Vector2');
 
 /**
  * @classdesc
@@ -37,17 +34,21 @@ var Vector2 = require('../math/Vector2');
  * @param {boolean} [clockwise=false] - Whether the ellipse angles are given as clockwise (`true`) or counter-clockwise (`false`).
  * @param {number} [rotation=0] - The rotation of the ellipse, in degrees.
  */
-var EllipseCurve = new Class({
+export class EllipseCurve extends Curve {
 
-    Extends: Curve,
+    p0: any;
+    _xRadius: number;
+    _yRadius: number;
+    _startAngle: number;
+    _endAngle: number;
+    _clockwise: boolean;
+    _rotation: number;
 
-    initialize:
-
-    function EllipseCurve (x, y, xRadius, yRadius, startAngle, endAngle, clockwise, rotation)
+    constructor(x?: any, y?: number, xRadius?: number, yRadius?: number, startAngle?: number, endAngle?: number, clockwise?: boolean, rotation?: number)
     {
         if (typeof x === 'object')
         {
-            var config = x;
+            const config = x;
 
             x = GetValue(config, 'x', 0);
             y = GetValue(config, 'y', 0);
@@ -67,7 +68,7 @@ var EllipseCurve = new Class({
             if (rotation === undefined) { rotation = 0; }
         }
 
-        Curve.call(this, 'EllipseCurve');
+        super('EllipseCurve');
 
         //  Center point
 
@@ -141,7 +142,7 @@ var EllipseCurve = new Class({
          * @since 3.0.0
          */
         this._rotation = DegToRad(rotation);
-    },
+    }
 
     /**
      * Gets the starting point on the curve.
@@ -155,12 +156,12 @@ var EllipseCurve = new Class({
      *
      * @return {Phaser.Math.Vector2} The coordinates of the point on the curve. If an `out` object was given this will be returned.
      */
-    getStartPoint: function (out)
+    getStartPoint(out?: any): any
     {
         if (out === undefined) { out = new Vector2(); }
 
         return this.getPoint(0, out);
-    },
+    }
 
     /**
      * Get the resolution of the curve.
@@ -172,10 +173,10 @@ var EllipseCurve = new Class({
      *
      * @return {number} The curve resolution.
      */
-    getResolution: function (divisions)
+    getResolution(divisions: number): number
     {
         return divisions * 2;
-    },
+    }
 
     /**
      * Get point at relative position in curve according to length.
@@ -190,13 +191,13 @@ var EllipseCurve = new Class({
      *
      * @return {Phaser.Math.Vector2} The coordinates of the point on the curve. If an `out` object was given this will be returned.
      */
-    getPoint: function (t, out)
+    getPoint(t: number, out?: any): any
     {
         if (out === undefined) { out = new Vector2(); }
 
-        var twoPi = Math.PI * 2;
-        var deltaAngle = this._endAngle - this._startAngle;
-        var samePoints = Math.abs(deltaAngle) < Number.EPSILON;
+        const twoPi = Math.PI * 2;
+        let deltaAngle = this._endAngle - this._startAngle;
+        const samePoints = Math.abs(deltaAngle) < Number.EPSILON;
 
         // ensures that deltaAngle is 0 .. 2 PI
         while (deltaAngle < 0)
@@ -233,17 +234,17 @@ var EllipseCurve = new Class({
             }
         }
 
-        var angle = this._startAngle + t * deltaAngle;
-        var x = this.p0.x + this._xRadius * Math.cos(angle);
-        var y = this.p0.y + this._yRadius * Math.sin(angle);
+        const angle = this._startAngle + t * deltaAngle;
+        let x = this.p0.x + this._xRadius * Math.cos(angle);
+        let y = this.p0.y + this._yRadius * Math.sin(angle);
 
         if (this._rotation !== 0)
         {
-            var cos = Math.cos(this._rotation);
-            var sin = Math.sin(this._rotation);
+            const cos = Math.cos(this._rotation);
+            const sin = Math.sin(this._rotation);
 
-            var tx = x - this.p0.x;
-            var ty = y - this.p0.y;
+            const tx = x - this.p0.x;
+            const ty = y - this.p0.y;
 
             // Rotate the point about the center of the ellipse.
             x = tx * cos - ty * sin + this.p0.x;
@@ -251,7 +252,7 @@ var EllipseCurve = new Class({
         }
 
         return out.set(x, y);
-    },
+    }
 
     /**
      * Sets the horizontal radius of this curve.
@@ -263,12 +264,12 @@ var EllipseCurve = new Class({
      *
      * @return {this} This curve object.
      */
-    setXRadius: function (value)
+    setXRadius(value: number): this
     {
         this.xRadius = value;
 
         return this;
-    },
+    }
 
     /**
      * Sets the vertical radius of this curve.
@@ -280,12 +281,12 @@ var EllipseCurve = new Class({
      *
      * @return {this} This curve object.
      */
-    setYRadius: function (value)
+    setYRadius(value: number): this
     {
         this.yRadius = value;
 
         return this;
-    },
+    }
 
     /**
      * Sets the width of this curve.
@@ -297,12 +298,12 @@ var EllipseCurve = new Class({
      *
      * @return {this} This curve object.
      */
-    setWidth: function (value)
+    setWidth(value: number): this
     {
         this.xRadius = value / 2;
 
         return this;
-    },
+    }
 
     /**
      * Sets the height of this curve.
@@ -314,12 +315,12 @@ var EllipseCurve = new Class({
      *
      * @return {this} This curve object.
      */
-    setHeight: function (value)
+    setHeight(value: number): this
     {
         this.yRadius = value / 2;
 
         return this;
-    },
+    }
 
     /**
      * Sets the start angle of this curve.
@@ -331,12 +332,12 @@ var EllipseCurve = new Class({
      *
      * @return {this} This curve object.
      */
-    setStartAngle: function (value)
+    setStartAngle(value: number): this
     {
         this.startAngle = value;
 
         return this;
-    },
+    }
 
     /**
      * Sets the end angle of this curve.
@@ -348,12 +349,12 @@ var EllipseCurve = new Class({
      *
      * @return {this} This curve object.
      */
-    setEndAngle: function (value)
+    setEndAngle(value: number): this
     {
         this.endAngle = value;
 
         return this;
-    },
+    }
 
     /**
      * Sets if this curve extends clockwise or anti-clockwise.
@@ -365,12 +366,12 @@ var EllipseCurve = new Class({
      *
      * @return {this} This curve object.
      */
-    setClockwise: function (value)
+    setClockwise(value: boolean): this
     {
         this.clockwise = value;
 
         return this;
-    },
+    }
 
     /**
      * Sets the rotation of this curve.
@@ -382,12 +383,12 @@ var EllipseCurve = new Class({
      *
      * @return {this} This curve object.
      */
-    setRotation: function (value)
+    setRotation(value: number): this
     {
         this.rotation = value;
 
         return this;
-    },
+    }
 
     /**
      * The x coordinate of the center of the ellipse.
@@ -396,19 +397,15 @@ var EllipseCurve = new Class({
      * @type {number}
      * @since 3.0.0
      */
-    x: {
+    get x(): number
+    {
+        return this.p0.x;
+    }
 
-        get: function ()
-        {
-            return this.p0.x;
-        },
-
-        set: function (value)
-        {
-            this.p0.x = value;
-        }
-
-    },
+    set x(value: number)
+    {
+        this.p0.x = value;
+    }
 
     /**
      * The y coordinate of the center of the ellipse.
@@ -417,19 +414,15 @@ var EllipseCurve = new Class({
      * @type {number}
      * @since 3.0.0
      */
-    y: {
+    get y(): number
+    {
+        return this.p0.y;
+    }
 
-        get: function ()
-        {
-            return this.p0.y;
-        },
-
-        set: function (value)
-        {
-            this.p0.y = value;
-        }
-
-    },
+    set y(value: number)
+    {
+        this.p0.y = value;
+    }
 
     /**
      * The horizontal radius of the ellipse.
@@ -438,19 +431,15 @@ var EllipseCurve = new Class({
      * @type {number}
      * @since 3.0.0
      */
-    xRadius: {
+    get xRadius(): number
+    {
+        return this._xRadius;
+    }
 
-        get: function ()
-        {
-            return this._xRadius;
-        },
-
-        set: function (value)
-        {
-            this._xRadius = value;
-        }
-
-    },
+    set xRadius(value: number)
+    {
+        this._xRadius = value;
+    }
 
     /**
      * The vertical radius of the ellipse.
@@ -459,19 +448,15 @@ var EllipseCurve = new Class({
      * @type {number}
      * @since 3.0.0
      */
-    yRadius: {
+    get yRadius(): number
+    {
+        return this._yRadius;
+    }
 
-        get: function ()
-        {
-            return this._yRadius;
-        },
-
-        set: function (value)
-        {
-            this._yRadius = value;
-        }
-
-    },
+    set yRadius(value: number)
+    {
+        this._yRadius = value;
+    }
 
     /**
      * The start angle of the ellipse in degrees.
@@ -480,19 +465,15 @@ var EllipseCurve = new Class({
      * @type {number}
      * @since 3.0.0
      */
-    startAngle: {
+    get startAngle(): number
+    {
+        return RadToDeg(this._startAngle);
+    }
 
-        get: function ()
-        {
-            return RadToDeg(this._startAngle);
-        },
-
-        set: function (value)
-        {
-            this._startAngle = DegToRad(value);
-        }
-
-    },
+    set startAngle(value: number)
+    {
+        this._startAngle = DegToRad(value);
+    }
 
     /**
      * The end angle of the ellipse in degrees.
@@ -501,19 +482,15 @@ var EllipseCurve = new Class({
      * @type {number}
      * @since 3.0.0
      */
-    endAngle: {
+    get endAngle(): number
+    {
+        return RadToDeg(this._endAngle);
+    }
 
-        get: function ()
-        {
-            return RadToDeg(this._endAngle);
-        },
-
-        set: function (value)
-        {
-            this._endAngle = DegToRad(value);
-        }
-
-    },
+    set endAngle(value: number)
+    {
+        this._endAngle = DegToRad(value);
+    }
 
     /**
      * `true` if the ellipse rotation is clockwise or `false` if anti-clockwise.
@@ -522,19 +499,15 @@ var EllipseCurve = new Class({
      * @type {boolean}
      * @since 3.0.0
      */
-    clockwise: {
+    get clockwise(): boolean
+    {
+        return this._clockwise;
+    }
 
-        get: function ()
-        {
-            return this._clockwise;
-        },
-
-        set: function (value)
-        {
-            this._clockwise = value;
-        }
-
-    },
+    set clockwise(value: boolean)
+    {
+        this._clockwise = value;
+    }
 
     /**
      * The rotation of the ellipse, relative to the center, in degrees.
@@ -543,19 +516,15 @@ var EllipseCurve = new Class({
      * @type {number}
      * @since 3.14.0
      */
-    angle: {
+    get angle(): number
+    {
+        return RadToDeg(this._rotation);
+    }
 
-        get: function ()
-        {
-            return RadToDeg(this._rotation);
-        },
-
-        set: function (value)
-        {
-            this._rotation = DegToRad(value);
-        }
-
-    },
+    set angle(value: number)
+    {
+        this._rotation = DegToRad(value);
+    }
 
     /**
      * The rotation of the ellipse, relative to the center, in radians.
@@ -564,19 +533,15 @@ var EllipseCurve = new Class({
      * @type {number}
      * @since 3.0.0
      */
-    rotation: {
+    get rotation(): number
+    {
+        return this._rotation;
+    }
 
-        get: function ()
-        {
-            return this._rotation;
-        },
-
-        set: function (value)
-        {
-            this._rotation = value;
-        }
-
-    },
+    set rotation(value: number)
+    {
+        this._rotation = value;
+    }
 
     /**
      * JSON serialization of the curve.
@@ -586,7 +551,7 @@ var EllipseCurve = new Class({
      *
      * @return {Phaser.Types.Curves.JSONEllipseCurve} The JSON object containing this curve data.
      */
-    toJSON: function ()
+    toJSON(): any
     {
         return {
             type: this.type,
@@ -601,21 +566,19 @@ var EllipseCurve = new Class({
         };
     }
 
-});
+    /**
+     * Creates a curve from the provided Ellipse Curve Configuration object.
+     *
+     * @function Phaser.Curves.Ellipse.fromJSON
+     * @since 3.0.0
+     *
+     * @param {Phaser.Types.Curves.JSONEllipseCurve} data - The JSON object containing this curve data.
+     *
+     * @return {Phaser.Curves.Ellipse} The ellipse curve constructed from the configuration object.
+     */
+    static fromJSON(data: any): EllipseCurve
+    {
+        return new EllipseCurve(data);
+    }
 
-/**
- * Creates a curve from the provided Ellipse Curve Configuration object.
- *
- * @function Phaser.Curves.Ellipse.fromJSON
- * @since 3.0.0
- *
- * @param {Phaser.Types.Curves.JSONEllipseCurve} data - The JSON object containing this curve data.
- *
- * @return {Phaser.Curves.Ellipse} The ellipse curve constructed from the configuration object.
- */
-EllipseCurve.fromJSON = function (data)
-{
-    return new EllipseCurve(data);
-};
-
-module.exports = EllipseCurve;
+}

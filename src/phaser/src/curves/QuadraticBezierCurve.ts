@@ -4,13 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { QuadraticBezierInterpolation } from '../math/interpolation/QuadraticBezierInterpolation';
+import { Curve } from './Curve';
 
-var Class = require('../utils/Class');
-var Curve = require('./Curve');
-var Vector2 = require('../math/Vector2');
+const Vector2 = require('../math/Vector2');
 
 /**
  * @classdesc
@@ -26,15 +23,15 @@ var Vector2 = require('../math/Vector2');
  * @param {Phaser.Math.Vector2} p1 - Control Point 1.
  * @param {Phaser.Math.Vector2} p2 - Control Point 2.
  */
-var QuadraticBezier = new Class({
+export class QuadraticBezier extends Curve {
 
-    Extends: Curve,
+    p0: any;
+    p1: any;
+    p2: any;
 
-    initialize:
-
-    function QuadraticBezier (p0, p1, p2)
+    constructor(p0: any, p1?: any, p2?: any)
     {
-        Curve.call(this, 'QuadraticBezierCurve');
+        super('QuadraticBezierCurve');
 
         if (Array.isArray(p0))
         {
@@ -69,7 +66,7 @@ var QuadraticBezier = new Class({
          * @since 3.2.0
          */
         this.p2 = p2;
-    },
+    }
 
     /**
      * Gets the starting point on the curve.
@@ -83,12 +80,12 @@ var QuadraticBezier = new Class({
      *
      * @return {Phaser.Math.Vector2} The coordinates of the point on the curve. If an `out` object was given this will be returned.
      */
-    getStartPoint: function (out)
+    getStartPoint(out?: any): any
     {
         if (out === undefined) { out = new Vector2(); }
 
         return out.copy(this.p0);
-    },
+    }
 
     /**
      * Get the resolution of the curve.
@@ -100,10 +97,10 @@ var QuadraticBezier = new Class({
      *
      * @return {number} The curve resolution.
      */
-    getResolution: function (divisions)
+    getResolution(divisions: number): number
     {
         return divisions;
-    },
+    }
 
     /**
      * Get point at relative position in curve according to length.
@@ -118,19 +115,19 @@ var QuadraticBezier = new Class({
      *
      * @return {Phaser.Math.Vector2} The coordinates of the point on the curve. If an `out` object was given this will be returned.
      */
-    getPoint: function (t, out)
+    getPoint(t: number, out?: any): any
     {
         if (out === undefined) { out = new Vector2(); }
 
-        var p0 = this.p0;
-        var p1 = this.p1;
-        var p2 = this.p2;
+        const p0 = this.p0;
+        const p1 = this.p1;
+        const p2 = this.p2;
 
         return out.set(
             QuadraticBezierInterpolation(t, p0.x, p1.x, p2.x),
             QuadraticBezierInterpolation(t, p0.y, p1.y, p2.y)
         );
-    },
+    }
 
     /**
      * Draws this curve on the given Graphics object.
@@ -148,16 +145,16 @@ var QuadraticBezier = new Class({
      *
      * @return {Phaser.GameObjects.Graphics} `Graphics` object that was drawn to.
      */
-    draw: function (graphics, pointsTotal)
+    draw(graphics: any, pointsTotal?: number): any
     {
         if (pointsTotal === undefined) { pointsTotal = 32; }
 
-        var points = this.getPoints(pointsTotal);
+        const points = this.getPoints(pointsTotal);
 
         graphics.beginPath();
         graphics.moveTo(this.p0.x, this.p0.y);
 
-        for (var i = 1; i < points.length; i++)
+        for (let i = 1; i < points.length; i++)
         {
             graphics.lineTo(points[i].x, points[i].y);
         }
@@ -166,7 +163,7 @@ var QuadraticBezier = new Class({
 
         //  So you can chain graphics calls
         return graphics;
-    },
+    }
 
     /**
      * Converts the curve into a JSON compatible object.
@@ -176,7 +173,7 @@ var QuadraticBezier = new Class({
      *
      * @return {Phaser.Types.Curves.JSONCurve} The JSON object containing this curve data.
      */
-    toJSON: function ()
+    toJSON(): any
     {
         return {
             type: this.type,
@@ -188,27 +185,25 @@ var QuadraticBezier = new Class({
         };
     }
 
-});
+    /**
+     * Creates a curve from a JSON object, e. g. created by `toJSON`.
+     *
+     * @function Phaser.Curves.QuadraticBezier.fromJSON
+     * @since 3.2.0
+     *
+     * @param {Phaser.Types.Curves.JSONCurve} data - The JSON object containing this curve data.
+     *
+     * @return {Phaser.Curves.QuadraticBezier} The created curve instance.
+     */
+    static fromJSON(data: any): QuadraticBezier
+    {
+        const points = data.points;
 
-/**
- * Creates a curve from a JSON object, e. g. created by `toJSON`.
- *
- * @function Phaser.Curves.QuadraticBezier.fromJSON
- * @since 3.2.0
- *
- * @param {Phaser.Types.Curves.JSONCurve} data - The JSON object containing this curve data.
- *
- * @return {Phaser.Curves.QuadraticBezier} The created curve instance.
- */
-QuadraticBezier.fromJSON = function (data)
-{
-    var points = data.points;
+        const p0 = new Vector2(points[0], points[1]);
+        const p1 = new Vector2(points[2], points[3]);
+        const p2 = new Vector2(points[4], points[5]);
 
-    var p0 = new Vector2(points[0], points[1]);
-    var p1 = new Vector2(points[2], points[3]);
-    var p2 = new Vector2(points[4], points[5]);
+        return new QuadraticBezier(p0, p1, p2);
+    }
 
-    return new QuadraticBezier(p0, p1, p2);
-};
-
-module.exports = QuadraticBezier;
+}

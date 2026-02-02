@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.15.21",
+    "acorn": "^8.15.0",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
     "vite-plugin-commonjs": "^0.10.4"

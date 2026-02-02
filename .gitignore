@@ -25,3 +25,4 @@ dist-ssr
 
 local-scripts/
 original_src/
+temp/

@@ -9,13 +9,34 @@
  * Usage: 
  *   bun scripts/convert-class-syntax.ts [directory]  - Process all .js files in directory
  *   bun scripts/convert-class-syntax.ts [file.js]    - Process single file
+ * 
+ * SAFETY: Creates backups in temp/ folder before modifying files
  */
 
-import { readdirSync, statSync, readFileSync, writeFileSync, existsSync } from 'fs';
-import { join } from 'path';
+import { readdirSync, statSync, readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync } from 'fs';
+import { join, dirname, relative } from 'path';
 
 let classCount = 0;
 let extendsCount = 0;
+const projectRoot = process.cwd();
+const backupRoot = join(projectRoot, 'temp');
+
+/**
+ * Create backup of file before modifying
+ */
+function createBackup(originalPath: string): void {
+    const relativePath = relative(projectRoot, originalPath);
+    const backupPath = join(backupRoot, relativePath);
+    const backupDir = dirname(backupPath);
+    
+    // Create backup directory structure
+    if (!existsSync(backupDir)) {
+        mkdirSync(backupDir, { recursive: true });
+    }
+    
+    // Copy original file to backup
+    copyFileSync(originalPath, backupPath);
+}
 
 function scan(dir: string, callback: (filename: string, dir: string) => void): void {
     const files = readdirSync(dir);
@@ -44,6 +65,9 @@ function processFile(filename: string, dir: string): void {
     if (!match) return;
     
     classCount++;
+    
+    // Create backup before modifying
+    createBackup(filename);
     
     let classContent = match[0];
     const className = match[2];
@@ -122,6 +146,7 @@ const target = process.argv[2] || join(process.cwd(), 'src', 'phaser', 'src');
 
 console.log('╔══════════════════════════════════════════════════════════════╗');
 console.log('║        PHASER CLASS SYNTAX CONVERTER                        ║');
+console.log('║        (Creates backups in temp/ folder)                     ║');
 console.log('╚══════════════════════════════════════════════════════════════╝\n');
 
 if (!existsSync(target)) {
@@ -149,4 +174,7 @@ if (stats.isFile()) {
 console.log('\n════════════════════════════════════════════════════════════════');
 console.log(`✅ Conversion complete!`);
 console.log(`   Classes converted: ${classCount}`);
+if (classCount > 0) {
+    console.log(`   💾 Backups saved in: temp/`);
+}
 console.log('════════════════════════════════════════════════════════════════\n');
