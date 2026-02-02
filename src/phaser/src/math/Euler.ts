@@ -271,6 +271,7 @@ export class Euler {
         return this;
     }
 
+    // TODO: See how to fix this MATH matrix
     static RotationOrders = [ 'XYZ', 'YXZ', 'ZXY', 'ZYX', 'YZX', 'XZY' ];
     static DefaultOrder = 'XYZ';
 

@@ -4,6 +4,8 @@ import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
 import { join } from 'path';
 
 const loaderModules = [
+    'File',
+    'MultiFile',
     'GetURL',
     'XHRSettings',
     'MergeXHRSettings',
