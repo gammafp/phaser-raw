@@ -9,9 +9,9 @@
 import { GetFastValue } from '../utils/object/GetFastValue';
 import { GetValue } from '../utils/object/GetValue';
 import { IsPlainObject } from '../utils/object/IsPlainObject';
+import { LOADER_CONST as CONST } from './const';
 
 var Class = require('../utils/Class');
-var CONST = require('./const');
 var CustomSet = require('../structs/Set');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');

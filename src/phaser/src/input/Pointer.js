@@ -10,10 +10,10 @@ import { Between as Angle } from '../math/angle/Between';
 import { DistanceBetween as Distance } from '../math/distance/DistanceBetween';
 import { Equal as FuzzyEqual } from '../math/fuzzy/Equal';
 import { SmoothStepInterpolation } from '../math/interpolation/SmoothStepInterpolation';
+import { OS_DEVICE as OS } from '../device/OS';
 
 var Class = require('../utils/Class');
 var Vector2 = require('../math/Vector2');
-var OS = require('../device/OS');
 
 /**
  * @classdesc

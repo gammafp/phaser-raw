@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var OS = require('./OS');
-var Browser = require('./Browser');
+import { OS_DEVICE as OS } from './OS';
+import { BROWSER_DEVICE as Browser } from './Browser';
+
 var CanvasPool = require('../display/canvas/CanvasPool');
 
 /**

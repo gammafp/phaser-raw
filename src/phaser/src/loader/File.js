@@ -7,9 +7,9 @@
 // TODO: Convert this file to TypeScript
 
 import { GetFastValue } from '../utils/object/GetFastValue';
+import { LOADER_CONST as CONST } from './const';
 
 var Class = require('../utils/Class');
-var CONST = require('./const');
 var Events = require('./events');
 var GetURL = require('./GetURL');
 var MergeXHRSettings = require('./MergeXHRSettings');

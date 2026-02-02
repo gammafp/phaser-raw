@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { LOADER_CONST as CONST } from '../const';
+
 var Class = require('../../utils/Class');
-var CONST = require('../const');
 var FileTypesManager = require('../FileTypesManager');
 var ImageFile = require('./ImageFile');
 

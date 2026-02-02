@@ -9,6 +9,7 @@
 import { Color } from '../display/color/Color';
 import { GetValue } from '../utils/object/GetValue';
 import { IsPlainObject } from '../utils/object/IsPlainObject';
+import { GenerateTexture } from '../create/GenerateTexture';
 
 var CanvasPool = require('../display/canvas/CanvasPool');
 var CanvasTexture = require('./CanvasTexture');
@@ -19,7 +20,6 @@ var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var Frame = require('./Frame');
 var GameEvents = require('../core/events');
-var GenerateTexture = require('../create/GenerateTexture');
 var ImageGameObject = require('../gameobjects/image/Image');
 var Parser = require('./parsers');
 var Rectangle = require('../geom/rectangle/Rectangle');

@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Browser = require('./Browser');
+import { BROWSER_DEVICE as Browser } from './Browser';
 
 /**
  * Determines the audio playback capabilities of the device running this Phaser Game instance.

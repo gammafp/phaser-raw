@@ -9,8 +9,9 @@
 import { GetFastValue } from '../../utils/object/GetFastValue';
 import { IsPlainObject } from '../../utils/object/IsPlainObject';
 
+import { LOADER_CONST as CONST } from '../const';
+
 var Class = require('../../utils/Class');
-var CONST = require('../const');
 var File = require('../File');
 var FileTypesManager = require('../FileTypesManager');
 
