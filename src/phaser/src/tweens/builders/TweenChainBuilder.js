@@ -8,9 +8,9 @@
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { GetValue } from '../../utils/object/GetValue';
+import { GetBoolean } from './GetBoolean';
 
 var BaseTween = require('../tween/BaseTween');
-var GetBoolean = require('./GetBoolean');
 var GetTargets = require('./GetTargets');
 var TweenBuilder = require('./TweenBuilder');
 var TweenChain = require('../tween/TweenChain');

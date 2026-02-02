@@ -16,7 +16,7 @@
  *
  * @return {boolean} The retrieved value.
  */
-var GetBoolean = function (source, key, defaultValue)
+export const GetBoolean = (source: any, key: string, defaultValue: boolean): boolean =>
 {
     if (!source)
     {
@@ -31,5 +31,3 @@ var GetBoolean = function (source, key, defaultValue)
         return defaultValue;
     }
 };
-
-module.exports = GetBoolean;

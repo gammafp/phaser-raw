@@ -10,12 +10,12 @@ import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { GetFastValue } from '../../utils/object/GetFastValue';
 import { GetValue } from '../../utils/object/GetValue';
 import { MergeRight } from '../../utils/object/MergeRight';
+import { GetBoolean } from './GetBoolean';
+import { GetNewValue } from './GetNewValue';
 
 var BaseTween = require('../tween/BaseTween');
 var Defaults = require('../tween/Defaults');
-var GetBoolean = require('./GetBoolean');
 var GetEaseFunction = require('./GetEaseFunction');
-var GetNewValue = require('./GetNewValue');
 var GetValueOp = require('./GetValueOp');
 var Tween = require('../tween/Tween');
 

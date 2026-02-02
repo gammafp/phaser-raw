@@ -8,13 +8,17 @@
  * @namespace Phaser.Tweens.Builders
  */
 
+import { GetBoolean } from './GetBoolean';
+import { GetNewValue } from './GetNewValue';
+import { GetProps } from './GetProps';
+
 module.exports = {
 
-    GetBoolean: require('./GetBoolean'),
+    GetBoolean,
     GetEaseFunction: require('./GetEaseFunction'),
     GetInterpolationFunction: require('./GetInterpolationFunction'),
-    GetNewValue: require('./GetNewValue'),
-    GetProps: require('./GetProps'),
+    GetNewValue,
+    GetProps,
     GetTargets: require('./GetTargets'),
     GetValueOp: require('./GetValueOp'),
     NumberTweenBuilder: require('./NumberTweenBuilder'),

@@ -17,24 +17,24 @@
  *
  * @return {function} A function which, when called, will return the property value from the source.
  */
-var GetNewValue = function (source, key, defaultValue)
+export const GetNewValue = (source: any, key: string, defaultValue: any): Function =>
 {
-    var valueCallback;
+    let valueCallback: Function;
 
     if (source.hasOwnProperty(key))
     {
-        var t = typeof(source[key]);
+        const t = typeof(source[key]);
 
         if (t === 'function')
         {
-            valueCallback = function (target, targetKey, value, targetIndex, totalTargets, tween)
+            valueCallback = (target: any, targetKey: string, value: any, targetIndex: number, totalTargets: number, tween: any) =>
             {
                 return source[key](target, targetKey, value, targetIndex, totalTargets, tween);
             };
         }
         else
         {
-            valueCallback = function ()
+            valueCallback = () =>
             {
                 return source[key];
             };
@@ -46,7 +46,7 @@ var GetNewValue = function (source, key, defaultValue)
     }
     else
     {
-        valueCallback = function ()
+        valueCallback = () =>
         {
             return defaultValue;
         };
@@ -54,5 +54,3 @@ var GetNewValue = function (source, key, defaultValue)
 
     return valueCallback;
 };
-
-module.exports = GetNewValue;

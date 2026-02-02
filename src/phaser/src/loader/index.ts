@@ -4,6 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// TODO: Convert this complex export pattern to modern TypeScript
+// This file uses Extend to merge LOADER_CONST into the Loader object
+// Need to analyze best pattern: namespace, merged exports, or class with static properties
+
 import { Extend } from '../utils/object/Extend';
 import { LOADER_CONST } from './const';
 

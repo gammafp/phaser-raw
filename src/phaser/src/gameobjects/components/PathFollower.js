@@ -8,8 +8,8 @@
 
 import { DegToRad } from '../../math/DegToRad';
 import { GetValue } from '../../utils/object/GetValue';
+import { GetBoolean } from '../../tweens/builders/GetBoolean';
 
-var GetBoolean = require('../../tweens/builders/GetBoolean');
 var TWEEN_CONST = require('../../tweens/tween/const');
 var Vector2 = require('../../math/Vector2');
 
