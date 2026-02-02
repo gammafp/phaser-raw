@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync, unlinkSync, readdirSync } from 'fs';
 import { join } from 'path';
 
-const eventFolder = 'src/phaser/src/physics/matter-js/events';
+const eventFolder = 'src/phaser/src/gameobjects/events';
 
 const files = readdirSync(eventFolder).filter(f => f.endsWith('_EVENT.js'));
 
