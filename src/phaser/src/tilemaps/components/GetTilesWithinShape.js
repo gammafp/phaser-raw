@@ -8,7 +8,7 @@ import { NOOP } from '../../utils/NOOP';
 var Geom = require('../../geom/');
 var GetTilesWithin = require('./GetTilesWithin');
 var Intersects = require('../../geom/intersects/');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 var CONST = require('../const/ORIENTATION_CONST');
 
 var TriangleToRectangle = function (triangle, rect)

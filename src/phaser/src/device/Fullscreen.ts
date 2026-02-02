@@ -18,7 +18,7 @@
  * @property {string} cancel - If the browser supports the Full Screen API this holds the call you need to use to cancel it.
  * @property {string} request - If the browser supports the Full Screen API this holds the call you need to use to activate it.
  */
-var Fullscreen = {
+const Fullscreen: any = {
 
     available: false,
     cancel: '',
@@ -32,19 +32,19 @@ var Fullscreen = {
 *
 * @ignore
 */
-function init ()
+const init = (): typeof Fullscreen =>
 {
     if (typeof importScripts === 'function')
     {
         return Fullscreen;
     }
 
-    var i;
+    let i: number;
 
-    var suffix1 = 'Fullscreen';
-    var suffix2 = 'FullScreen';
+    const suffix1 = 'Fullscreen';
+    const suffix2 = 'FullScreen';
 
-    var fs = [
+    const fs = [
         'request' + suffix1,
         'request' + suffix2,
         'webkitRequest' + suffix1,
@@ -57,7 +57,7 @@ function init ()
 
     for (i = 0; i < fs.length; i++)
     {
-        if (document.documentElement[fs[i]])
+        if ((document.documentElement as any)[fs[i]])
         {
             Fullscreen.available = true;
             Fullscreen.request = fs[i];
@@ -65,7 +65,7 @@ function init ()
         }
     }
 
-    var cfs = [
+    const cfs = [
         'cancel' + suffix2,
         'exit' + suffix1,
         'webkitCancel' + suffix2,
@@ -80,7 +80,7 @@ function init ()
     {
         for (i = 0; i < cfs.length; i++)
         {
-            if (document[cfs[i]])
+            if ((document as any)[cfs[i]])
             {
                 Fullscreen.cancel = cfs[i];
                 break;
@@ -90,14 +90,14 @@ function init ()
 
     //  Keyboard Input?
     //  Safari 5.1 says it supports fullscreen keyboard, but is lying.
-    if (window['Element'] && Element['ALLOW_KEYBOARD_INPUT'] && !(/ Version\/5\.1(?:\.\d+)? Safari\//).test(navigator.userAgent))
+    if (window['Element'] && (Element as any)['ALLOW_KEYBOARD_INPUT'] && !(/ Version\/5\.1(?:\.\d+)? Safari\//).test(navigator.userAgent))
     {
         Fullscreen.keyboard = true;
     }
 
-    Object.defineProperty(Fullscreen, 'active', { get: function () { return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement); } });
+    Object.defineProperty(Fullscreen, 'active', { get: function () { return !!((document as any).fullscreenElement || (document as any).webkitFullscreenElement || (document as any).mozFullScreenElement || (document as any).msFullscreenElement); } });
 
     return Fullscreen;
-}
+};
 
-module.exports = init();
+export const FULLSCREEN_DEVICE = init();

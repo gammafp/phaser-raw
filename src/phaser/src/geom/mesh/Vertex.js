@@ -8,7 +8,7 @@
 
 var Class = require('../../utils/Class');
 var Utils = require('../../renderer/webgl/Utils');
-var Vector3 = require('../../math/Vector3');
+import { Vector3 } from '../../math/Vector3';
 
 /**
  * @classdesc

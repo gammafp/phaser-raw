@@ -4,9 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var BaseCache = require('./BaseCache');
-var Class = require('../utils/Class');
-var GameEvents = require('../core/events');
+import { BaseCache } from './BaseCache';
+
+const GameEvents = require('../core/events');
 
 /**
  * @classdesc
@@ -23,11 +23,24 @@ var GameEvents = require('../core/events');
  *
  * @param {Phaser.Game} game - A reference to the Phaser.Game instance that owns this CacheManager.
  */
-var CacheManager = new Class({
+export class CacheManager {
 
-    initialize:
+    game: any;
+    binary: BaseCache;
+    bitmapFont: BaseCache;
+    json: BaseCache;
+    physics: BaseCache;
+    shader: BaseCache;
+    audio: BaseCache;
+    video: BaseCache;
+    text: BaseCache;
+    html: BaseCache;
+    obj: BaseCache;
+    tilemap: BaseCache;
+    xml: BaseCache;
+    custom: Record<string, BaseCache>;
 
-    function CacheManager (game)
+    constructor(game: any)
     {
         /**
          * A reference to the Phaser.Game instance that owns this CacheManager.
@@ -160,7 +173,7 @@ var CacheManager = new Class({
         this.custom = {};
 
         this.game.events.once(GameEvents.DESTROY, this.destroy, this);
-    },
+    }
 
     /**
      * Add your own custom Cache for storing your own files.
@@ -174,7 +187,7 @@ var CacheManager = new Class({
      *
      * @return {Phaser.Cache.BaseCache} A reference to the BaseCache that was created. If the key was already in use, a reference to the existing cache is returned instead.
      */
-    addCustom: function (key)
+    addCustom(key: string): BaseCache
     {
         if (!this.custom.hasOwnProperty(key))
         {
@@ -182,7 +195,7 @@ var CacheManager = new Class({
         }
 
         return this.custom[key];
-    },
+    }
 
     /**
      * Removes all entries from all BaseCaches and destroys all custom caches.
@@ -190,9 +203,9 @@ var CacheManager = new Class({
      * @method Phaser.Cache.CacheManager#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy(): void
     {
-        var keys = [
+        const keys = [
             'binary',
             'bitmapFont',
             'json',
@@ -207,13 +220,13 @@ var CacheManager = new Class({
             'xml'
         ];
 
-        for (var i = 0; i < keys.length; i++)
+        for (let i = 0; i < keys.length; i++)
         {
             this[keys[i]].destroy();
             this[keys[i]] = null;
         }
 
-        for (var key in this.custom)
+        for (const key in this.custom)
         {
             this.custom[key].destroy();
         }
@@ -223,6 +236,4 @@ var CacheManager = new Class({
         this.game = null;
     }
 
-});
-
-module.exports = CacheManager;
+}

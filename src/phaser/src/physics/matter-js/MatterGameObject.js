@@ -9,7 +9,7 @@
 import { GetFastValue } from '../../utils/object/GetFastValue';
 
 var Components = require('./components');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 
 /**
  * Internal function to check if the object has a getter or setter.

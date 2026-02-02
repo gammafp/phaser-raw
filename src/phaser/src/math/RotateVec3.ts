@@ -4,15 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this - depends on Vector3, Matrix4, Quaternion classes
+import { Vector3 } from '../math/Vector3';
+import { Matrix4 } from '../math/Matrix4';
+import { Quaternion } from '../math/Quaternion';
 
-var Vector3 = require('../math/Vector3');
-var Matrix4 = require('../math/Matrix4');
-var Quaternion = require('../math/Quaternion');
-
-var tmpMat4 = new Matrix4();
-var tmpQuat = new Quaternion();
-var tmpVec3 = new Vector3();
+const tmpMat4 = new Matrix4();
+const tmpQuat = new Quaternion();
+const tmpVec3 = new Vector3();
 
 /**
  * Rotates a vector in place by axis angle.
@@ -29,7 +27,7 @@ var tmpVec3 = new Vector3();
  *
  * @return {Phaser.Math.Vector3} The given vector.
  */
-var RotateVec3 = function (vec, axis, radians)
+export const RotateVec3 = (vec: any, axis: any, radians: number): any =>
 {
     //  Set the quaternion to our axis angle
     tmpQuat.setAxisAngle(axis, radians);
@@ -40,5 +38,3 @@ var RotateVec3 = function (vec, axis, radians)
     //  Multiply our vector by the rotation matrix
     return vec.transformMat4(tmpMat4);
 };
-
-module.exports = RotateVec3;

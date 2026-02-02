@@ -16,7 +16,7 @@ var Detector = require('./lib/collision/Detector');
 var Events = require('./events');
 var InputEvents = require('../../input/events');
 var Sleeping = require('./lib/core/Sleeping');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 var Vertices = require('./lib/geometry/Vertices');
 
 /**

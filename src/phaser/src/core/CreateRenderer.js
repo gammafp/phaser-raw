@@ -7,7 +7,7 @@
 import { CanvasInterpolation } from '../display/canvas/CanvasInterpolation';
 import { CanvasPool } from '../display/canvas/CanvasPool';
 import { PHASER_CONST as CONST } from '../const';
-var Features = require('../device/Features');
+import { FEATURES_DEVICE as Features } from '../device/Features';
 
 /**
  * Called automatically by Phaser.Game and responsible for creating the renderer it will use.

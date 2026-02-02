@@ -37,7 +37,7 @@ var Set = require('../../structs/Set');
 var StaticBody = require('./StaticBody');
 var TileIntersectsBody = require('./tilemap/TileIntersectsBody');
 var TransformMatrix = require('../../gameobjects/components/TransformMatrix');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 
 /**
  * @classdesc

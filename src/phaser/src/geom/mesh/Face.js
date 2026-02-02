@@ -8,7 +8,7 @@
 
 var Class = require('../../utils/Class');
 var Rectangle = require('../rectangle/Rectangle');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 
 /**
  * Returns the length of the line.

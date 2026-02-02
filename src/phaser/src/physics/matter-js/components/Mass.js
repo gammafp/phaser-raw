@@ -5,7 +5,7 @@
  */
 
 var Body = require('../lib/body/Body');
-var Vector2 = require('../../../math/Vector2');
+import { Vector2 } from '../../../math/Vector2';
 
 /**
  * Allows accessing the mass, density, and center of mass of a Matter-enabled Game Object. Should be used as a mixin and not directly.

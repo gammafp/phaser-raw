@@ -17,7 +17,7 @@ var CameraEvents = require('../../cameras/2d/events');
 var Class = require('../../utils/Class');
 var EventEmitter = require('eventemitter3');
 var Events = require('../events');
-var Matrix4 = require('../../math/Matrix4');
+import { Matrix4 } from '../../math/Matrix4';
 var PipelineManager = require('./PipelineManager');
 var RenderTarget = require('./RenderTarget');
 var ScaleEvents = require('../../scale/events');

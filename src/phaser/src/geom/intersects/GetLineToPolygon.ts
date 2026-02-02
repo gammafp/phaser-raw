@@ -6,8 +6,8 @@
 
 import { GetLineToPoints } from './GetLineToPoints';
 
-const Vector3 = require('../../math/Vector3');
-const Vector4 = require('../../math/Vector4');
+import { Vector3 } from '../../math/Vector3';
+import { Vector4 } from '../../math/Vector4';
 
 //  Temp vec3
 const tempIntersect = new Vector3();

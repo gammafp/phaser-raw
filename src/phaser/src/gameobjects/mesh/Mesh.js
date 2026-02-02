@@ -16,10 +16,10 @@ var GameObject = require('../GameObject');
 var GenerateObjVerts = require('../../geom/mesh/GenerateObjVerts');
 var GenerateVerts = require('../../geom/mesh/GenerateVerts');
 var GetCalcMatrix = require('../GetCalcMatrix');
-var Matrix4 = require('../../math/Matrix4');
+import { Matrix4 } from '../../math/Matrix4';
 var MeshRender = require('./MeshRender');
 var StableSort = require('../../utils/array/StableSort');
-var Vector3 = require('../../math/Vector3');
+import { Vector3 } from '../../math/Vector3';
 var Vertex = require('../../geom/mesh/Vertex');
 
 /**

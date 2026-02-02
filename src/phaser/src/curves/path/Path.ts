@@ -16,7 +16,7 @@ const MovePathTo = require('./MoveTo');
 const QuadraticBezierCurve = require('../QuadraticBezierCurve');
 const Rectangle = require('../../geom/rectangle/Rectangle');
 const SplineCurve = require('../SplineCurve');
-const Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 
 /**
  * @classdesc

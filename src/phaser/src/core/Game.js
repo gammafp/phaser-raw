@@ -9,9 +9,9 @@ import { AddToDOM } from '../dom/AddToDOM';
 import { SoundManagerCreator } from '../sound/SoundManagerCreator';
 
 import { CanvasPool } from '../display/canvas/CanvasPool';
+import { CacheManager } from '../cache/CacheManager';
 
 var AnimationManager = require('../animations/AnimationManager');
-var CacheManager = require('../cache/CacheManager');
 var Class = require('../utils/Class');
 var Config = require('./Config');
 import { CreateDOMContainer } from '../dom/CreateDOMContainer';

@@ -7,7 +7,7 @@
 import { QuadraticBezierInterpolation } from '../math/interpolation/QuadraticBezierInterpolation';
 import { Curve } from './Curve';
 
-const Vector2 = require('../math/Vector2');
+import { Vector2 } from '../math/Vector2';
 
 /**
  * @classdesc

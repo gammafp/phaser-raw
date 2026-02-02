@@ -16,7 +16,7 @@ var Components = require('../../gameobjects/components');
 var Effects = require('./effects');
 var Events = require('./events');
 var Rectangle = require('../../geom/rectangle/Rectangle');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 
 /**
  * @classdesc

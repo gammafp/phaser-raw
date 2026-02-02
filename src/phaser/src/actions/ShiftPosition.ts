@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Vector2 = require('../math/Vector2');
+import { Vector2 } from '../math/Vector2';
 
 /**
  * Takes an array of items, such as Game Objects, or any objects with public `x` and

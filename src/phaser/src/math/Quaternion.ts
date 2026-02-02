@@ -4,27 +4,26 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this to TypeScript class
-
 //  Adapted from [gl-matrix](https://github.com/toji/gl-matrix) by toji
 //  and [vecmath](https://github.com/mattdesl/vecmath) by mattdesl
 
-var Class = require('../utils/Class');
-var Matrix3 = require('./Matrix3');
 import { NOOP } from '../utils/NOOP';
-var Vector3 = require('./Vector3');
+import { Vector3 } from './Vector3';
+import { Matrix3 } from './Matrix3';
+import { Euler } from './Euler';
+import { Matrix4 } from './Matrix4';
 
-var EPSILON = 0.000001;
+const EPSILON = 0.000001;
 
 //  Some shared 'private' arrays
-var siNext = new Int8Array([ 1, 2, 0 ]);
-var tmp = new Float32Array([ 0, 0, 0 ]);
+const siNext = new Int8Array([ 1, 2, 0 ]);
+const tmp = new Float32Array([ 0, 0, 0 ]);
 
-var xUnitVec3 = new Vector3(1, 0, 0);
-var yUnitVec3 = new Vector3(0, 1, 0);
+const xUnitVec3 = new Vector3(1, 0, 0);
+const yUnitVec3 = new Vector3(0, 1, 0);
 
-var tmpvec = new Vector3();
-var tmpMat3 = new Matrix3();
+const tmpvec = new Vector3();
+const tmpMat3 = new Matrix3();
 
 /**
  * @classdesc
@@ -40,11 +39,15 @@ var tmpMat3 = new Matrix3();
  * @param {number} [z=0] - The z component.
  * @param {number} [w=1] - The w component.
  */
-var Quaternion = new Class({
+export class Quaternion {
 
-    initialize:
+    private _x: number;
+    private _y: number;
+    private _z: number;
+    private _w: number;
+    onChangeCallback: (q: Quaternion) => void;
 
-    function Quaternion (x, y, z, w)
+    constructor(x?: number, y?: number, z?: number, w?: number)
     {
         /**
          * The x component of this Quaternion.
@@ -97,7 +100,7 @@ var Quaternion = new Class({
         this.onChangeCallback = NOOP;
 
         this.set(x, y, z, w);
-    },
+    }
 
     /**
      * The x component of this Quaternion.
@@ -107,19 +110,18 @@ var Quaternion = new Class({
      * @default 0
      * @since 3.0.0
      */
-    x: {
-        get: function ()
-        {
-            return this._x;
-        },
 
-        set: function (value)
-        {
-            this._x = value;
+    get x(): number
+    {
+        return this._x;
+    }
 
-            this.onChangeCallback(this);
-        }
-    },
+    set x(value: number)
+    {
+        this._x = value;
+
+        this.onChangeCallback(this);
+    }
 
     /**
      * The y component of this Quaternion.
@@ -129,19 +131,18 @@ var Quaternion = new Class({
      * @default 0
      * @since 3.0.0
      */
-    y: {
-        get: function ()
-        {
-            return this._y;
-        },
 
-        set: function (value)
-        {
-            this._y = value;
+    get y(): number
+    {
+        return this._y;
+    }
 
-            this.onChangeCallback(this);
-        }
-    },
+    set y(value: number)
+    {
+        this._y = value;
+
+        this.onChangeCallback(this);
+    }
 
     /**
      * The z component of this Quaternion.
@@ -151,19 +152,18 @@ var Quaternion = new Class({
      * @default 0
      * @since 3.0.0
      */
-    z: {
-        get: function ()
-        {
-            return this._z;
-        },
 
-        set: function (value)
-        {
-            this._z = value;
+    get z(): number
+    {
+        return this._z;
+    }
 
-            this.onChangeCallback(this);
-        }
-    },
+    set z(value: number)
+    {
+        this._z = value;
+
+        this.onChangeCallback(this);
+    }
 
     /**
      * The w component of this Quaternion.
@@ -173,19 +173,18 @@ var Quaternion = new Class({
      * @default 0
      * @since 3.0.0
      */
-    w: {
-        get: function ()
-        {
-            return this._w;
-        },
 
-        set: function (value)
-        {
-            this._w = value;
+    get w(): number
+    {
+        return this._w;
+    }
 
-            this.onChangeCallback(this);
-        }
-    },
+    set w(value: number)
+    {
+        this._w = value;
+
+        this.onChangeCallback(this);
+    }
 
     /**
      * Copy the components of a given Quaternion or Vector into this Quaternion.
@@ -197,10 +196,10 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    copy: function (src)
+    copy(src: Quaternion | { x: number; y: number; z: number; w: number }): Quaternion
     {
         return this.set(src);
-    },
+    }
 
     /**
      * Set the components of this Quaternion and optionally call the `onChangeCallback`.
@@ -216,7 +215,7 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    set: function (x, y, z, w, update)
+    set(x?: number | { x: number; y: number; z: number; w: number }, y?: number, z?: number, w?: number, update?: boolean): Quaternion
     {
         if (update === undefined) { update = true; }
 
@@ -241,7 +240,7 @@ var Quaternion = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Add a given Quaternion or Vector to this Quaternion. Addition is component-wise.
@@ -253,7 +252,7 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    add: function (v)
+    add(v: Quaternion | { x: number; y: number; z: number; w: number }): Quaternion
     {
         this._x += v.x;
         this._y += v.y;
@@ -263,7 +262,7 @@ var Quaternion = new Class({
         this.onChangeCallback(this);
 
         return this;
-    },
+    }
 
     /**
      * Subtract a given Quaternion or Vector from this Quaternion. Subtraction is component-wise.
@@ -275,7 +274,7 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    subtract: function (v)
+    subtract(v: Quaternion | { x: number; y: number; z: number; w: number }): Quaternion
     {
         this._x -= v.x;
         this._y -= v.y;
@@ -285,7 +284,7 @@ var Quaternion = new Class({
         this.onChangeCallback(this);
 
         return this;
-    },
+    }
 
     /**
      * Scale this Quaternion by the given value.
@@ -297,7 +296,7 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    scale: function (scale)
+    scale(scale: number): Quaternion
     {
         this._x *= scale;
         this._y *= scale;
@@ -307,7 +306,7 @@ var Quaternion = new Class({
         this.onChangeCallback(this);
 
         return this;
-    },
+    }
 
     /**
      * Calculate the length of this Quaternion.
@@ -317,15 +316,15 @@ var Quaternion = new Class({
      *
      * @return {number} The length of this Quaternion.
      */
-    length: function ()
+    length(): number
     {
-        var x = this.x;
-        var y = this.y;
-        var z = this.z;
-        var w = this.w;
+        const x = this.x;
+        const y = this.y;
+        const z = this.z;
+        const w = this.w;
 
         return Math.sqrt(x * x + y * y + z * z + w * w);
-    },
+    }
 
     /**
      * Calculate the length of this Quaternion squared.
@@ -335,15 +334,15 @@ var Quaternion = new Class({
      *
      * @return {number} The length of this Quaternion, squared.
      */
-    lengthSq: function ()
+    lengthSq(): number
     {
-        var x = this.x;
-        var y = this.y;
-        var z = this.z;
-        var w = this.w;
+        const x = this.x;
+        const y = this.y;
+        const z = this.z;
+        const w = this.w;
 
         return x * x + y * y + z * z + w * w;
-    },
+    }
 
     /**
      * Normalize this Quaternion.
@@ -353,13 +352,13 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    normalize: function ()
+    normalize(): Quaternion
     {
-        var x = this.x;
-        var y = this.y;
-        var z = this.z;
-        var w = this.w;
-        var len = x * x + y * y + z * z + w * w;
+        const x = this.x;
+        const y = this.y;
+        const z = this.z;
+        const w = this.w;
+        let len = x * x + y * y + z * z + w * w;
 
         if (len > 0)
         {
@@ -374,7 +373,7 @@ var Quaternion = new Class({
         this.onChangeCallback(this);
 
         return this;
-    },
+    }
 
     /**
      * Calculate the dot product of this Quaternion and the given Quaternion or Vector.
@@ -386,10 +385,10 @@ var Quaternion = new Class({
      *
      * @return {number} The dot product of this Quaternion and the given Quaternion or Vector.
      */
-    dot: function (v)
+    dot(v: Quaternion | { x: number; y: number; z: number; w: number }): number
     {
         return this.x * v.x + this.y * v.y + this.z * v.z + this.w * v.w;
-    },
+    }
 
     /**
      * Linearly interpolate this Quaternion towards the given Quaternion or Vector.
@@ -402,14 +401,14 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    lerp: function (v, t)
+    lerp(v: Quaternion | { x: number; y: number; z: number; w: number }, t?: number): Quaternion
     {
         if (t === undefined) { t = 0; }
 
-        var ax = this.x;
-        var ay = this.y;
-        var az = this.z;
-        var aw = this.w;
+        const ax = this.x;
+        const ay = this.y;
+        const az = this.z;
+        const aw = this.w;
 
         return this.set(
             ax + t * (v.x - ax),
@@ -417,7 +416,7 @@ var Quaternion = new Class({
             az + t * (v.z - az),
             aw + t * (v.w - aw)
         );
-    },
+    }
 
     /**
      * Rotates this Quaternion based on the two given vectors.
@@ -430,9 +429,9 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    rotationTo: function (a, b)
+    rotationTo(a: Vector3, b: Vector3): Quaternion
     {
-        var dot = a.x * b.x + a.y * b.y + a.z * b.z;
+        const dot = a.x * b.x + a.y * b.y + a.z * b.z;
 
         if (dot < -0.999999)
         {
@@ -461,7 +460,7 @@ var Quaternion = new Class({
 
             return this.normalize();
         }
-    },
+    }
 
     /**
      * Set the axes of this Quaternion.
@@ -475,9 +474,9 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    setAxes: function (view, right, up)
+    setAxes(view: Vector3, right: Vector3, up: Vector3): Quaternion
     {
-        var m = tmpMat3.val;
+        const m = tmpMat3.val;
 
         m[0] = right.x;
         m[3] = right.y;
@@ -492,7 +491,7 @@ var Quaternion = new Class({
         m[8] = -view.z;
 
         return this.fromMat3(tmpMat3).normalize();
-    },
+    }
 
     /**
      * Reset this Matrix to an identity (default) Quaternion.
@@ -502,10 +501,10 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    identity: function ()
+    identity(): Quaternion
     {
         return this.set(0, 0, 0, 1);
-    },
+    }
 
     /**
      * Set the axis angle of this Quaternion.
@@ -518,11 +517,11 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    setAxisAngle: function (axis, rad)
+    setAxisAngle(axis: Vector3, rad: number): Quaternion
     {
         rad = rad * 0.5;
 
-        var s = Math.sin(rad);
+        const s = Math.sin(rad);
 
         return this.set(
             s * axis.x,
@@ -530,7 +529,7 @@ var Quaternion = new Class({
             s * axis.z,
             Math.cos(rad)
         );
-    },
+    }
 
     /**
      * Multiply this Quaternion by the given Quaternion or Vector.
@@ -542,17 +541,17 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    multiply: function (b)
+    multiply(b: Quaternion | { x: number; y: number; z: number; w: number }): Quaternion
     {
-        var ax = this.x;
-        var ay = this.y;
-        var az = this.z;
-        var aw = this.w;
+        const ax = this.x;
+        const ay = this.y;
+        const az = this.z;
+        const aw = this.w;
 
-        var bx = b.x;
-        var by = b.y;
-        var bz = b.z;
-        var bw = b.w;
+        const bx = b.x;
+        const by = b.y;
+        const bz = b.z;
+        const bw = b.w;
 
         return this.set(
             ax * bw + aw * bx + ay * bz - az * by,
@@ -560,7 +559,7 @@ var Quaternion = new Class({
             az * bw + aw * bz + ax * by - ay * bx,
             aw * bw - ax * bx - ay * by - az * bz
         );
-    },
+    }
 
     /**
      * Smoothly linearly interpolate this Quaternion towards the given Quaternion or Vector.
@@ -573,22 +572,22 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    slerp: function (b, t)
+    slerp(b: Quaternion | { x: number; y: number; z: number; w: number }, t: number): Quaternion
     {
         // benchmarks: http://jsperf.com/quaternion-slerp-implementations
 
-        var ax = this.x;
-        var ay = this.y;
-        var az = this.z;
-        var aw = this.w;
+        const ax = this.x;
+        const ay = this.y;
+        const az = this.z;
+        const aw = this.w;
 
-        var bx = b.x;
-        var by = b.y;
-        var bz = b.z;
-        var bw = b.w;
+        let bx = b.x;
+        let by = b.y;
+        let bz = b.z;
+        let bw = b.w;
 
         // calc cosine
-        var cosom = ax * bx + ay * by + az * bz + aw * bw;
+        let cosom = ax * bx + ay * by + az * bz + aw * bw;
 
         // adjust signs (if necessary)
         if (cosom < 0)
@@ -602,15 +601,15 @@ var Quaternion = new Class({
 
         // "from" and "to" quaternions are very close
         //  ... so we can do a linear interpolation
-        var scale0 = 1 - t;
-        var scale1 = t;
+        let scale0 = 1 - t;
+        let scale1 = t;
 
         // calculate coefficients
         if ((1 - cosom) > EPSILON)
         {
             // standard case (slerp)
-            var omega = Math.acos(cosom);
-            var sinom = Math.sin(omega);
+            const omega = Math.acos(cosom);
+            const sinom = Math.sin(omega);
 
             scale0 = Math.sin((1.0 - t) * omega) / sinom;
             scale1 = Math.sin(t * omega) / sinom;
@@ -623,7 +622,7 @@ var Quaternion = new Class({
             scale0 * az + scale1 * bz,
             scale0 * aw + scale1 * bw
         );
-    },
+    }
 
     /**
      * Invert this Quaternion.
@@ -633,15 +632,15 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    invert: function ()
+    invert(): Quaternion
     {
-        var a0 = this.x;
-        var a1 = this.y;
-        var a2 = this.z;
-        var a3 = this.w;
+        const a0 = this.x;
+        const a1 = this.y;
+        const a2 = this.z;
+        const a3 = this.w;
 
-        var dot = a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3;
-        var invDot = (dot) ? 1 / dot : 0;
+        const dot = a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3;
+        const invDot = (dot) ? 1 / dot : 0;
 
         return this.set(
             -a0 * invDot,
@@ -649,7 +648,7 @@ var Quaternion = new Class({
             -a2 * invDot,
             a3 * invDot
         );
-    },
+    }
 
     /**
      * Convert this Quaternion into its conjugate.
@@ -661,7 +660,7 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    conjugate: function ()
+    conjugate(): Quaternion
     {
         this._x = -this.x;
         this._y = -this.y;
@@ -670,7 +669,7 @@ var Quaternion = new Class({
         this.onChangeCallback(this);
 
         return this;
-    },
+    }
 
     /**
      * Rotate this Quaternion on the X axis.
@@ -682,17 +681,17 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    rotateX: function (rad)
+    rotateX(rad: number): Quaternion
     {
         rad *= 0.5;
 
-        var ax = this.x;
-        var ay = this.y;
-        var az = this.z;
-        var aw = this.w;
+        const ax = this.x;
+        const ay = this.y;
+        const az = this.z;
+        const aw = this.w;
 
-        var bx = Math.sin(rad);
-        var bw = Math.cos(rad);
+        const bx = Math.sin(rad);
+        const bw = Math.cos(rad);
 
         return this.set(
             ax * bw + aw * bx,
@@ -700,7 +699,7 @@ var Quaternion = new Class({
             az * bw - ay * bx,
             aw * bw - ax * bx
         );
-    },
+    }
 
     /**
      * Rotate this Quaternion on the Y axis.
@@ -712,17 +711,17 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    rotateY: function (rad)
+    rotateY(rad: number): Quaternion
     {
         rad *= 0.5;
 
-        var ax = this.x;
-        var ay = this.y;
-        var az = this.z;
-        var aw = this.w;
+        const ax = this.x;
+        const ay = this.y;
+        const az = this.z;
+        const aw = this.w;
 
-        var by = Math.sin(rad);
-        var bw = Math.cos(rad);
+        const by = Math.sin(rad);
+        const bw = Math.cos(rad);
 
         return this.set(
             ax * bw - az * by,
@@ -730,7 +729,7 @@ var Quaternion = new Class({
             az * bw + ax * by,
             aw * bw - ay * by
         );
-    },
+    }
 
     /**
      * Rotate this Quaternion on the Z axis.
@@ -742,17 +741,17 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    rotateZ: function (rad)
+    rotateZ(rad: number): Quaternion
     {
         rad *= 0.5;
 
-        var ax = this.x;
-        var ay = this.y;
-        var az = this.z;
-        var aw = this.w;
+        const ax = this.x;
+        const ay = this.y;
+        const az = this.z;
+        const aw = this.w;
 
-        var bz = Math.sin(rad);
-        var bw = Math.cos(rad);
+        const bz = Math.sin(rad);
+        const bw = Math.cos(rad);
 
         return this.set(
             ax * bw + ay * bz,
@@ -760,7 +759,7 @@ var Quaternion = new Class({
             az * bw + aw * bz,
             aw * bw - az * bz
         );
-    },
+    }
 
     /**
      * Create a unit (or rotation) Quaternion from its x, y, and z components.
@@ -772,16 +771,16 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    calculateW: function ()
+    calculateW(): Quaternion
     {
-        var x = this.x;
-        var y = this.y;
-        var z = this.z;
+        const x = this.x;
+        const y = this.y;
+        const z = this.z;
 
         this.w = -Math.sqrt(1.0 - x * x - y * y - z * z);
 
         return this;
-    },
+    }
 
     /**
      * Set this Quaternion from the given Euler, based on Euler order.
@@ -794,19 +793,19 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    setFromEuler: function (euler, update)
+    setFromEuler(euler: Euler, update?: boolean): Quaternion
     {
-        var x = euler.x / 2;
-        var y = euler.y / 2;
-        var z = euler.z / 2;
+        const x = euler.x / 2;
+        const y = euler.y / 2;
+        const z = euler.z / 2;
 
-        var c1 = Math.cos(x);
-        var c2 = Math.cos(y);
-        var c3 = Math.cos(z);
+        const c1 = Math.cos(x);
+        const c2 = Math.cos(y);
+        const c3 = Math.cos(z);
 
-        var s1 = Math.sin(x);
-        var s2 = Math.sin(y);
-        var s3 = Math.sin(z);
+        const s1 = Math.sin(x);
+        const s2 = Math.sin(y);
+        const s3 = Math.sin(z);
 
         switch (euler.order)
         {
@@ -890,7 +889,7 @@ var Quaternion = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Sets the rotation of this Quaternion from the given Matrix4.
@@ -902,22 +901,22 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    setFromRotationMatrix: function (mat4)
+    setFromRotationMatrix(mat4: Matrix4): Quaternion
     {
-        var m = mat4.val;
+        const m = mat4.val;
 
-        var m11 = m[0];
-        var m12 = m[4];
-        var m13 = m[8];
-        var m21 = m[1];
-        var m22 = m[5];
-        var m23 = m[9];
-        var m31 = m[2];
-        var m32 = m[6];
-        var m33 = m[10];
+        const m11 = m[0];
+        const m12 = m[4];
+        const m13 = m[8];
+        const m21 = m[1];
+        const m22 = m[5];
+        const m23 = m[9];
+        const m31 = m[2];
+        const m32 = m[6];
+        const m33 = m[10];
 
-        var trace = m11 + m22 + m33;
-        var s;
+        const trace = m11 + m22 + m33;
+        let s: number;
 
         if (trace > 0)
         {
@@ -965,7 +964,7 @@ var Quaternion = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Convert the given Matrix into this Quaternion.
@@ -977,7 +976,7 @@ var Quaternion = new Class({
      *
      * @return {Phaser.Math.Quaternion} This Quaternion.
      */
-    fromMat3: function (mat)
+    fromMat3(mat: Matrix3): Quaternion
     {
         // benchmarks:
         //    http://jsperf.com/typed-array-access-speed
@@ -985,9 +984,9 @@ var Quaternion = new Class({
 
         // Algorithm in Ken Shoemake's article in 1987 SIGGRAPH course notes
         // article "Quaternion Calculus and Fast Animation".
-        var m = mat.val;
-        var fTrace = m[0] + m[4] + m[8];
-        var fRoot;
+        const m = mat.val;
+        const fTrace = m[0] + m[4] + m[8];
+        let fRoot: number;
 
         if (fTrace > 0)
         {
@@ -1005,7 +1004,7 @@ var Quaternion = new Class({
         else
         {
             // |w| <= 1/2
-            var i = 0;
+            let i = 0;
 
             if (m[4] > m[0])
             {
@@ -1017,8 +1016,8 @@ var Quaternion = new Class({
                 i = 2;
             }
 
-            var j = siNext[i];
-            var k = siNext[j];
+            const j = siNext[i];
+            const k = siNext[j];
 
             //  This isn't quite as clean without array access
             fRoot = Math.sqrt(m[i * 3 + i] - m[j * 3 + j] - m[k * 3 + k] + 1);
@@ -1040,6 +1039,4 @@ var Quaternion = new Class({
         return this;
     }
 
-});
-
-module.exports = Quaternion;
+}

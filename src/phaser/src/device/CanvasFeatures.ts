@@ -18,28 +18,28 @@ import { CanvasPool } from '../display/canvas/CanvasPool';
  * @property {boolean} supportInverseAlpha - Set to true if the browser supports inversed alpha.
  * @property {boolean} supportNewBlendModes - Set to true if the browser supports new canvas blend modes.
  */
-var CanvasFeatures = {
+const CanvasFeatures = {
 
     supportInverseAlpha: false,
     supportNewBlendModes: false
 
 };
 
-function checkBlendMode ()
+const checkBlendMode = (): boolean =>
 {
-    var pngHead = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX/';
-    var pngEnd = 'AAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==';
+    const pngHead = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX/';
+    const pngEnd = 'AAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==';
 
-    var magenta = new Image();
+    const magenta = new Image();
 
     magenta.onload = function ()
     {
-        var yellow = new Image();
+        const yellow = new Image();
 
         yellow.onload = function ()
         {
-            var canvas = CanvasPool.create2D(yellow, 6);
-            var context = canvas.getContext('2d', { willReadFrequently: true });
+            const canvas = CanvasPool.create2D(yellow, 6);
+            const context = canvas.getContext('2d', { willReadFrequently: true });
 
             context.globalCompositeOperation = 'multiply';
 
@@ -51,7 +51,7 @@ function checkBlendMode ()
                 return false;
             }
 
-            var data = context.getImageData(2, 0, 1, 1).data;
+            const data = context.getImageData(2, 0, 1, 1).data;
 
             CanvasPool.remove(yellow);
 
@@ -64,12 +64,12 @@ function checkBlendMode ()
     magenta.src = pngHead + 'AP804Oa6' + pngEnd;
 
     return false;
-}
+};
 
-function checkInverseAlpha ()
+const checkInverseAlpha = (): boolean =>
 {
-    var canvas = CanvasPool.create2D(this, 2);
-    var context = canvas.getContext('2d', { willReadFrequently: true });
+    const canvas = CanvasPool.create2D(this, 2);
+    const context = canvas.getContext('2d', { willReadFrequently: true });
 
     context.fillStyle = 'rgba(10, 20, 30, 0.5)';
 
@@ -77,7 +77,7 @@ function checkInverseAlpha ()
     context.fillRect(0, 0, 1, 1);
 
     //  Get the color values
-    var s1 = context.getImageData(0, 0, 1, 1);
+    const s1 = context.getImageData(0, 0, 1, 1);
 
     if (s1 === null)
     {
@@ -88,17 +88,17 @@ function checkInverseAlpha ()
     context.putImageData(s1, 1, 0);
 
     //  Get those values
-    var s2 = context.getImageData(1, 0, 1, 1);
+    const s2 = context.getImageData(1, 0, 1, 1);
 
-    var result = (s2.data[0] === s1.data[0] && s2.data[1] === s1.data[1] && s2.data[2] === s1.data[2] && s2.data[3] === s1.data[3]);
+    const result = (s2.data[0] === s1.data[0] && s2.data[1] === s1.data[1] && s2.data[2] === s1.data[2] && s2.data[3] === s1.data[3]);
 
     CanvasPool.remove(this);
 
     //  Compare and return
     return result;
-}
+};
 
-function init ()
+const init = (): typeof CanvasFeatures =>
 {
     if (typeof importScripts !== 'function' && document !== undefined)
     {
@@ -107,6 +107,6 @@ function init ()
     }
 
     return CanvasFeatures;
-}
+};
 
-module.exports = init();
+export const CANVAS_FEATURES_DEVICE = init();

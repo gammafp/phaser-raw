@@ -9,8 +9,8 @@
 import { GetFastValue } from '../../utils/object/GetFastValue';
 
 var Face = require('./Face');
-var Matrix4 = require('../../math/Matrix4');
-var Vector3 = require('../../math/Vector3');
+import { Matrix4 } from '../../math/Matrix4';
+import { Vector3 } from '../../math/Vector3';
 var Vertex = require('./Vertex');
 
 var tempPosition = new Vector3();

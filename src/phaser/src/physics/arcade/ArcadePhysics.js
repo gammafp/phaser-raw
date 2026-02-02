@@ -18,7 +18,7 @@ var OverlapCirc = require('./components/OverlapCirc');
 var OverlapRect = require('./components/OverlapRect');
 var PluginCache = require('../../plugins/PluginCache');
 var SceneEvents = require('../../scene/events');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 var World = require('./World');
 
 /**

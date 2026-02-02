@@ -10,7 +10,7 @@ var Components = require('../gameobjects/components');
 var GameObject = require('../gameobjects/GameObject');
 var TilemapComponents = require('./components');
 var TilemapLayerRender = require('./TilemapLayerRender');
-var Vector2 = require('../math/Vector2');
+import { Vector2 } from '../math/Vector2';
 
 /**
  * @classdesc

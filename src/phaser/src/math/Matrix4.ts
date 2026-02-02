@@ -4,15 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this to TypeScript class
-
-var Class = require('../utils/Class');
-var Vector3 = require('./Vector3');
+import { Vector3 } from './Vector3';
 
 /**
  * @ignore
  */
-var EPSILON = 0.000001;
+const EPSILON = 0.000001;
 
 /**
  * @classdesc
@@ -28,19 +25,19 @@ var EPSILON = 0.000001;
  *
  * @param {Phaser.Math.Matrix4} [m] - Optional Matrix4 to copy values from.
  */
-var Matrix4 = new Class({
+export class Matrix4 {
 
-    initialize:
+    /**
+     * The matrix values.
+     *
+     * @name Phaser.Math.Matrix4#val
+     * @type {Float32Array}
+     * @since 3.0.0
+     */
+    val: Float32Array;
 
-    function Matrix4 (m)
+    constructor(m?: Matrix4)
     {
-        /**
-         * The matrix values.
-         *
-         * @name Phaser.Math.Matrix4#val
-         * @type {Float32Array}
-         * @since 3.0.0
-         */
         this.val = new Float32Array(16);
 
         if (m)
@@ -53,7 +50,7 @@ var Matrix4 = new Class({
             //  Default to identity
             this.identity();
         }
-    },
+    }
 
     /**
      * Make a clone of this Matrix4.
@@ -63,10 +60,10 @@ var Matrix4 = new Class({
      *
      * @return {Phaser.Math.Matrix4} A clone of this Matrix4.
      */
-    clone: function ()
+    clone(): Matrix4
     {
         return new Matrix4(this);
-    },
+    }
 
     /**
      * This method is an alias for `Matrix4.copy`.
@@ -78,10 +75,10 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    set: function (src)
+    set(src: Matrix4): this
     {
         return this.copy(src);
-    },
+    }
 
     /**
      * Sets all values of this Matrix4.
@@ -108,9 +105,9 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4 instance.
      */
-    setValues: function (m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33)
+    setValues(m00: number, m01: number, m02: number, m03: number, m10: number, m11: number, m12: number, m13: number, m20: number, m21: number, m22: number, m23: number, m30: number, m31: number, m32: number, m33: number): this
     {
-        var out = this.val;
+        const out = this.val;
 
         out[0] = m00;
         out[1] = m01;
@@ -130,7 +127,7 @@ var Matrix4 = new Class({
         out[15] = m33;
 
         return this;
-    },
+    }
 
     /**
      * Copy the values of a given Matrix into this Matrix.
@@ -142,12 +139,12 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    copy: function (src)
+    copy(src: Matrix4): this
     {
-        var a = src.val;
+        const a = src.val;
 
         return this.setValues(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15]);
-    },
+    }
 
     /**
      * Set the values of this Matrix from the given array.
@@ -159,10 +156,10 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    fromArray: function (a)
+    fromArray(a: number[]): this
     {
         return this.setValues(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15]);
-    },
+    }
 
     /**
      * Reset this Matrix.
@@ -174,10 +171,10 @@ var Matrix4 = new Class({
      *
      * @return {Phaser.Math.Matrix4} This Matrix4.
      */
-    zero: function ()
+    zero(): this
     {
         return this.setValues(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    },
+    }
 
     /**
      * Generates a transform matrix based on the given position, scale and rotation.
@@ -191,15 +188,15 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    transform: function (position, scale, rotation)
+    transform(position: any, scale: any, rotation: any): this
     {
-        var rotMatrix = _tempMat1.fromQuat(rotation);
+        const rotMatrix = _tempMat1.fromQuat(rotation);
 
-        var rm = rotMatrix.val;
+        const rm = rotMatrix.val;
 
-        var sx = scale.x;
-        var sy = scale.y;
-        var sz = scale.z;
+        const sx = scale.x;
+        const sy = scale.y;
+        const sz = scale.z;
 
         return this.setValues(
             rm[0] * sx,
@@ -222,7 +219,7 @@ var Matrix4 = new Class({
             position.z,
             1
         );
-    },
+    }
 
     /**
      * Set the `x`, `y` and `z` values of this Matrix.
@@ -236,18 +233,18 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    xyz: function (x, y, z)
+    xyz(x: number, y: number, z: number): this
     {
         this.identity();
 
-        var out = this.val;
+        const out = this.val;
 
         out[12] = x;
         out[13] = y;
         out[14] = z;
 
         return this;
-    },
+    }
 
     /**
      * Set the scaling values of this Matrix.
@@ -261,11 +258,11 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    scaling: function (x, y, z)
+    scaling(x: number, y: number, z: number): this
     {
         this.zero();
 
-        var out = this.val;
+        const out = this.val;
 
         out[0] = x;
         out[5] = y;
@@ -273,7 +270,7 @@ var Matrix4 = new Class({
         out[15] = 1;
 
         return this;
-    },
+    }
 
     /**
      * Reset this Matrix to an identity (default) matrix.
@@ -283,10 +280,10 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    identity: function ()
+    identity(): this
     {
         return this.setValues(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-    },
+    }
 
     /**
      * Transpose this Matrix.
@@ -296,16 +293,16 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    transpose: function ()
+    transpose(): this
     {
-        var a = this.val;
+        const a = this.val;
 
-        var a01 = a[1];
-        var a02 = a[2];
-        var a03 = a[3];
-        var a12 = a[6];
-        var a13 = a[7];
-        var a23 = a[11];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a03 = a[3];
+        const a12 = a[6];
+        const a13 = a[7];
+        const a23 = a[11];
 
         a[1] = a[4];
         a[2] = a[8];
@@ -321,7 +318,7 @@ var Matrix4 = new Class({
         a[14] = a23;
 
         return this;
-    },
+    }
 
     /**
      * Copies the given Matrix4 into this Matrix and then inverses it.
@@ -333,12 +330,12 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    getInverse: function (m)
+    getInverse(m: Matrix4): this
     {
         this.copy(m);
 
         return this.invert();
-    },
+    }
 
     /**
      * Invert this Matrix.
@@ -348,47 +345,47 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    invert: function ()
+    invert(): this
     {
-        var a = this.val;
+        const a = this.val;
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a03 = a[3];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a03 = a[3];
 
-        var a10 = a[4];
-        var a11 = a[5];
-        var a12 = a[6];
-        var a13 = a[7];
+        const a10 = a[4];
+        const a11 = a[5];
+        const a12 = a[6];
+        const a13 = a[7];
 
-        var a20 = a[8];
-        var a21 = a[9];
-        var a22 = a[10];
-        var a23 = a[11];
+        const a20 = a[8];
+        const a21 = a[9];
+        const a22 = a[10];
+        const a23 = a[11];
 
-        var a30 = a[12];
-        var a31 = a[13];
-        var a32 = a[14];
-        var a33 = a[15];
+        const a30 = a[12];
+        const a31 = a[13];
+        const a32 = a[14];
+        const a33 = a[15];
 
-        var b00 = a00 * a11 - a01 * a10;
-        var b01 = a00 * a12 - a02 * a10;
-        var b02 = a00 * a13 - a03 * a10;
-        var b03 = a01 * a12 - a02 * a11;
+        const b00 = a00 * a11 - a01 * a10;
+        const b01 = a00 * a12 - a02 * a10;
+        const b02 = a00 * a13 - a03 * a10;
+        const b03 = a01 * a12 - a02 * a11;
 
-        var b04 = a01 * a13 - a03 * a11;
-        var b05 = a02 * a13 - a03 * a12;
-        var b06 = a20 * a31 - a21 * a30;
-        var b07 = a20 * a32 - a22 * a30;
+        const b04 = a01 * a13 - a03 * a11;
+        const b05 = a02 * a13 - a03 * a12;
+        const b06 = a20 * a31 - a21 * a30;
+        const b07 = a20 * a32 - a22 * a30;
 
-        var b08 = a20 * a33 - a23 * a30;
-        var b09 = a21 * a32 - a22 * a31;
-        var b10 = a21 * a33 - a23 * a31;
-        var b11 = a22 * a33 - a23 * a32;
+        const b08 = a20 * a33 - a23 * a30;
+        const b09 = a21 * a32 - a22 * a31;
+        const b10 = a21 * a33 - a23 * a31;
+        const b11 = a22 * a33 - a23 * a32;
 
         //  Calculate the determinant
-        var det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+        let det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 
         if (!det)
         {
@@ -415,7 +412,7 @@ var Matrix4 = new Class({
             (a31 * b01 - a30 * b03 - a32 * b00) * det,
             (a20 * b03 - a21 * b01 + a22 * b00) * det
         );
-    },
+    }
 
     /**
      * Calculate the adjoint, or adjugate, of this Matrix.
@@ -425,29 +422,29 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    adjoint: function ()
+    adjoint(): this
     {
-        var a = this.val;
+        const a = this.val;
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a03 = a[3];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a03 = a[3];
 
-        var a10 = a[4];
-        var a11 = a[5];
-        var a12 = a[6];
-        var a13 = a[7];
+        const a10 = a[4];
+        const a11 = a[5];
+        const a12 = a[6];
+        const a13 = a[7];
 
-        var a20 = a[8];
-        var a21 = a[9];
-        var a22 = a[10];
-        var a23 = a[11];
+        const a20 = a[8];
+        const a21 = a[9];
+        const a22 = a[10];
+        const a23 = a[11];
 
-        var a30 = a[12];
-        var a31 = a[13];
-        var a32 = a[14];
-        var a33 = a[15];
+        const a30 = a[12];
+        const a31 = a[13];
+        const a32 = a[14];
+        const a33 = a[15];
 
         return this.setValues(
             (a11 * (a22 * a33 - a23 * a32) - a21 * (a12 * a33 - a13 * a32) + a31 * (a12 * a23 - a13 * a22)),
@@ -467,7 +464,7 @@ var Matrix4 = new Class({
             -(a00 * (a11 * a32 - a12 * a31) - a10 * (a01 * a32 - a02 * a31) + a30 * (a01 * a12 - a02 * a11)),
             (a00 * (a11 * a22 - a12 * a21) - a10 * (a01 * a22 - a02 * a21) + a20 * (a01 * a12 - a02 * a11))
         );
-    },
+    }
 
     /**
      * Calculate the determinant of this Matrix.
@@ -477,46 +474,46 @@ var Matrix4 = new Class({
      *
      * @return {number} The determinant of this Matrix.
      */
-    determinant: function ()
+    determinant(): number
     {
-        var a = this.val;
+        const a = this.val;
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a03 = a[3];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a03 = a[3];
 
-        var a10 = a[4];
-        var a11 = a[5];
-        var a12 = a[6];
-        var a13 = a[7];
+        const a10 = a[4];
+        const a11 = a[5];
+        const a12 = a[6];
+        const a13 = a[7];
 
-        var a20 = a[8];
-        var a21 = a[9];
-        var a22 = a[10];
-        var a23 = a[11];
+        const a20 = a[8];
+        const a21 = a[9];
+        const a22 = a[10];
+        const a23 = a[11];
 
-        var a30 = a[12];
-        var a31 = a[13];
-        var a32 = a[14];
-        var a33 = a[15];
+        const a30 = a[12];
+        const a31 = a[13];
+        const a32 = a[14];
+        const a33 = a[15];
 
-        var b00 = a00 * a11 - a01 * a10;
-        var b01 = a00 * a12 - a02 * a10;
-        var b02 = a00 * a13 - a03 * a10;
-        var b03 = a01 * a12 - a02 * a11;
-        var b04 = a01 * a13 - a03 * a11;
-        var b05 = a02 * a13 - a03 * a12;
-        var b06 = a20 * a31 - a21 * a30;
-        var b07 = a20 * a32 - a22 * a30;
-        var b08 = a20 * a33 - a23 * a30;
-        var b09 = a21 * a32 - a22 * a31;
-        var b10 = a21 * a33 - a23 * a31;
-        var b11 = a22 * a33 - a23 * a32;
+        const b00 = a00 * a11 - a01 * a10;
+        const b01 = a00 * a12 - a02 * a10;
+        const b02 = a00 * a13 - a03 * a10;
+        const b03 = a01 * a12 - a02 * a11;
+        const b04 = a01 * a13 - a03 * a11;
+        const b05 = a02 * a13 - a03 * a12;
+        const b06 = a20 * a31 - a21 * a30;
+        const b07 = a20 * a32 - a22 * a30;
+        const b08 = a20 * a33 - a23 * a30;
+        const b09 = a21 * a32 - a22 * a31;
+        const b10 = a21 * a33 - a23 * a31;
+        const b11 = a22 * a33 - a23 * a32;
 
         // Calculate the determinant
         return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
-    },
+    }
 
     /**
      * Multiply this Matrix by the given Matrix.
@@ -528,37 +525,37 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    multiply: function (src)
+    multiply(src: Matrix4): this
     {
-        var a = this.val;
+        const a = this.val;
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a03 = a[3];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a03 = a[3];
 
-        var a10 = a[4];
-        var a11 = a[5];
-        var a12 = a[6];
-        var a13 = a[7];
+        const a10 = a[4];
+        const a11 = a[5];
+        const a12 = a[6];
+        const a13 = a[7];
 
-        var a20 = a[8];
-        var a21 = a[9];
-        var a22 = a[10];
-        var a23 = a[11];
+        const a20 = a[8];
+        const a21 = a[9];
+        const a22 = a[10];
+        const a23 = a[11];
 
-        var a30 = a[12];
-        var a31 = a[13];
-        var a32 = a[14];
-        var a33 = a[15];
+        const a30 = a[12];
+        const a31 = a[13];
+        const a32 = a[14];
+        const a33 = a[15];
 
-        var b = src.val;
+        const b = src.val;
 
         // Cache only the current line of the second matrix
-        var b0 = b[0];
-        var b1 = b[1];
-        var b2 = b[2];
-        var b3 = b[3];
+        let b0 = b[0];
+        let b1 = b[1];
+        let b2 = b[2];
+        let b3 = b[3];
 
         a[0] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
         a[1] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
@@ -596,7 +593,7 @@ var Matrix4 = new Class({
         a[15] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
 
         return this;
-    },
+    }
 
     /**
      * Multiply the values of this Matrix4 by those given in the `src` argument.
@@ -608,10 +605,10 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    multiplyLocal: function (src)
+    multiplyLocal(src: Matrix4): this
     {
-        var a = this.val;
-        var b = src.val;
+        const a = this.val;
+        const b = src.val;
 
         return this.setValues(
             a[0] * b[0] + a[1] * b[4] + a[2] * b[8] + a[3] * b[12],
@@ -634,7 +631,7 @@ var Matrix4 = new Class({
             a[12] * b[2] + a[13] * b[6] + a[14] * b[10] + a[15] * b[14],
             a[12] * b[3] + a[13] * b[7] + a[14] * b[11] + a[15] * b[15]
         );
-    },
+    }
 
     /**
      * Multiplies the given Matrix4 object with this Matrix.
@@ -648,10 +645,10 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    premultiply: function (m)
+    premultiply(m: Matrix4): this
     {
         return this.multiplyMatrices(m, this);
-    },
+    }
 
     /**
      * Multiplies the two given Matrix4 objects and stores the results in this Matrix.
@@ -664,44 +661,44 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    multiplyMatrices: function (a, b)
+    multiplyMatrices(a: Matrix4, b: Matrix4): this
     {
-        var am = a.val;
-        var bm = b.val;
+        const am = a.val;
+        const bm = b.val;
 
-        var a11 = am[0];
-        var a12 = am[4];
-        var a13 = am[8];
-        var a14 = am[12];
-        var a21 = am[1];
-        var a22 = am[5];
-        var a23 = am[9];
-        var a24 = am[13];
-        var a31 = am[2];
-        var a32 = am[6];
-        var a33 = am[10];
-        var a34 = am[14];
-        var a41 = am[3];
-        var a42 = am[7];
-        var a43 = am[11];
-        var a44 = am[15];
+        const a11 = am[0];
+        const a12 = am[4];
+        const a13 = am[8];
+        const a14 = am[12];
+        const a21 = am[1];
+        const a22 = am[5];
+        const a23 = am[9];
+        const a24 = am[13];
+        const a31 = am[2];
+        const a32 = am[6];
+        const a33 = am[10];
+        const a34 = am[14];
+        const a41 = am[3];
+        const a42 = am[7];
+        const a43 = am[11];
+        const a44 = am[15];
 
-        var b11 = bm[0];
-        var b12 = bm[4];
-        var b13 = bm[8];
-        var b14 = bm[12];
-        var b21 = bm[1];
-        var b22 = bm[5];
-        var b23 = bm[9];
-        var b24 = bm[13];
-        var b31 = bm[2];
-        var b32 = bm[6];
-        var b33 = bm[10];
-        var b34 = bm[14];
-        var b41 = bm[3];
-        var b42 = bm[7];
-        var b43 = bm[11];
-        var b44 = bm[15];
+        const b11 = bm[0];
+        const b12 = bm[4];
+        const b13 = bm[8];
+        const b14 = bm[12];
+        const b21 = bm[1];
+        const b22 = bm[5];
+        const b23 = bm[9];
+        const b24 = bm[13];
+        const b31 = bm[2];
+        const b32 = bm[6];
+        const b33 = bm[10];
+        const b34 = bm[14];
+        const b41 = bm[3];
+        const b42 = bm[7];
+        const b43 = bm[11];
+        const b44 = bm[15];
 
         return this.setValues(
             a11 * b11 + a12 * b21 + a13 * b31 + a14 * b41,
@@ -721,7 +718,7 @@ var Matrix4 = new Class({
             a31 * b14 + a32 * b24 + a33 * b34 + a34 * b44,
             a41 * b14 + a42 * b24 + a43 * b34 + a44 * b44
         );
-    },
+    }
 
     /**
      * Translate this Matrix using the given Vector.
@@ -733,10 +730,10 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    translate: function (v)
+    translate(v: any): this
     {
         return this.translateXYZ(v.x, v.y, v.z);
-    },
+    }
 
     /**
      * Translate this Matrix using the given values.
@@ -750,9 +747,9 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    translateXYZ: function (x, y, z)
+    translateXYZ(x: number, y: number, z: number): this
     {
-        var a = this.val;
+        const a = this.val;
 
         a[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
         a[13] = a[1] * x + a[5] * y + a[9] * z + a[13];
@@ -760,7 +757,7 @@ var Matrix4 = new Class({
         a[15] = a[3] * x + a[7] * y + a[11] * z + a[15];
 
         return this;
-    },
+    }
 
     /**
      * Apply a scale transformation to this Matrix.
@@ -774,10 +771,10 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    scale: function (v)
+    scale(v: any): this
     {
         return this.scaleXYZ(v.x, v.y, v.z);
-    },
+    }
 
     /**
      * Apply a scale transformation to this Matrix.
@@ -791,9 +788,9 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    scaleXYZ: function (x, y, z)
+    scaleXYZ(x: number, y: number, z: number): this
     {
-        var a = this.val;
+        const a = this.val;
 
         a[0] = a[0] * x;
         a[1] = a[1] * x;
@@ -811,7 +808,7 @@ var Matrix4 = new Class({
         a[11] = a[11] * z;
 
         return this;
-    },
+    }
 
     /**
      * Derive a rotation matrix around the given axis.
@@ -824,18 +821,18 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    makeRotationAxis: function (axis, angle)
+    makeRotationAxis(axis: any, angle: number): this
     {
         // Based on http://www.gamedev.net/reference/articles/article1199.asp
 
-        var c = Math.cos(angle);
-        var s = Math.sin(angle);
-        var t = 1 - c;
-        var x = axis.x;
-        var y = axis.y;
-        var z = axis.z;
-        var tx = t * x;
-        var ty = t * y;
+        const c = Math.cos(angle);
+        const s = Math.sin(angle);
+        const t = 1 - c;
+        const x = axis.x;
+        const y = axis.y;
+        const z = axis.z;
+        const tx = t * x;
+        const ty = t * y;
 
         return this.setValues(
             tx * x + c, tx * y - s * z, tx * z + s * y, 0,
@@ -843,7 +840,7 @@ var Matrix4 = new Class({
             tx * z - s * y, ty * z + s * x, t * z * z + c, 0,
             0, 0, 0, 1
         );
-    },
+    }
 
     /**
      * Apply a rotation transformation to this Matrix.
@@ -856,13 +853,13 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    rotate: function (rad, axis)
+    rotate(rad: number, axis: any): this
     {
-        var a = this.val;
-        var x = axis.x;
-        var y = axis.y;
-        var z = axis.z;
-        var len = Math.sqrt(x * x + y * y + z * z);
+        const a = this.val;
+        let x = axis.x;
+        let y = axis.y;
+        let z = axis.z;
+        let len = Math.sqrt(x * x + y * y + z * z);
 
         if (Math.abs(len) < EPSILON)
         {
@@ -874,42 +871,42 @@ var Matrix4 = new Class({
         y *= len;
         z *= len;
 
-        var s = Math.sin(rad);
-        var c = Math.cos(rad);
-        var t = 1 - c;
+        const s = Math.sin(rad);
+        const c = Math.cos(rad);
+        const t = 1 - c;
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a03 = a[3];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a03 = a[3];
 
-        var a10 = a[4];
-        var a11 = a[5];
-        var a12 = a[6];
-        var a13 = a[7];
+        const a10 = a[4];
+        const a11 = a[5];
+        const a12 = a[6];
+        const a13 = a[7];
 
-        var a20 = a[8];
-        var a21 = a[9];
-        var a22 = a[10];
-        var a23 = a[11];
+        const a20 = a[8];
+        const a21 = a[9];
+        const a22 = a[10];
+        const a23 = a[11];
 
-        var a30 = a[12];
-        var a31 = a[13];
-        var a32 = a[14];
-        var a33 = a[15];
+        const a30 = a[12];
+        const a31 = a[13];
+        const a32 = a[14];
+        const a33 = a[15];
 
         //  Construct the elements of the rotation matrix
-        var b00 = x * x * t + c;
-        var b01 = y * x * t + z * s;
-        var b02 = z * x * t - y * s;
+        const b00 = x * x * t + c;
+        const b01 = y * x * t + z * s;
+        const b02 = z * x * t - y * s;
 
-        var b10 = x * y * t - z * s;
-        var b11 = y * y * t + c;
-        var b12 = z * y * t + x * s;
+        const b10 = x * y * t - z * s;
+        const b11 = y * y * t + c;
+        const b12 = z * y * t + x * s;
 
-        var b20 = x * z * t + y * s;
-        var b21 = y * z * t - x * s;
-        var b22 = z * z * t + c;
+        const b20 = x * z * t + y * s;
+        const b21 = y * z * t - x * s;
+        const b22 = z * z * t + c;
 
         //  Perform rotation-specific matrix multiplication
         return this.setValues(
@@ -927,7 +924,7 @@ var Matrix4 = new Class({
             a03 * b20 + a13 * b21 + a23 * b22,
             a30, a31, a32, a33
         );
-    },
+    }
 
     /**
      * Rotate this matrix on its X axis.
@@ -939,21 +936,21 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    rotateX: function (rad)
+    rotateX(rad: number): this
     {
-        var a = this.val;
-        var s = Math.sin(rad);
-        var c = Math.cos(rad);
+        const a = this.val;
+        const s = Math.sin(rad);
+        const c = Math.cos(rad);
 
-        var a10 = a[4];
-        var a11 = a[5];
-        var a12 = a[6];
-        var a13 = a[7];
+        const a10 = a[4];
+        const a11 = a[5];
+        const a12 = a[6];
+        const a13 = a[7];
 
-        var a20 = a[8];
-        var a21 = a[9];
-        var a22 = a[10];
-        var a23 = a[11];
+        const a20 = a[8];
+        const a21 = a[9];
+        const a22 = a[10];
+        const a23 = a[11];
 
         //  Perform axis-specific matrix multiplication
         a[4] = a10 * c + a20 * s;
@@ -966,7 +963,7 @@ var Matrix4 = new Class({
         a[11] = a23 * c - a13 * s;
 
         return this;
-    },
+    }
 
     /**
      * Rotate this matrix on its Y axis.
@@ -978,21 +975,21 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    rotateY: function (rad)
+    rotateY(rad: number): this
     {
-        var a = this.val;
-        var s = Math.sin(rad);
-        var c = Math.cos(rad);
+        const a = this.val;
+        const s = Math.sin(rad);
+        const c = Math.cos(rad);
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a03 = a[3];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a03 = a[3];
 
-        var a20 = a[8];
-        var a21 = a[9];
-        var a22 = a[10];
-        var a23 = a[11];
+        const a20 = a[8];
+        const a21 = a[9];
+        const a22 = a[10];
+        const a23 = a[11];
 
         //  Perform axis-specific matrix multiplication
         a[0] = a00 * c - a20 * s;
@@ -1005,7 +1002,7 @@ var Matrix4 = new Class({
         a[11] = a03 * s + a23 * c;
 
         return this;
-    },
+    }
 
     /**
      * Rotate this matrix on its Z axis.
@@ -1017,21 +1014,21 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    rotateZ: function (rad)
+    rotateZ(rad: number): this
     {
-        var a = this.val;
-        var s = Math.sin(rad);
-        var c = Math.cos(rad);
+        const a = this.val;
+        const s = Math.sin(rad);
+        const c = Math.cos(rad);
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a03 = a[3];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a03 = a[3];
 
-        var a10 = a[4];
-        var a11 = a[5];
-        var a12 = a[6];
-        var a13 = a[7];
+        const a10 = a[4];
+        const a11 = a[5];
+        const a12 = a[6];
+        const a13 = a[7];
 
         //  Perform axis-specific matrix multiplication
         a[0] = a00 * c + a10 * s;
@@ -1044,7 +1041,7 @@ var Matrix4 = new Class({
         a[7] = a13 * c - a03 * s;
 
         return this;
-    },
+    }
 
     /**
      * Set the values of this Matrix from the given rotation Quaternion and translation Vector.
@@ -1057,29 +1054,29 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    fromRotationTranslation: function (q, v)
+    fromRotationTranslation(q: any, v: any): this
     {
         //  Quaternion math
-        var x = q.x;
-        var y = q.y;
-        var z = q.z;
-        var w = q.w;
+        const x = q.x;
+        const y = q.y;
+        const z = q.z;
+        const w = q.w;
 
-        var x2 = x + x;
-        var y2 = y + y;
-        var z2 = z + z;
+        const x2 = x + x;
+        const y2 = y + y;
+        const z2 = z + z;
 
-        var xx = x * x2;
-        var xy = x * y2;
-        var xz = x * z2;
+        const xx = x * x2;
+        const xy = x * y2;
+        const xz = x * z2;
 
-        var yy = y * y2;
-        var yz = y * z2;
-        var zz = z * z2;
+        const yy = y * y2;
+        const yz = y * z2;
+        const zz = z * z2;
 
-        var wx = w * x2;
-        var wy = w * y2;
-        var wz = w * z2;
+        const wx = w * x2;
+        const wy = w * y2;
+        const wz = w * z2;
 
         return this.setValues(
             1 - (yy + zz),
@@ -1102,7 +1099,7 @@ var Matrix4 = new Class({
             v.z,
             1
         );
-    },
+    }
 
     /**
      * Set the values of this Matrix from the given Quaternion.
@@ -1114,28 +1111,28 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    fromQuat: function (q)
+    fromQuat(q: any): this
     {
-        var x = q.x;
-        var y = q.y;
-        var z = q.z;
-        var w = q.w;
+        const x = q.x;
+        const y = q.y;
+        const z = q.z;
+        const w = q.w;
 
-        var x2 = x + x;
-        var y2 = y + y;
-        var z2 = z + z;
+        const x2 = x + x;
+        const y2 = y + y;
+        const z2 = z + z;
 
-        var xx = x * x2;
-        var xy = x * y2;
-        var xz = x * z2;
+        const xx = x * x2;
+        const xy = x * y2;
+        const xz = x * z2;
 
-        var yy = y * y2;
-        var yz = y * z2;
-        var zz = z * z2;
+        const yy = y * y2;
+        const yz = y * z2;
+        const zz = z * z2;
 
-        var wx = w * x2;
-        var wy = w * y2;
-        var wz = w * z2;
+        const wx = w * x2;
+        const wy = w * y2;
+        const wz = w * z2;
 
         return this.setValues(
             1 - (yy + zz),
@@ -1158,7 +1155,7 @@ var Matrix4 = new Class({
             0,
             1
         );
-    },
+    }
 
     /**
      * Generate a frustum matrix with the given bounds.
@@ -1175,11 +1172,11 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    frustum: function (left, right, bottom, top, near, far)
+    frustum(left: number, right: number, bottom: number, top: number, near: number, far: number): this
     {
-        var rl = 1 / (right - left);
-        var tb = 1 / (top - bottom);
-        var nf = 1 / (near - far);
+        const rl = 1 / (right - left);
+        const tb = 1 / (top - bottom);
+        const nf = 1 / (near - far);
 
         return this.setValues(
             (near * 2) * rl,
@@ -1202,7 +1199,7 @@ var Matrix4 = new Class({
             (far * near * 2) * nf,
             0
         );
-    },
+    }
 
     /**
      * Generate a perspective projection matrix with the given bounds.
@@ -1217,10 +1214,10 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    perspective: function (fovy, aspect, near, far)
+    perspective(fovy: number, aspect: number, near: number, far: number): this
     {
-        var f = 1.0 / Math.tan(fovy / 2);
-        var nf = 1 / (near - far);
+        const f = 1.0 / Math.tan(fovy / 2);
+        const nf = 1 / (near - far);
 
         return this.setValues(
             f / aspect,
@@ -1243,7 +1240,7 @@ var Matrix4 = new Class({
             (2 * far * near) * nf,
             0
         );
-    },
+    }
 
     /**
      * Generate a perspective projection matrix with the given bounds.
@@ -1258,7 +1255,7 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    perspectiveLH: function (width, height, near, far)
+    perspectiveLH(width: number, height: number, near: number, far: number): this
     {
         return this.setValues(
             (2 * near) / width,
@@ -1281,7 +1278,7 @@ var Matrix4 = new Class({
             (near * far) / (near - far),
             0
         );
-    },
+    }
 
     /**
      * Generate an orthogonal projection matrix with the given bounds.
@@ -1298,11 +1295,11 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    ortho: function (left, right, bottom, top, near, far)
+    ortho(left: number, right: number, bottom: number, top: number, near: number, far: number): this
     {
-        var lr = left - right;
-        var bt = bottom - top;
-        var nf = near - far;
+        let lr = left - right;
+        let bt = bottom - top;
+        let nf = near - far;
 
         //  Avoid division by zero
         lr = (lr === 0) ? lr : 1 / lr;
@@ -1330,7 +1327,7 @@ var Matrix4 = new Class({
             (far + near) * nf,
             1
         );
-    },
+    }
 
     /**
      * Generate a right-handed look-at matrix with the given eye position, target and up axis.
@@ -1344,9 +1341,9 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    lookAtRH: function (eye, target, up)
+    lookAtRH(eye: any, target: any, up: any): this
     {
-        var m = this.val;
+        const m = this.val;
 
         _z.subVectors(eye, target);
 
@@ -1390,7 +1387,7 @@ var Matrix4 = new Class({
         m[10] = _z.z;
 
         return this;
-    },
+    }
 
     /**
      * Generate a look-at matrix with the given eye position, focal point, and up axis.
@@ -1404,19 +1401,19 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    lookAt: function (eye, center, up)
+    lookAt(eye: any, center: any, up: any): this
     {
-        var eyex = eye.x;
-        var eyey = eye.y;
-        var eyez = eye.z;
+        const eyex = eye.x;
+        const eyey = eye.y;
+        const eyez = eye.z;
 
-        var upx = up.x;
-        var upy = up.y;
-        var upz = up.z;
+        const upx = up.x;
+        const upy = up.y;
+        const upz = up.z;
 
-        var centerx = center.x;
-        var centery = center.y;
-        var centerz = center.z;
+        const centerx = center.x;
+        const centery = center.y;
+        const centerz = center.z;
 
         if (Math.abs(eyex - centerx) < EPSILON &&
             Math.abs(eyey - centery) < EPSILON &&
@@ -1425,19 +1422,19 @@ var Matrix4 = new Class({
             return this.identity();
         }
 
-        var z0 = eyex - centerx;
-        var z1 = eyey - centery;
-        var z2 = eyez - centerz;
+        let z0 = eyex - centerx;
+        let z1 = eyey - centery;
+        let z2 = eyez - centerz;
 
-        var len = 1 / Math.sqrt(z0 * z0 + z1 * z1 + z2 * z2);
+        let len = 1 / Math.sqrt(z0 * z0 + z1 * z1 + z2 * z2);
 
         z0 *= len;
         z1 *= len;
         z2 *= len;
 
-        var x0 = upy * z2 - upz * z1;
-        var x1 = upz * z0 - upx * z2;
-        var x2 = upx * z1 - upy * z0;
+        let x0 = upy * z2 - upz * z1;
+        let x1 = upz * z0 - upx * z2;
+        let x2 = upx * z1 - upy * z0;
 
         len = Math.sqrt(x0 * x0 + x1 * x1 + x2 * x2);
 
@@ -1455,9 +1452,9 @@ var Matrix4 = new Class({
             x2 *= len;
         }
 
-        var y0 = z1 * x2 - z2 * x1;
-        var y1 = z2 * x0 - z0 * x2;
-        var y2 = z0 * x1 - z1 * x0;
+        let y0 = z1 * x2 - z2 * x1;
+        let y1 = z2 * x0 - z0 * x2;
+        let y2 = z0 * x1 - z1 * x0;
 
         len = Math.sqrt(y0 * y0 + y1 * y1 + y2 * y2);
 
@@ -1496,7 +1493,7 @@ var Matrix4 = new Class({
             -(z0 * eyex + z1 * eyey + z2 * eyez),
             1
         );
-    },
+    }
 
     /**
      * Set the values of this matrix from the given `yaw`, `pitch` and `roll` values.
@@ -1510,19 +1507,19 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    yawPitchRoll: function (yaw, pitch, roll)
+    yawPitchRoll(yaw: number, pitch: number, roll: number): this
     {
         this.zero();
         _tempMat1.zero();
         _tempMat2.zero();
 
-        var m0 = this.val;
-        var m1 = _tempMat1.val;
-        var m2 = _tempMat2.val;
+        const m0 = this.val;
+        const m1 = _tempMat1.val;
+        const m2 = _tempMat2.val;
 
         //  Rotate Z
-        var s = Math.sin(roll);
-        var c = Math.cos(roll);
+        let s = Math.sin(roll);
+        let c = Math.cos(roll);
 
         m0[10] = 1;
         m0[15] = 1;
@@ -1557,7 +1554,7 @@ var Matrix4 = new Class({
         this.multiplyLocal(_tempMat2);
 
         return this;
-    },
+    }
 
     /**
      * Generate a world matrix from the given rotation, position, scale, view matrix and projection matrix.
@@ -1573,7 +1570,7 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    setWorldMatrix: function (rotation, position, scale, viewMatrix, projectionMatrix)
+    setWorldMatrix(rotation: any, position: any, scale: any, viewMatrix?: Matrix4, projectionMatrix?: Matrix4): this
     {
         this.yawPitchRoll(rotation.y, rotation.x, rotation.z);
 
@@ -1594,7 +1591,7 @@ var Matrix4 = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Multiplies this Matrix4 by the given `src` Matrix4 and stores the results in the `out` Matrix4.
@@ -1607,44 +1604,44 @@ var Matrix4 = new Class({
      *
      * @return {Phaser.Math.Matrix4} This `out` Matrix4.
      */
-    multiplyToMat4: function (src, out)
+    multiplyToMat4(src: Matrix4, out: Matrix4): Matrix4
     {
-        var a = this.val;
-        var b = src.val;
+        const a = this.val;
+        const b = src.val;
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a03 = a[3];
-        var a10 = a[4];
-        var a11 = a[5];
-        var a12 = a[6];
-        var a13 = a[7];
-        var a20 = a[8];
-        var a21 = a[9];
-        var a22 = a[10];
-        var a23 = a[11];
-        var a30 = a[12];
-        var a31 = a[13];
-        var a32 = a[14];
-        var a33 = a[15];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a03 = a[3];
+        const a10 = a[4];
+        const a11 = a[5];
+        const a12 = a[6];
+        const a13 = a[7];
+        const a20 = a[8];
+        const a21 = a[9];
+        const a22 = a[10];
+        const a23 = a[11];
+        const a30 = a[12];
+        const a31 = a[13];
+        const a32 = a[14];
+        const a33 = a[15];
 
-        var b00 = b[0];
-        var b01 = b[1];
-        var b02 = b[2];
-        var b03 = b[3];
-        var b10 = b[4];
-        var b11 = b[5];
-        var b12 = b[6];
-        var b13 = b[7];
-        var b20 = b[8];
-        var b21 = b[9];
-        var b22 = b[10];
-        var b23 = b[11];
-        var b30 = b[12];
-        var b31 = b[13];
-        var b32 = b[14];
-        var b33 = b[15];
+        const b00 = b[0];
+        const b01 = b[1];
+        const b02 = b[2];
+        const b03 = b[3];
+        const b10 = b[4];
+        const b11 = b[5];
+        const b12 = b[6];
+        const b13 = b[7];
+        const b20 = b[8];
+        const b21 = b[9];
+        const b22 = b[10];
+        const b23 = b[11];
+        const b30 = b[12];
+        const b31 = b[13];
+        const b32 = b[14];
+        const b33 = b[15];
 
         return out.setValues(
             b00 * a00 + b01 * a10 + b02 * a20 + b03 * a30,
@@ -1667,7 +1664,7 @@ var Matrix4 = new Class({
             b30 * a02 + b31 * a12 + b32 * a22 + b33 * a32,
             b30 * a03 + b31 * a13 + b32 * a23 + b33 * a33
         );
-    },
+    }
 
     /**
      * Takes the rotation and position vectors and builds this Matrix4 from them.
@@ -1681,35 +1678,35 @@ var Matrix4 = new Class({
      *
      * @return {this} This Matrix4.
      */
-    fromRotationXYTranslation: function (rotation, position, translateFirst)
+    fromRotationXYTranslation(rotation: any, position: any, translateFirst: boolean): this
     {
-        var x = position.x;
-        var y = position.y;
-        var z = position.z;
+        const x = position.x;
+        const y = position.y;
+        const z = position.z;
 
-        var sx = Math.sin(rotation.x);
-        var cx = Math.cos(rotation.x);
+        const sx = Math.sin(rotation.x);
+        const cx = Math.cos(rotation.x);
 
-        var sy = Math.sin(rotation.y);
-        var cy = Math.cos(rotation.y);
+        const sy = Math.sin(rotation.y);
+        const cy = Math.cos(rotation.y);
 
-        var a30 = x;
-        var a31 = y;
-        var a32 = z;
+        let a30 = x;
+        let a31 = y;
+        let a32 = z;
 
         //  Rotate X
 
-        var b21 = -sx;
+        const b21 = -sx;
 
         //  Rotate Y
 
-        var c01 = 0 - b21 * sy;
+        const c01 = 0 - b21 * sy;
 
-        var c02 = 0 - cx * sy;
+        const c02 = 0 - cx * sy;
 
-        var c21 = b21 * cy;
+        const c21 = b21 * cy;
 
-        var c22 = cx * cy;
+        const c22 = cx * cy;
 
         //  Translate
         if (!translateFirst)
@@ -1738,7 +1735,7 @@ var Matrix4 = new Class({
             a32,
             1
         );
-    },
+    }
 
     /**
      * Returns the maximum axis scale from this Matrix4.
@@ -1748,42 +1745,40 @@ var Matrix4 = new Class({
      *
      * @return {number} The maximum axis scale.
      */
-    getMaxScaleOnAxis: function ()
+    getMaxScaleOnAxis(): number
     {
-        var m = this.val;
+        const m = this.val;
 
-        var scaleXSq = m[0] * m[0] + m[1] * m[1] + m[2] * m[2];
-        var scaleYSq = m[4] * m[4] + m[5] * m[5] + m[6] * m[6];
-        var scaleZSq = m[8] * m[8] + m[9] * m[9] + m[10] * m[10];
+        const scaleXSq = m[0] * m[0] + m[1] * m[1] + m[2] * m[2];
+        const scaleYSq = m[4] * m[4] + m[5] * m[5] + m[6] * m[6];
+        const scaleZSq = m[8] * m[8] + m[9] * m[9] + m[10] * m[10];
 
         return Math.sqrt(Math.max(scaleXSq, scaleYSq, scaleZSq));
     }
 
-});
+}
 
 /**
  * @ignore
  */
-var _tempMat1 = new Matrix4();
+const _tempMat1 = new Matrix4();
 
 /**
  * @ignore
  */
-var _tempMat2 = new Matrix4();
+const _tempMat2 = new Matrix4();
 
 /**
  * @ignore
  */
-var _x = new Vector3();
+const _x = new Vector3();
 
 /**
  * @ignore
  */
-var _y = new Vector3();
+const _y = new Vector3();
 
 /**
  * @ignore
  */
-var _z = new Vector3();
-
-module.exports = Matrix4;
+const _z = new Vector3();

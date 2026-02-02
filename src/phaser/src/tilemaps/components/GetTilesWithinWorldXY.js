@@ -5,7 +5,7 @@
  */
 
 var GetTilesWithin = require('./GetTilesWithin');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 
 var pointStart = new Vector2();
 var pointEnd = new Vector2();

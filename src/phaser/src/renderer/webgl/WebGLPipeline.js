@@ -12,7 +12,7 @@ import { GetFastValue } from '../../utils/object/GetFastValue';
 var Class = require('../../utils/Class');
 var EventEmitter = require('eventemitter3');
 var Events = require('./pipelines/events');
-var Matrix4 = require('../../math/Matrix4');
+import { Matrix4 } from '../../math/Matrix4';
 var RendererEvents = require('../events');
 var RenderTarget = require('./RenderTarget');
 var Utils = require('./Utils');

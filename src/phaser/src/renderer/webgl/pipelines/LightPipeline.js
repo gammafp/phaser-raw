@@ -10,10 +10,11 @@
 import { GetFastValue } from '../../../utils/object/GetFastValue';
 
 var Class = require('../../../utils/Class');
+import { Vector2 as Vec2 } from '../../../math/Vector2';
+
 var LightShaderSourceFS = require('../shaders/Light-frag');
 var MultiPipeline = require('./MultiPipeline');
 var TransformMatrix = require('../../../gameobjects/components/TransformMatrix');
-var Vec2 = require('../../../math/Vector2');
 var WebGLPipeline = require('../WebGLPipeline');
 
 /**

@@ -13,7 +13,7 @@ var Components = require('./components');
 var GameObject = require('../../gameobjects/GameObject');
 var Image = require('../../gameobjects/image/Image');
 var Pipeline = require('../../gameobjects/components/Pipeline');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 
 /**
  * @classdesc

@@ -6,7 +6,7 @@
 
 import { GetLineToPolygon } from './GetLineToPolygon';
 
-const Vector4 = require('../../math/Vector4');
+import { Vector4 } from '../../math/Vector4';
 const Line = require('../line/Line');
 
 //  Temp calculation segment

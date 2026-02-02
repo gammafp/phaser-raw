@@ -15,7 +15,7 @@ var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var Rectangle = require('../../geom/rectangle/Rectangle');
 var TransformMatrix = require('../../gameobjects/components/TransformMatrix');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 
 /**
  * @classdesc

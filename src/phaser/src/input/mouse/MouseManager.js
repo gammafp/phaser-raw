@@ -5,8 +5,9 @@
  */
 
 import { NOOP } from '../../utils/NOOP';
+import { FEATURES_DEVICE as Features } from '../../device/Features';
+
 var Class = require('../../utils/Class');
-var Features = require('../../device/Features');
 var InputEvents = require('../events');
 
 //  https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent

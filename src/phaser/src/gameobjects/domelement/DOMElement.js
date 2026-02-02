@@ -14,7 +14,7 @@ var Components = require('../components');
 var DOMElementRender = require('./DOMElementRender');
 var GameObject = require('../GameObject');
 var SCENE_EVENTS = require('../../scene/events');
-var Vector4 = require('../../math/Vector4');
+import { Vector4 } from '../../math/Vector4';
 
 /**
  * @classdesc

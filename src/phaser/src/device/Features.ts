@@ -31,7 +31,7 @@ import { CanvasPool } from '../display/canvas/CanvasPool';
  * @property {boolean} webGL - Is webGL available?
  * @property {boolean} worker - Is worker available?
  */
-var Features = {
+const Features: any = {
 
     canvas: false,
     canvasBitBltShift: null,
@@ -51,11 +51,11 @@ var Features = {
 
 // Check Little or Big Endian system.
 // @author Matt DesLauriers (@mattdesl)
-function checkIsLittleEndian ()
+const checkIsLittleEndian = (): boolean | null =>
 {
-    var a = new ArrayBuffer(4);
-    var b = new Uint8Array(a);
-    var c = new Uint32Array(a);
+    const a = new ArrayBuffer(4);
+    const b = new Uint8Array(a);
+    const c = new Uint32Array(a);
 
     b[0] = 0xa1;
     b[1] = 0xb2;
@@ -76,9 +76,9 @@ function checkIsLittleEndian ()
         //  Could not determine endianness
         return null;
     }
-}
+};
 
-function init ()
+const init = (): typeof Features =>
 {
     if (typeof importScripts === 'function')
     {
@@ -99,24 +99,24 @@ function init ()
     Features.file = !!window['File'] && !!window['FileReader'] && !!window['FileList'] && !!window['Blob'];
     Features.fileSystem = !!window['requestFileSystem'];
 
-    var isUint8 = false;
+    let isUint8 = false;
 
-    var testWebGL = function ()
+    const testWebGL = function ()
     {
         if (window['WebGLRenderingContext'])
         {
             try
             {
-                var canvas = CanvasPool.createWebGL(this);
+                const canvas = CanvasPool.createWebGL(this);
 
-                var ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                const ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
 
-                var canvas2D = CanvasPool.create2D(this);
+                const canvas2D = CanvasPool.create2D(this);
 
-                var ctx2D = canvas2D.getContext('2d', { willReadFrequently: true });
+                const ctx2D = canvas2D.getContext('2d', { willReadFrequently: true });
 
                 //  Can't be done on a webgl context
-                var image = ctx2D.createImageData(1, 1);
+                const image = ctx2D.createImageData(1, 1);
 
                 //  Test to see if ImageData uses CanvasPixelArray or Uint8ClampedArray.
                 //  @author Matt DesLauriers (@mattdesl)
@@ -142,11 +142,11 @@ function init ()
 
     Features.pointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+    (navigator as any).getUserMedia = (navigator as any).getUserMedia || (navigator as any).webkitGetUserMedia || (navigator as any).mozGetUserMedia || (navigator as any).msGetUserMedia || (navigator as any).oGetUserMedia;
 
-    window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+    (window as any).URL = (window as any).URL || (window as any).webkitURL || (window as any).mozURL || (window as any).msURL;
 
-    Features.getUserMedia = Features.getUserMedia && !!navigator.getUserMedia && !!window.URL;
+    Features.getUserMedia = Features.getUserMedia && !!(navigator as any).getUserMedia && !!(window as any).URL;
 
     // Older versions of firefox (< 21) apparently claim support but user media does not actually work
     if (Browser.firefox && Browser.firefoxVersion < 21)
@@ -167,9 +167,9 @@ function init ()
         Features.canvasBitBltShift = false;
     }
 
-    navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+    (navigator as any).vibrate = (navigator as any).vibrate || (navigator as any).webkitVibrate || (navigator as any).mozVibrate || (navigator as any).msVibrate;
 
-    if (navigator.vibrate)
+    if ((navigator as any).vibrate)
     {
         Features.vibration = true;
     }
@@ -188,6 +188,6 @@ function init ()
     );
 
     return Features;
-}
+};
 
-module.exports = init();
+export const FEATURES_DEVICE = init();

@@ -10,7 +10,7 @@ var Components = require('../components');
 var GameObject = require('../GameObject');
 var PIPELINE_CONST = require('../../renderer/webgl/pipelines/const');
 var RopeRender = require('./RopeRender');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 
 /**
  * @classdesc

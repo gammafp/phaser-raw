@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Vector3 = require('../../math/Vector3');
+import { Vector3 } from '../../math/Vector3';
 
 /**
  * Checks for intersection between the two line segments, or a ray and a line segment,

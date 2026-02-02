@@ -4,10 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var CustomMap = require('../structs/Map');
-var EventEmitter = require('eventemitter3');
-var Events = require('./events');
+const CustomMap = require('../structs/Map');
+const EventEmitter = require('eventemitter3');
+const Events = require('./events');
 
 /**
  * @classdesc
@@ -22,11 +21,12 @@ var Events = require('./events');
  * @constructor
  * @since 3.0.0
  */
-var BaseCache = new Class({
+export class BaseCache {
 
-    initialize:
+    entries: any;
+    events: any;
 
-    function BaseCache ()
+    constructor()
     {
         /**
          * The Map in which the cache objects are stored.
@@ -47,7 +47,7 @@ var BaseCache = new Class({
          * @since 3.0.0
          */
         this.events = new EventEmitter();
-    },
+    }
 
     /**
      * Adds an item to this cache. The item is referenced by a unique string, which you are responsible
@@ -62,14 +62,14 @@ var BaseCache = new Class({
      *
      * @return {this} This BaseCache object.
      */
-    add: function (key, data)
+    add(key: string, data: any): this
     {
         this.entries.set(key, data);
 
         this.events.emit(Events.ADD, this, key, data);
 
         return this;
-    },
+    }
 
     /**
      * Checks if this cache contains an item matching the given key.
@@ -82,10 +82,10 @@ var BaseCache = new Class({
      *
      * @return {boolean} Returns `true` if the cache contains an item matching the given key, otherwise `false`.
      */
-    has: function (key)
+    has(key: string): boolean
     {
         return this.entries.has(key);
-    },
+    }
 
     /**
      * Checks if this cache contains an item matching the given key.
@@ -98,10 +98,10 @@ var BaseCache = new Class({
      *
      * @return {boolean} Returns `true` if the cache contains an item matching the given key, otherwise `false`.
      */
-    exists: function (key)
+    exists(key: string): boolean
     {
         return this.entries.has(key);
-    },
+    }
 
     /**
      * Gets an item from this cache based on the given key.
@@ -113,10 +113,10 @@ var BaseCache = new Class({
      *
      * @return {*} The item in the cache, or `null` if no item matching the given key was found.
      */
-    get: function (key)
+    get(key: string): any
     {
         return this.entries.get(key);
-    },
+    }
 
     /**
      * Removes and item from this cache based on the given key.
@@ -133,9 +133,9 @@ var BaseCache = new Class({
      *
      * @return {this} This BaseCache object.
      */
-    remove: function (key)
+    remove(key: string): this
     {
-        var entry = this.get(key);
+        const entry = this.get(key);
 
         if (entry)
         {
@@ -145,7 +145,7 @@ var BaseCache = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Returns all keys in use in this cache.
@@ -155,10 +155,10 @@ var BaseCache = new Class({
      *
      * @return {string[]} Array containing all the keys.
      */
-    getKeys: function ()
+    getKeys(): string[]
     {
         return this.entries.keys();
-    },
+    }
 
     /**
      * Destroys this cache and all items within it.
@@ -166,7 +166,7 @@ var BaseCache = new Class({
      * @method Phaser.Cache.BaseCache#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy(): void
     {
         this.entries.clear();
         this.events.removeAllListeners();
@@ -175,6 +175,4 @@ var BaseCache = new Class({
         this.events = null;
     }
 
-});
-
-module.exports = BaseCache;
+}

@@ -13,7 +13,7 @@ var Class = require('../../utils/Class');
 var CollisionComponent = require('./components/Collision');
 var CONST = require('./const');
 var SetCollisionObject = require('./SetCollisionObject');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 
 /**
  * @classdesc

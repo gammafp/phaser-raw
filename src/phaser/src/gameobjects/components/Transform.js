@@ -11,8 +11,8 @@ import { Wrap as WrapAngle } from '../../math/angle/Wrap';
 import { WrapDegrees as WrapAngleDegrees } from '../../math/angle/WrapDegrees';
 
 var TransformMatrix = require('./TransformMatrix');
-var TransformXY = require('../../math/TransformXY');
-var Vector2 = require('../../math/Vector2');
+import { TransformXY } from '../../math/TransformXY';
+import { Vector2 } from '../../math/Vector2';
 
 //  global bitmask flag for GameObject.renderMask (used by Scale)
 var _FLAG = 4; // 0100

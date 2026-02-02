@@ -4,10 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this to TypeScript class
-
-var Class = require('../../utils/Class');
-
 /**
  * @classdesc
  * A seeded Random Data Generator.
@@ -28,83 +24,81 @@ var Class = require('../../utils/Class');
  *
  * @param {(string|string[])} [seeds] - The seeds to use for the random number generator.
  */
-var RandomDataGenerator = new Class({
+export class RandomDataGenerator {
 
-    initialize:
+    /**
+     * Internal var.
+     *
+     * @name Phaser.Math.RandomDataGenerator#c
+     * @type {number}
+     * @default 1
+     * @private
+     * @since 3.0.0
+     */
+    private c: number = 1;
 
-    function RandomDataGenerator (seeds)
+    /**
+     * Internal var.
+     *
+     * @name Phaser.Math.RandomDataGenerator#s0
+     * @type {number}
+     * @default 0
+     * @private
+     * @since 3.0.0
+     */
+    private s0: number = 0;
+
+    /**
+     * Internal var.
+     *
+     * @name Phaser.Math.RandomDataGenerator#s1
+     * @type {number}
+     * @default 0
+     * @private
+     * @since 3.0.0
+     */
+    private s1: number = 0;
+
+    /**
+     * Internal var.
+     *
+     * @name Phaser.Math.RandomDataGenerator#s2
+     * @type {number}
+     * @default 0
+     * @private
+     * @since 3.0.0
+     */
+    private s2: number = 0;
+
+    /**
+     * Internal var.
+     *
+     * @name Phaser.Math.RandomDataGenerator#n
+     * @type {number}
+     * @default 0
+     * @private
+     * @since 3.2.0
+     */
+    private n: number = 0;
+
+    /**
+     * Signs to choose from.
+     *
+     * @name Phaser.Math.RandomDataGenerator#signs
+     * @type {number[]}
+     * @since 3.0.0
+     */
+    signs: number[] = [ -1, 1 ];
+
+    constructor(seeds?: string | string[])
     {
         if (seeds === undefined) { seeds = [ (Date.now() * Math.random()).toString() ]; }
-
-        /**
-         * Internal var.
-         *
-         * @name Phaser.Math.RandomDataGenerator#c
-         * @type {number}
-         * @default 1
-         * @private
-         * @since 3.0.0
-         */
-        this.c = 1;
-
-        /**
-         * Internal var.
-         *
-         * @name Phaser.Math.RandomDataGenerator#s0
-         * @type {number}
-         * @default 0
-         * @private
-         * @since 3.0.0
-         */
-        this.s0 = 0;
-
-        /**
-         * Internal var.
-         *
-         * @name Phaser.Math.RandomDataGenerator#s1
-         * @type {number}
-         * @default 0
-         * @private
-         * @since 3.0.0
-         */
-        this.s1 = 0;
-
-        /**
-         * Internal var.
-         *
-         * @name Phaser.Math.RandomDataGenerator#s2
-         * @type {number}
-         * @default 0
-         * @private
-         * @since 3.0.0
-         */
-        this.s2 = 0;
-
-        /**
-         * Internal var.
-         *
-         * @name Phaser.Math.RandomDataGenerator#n
-         * @type {number}
-         * @default 0
-         * @private
-         * @since 3.2.0
-         */
-        this.n = 0;
-
-        /**
-         * Signs to choose from.
-         *
-         * @name Phaser.Math.RandomDataGenerator#signs
-         * @type {number[]}
-         * @since 3.0.0
-         */
-        this.signs = [ -1, 1 ];
 
         if (seeds)
         {
             this.init(seeds);
         }
-    },
+    }
 
     /**
      * Private random helper.
@@ -115,9 +109,9 @@ var RandomDataGenerator = new Class({
      *
      * @return {number} A random number.
      */
-    rnd: function ()
+    private rnd(): number
     {
-        var t = 2091639 * this.s0 + this.c * 2.3283064365386963e-10; // 2^-32
+        const t = 2091639 * this.s0 + this.c * 2.3283064365386963e-10; // 2^-32
 
         this.c = t | 0;
         this.s0 = this.s1;
@@ -125,7 +119,7 @@ var RandomDataGenerator = new Class({
         this.s2 = t - this.c;
 
         return this.s2;
-    },
+    }
 
     /**
      * Internal method that creates a seed hash.
@@ -138,14 +132,14 @@ var RandomDataGenerator = new Class({
      *
      * @return {number} The hashed value.
      */
-    hash: function (data)
+    private hash(data: string): number
     {
-        var h;
-        var n = this.n;
+        let h: number;
+        let n = this.n;
 
         data = data.toString();
 
-        for (var i = 0; i < data.length; i++)
+        for (let i = 0; i < data.length; i++)
         {
             n += data.charCodeAt(i);
             h = 0.02519603282416938 * n;
@@ -160,7 +154,7 @@ var RandomDataGenerator = new Class({
         this.n = n;
 
         return (n >>> 0) * 2.3283064365386963e-10;// 2^-32
-    },
+    }
 
     /**
      * Initialize the state of the random data generator.
@@ -170,7 +164,7 @@ var RandomDataGenerator = new Class({
      *
      * @param {(string|string[])} seeds - The seeds to initialize the random data generator with.
      */
-    init: function (seeds)
+    init(seeds: string | string[]): void
     {
         if (typeof seeds === 'string')
         {
@@ -180,7 +174,7 @@ var RandomDataGenerator = new Class({
         {
             this.sow(seeds);
         }
-    },
+    }
 
     /**
      * Reset the seed of the random data generator.
@@ -192,7 +186,7 @@ var RandomDataGenerator = new Class({
      *
      * @param {string[]} seeds - The array of seeds: the `toString()` of each value is used.
      */
-    sow: function (seeds)
+    sow(seeds?: string[]): void
     {
         // Always reset to default seed
         this.n = 0xefc8249d;
@@ -207,9 +201,9 @@ var RandomDataGenerator = new Class({
         }
 
         // Apply any seeds
-        for (var i = 0; i < seeds.length && (seeds[i] != null); i++)
+        for (let i = 0; i < seeds.length && (seeds[i] != null); i++)
         {
-            var seed = seeds[i];
+            const seed = seeds[i];
 
             this.s0 -= this.hash(seed);
             this.s0 += ~~(this.s0 < 0);
@@ -218,7 +212,7 @@ var RandomDataGenerator = new Class({
             this.s2 -= this.hash(seed);
             this.s2 += ~~(this.s2 < 0);
         }
-    },
+    }
 
     /**
      * Returns a random integer between 0 and 2^32.
@@ -228,11 +222,11 @@ var RandomDataGenerator = new Class({
      *
      * @return {number} A random integer between 0 and 2^32.
      */
-    integer: function ()
+    integer(): number
     {
         // 2^32
         return this.rnd() * 0x100000000;
-    },
+    }
 
     /**
      * Returns a random real number between 0 and 1.
@@ -242,11 +236,11 @@ var RandomDataGenerator = new Class({
      *
      * @return {number} A random real number between 0 and 1.
      */
-    frac: function ()
+    frac(): number
     {
         // 2^-53
         return this.rnd() + (this.rnd() * 0x200000 | 0) * 1.1102230246251565e-16;
-    },
+    }
 
     /**
      * Returns a random real number between 0 and 2^32.
@@ -256,10 +250,10 @@ var RandomDataGenerator = new Class({
      *
      * @return {number} A random real number between 0 and 2^32.
      */
-    real: function ()
+    real(): number
     {
         return this.integer() + this.frac();
-    },
+    }
 
     /**
      * Returns a random integer between and including min and max.
@@ -272,10 +266,10 @@ var RandomDataGenerator = new Class({
      *
      * @return {number} A random number between min and max.
      */
-    integerInRange: function (min, max)
+    integerInRange(min: number, max: number): number
     {
         return Math.floor(this.realInRange(0, max - min + 1) + min);
-    },
+    }
 
     /**
      * Returns a random integer between and including min and max.
@@ -289,10 +283,10 @@ var RandomDataGenerator = new Class({
      *
      * @return {number} A random number between min and max.
      */
-    between: function (min, max)
+    between(min: number, max: number): number
     {
         return Math.floor(this.realInRange(0, max - min + 1) + min);
-    },
+    }
 
     /**
      * Returns a random real number between min and max.
@@ -305,10 +299,10 @@ var RandomDataGenerator = new Class({
      *
      * @return {number} A random number between min and max.
      */
-    realInRange: function (min, max)
+    realInRange(min: number, max: number): number
     {
         return this.frac() * (max - min) + min;
-    },
+    }
 
     /**
      * Returns a random real number between -1 and 1.
@@ -318,10 +312,10 @@ var RandomDataGenerator = new Class({
      *
      * @return {number} A random real number between -1 and 1.
      */
-    normal: function ()
+    normal(): number
     {
         return 1 - (2 * this.frac());
-    },
+    }
 
     /**
      * Returns a valid RFC4122 version4 ID hex string from https://gist.github.com/1308368
@@ -331,18 +325,18 @@ var RandomDataGenerator = new Class({
      *
      * @return {string} A valid RFC4122 version4 ID hex string
      */
-    uuid: function ()
+    uuid(): string
     {
-        var a = '';
-        var b = '';
+        let b: string = '';
+        let a: number = 0;
 
-        for (b = a = ''; a++ < 36; b += ~a % 5 | a * 3 & 4 ? (a ^ 15 ? 8 ^ this.frac() * (a ^ 20 ? 16 : 4) : 4).toString(16) : '-')
+        for (b = ''; a++ < 36; b += ~a % 5 | a * 3 & 4 ? (a ^ 15 ? 8 ^ this.frac() * (a ^ 20 ? 16 : 4) : 4).toString(16) : '-')
         {
             // eslint-disable-next-line no-empty
         }
 
         return b;
-    },
+    }
 
     /**
      * Returns a random element from within the given array.
@@ -358,10 +352,10 @@ var RandomDataGenerator = new Class({
      *
      * @return {T} A random member of the array.
      */
-    pick: function (array)
+    pick<T>(array: T[]): T
     {
         return array[this.integerInRange(0, array.length - 1)];
-    },
+    }
 
     /**
      * Returns a sign to be used with multiplication operator.
@@ -371,10 +365,10 @@ var RandomDataGenerator = new Class({
      *
      * @return {number} -1 or +1.
      */
-    sign: function ()
+    sign(): number
     {
         return this.pick(this.signs);
-    },
+    }
 
     /**
      * Returns a random element from within the given array, favoring the earlier entries.
@@ -390,10 +384,10 @@ var RandomDataGenerator = new Class({
      *
      * @return {T} A random member of the array.
      */
-    weightedPick: function (array)
+    weightedPick<T>(array: T[]): T
     {
         return array[~~(Math.pow(this.frac(), 2) * (array.length - 0.5) + 0.5)];
-    },
+    }
 
     /**
      * Returns a random timestamp between min and max, or between the beginning of 2000 and the end of 2020 if min and max aren't specified.
@@ -406,10 +400,10 @@ var RandomDataGenerator = new Class({
      *
      * @return {number} A random timestamp between min and max.
      */
-    timestamp: function (min, max)
+    timestamp(min?: number, max?: number): number
     {
         return this.realInRange(min || 946684800000, max || 1577862000000);
-    },
+    }
 
     /**
      * Returns a random angle between -180 and 180.
@@ -419,10 +413,10 @@ var RandomDataGenerator = new Class({
      *
      * @return {number} A random number between -180 and 180.
      */
-    angle: function ()
+    angle(): number
     {
         return this.integerInRange(-180, 180);
-    },
+    }
 
     /**
      * Returns a random rotation in radians, between -3.141 and 3.141
@@ -432,10 +426,10 @@ var RandomDataGenerator = new Class({
      *
      * @return {number} A random number between -3.141 and 3.141
      */
-    rotation: function ()
+    rotation(): number
     {
         return this.realInRange(-3.1415926, 3.1415926);
-    },
+    }
 
     /**
      * Gets or Sets the state of the generator. This allows you to retain the values
@@ -457,20 +451,20 @@ var RandomDataGenerator = new Class({
      *
      * @return {string} The current state of the generator.
      */
-    state: function (state)
+    state(state?: string): string
     {
         if (typeof state === 'string' && state.match(/^!rnd/))
         {
-            state = state.split(',');
+            const stateParts = state.split(',');
 
-            this.c = parseFloat(state[1]);
-            this.s0 = parseFloat(state[2]);
-            this.s1 = parseFloat(state[3]);
-            this.s2 = parseFloat(state[4]);
+            this.c = parseFloat(stateParts[1]);
+            this.s0 = parseFloat(stateParts[2]);
+            this.s1 = parseFloat(stateParts[3]);
+            this.s2 = parseFloat(stateParts[4]);
         }
 
         return [ '!rnd', this.c, this.s0, this.s1, this.s2 ].join(',');
-    },
+    }
 
     /**
      * Shuffles the given array, using the current seed.
@@ -485,14 +479,14 @@ var RandomDataGenerator = new Class({
      *
      * @return {T[]} The shuffled array.
      */
-    shuffle: function (array)
+    shuffle<T>(array: T[]): T[]
     {
-        var len = array.length - 1;
+        const len = array.length - 1;
 
-        for (var i = len; i > 0; i--)
+        for (let i = len; i > 0; i--)
         {
-            var randomIndex = Math.floor(this.frac() * (i + 1));
-            var itemAtIndex = array[randomIndex];
+            const randomIndex = Math.floor(this.frac() * (i + 1));
+            const itemAtIndex = array[randomIndex];
 
             array[randomIndex] = array[i];
             array[i] = itemAtIndex;
@@ -501,6 +495,4 @@ var RandomDataGenerator = new Class({
         return array;
     }
 
-});
-
-module.exports = RandomDataGenerator;
+}

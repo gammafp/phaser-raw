@@ -11,7 +11,7 @@ import { GetValue } from '../utils/object/GetValue';
 import { RadToDeg } from '../math/RadToDeg';
 import { Curve } from './Curve';
 
-const Vector2 = require('../math/Vector2');
+import { Vector2 } from '../math/Vector2';
 
 /**
  * @classdesc

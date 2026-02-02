@@ -16,7 +16,7 @@ var Class = require('../utils/Class');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var GameEvents = require('../core/events');
-var Vector2 = require('../math/Vector2');
+import { Vector2 } from '../math/Vector2';
 
 /**
  * @classdesc

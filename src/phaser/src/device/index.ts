@@ -30,12 +30,11 @@
 import { OS_DEVICE as os } from './OS';
 import { BROWSER_DEVICE as browser } from './Browser';
 import { INPUT_DEVICE as input } from './Input';
-
-const features = require('./Features');
-const audio = require('./Audio');
-const video = require('./Video');
-const fullscreen = require('./Fullscreen');
-const canvasFeatures = require('./CanvasFeatures');
+import { FEATURES_DEVICE as features } from './Features';
+import { AUDIO_DEVICE as audio } from './Audio';
+import { VIDEO_DEVICE as video } from './Video';
+import { FULLSCREEN_DEVICE as fullscreen } from './Fullscreen';
+import { CANVAS_FEATURES_DEVICE as canvasFeatures } from './CanvasFeatures';
 
 export { os };
 export { browser };

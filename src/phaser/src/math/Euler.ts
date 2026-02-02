@@ -4,15 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this to TypeScript class
-
 import { Clamp } from './Clamp';
 import { NOOP } from '../utils/NOOP';
+import { Matrix4 } from './Matrix4';
+import { Quaternion } from './Quaternion';
 
-var Class = require('../utils/Class');
-var Matrix4 = require('./Matrix4');
-
-var tempMatrix = new Matrix4();
+const tempMatrix = new Matrix4();
 
 /**
  * @classdesc
@@ -26,11 +23,18 @@ var tempMatrix = new Matrix4();
  * @param {number} [y] - The y component.
  * @param {number} [z] - The z component.
  */
-var Euler = new Class({
+export class Euler {
 
-    initialize:
+    static RotationOrders: string[];
+    static DefaultOrder: string;
 
-    function Euler (x, y, z, order)
+    private _x: number;
+    private _y: number;
+    private _z: number;
+    private _order: string;
+    onChangeCallback: (euler: Euler) => void;
+
+    constructor(x?: number, y?: number, z?: number, order?: string)
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
@@ -43,65 +47,61 @@ var Euler = new Class({
         this._order = order;
 
         this.onChangeCallback = NOOP;
-    },
+    }
 
-    x: {
-        get: function ()
-        {
-            return this._x;
-        },
 
-        set: function (value)
-        {
-            this._x = value;
+    get x(): number
+    {
+        return this._x;
+    }
 
-            this.onChangeCallback(this);
-        }
-    },
+    set x(value: number)
+    {
+        this._x = value;
 
-    y: {
-        get: function ()
-        {
-            return this._y;
-        },
+        this.onChangeCallback(this);
+    }
 
-        set: function (value)
-        {
-            this._y = value;
 
-            this.onChangeCallback(this);
-        }
-    },
+    get y(): number
+    {
+        return this._y;
+    }
 
-    z: {
-        get: function ()
-        {
-            return this._z;
-        },
+    set y(value: number)
+    {
+        this._y = value;
 
-        set: function (value)
-        {
-            this._z = value;
+        this.onChangeCallback(this);
+    }
 
-            this.onChangeCallback(this);
-        }
-    },
 
-    order: {
-        get: function ()
-        {
-            return this._order;
-        },
+    get z(): number
+    {
+        return this._z;
+    }
 
-        set: function (value)
-        {
-            this._order = value;
+    set z(value: number)
+    {
+        this._z = value;
 
-            this.onChangeCallback(this);
-        }
-    },
+        this.onChangeCallback(this);
+    }
 
-    set: function (x, y, z, order)
+
+    get order(): string
+    {
+        return this._order;
+    }
+
+    set order(value: string)
+    {
+        this._order = value;
+
+        this.onChangeCallback(this);
+    }
+
+    set(x: number, y: number, z: number, order?: string): this
     {
         if (order === undefined) { order = this._order; }
 
@@ -113,14 +113,14 @@ var Euler = new Class({
         this.onChangeCallback(this);
 
         return this;
-    },
+    }
 
-    copy: function (euler)
+    copy(euler: Euler): this
     {
         return this.set(euler.x, euler.y, euler.z, euler.order);
-    },
+    }
 
-    setFromQuaternion: function (quaternion, order, update)
+    setFromQuaternion(quaternion: Quaternion, order?: string, update?: boolean): this
     {
         if (order === undefined) { order = this._order; }
         if (update === undefined) { update = false; }
@@ -128,30 +128,30 @@ var Euler = new Class({
         tempMatrix.fromQuat(quaternion);
 
         return this.setFromRotationMatrix(tempMatrix, order, update);
-    },
+    }
 
-    setFromRotationMatrix: function (matrix, order, update)
+    setFromRotationMatrix(matrix: Matrix4, order?: string, update?: boolean): this
     {
         if (order === undefined) { order = this._order; }
         if (update === undefined) { update = false; }
 
-        var elements = matrix.val;
+        const elements = matrix.val;
 
         //  Upper 3x3 of matrix is un-scaled rotation matrix
-        var m11 = elements[0];
-        var m12 = elements[4];
-        var m13 = elements[8];
-        var m21 = elements[1];
-        var m22 = elements[5];
-        var m23 = elements[9];
-        var m31 = elements[2];
-        var m32 = elements[6];
-        var m33 = elements[10];
+        const m11 = elements[0];
+        const m12 = elements[4];
+        const m13 = elements[8];
+        const m21 = elements[1];
+        const m22 = elements[5];
+        const m23 = elements[9];
+        const m31 = elements[2];
+        const m32 = elements[6];
+        const m33 = elements[10];
 
-        var x = 0;
-        var y = 0;
-        var z = 0;
-        var epsilon = 0.99999;
+        let x = 0;
+        let y = 0;
+        let z = 0;
+        const epsilon = 0.99999;
 
         switch (order)
         {
@@ -271,10 +271,7 @@ var Euler = new Class({
         return this;
     }
 
-});
+    static RotationOrders = [ 'XYZ', 'YXZ', 'ZXY', 'ZYX', 'YZX', 'XZY' ];
+    static DefaultOrder = 'XYZ';
 
-Euler.RotationOrders = [ 'XYZ', 'YXZ', 'ZXY', 'ZYX', 'YZX', 'XZY' ];
-
-Euler.DefaultOrder = 'XYZ';
-
-module.exports = Euler;
+}

@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetFastValue } from '../utils/object/GetFastValue';
 
 /**
@@ -30,7 +28,7 @@ import { GetFastValue } from '../utils/object/GetFastValue';
  * @property {boolean} webm - Can this device play webm video files?
  * @property {function} getVideoURL - Returns the first video URL that can be played by this browser.
  */
-var Video = {
+const Video: any = {
 
     h264: false,
     hls: false,
@@ -43,16 +41,16 @@ var Video = {
 
 };
 
-function init ()
+const init = (): typeof Video =>
 {
     if (typeof importScripts === 'function')
     {
         return Video;
     }
 
-    var videoElement = document.createElement('video');
-    var result = !!videoElement.canPlayType;
-    var no = /^no$/;
+    const videoElement = document.createElement('video');
+    const result = !!videoElement.canPlayType;
+    const no = /^no$/;
 
     try
     {
@@ -101,16 +99,16 @@ function init ()
         videoElement.parentNode.removeChild(videoElement);
     }
 
-    Video.getVideoURL = function (urls)
+    Video.getVideoURL = (urls: any): any =>
     {
         if (!Array.isArray(urls))
         {
             urls = [ urls ];
         }
 
-        for (var i = 0; i < urls.length; i++)
+        for (let i = 0; i < urls.length; i++)
         {
-            var url = GetFastValue(urls[i], 'url', urls[i]);
+            const url = GetFastValue(urls[i], 'url', urls[i]);
 
             if (url.indexOf('blob:') === 0)
             {
@@ -120,7 +118,7 @@ function init ()
                 };
             }
 
-            var videoType;
+            let videoType: any;
 
             if (url.indexOf('data:') === 0)
             {
@@ -146,6 +144,6 @@ function init ()
     };
 
     return Video;
-}
+};
 
-module.exports = init();
+export const VIDEO_DEVICE = init();

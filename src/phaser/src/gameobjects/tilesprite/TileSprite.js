@@ -14,7 +14,7 @@ var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
 var TileSpriteRender = require('./TileSpriteRender');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 
 //  bitmask flag for GameObject.renderMask
 var _FLAG = 8; // 1000

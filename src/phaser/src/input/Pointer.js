@@ -13,7 +13,7 @@ import { SmoothStepInterpolation } from '../math/interpolation/SmoothStepInterpo
 import { OS_DEVICE as OS } from '../device/OS';
 
 var Class = require('../utils/Class');
-var Vector2 = require('../math/Vector2');
+import { Vector2 } from '../math/Vector2';
 
 /**
  * @classdesc

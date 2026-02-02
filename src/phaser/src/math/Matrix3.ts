@@ -4,12 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this to TypeScript class
-
 //  Adapted from [gl-matrix](https://github.com/toji/gl-matrix) by toji
 //  and [vecmath](https://github.com/mattdesl/vecmath) by mattdesl
 
-var Class = require('../utils/Class');
+import { Matrix4 } from './Matrix4';
+import { Quaternion } from './Quaternion';
 
 /**
  * @classdesc
@@ -24,19 +23,19 @@ var Class = require('../utils/Class');
  *
  * @param {Phaser.Math.Matrix3} [m] - Optional Matrix3 to copy values from.
  */
-var Matrix3 = new Class({
+export class Matrix3 {
 
-    initialize:
+    /**
+     * The matrix values.
+     *
+     * @name Phaser.Math.Matrix3#val
+     * @type {Float32Array}
+     * @since 3.0.0
+     */
+    val: Float32Array;
 
-    function Matrix3 (m)
+    constructor(m?: Matrix3)
     {
-        /**
-         * The matrix values.
-         *
-         * @name Phaser.Math.Matrix3#val
-         * @type {Float32Array}
-         * @since 3.0.0
-         */
         this.val = new Float32Array(9);
 
         if (m)
@@ -49,7 +48,7 @@ var Matrix3 = new Class({
             //  Default to identity
             this.identity();
         }
-    },
+    }
 
     /**
      * Make a clone of this Matrix3.
@@ -59,10 +58,10 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} A clone of this Matrix3.
      */
-    clone: function ()
+    clone(): Matrix3
     {
         return new Matrix3(this);
-    },
+    }
 
     /**
      * This method is an alias for `Matrix3.copy`.
@@ -74,10 +73,10 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    set: function (src)
+    set(src: Matrix3): this
     {
         return this.copy(src);
-    },
+    }
 
     /**
      * Copy the values of a given Matrix into this Matrix.
@@ -89,10 +88,10 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    copy: function (src)
+    copy(src: Matrix3): this
     {
-        var out = this.val;
-        var a = src.val;
+        const out = this.val;
+        const a = src.val;
 
         out[0] = a[0];
         out[1] = a[1];
@@ -105,7 +104,7 @@ var Matrix3 = new Class({
         out[8] = a[8];
 
         return this;
-    },
+    }
 
     /**
      * Copy the values of a given Matrix4 into this Matrix3.
@@ -117,10 +116,10 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    fromMat4: function (m)
+    fromMat4(m: Matrix4): this
     {
-        var a = m.val;
-        var out = this.val;
+        const a = m.val;
+        const out = this.val;
 
         out[0] = a[0];
         out[1] = a[1];
@@ -133,7 +132,7 @@ var Matrix3 = new Class({
         out[8] = a[10];
 
         return this;
-    },
+    }
 
     /**
      * Set the values of this Matrix from the given array.
@@ -145,9 +144,9 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    fromArray: function (a)
+    fromArray(a: number[]): this
     {
-        var out = this.val;
+        const out = this.val;
 
         out[0] = a[0];
         out[1] = a[1];
@@ -160,7 +159,7 @@ var Matrix3 = new Class({
         out[8] = a[8];
 
         return this;
-    },
+    }
 
     /**
      * Reset this Matrix to an identity (default) matrix.
@@ -170,9 +169,9 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    identity: function ()
+    identity(): this
     {
-        var out = this.val;
+        const out = this.val;
 
         out[0] = 1;
         out[1] = 0;
@@ -185,7 +184,7 @@ var Matrix3 = new Class({
         out[8] = 1;
 
         return this;
-    },
+    }
 
     /**
      * Transpose this Matrix.
@@ -195,12 +194,12 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    transpose: function ()
+    transpose(): this
     {
-        var a = this.val;
-        var a01 = a[1];
-        var a02 = a[2];
-        var a12 = a[5];
+        const a = this.val;
+        const a01 = a[1];
+        const a02 = a[2];
+        const a12 = a[5];
 
         a[1] = a[3];
         a[2] = a[6];
@@ -210,7 +209,7 @@ var Matrix3 = new Class({
         a[7] = a12;
 
         return this;
-    },
+    }
 
     /**
      * Invert this Matrix.
@@ -220,26 +219,26 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    invert: function ()
+    invert(): this | null
     {
-        var a = this.val;
+        const a = this.val;
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a10 = a[3];
-        var a11 = a[4];
-        var a12 = a[5];
-        var a20 = a[6];
-        var a21 = a[7];
-        var a22 = a[8];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a10 = a[3];
+        const a11 = a[4];
+        const a12 = a[5];
+        const a20 = a[6];
+        const a21 = a[7];
+        const a22 = a[8];
 
-        var b01 = a22 * a11 - a12 * a21;
-        var b11 = -a22 * a10 + a12 * a20;
-        var b21 = a21 * a10 - a11 * a20;
+        const b01 = a22 * a11 - a12 * a21;
+        const b11 = -a22 * a10 + a12 * a20;
+        const b21 = a21 * a10 - a11 * a20;
 
         // Calculate the determinant
-        var det = a00 * b01 + a01 * b11 + a02 * b21;
+        let det = a00 * b01 + a01 * b11 + a02 * b21;
 
         if (!det)
         {
@@ -259,7 +258,7 @@ var Matrix3 = new Class({
         a[8] = (a11 * a00 - a01 * a10) * det;
 
         return this;
-    },
+    }
 
     /**
      * Calculate the adjoint, or adjugate, of this Matrix.
@@ -269,19 +268,19 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    adjoint: function ()
+    adjoint(): this
     {
-        var a = this.val;
+        const a = this.val;
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a10 = a[3];
-        var a11 = a[4];
-        var a12 = a[5];
-        var a20 = a[6];
-        var a21 = a[7];
-        var a22 = a[8];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a10 = a[3];
+        const a11 = a[4];
+        const a12 = a[5];
+        const a20 = a[6];
+        const a21 = a[7];
+        const a22 = a[8];
 
         a[0] = (a11 * a22 - a12 * a21);
         a[1] = (a02 * a21 - a01 * a22);
@@ -294,7 +293,7 @@ var Matrix3 = new Class({
         a[8] = (a00 * a11 - a01 * a10);
 
         return this;
-    },
+    }
 
     /**
      * Calculate the determinant of this Matrix.
@@ -304,22 +303,22 @@ var Matrix3 = new Class({
      *
      * @return {number} The determinant of this Matrix.
      */
-    determinant: function ()
+    determinant(): number
     {
-        var a = this.val;
+        const a = this.val;
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a10 = a[3];
-        var a11 = a[4];
-        var a12 = a[5];
-        var a20 = a[6];
-        var a21 = a[7];
-        var a22 = a[8];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a10 = a[3];
+        const a11 = a[4];
+        const a12 = a[5];
+        const a20 = a[6];
+        const a21 = a[7];
+        const a22 = a[8];
 
         return a00 * (a22 * a11 - a12 * a21) + a01 * (-a22 * a10 + a12 * a20) + a02 * (a21 * a10 - a11 * a20);
-    },
+    }
 
     /**
      * Multiply this Matrix by the given Matrix.
@@ -331,31 +330,31 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    multiply: function (src)
+    multiply(src: Matrix3): this
     {
-        var a = this.val;
+        const a = this.val;
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a10 = a[3];
-        var a11 = a[4];
-        var a12 = a[5];
-        var a20 = a[6];
-        var a21 = a[7];
-        var a22 = a[8];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a10 = a[3];
+        const a11 = a[4];
+        const a12 = a[5];
+        const a20 = a[6];
+        const a21 = a[7];
+        const a22 = a[8];
 
-        var b = src.val;
+        const b = src.val;
 
-        var b00 = b[0];
-        var b01 = b[1];
-        var b02 = b[2];
-        var b10 = b[3];
-        var b11 = b[4];
-        var b12 = b[5];
-        var b20 = b[6];
-        var b21 = b[7];
-        var b22 = b[8];
+        const b00 = b[0];
+        const b01 = b[1];
+        const b02 = b[2];
+        const b10 = b[3];
+        const b11 = b[4];
+        const b12 = b[5];
+        const b20 = b[6];
+        const b21 = b[7];
+        const b22 = b[8];
 
         a[0] = b00 * a00 + b01 * a10 + b02 * a20;
         a[1] = b00 * a01 + b01 * a11 + b02 * a21;
@@ -370,7 +369,7 @@ var Matrix3 = new Class({
         a[8] = b20 * a02 + b21 * a12 + b22 * a22;
 
         return this;
-    },
+    }
 
     /**
      * Translate this Matrix using the given Vector.
@@ -382,18 +381,18 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    translate: function (v)
+    translate(v: { x: number; y: number }): this
     {
-        var a = this.val;
-        var x = v.x;
-        var y = v.y;
+        const a = this.val;
+        const x = v.x;
+        const y = v.y;
 
         a[6] = x * a[0] + y * a[3] + a[6];
         a[7] = x * a[1] + y * a[4] + a[7];
         a[8] = x * a[2] + y * a[5] + a[8];
 
         return this;
-    },
+    }
 
     /**
      * Apply a rotation transformation to this Matrix.
@@ -405,19 +404,19 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    rotate: function (rad)
+    rotate(rad: number): this
     {
-        var a = this.val;
+        const a = this.val;
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a10 = a[3];
-        var a11 = a[4];
-        var a12 = a[5];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a10 = a[3];
+        const a11 = a[4];
+        const a12 = a[5];
 
-        var s = Math.sin(rad);
-        var c = Math.cos(rad);
+        const s = Math.sin(rad);
+        const c = Math.cos(rad);
 
         a[0] = c * a00 + s * a10;
         a[1] = c * a01 + s * a11;
@@ -428,7 +427,7 @@ var Matrix3 = new Class({
         a[5] = c * a12 - s * a02;
 
         return this;
-    },
+    }
 
     /**
      * Apply a scale transformation to this Matrix.
@@ -442,11 +441,11 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    scale: function (v)
+    scale(v: { x: number; y: number }): this
     {
-        var a = this.val;
-        var x = v.x;
-        var y = v.y;
+        const a = this.val;
+        const x = v.x;
+        const y = v.y;
 
         a[0] = x * a[0];
         a[1] = x * a[1];
@@ -457,7 +456,7 @@ var Matrix3 = new Class({
         a[5] = y * a[5];
 
         return this;
-    },
+    }
 
     /**
      * Set the values of this Matrix from the given Quaternion.
@@ -469,30 +468,30 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    fromQuat: function (q)
+    fromQuat(q: Quaternion): this
     {
-        var x = q.x;
-        var y = q.y;
-        var z = q.z;
-        var w = q.w;
+        const x = q.x;
+        const y = q.y;
+        const z = q.z;
+        const w = q.w;
 
-        var x2 = x + x;
-        var y2 = y + y;
-        var z2 = z + z;
+        const x2 = x + x;
+        const y2 = y + y;
+        const z2 = z + z;
 
-        var xx = x * x2;
-        var xy = x * y2;
-        var xz = x * z2;
+        const xx = x * x2;
+        const xy = x * y2;
+        const xz = x * z2;
 
-        var yy = y * y2;
-        var yz = y * z2;
-        var zz = z * z2;
+        const yy = y * y2;
+        const yz = y * z2;
+        const zz = z * z2;
 
-        var wx = w * x2;
-        var wy = w * y2;
-        var wz = w * z2;
+        const wx = w * x2;
+        const wy = w * y2;
+        const wz = w * z2;
 
-        var out = this.val;
+        const out = this.val;
 
         out[0] = 1 - (yy + zz);
         out[3] = xy + wz;
@@ -507,7 +506,7 @@ var Matrix3 = new Class({
         out[8] = 1 - (xx + yy);
 
         return this;
-    },
+    }
 
     /**
      * Set the values of this Matrix3 to be normalized from the given Matrix4.
@@ -519,48 +518,48 @@ var Matrix3 = new Class({
      *
      * @return {Phaser.Math.Matrix3} This Matrix3.
      */
-    normalFromMat4: function (m)
+    normalFromMat4(m: Matrix4): this | null
     {
-        var a = m.val;
-        var out = this.val;
+        const a = m.val;
+        const out = this.val;
 
-        var a00 = a[0];
-        var a01 = a[1];
-        var a02 = a[2];
-        var a03 = a[3];
+        const a00 = a[0];
+        const a01 = a[1];
+        const a02 = a[2];
+        const a03 = a[3];
 
-        var a10 = a[4];
-        var a11 = a[5];
-        var a12 = a[6];
-        var a13 = a[7];
+        const a10 = a[4];
+        const a11 = a[5];
+        const a12 = a[6];
+        const a13 = a[7];
 
-        var a20 = a[8];
-        var a21 = a[9];
-        var a22 = a[10];
-        var a23 = a[11];
+        const a20 = a[8];
+        const a21 = a[9];
+        const a22 = a[10];
+        const a23 = a[11];
 
-        var a30 = a[12];
-        var a31 = a[13];
-        var a32 = a[14];
-        var a33 = a[15];
+        const a30 = a[12];
+        const a31 = a[13];
+        const a32 = a[14];
+        const a33 = a[15];
 
-        var b00 = a00 * a11 - a01 * a10;
-        var b01 = a00 * a12 - a02 * a10;
-        var b02 = a00 * a13 - a03 * a10;
-        var b03 = a01 * a12 - a02 * a11;
+        const b00 = a00 * a11 - a01 * a10;
+        const b01 = a00 * a12 - a02 * a10;
+        const b02 = a00 * a13 - a03 * a10;
+        const b03 = a01 * a12 - a02 * a11;
 
-        var b04 = a01 * a13 - a03 * a11;
-        var b05 = a02 * a13 - a03 * a12;
-        var b06 = a20 * a31 - a21 * a30;
-        var b07 = a20 * a32 - a22 * a30;
+        const b04 = a01 * a13 - a03 * a11;
+        const b05 = a02 * a13 - a03 * a12;
+        const b06 = a20 * a31 - a21 * a30;
+        const b07 = a20 * a32 - a22 * a30;
 
-        var b08 = a20 * a33 - a23 * a30;
-        var b09 = a21 * a32 - a22 * a31;
-        var b10 = a21 * a33 - a23 * a31;
-        var b11 = a22 * a33 - a23 * a32;
+        const b08 = a20 * a33 - a23 * a30;
+        const b09 = a21 * a32 - a22 * a31;
+        const b10 = a21 * a33 - a23 * a31;
+        const b11 = a22 * a33 - a23 * a32;
 
         // Calculate the determinant
-        var det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+        let det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 
         if (!det)
         {
@@ -584,6 +583,4 @@ var Matrix3 = new Class({
         return this;
     }
 
-});
-
-module.exports = Matrix3;
+}

@@ -37,7 +37,7 @@ var Rectangle = require('../../geom/rectangle/Rectangle');
 var Render = require('./ParticleEmitterRender');
 var StableSort = require('../../utils/array/StableSort');
 var TransformMatrix = require('../components/TransformMatrix');
-var Vector2 = require('../../math/Vector2');
+import { Vector2 } from '../../math/Vector2';
 
 /**
  * Names of simple configuration properties.

@@ -14,7 +14,7 @@ var Mouse = require('./mouse/MouseManager');
 var Pointer = require('./Pointer');
 var Touch = require('./touch/TouchManager');
 var TransformMatrix = require('../gameobjects/components/TransformMatrix');
-var TransformXY = require('../math/TransformXY');
+import { TransformXY } from '../math/TransformXY';
 
 /**
  * @classdesc

@@ -27,7 +27,7 @@ import { BROWSER_DEVICE as Browser } from './Browser';
  * @property {boolean} webAudio - Does this device have the Web Audio API?
  * @property {boolean} webm - Can this device play webm files?
  */
-var Audio = {
+const Audio = {
 
     flac: false,
     aac: false,
@@ -43,7 +43,7 @@ var Audio = {
 
 };
 
-function init ()
+const init = (): typeof Audio =>
 {
     if (typeof importScripts === 'function')
     {
@@ -54,16 +54,16 @@ function init ()
 
     Audio.webAudio = !!(window['AudioContext'] || window['webkitAudioContext']);
 
-    var audioElement = document.createElement('audio');
-    var result = !!audioElement.canPlayType;
+    const audioElement = document.createElement('audio');
+    const result = !!audioElement.canPlayType;
 
     try
     {
         if (result)
         {
-            var CanPlay = function (type1, type2)
+            const CanPlay = (type1: string, type2?: string): boolean =>
             {
-                var canPlayType1 = audioElement.canPlayType('audio/' + type1).replace(/^no$/, '');
+                const canPlayType1 = audioElement.canPlayType('audio/' + type1).replace(/^no$/, '');
 
                 if (type2)
                 {
@@ -97,8 +97,8 @@ function init ()
                 {
                     if ((/Mac OS X (\d+)_(\d+)/).test(navigator.userAgent))
                     {
-                        var major = parseInt(RegExp.$1, 10);
-                        var minor = parseInt(RegExp.$2, 10);
+                        const major = parseInt(RegExp.$1, 10);
+                        const minor = parseInt(RegExp.$2, 10);
 
                         if ((major === 10 && minor >= 11) || major > 10)
                         {
@@ -115,6 +115,6 @@ function init ()
     }
 
     return Audio;
-}
+};
 
-module.exports = init();
+export const AUDIO_DEVICE = init();
