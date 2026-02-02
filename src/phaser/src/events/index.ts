@@ -8,4 +8,4 @@
  * @namespace Phaser.Events
  */
 
-module.exports = { EventEmitter: require('./EventEmitter') };
+export { EventEmitter } from './EventEmitter';

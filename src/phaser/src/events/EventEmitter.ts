@@ -4,9 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var EE = require('eventemitter3');
-var PluginCache = require('../plugins/PluginCache');
+import EE from 'eventemitter3';
+
+const PluginCache = require('../plugins/PluginCache');
 
 /**
  * @classdesc
@@ -17,16 +17,12 @@ var PluginCache = require('../plugins/PluginCache');
  * @constructor
  * @since 3.0.0
  */
-var EventEmitter = new Class({
+export class EventEmitter extends EE {
 
-    Extends: EE,
-
-    initialize:
-
-    function EventEmitter ()
+    constructor()
     {
-        EE.call(this);
-    },
+        super();
+    }
 
     /**
      * Removes all listeners.
@@ -34,10 +30,10 @@ var EventEmitter = new Class({
      * @method Phaser.Events.EventEmitter#shutdown
      * @since 3.0.0
      */
-    shutdown: function ()
+    shutdown(): void
     {
         this.removeAllListeners();
-    },
+    }
 
     /**
      * Removes all listeners.
@@ -45,12 +41,12 @@ var EventEmitter = new Class({
      * @method Phaser.Events.EventEmitter#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy(): void
     {
         this.removeAllListeners();
     }
 
-});
+}
 
 /**
  * Return an array listing the events for which the emitter has registered listeners.
@@ -174,5 +170,3 @@ var EventEmitter = new Class({
  */
 
 PluginCache.register('EventEmitter', EventEmitter, 'events');
-
-module.exports = EventEmitter;
