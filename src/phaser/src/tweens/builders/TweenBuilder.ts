@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { GetFastValue } from '../../utils/object/GetFastValue';
 import { GetValue } from '../../utils/object/GetValue';
@@ -18,9 +16,9 @@ import { GetProps } from './GetProps';
 import { GetTargets } from './GetTargets';
 import { GetValueOp } from './GetValueOp';
 
-var BaseTween = require('../tween/BaseTween');
-var Defaults = require('../tween/Defaults');
-var Tween = require('../tween/Tween');
+const BaseTween = require('../tween/BaseTween');
+const Defaults = require('../tween/Defaults');
+const Tween = require('../tween/Tween');
 
 /**
  * Creates a new Tween.
@@ -34,7 +32,7 @@ var Tween = require('../tween/Tween');
  *
  * @return {Phaser.Tweens.Tween} The new tween.
  */
-var TweenBuilder = function (parent, config, defaults)
+export const TweenBuilder = (parent: any, config: any, defaults?: any): any =>
 {
     if (config instanceof Tween)
     {
@@ -53,35 +51,35 @@ var TweenBuilder = function (parent, config, defaults)
     }
 
     //  Create arrays of the Targets and the Properties. This Targets array should not be manipulated outside of this Tween.
-    var targets = GetTargets(config);
+    let targets = GetTargets(config);
 
     if (!targets && defaults.targets)
     {
         targets = defaults.targets;
     }
 
-    var props = GetProps(config);
+    const props = GetProps(config);
 
     //  Default Tween values
 
-    var delay = GetFastValue(config, 'delay', defaults.delay);
-    var duration = GetFastValue(config, 'duration', defaults.duration);
-    var easeParams = GetFastValue(config, 'easeParams', defaults.easeParams);
-    var ease = GetFastValue(config, 'ease', defaults.ease);
-    var hold = GetFastValue(config, 'hold', defaults.hold);
-    var repeat = GetFastValue(config, 'repeat', defaults.repeat);
-    var repeatDelay = GetFastValue(config, 'repeatDelay', defaults.repeatDelay);
-    var yoyo = GetBoolean(config, 'yoyo', defaults.yoyo);
-    var flipX = GetBoolean(config, 'flipX', defaults.flipX);
-    var flipY = GetBoolean(config, 'flipY', defaults.flipY);
-    var interpolation = GetFastValue(config, 'interpolation', defaults.interpolation);
+    const delay = GetFastValue(config, 'delay', defaults.delay);
+    const duration = GetFastValue(config, 'duration', defaults.duration);
+    const easeParams = GetFastValue(config, 'easeParams', defaults.easeParams);
+    const ease = GetFastValue(config, 'ease', defaults.ease);
+    const hold = GetFastValue(config, 'hold', defaults.hold);
+    const repeat = GetFastValue(config, 'repeat', defaults.repeat);
+    const repeatDelay = GetFastValue(config, 'repeatDelay', defaults.repeatDelay);
+    const yoyo = GetBoolean(config, 'yoyo', defaults.yoyo);
+    const flipX = GetBoolean(config, 'flipX', defaults.flipX);
+    const flipY = GetBoolean(config, 'flipY', defaults.flipY);
+    const interpolation = GetFastValue(config, 'interpolation', defaults.interpolation);
 
-    var addTarget = function (tween, targetIndex, key, value)
+    const addTarget = (tween: any, targetIndex: number, key: string, value: any) =>
     {
         if (key === 'texture')
         {
-            var texture = value;
-            var frame = undefined;
+            let texture = value;
+            let frame: any = undefined;
 
             if (Array.isArray(value))
             {
@@ -122,9 +120,9 @@ var TweenBuilder = function (parent, config, defaults)
         }
         else
         {
-            var ops = GetValueOp(key, value);
+            const ops = GetValueOp(key, value);
 
-            var interpolationFunc = GetInterpolationFunction(GetFastValue(value, 'interpolation', interpolation));
+            const interpolationFunc = GetInterpolationFunction(GetFastValue(value, 'interpolation', interpolation));
 
             tween.add(
                 targetIndex,
@@ -147,16 +145,16 @@ var TweenBuilder = function (parent, config, defaults)
         }
     };
 
-    var tween = new Tween(parent, targets);
+    const tween = new Tween(parent, targets);
 
     //  Loop through every property defined in the Tween, i.e.: props { x, y, alpha }
-    for (var p = 0; p < props.length; p++)
+    for (let p = 0; p < props.length; p++)
     {
-        var key = props[p].key;
-        var value = props[p].value;
+        const key = props[p].key;
+        const value = props[p].value;
 
         //  Create 1 TweenData per target, per property
-        for (var targetIndex = 0; targetIndex < targets.length; targetIndex++)
+        for (let targetIndex = 0; targetIndex < targets.length; targetIndex++)
         {
             //  Special-case for scale short-cut:
             if (key === 'scale' && !targets[targetIndex].hasOwnProperty('scale'))
@@ -180,17 +178,17 @@ var TweenBuilder = function (parent, config, defaults)
     //  Set the Callbacks
     tween.callbackScope = GetFastValue(config, 'callbackScope', tween);
 
-    var callbacks = BaseTween.TYPES;
+    const callbacks = BaseTween.TYPES;
 
-    for (var i = 0; i < callbacks.length; i++)
+    for (let i = 0; i < callbacks.length; i++)
     {
-        var type = callbacks[i];
+        const type = callbacks[i];
 
-        var callback = GetValue(config, type, false);
+        const callback = GetValue(config, type, false);
 
         if (callback)
         {
-            var callbackParams = GetValue(config, type + 'Params', []);
+            const callbackParams = GetValue(config, type + 'Params', []);
 
             tween.setCallback(type, callback, callbackParams);
         }
@@ -198,5 +196,3 @@ var TweenBuilder = function (parent, config, defaults)
 
     return tween;
 };
-
-module.exports = TweenBuilder;

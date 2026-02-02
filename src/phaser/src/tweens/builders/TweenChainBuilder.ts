@@ -4,16 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { GetValue } from '../../utils/object/GetValue';
 import { GetBoolean } from './GetBoolean';
 import { GetTargets } from './GetTargets';
+import { TweenBuilder } from './TweenBuilder';
 
-var BaseTween = require('../tween/BaseTween');
-var TweenBuilder = require('./TweenBuilder');
-var TweenChain = require('../tween/TweenChain');
+const BaseTween = require('../tween/BaseTween');
+const TweenChain = require('../tween/TweenChain');
 
 /**
  * Creates a new Tween Chain instance.
@@ -26,7 +24,7 @@ var TweenChain = require('../tween/TweenChain');
  *
  * @return {Phaser.Tweens.TweenChain} The new Tween Chain.
  */
-var TweenChainBuilder = function (parent, config)
+export const TweenChainBuilder = (parent: any, config: any): any =>
 {
     if (config instanceof TweenChain)
     {
@@ -37,7 +35,7 @@ var TweenChainBuilder = function (parent, config)
 
     //  Default TweenChain values
 
-    var chain = new TweenChain(parent);
+    const chain = new TweenChain(parent);
 
     chain.startDelay = GetValue(config, 'delay', 0);
     chain.completeDelay = GetAdvancedValue(config, 'completeDelay', 0);
@@ -49,32 +47,32 @@ var TweenChainBuilder = function (parent, config)
     //  Set the Callbacks
     chain.callbackScope = GetValue(config, 'callbackScope', chain);
 
-    var i;
-    var callbacks = BaseTween.TYPES;
+    let i: number;
+    const callbacks = BaseTween.TYPES;
 
     for (i = 0; i < callbacks.length; i++)
     {
-        var type = callbacks[i];
+        const type = callbacks[i];
 
-        var callback = GetValue(config, type, false);
+        const callback = GetValue(config, type, false);
 
         if (callback)
         {
-            var callbackParams = GetValue(config, type + 'Params', []);
+            const callbackParams = GetValue(config, type + 'Params', []);
 
             chain.setCallback(type, callback, callbackParams);
         }
     }
 
     //  Add in the Tweens
-    var tweens = GetValue(config, 'tweens', null);
+    const tweens = GetValue(config, 'tweens', null);
 
     if (Array.isArray(tweens))
     {
-        var chainedTweens = [];
+        const chainedTweens: any[] = [];
 
-        var targets = GetTargets(config);
-        var defaults = undefined;
+        const targets = GetTargets(config);
+        let defaults: any = undefined;
 
         if (targets)
         {
@@ -91,5 +89,3 @@ var TweenChainBuilder = function (parent, config)
 
     return chain;
 };
-
-module.exports = TweenChainBuilder;

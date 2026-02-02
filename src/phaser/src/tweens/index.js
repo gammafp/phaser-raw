@@ -8,6 +8,8 @@
  * @namespace Phaser.Tweens
  */
 
+import { TweenManager } from './TweenManager';
+
 var Tweens = {
 
     States: require('./tween/const'),
@@ -15,7 +17,7 @@ var Tweens = {
     Builders: require('./builders'),
     Events: require('./events'),
 
-    TweenManager: require('./TweenManager'),
+    TweenManager,
     Tween: require('./tween/Tween'),
     TweenData: require('./tween/TweenData'),
     TweenFrameData: require('./tween/TweenFrameData'),
