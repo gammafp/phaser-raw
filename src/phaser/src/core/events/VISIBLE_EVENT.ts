@@ -16,4 +16,4 @@
  * @type {string}
  * @since 3.0.0
  */
-module.exports = 'visible';
+export const VISIBLE = 'visible';

@@ -15,4 +15,4 @@
  *
  * @param {number} pauseDuration - The duration, in ms, that the game was paused for, or 0 if {@link Phaser.Game#resume} was called.
  */
-module.exports = 'resume';
+export const RESUME = 'resume';

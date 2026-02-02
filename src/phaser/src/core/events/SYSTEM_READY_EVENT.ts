@@ -16,4 +16,4 @@
  *
  * @param {Phaser.Scenes.Systems} sys - A reference to the Scene Systems class of the Scene that emitted this event.
  */
-module.exports = 'systemready';
+export const SYSTEM_READY = 'systemready';

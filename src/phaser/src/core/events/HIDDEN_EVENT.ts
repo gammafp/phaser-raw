@@ -18,4 +18,4 @@
  * @type {string}
  * @since 3.0.0
  */
-module.exports = 'hidden';
+export const HIDDEN = 'hidden';

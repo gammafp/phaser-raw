@@ -13,4 +13,4 @@
  * @type {string}
  * @since 3.0.0
  */
-module.exports = 'pause';
+export const PAUSE = 'pause';

@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync, unlinkSync, readdirSync } from 'fs';
 import { join } from 'path';
 
-const eventFolder = 'src/phaser/src/renderer/webgl/pipelines/events';
+const eventFolder = 'src/phaser/src/core/events';
 
 const files = readdirSync(eventFolder).filter(f => f.endsWith('_EVENT.js'));
 
