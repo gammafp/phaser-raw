@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetFastValue } from '../utils/object/GetFastValue';
 
 /**
@@ -18,11 +16,11 @@ import { GetFastValue } from '../utils/object/GetFastValue';
  *
  * @return {array} An array of all plugins which should be activated, either the default ones or the ones configured in the Scene Systems object.
  */
-var GetScenePlugins = function (sys)
+export const GetScenePlugins = (sys: any): any[] =>
 {
-    var defaultPlugins = sys.plugins.getDefaultScenePlugins();
+    const defaultPlugins = sys.plugins.getDefaultScenePlugins();
 
-    var scenePlugins = GetFastValue(sys.settings, 'plugins', false);
+    const scenePlugins = GetFastValue(sys.settings, 'plugins', false);
 
     //  Scene Plugins always override Default Plugins
     if (Array.isArray(scenePlugins))
@@ -39,5 +37,3 @@ var GetScenePlugins = function (sys)
         return [];
     }
 };
-
-module.exports = GetScenePlugins;

@@ -14,7 +14,7 @@
 //            }
 //        };
 
-var InjectionMap = {
+export const InjectionMap: Record<string, string> = {
 
     game: 'game',
     renderer: 'renderer',
@@ -56,5 +56,3 @@ if (typeof PLUGIN_FBINSTANT)
 {
     InjectionMap.facebook = 'facebook';
 }
-
-module.exports = InjectionMap;

@@ -4,19 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetValue } from '../utils/object/GetValue';
 import { Merge } from '../utils/object/Merge';
 import { SCENE_CONST as CONST } from './const';
-
-var InjectionMap = require('./InjectionMap');
+import { InjectionMap } from './InjectionMap';
 
 /**
  * @namespace Phaser.Scenes.Settings
  */
 
-var Settings = {
+export const Settings = {
 
     /**
      * Takes a Scene configuration object and returns a fully formed System Settings object.
@@ -28,7 +25,7 @@ var Settings = {
      *
      * @return {Phaser.Types.Scenes.SettingsObject} The Scene Settings object created as a result of the config and default settings.
      */
-    create: function (config)
+    create: (config: any): any =>
     {
         if (typeof config === 'string')
         {
@@ -89,5 +86,3 @@ var Settings = {
     }
 
 };
-
-module.exports = Settings;

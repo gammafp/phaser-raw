@@ -8,6 +8,9 @@
 
 import { Extend } from '../utils/object/Extend';
 import { SCENE_CONST } from './const';
+import { GetPhysicsPlugins } from './GetPhysicsPlugins';
+import { GetScenePlugins } from './GetScenePlugins';
+import { Settings } from './Settings';
 
 /**
  * @namespace Phaser.Scenes
@@ -19,10 +22,10 @@ export { Systems } from './Systems';
 var Scene = {
 
     Events: require('./events'),
-    GetPhysicsPlugins: require('./GetPhysicsPlugins'),
-    GetScenePlugins: require('./GetScenePlugins'),
+    GetPhysicsPlugins,
+    GetScenePlugins,
     ScenePlugin: require('./ScenePlugin'),
-    Settings: require('./Settings')
+    Settings
 
 };
 

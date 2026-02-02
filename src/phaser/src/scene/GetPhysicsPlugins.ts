@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetFastValue } from '../utils/object/GetFastValue';
 import { UppercaseFirst } from '../utils/string/UppercaseFirst';
 
@@ -19,10 +17,10 @@ import { UppercaseFirst } from '../utils/string/UppercaseFirst';
  *
  * @return {array} An array of Physics systems to start for this Scene.
  */
-var GetPhysicsPlugins = function (sys)
+export const GetPhysicsPlugins = (sys: any): string[] | undefined =>
 {
-    var defaultSystem = sys.game.config.defaultPhysicsSystem;
-    var sceneSystems = GetFastValue(sys.settings, 'physics', false);
+    const defaultSystem = sys.game.config.defaultPhysicsSystem;
+    const sceneSystems = GetFastValue(sys.settings, 'physics', false);
 
     if (!defaultSystem && !sceneSystems)
     {
@@ -31,7 +29,7 @@ var GetPhysicsPlugins = function (sys)
     }
 
     //  Let's build the systems array
-    var output = [];
+    const output: string[] = [];
 
     if (defaultSystem)
     {
@@ -40,7 +38,7 @@ var GetPhysicsPlugins = function (sys)
 
     if (sceneSystems)
     {
-        for (var key in sceneSystems)
+        for (let key in sceneSystems)
         {
             key = UppercaseFirst(key.concat('Physics'));
 
@@ -54,5 +52,3 @@ var GetPhysicsPlugins = function (sys)
     //  An array of Physics systems to start for this Scene
     return output;
 };
-
-module.exports = GetPhysicsPlugins;
