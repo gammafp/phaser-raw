@@ -10,7 +10,7 @@
 import { GetFastValue } from '../../../utils/object/GetFastValue';
 
 var Class = require('../../../utils/Class');
-var Earcut = require('../../../geom/polygon/Earcut');
+import { Earcut } from '../../../geom/polygon/Earcut';
 var ShaderSourceFS = require('../shaders/Multi-frag');
 var ShaderSourceVS = require('../shaders/Multi-vert');
 import { TransformMatrix } from '../../../gameobjects/components/TransformMatrix';

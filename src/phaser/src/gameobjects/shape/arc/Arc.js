@@ -11,7 +11,7 @@ import { MATH_CONST } from '../../../math/const';
 
 var ArcRender = require('./ArcRender');
 var Class = require('../../../utils/Class');
-var Earcut = require('../../../geom/polygon/Earcut');
+import { Earcut } from '../../../geom/polygon/Earcut';
 import { Circle as GeomCircle } from '../../../geom/circle/Circle';
 var Shape = require('../Shape');
 

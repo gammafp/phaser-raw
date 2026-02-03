@@ -4,26 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this algorithm to TypeScript
-
 /**
  * Using Bresenham's line algorithm this will return an array of all coordinates on this line.
  *
  * The `start` and `end` points are rounded before this runs as the algorithm works on integers.
- *
- * @function Phaser.Geom.Line.BresenhamPoints
- * @since 3.0.0
- *
- * @param {Phaser.Geom.Line} line - The line.
- * @param {number} [stepRate=1] - The optional step rate for the points on the line.
- * @param {Phaser.Types.Math.Vector2Like[]} [results] - An optional array to push the resulting coordinates into.
- *
- * @return {Phaser.Types.Math.Vector2Like[]} The array of coordinates on the line.
  */
-var BresenhamPoints = function (line, stepRate, results)
+export const BresenhamPoints = function (line: any, stepRate: number = 1, results: any[] = []): any[]
 {
-    if (stepRate === undefined) { stepRate = 1; }
-    if (results === undefined) { results = []; }
 
     var x1 = Math.round(line.x1);
     var y1 = Math.round(line.y1);
@@ -67,4 +54,3 @@ var BresenhamPoints = function (line, stepRate, results)
     return results;
 };
 
-module.exports = BresenhamPoints;

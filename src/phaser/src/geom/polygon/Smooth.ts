@@ -5,12 +5,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this algorithm to TypeScript
-
-/**
- * @ignore
- */
-var copy = function (out, a)
+const copy = (out: number[], a: number[]): number[] =>
 {
     out[0] = a[0];
     out[1] = a[1];
@@ -30,7 +25,7 @@ var copy = function (out, a)
  *
  * @return {Phaser.Geom.Polygon} The input polygon.
  */
-var Smooth = function (polygon)
+export const Smooth = function (polygon: any): any
 {
     var i;
     var points = [];
@@ -69,4 +64,3 @@ var Smooth = function (polygon)
     return polygon.setTo(output);
 };
 
-module.exports = Smooth;

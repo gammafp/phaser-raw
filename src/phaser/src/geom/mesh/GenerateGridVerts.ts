@@ -4,14 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this complex generator to TypeScript
-
 import { GetFastValue } from '../../utils/object/GetFastValue';
-
 import { Face } from './Face';
 import { Matrix4 } from '../../math/Matrix4';
 import { Vector3 } from '../../math/Vector3';
-var Vertex = require('./Vertex');
+import { Vertex } from './Vertex';
 
 var tempPosition = new Vector3();
 var tempRotation = new Vector3();
@@ -46,7 +43,7 @@ var tempMatrix = new Matrix4();
  *
  * @return {Phaser.Types.Geom.Mesh.GenerateGridVertsResult} A Grid Result object, containing the generated vertices and indicies.
  */
-var GenerateGridVerts = function (config)
+export const GenerateGridVerts = function (config: Record<string, any>): any
 {
     var mesh = GetFastValue(config, 'mesh');
     var texture = GetFastValue(config, 'texture', null);
@@ -246,4 +243,3 @@ var GenerateGridVerts = function (config)
     return result;
 };
 
-module.exports = GenerateGridVerts;

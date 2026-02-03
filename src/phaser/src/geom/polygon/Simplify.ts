@@ -4,7 +4,7 @@
  * @see          Based on Simplify.js mourner.github.io/simplify-js
  */
 
-// TODO: Convert this complex algorithm to TypeScript
+// Algorithm from Simplify.js by Vladimir Agafonkin
 
 /**
  * Copyright (c) 2017, Vladimir Agafonkin
@@ -198,4 +198,4 @@ var Simplify = function (polygon, tolerance, highestQuality)
     return polygon;
 };
 
-module.exports = Simplify;
+export { Simplify };

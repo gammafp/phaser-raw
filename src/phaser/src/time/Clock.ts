@@ -4,14 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { Remove } from '../utils/array/Remove';
+import { TimerEvent } from './TimerEvent';
 
-var Class = require('../utils/Class');
-var PluginCache = require('../plugins/PluginCache');
-var SceneEvents = require('../scene/events');
-var TimerEvent = require('./TimerEvent');
+const PluginCache = require('../plugins/PluginCache');
+const SceneEvents = require('../scene/events');
 
 /**
  * @classdesc
@@ -24,9 +21,19 @@ var TimerEvent = require('./TimerEvent');
  *
  * @param {Phaser.Scene} scene - The Scene which owns this Clock.
  */
-var Clock = class {
+export class Clock {
 
-    constructor(scene)
+    scene: any;
+    systems: any;
+    now: number;
+    startTime: number;
+    timeScale: number;
+    paused: boolean;
+    private _active: TimerEvent[];
+    private _pendingInsertion: TimerEvent[];
+    private _pendingRemoval: TimerEvent[];
+
+    constructor(scene: any)
     {
         /**
          * The Scene which owns this Clock.
@@ -482,8 +489,6 @@ var Clock = class {
         this.systems = null;
     }
 
-};
+}
 
 PluginCache.register('Clock', Clock, 'time');
-
-module.exports = Clock;

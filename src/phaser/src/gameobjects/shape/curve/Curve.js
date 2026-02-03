@@ -6,7 +6,7 @@
 
 var Class = require('../../../utils/Class');
 var CurveRender = require('./CurveRender');
-var Earcut = require('../../../geom/polygon/Earcut');
+import { Earcut } from '../../../geom/polygon/Earcut';
 import { Rectangle } from '../../../geom/rectangle/Rectangle';
 var Shape = require('../Shape');
 

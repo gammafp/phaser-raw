@@ -11,7 +11,7 @@ import { UUID } from '../../utils/string';
 
 var AnimationState = require('../../animations/AnimationState');
 var Class = require('../../utils/Class');
-var GenerateGridVerts = require('../../geom/mesh/GenerateGridVerts');
+import { GenerateGridVerts } from '../../geom/mesh/GenerateGridVerts';
 var Mesh = require('../mesh/Mesh');
 
 /**

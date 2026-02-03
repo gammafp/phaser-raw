@@ -13,14 +13,14 @@ var Class = require('../../utils/Class');
 var Components = require('../components');
 import { Face } from '../../geom/mesh/Face';
 var GameObject = require('../GameObject');
-var GenerateObjVerts = require('../../geom/mesh/GenerateObjVerts');
-var GenerateVerts = require('../../geom/mesh/GenerateVerts');
+import { GenerateObjVerts } from '../../geom/mesh/GenerateObjVerts';
+import { GenerateVerts } from '../../geom/mesh/GenerateVerts';
 var GetCalcMatrix = require('../GetCalcMatrix');
 import { Matrix4 } from '../../math/Matrix4';
 var MeshRender = require('./MeshRender');
 var StableSort = require('../../utils/array/StableSort');
 import { Vector3 } from '../../math/Vector3';
-var Vertex = require('../../geom/mesh/Vertex');
+import { Vertex } from '../../geom/mesh/Vertex';
 
 /**
  * @classdesc

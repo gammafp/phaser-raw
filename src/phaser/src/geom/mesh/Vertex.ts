@@ -4,10 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this to TypeScript class
-
-var Class = require('../../utils/Class');
-var Utils = require('../../renderer/webgl/Utils');
+const Utils = require('../../renderer/webgl/Utils');
 import { Vector3 } from '../../math/Vector3';
 
 /**
@@ -35,21 +32,23 @@ import { Vector3 } from '../../math/Vector3';
  * @param {number} [ny=0] - The y normal value of the vertex.
  * @param {number} [nz=0] - The z normal value of the vertex.
  */
-var Vertex = new Class({
+export class Vertex extends Vector3 {
 
-    Extends: Vector3,
+    vx: number;
+    vy: number;
+    vz: number;
+    nx: number;
+    ny: number;
+    nz: number;
+    u: number;
+    v: number;
+    color: number;
+    alpha: number;
+    ta: number;
 
-    initialize:
-
-    function Vertex (x, y, z, u, v, color, alpha, nx, ny, nz)
+    constructor(x: number, y: number, z: number, u: number, v: number, color: number = 0xffffff, alpha: number = 1, nx: number = 0, ny: number = 0, nz: number = 0)
     {
-        if (color === undefined) { color = 0xffffff; }
-        if (alpha === undefined) { alpha = 1; }
-        if (nx === undefined) { nx = 0; }
-        if (ny === undefined) { ny = 0; }
-        if (nz === undefined) { nz = 0; }
-
-        Vector3.call(this, x, y, z);
+        super(x, y, z);
 
         /**
          * The projected x coordinate of this vertex.
@@ -185,7 +184,7 @@ var Vertex = new Class({
          * @since 3.60.0
          */
         this.tv = v;
-    },
+    }
 
     /**
      * Sets the U and V properties.
@@ -201,7 +200,7 @@ var Vertex = new Class({
      *
      * @return {this} This Vertex.
      */
-    setUVs: function (u, v)
+    setUVs(u, v)
     {
         this.u = u;
         this.v = v;
@@ -210,7 +209,7 @@ var Vertex = new Class({
         this.tv = v;
 
         return this;
-    },
+    }
 
     /**
      * Translates the original UV positions by the given amounts.
@@ -228,13 +227,13 @@ var Vertex = new Class({
      *
      * @return {this} This Vertex.
      */
-    scrollUV: function (x, y)
+    scrollUV(x, y)
     {
         this.tu += x;
         this.tv += y;
 
         return this;
-    },
+    }
 
     /**
      * Scales the original UV values by the given amounts.
@@ -252,13 +251,13 @@ var Vertex = new Class({
      *
      * @return {this} This Vertex.
      */
-    scaleUV: function (x, y)
+    scaleUV(x, y)
     {
         this.tu = this.u * x;
         this.tv = this.v * y;
 
         return this;
-    },
+    }
 
     /**
      * Transforms this vertex by the given matrix, storing the results in `vx`, `vy` and `vz`.
@@ -271,7 +270,7 @@ var Vertex = new Class({
      * @param {number} height - The height of the parent Mesh.
      * @param {number} cameraZ - The z position of the MeshCamera.
      */
-    transformCoordinatesLocal: function (transformMatrix, width, height, cameraZ)
+    transformCoordinatesLocal(transformMatrix, width, height, cameraZ)
     {
         var x = this.x;
         var y = this.y;
@@ -295,7 +294,7 @@ var Vertex = new Class({
         {
             this.vz = -(tz / tw);
         }
-    },
+    }
 
     /**
      * Resizes this Vertex by setting the x and y coordinates, then transforms this vertex
@@ -313,7 +312,7 @@ var Vertex = new Class({
      *
      * @return {this} This Vertex.
      */
-    resize: function (x, y, width, height, originX, originY)
+    resize(x, y, width, height, originX, originY)
     {
         this.x = x;
         this.y = y;
@@ -341,7 +340,7 @@ var Vertex = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Updates this Vertex based on the given transform.
@@ -360,7 +359,7 @@ var Vertex = new Class({
      *
      * @return {this} This Vertex.
      */
-    update: function (a, b, c, d, e, f, roundPixels, alpha)
+    update(a, b, c, d, e, f, roundPixels, alpha)
     {
         var tx = this.vx * a + this.vy * c + e;
         var ty = this.vx * b + this.vy * d + f;
@@ -376,7 +375,7 @@ var Vertex = new Class({
         this.ta = this.alpha * alpha;
 
         return this;
-    },
+    }
 
     /**
      * Loads the data from this Vertex into the given Typed Arrays.
@@ -392,7 +391,7 @@ var Vertex = new Class({
      *
      * @return {number} The new array offset.
      */
-    load: function (F32, U32, offset, textureUnit, tintEffect)
+    load(F32, U32, offset, textureUnit, tintEffect)
     {
         F32[++offset] = this.tx;
         F32[++offset] = this.ty;
@@ -405,6 +404,4 @@ var Vertex = new Class({
         return offset;
     }
 
-});
-
-module.exports = Vertex;
+}

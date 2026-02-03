@@ -4,11 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var flip = true;
+let flip = true;
 
-var defaultModelName = 'untitled';
-var currentGroup = '';
-var currentMaterial = '';
+const defaultModelName = 'untitled';
+let currentGroup = '';
+let currentMaterial = '';
 
 /**
  * @ignore
@@ -307,4 +307,4 @@ var ParseObj = function (data, flipUV)
     return result;
 };
 
-module.exports = ParseObj;
+export { ParseObj };

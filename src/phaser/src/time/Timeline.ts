@@ -4,106 +4,21 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
+// TODO: Convert this complex class extending EventEmitter to proper ES6 class with types
 
 import { GetFastValue } from '../utils/object/GetFastValue';
 
-var Class = require('../utils/Class');
-var EventEmitter = require('eventemitter3');
-var GameObjectFactory = require('../gameobjects/GameObjectFactory');
-var SceneEvents = require('../scene/events');
-var Events = require('./events');
+const Class = require('../utils/Class');
+const EventEmitter = require('eventemitter3');
+const GameObjectFactory = require('../gameobjects/GameObjectFactory');
+const SceneEvents = require('../scene/events');
+const Events = require('./events');
 
-/**
- * @classdesc
- * A Timeline is a way to schedule events to happen at specific times in the future.
- *
- * You can think of it as an event sequencer for your game, allowing you to schedule the
- * running of callbacks, events and other actions at specific times in the future.
- *
- * A Timeline is a Scene level system, meaning you can have as many Timelines as you like, each
- * belonging to a different Scene. You can also have multiple Timelines running at the same time.
- *
- * If the Scene is paused, the Timeline will also pause. If the Scene is destroyed, the Timeline
- * will be automatically destroyed. However, you can control the Timeline directly, pausing,
- * resuming and stopping it at any time.
- *
- * Create an instance of a Timeline via the Game Object Factory:
- *
- * ```js
- * const timeline = this.add.timeline();
- * ```
- *
- * The Timeline always starts paused. You must call `play` on it to start it running.
- *
- * You can also pass in a configuration object on creation, or an array of them:
- *
- * ```js
- * const timeline = this.add.timeline({
- *     at: 1000,
- *     run: () => {
- *         this.add.sprite(400, 300, 'logo');
- *     }
- * });
- *
- * timeline.play();
- * ```
- *
- * In this example we sequence a few different events:
- *
- * ```js
- * const timeline = this.add.timeline([
- *     {
- *         at: 1000,
- *         run: () => { this.logo = this.add.sprite(400, 300, 'logo'); },
- *         sound: 'TitleMusic'
- *     },
- *     {
- *         at: 2500,
- *         tween: {
- *             targets: this.logo,
- *             y: 600,
- *             yoyo: true
- *         },
- *         sound: 'Explode'
- *     },
- *     {
- *         at: 8000,
- *         event: 'HURRY_PLAYER',
- *         target: this.background,
- *         set: {
- *             tint: 0xff0000
- *         }
- *     }
- * ]);
- *
- * timeline.play();
- * ```
- *
- * The Timeline can also be looped with the repeat method:
- * ```js
- * timeline.repeat().play();
- * ```
- * 
- * There are lots of options available to you via the configuration object. See the
- * {@link Phaser.Types.Time.TimelineEventConfig} typedef for more details.
- *
- * @class Timeline
- * @extends Phaser.Events.EventEmitter
- * @memberof Phaser.Time
- * @constructor
- * @since 3.60.0
- *
- * @param {Phaser.Scene} scene - The Scene which owns this Timeline.
- * @param {Phaser.Types.Time.TimelineEventConfig|Phaser.Types.Time.TimelineEventConfig[]} [config] - The configuration object for this Timeline Event, or an array of them.
- */
-var Timeline = new Class({
+export const Timeline = new Class({
 
     Extends: EventEmitter,
 
-    initialize:
-
-    function Timeline (scene, config)
+    initialize: function Timeline (scene, config)
     {
         EventEmitter.call(this);
 
@@ -242,7 +157,7 @@ var Timeline = new Class({
         {
             this.add(config);
         }
-    },
+    }
 
     /**
      * Updates the elapsed time counter, if this Timeline is not paused.
@@ -253,7 +168,7 @@ var Timeline = new Class({
      * @param {number} time - The current time. Either a High Resolution Timer value if it comes from Request Animation Frame, or Date.now if using SetTimeout.
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    preUpdate: function (time, delta)
+    preUpdate(time, delta)
     {
         if (this.paused)
         {
@@ -287,7 +202,7 @@ var Timeline = new Class({
      * @param {number} time - The current time. Either a High Resolution Timer value if it comes from Request Animation Frame, or Date.now if using SetTimeout.
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    update: function ()
+    update()
     {
         if (this.paused || this.complete)
         {
@@ -427,7 +342,7 @@ var Timeline = new Class({
      *
      * @return {this} This Timeline instance.
      */
-    play: function (fromStart)
+    play(fromStart)
     {
         if (fromStart === undefined) { fromStart = true; }
 
@@ -459,7 +374,7 @@ var Timeline = new Class({
      *
      * @return {this} This Timeline instance.
      */
-    pause: function ()
+    pause()
     {
         this.paused = true;
 
@@ -496,7 +411,7 @@ var Timeline = new Class({
      *
      * @return {this} This Timeline instance.
      */
-    repeat: function (amount)
+    repeat(amount)
     {
         if (amount === undefined || amount === true) { amount = -1; }
         if (amount === false) { amount = 0; }
@@ -518,7 +433,7 @@ var Timeline = new Class({
      *
      * @return {this} This Timeline instance.
      */
-    resume: function ()
+    resume()
     {
         this.paused = false;
 
@@ -549,7 +464,7 @@ var Timeline = new Class({
      *
      * @return {this} This Timeline instance.
      */
-    stop: function ()
+    stop()
     {
         this.paused = true;
         this.complete = true;
@@ -577,7 +492,7 @@ var Timeline = new Class({
      * 
      * @return {this} This Timeline instance.
      */
-    reset: function (loop)
+    reset(loop)
     {
         if (loop === undefined) { loop = false; }
 
@@ -631,7 +546,7 @@ var Timeline = new Class({
      *
      * @return {this} This Timeline instance.
      */
-    add: function (config)
+    add(config)
     {
         if (!Array.isArray(config))
         {
@@ -704,7 +619,7 @@ var Timeline = new Class({
      *
      * @return {this} This Timeline instance.
      */
-    clear: function ()
+    clear()
     {
         var events = this.events;
 
@@ -736,7 +651,7 @@ var Timeline = new Class({
      *
      * @return {boolean} `true` if this Timeline is playing, otherwise `false`.
      */
-    isPlaying: function ()
+    isPlaying()
     {
         return (!this.paused && !this.complete);
     },
@@ -759,7 +674,7 @@ var Timeline = new Class({
      *
      * @return {number} A number between 0 and 1 representing the progress of this Timeline.
      */
-    getProgress: function ()
+    getProgress()
     {
         var total = Math.min(this.totalComplete, this.events.length);
 
@@ -779,7 +694,7 @@ var Timeline = new Class({
      * @method Phaser.Time.Timeline#destroy
      * @since 3.60.0
      */
-    destroy: function ()
+    destroy()
     {
         var eventEmitter = this.systems.events;
 
@@ -875,9 +790,7 @@ var Timeline = new Class({
  *
  * @return {Phaser.Time.Timeline} The Timeline that was created.
  */
-GameObjectFactory.register('timeline', function (config)
+GameObjectFactory.register('timeline', function (this: any, config: any)
 {
     return new Timeline(this.scene, config);
 });
-
-module.exports = Timeline;

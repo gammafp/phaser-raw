@@ -4,10 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this complex generator to TypeScript
-
 import { Face } from './Face';
-var Vertex = require('./Vertex');
+import { Vertex } from './Vertex';
 
 /**
  * Generates a set of Face and Vertex objects by parsing the given data.
@@ -68,7 +66,7 @@ var Vertex = require('./Vertex');
  *
  * @return {Phaser.Types.Geom.Mesh.GenerateVertsResult} The parsed Face and Vertex objects.
  */
-var GenerateVerts = function (vertices, uvs, indicies, containsZ, normals, colors, alphas, flipUV)
+export const GenerateVerts = function (vertices: number[], uvs: number[], indicies?: number[], containsZ: boolean = false, normals?: number[], colors: number | number[] = 0xffffff, alphas: number | number[] = 1, flipUV: boolean = false): any
 {
     if (containsZ === undefined) { containsZ = false; }
     if (colors === undefined) { colors = 0xffffff; }
@@ -191,4 +189,3 @@ var GenerateVerts = function (vertices, uvs, indicies, containsZ, normals, color
     return result;
 };
 
-module.exports = GenerateVerts;

@@ -8,7 +8,7 @@ var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
 var NineSliceRender = require('./NineSliceRender');
-var Vertex = require('../../geom/mesh/Vertex');
+import { Vertex } from '../../geom/mesh/Vertex';
 
 /**
  * @classdesc

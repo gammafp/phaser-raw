@@ -4,12 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this complex generator to TypeScript
-
 import { Face } from './Face';
 import { Matrix4 } from '../../math/Matrix4';
 import { Vector3 } from '../../math/Vector3';
-var Vertex = require('./Vertex');
+import { Vertex } from './Vertex';
 
 var tempPosition = new Vector3();
 var tempRotation = new Vector3();
@@ -62,7 +60,7 @@ var tempMatrix = new Matrix4();
  *
  * @return {Phaser.Types.Geom.Mesh.GenerateVertsResult} The parsed Face and Vertex objects.
  */
-var GenerateObjVerts = function (data, mesh, scale, x, y, z, rotateX, rotateY, rotateZ, zIsUp)
+export const GenerateObjVerts = function (data: any, mesh?: any, scale: number = 1, x: number = 0, y: number = 0, z: number = 0, rotateX: number = 0, rotateY: number = 0, rotateZ: number = 0, zIsUp: boolean = true): any
 {
     if (scale === undefined) { scale = 1; }
     if (x === undefined) { x = 0; }
@@ -137,4 +135,3 @@ var GenerateObjVerts = function (data, mesh, scale, x, y, z, rotateX, rotateY, r
     return result;
 };
 
-module.exports = GenerateObjVerts;
