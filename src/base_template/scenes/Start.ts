@@ -21,8 +21,8 @@ export class Start extends Phaser.Scene {
     }
 
     create() {
-        const music = this.sound.add('music');
-        music.play();
+        // const music = this.sound.add('music');
+        // music.play();
 
         this.background = this.add.tileSprite(640, 360, 1280, 720, 'background');
 

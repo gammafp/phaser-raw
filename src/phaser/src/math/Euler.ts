@@ -25,8 +25,8 @@ const tempMatrix = new Matrix4();
  */
 export class Euler {
 
-    static RotationOrders: string[];
-    static DefaultOrder: string;
+    static RotationOrders = [ 'XYZ', 'YXZ', 'ZXY', 'ZYX', 'YZX', 'XZY' ];
+    static DefaultOrder = 'XYZ';
 
     private _x: number;
     private _y: number;
@@ -270,9 +270,5 @@ export class Euler {
 
         return this;
     }
-
-    // TODO: See how to fix this MATH matrix
-    static RotationOrders = [ 'XYZ', 'YXZ', 'ZXY', 'ZYX', 'YZX', 'XZY' ];
-    static DefaultOrder = 'XYZ';
 
 }
