@@ -11,7 +11,7 @@ import { GetFastValue } from '../../utils/object/GetFastValue';
 var Class = require('../../utils/Class');
 var Components = require('./components');
 var GameObject = require('../../gameobjects/GameObject');
-var Image = require('../../gameobjects/image/Image');
+import { Image } from '../../gameobjects/image/Image';
 var Pipeline = require('../../gameobjects/components/Pipeline');
 import { Vector2 } from '../../math/Vector2';
 

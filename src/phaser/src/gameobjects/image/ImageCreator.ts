@@ -4,13 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { Image } from './Image';
 
-var BuildGameObject = require('../BuildGameObject');
-var GameObjectCreator = require('../GameObjectCreator');
-var Image = require('./Image');
+const BuildGameObject = require('../BuildGameObject');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new Image Game Object and returns it.
@@ -25,14 +23,14 @@ var Image = require('./Image');
  *
  * @return {Phaser.GameObjects.Image} The Game Object that was created.
  */
-GameObjectCreator.register('image', function (config, addToScene)
+GameObjectCreator.register('image', function (this: any, config: Record<string, any>, addToScene?: boolean): any
 {
     if (config === undefined) { config = {}; }
 
-    var key = GetAdvancedValue(config, 'key', null);
-    var frame = GetAdvancedValue(config, 'frame', null);
+    const key = GetAdvancedValue(config, 'key', null);
+    const frame = GetAdvancedValue(config, 'frame', null);
 
-    var image = new Image(this.scene, 0, 0, key, frame);
+    const image = new Image(this.scene, 0, 0, key, frame);
 
     if (addToScene !== undefined)
     {

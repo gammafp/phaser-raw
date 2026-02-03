@@ -28,6 +28,8 @@ export class Start extends Phaser.Scene {
 
         const logo = this.add.image(640, 200, 'logo');
 
+        logo.setTint(0xff0000);
+
         const ship = this.add.sprite(640, 360, 'ship');
 
         ship.anims.create({

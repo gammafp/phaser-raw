@@ -6,7 +6,7 @@
 
 var Class = require('../../utils/Class');
 var DynamicTexture = require('../../textures/DynamicTexture');
-var Image = require('../image/Image');
+import { Image } from '../image/Image';
 
 /**
  * @classdesc

@@ -5,22 +5,23 @@
  */
 
 import { NOOP } from '../../utils/NOOP';
-var renderWebGL = NOOP;
-var renderCanvas = NOOP;
+
+let renderWebGL: Function = NOOP;
+let renderCanvas: Function = NOOP;
 
 if (typeof WEBGL_RENDERER)
 {
-    renderWebGL = require('./ImageWebGLRenderer');
+    const { ImageWebGLRenderer } = require('./ImageWebGLRenderer');
+    renderWebGL = ImageWebGLRenderer;
 }
 
 if (typeof CANVAS_RENDERER)
 {
-    renderCanvas = require('./ImageCanvasRenderer');
+    const { ImageCanvasRenderer } = require('./ImageCanvasRenderer');
+    renderCanvas = ImageCanvasRenderer;
 }
 
 module.exports = {
-
     renderWebGL: renderWebGL,
     renderCanvas: renderCanvas
-
 };

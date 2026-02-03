@@ -8,6 +8,10 @@
  * @namespace Phaser.GameObjects
  */
 
+import { Image } from './image/Image';
+import './image/ImageFactory';
+import './image/ImageCreator';
+
 var GameObjects = {
 
     Events: require('./events'),
@@ -32,7 +36,7 @@ var GameObjects = {
     Extern: require('./extern/Extern'),
     Graphics: require('./graphics/Graphics'),
     Group: require('./group/Group'),
-    Image: require('./image/Image'),
+    Image: Image,
     Layer: require('./layer/Layer'),
     Particles: require('./particles'),
     PathFollower: require('./pathfollower/PathFollower'),
@@ -75,7 +79,7 @@ var GameObjects = {
         Extern: require('./extern/ExternFactory'),
         Graphics: require('./graphics/GraphicsFactory'),
         Group: require('./group/GroupFactory'),
-        Image: require('./image/ImageFactory'),
+        Image, // Registered via import
         Layer: require('./layer/LayerFactory'),
         Particles: require('./particles/ParticleEmitterFactory'),
         PathFollower: require('./pathfollower/PathFollowerFactory'),
@@ -108,7 +112,7 @@ var GameObjects = {
         DynamicBitmapText: require('./bitmaptext/dynamic/DynamicBitmapTextCreator'),
         Graphics: require('./graphics/GraphicsCreator'),
         Group: require('./group/GroupCreator'),
-        Image: require('./image/ImageCreator'),
+        Image, // Registered via import
         Layer: require('./layer/LayerCreator'),
         Particles: require('./particles/ParticleEmitterCreator'),
         RenderTexture: require('./rendertexture/RenderTextureCreator'),

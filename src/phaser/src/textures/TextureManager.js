@@ -20,7 +20,7 @@ var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var Frame = require('./Frame');
 var GameEvents = require('../core/events');
-var ImageGameObject = require('../gameobjects/image/Image');
+import { Image as ImageGameObject } from '../gameobjects/image/Image';
 var Parser = require('./parsers');
 var Rectangle = require('../geom/rectangle/Rectangle');
 var Texture = require('./Texture');

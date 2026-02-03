@@ -5,24 +5,22 @@
  */
 
 /**
- * Renders this Game Object with the Canvas Renderer to the given Camera.
+ * Renders this Game Object with the WebGL Renderer to the given Camera.
  * The object will not render if any of its renderFlags are set or it is being actively filtered out by the Camera.
  * This method should not be called directly. It is a utility function of the Render module.
  *
- * @method Phaser.GameObjects.Image#renderCanvas
+ * @method Phaser.GameObjects.Image#renderWebGL
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
  * @param {Phaser.GameObjects.Image} src - The Game Object being rendered in this call.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var ImageCanvasRenderer = function (renderer, src, camera, parentMatrix)
+export const ImageWebGLRenderer = function (this: any, renderer: any, src: any, camera: any, parentMatrix: any): void
 {
     camera.addToRenderList(src);
 
-    renderer.batchSprite(src, src.frame, camera, parentMatrix);
+    this.pipeline.batchSprite(src, camera, parentMatrix);
 };
-
-module.exports = ImageCanvasRenderer;

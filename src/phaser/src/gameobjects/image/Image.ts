@@ -4,10 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../../utils/Class');
-var Components = require('../components');
-var GameObject = require('../GameObject');
-var ImageRender = require('./ImageRender');
+// TODO: Complex mixins - needs proper TypeScript interface implementation
+
+import { Mixin } from '../../utils/MixinTS';
+
+const Components = require('../components');
+const GameObject = require('../GameObject');
+const ImageRender = require('./ImageRender');
 
 /**
  * @classdesc
@@ -46,34 +49,35 @@ var ImageRender = require('./ImageRender');
  * @param {(string|Phaser.Textures.Texture)} texture - The key, or instance of the Texture this Game Object will use to render with, as stored in the Texture Manager.
  * @param {(string|number)} [frame] - An optional frame from the Texture this Game Object is rendering with.
  */
-var Image = new Class({
+export class Image extends GameObject {
 
-    Extends: GameObject,
+    _crop: any;
 
-    Mixins: [
-        Components.Alpha,
-        Components.BlendMode,
-        Components.Depth,
-        Components.Flip,
-        Components.GetBounds,
-        Components.Mask,
-        Components.Origin,
-        Components.Pipeline,
-        Components.PostPipeline,
-        Components.ScrollFactor,
-        Components.Size,
-        Components.TextureCrop,
-        Components.Tint,
-        Components.Transform,
-        Components.Visible,
-        ImageRender
-    ],
-
-    initialize:
-
-    function Image (scene, x, y, texture, frame)
+    static
     {
-        GameObject.call(this, scene, 'Image');
+        Mixin(this, [
+            Components.Alpha,
+            Components.BlendMode,
+            Components.Depth,
+            Components.Flip,
+            Components.GetBounds,
+            Components.Mask,
+            Components.Origin,
+            Components.Pipeline,
+            Components.PostPipeline,
+            Components.ScrollFactor,
+            Components.Size,
+            Components.TextureCrop,
+            Components.Tint,
+            Components.Transform,
+            Components.Visible,
+            ImageRender
+        ]);
+    }
+
+    constructor(scene: any, x: number, y: number, texture: string | any, frame?: string | number)
+    {
+        super(scene, 'Image');
 
         /**
          * The internal crop data object, as used by `setCrop` and passed to the `Frame.setCropUVs` method.
@@ -93,6 +97,4 @@ var Image = new Class({
         this.initPostPipeline(true);
     }
 
-});
-
-module.exports = Image;
+}
