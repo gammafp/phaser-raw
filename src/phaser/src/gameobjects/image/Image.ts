@@ -4,7 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Complex mixins - needs proper TypeScript interface implementation
+// TODO: Add interface merging for full TypeScript support when Components are converted to TS
+// TODO: Example: export interface Image extends Components.Alpha, Components.BlendMode, etc.
+// This will provide proper type checking for mixin methods (setAlpha, setBlendMode, etc.)
 
 import { Mixin } from '../../utils/MixinTS';
 
