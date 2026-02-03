@@ -6,7 +6,7 @@
 
 var Class = require('../../utils/Class');
 var Components = require('./components');
-var Sprite = require('../../gameobjects/sprite/Sprite');
+import { Sprite } from '../../gameobjects/sprite/Sprite';
 
 /**
  * @classdesc

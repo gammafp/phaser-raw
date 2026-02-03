@@ -16,7 +16,7 @@ var GetBlendModes = require('./utils/GetBlendModes');
 var ScaleEvents = require('../../scale/events');
 var TextureEvents = require('../../textures/events');
 var GameEvents = require('../../core/events');
-var TransformMatrix = require('../../gameobjects/components/TransformMatrix');
+import { TransformMatrix } from '../../gameobjects/components/TransformMatrix';
 
 /**
  * @classdesc

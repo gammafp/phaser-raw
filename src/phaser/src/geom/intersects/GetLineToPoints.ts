@@ -5,8 +5,7 @@
  */
 
 import { GetLineToLine } from './GetLineToLine';
-
-const Line = require('../line/Line');
+import { Line } from '../line/Line';
 import { Vector3 } from '../../math/Vector3';
 
 //  Temp calculation segment

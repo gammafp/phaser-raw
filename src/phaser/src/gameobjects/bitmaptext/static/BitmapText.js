@@ -14,7 +14,7 @@ var GameObject = require('../../GameObject');
 var GetBitmapTextSize = require('../GetBitmapTextSize');
 var ParseFromAtlas = require('../ParseFromAtlas');
 var ParseXMLBitmapFont = require('../ParseXMLBitmapFont');
-var Rectangle = require('../../../geom/rectangle/Rectangle');
+import { Rectangle } from '../../../geom/rectangle/Rectangle';
 var Render = require('./BitmapTextRender');
 
 /**

@@ -4,7 +4,7 @@ import { CircleToCircle } from '../../../geom/intersects/CircleToCircle';
 import { CircleToRectangle } from '../../../geom/intersects/CircleToRectangle';
 
 var OverlapRect = require('./OverlapRect');
-var Circle = require('../../../geom/circle/Circle');
+import { Circle } from '../../../geom/circle/Circle';
 
 /**
  * This method will search the given circular area and return an array of all physics bodies that

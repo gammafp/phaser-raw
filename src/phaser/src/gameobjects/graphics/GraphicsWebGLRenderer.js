@@ -6,7 +6,7 @@
 
 var Commands = require('./Commands');
 var GetCalcMatrix = require('../GetCalcMatrix');
-var TransformMatrix = require('../components/TransformMatrix');
+import { TransformMatrix } from '../components/TransformMatrix';
 var Utils = require('../../renderer/webgl/Utils');
 
 var Point = function (x, y, width)

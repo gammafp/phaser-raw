@@ -32,6 +32,8 @@ export class Start extends Phaser.Scene {
 
         const ship = this.add.sprite(640, 360, 'ship');
 
+        ship.preFX?.addGlow();         // ✅ Autocomplete
+        
         ship.anims.create({
             key: 'fly',
             frames: this.anims.generateFrameNumbers('ship', { start: 0, end: 2 }),

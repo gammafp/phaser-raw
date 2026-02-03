@@ -6,7 +6,7 @@
 
 var Class = require('../../utils/Class');
 var ParticleProcessor = require('./ParticleProcessor');
-var Rectangle = require('../../geom/rectangle/Rectangle');
+import { Rectangle } from '../../geom/rectangle/Rectangle';
 
 /**
  * @classdesc

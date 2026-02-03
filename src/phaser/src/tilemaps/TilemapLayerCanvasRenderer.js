@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var TransformMatrix = require('../gameobjects/components/TransformMatrix');
+import { TransformMatrix } from '../gameobjects/components/TransformMatrix';
 
 var tempMatrix1 = new TransformMatrix();
 var tempMatrix2 = new TransformMatrix();

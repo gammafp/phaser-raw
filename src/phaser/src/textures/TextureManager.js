@@ -22,7 +22,7 @@ var Frame = require('./Frame');
 var GameEvents = require('../core/events');
 import { Image as ImageGameObject } from '../gameobjects/image/Image';
 var Parser = require('./parsers');
-var Rectangle = require('../geom/rectangle/Rectangle');
+import { Rectangle } from '../geom/rectangle/Rectangle';
 var Texture = require('./Texture');
 
 /**

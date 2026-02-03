@@ -6,7 +6,7 @@
 
 var Class = require('../../../utils/Class');
 var Earcut = require('../../../geom/polygon/Earcut');
-var GeomRectangle = require('../../../geom/rectangle/Rectangle');
+import { Rectangle as GeomRectangle } from '../../../geom/rectangle/Rectangle';
 var Shape = require('../Shape');
 var RectangleRender = require('./RectangleRender');
 

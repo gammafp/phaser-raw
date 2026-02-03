@@ -5,7 +5,7 @@
  */
 
 var GetCalcMatrix = require('../../GetCalcMatrix');
-var TransformMatrix = require('../../components/TransformMatrix');
+import { TransformMatrix } from '../../components/TransformMatrix';
 var Utils = require('../../../renderer/webgl/Utils');
 
 var tempMatrix = new TransformMatrix();

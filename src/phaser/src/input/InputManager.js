@@ -13,7 +13,7 @@ var Keyboard = require('./keyboard/KeyboardManager');
 var Mouse = require('./mouse/MouseManager');
 var Pointer = require('./Pointer');
 var Touch = require('./touch/TouchManager');
-var TransformMatrix = require('../gameobjects/components/TransformMatrix');
+import { TransformMatrix } from '../gameobjects/components/TransformMatrix';
 import { TransformXY } from '../math/TransformXY';
 
 /**

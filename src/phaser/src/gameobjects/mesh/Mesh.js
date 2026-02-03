@@ -11,7 +11,7 @@ import { RadToDeg } from '../../math/RadToDeg';
 
 var Class = require('../../utils/Class');
 var Components = require('../components');
-var Face = require('../../geom/mesh/Face');
+import { Face } from '../../geom/mesh/Face';
 var GameObject = require('../GameObject');
 var GenerateObjVerts = require('../../geom/mesh/GenerateObjVerts');
 var GenerateVerts = require('../../geom/mesh/GenerateVerts');

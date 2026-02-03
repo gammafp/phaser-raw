@@ -28,7 +28,7 @@ var GetOverlapY = require('./GetOverlapY');
 var GetTilesWithinWorldXY = require('../../tilemaps/components/GetTilesWithinWorldXY');
 var ProcessQueue = require('../../structs/ProcessQueue');
 var ProcessTileCallbacks = require('./tilemap/ProcessTileCallbacks');
-var Rectangle = require('../../geom/rectangle/Rectangle');
+import { Rectangle } from '../../geom/rectangle/Rectangle';
 var RTree = require('../../structs/RTree');
 var SeparateTile = require('./tilemap/SeparateTile');
 var SeparateX = require('./SeparateX');
@@ -36,7 +36,7 @@ var SeparateY = require('./SeparateY');
 var Set = require('../../structs/Set');
 var StaticBody = require('./StaticBody');
 var TileIntersectsBody = require('./tilemap/TileIntersectsBody');
-var TransformMatrix = require('../../gameobjects/components/TransformMatrix');
+import { TransformMatrix } from '../../gameobjects/components/TransformMatrix';
 import { Vector2 } from '../../math/Vector2';
 
 /**

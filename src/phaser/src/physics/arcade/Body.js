@@ -13,7 +13,7 @@ var Class = require('../../utils/Class');
 var CollisionComponent = require('./components/Collision');
 var CONST = require('./const');
 var Events = require('./events');
-var Rectangle = require('../../geom/rectangle/Rectangle');
+import { Rectangle } from '../../geom/rectangle/Rectangle';
 var SetCollisionObject = require('./SetCollisionObject');
 import { Vector2 } from '../../math/Vector2';
 

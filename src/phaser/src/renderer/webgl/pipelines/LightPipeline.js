@@ -14,7 +14,7 @@ import { Vector2 as Vec2 } from '../../../math/Vector2';
 
 var LightShaderSourceFS = require('../shaders/Light-frag');
 var MultiPipeline = require('./MultiPipeline');
-var TransformMatrix = require('../../../gameobjects/components/TransformMatrix');
+import { TransformMatrix } from '../../../gameobjects/components/TransformMatrix';
 var WebGLPipeline = require('../WebGLPipeline');
 
 /**

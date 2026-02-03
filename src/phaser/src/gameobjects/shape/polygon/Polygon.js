@@ -11,7 +11,7 @@ import { GetAABB } from '../../../geom/polygon/GetAABB';
 var PolygonRender = require('./PolygonRender');
 var Class = require('../../../utils/Class');
 var Earcut = require('../../../geom/polygon/Earcut');
-var GeomPolygon = require('../../../geom/polygon/Polygon');
+import { Polygon as GeomPolygon } from '../../../geom/polygon/Polygon';
 var Shape = require('../Shape');
 var Smooth = require('../../../geom/polygon/Smooth');
 

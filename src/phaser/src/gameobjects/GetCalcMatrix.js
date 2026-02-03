@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var TransformMatrix = require('./components/TransformMatrix');
+import { TransformMatrix } from './components/TransformMatrix';
 
 var tempMatrix1 = new TransformMatrix();
 var tempMatrix2 = new TransformMatrix();

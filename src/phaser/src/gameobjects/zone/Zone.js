@@ -10,11 +10,11 @@ import { Contains as CircleContains } from '../../geom/circle/Contains';
 import { Contains as RectangleContains } from '../../geom/rectangle/Contains';
 
 var BlendModes = require('../../renderer/BlendModes');
-var Circle = require('../../geom/circle/Circle');
+import { Circle } from '../../geom/circle/Circle';
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
-var Rectangle = require('../../geom/rectangle/Rectangle');
+import { Rectangle } from '../../geom/rectangle/Rectangle';
 
 /**
  * @classdesc

@@ -6,7 +6,7 @@
 
 import { RGB } from '../../display/RGB';
 
-var Circle = require('../../geom/circle/Circle');
+import { Circle } from '../../geom/circle/Circle';
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var Utils = require('../../renderer/webgl/Utils');

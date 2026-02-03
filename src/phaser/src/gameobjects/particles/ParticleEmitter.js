@@ -21,7 +21,7 @@ import { Wrap } from '../../math/Wrap';
 
 var Class = require('../../utils/Class');
 var Components = require('../components');
-var ComponentsToJSON = require('../components/ToJSON');
+import { ToJSON as ComponentsToJSON } from '../components/ToJSON';
 var DeathZone = require('./zones/DeathZone');
 var EdgeZone = require('./zones/EdgeZone');
 var EmitterColorOp = require('./EmitterColorOp');
@@ -33,10 +33,10 @@ var List = require('../../structs/List');
 var Particle = require('./Particle');
 var ParticleBounds = require('./ParticleBounds');
 var RandomZone = require('./zones/RandomZone');
-var Rectangle = require('../../geom/rectangle/Rectangle');
+import { Rectangle } from '../../geom/rectangle/Rectangle';
 var Render = require('./ParticleEmitterRender');
 var StableSort = require('../../utils/array/StableSort');
-var TransformMatrix = require('../components/TransformMatrix');
+import { TransformMatrix } from '../components/TransformMatrix';
 import { Vector2 } from '../../math/Vector2';
 
 /**

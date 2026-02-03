@@ -4,11 +4,22 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Add interface merging for full TypeScript support when Components are converted to TS
-// TODO: Example: export interface Image extends Components.Alpha, Components.BlendMode, etc.
-// This will provide proper type checking for mixin methods (setAlpha, setBlendMode, etc.)
-
 import { Mixin } from '../../utils/MixinTS';
+import type { Alpha } from '../components/Alpha';
+import type { BlendMode } from '../components/BlendMode';
+import type { Depth } from '../components/Depth';
+import type { Flip } from '../components/Flip';
+import type { GetBounds } from '../components/GetBounds';
+import type { Mask } from '../components/Mask';
+import type { Origin } from '../components/Origin';
+import type { Pipeline } from '../components/Pipeline';
+import type { PostPipeline } from '../components/PostPipeline';
+import type { ScrollFactor } from '../components/ScrollFactor';
+import type { Size } from '../components/Size';
+import type { TextureCrop } from '../components/TextureCrop';
+import type { Tint } from '../components/Tint';
+import type { Transform } from '../components/Transform';
+import type { Visible } from '../components/Visible';
 
 const Components = require('../components');
 const GameObject = require('../GameObject');
@@ -51,6 +62,25 @@ const ImageRender = require('./ImageRender');
  * @param {(string|Phaser.Textures.Texture)} texture - The key, or instance of the Texture this Game Object will use to render with, as stored in the Texture Manager.
  * @param {(string|number)} [frame] - An optional frame from the Texture this Game Object is rendering with.
  */
+
+// Interface merging - Image now has all component methods/properties with full TypeScript support
+export interface Image extends 
+    Alpha,
+    BlendMode,
+    Depth,
+    Flip,
+    GetBounds,
+    Mask,
+    Origin,
+    Pipeline,
+    PostPipeline,
+    ScrollFactor,
+    Size,
+    TextureCrop,
+    Tint,
+    Transform,
+    Visible {}
+
 export class Image extends GameObject {
 
     _crop: any;

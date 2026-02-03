@@ -14,7 +14,7 @@ var BaseCamera = require('../../cameras/2d/BaseCamera');
 var Class = require('../../utils/Class');
 var Commands = require('./Commands');
 var Components = require('../components');
-var Ellipse = require('../../geom/ellipse/Ellipse');
+import { Ellipse } from '../../geom/ellipse/Ellipse';
 var GameObject = require('../GameObject');
 var Render = require('./GraphicsRender');
 

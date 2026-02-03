@@ -6,7 +6,7 @@
 
 var Class = require('../../../utils/Class');
 var Shape = require('../Shape');
-var GeomLine = require('../../../geom/line/Line');
+import { Line as GeomLine } from '../../../geom/line/Line';
 var LineRender = require('./LineRender');
 
 /**

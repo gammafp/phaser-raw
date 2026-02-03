@@ -17,7 +17,7 @@ var Formats = require('./Formats');
 var LayerData = require('./mapdata/LayerData');
 var ObjectHelper = require('./ObjectHelper');
 var ORIENTATION = require('./const/ORIENTATION_CONST');
-var Sprite = require('../gameobjects/sprite/Sprite');
+import { Sprite } from '../gameobjects/sprite/Sprite';
 var Tile = require('./Tile');
 var TilemapComponents = require('./components');
 var TilemapLayer = require('./TilemapLayer');

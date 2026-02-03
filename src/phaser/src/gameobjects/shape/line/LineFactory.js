@@ -5,7 +5,7 @@
  */
 
 var GameObjectFactory = require('../../GameObjectFactory');
-var Line = require('./Line');
+const Line = require('./Line');
 
 /**
  * Creates a new Line Shape Game Object and adds it to the Scene.

@@ -15,7 +15,7 @@ var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
 var ShaderRender = require('./ShaderRender');
-var TransformMatrix = require('../components/TransformMatrix');
+import { TransformMatrix } from '../components/TransformMatrix';
 var RenderEvents = require('../../renderer/events');
 
 /**

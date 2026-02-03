@@ -13,8 +13,8 @@ var Class = require('../../utils/Class');
 var Components = require('../../gameobjects/components');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
-var Rectangle = require('../../geom/rectangle/Rectangle');
-var TransformMatrix = require('../../gameobjects/components/TransformMatrix');
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+import { TransformMatrix } from '../../gameobjects/components/TransformMatrix';
 import { Vector2 } from '../../math/Vector2';
 
 /**

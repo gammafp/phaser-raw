@@ -5,7 +5,7 @@
  */
 
 var GameObjectFactory = require('../../GameObjectFactory');
-var Rectangle = require('./Rectangle');
+const Rectangle = require('./Rectangle');
 
 /**
  * Creates a new Rectangle Shape Game Object and adds it to the Scene.

@@ -15,19 +15,19 @@ import { Contains as RectangleContains } from '../geom/rectangle/Contains';
 import { Contains as TriangleContains } from '../geom/triangle/Contains';
 import { GEOM_CONST } from '../geom/const';
 
-var Circle = require('../geom/circle/Circle');
+import { Circle } from '../geom/circle/Circle';
+import { Ellipse } from '../geom/ellipse/Ellipse';
 var Class = require('../utils/Class');
 var CONST = require('./const');
 var CreateInteractiveObject = require('./CreateInteractiveObject');
 var CreatePixelPerfectHandler = require('./CreatePixelPerfectHandler');
-var Ellipse = require('../geom/ellipse/Ellipse');
 var Events = require('./events');
 var EventEmitter = require('eventemitter3');
 var InputPluginCache = require('./InputPluginCache');
 var PluginCache = require('../plugins/PluginCache');
-var Rectangle = require('../geom/rectangle/Rectangle');
+import { Rectangle } from '../geom/rectangle/Rectangle';
 var SceneEvents = require('../scene/events');
-var Triangle = require('../geom/triangle/Triangle');
+import { Triangle } from '../geom/triangle/Triangle';
 
 /**
  * @classdesc

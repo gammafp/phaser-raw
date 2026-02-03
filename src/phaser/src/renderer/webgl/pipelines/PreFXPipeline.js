@@ -14,7 +14,7 @@ var Class = require('../../../utils/Class');
 var ColorMatrixFS = require('../shaders/ColorMatrix-frag');
 var MultiPipeline = require('./MultiPipeline');
 var PostFXFS = require('../shaders/PostFX-frag');
-var Rectangle = require('../../../geom/rectangle/Rectangle');
+import { Rectangle } from '../../../geom/rectangle/Rectangle';
 var RenderTarget = require('../RenderTarget');
 var SingleQuadFS = require('../shaders/Single-frag');
 var SingleQuadVS = require('../shaders/Single-vert');

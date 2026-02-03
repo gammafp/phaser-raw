@@ -6,7 +6,7 @@
 
 // TODO: Convert this complex generator to TypeScript
 
-var Face = require('./Face');
+import { Face } from './Face';
 import { Matrix4 } from '../../math/Matrix4';
 import { Vector3 } from '../../math/Vector3';
 var Vertex = require('./Vertex');

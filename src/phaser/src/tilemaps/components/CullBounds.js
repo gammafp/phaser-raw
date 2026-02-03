@@ -9,7 +9,7 @@
 import { SnapCeil } from '../../math/snap/SnapCeil';
 import { SnapFloor } from '../../math/snap/SnapFloor';
 
-var Rectangle = require('../../geom/rectangle/Rectangle');
+import { Rectangle } from '../../geom/rectangle/Rectangle';
 
 var bounds = new Rectangle();
 

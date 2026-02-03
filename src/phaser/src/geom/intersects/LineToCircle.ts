@@ -6,7 +6,7 @@
 
 import { Contains } from '../circle/Contains';
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 const tmp = new Point();
 

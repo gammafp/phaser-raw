@@ -13,7 +13,7 @@ var Class = require('../../../utils/Class');
 var Earcut = require('../../../geom/polygon/Earcut');
 var ShaderSourceFS = require('../shaders/Multi-frag');
 var ShaderSourceVS = require('../shaders/Multi-vert');
-var TransformMatrix = require('../../../gameobjects/components/TransformMatrix');
+import { TransformMatrix } from '../../../gameobjects/components/TransformMatrix';
 var Utils = require('../Utils');
 var WEBGL_CONST = require('../const');
 var WebGLPipeline = require('../WebGLPipeline');

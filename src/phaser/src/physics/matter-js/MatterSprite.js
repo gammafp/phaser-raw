@@ -12,8 +12,8 @@ var AnimationState = require('../../animations/AnimationState');
 var Class = require('../../utils/Class');
 var Components = require('./components');
 var GameObject = require('../../gameobjects/GameObject');
-var Pipeline = require('../../gameobjects/components/Pipeline');
-var Sprite = require('../../gameobjects/sprite/Sprite');
+import { Pipeline } from '../../gameobjects/components/Pipeline';
+import { Sprite } from '../../gameobjects/sprite/Sprite';
 import { Vector2 } from '../../math/Vector2';
 
 /**

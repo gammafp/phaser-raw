@@ -12,6 +12,15 @@ import { Image } from './image/Image';
 import './image/ImageFactory';
 import './image/ImageCreator';
 
+import { Sprite } from './sprite/Sprite';
+import './sprite/SpriteFactory';
+import './sprite/SpriteCreator';
+
+import { Text } from './text/Text';
+import { TextStyle } from './text/TextStyle';
+import './text/TextFactory';
+import './text/TextCreator';
+
 var GameObjects = {
 
     Events: require('./events'),
@@ -43,12 +52,12 @@ var GameObjects = {
     RenderTexture: require('./rendertexture/RenderTexture'),
     RetroFont: require('./bitmaptext/RetroFont'),
     Rope: require('./rope/Rope'),
-    Sprite: require('./sprite/Sprite'),
+    Sprite: Sprite,
 
-    Text: require('./text/Text'),
+    Text: Text,
     GetTextSize: require('./text/GetTextSize'),
     MeasureText: require('./text/MeasureText'),
-    TextStyle: require('./text/TextStyle'),
+    TextStyle: TextStyle,
 
     TileSprite: require('./tilesprite/TileSprite'),
     Zone: require('./zone/Zone'),
@@ -85,9 +94,9 @@ var GameObjects = {
         PathFollower: require('./pathfollower/PathFollowerFactory'),
         RenderTexture: require('./rendertexture/RenderTextureFactory'),
         Rope: require('./rope/RopeFactory'),
-        Sprite: require('./sprite/SpriteFactory'),
+        Sprite: function () {}, // Registered via import
         StaticBitmapText: require('./bitmaptext/static/BitmapTextFactory'),
-        Text: require('./text/TextFactory'),
+        Text: function () {}, // Registered via import
         TileSprite: require('./tilesprite/TileSpriteFactory'),
         Zone: require('./zone/ZoneFactory'),
         Video: require('./video/VideoFactory'),
@@ -117,9 +126,9 @@ var GameObjects = {
         Particles: require('./particles/ParticleEmitterCreator'),
         RenderTexture: require('./rendertexture/RenderTextureCreator'),
         Rope: require('./rope/RopeCreator'),
-        Sprite: require('./sprite/SpriteCreator'),
+        Sprite: function () {}, // Registered via import
         StaticBitmapText: require('./bitmaptext/static/BitmapTextCreator'),
-        Text: require('./text/TextCreator'),
+        Text: function () {}, // Registered via import
         TileSprite: require('./tilesprite/TileSpriteCreator'),
         Zone: require('./zone/ZoneCreator'),
         Video: require('./video/VideoCreator')
