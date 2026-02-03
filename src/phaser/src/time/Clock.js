@@ -1,14 +1,14 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { Remove } from '../utils/array/Remove';
-import { TimerEvent } from './TimerEvent';
-
-const PluginCache = require('../plugins/PluginCache');
-const SceneEvents = require('../scene/events');
+var Class = require('../utils/Class');
+var PluginCache = require('../plugins/PluginCache');
+var SceneEvents = require('../scene/events');
+var TimerEvent = require('./TimerEvent');
+var Remove = require('../utils/array/Remove');
 
 /**
  * @classdesc
@@ -21,19 +21,11 @@ const SceneEvents = require('../scene/events');
  *
  * @param {Phaser.Scene} scene - The Scene which owns this Clock.
  */
-export class Clock {
+var Clock = new Class({
 
-    scene: any;
-    systems: any;
-    now: number;
-    startTime: number;
-    timeScale: number;
-    paused: boolean;
-    private _active: TimerEvent[];
-    private _pendingInsertion: TimerEvent[];
-    private _pendingRemoval: TimerEvent[];
+    initialize:
 
-    constructor(scene: any)
+    function Clock (scene)
     {
         /**
          * The Scene which owns this Clock.
@@ -134,7 +126,7 @@ export class Clock {
 
         scene.sys.events.once(SceneEvents.BOOT, this.boot, this);
         scene.sys.events.on(SceneEvents.START, this.start, this);
-    }
+    },
 
     /**
      * This method is called automatically, only once, when the Scene is first created.
@@ -144,13 +136,13 @@ export class Clock {
      * @private
      * @since 3.5.1
      */
-    boot()
+    boot: function ()
     {
         //  Sync with the TimeStep
         this.now = this.systems.game.loop.time;
 
         this.systems.events.once(SceneEvents.DESTROY, this.destroy, this);
-    }
+    },
 
     /**
      * This method is called automatically by the Scene when it is starting up.
@@ -161,7 +153,7 @@ export class Clock {
      * @private
      * @since 3.5.0
      */
-    start()
+    start: function ()
     {
         this.startTime = this.systems.game.loop.time;
 
@@ -170,7 +162,7 @@ export class Clock {
         eventEmitter.on(SceneEvents.PRE_UPDATE, this.preUpdate, this);
         eventEmitter.on(SceneEvents.UPDATE, this.update, this);
         eventEmitter.once(SceneEvents.SHUTDOWN, this.shutdown, this);
-    }
+    },
 
     /**
      * Creates a Timer Event and adds it to this Clock at the start of the next frame.
@@ -192,7 +184,7 @@ export class Clock {
      *
      * @return {Phaser.Time.TimerEvent} The Timer Event which was created, or passed in.
      */
-    addEvent(config)
+    addEvent: function (config)
     {
         var event;
 
@@ -219,7 +211,7 @@ export class Clock {
         this._pendingInsertion.push(event);
 
         return event;
-    }
+    },
 
     /**
      * Creates a Timer Event and adds it to the Clock at the start of the frame.
@@ -236,10 +228,10 @@ export class Clock {
      *
      * @return {Phaser.Time.TimerEvent} The Timer Event which was created.
      */
-    delayedCall(delay, callback, args, callbackScope)
+    delayedCall: function (delay, callback, args, callbackScope)
     {
         return this.addEvent({ delay: delay, callback: callback, args: args, callbackScope: callbackScope });
-    }
+    },
 
     /**
      * Clears and recreates the array of pending Timer Events.
@@ -249,12 +241,12 @@ export class Clock {
      *
      * @return {this} - This Clock instance.
      */
-    clearPendingEvents()
+    clearPendingEvents: function ()
     {
         this._pendingInsertion = [];
 
         return this;
-    }
+    },
 
     /**
      * Removes the given Timer Event, or an array of Timer Events, from this Clock.
@@ -269,7 +261,7 @@ export class Clock {
      *
      * @return {this} - This Clock instance.
      */
-    removeEvent(events)
+    removeEvent: function (events)
     {
         if (!Array.isArray(events))
         {
@@ -286,7 +278,7 @@ export class Clock {
         }
 
         return this;
-    }
+    },
 
     /**
      * Schedules all active Timer Events for removal at the start of the frame.
@@ -296,12 +288,12 @@ export class Clock {
      *
      * @return {this} - This Clock instance.
      */
-    removeAllEvents()
+    removeAllEvents: function ()
     {
         this._pendingRemoval = this._pendingRemoval.concat(this._active);
 
         return this;
-    }
+    },
 
     /**
      * Updates the arrays of active and pending Timer Events. Called at the start of the frame.
@@ -312,7 +304,7 @@ export class Clock {
      * @param {number} time - The current time. Either a High Resolution Timer value if it comes from Request Animation Frame, or Date.now if using SetTimeout.
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    preUpdate()
+    preUpdate: function ()
     {
         var toRemove = this._pendingRemoval.length;
         var toInsert = this._pendingInsertion.length;
@@ -352,7 +344,7 @@ export class Clock {
         //  Clear the lists
         this._pendingRemoval.length = 0;
         this._pendingInsertion.length = 0;
-    }
+    },
 
     /**
      * Updates the Clock's internal time and all of its Timer Events.
@@ -363,7 +355,7 @@ export class Clock {
      * @param {number} time - The current time. Either a High Resolution Timer value if it comes from Request Animation Frame, or Date.now if using SetTimeout.
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    update(time, delta)
+    update: function (time, delta)
     {
         this.now = time;
 
@@ -431,7 +423,7 @@ export class Clock {
                 }
             }
         }
-    }
+    },
 
     /**
      * The Scene that owns this plugin is shutting down.
@@ -441,7 +433,7 @@ export class Clock {
      * @private
      * @since 3.0.0
      */
-    shutdown()
+    shutdown: function ()
     {
         var i;
 
@@ -469,7 +461,7 @@ export class Clock {
         eventEmitter.off(SceneEvents.PRE_UPDATE, this.preUpdate, this);
         eventEmitter.off(SceneEvents.UPDATE, this.update, this);
         eventEmitter.off(SceneEvents.SHUTDOWN, this.shutdown, this);
-    }
+    },
 
     /**
      * The Scene that owns this plugin is being destroyed.
@@ -479,7 +471,7 @@ export class Clock {
      * @private
      * @since 3.0.0
      */
-    destroy()
+    destroy: function ()
     {
         this.shutdown();
 
@@ -489,6 +481,8 @@ export class Clock {
         this.systems = null;
     }
 
-}
+});
 
 PluginCache.register('Clock', Clock, 'time');
+
+module.exports = Clock;

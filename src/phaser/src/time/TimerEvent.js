@@ -1,18 +1,30 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this complex class to proper ES6 class with types
+var Class = require('../utils/Class');
+var GetFastValue = require('../utils/object/GetFastValue');
 
-import { GetFastValue } from '../utils/object/GetFastValue';
+/**
+ * @classdesc
+ * A Timer Event represents a delayed function call. It's managed by a Scene's {@link Clock} and will call its function after a set amount of time has passed. The Timer Event can optionally repeat - i.e. call its function multiple times before finishing, or loop indefinitely.
+ *
+ * Because it's managed by a Clock, a Timer Event is based on game time, will be affected by its Clock's time scale, and will pause if its Clock pauses.
+ *
+ * @class TimerEvent
+ * @memberof Phaser.Time
+ * @constructor
+ * @since 3.0.0
+ *
+ * @param {Phaser.Types.Time.TimerEventConfig} config - The configuration for the Timer Event, including its delay and callback.
+ */
+var TimerEvent = new Class({
 
-const Class = require('../utils/Class');
+    initialize:
 
-export const TimerEvent = new Class({
-
-    initialize: function TimerEvent (config)
+    function TimerEvent (config)
     {
         /**
          * The delay in ms at which this TimerEvent fires.
@@ -139,7 +151,7 @@ export const TimerEvent = new Class({
         this.hasDispatched = false;
 
         this.reset(config);
-    }
+    },
 
     /**
      * Completely reinitializes the Timer Event, regardless of its current state, according to a configuration object.
@@ -151,7 +163,7 @@ export const TimerEvent = new Class({
      *
      * @return {Phaser.Time.TimerEvent} This TimerEvent object.
      */
-    reset(config)
+    reset: function (config)
     {
         this.delay = GetFastValue(config, 'delay', 0);
 
@@ -192,7 +204,7 @@ export const TimerEvent = new Class({
      *
      * @return {number} A number between 0 and 1 representing the current progress.
      */
-    getProgress()
+    getProgress: function ()
     {
         return (this.elapsed / this.delay);
     },
@@ -205,7 +217,7 @@ export const TimerEvent = new Class({
      *
      * @return {number} The overall progress of the Timer Event, between 0 and 1.
      */
-    getOverallProgress()
+    getOverallProgress: function ()
     {
         if (this.repeat > 0)
         {
@@ -230,7 +242,7 @@ export const TimerEvent = new Class({
      *
      * @return {number} How many times the Timer Event will repeat.
      */
-    getRepeatCount()
+    getRepeatCount: function ()
     {
         return this.repeatCount;
     },
@@ -243,7 +255,7 @@ export const TimerEvent = new Class({
      *
      * @return {number} The local elapsed time in milliseconds.
      */
-    getElapsed()
+    getElapsed: function ()
     {
         return this.elapsed;
     },
@@ -256,7 +268,7 @@ export const TimerEvent = new Class({
      *
      * @return {number} The local elapsed time in seconds.
      */
-    getElapsedSeconds()
+    getElapsedSeconds: function ()
     {
         return this.elapsed * 0.001;
     },
@@ -269,7 +281,7 @@ export const TimerEvent = new Class({
      *
      * @return {number} The time interval in milliseconds.
      */
-    getRemaining()
+    getRemaining: function ()
     {
         return this.delay - this.elapsed;
     },
@@ -282,7 +294,7 @@ export const TimerEvent = new Class({
      *
      * @return {number} The time interval in seconds.
      */
-    getRemainingSeconds()
+    getRemainingSeconds: function ()
     {
         return this.getRemaining() * 0.001;
     },
@@ -295,7 +307,7 @@ export const TimerEvent = new Class({
      *
      * @return {number} The time interval in milliseconds.
      */
-    getOverallRemaining()
+    getOverallRemaining: function ()
     {
         return this.delay * (1 + this.repeatCount) - this.elapsed;
     },
@@ -308,7 +320,7 @@ export const TimerEvent = new Class({
      *
      * @return {number} The time interval in seconds.
      */
-    getOverallRemainingSeconds()
+    getOverallRemainingSeconds: function ()
     {
         return this.getOverallRemaining() * 0.001;
     },
@@ -321,7 +333,7 @@ export const TimerEvent = new Class({
      *
      * @param {boolean} [dispatchCallback=false] - If `true`, the function of the Timer Event will be called before its removal.
      */
-    remove(dispatchCallback)
+    remove: function (dispatchCallback)
     {
         if (dispatchCallback === undefined) { dispatchCallback = false; }
 
@@ -340,7 +352,7 @@ export const TimerEvent = new Class({
      * @method Phaser.Time.TimerEvent#destroy
      * @since 3.0.0
      */
-    destroy()
+    destroy: function ()
     {
         this.callback = undefined;
         this.callbackScope = undefined;
@@ -348,3 +360,5 @@ export const TimerEvent = new Class({
     }
 
 });
+
+module.exports = TimerEvent;
