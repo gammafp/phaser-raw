@@ -21,93 +21,91 @@ The Phaser source code is located inside the `src/phaser` folder.
 
 ## 📊 TypeScript Conversion Progress
 
-**Last Update:** 2026-02-02
-
 ### Global Summary
-![60%](https://progress-bar.xyz/60)
+![71%](https://progress-bar.xyz/71)
 
-- **Total files** (excluding typedefs): 1,648
-- **TypeScript files**: 866
-- **JavaScript files**: 782
-- **Progress**: **60.63%** 🎉
+- **Total files** (excluding typedefs): 1,651
+- **TypeScript files**: 1,173
+- **JavaScript files**: 478
+- **Progress**: **71%** 🎉
 
-### 🏆 Fully Converted (100%) - 8 Folders
+### 🏆 Fully Converted (100%) - 20 Folders
 
 - [x] **actions** (54 files) - All action utilities
+- [x] **cache** (6 files) - CacheManager and BaseCache
+- [x] **cameras** (34 files) - Camera system, effects, and controls
+- [x] **core** (24 files) - Config, TimeStep, Game, CreateRenderer ✨
 - [x] **create** (8 files) - Texture generation utilities
 - [x] **curves** (9 files) - Path, MoveTo, and all Bezier curves
+- [x] **device** (9 files) - Device detection
 - [x] **display** (78 files) - ColorMatrix, RGB, Masks, Canvas utilities
 - [x] **dom** (10 files) - DOM manipulation utilities
 - [x] **events** (2 files) - Event system
+- [x] **fx** (17 files) - FX Controllers (Bloom, Blur, Glow, etc.) ✨
+- [x] **geom** (201 files) - All geometry classes and functions
+- [x] **loader** (56 files) - LoaderPlugin and all file types
+- [x] **math** (142 files) - All math utilities and functions
+- [x] **polyfills** (10 files) - Browser polyfills
 - [x] **scene** (33 files) - SceneManager, Systems, ScenePlugin
+- [x] **tilemaps** (112 files) - Complete tilemap system
+- [x] **time** (6 files) - Clock and Timeline
+- [x] **tweens** (34 files) - Complete tween system ✨
 - [x] **types** (3 files) - Type definitions
 
 ### 📈 Nearly Complete (>90%)
 
-- [ ] **utils** (96.10%) - 74/77 files - Only 3 complex files remaining
-- [ ] **math** (91.61%) - 131/143 files
-- [ ] **geom** (91.54%) - 184/201 files
+- [ ] **utils** (99%) - 77/78 files - Only 1 file remaining (Class.js)
 
 ### 🔄 In Progress (50-90%)
 
-- [ ] **data** (77.78%) - 7/9 files
-- [ ] **sound** (77.14%) - 27/35 files
-- [ ] **core** (70.83%) - 17/24 files
-- [ ] **animations** (70.59%) - 12/17 files
-- [ ] **tweens** (70.59%) - 24/34 files
-  - ✅ **tweens/builders** subfolder 100% complete
-- [ ] **cache** (66.67%) - 4/6 files
-- [ ] **input** (63.92%) - 62/97 files
-- [ ] **cameras** (55.88%) - 19/34 files
-- [ ] **scale** (50.00%) - 7/14 files
-- [ ] **time** (50.00%) - 3/6 files
+- [ ] **data** (78%) - 7/9 files
+- [ ] **sound** (77%) - 27/35 files
+- [ ] **animations** (71%) - 12/17 files
+- [ ] **input** (66%) - 64/97 files
+- [ ] **scale** (50%) - 7/14 files
 
 ### ⏳ Lower Progress (<50%)
 
-- [ ] **device** (44.44%) - 4/9 files
-- [ ] **structs** (40.00%) - 4/10 files
-- [ ] **textures** (28.57%) - 8/28 files
-- [ ] **loader** (23.21%) - 13/56 files
-- [ ] **physics** (20.00%) - 26/130 files
-- [ ] **renderer** (15.38%) - 16/104 files
-- [ ] **gameobjects** (9.33%) - 25/268 files
-
-### 📋 Not Started (0%)
-
-- [ ] **fx** - 17 files
-- [ ] **plugins** - 6 files
-- [ ] **polyfills** - 10 files
-- [ ] **tilemaps** - 112 files
+- [ ] **structs** (40%) - 4/10 files
+- [ ] **textures** (29%) - 8/28 files
+- [ ] **gameobjects** (27%) - 73/271 files
+- [ ] **physics** (20%) - 26/130 files
+- [ ] **plugins** (17%) - 1/6 files
+- [ ] **renderer** (15%) - 16/104 files
 
 ---
 
 ## 🎯 Recent Highlights
 
-### Major Conversions Completed
+### Latest Session
 
-#### Tweens System
-- ✅ **tweens/builders** - All 12 builder files converted (100%)
-  - Helper functions: GetBoolean, GetEaseFunction, GetInterpolationFunction, GetNewValue, GetProps, GetTargets, GetValueOp
-  - Builders: NumberTweenBuilder, StaggerBuilder, TweenBuilder, TweenChainBuilder
-- ✅ **TweenManager.ts** - Main tween controller class (1,157 lines)
+#### FX System ✨
+- ✅ **fx** - Complete folder (17 files, 100%)
+  - Controller.ts (base class)
+  - 14 FX controllers: Barrel, Bloom, Blur, Bokeh, Circle, ColorMatrix, Displacement, Glow, Gradient, Pixelate, Shadow, Shine, Vignette, Wipe
+  - const.ts, index.ts
 
-#### Curves System
-- ✅ **curves** - Complete folder (9 files, 100%)
-  - Curve.ts (base class)
-  - Path.ts, MoveTo.ts
-  - CubicBezierCurve, QuadraticBezierCurve, LineCurve, SplineCurve, EllipseCurve
+#### Core System ✨
+- ✅ **core** - Complete folder (24 files, 100%)
+  - Config.ts (662 lines - game configuration)
+  - TimeStep.ts (888 lines - game loop)
+  - Game.ts, CreateRenderer.ts, DebugHeader.ts
+  - All core events
 
-#### Scene System
-- ✅ **scene** - Complete folder (33 files, 100%)
-  - SceneManager.ts, Systems.ts, Scene.ts, ScenePlugin.ts
-  - All scene constants, helper functions, and events
+#### Tweens System ✨
+- ✅ **tweens** - Complete folder (34 files, 100%)
+  - BaseTween.ts, Tween.ts, TweenChain.ts
+  - BaseTweenData.ts, TweenData.ts, TweenFrameData.ts
+  - TweenManager.ts
+  - All builders (12 files)
+  - All events (10 files)
+  - const.ts, Defaults.ts, ReservedProps.ts
 
-#### Display System
-- ✅ **display** - Complete folder (78 files, 100%)
-  - ColorMatrix.ts, RGB.ts, BaseShader.ts
-  - BitmapMask.ts, GeometryMask.ts
-  - CanvasPool.ts, Smoothing.ts, and all canvas utilities
-  - All color utilities, bounds, and alignment helpers
+#### Other Conversions
+- ✅ **input/gamepad** - Axis.ts, Button.ts
+- ✅ **plugins** - BasePlugin.ts
+- ✅ **gameobjects/particles/zones** - DeathZone.ts, EdgeZone.ts, RandomZone.ts
+- ✅ **gameobjects/text** - GetTextSize.ts, MeasureText.ts
 
 ---
 
@@ -115,12 +113,15 @@ The Phaser source code is located inside the `src/phaser` folder.
 
 ### Scripts Created
 
-1. **check-folder-mixins.ts** - Verify if a folder has Mixins before converting
-2. **validate-js-syntax.ts** - Validate JS syntax with Acorn parser
-3. **convert-class-syntax.ts** - Convert `new Class()` to ES6 with automatic backups in `temp/`
-4. **ts-js-stats.ts** - Updated to ignore `typedefs/` folders
-5. **validate-imports-smart.ts** - Validate import compatibility
-6. **analyze-js-files.ts** - Analyze which files are convertible
+1. **analyze-class-usage.ts** - Find all files still using Class.js system
+2. **check-folder-mixins.ts** - Verify if a folder has Mixins before converting
+3. **compare-with-original.ts** - Check for missing files vs original source
+4. **convert-class-syntax.ts** - Convert `new Class()` to ES6 with automatic backups in `temp/`
+5. **find-todos.ts** - Find all TODO comments in the project ✨
+6. **ts-js-stats.ts** - Generate conversion statistics
+7. **validate-imports-smart.ts** - Validate import compatibility
+8. **validate-js-syntax.ts** - Validate JS syntax with Acorn parser
+9. **validate-ts-syntax.ts** - Validate TypeScript syntax
 
 ### Conversion Workflow
 
@@ -180,23 +181,24 @@ var Sprite = new Class({
 
 ## 🎯 Key Achievements
 
-- **52.55%** of the codebase converted to TypeScript
-- **8 complete folders** ready for production use
+- **71%** of the codebase converted to TypeScript
+- **20 complete folders** ready for production use
 - **Modern ES6+ syntax** with tree-shaking support
 - **Named exports** for optimal bundle size
 - **Zero import compatibility errors**
 - **Backup system** for safe conversions
+- **1,173 TypeScript files** converted and validated
 
 ---
 
 ## 🚀 Next Steps
 
 Recommended folders for conversion:
-1. **polyfills** (10 files) - Simple functions, 0% risk
-2. **plugins** (6 files) - Small folder
-3. Complete **utils** (only 3 files left)
-4. Complete **math** (12 files left)
-5. Complete **geom** (17 files left)
+1. **structs** (40%) - 6 files remaining (ProcessQueue, Map, Set, Size, List)
+2. **data** (78%) - 2 files remaining (DataManagerPlugin, DataManager)
+3. **sound** (77%) - 8 files remaining (BaseSound, HTML5Audio, WebAudio, etc.)
+4. **animations** (71%) - 5 files remaining
+5. Complete **gameobjects** (27%) - Many files remaining (shapes, sprites, etc.)
 
 ---
 
