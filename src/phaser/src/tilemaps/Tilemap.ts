@@ -4,24 +4,21 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { DegToRad } from '../math/DegToRad';
 import { GetFastValue } from '../utils/object/GetFastValue';
 import { Rotate } from '../math/Rotate';
 import { SpliceOne } from '../utils/array/SpliceOne';
 
 import { BuildTilesetIndex } from './parsers/tiled/BuildTilesetIndex';
-var Class = require('../utils/Class');
 import * as Formats from './Formats';
 import { LayerData } from './mapdata/LayerData';
-var ObjectHelper = require('./ObjectHelper');
+import { ObjectHelper } from './ObjectHelper';
 import * as ORIENTATION from './const/ORIENTATION_CONST';
 import { Sprite } from '../gameobjects/sprite/Sprite';
-var Tile = require('./Tile');
-var TilemapComponents = require('./components');
+import { Tile } from './Tile';
+const TilemapComponents = require('./components');
 import { TilemapLayer } from './TilemapLayer';
-var Tileset = require('./Tileset');
+import { Tileset } from './Tileset';
 
 /**
  * A predicate, to test each element of the array.
@@ -102,12 +99,10 @@ var Tileset = require('./Tileset');
  * @param {Phaser.Scene} scene - The Scene to which this Tilemap belongs.
  * @param {Phaser.Tilemaps.MapData} mapData - A MapData instance containing Tilemap data.
  */
-var Tilemap = new Class({
+export class Tilemap {
 
-    initialize:
-
-        function Tilemap (scene, mapData)
-        {
+    constructor(scene: any, mapData: any)
+    {
             /**
              * @name Phaser.Tilemaps.Tilemap#scene
              * @type {Phaser.Scene}
@@ -322,7 +317,7 @@ var Tilemap = new Class({
                 TileToWorldY: TilemapComponents.GetTileToWorldYFunction(orientation),
                 GetTileCorners: TilemapComponents.GetTileCornersFunction(orientation)
             };
-        },
+    }
 
     /**
      * Sets the rendering (draw) order of the tiles in this map.
@@ -353,7 +348,7 @@ var Tilemap = new Class({
      *
      * @return {this} This Tilemap object.
      */
-    setRenderOrder: function (renderOrder)
+    setRenderOrder(renderOrder)
     {
         var orders = [ 'right-down', 'left-down', 'right-up', 'left-up' ];
 
@@ -368,7 +363,7 @@ var Tilemap = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Adds an image to the map to be used as a tileset. A single map may use multiple tilesets.
@@ -399,7 +394,7 @@ var Tilemap = new Class({
      * @return {?Phaser.Tilemaps.Tileset} Returns the Tileset object that was created or updated, or null if it
      * failed.
      */
-    addTilesetImage: function (tilesetName, key, tileWidth, tileHeight, tileMargin, tileSpacing, gid, tileOffset)
+    addTilesetImage(tilesetName, key, tileWidth, tileHeight, tileMargin, tileSpacing, gid, tileOffset)
     {
         if (tilesetName === undefined) { return null; }
         if (key === undefined || key === null) { key = tilesetName; }
@@ -457,7 +452,7 @@ var Tilemap = new Class({
         this.tiles = BuildTilesetIndex(this);
 
         return tileset;
-    },
+    }
 
     /**
      * Copies the tiles in the source rectangular area to a new destination (all specified in tile
@@ -480,7 +475,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Returns this, or null if the layer given was invalid.
      */
-    copy: function (srcTileX, srcTileY, width, height, destTileX, destTileY, recalculateFaces, layer)
+    copy(srcTileX, srcTileY, width, height, destTileX, destTileY, recalculateFaces, layer)
     {
         layer = this.getLayer(layer);
 
@@ -499,7 +494,7 @@ var Tilemap = new Class({
         {
             return null;
         }
-    },
+    }
 
     /**
      * Creates a new and empty Tilemap Layer. The currently selected layer in the map is set to this new layer.
@@ -520,7 +515,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.TilemapLayer} Returns the new layer that was created, or `null` if it failed.
      */
-    createBlankLayer: function (name, tileset, x, y, width, height, tileWidth, tileHeight)
+    createBlankLayer(name, tileset, x, y, width, height, tileWidth, tileHeight)
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
@@ -572,7 +567,7 @@ var Tilemap = new Class({
         this.scene.sys.displayList.add(layer);
 
         return layer;
-    },
+    }
 
     /**
      * Creates a new Tilemap Layer that renders the LayerData associated with the given
@@ -594,7 +589,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.TilemapLayer} Returns the new layer was created, or null if it failed.
      */
-    createLayer: function (layerID, tileset, x, y)
+    createLayer(layerID, tileset, x, y)
     {
         var index = this.getLayerIndex(layerID);
 
@@ -640,7 +635,7 @@ var Tilemap = new Class({
         this.scene.sys.displayList.add(layer);
 
         return layer;
-    },
+    }
 
     /**
      * This method will iterate through all of the objects defined in a Tiled Object Layer and then
@@ -784,7 +779,7 @@ var Tilemap = new Class({
      *
      * @return {Phaser.GameObjects.GameObject[]} An array containing the Game Objects that were created. Empty if invalid object layer, or no matching id/gid/name was found.
      */
-    createFromObjects: function (objectLayerName, config, useTileset)
+    createFromObjects(objectLayerName, config, useTileset)
     {
         if (useTileset === undefined) { useTileset = true; }
 
@@ -924,7 +919,7 @@ var Tilemap = new Class({
         }
 
         return results;
-    },
+    }
 
     /**
      * Creates a Sprite for every tile matching the given tile indexes in the layer. You can
@@ -962,14 +957,14 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.GameObjects.Sprite[]} Returns an array of Tiles, or null if the layer given was invalid.
      */
-    createFromTiles: function (indexes, replacements, spriteConfig, scene, camera, layer)
+    createFromTiles(indexes, replacements, spriteConfig, scene, camera, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return TilemapComponents.CreateFromTiles(indexes, replacements, spriteConfig, scene, camera, layer);
-    },
+    }
 
     /**
      * Sets the tiles in the given rectangular area (in tile coordinates) of the layer with the
@@ -992,7 +987,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Returns this, or null if the layer given was invalid.
      */
-    fill: function (index, tileX, tileY, width, height, recalculateFaces, layer)
+    fill(index, tileX, tileY, width, height, recalculateFaces, layer)
     {
         if (recalculateFaces === undefined) { recalculateFaces = true; }
 
@@ -1003,7 +998,7 @@ var Tilemap = new Class({
         TilemapComponents.Fill(index, tileX, tileY, width, height, recalculateFaces, layer);
 
         return this;
-    },
+    }
 
     /**
      * For each object in the given object layer, run the given filter callback function. Any
@@ -1019,7 +1014,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Types.Tilemaps.TiledObject[]} An array of object that match the search, or null if the objectLayer given was invalid.
      */
-    filterObjects: function (objectLayer, callback, context)
+    filterObjects(objectLayer, callback, context)
     {
         if (typeof objectLayer === 'string')
         {
@@ -1035,7 +1030,7 @@ var Tilemap = new Class({
         }
 
         return objectLayer.objects.filter(callback, context);
-    },
+    }
 
     /**
      * For each tile in the given rectangular area (in tile coordinates) of the layer, run the given
@@ -1059,14 +1054,14 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tile[]} Returns an array of Tiles, or null if the layer given was invalid.
      */
-    filterTiles: function (callback, context, tileX, tileY, width, height, filteringOptions, layer)
+    filterTiles(callback, context, tileX, tileY, width, height, filteringOptions, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return TilemapComponents.FilterTiles(callback, context, tileX, tileY, width, height, filteringOptions, layer);
-    },
+    }
 
     /**
      * Searches the entire map layer for the first tile matching the given index, then returns that Tile
@@ -1086,14 +1081,14 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tile} Returns a Tiles, or null if the layer given was invalid.
      */
-    findByIndex: function (findIndex, skip, reverse, layer)
+    findByIndex(findIndex, skip, reverse, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return TilemapComponents.FindByIndex(findIndex, skip, reverse, layer);
-    },
+    }
 
     /**
      * Find the first object in the given object layer that satisfies the provided testing function.
@@ -1109,7 +1104,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Types.Tilemaps.TiledObject} An object that matches the search, or null if no object found.
      */
-    findObject: function (objectLayer, callback, context)
+    findObject(objectLayer, callback, context)
     {
         if (typeof objectLayer === 'string')
         {
@@ -1125,7 +1120,7 @@ var Tilemap = new Class({
         }
 
         return objectLayer.objects.find(callback, context) || null;
-    },
+    }
 
     /**
      * Find the first tile in the given rectangular area (in tile coordinates) of the layer that
@@ -1147,14 +1142,14 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tile} Returns a Tiles, or null if the layer given was invalid.
      */
-    findTile: function (callback, context, tileX, tileY, width, height, filteringOptions, layer)
+    findTile(callback, context, tileX, tileY, width, height, filteringOptions, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return TilemapComponents.FindTile(callback, context, tileX, tileY, width, height, filteringOptions, layer);
-    },
+    }
 
     /**
      * For each tile in the given rectangular area (in tile coordinates) of the layer, run the given
@@ -1176,7 +1171,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Returns this, or null if the layer given was invalid.
      */
-    forEachTile: function (callback, context, tileX, tileY, width, height, filteringOptions, layer)
+    forEachTile(callback, context, tileX, tileY, width, height, filteringOptions, layer)
     {
         layer = this.getLayer(layer);
 
@@ -1185,7 +1180,7 @@ var Tilemap = new Class({
         TilemapComponents.ForEachTile(callback, context, tileX, tileY, width, height, filteringOptions, layer);
 
         return this;
-    },
+    }
 
     /**
      * Gets the image layer index based on its name.
@@ -1197,10 +1192,10 @@ var Tilemap = new Class({
      *
      * @return {number} The index of the image in this tilemap, or null if not found.
      */
-    getImageIndex: function (name)
+    getImageIndex(name)
     {
         return this.getIndex(this.images, name);
-    },
+    }
 
     /**
      * Return a list of all valid imagelayer names loaded in this Tilemap.
@@ -1210,7 +1205,7 @@ var Tilemap = new Class({
      *
      * @return {string[]} Array of valid imagelayer names / IDs loaded into this Tilemap.
      */
-    getImageLayerNames: function ()
+    getImageLayerNames()
     {
         if (!this.images || !Array.isArray(this.images))
         {
@@ -1221,7 +1216,7 @@ var Tilemap = new Class({
         {
             return image.name;
         });
-    },
+    }
 
     /**
      * Internally used. Returns the index of the object in one of the Tilemaps arrays whose name
@@ -1235,7 +1230,7 @@ var Tilemap = new Class({
      *
      * @return {number} The index of the element in the array, or null if not found.
      */
-    getIndex: function (location, name)
+    getIndex(location, name)
     {
         for (var i = 0; i < location.length; i++)
         {
@@ -1246,7 +1241,7 @@ var Tilemap = new Class({
         }
 
         return null;
-    },
+    }
 
     /**
      * Gets the LayerData from `this.layers` that is associated with the given `layer`, or null if the layer is invalid.
@@ -1258,12 +1253,12 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.LayerData} The corresponding `LayerData` within `this.layers`, or null.
      */
-    getLayer: function (layer)
+    getLayer(layer)
     {
         var index = this.getLayerIndex(layer);
 
         return (index !== null) ? this.layers[ index ] : null;
-    },
+    }
 
     /**
      * Gets the ObjectLayer from `this.objects` that has the given `name`, or null if no ObjectLayer is found with that name.
@@ -1275,12 +1270,12 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.ObjectLayer} The corresponding `ObjectLayer` within `this.objects`, or null.
      */
-    getObjectLayer: function (name)
+    getObjectLayer(name)
     {
         var index = this.getIndex(this.objects, name);
 
         return (index !== null) ? this.objects[ index ] : null;
-    },
+    }
 
     /**
      * Return a list of all valid objectgroup names loaded in this Tilemap.
@@ -1290,7 +1285,7 @@ var Tilemap = new Class({
      *
      * @return {string[]} Array of valid objectgroup names / IDs loaded into this Tilemap.
      */
-    getObjectLayerNames: function ()
+    getObjectLayerNames()
     {
         if (!this.objects || !Array.isArray(this.objects))
         {
@@ -1301,7 +1296,7 @@ var Tilemap = new Class({
         {
             return object.name;
         });
-    },
+    }
 
     /**
      * Gets the LayerData index of the given `layer` within this.layers, or null if an invalid
@@ -1314,7 +1309,7 @@ var Tilemap = new Class({
      *
      * @return {number} The LayerData index within this.layers.
      */
-    getLayerIndex: function (layer)
+    getLayerIndex(layer)
     {
         if (layer === undefined)
         {
@@ -1336,7 +1331,7 @@ var Tilemap = new Class({
         {
             return null;
         }
-    },
+    }
 
     /**
      * Gets the index of the LayerData within this.layers that has the given `name`, or null if an
@@ -1349,10 +1344,10 @@ var Tilemap = new Class({
      *
      * @return {number} The LayerData index within this.layers.
      */
-    getLayerIndexByName: function (name)
+    getLayerIndexByName(name)
     {
         return this.getIndex(this.layers, name);
-    },
+    }
 
     /**
      * Gets a tile at the given tile coordinates from the given layer.
@@ -1369,14 +1364,14 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tile} Returns a Tile, or null if the layer given was invalid.
      */
-    getTileAt: function (tileX, tileY, nonNull, layer)
+    getTileAt(tileX, tileY, nonNull, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return TilemapComponents.GetTileAt(tileX, tileY, nonNull, layer);
-    },
+    }
 
     /**
      * Gets a tile at the given world coordinates from the given layer.
@@ -1394,14 +1389,14 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tile} Returns a Tile, or null if the layer given was invalid.
      */
-    getTileAtWorldXY: function (worldX, worldY, nonNull, camera, layer)
+    getTileAtWorldXY(worldX, worldY, nonNull, camera, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return TilemapComponents.GetTileAtWorldXY(worldX, worldY, nonNull, camera, layer);
-    },
+    }
 
     /**
      * Return a list of all valid tilelayer names loaded in this Tilemap.
@@ -1411,7 +1406,7 @@ var Tilemap = new Class({
      *
      * @return {string[]} Array of valid tilelayer names / IDs loaded into this Tilemap.
      */
-    getTileLayerNames: function ()
+    getTileLayerNames()
     {
         if (!this.layers || !Array.isArray(this.layers))
         {
@@ -1422,7 +1417,7 @@ var Tilemap = new Class({
         {
             return layer.name;
         });
-    },
+    }
 
     /**
      * Gets the tiles in the given rectangular area (in tile coordinates) of the layer.
@@ -1441,14 +1436,14 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tile[]} Returns an array of Tiles, or null if the layer given was invalid.
      */
-    getTilesWithin: function (tileX, tileY, width, height, filteringOptions, layer)
+    getTilesWithin(tileX, tileY, width, height, filteringOptions, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return TilemapComponents.GetTilesWithin(tileX, tileY, width, height, filteringOptions, layer);
-    },
+    }
 
     /**
      * Gets the tiles that overlap with the given shape in the given layer. The shape must be a Circle,
@@ -1466,14 +1461,14 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tile[]} Returns an array of Tiles, or null if the layer given was invalid.
      */
-    getTilesWithinShape: function (shape, filteringOptions, camera, layer)
+    getTilesWithinShape(shape, filteringOptions, camera, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return TilemapComponents.GetTilesWithinShape(shape, filteringOptions, camera, layer);
-    },
+    }
 
     /**
      * Gets the tiles in the given rectangular area (in world coordinates) of the layer.
@@ -1493,14 +1488,14 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tile[]} Returns an array of Tiles, or null if the layer given was invalid.
      */
-    getTilesWithinWorldXY: function (worldX, worldY, width, height, filteringOptions, camera, layer)
+    getTilesWithinWorldXY(worldX, worldY, width, height, filteringOptions, camera, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return TilemapComponents.GetTilesWithinWorldXY(worldX, worldY, width, height, filteringOptions, camera, layer);
-    },
+    }
 
     /**
      * Gets the Tileset that has the given `name`, or null if an invalid `name` is given.
@@ -1512,12 +1507,12 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tileset} The Tileset, or `null` if no matching named tileset was found.
      */
-    getTileset: function (name)
+    getTileset(name)
     {
         var index = this.getIndex(this.tilesets, name);
 
         return (index !== null) ? this.tilesets[ index ] : null;
-    },
+    }
 
     /**
      * Gets the index of the Tileset within this.tilesets that has the given `name`, or null if an
@@ -1530,10 +1525,10 @@ var Tilemap = new Class({
      *
      * @return {number} The Tileset index within this.tilesets.
      */
-    getTilesetIndex: function (name)
+    getTilesetIndex(name)
     {
         return this.getIndex(this.tilesets, name);
-    },
+    }
 
     /**
      * Checks if there is a tile at the given location (in tile coordinates) in the given layer. Returns
@@ -1550,14 +1545,14 @@ var Tilemap = new Class({
      *
      * @return {?boolean} Returns a boolean, or null if the layer given was invalid.
      */
-    hasTileAt: function (tileX, tileY, layer)
+    hasTileAt(tileX, tileY, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return TilemapComponents.HasTileAt(tileX, tileY, layer);
-    },
+    }
 
     /**
      * Checks if there is a tile at the given location (in world coordinates) in the given layer. Returns
@@ -1575,14 +1570,14 @@ var Tilemap = new Class({
      *
      * @return {?boolean} Returns a boolean, or null if the layer given was invalid.
      */
-    hasTileAtWorldXY: function (worldX, worldY, camera, layer)
+    hasTileAtWorldXY(worldX, worldY, camera, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return TilemapComponents.HasTileAtWorldXY(worldX, worldY, camera, layer);
-    },
+    }
 
     /**
      * The LayerData object that is currently selected in the map. You can set this property using
@@ -1592,17 +1587,16 @@ var Tilemap = new Class({
      * @type {Phaser.Tilemaps.LayerData}
      * @since 3.0.0
      */
-    layer: {
-        get: function ()
-        {
-            return this.layers[ this.currentLayerIndex ];
-        },
 
-        set: function (layer)
-        {
-            this.setLayer(layer);
-        }
-    },
+    get layer()
+    {
+        return this.layers[ this.currentLayerIndex ];
+    }
+
+    set layer(layer)
+    {
+        this.setLayer(layer);
+    }
 
     /**
      * Puts a tile at the given tile coordinates in the specified layer. You can pass in either an index
@@ -1623,7 +1617,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tile} Returns a Tile, or null if the layer given was invalid or the coordinates were out of bounds.
      */
-    putTileAt: function (tile, tileX, tileY, recalculateFaces, layer)
+    putTileAt(tile, tileX, tileY, recalculateFaces, layer)
     {
         if (recalculateFaces === undefined) { recalculateFaces = true; }
 
@@ -1632,7 +1626,7 @@ var Tilemap = new Class({
         if (layer === null) { return null; }
 
         return TilemapComponents.PutTileAt(tile, tileX, tileY, recalculateFaces, layer);
-    },
+    }
 
     /**
      * Puts a tile at the given world coordinates (pixels) in the specified layer. You can pass in either
@@ -1654,7 +1648,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tile} Returns a Tile, or null if the layer given was invalid.
      */
-    putTileAtWorldXY: function (tile, worldX, worldY, recalculateFaces, camera, layer)
+    putTileAtWorldXY(tile, worldX, worldY, recalculateFaces, camera, layer)
     {
         if (recalculateFaces === undefined) { recalculateFaces = true; }
 
@@ -1663,7 +1657,7 @@ var Tilemap = new Class({
         if (layer === null) { return null; }
 
         return TilemapComponents.PutTileAtWorldXY(tile, worldX, worldY, recalculateFaces, camera, layer);
-    },
+    }
 
     /**
      * Puts an array of tiles or a 2D array of tiles at the given tile coordinates in the specified
@@ -1685,7 +1679,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Returns this, or null if the layer given was invalid.
      */
-    putTilesAt: function (tilesArray, tileX, tileY, recalculateFaces, layer)
+    putTilesAt(tilesArray, tileX, tileY, recalculateFaces, layer)
     {
         if (recalculateFaces === undefined) { recalculateFaces = true; }
 
@@ -1696,7 +1690,7 @@ var Tilemap = new Class({
         TilemapComponents.PutTilesAt(tilesArray, tileX, tileY, recalculateFaces, layer);
 
         return this;
-    },
+    }
 
     /**
      * Randomizes the indexes of a rectangular region of tiles (in tile coordinates) within the
@@ -1719,7 +1713,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Returns this, or null if the layer given was invalid.
      */
-    randomize: function (tileX, tileY, width, height, indexes, layer)
+    randomize(tileX, tileY, width, height, indexes, layer)
     {
         layer = this.getLayer(layer);
 
@@ -1728,7 +1722,7 @@ var Tilemap = new Class({
         TilemapComponents.Randomize(tileX, tileY, width, height, indexes, layer);
 
         return this;
-    },
+    }
 
     /**
      * Calculates interesting faces at the given tile coordinates of the specified layer. Interesting
@@ -1746,7 +1740,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Returns this, or null if the layer given was invalid.
      */
-    calculateFacesAt: function (tileX, tileY, layer)
+    calculateFacesAt(tileX, tileY, layer)
     {
         layer = this.getLayer(layer);
 
@@ -1755,7 +1749,7 @@ var Tilemap = new Class({
         TilemapComponents.CalculateFacesAt(tileX, tileY, layer);
 
         return this;
-    },
+    }
 
     /**
      * Calculates interesting faces within the rectangular area specified (in tile coordinates) of the
@@ -1775,7 +1769,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Returns this, or null if the layer given was invalid.
      */
-    calculateFacesWithin: function (tileX, tileY, width, height, layer)
+    calculateFacesWithin(tileX, tileY, width, height, layer)
     {
         layer = this.getLayer(layer);
 
@@ -1784,7 +1778,7 @@ var Tilemap = new Class({
         TilemapComponents.CalculateFacesWithin(tileX, tileY, width, height, layer);
 
         return this;
-    },
+    }
 
     /**
      * Removes the given TilemapLayer from this Tilemap without destroying it.
@@ -1798,7 +1792,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Returns this, or null if the layer given was invalid.
      */
-    removeLayer: function (layer)
+    removeLayer(layer)
     {
         var index = this.getLayerIndex(layer);
 
@@ -1825,7 +1819,7 @@ var Tilemap = new Class({
         {
             return null;
         }
-    },
+    }
 
     /**
      * Destroys the given TilemapLayer and removes it from this Tilemap.
@@ -1839,7 +1833,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Returns this, or null if the layer given was invalid.
      */
-    destroyLayer: function (layer)
+    destroyLayer(layer)
     {
         var index = this.getLayerIndex(layer);
 
@@ -1862,7 +1856,7 @@ var Tilemap = new Class({
         {
             return null;
         }
-    },
+    }
 
     /**
      * Removes all Tilemap Layers from this Tilemap and calls `destroy` on each of them.
@@ -1872,7 +1866,7 @@ var Tilemap = new Class({
      *
      * @return {this} This Tilemap object.
      */
-    removeAllLayers: function ()
+    removeAllLayers()
     {
         var layers = this.layers;
 
@@ -1889,7 +1883,7 @@ var Tilemap = new Class({
         this.currentLayerIndex = 0;
 
         return this;
-    },
+    }
 
     /**
      * Removes the given Tile, or an array of Tiles, from the layer to which they belong,
@@ -1904,7 +1898,7 @@ var Tilemap = new Class({
      *
      * @return {Phaser.Tilemaps.Tile[]} Returns an array of Tiles that were removed.
      */
-    removeTile: function (tiles, replaceIndex, recalculateFaces)
+    removeTile(tiles, replaceIndex, recalculateFaces)
     {
         if (replaceIndex === undefined) { replaceIndex = -1; }
         if (recalculateFaces === undefined) { recalculateFaces = true; }
@@ -1929,7 +1923,7 @@ var Tilemap = new Class({
         }
 
         return removed;
-    },
+    }
 
     /**
      * Removes the tile at the given tile coordinates in the specified layer and updates the layers collision information.
@@ -1947,7 +1941,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tile} Returns the Tile that was removed, or null if the layer given was invalid.
      */
-    removeTileAt: function (tileX, tileY, replaceWithNull, recalculateFaces, layer)
+    removeTileAt(tileX, tileY, replaceWithNull, recalculateFaces, layer)
     {
         if (replaceWithNull === undefined) { replaceWithNull = true; }
         if (recalculateFaces === undefined) { recalculateFaces = true; }
@@ -1957,7 +1951,7 @@ var Tilemap = new Class({
         if (layer === null) { return null; }
 
         return TilemapComponents.RemoveTileAt(tileX, tileY, replaceWithNull, recalculateFaces, layer);
-    },
+    }
 
     /**
      * Removes the tile at the given world coordinates in the specified layer and updates the layers collision information.
@@ -1976,7 +1970,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tile} Returns a Tile, or null if the layer given was invalid.
      */
-    removeTileAtWorldXY: function (worldX, worldY, replaceWithNull, recalculateFaces, camera, layer)
+    removeTileAtWorldXY(worldX, worldY, replaceWithNull, recalculateFaces, camera, layer)
     {
         if (replaceWithNull === undefined) { replaceWithNull = true; }
         if (recalculateFaces === undefined) { recalculateFaces = true; }
@@ -1986,7 +1980,7 @@ var Tilemap = new Class({
         if (layer === null) { return null; }
 
         return TilemapComponents.RemoveTileAtWorldXY(worldX, worldY, replaceWithNull, recalculateFaces, camera, layer);
-    },
+    }
 
     /**
      * Draws a debug representation of the layer to the given Graphics object. This is helpful when you want to
@@ -2007,7 +2001,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Return this Tilemap object, or null if the layer given was invalid.
      */
-    renderDebug: function (graphics, styleConfig, layer)
+    renderDebug(graphics, styleConfig, layer)
     {
         layer = this.getLayer(layer);
 
@@ -2019,7 +2013,7 @@ var Tilemap = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Draws a debug representation of all layers within this Tilemap to the given Graphics object.
@@ -2036,7 +2030,7 @@ var Tilemap = new Class({
      *
      * @return {this} This Tilemap instance.
      */
-    renderDebugFull: function (graphics, styleConfig)
+    renderDebugFull(graphics, styleConfig)
     {
         var layers = this.layers;
 
@@ -2046,7 +2040,7 @@ var Tilemap = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Scans the given rectangular area (given in tile coordinates) for tiles with an index matching
@@ -2068,7 +2062,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Return this Tilemap object, or null if the layer given was invalid.
      */
-    replaceByIndex: function (findIndex, newIndex, tileX, tileY, width, height, layer)
+    replaceByIndex(findIndex, newIndex, tileX, tileY, width, height, layer)
     {
         layer = this.getLayer(layer);
 
@@ -2077,7 +2071,7 @@ var Tilemap = new Class({
         TilemapComponents.ReplaceByIndex(findIndex, newIndex, tileX, tileY, width, height, layer);
 
         return this;
-    },
+    }
 
     /**
      * Sets collision on the given tile or tiles within a layer by index. You can pass in either a
@@ -2097,7 +2091,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Return this Tilemap object, or null if the layer given was invalid.
      */
-    setCollision: function (indexes, collides, recalculateFaces, layer, updateLayer)
+    setCollision(indexes, collides, recalculateFaces, layer, updateLayer)
     {
         if (collides === undefined) { collides = true; }
         if (recalculateFaces === undefined) { recalculateFaces = true; }
@@ -2110,7 +2104,7 @@ var Tilemap = new Class({
         TilemapComponents.SetCollision(indexes, collides, recalculateFaces, layer, updateLayer);
 
         return this;
-    },
+    }
 
     /**
      * Sets collision on a range of tiles in a layer whose index is between the specified `start` and
@@ -2131,7 +2125,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Return this Tilemap object, or null if the layer given was invalid.
      */
-    setCollisionBetween: function (start, stop, collides, recalculateFaces, layer)
+    setCollisionBetween(start, stop, collides, recalculateFaces, layer)
     {
         if (collides === undefined) { collides = true; }
         if (recalculateFaces === undefined) { recalculateFaces = true; }
@@ -2143,7 +2137,7 @@ var Tilemap = new Class({
         TilemapComponents.SetCollisionBetween(start, stop, collides, recalculateFaces, layer);
 
         return this;
-    },
+    }
 
     /**
      * Sets collision on the tiles within a layer by checking tile properties. If a tile has a property
@@ -2166,7 +2160,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Return this Tilemap object, or null if the layer given was invalid.
      */
-    setCollisionByProperty: function (properties, collides, recalculateFaces, layer)
+    setCollisionByProperty(properties, collides, recalculateFaces, layer)
     {
         if (collides === undefined) { collides = true; }
         if (recalculateFaces === undefined) { recalculateFaces = true; }
@@ -2178,7 +2172,7 @@ var Tilemap = new Class({
         TilemapComponents.SetCollisionByProperty(properties, collides, recalculateFaces, layer);
 
         return this;
-    },
+    }
 
     /**
      * Sets collision on all tiles in the given layer, except for tiles that have an index specified in
@@ -2197,7 +2191,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Return this Tilemap object, or null if the layer given was invalid.
      */
-    setCollisionByExclusion: function (indexes, collides, recalculateFaces, layer)
+    setCollisionByExclusion(indexes, collides, recalculateFaces, layer)
     {
         if (collides === undefined) { collides = true; }
         if (recalculateFaces === undefined) { recalculateFaces = true; }
@@ -2209,7 +2203,7 @@ var Tilemap = new Class({
         TilemapComponents.SetCollisionByExclusion(indexes, collides, recalculateFaces, layer);
 
         return this;
-    },
+    }
 
     /**
      * Sets collision on the tiles within a layer by checking each tiles collision group data
@@ -2228,7 +2222,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Return this Tilemap object, or null if the layer given was invalid.
      */
-    setCollisionFromCollisionGroup: function (collides, recalculateFaces, layer)
+    setCollisionFromCollisionGroup(collides, recalculateFaces, layer)
     {
         if (collides === undefined) { collides = true; }
         if (recalculateFaces === undefined) { recalculateFaces = true; }
@@ -2240,7 +2234,7 @@ var Tilemap = new Class({
         TilemapComponents.SetCollisionFromCollisionGroup(collides, recalculateFaces, layer);
 
         return this;
-    },
+    }
 
     /**
      * Sets a global collision callback for the given tile index within the layer. This will affect all
@@ -2260,7 +2254,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Return this Tilemap object, or null if the layer given was invalid.
      */
-    setTileIndexCallback: function (indexes, callback, callbackContext, layer)
+    setTileIndexCallback(indexes, callback, callbackContext, layer)
     {
         layer = this.getLayer(layer);
 
@@ -2269,7 +2263,7 @@ var Tilemap = new Class({
         TilemapComponents.SetTileIndexCallback(indexes, callback, callbackContext, layer);
 
         return this;
-    },
+    }
 
     /**
      * Sets a collision callback for the given rectangular area (in tile coordinates) within the layer.
@@ -2291,7 +2285,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Return this Tilemap object, or null if the layer given was invalid.
      */
-    setTileLocationCallback: function (tileX, tileY, width, height, callback, callbackContext, layer)
+    setTileLocationCallback(tileX, tileY, width, height, callback, callbackContext, layer)
     {
         layer = this.getLayer(layer);
 
@@ -2300,7 +2294,7 @@ var Tilemap = new Class({
         TilemapComponents.SetTileLocationCallback(tileX, tileY, width, height, callback, callbackContext, layer);
 
         return this;
-    },
+    }
 
     /**
      * Sets the current layer to the LayerData associated with `layer`.
@@ -2312,7 +2306,7 @@ var Tilemap = new Class({
      *
      * @return {this} This Tilemap object.
      */
-    setLayer: function (layer)
+    setLayer(layer)
     {
         var index = this.getLayerIndex(layer);
 
@@ -2322,7 +2316,7 @@ var Tilemap = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Sets the base tile size for the map. Note: this does not necessarily match the tileWidth and
@@ -2336,7 +2330,7 @@ var Tilemap = new Class({
      *
      * @return {this} This Tilemap object.
      */
-    setBaseTileSize: function (tileWidth, tileHeight)
+    setBaseTileSize(tileWidth, tileHeight)
     {
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
@@ -2368,7 +2362,7 @@ var Tilemap = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Sets the tile size for a specific `layer`. Note: this does not necessarily match the maps
@@ -2384,7 +2378,7 @@ var Tilemap = new Class({
      *
      * @return {this} This Tilemap object.
      */
-    setLayerTileSize: function (tileWidth, tileHeight, layer)
+    setLayerTileSize(tileWidth, tileHeight, layer)
     {
         layer = this.getLayer(layer);
 
@@ -2411,7 +2405,7 @@ var Tilemap = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Shuffles the tiles in a rectangular region (specified in tile coordinates) within the given
@@ -2432,7 +2426,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Return this Tilemap object, or null if the layer given was invalid.
      */
-    shuffle: function (tileX, tileY, width, height, layer)
+    shuffle(tileX, tileY, width, height, layer)
     {
         layer = this.getLayer(layer);
 
@@ -2441,7 +2435,7 @@ var Tilemap = new Class({
         TilemapComponents.Shuffle(tileX, tileY, width, height, layer);
 
         return this;
-    },
+    }
 
     /**
      * Scans the given rectangular area (given in tile coordinates) for tiles with an index matching
@@ -2463,7 +2457,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Return this Tilemap object, or null if the layer given was invalid.
      */
-    swapByIndex: function (indexA, indexB, tileX, tileY, width, height, layer)
+    swapByIndex(indexA, indexB, tileX, tileY, width, height, layer)
     {
         layer = this.getLayer(layer);
 
@@ -2472,7 +2466,7 @@ var Tilemap = new Class({
         TilemapComponents.SwapByIndex(indexA, indexB, tileX, tileY, width, height, layer);
 
         return this;
-    },
+    }
 
     /**
      * Converts from tile X coordinates (tile units) to world X coordinates (pixels), factoring in the
@@ -2489,14 +2483,14 @@ var Tilemap = new Class({
      *
      * @return {?number} Returns a number, or null if the layer given was invalid.
      */
-    tileToWorldX: function (tileX, camera, layer)
+    tileToWorldX(tileX, camera, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return this._convert.TileToWorldX(tileX, camera, layer);
-    },
+    }
 
     /**
      * Converts from tile Y coordinates (tile units) to world Y coordinates (pixels), factoring in the
@@ -2513,14 +2507,14 @@ var Tilemap = new Class({
      *
      * @return {?number} Returns a number, or null if the layer given was invalid.
      */
-    tileToWorldY: function (tileY, camera, layer)
+    tileToWorldY(tileY, camera, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return this._convert.TileToWorldY(tileY, camera, layer);
-    },
+    }
 
     /**
      * Converts from tile XY coordinates (tile units) to world XY coordinates (pixels), factoring in the
@@ -2540,14 +2534,14 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Math.Vector2} Returns a Vector2, or null if the layer given was invalid.
      */
-    tileToWorldXY: function (tileX, tileY, vec2, camera, layer)
+    tileToWorldXY(tileX, tileY, vec2, camera, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return this._convert.TileToWorldXY(tileX, tileY, vec2, camera, layer);
-    },
+    }
 
     /**
      * Returns an array of Vector2s where each entry corresponds to the corner of the requested tile.
@@ -2573,14 +2567,14 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Math.Vector2[]} Returns an array of Vector2s, or null if the layer given was invalid.
      */
-    getTileCorners: function (tileX, tileY, camera, layer)
+    getTileCorners(tileX, tileY, camera, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return this._convert.GetTileCorners(tileX, tileY, camera, layer);
-    },
+    }
 
     /**
      * Randomizes the indexes of a rectangular region of tiles (in tile coordinates) within the
@@ -2611,7 +2605,7 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Tilemaps.Tilemap} Return this Tilemap object, or null if the layer given was invalid.
      */
-    weightedRandomize: function (weightedIndexes, tileX, tileY, width, height, layer)
+    weightedRandomize(weightedIndexes, tileX, tileY, width, height, layer)
     {
         layer = this.getLayer(layer);
 
@@ -2620,7 +2614,7 @@ var Tilemap = new Class({
         TilemapComponents.WeightedRandomize(tileX, tileY, width, height, weightedIndexes, layer);
 
         return this;
-    },
+    }
 
     /**
      * Converts from world X coordinates (pixels) to tile X coordinates (tile units), factoring in the
@@ -2642,14 +2636,14 @@ var Tilemap = new Class({
      *
      * @return {?number} Returns a number, or null if the layer given was invalid.
      */
-    worldToTileX: function (worldX, snapToFloor, camera, layer)
+    worldToTileX(worldX, snapToFloor, camera, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return this._convert.WorldToTileX(worldX, snapToFloor, camera, layer);
-    },
+    }
 
     /**
      * Converts from world Y coordinates (pixels) to tile Y coordinates (tile units), factoring in the
@@ -2671,14 +2665,14 @@ var Tilemap = new Class({
      *
      * @return {?number} Returns a number, or null if the layer given was invalid.
      */
-    worldToTileY: function (worldY, snapToFloor, camera, layer)
+    worldToTileY(worldY, snapToFloor, camera, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return this._convert.WorldToTileY(worldY, snapToFloor, camera, layer);
-    },
+    }
 
     /**
      * Converts from world XY coordinates (pixels) to tile XY coordinates (tile units), factoring in the
@@ -2699,14 +2693,14 @@ var Tilemap = new Class({
      *
      * @return {?Phaser.Math.Vector2} Returns a vec2, or null if the layer given was invalid.
      */
-    worldToTileXY: function (worldX, worldY, snapToFloor, vec2, camera, layer)
+    worldToTileXY(worldX, worldY, snapToFloor, vec2, camera, layer)
     {
         layer = this.getLayer(layer);
 
         if (layer === null) { return null; }
 
         return this._convert.WorldToTileXY(worldX, worldY, snapToFloor, vec2, camera, layer);
-    },
+    }
 
     /**
      * Removes all layer data from this Tilemap and nulls the scene reference. This will destroy any
@@ -2715,7 +2709,7 @@ var Tilemap = new Class({
      * @method Phaser.Tilemaps.Tilemap#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy()
     {
         this.removeAllLayers();
 
@@ -2726,6 +2720,6 @@ var Tilemap = new Class({
         this.scene = null;
     }
 
-});
+};
 
 module.exports = Tilemap;

@@ -4,14 +4,17 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { DeepCopy } from '../utils/object/DeepCopy';
 
-var Class = require('../utils/Class');
-var Components = require('../gameobjects/components');
+import { Mixin } from '../utils/MixinTS';
+import { AlphaSingle } from '../gameobjects/components/AlphaSingle';
+import { Flip } from '../gameobjects/components/Flip';
+import { Visible } from '../gameobjects/components/Visible';
+import type { AlphaSingle as IAlphaSingle } from '../gameobjects/components/AlphaSingle';
+import type { Flip as IFlip } from '../gameobjects/components/Flip';
+import type { Visible as IVisible } from '../gameobjects/components/Visible';
 import * as CONST from './const/ORIENTATION_CONST';
-var Rectangle = require('../geom/rectangle');
+const Rectangle = require('../geom/rectangle');
 
 /**
  * @classdesc
@@ -41,17 +44,47 @@ var Rectangle = require('../geom/rectangle');
  * support multiple tileset sizes within one map, but they are still placed at intervals of the
  * base tile height.
  */
-var Tile = new Class({
+export interface Tile extends IAlphaSingle, IFlip, IVisible {}
 
-    Mixins: [
-        Components.AlphaSingle,
-        Components.Flip,
-        Components.Visible
-    ],
+export class Tile {
+    layer: any;
+    index: number;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    right: number;
+    bottom: number;
+    baseWidth: number;
+    baseHeight: number;
+    pixelX: number;
+    pixelY: number;
+    properties: any;
+    rotation: number;
+    collideLeft: boolean;
+    collideRight: boolean;
+    collideUp: boolean;
+    collideDown: boolean;
+    faceLeft: boolean;
+    faceRight: boolean;
+    faceTop: boolean;
+    faceBottom: boolean;
+    collisionCallback: Function | undefined;
+    collisionCallbackContext: any;
+    tint: number;
+    tintFill: boolean;
+    physics: any;
 
-    initialize:
+    static
+    {
+        Mixin(this, [
+            AlphaSingle,
+            Flip,
+            Visible
+        ]);
+    }
 
-    function Tile (layer, index, x, y, width, height, baseWidth, baseHeight)
+    constructor(layer: any, index: number, x: number, y: number, width: number, height: number, baseWidth?: number, baseHeight?: number)
     {
         /**
          * The LayerData in the Tilemap data that this tile belongs to.
@@ -326,7 +359,7 @@ var Tile = new Class({
          * @since 3.0.0
          */
         this.physics = {};
-    },
+    }
 
     /**
      * Check if the given x and y world coordinates are within this Tile. This does not factor in
@@ -340,10 +373,10 @@ var Tile = new Class({
      *
      * @return {boolean} True if the coordinates are within this Tile, otherwise false.
      */
-    containsPoint: function (x, y)
+    containsPoint(x, y)
     {
         return !(x < this.pixelX || y < this.pixelY || x > this.right || y > this.bottom);
-    },
+    }
 
     /**
      * Copies the tile data and properties from the given Tile to this Tile. This copies everything
@@ -356,7 +389,7 @@ var Tile = new Class({
      *
      * @return {this} This Tile object instance.
      */
-    copy: function (tile)
+    copy(tile)
     {
         this.index = tile.index;
         this.alpha = tile.alpha;
@@ -373,7 +406,7 @@ var Tile = new Class({
         this.collisionCallbackContext = tile.collisionCallbackContext;
 
         return this;
-    },
+    }
 
     /**
      * The collision group for this Tile, defined within the Tileset. This returns a reference to
@@ -385,10 +418,10 @@ var Tile = new Class({
      *
      * @return {?object} The collision group for this Tile, as defined in the Tileset, or `null` if no group was defined.
      */
-    getCollisionGroup: function ()
+    getCollisionGroup()
     {
         return this.tileset ? this.tileset.getTileCollisionGroup(this.index) : null;
-    },
+    }
 
     /**
      * The tile data for this Tile, defined within the Tileset. This typically contains Tiled
@@ -401,10 +434,10 @@ var Tile = new Class({
      *
      * @return {?object} The tile data for this Tile, as defined in the Tileset, or `null` if no data was defined.
      */
-    getTileData: function ()
+    getTileData()
     {
         return this.tileset ? this.tileset.getTileData(this.index) : null;
-    },
+    }
 
     /**
      * Gets the world X position of the left side of the tile, factoring in the layers position,
@@ -417,7 +450,7 @@ var Tile = new Class({
      *
      * @return {number} The left (x) value of this tile.
      */
-    getLeft: function (camera)
+    getLeft(camera)
     {
         var tilemapLayer = this.tilemapLayer;
 
@@ -429,7 +462,7 @@ var Tile = new Class({
         }
 
         return this.x * this.baseWidth;
-    },
+    }
 
     /**
      * Gets the world X position of the right side of the tile, factoring in the layer's position,
@@ -442,12 +475,12 @@ var Tile = new Class({
      *
      * @return {number} The right (x) value of this tile.
      */
-    getRight: function (camera)
+    getRight(camera)
     {
         var tilemapLayer = this.tilemapLayer;
 
         return (tilemapLayer) ? this.getLeft(camera) + this.width * tilemapLayer.scaleX : this.getLeft(camera) + this.width;
-    },
+    }
 
     /**
      * Gets the world Y position of the top side of the tile, factoring in the layer's position,
@@ -460,7 +493,7 @@ var Tile = new Class({
      *
      * @return {number} The top (y) value of this tile.
      */
-    getTop: function (camera)
+    getTop(camera)
     {
         var tilemapLayer = this.tilemapLayer;
 
@@ -475,7 +508,7 @@ var Tile = new Class({
         }
 
         return this.y * this.baseWidth - (this.height - this.baseHeight);
-    },
+    }
 
     /**
      * Gets the world Y position of the bottom side of the tile, factoring in the layer's position,
@@ -488,14 +521,14 @@ var Tile = new Class({
      *
      * @return {number} The bottom (y) value of this tile.
      */
-    getBottom: function (camera)
+    getBottom(camera)
     {
         var tilemapLayer = this.tilemapLayer;
 
         return tilemapLayer
             ? this.getTop(camera) + this.height * tilemapLayer.scaleY
             : this.getTop(camera) + this.height;
-    },
+    }
 
     /**
      * Gets the world rectangle bounding box for the tile, factoring in the layers position,
@@ -509,7 +542,7 @@ var Tile = new Class({
      *
      * @return {(Phaser.Geom.Rectangle|object)} The bounds of this Tile.
      */
-    getBounds: function (camera, output)
+    getBounds(camera, output)
     {
         if (output === undefined) { output = new Rectangle(); }
 
@@ -519,7 +552,7 @@ var Tile = new Class({
         output.height = this.getBottom(camera) - output.y;
 
         return output;
-    },
+    }
 
     /**
      * Gets the world X position of the center of the tile, factoring in the layer's position,
@@ -532,10 +565,10 @@ var Tile = new Class({
      *
      * @return {number} The center x position of this Tile.
      */
-    getCenterX: function (camera)
+    getCenterX(camera)
     {
         return (this.getLeft(camera) + this.getRight(camera)) / 2;
-    },
+    }
 
     /**
      * Gets the world Y position of the center of the tile, factoring in the layer's position,
@@ -548,10 +581,10 @@ var Tile = new Class({
      *
      * @return {number} The center y position of this Tile.
      */
-    getCenterY: function (camera)
+    getCenterY(camera)
     {
         return (this.getTop(camera) + this.getBottom(camera)) / 2;
-    },
+    }
 
     /**
      * Check for intersection with this tile. This does not factor in camera scroll, layer scale or
@@ -567,13 +600,13 @@ var Tile = new Class({
      *
      * @return {boolean} `true` if the Tile intersects with the given dimensions, otherwise `false`.
      */
-    intersects: function (x, y, right, bottom)
+    intersects(x, y, right, bottom)
     {
         return !(
             right <= this.pixelX || bottom <= this.pixelY ||
             x >= this.right || y >= this.bottom
         );
-    },
+    }
 
     /**
      * Checks if the tile is interesting.
@@ -586,7 +619,7 @@ var Tile = new Class({
      *
      * @return {boolean} True if the Tile is interesting, otherwise false.
      */
-    isInteresting: function (collides, faces)
+    isInteresting(collides, faces)
     {
         if (collides && faces)
         {
@@ -602,7 +635,7 @@ var Tile = new Class({
         }
 
         return false;
-    },
+    }
 
     /**
      * Reset collision status flags.
@@ -614,7 +647,7 @@ var Tile = new Class({
      *
      * @return {this} This Tile object instance.
      */
-    resetCollision: function (recalculateFaces)
+    resetCollision(recalculateFaces)
     {
         if (recalculateFaces === undefined) { recalculateFaces = true; }
 
@@ -639,7 +672,7 @@ var Tile = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Reset faces.
@@ -649,7 +682,7 @@ var Tile = new Class({
      *
      * @return {this} This Tile object instance.
      */
-    resetFaces: function ()
+    resetFaces()
     {
         this.faceTop = false;
         this.faceBottom = false;
@@ -657,7 +690,7 @@ var Tile = new Class({
         this.faceRight = false;
 
         return this;
-    },
+    }
 
     /**
      * Sets the collision flags for each side of this tile and updates the interesting faces list.
@@ -673,7 +706,7 @@ var Tile = new Class({
      *
      * @return {this} This Tile object instance.
      */
-    setCollision: function (left, right, up, down, recalculateFaces)
+    setCollision(left, right, up, down, recalculateFaces)
     {
         if (right === undefined) { right = left; }
         if (up === undefined) { up = left; }
@@ -701,7 +734,7 @@ var Tile = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Set a callback to be called when this tile is hit by an object. The callback must true for
@@ -715,7 +748,7 @@ var Tile = new Class({
      *
      * @return {this} This Tile object instance.
      */
-    setCollisionCallback: function (callback, context)
+    setCollisionCallback(callback, context)
     {
         if (callback === null)
         {
@@ -729,7 +762,7 @@ var Tile = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Sets the size of the tile and updates its pixelX and pixelY.
@@ -744,7 +777,7 @@ var Tile = new Class({
      *
      * @return {this} This Tile object instance.
      */
-    setSize: function (tileWidth, tileHeight, baseWidth, baseHeight)
+    setSize(tileWidth, tileHeight, baseWidth, baseHeight)
     {
         if (tileWidth !== undefined) { this.width = tileWidth; }
         if (tileHeight !== undefined) { this.height = tileHeight; }
@@ -754,7 +787,7 @@ var Tile = new Class({
         this.updatePixelXY();
 
         return this;
-    },
+    }
 
     /**
      * Used internally. Updates the tiles world XY position based on the current tile size.
@@ -764,7 +797,7 @@ var Tile = new Class({
      *
      * @return {this} This Tile object instance.
      */
-    updatePixelXY: function ()
+    updatePixelXY()
     {
         var orientation = this.layer.orientation;
 
@@ -834,7 +867,7 @@ var Tile = new Class({
         this.bottom = this.pixelY + this.baseHeight;
 
         return this;
-    },
+    }
 
     /**
      * Clean up memory.
@@ -842,12 +875,12 @@ var Tile = new Class({
      * @method Phaser.Tilemaps.Tile#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy()
     {
         this.collisionCallback = undefined;
         this.collisionCallbackContext = undefined;
         this.properties = undefined;
-    },
+    }
 
     /**
      * True if this tile can collide on any of its faces or has a collision callback set.
@@ -857,14 +890,11 @@ var Tile = new Class({
      * @readonly
      * @since 3.0.0
      */
-    canCollide: {
 
-        get: function ()
-        {
-            return (this.collideLeft || this.collideRight || this.collideUp || this.collideDown || (this.collisionCallback !== undefined));
-        }
-
-    },
+    get canCollide()
+    {
+        return (this.collideLeft || this.collideRight || this.collideUp || this.collideDown || (this.collisionCallback !== undefined));
+    }
 
     /**
      * True if this tile can collide on any of its faces.
@@ -874,14 +904,11 @@ var Tile = new Class({
      * @readonly
      * @since 3.0.0
      */
-    collides: {
 
-        get: function ()
-        {
-            return (this.collideLeft || this.collideRight || this.collideUp || this.collideDown);
-        }
-
-    },
+    get collides()
+    {
+        return (this.collideLeft || this.collideRight || this.collideUp || this.collideDown);
+    }
 
     /**
      * True if this tile has any interesting faces.
@@ -891,14 +918,11 @@ var Tile = new Class({
      * @readonly
      * @since 3.0.0
      */
-    hasInterestingFace: {
 
-        get: function ()
-        {
-            return (this.faceTop || this.faceBottom || this.faceLeft || this.faceRight);
-        }
-
-    },
+    get hasInterestingFace()
+    {
+        return (this.faceTop || this.faceBottom || this.faceLeft || this.faceRight);
+    }
 
     /**
      * The tileset that contains this Tile. This is null if accessed from a LayerData instance
@@ -910,26 +934,23 @@ var Tile = new Class({
      * @readonly
      * @since 3.0.0
      */
-    tileset: {
 
-        get: function ()
+    get tileset()
+    {
+        var tilemapLayer = this.layer.tilemapLayer;
+
+        if (tilemapLayer)
         {
-            var tilemapLayer = this.layer.tilemapLayer;
+            var tileset = tilemapLayer.gidMap[this.index];
 
-            if (tilemapLayer)
+            if (tileset)
             {
-                var tileset = tilemapLayer.gidMap[this.index];
-
-                if (tileset)
-                {
-                    return tileset;
-                }
+                return tileset;
             }
-
-            return null;
         }
 
-    },
+        return null;
+    }
 
     /**
      * The tilemap layer that contains this Tile. This will only return null if accessed from a
@@ -940,14 +961,11 @@ var Tile = new Class({
      * @readonly
      * @since 3.0.0
      */
-    tilemapLayer: {
 
-        get: function ()
-        {
-            return this.layer.tilemapLayer;
-        }
-
-    },
+    get tilemapLayer()
+    {
+        return this.layer.tilemapLayer;
+    }
 
     /**
      * The tilemap that contains this Tile. This will only return null if accessed from a LayerData
@@ -958,17 +976,14 @@ var Tile = new Class({
      * @readonly
      * @since 3.0.0
      */
-    tilemap: {
 
-        get: function ()
-        {
-            var tilemapLayer = this.tilemapLayer;
+    get tilemap()
+    {
+        var tilemapLayer = this.tilemapLayer;
 
-            return tilemapLayer ? tilemapLayer.tilemap : null;
-        }
-
+        return tilemapLayer ? tilemapLayer.tilemap : null;
     }
 
-});
+};
 
 module.exports = Tile;

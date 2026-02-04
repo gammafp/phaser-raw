@@ -6,17 +6,17 @@
 
 import { NOOP } from '../utils/NOOP';
 
-let renderWebGL = NOOP;
-let renderCanvas = NOOP;
+let renderWebGL: any = NOOP;
+let renderCanvas: any = NOOP;
 
 if (typeof WEBGL_RENDERER)
 {
-    renderWebGL = require('./TilemapLayerWebGLRenderer');
+    renderWebGL = require('./TilemapLayerWebGLRenderer').TilemapLayerWebGLRenderer;
 }
 
 if (typeof CANVAS_RENDERER)
 {
-    renderCanvas = require('./TilemapLayerCanvasRenderer');
+    renderCanvas = require('./TilemapLayerCanvasRenderer').TilemapLayerCanvasRenderer;
 }
 
 export { renderWebGL, renderCanvas };

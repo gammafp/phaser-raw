@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-
 /**
  * @classdesc
  * The ObjectHelper helps tie objects with `gids` into the tileset
@@ -18,11 +16,9 @@ var Class = require('../utils/Class');
  *
  * @param {Phaser.Tilemaps.Tileset[]} tilesets - The backing tileset data.
  */
-var ObjectHelper = new Class({
+export class ObjectHelper {
 
-    initialize:
-
-    function ObjectHelper (tilesets)
+    constructor(tilesets?: any)
     {
         /**
          * The Tile GIDs array.
@@ -35,9 +31,9 @@ var ObjectHelper = new Class({
 
         if (tilesets !== undefined)
         {
-            for (var t = 0; t < tilesets.length; ++t)
+            for (let t = 0; t < tilesets.length; ++t)
             {
-                var tileset = tilesets[t];
+                const tileset = tilesets[t];
 
                 for (var i = 0; i < tileset.total; ++i)
                 {
@@ -55,7 +51,7 @@ var ObjectHelper = new Class({
          * @since 3.60.0
          */
         this._gids = this.gids;
-    },
+    }
 
     /**
      * Enabled if the object helper reaches in to tilesets for data.
@@ -65,19 +61,16 @@ var ObjectHelper = new Class({
      * @type {boolean}
      * @since 3.60.0
      */
-    enabled: {
 
-        get: function ()
-        {
-            return !!this.gids;
-        },
+    get enabled()
+    {
+        return !!this.gids;
+    }
 
-        set: function (v)
-        {
-            this.gids = v ? this._gids : undefined;
-        }
-
-    },
+    set enabled(v)
+    {
+        this.gids = v ? this._gids : undefined;
+    }
 
     /**
      * Gets the Tiled `type` field value from the object or the `gid` behind it.
@@ -89,7 +82,7 @@ var ObjectHelper = new Class({
      *
      * @return {?string} The `type` of the object, the tile behind the `gid` of the object, or `undefined`.
      */
-    getTypeIncludingTile: function (obj)
+    getTypeIncludingTile(obj)
     {
         if (obj.type !== undefined && obj.type !== '')
         {
@@ -116,7 +109,7 @@ var ObjectHelper = new Class({
         }
 
         return tileData.type;
-    },
+    }
 
     /**
      * Sets the sprite texture data as specified (usually in a config) or, failing that,
@@ -134,7 +127,7 @@ var ObjectHelper = new Class({
      * @param {string|number|Phaser.Textures.Frame} [frame] - The frames key to set (or else the `obj.gid`'s tile is used if available).
      * @param {Phaser.Types.Tilemaps.TiledObject} [obj] - The Tiled object for fallback.
      */
-    setTextureAndFrame: function (sprite, key, frame, obj)
+    setTextureAndFrame(sprite, key, frame, obj)
     {
         if ((key === null) && this.gids && obj.gid !== undefined)
         {
@@ -163,7 +156,7 @@ var ObjectHelper = new Class({
         }
 
         sprite.setTexture(key, frame);
-    },
+    }
 
     /**
      * Sets the `sprite.data` field from the tiled properties on the object and its tile (if any).
@@ -174,7 +167,7 @@ var ObjectHelper = new Class({
      * @param {Phaser.GameObjects.GameObject} sprite
      * @param {Phaser.Types.Tilemaps.TiledObject} obj
      */
-    setPropertiesFromTiledObject: function (sprite, obj)
+    setPropertiesFromTiledObject(sprite, obj)
     {
         if (this.gids !== undefined && obj.gid !== undefined)
         {
@@ -187,7 +180,7 @@ var ObjectHelper = new Class({
         }
 
         this.setFromJSON(sprite, obj.properties);
-    },
+    }
 
     /**
      * Sets the sprite data from the JSON object.
@@ -199,7 +192,7 @@ var ObjectHelper = new Class({
      * @param {Phaser.GameObjects.GameObject} sprite - The object for which to populate `data`.
      * @param {(Object.<string, *>|Object[])} properties - The properties to set in either JSON object format or else a list of objects with `name` and `value` fields.
      */
-    setFromJSON: function (sprite, properties)
+    setFromJSON(sprite, properties)
     {
         if (!properties)
         {
@@ -237,6 +230,6 @@ var ObjectHelper = new Class({
             }
         }
     }
-});
+};
 
 module.exports = ObjectHelper;

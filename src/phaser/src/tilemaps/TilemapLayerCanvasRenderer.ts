@@ -6,9 +6,9 @@
 
 import { TransformMatrix } from '../gameobjects/components/TransformMatrix';
 
-var tempMatrix1 = new TransformMatrix();
-var tempMatrix2 = new TransformMatrix();
-var tempMatrix3 = new TransformMatrix();
+const tempMatrix1 = new TransformMatrix();
+const tempMatrix2 = new TransformMatrix();
+const tempMatrix3 = new TransformMatrix();
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
@@ -24,41 +24,38 @@ var tempMatrix3 = new TransformMatrix();
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var TilemapLayerCanvasRenderer = function (renderer, src, camera, parentMatrix)
+export const TilemapLayerCanvasRenderer = (renderer: any, src: any, camera: any, parentMatrix?: any): void =>
 {
-    var renderTiles = src.cull(camera);
+    const renderTiles = src.cull(camera);
 
-    var tileCount = renderTiles.length;
-    var alpha = camera.alpha * src.alpha;
+    const tileCount = renderTiles.length;
+    const alpha = camera.alpha * src.alpha;
 
     if (tileCount === 0 || alpha <= 0)
     {
         return;
     }
 
-    var camMatrix = tempMatrix1;
-    var layerMatrix = tempMatrix2;
-    var calcMatrix = tempMatrix3;
+    const camMatrix = tempMatrix1;
+    const layerMatrix = tempMatrix2;
+    const calcMatrix = tempMatrix3;
 
     layerMatrix.applyITRS(src.x, src.y, src.rotation, src.scaleX, src.scaleY);
 
     camMatrix.copyFrom(camera.matrix);
 
-    var ctx = renderer.currentContext;
-    var gidMap = src.gidMap;
+    const ctx = renderer.currentContext;
+    const gidMap = src.gidMap;
 
     ctx.save();
 
     if (parentMatrix)
     {
-        //  Multiply the camera by the parent matrix
         camMatrix.multiplyWithOffset(parentMatrix, -camera.scrollX * src.scrollFactorX, -camera.scrollY * src.scrollFactorY);
 
-        //  Undo the camera scroll
         layerMatrix.e = src.x;
         layerMatrix.f = src.y;
 
-        //  Multiply by the Sprite matrix, store result in calcMatrix
         camMatrix.multiply(layerMatrix, calcMatrix);
 
         calcMatrix.copyToContext(ctx);
@@ -76,30 +73,30 @@ var TilemapLayerCanvasRenderer = function (renderer, src, camera, parentMatrix)
         ctx.imageSmoothingEnabled = false;
     }
 
-    for (var i = 0; i < tileCount; i++)
+    for (let i = 0; i < tileCount; i++)
     {
-        var tile = renderTiles[i];
+        const tile = renderTiles[i];
 
-        var tileset = gidMap[tile.index];
+        const tileset = gidMap[tile.index];
 
         if (!tileset)
         {
             continue;
         }
 
-        var image = tileset.image.getSourceImage();
+        const image = tileset.image.getSourceImage();
 
-        var tileTexCoords = tileset.getTileTextureCoordinates(tile.index);
-        var tileWidth = tileset.tileWidth;
-        var tileHeight = tileset.tileHeight;
+        const tileTexCoords = tileset.getTileTextureCoordinates(tile.index);
+        const tileWidth = tileset.tileWidth;
+        const tileHeight = tileset.tileHeight;
 
         if (tileTexCoords === null || tileWidth === 0 || tileHeight === 0)
         {
             continue;
         }
 
-        var halfWidth = tileWidth * 0.5;
-        var halfHeight = tileHeight * 0.5;
+        const halfWidth = tileWidth * 0.5;
+        const halfHeight = tileHeight * 0.5;
 
         tileTexCoords.x += tileset.tileOffset.x;
         tileTexCoords.y += tileset.tileOffset.y;
@@ -133,5 +130,3 @@ var TilemapLayerCanvasRenderer = function (renderer, src, camera, parentMatrix)
 
     ctx.restore();
 };
-
-module.exports = TilemapLayerCanvasRenderer;

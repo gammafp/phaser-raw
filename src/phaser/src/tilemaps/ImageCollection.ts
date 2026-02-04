@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-
 /**
  * @classdesc
  * An Image Collection is a special Tile Set containing multiple images, with no slicing into each image.
@@ -25,16 +23,12 @@ var Class = require('../utils/Class');
  * @param {number} [spacing=0] - The spacing between each image in the collection (in pixels).
  * @param {object} [properties={}] - Custom Image Collection properties.
  */
-var ImageCollection = new Class({
+export class ImageCollection {
 
-    initialize:
-
-    function ImageCollection (name, firstgid, width, height, margin, spacing, properties)
+    constructor(name: string, firstgid: number, width: number = 32, height: number = 32, margin: number = 0, spacing: number = 0, properties: any = {})
     {
-        if (width === undefined || width <= 0) { width = 32; }
-        if (height === undefined || height <= 0) { height = 32; }
-        if (margin === undefined) { margin = 0; }
-        if (spacing === undefined) { spacing = 0; }
+        if (width <= 0) { width = 32; }
+        if (height <= 0) { height = 32; }
 
         /**
          * The name of the Image Collection.
@@ -125,7 +119,7 @@ var ImageCollection = new Class({
          * @since 3.0.0
          */
         this.total = 0;
-    },
+    }
 
     /**
      * Returns true if and only if this image collection contains the given image index.
@@ -137,10 +131,10 @@ var ImageCollection = new Class({
      *
      * @return {boolean} True if this Image Collection contains the given index.
      */
-    containsImageIndex: function (imageIndex)
+    containsImageIndex(imageIndex)
     {
         return (imageIndex >= this.firstgid && imageIndex < (this.firstgid + this.total));
-    },
+    }
 
     /**
      * Add an image to this Image Collection.
@@ -155,7 +149,7 @@ var ImageCollection = new Class({
      *
      * @return {Phaser.Tilemaps.ImageCollection} This ImageCollection object.
      */
-    addImage: function (gid, image, width, height)
+    addImage(gid, image, width, height)
     {
         this.images.push({ gid: gid, image: image, width: width, height: height });
         this.total++;
@@ -163,6 +157,6 @@ var ImageCollection = new Class({
         return this;
     }
 
-});
+};
 
 module.exports = ImageCollection;
