@@ -23,7 +23,7 @@
 //  targets: The targets the tween is updating.
 //  yoyo: boolean - Does the tween reverse itself (yoyo) when it reaches the end?
 
-module.exports = [
+export const ReservedProps = [
     'callbackScope',
     'completeDelay',
     'delay',

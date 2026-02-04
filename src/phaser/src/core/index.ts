@@ -8,12 +8,10 @@
  * @namespace Phaser.Core
  */
 
-const Config = require('./Config');
+export { Config } from './Config';
 export { CreateRenderer } from './CreateRenderer';
 export { DebugHeader } from './DebugHeader';
 export * as Events from './events';
 export { Game } from './Game';
-const TimeStep = require('./TimeStep');
+export { TimeStep } from './TimeStep';
 export { VisibilityHandler } from './VisibilityHandler';
-
-export { Config, TimeStep };

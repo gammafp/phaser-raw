@@ -4,10 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../../utils/Class');
-var EventEmitter = require('eventemitter3');
-var Events = require('../events');
-var TWEEN_CONST = require('./const');
+import { EventEmitter } from 'eventemitter3';
+import { TWEEN_CONST } from './const';
+
+const Events = require('../events');
 
 /**
  * @classdesc
@@ -25,15 +25,13 @@ var TWEEN_CONST = require('./const');
  *
  * @param {(Phaser.Tweens.TweenManager|Phaser.Tweens.TweenChain)} parent - A reference to the Tween Manager, or Tween Chain, that owns this Tween.
  */
-var BaseTween = new Class({
+export class BaseTween extends EventEmitter {
 
-    Extends: EventEmitter,
+    [key: string]: any;
 
-    initialize:
-
-    function BaseTween (parent)
+    constructor(parent: any)
     {
-        EventEmitter.call(this);
+        super();
 
         /**
          * A reference to the Tween Manager, or Tween Chain, that owns this Tween.
@@ -258,7 +256,7 @@ var BaseTween = new Class({
          * @since 3.60.0
          */
         this.persist = false;
-    },
+    }
 
     /**
      * Sets the value of the time scale applied to this Tween. A value of 1 runs in real-time.
@@ -275,12 +273,12 @@ var BaseTween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    setTimeScale: function (value)
+    setTimeScale(value)
     {
         this.timeScale = value;
 
         return this;
-    },
+    }
 
     /**
      * Gets the value of the time scale applied to this Tween. A value of 1 runs in real-time.
@@ -291,10 +289,10 @@ var BaseTween = new Class({
      *
      * @return {number} The value of the time scale applied to this Tween.
      */
-    getTimeScale: function ()
+    getTimeScale()
     {
         return this.timeScale;
-    },
+    }
 
     /**
      * Checks if this Tween is currently playing.
@@ -306,10 +304,10 @@ var BaseTween = new Class({
      *
      * @return {boolean} `true` if the Tween is playing, otherwise `false`.
      */
-    isPlaying: function ()
+    isPlaying()
     {
         return (!this.paused && this.isActive());
-    },
+    }
 
     /**
      * Checks if the Tween is currently paused.
@@ -321,10 +319,10 @@ var BaseTween = new Class({
      *
      * @return {boolean} `true` if the Tween is paused, otherwise `false`.
      */
-    isPaused: function ()
+    isPaused()
     {
         return this.paused;
-    },
+    }
 
     /**
      * Pauses the Tween immediately. Use `resume` to continue playback.
@@ -337,7 +335,7 @@ var BaseTween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    pause: function ()
+    pause()
     {
         if (!this.paused)
         {
@@ -347,7 +345,7 @@ var BaseTween = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Resumes the playback of a previously paused Tween.
@@ -360,7 +358,7 @@ var BaseTween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    resume: function ()
+    resume()
     {
         if (this.paused)
         {
@@ -370,7 +368,7 @@ var BaseTween = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Internal method that makes this Tween active within the TweenManager
@@ -380,12 +378,12 @@ var BaseTween = new Class({
      * @fires Phaser.Tweens.Events#TWEEN_ACTIVE
      * @since 3.60.0
      */
-    makeActive: function ()
+    makeActive()
     {
         this.parent.makeActive(this);
 
         this.dispatchEvent(Events.TWEEN_ACTIVE, 'onActive');
-    },
+    }
 
     /**
      * Internal method that handles this tween completing and emitting the onComplete event
@@ -394,12 +392,12 @@ var BaseTween = new Class({
      * @method Phaser.Tweens.BaseTween#onCompleteHandler
      * @since 3.60.0
      */
-    onCompleteHandler: function ()
+    onCompleteHandler()
     {
         this.setPendingRemoveState();
 
         this.dispatchEvent(Events.TWEEN_COMPLETE, 'onComplete');
-    },
+    }
 
     /**
      * Flags the Tween as being complete, whatever stage of progress it is at.
@@ -417,7 +415,7 @@ var BaseTween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    complete: function (delay)
+    complete(delay)
     {
         if (delay === undefined) { delay = 0; }
 
@@ -433,7 +431,7 @@ var BaseTween = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Flags the Tween as being complete only once the current loop has finished.
@@ -451,7 +449,7 @@ var BaseTween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    completeAfterLoop: function (loops)
+    completeAfterLoop(loops)
     {
         if (loops === undefined) { loops = 0; }
 
@@ -461,7 +459,7 @@ var BaseTween = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Immediately removes this Tween from the TweenManager and all of its internal arrays,
@@ -475,7 +473,7 @@ var BaseTween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    remove: function ()
+    remove()
     {
         if (this.parent)
         {
@@ -483,7 +481,7 @@ var BaseTween = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Stops the Tween immediately, whatever stage of progress it is at.
@@ -504,7 +502,7 @@ var BaseTween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    stop: function ()
+    stop()
     {
         if (this.parent && !this.isRemoved() && !this.isPendingRemove() && !this.isDestroyed())
         {
@@ -514,7 +512,7 @@ var BaseTween = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Internal method that handles the processing of the loop delay countdown timer and
@@ -525,7 +523,7 @@ var BaseTween = new Class({
      *
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    updateLoopCountdown: function (delta)
+    updateLoopCountdown(delta)
     {
         this.countdown -= delta;
 
@@ -535,7 +533,7 @@ var BaseTween = new Class({
 
             this.dispatchEvent(Events.TWEEN_LOOP, 'onLoop');
         }
-    },
+    }
 
     /**
      * Internal method that handles the processing of the start delay countdown timer and
@@ -546,7 +544,7 @@ var BaseTween = new Class({
      *
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    updateStartCountdown: function (delta)
+    updateStartCountdown(delta)
     {
         this.countdown -= delta;
 
@@ -563,7 +561,7 @@ var BaseTween = new Class({
         }
 
         return delta;
-    },
+    }
 
     /**
      * Internal method that handles the processing of the complete delay countdown timer and
@@ -574,7 +572,7 @@ var BaseTween = new Class({
      *
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    updateCompleteDelay: function (delta)
+    updateCompleteDelay(delta)
     {
         this.countdown -= delta;
 
@@ -582,7 +580,7 @@ var BaseTween = new Class({
         {
             this.onCompleteHandler();
         }
-    },
+    }
 
     /**
      * Sets an event based callback to be invoked during playback.
@@ -614,7 +612,7 @@ var BaseTween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    setCallback: function (type, callback, params)
+    setCallback(type, callback, params)
     {
         if (params === undefined) { params = []; }
 
@@ -624,7 +622,7 @@ var BaseTween = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Sets this Tween state to PENDING.
@@ -632,10 +630,10 @@ var BaseTween = new Class({
      * @method Phaser.Tweens.BaseTween#setPendingState
      * @since 3.60.0
      */
-    setPendingState: function ()
+    setPendingState()
     {
         this.state = TWEEN_CONST.PENDING;
-    },
+    }
 
     /**
      * Sets this Tween state to ACTIVE.
@@ -643,12 +641,12 @@ var BaseTween = new Class({
      * @method Phaser.Tweens.BaseTween#setActiveState
      * @since 3.60.0
      */
-    setActiveState: function ()
+    setActiveState()
     {
         this.state = TWEEN_CONST.ACTIVE;
 
         this.hasStarted = false;
-    },
+    }
 
     /**
      * Sets this Tween state to LOOP_DELAY.
@@ -656,10 +654,10 @@ var BaseTween = new Class({
      * @method Phaser.Tweens.BaseTween#setLoopDelayState
      * @since 3.60.0
      */
-    setLoopDelayState: function ()
+    setLoopDelayState()
     {
         this.state = TWEEN_CONST.LOOP_DELAY;
-    },
+    }
 
     /**
      * Sets this Tween state to COMPLETE_DELAY.
@@ -667,10 +665,10 @@ var BaseTween = new Class({
      * @method Phaser.Tweens.BaseTween#setCompleteDelayState
      * @since 3.60.0
      */
-    setCompleteDelayState: function ()
+    setCompleteDelayState()
     {
         this.state = TWEEN_CONST.COMPLETE_DELAY;
-    },
+    }
 
     /**
      * Sets this Tween state to START_DELAY.
@@ -678,14 +676,14 @@ var BaseTween = new Class({
      * @method Phaser.Tweens.BaseTween#setStartDelayState
      * @since 3.60.0
      */
-    setStartDelayState: function ()
+    setStartDelayState()
     {
         this.state = TWEEN_CONST.START_DELAY;
 
         this.countdown = this.startDelay;
 
         this.hasStarted = false;
-    },
+    }
 
     /**
      * Sets this Tween state to PENDING_REMOVE.
@@ -693,10 +691,10 @@ var BaseTween = new Class({
      * @method Phaser.Tweens.BaseTween#setPendingRemoveState
      * @since 3.60.0
      */
-    setPendingRemoveState: function ()
+    setPendingRemoveState()
     {
         this.state = TWEEN_CONST.PENDING_REMOVE;
-    },
+    }
 
     /**
      * Sets this Tween state to REMOVED.
@@ -704,10 +702,10 @@ var BaseTween = new Class({
      * @method Phaser.Tweens.BaseTween#setRemovedState
      * @since 3.60.0
      */
-    setRemovedState: function ()
+    setRemovedState()
     {
         this.state = TWEEN_CONST.REMOVED;
-    },
+    }
 
     /**
      * Sets this Tween state to FINISHED.
@@ -715,10 +713,10 @@ var BaseTween = new Class({
      * @method Phaser.Tweens.BaseTween#setFinishedState
      * @since 3.60.0
      */
-    setFinishedState: function ()
+    setFinishedState()
     {
         this.state = TWEEN_CONST.FINISHED;
-    },
+    }
 
     /**
      * Sets this Tween state to DESTROYED.
@@ -726,10 +724,10 @@ var BaseTween = new Class({
      * @method Phaser.Tweens.BaseTween#setDestroyedState
      * @since 3.60.0
      */
-    setDestroyedState: function ()
+    setDestroyedState()
     {
         this.state = TWEEN_CONST.DESTROYED;
-    },
+    }
 
     /**
      * Returns `true` if this Tween has a _current_ state of PENDING, otherwise `false`.
@@ -739,10 +737,10 @@ var BaseTween = new Class({
      *
      * @return {boolean} `true` if this Tween has a _current_ state of PENDING, otherwise `false`.
      */
-    isPending: function ()
+    isPending()
     {
         return (this.state === TWEEN_CONST.PENDING);
-    },
+    }
 
     /**
      * Returns `true` if this Tween has a _current_ state of ACTIVE, otherwise `false`.
@@ -752,10 +750,10 @@ var BaseTween = new Class({
      *
      * @return {boolean} `true` if this Tween has a _current_ state of ACTIVE, otherwise `false`.
      */
-    isActive: function ()
+    isActive()
     {
         return (this.state === TWEEN_CONST.ACTIVE);
-    },
+    }
 
     /**
      * Returns `true` if this Tween has a _current_ state of LOOP_DELAY, otherwise `false`.
@@ -765,10 +763,10 @@ var BaseTween = new Class({
      *
      * @return {boolean} `true` if this Tween has a _current_ state of LOOP_DELAY, otherwise `false`.
      */
-    isLoopDelayed: function ()
+    isLoopDelayed()
     {
         return (this.state === TWEEN_CONST.LOOP_DELAY);
-    },
+    }
 
     /**
      * Returns `true` if this Tween has a _current_ state of COMPLETE_DELAY, otherwise `false`.
@@ -778,10 +776,10 @@ var BaseTween = new Class({
      *
      * @return {boolean} `true` if this Tween has a _current_ state of COMPLETE_DELAY, otherwise `false`.
      */
-    isCompleteDelayed: function ()
+    isCompleteDelayed()
     {
         return (this.state === TWEEN_CONST.COMPLETE_DELAY);
-    },
+    }
 
     /**
      * Returns `true` if this Tween has a _current_ state of START_DELAY, otherwise `false`.
@@ -791,10 +789,10 @@ var BaseTween = new Class({
      *
      * @return {boolean} `true` if this Tween has a _current_ state of START_DELAY, otherwise `false`.
      */
-    isStartDelayed: function ()
+    isStartDelayed()
     {
         return (this.state === TWEEN_CONST.START_DELAY);
-    },
+    }
 
     /**
      * Returns `true` if this Tween has a _current_ state of PENDING_REMOVE, otherwise `false`.
@@ -804,10 +802,10 @@ var BaseTween = new Class({
      *
      * @return {boolean} `true` if this Tween has a _current_ state of PENDING_REMOVE, otherwise `false`.
      */
-    isPendingRemove: function ()
+    isPendingRemove()
     {
         return (this.state === TWEEN_CONST.PENDING_REMOVE);
-    },
+    }
 
     /**
      * Returns `true` if this Tween has a _current_ state of REMOVED, otherwise `false`.
@@ -817,10 +815,10 @@ var BaseTween = new Class({
      *
      * @return {boolean} `true` if this Tween has a _current_ state of REMOVED, otherwise `false`.
      */
-    isRemoved: function ()
+    isRemoved()
     {
         return (this.state === TWEEN_CONST.REMOVED);
-    },
+    }
 
     /**
      * Returns `true` if this Tween has a _current_ state of FINISHED, otherwise `false`.
@@ -830,10 +828,10 @@ var BaseTween = new Class({
      *
      * @return {boolean} `true` if this Tween has a _current_ state of FINISHED, otherwise `false`.
      */
-    isFinished: function ()
+    isFinished()
     {
         return (this.state === TWEEN_CONST.FINISHED);
-    },
+    }
 
     /**
      * Returns `true` if this Tween has a _current_ state of DESTROYED, otherwise `false`.
@@ -843,10 +841,10 @@ var BaseTween = new Class({
      *
      * @return {boolean} `true` if this Tween has a _current_ state of DESTROYED, otherwise `false`.
      */
-    isDestroyed: function ()
+    isDestroyed()
     {
         return (this.state === TWEEN_CONST.DESTROYED);
-    },
+    }
 
     /**
      * Handles the destroy process of this Tween, clearing out the
@@ -856,7 +854,7 @@ var BaseTween = new Class({
      * @method Phaser.Tweens.BaseTween#destroy
      * @since 3.60.0
      */
-    destroy: function ()
+    destroy()
     {
         if (this.data)
         {
@@ -875,7 +873,7 @@ var BaseTween = new Class({
         this.setDestroyedState();
     }
 
-});
+};
 
 BaseTween.TYPES = [
     'onActive',
@@ -889,5 +887,3 @@ BaseTween.TYPES = [
     'onUpdate',
     'onYoyo'
 ];
-
-module.exports = BaseTween;

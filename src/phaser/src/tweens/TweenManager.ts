@@ -10,11 +10,11 @@ import { NumberTweenBuilder } from './builders/NumberTweenBuilder';
 import { StaggerBuilder } from './builders/StaggerBuilder';
 import { TweenBuilder } from './builders/TweenBuilder';
 import { TweenChainBuilder } from './builders/TweenChainBuilder';
+import { Tween } from './tween/Tween';
+import { TweenChain } from './tween/TweenChain';
 
 const PluginCache = require('../plugins/PluginCache');
 const SceneEvents = require('../scene/events');
-const Tween = require('./tween/Tween');
-const TweenChain = require('./tween/TweenChain');
 
 /**
  * @classdesc

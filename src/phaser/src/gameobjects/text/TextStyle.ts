@@ -8,9 +8,7 @@
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { GetValue } from '../../utils/object/GetValue';
-
-const Class = require('../../utils/Class');
-var MeasureText = require('./MeasureText');
+import { MeasureText } from './MeasureText';
 
 //  Key: [ Object Key, Default Value ]
 

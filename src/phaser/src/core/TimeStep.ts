@@ -4,11 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetValue } from '../utils/object/GetValue';
-
-var Class = require('../utils/Class');
 import { NOOP } from '../utils/NOOP';
 import { RequestAnimationFrame } from '../dom/RequestAnimationFrame';
 
@@ -37,11 +33,11 @@ import { RequestAnimationFrame } from '../dom/RequestAnimationFrame';
  * @param {Phaser.Game} game - A reference to the Phaser.Game instance that owns this Time Step.
  * @param {Phaser.Types.Core.FPSConfig} config
  */
-var TimeStep = new Class({
+export class TimeStep {
 
-    initialize:
+    [key: string]: any;
 
-    function TimeStep (game, config)
+    constructor(game: any, config: any)
     {
         /**
          * A reference to the Phaser.Game instance.
@@ -436,7 +432,7 @@ var TimeStep = new Class({
          * @since 3.22.0
          */
         this.smoothStep = GetValue(config, 'smoothStep', true);
-    },
+    }
 
     /**
      * Called by the Game instance when the DOM window.onBlur event triggers.
@@ -444,10 +440,10 @@ var TimeStep = new Class({
      * @method Phaser.Core.TimeStep#blur
      * @since 3.0.0
      */
-    blur: function ()
+    blur()
     {
         this.inFocus = false;
-    },
+    }
 
     /**
      * Called by the Game instance when the DOM window.onFocus event triggers.
@@ -455,12 +451,12 @@ var TimeStep = new Class({
      * @method Phaser.Core.TimeStep#focus
      * @since 3.0.0
      */
-    focus: function ()
+    focus()
     {
         this.inFocus = true;
 
         this.resetDelta();
-    },
+    }
 
     /**
      * Called when the visibility API says the game is 'hidden' (tab switch out of view, etc)
@@ -468,10 +464,10 @@ var TimeStep = new Class({
      * @method Phaser.Core.TimeStep#pause
      * @since 3.0.0
      */
-    pause: function ()
+    pause()
     {
         this._pauseTime = window.performance.now();
-    },
+    }
 
     /**
      * Called when the visibility API says the game is 'visible' again (tab switch back into view, etc)
@@ -479,13 +475,13 @@ var TimeStep = new Class({
      * @method Phaser.Core.TimeStep#resume
      * @since 3.0.0
      */
-    resume: function ()
+    resume()
     {
         this.resetDelta();
 
         this.pauseDuration = this.time - this._pauseTime;
         this.startTime += this.pauseDuration;
-    },
+    }
 
     /**
      * Resets the time, lastTime, fps averages and delta history.
@@ -494,7 +490,7 @@ var TimeStep = new Class({
      * @method Phaser.Core.TimeStep#resetDelta
      * @since 3.0.0
      */
-    resetDelta: function ()
+    resetDelta()
     {
         var now = window.performance.now();
 
@@ -514,7 +510,7 @@ var TimeStep = new Class({
         this.deltaIndex = 0;
 
         this._coolDown = this.panicMax;
-    },
+    }
 
     /**
      * Starts the Time Step running, if it is not already doing so.
@@ -525,7 +521,7 @@ var TimeStep = new Class({
      *
      * @param {Phaser.Types.Core.TimeStepCallback} callback - The callback to be invoked each time the Time Step steps.
      */
-    start: function (callback)
+    start(callback)
     {
         if (this.started)
         {
@@ -549,7 +545,7 @@ var TimeStep = new Class({
         var step = (this.hasFpsLimit) ? this.stepLimitFPS.bind(this) : this.step.bind(this);
 
         this.raf.start(step, this.forceSetTimeOut, this._target);
-    },
+    }
 
     /**
      * Takes the delta value and smooths it based on the previous frames.
@@ -563,7 +559,7 @@ var TimeStep = new Class({
      *
      * @return {number} The smoothed delta value.
      */
-    smoothDelta: function (delta)
+    smoothDelta(delta)
     {
         var idx = this.deltaIndex;
         var history = this.deltaHistory;
@@ -613,7 +609,7 @@ var TimeStep = new Class({
         avg /= max;
 
         return avg;
-    },
+    }
 
     /**
      * Update the estimate of the frame rate, `fps`. Every second, the number
@@ -643,12 +639,12 @@ var TimeStep = new Class({
      *
      * @param {number} time - The timestamp passed in from RequestAnimationFrame or setTimeout.
      */
-    updateFPS: function (time)
+    updateFPS(time)
     {
         this.actualFps = 0.25 * this.framesThisSecond + 0.75 * this.actualFps;
         this.nextFpsUpdate = time + 1000;
         this.framesThisSecond = 0;
-    },
+    }
 
     /**
      * The main step method with an fps limiter. This is called each time the browser updates, either by Request Animation Frame,
@@ -660,7 +656,7 @@ var TimeStep = new Class({
      *
      * @param {number} time - The timestamp passed in from RequestAnimationFrame or setTimeout.
      */
-    stepLimitFPS: function (time)
+    stepLimitFPS(time)
     {
         this.now = time;
 
@@ -699,7 +695,7 @@ var TimeStep = new Class({
         this.lastTime = time;
 
         this.frame++;
-    },
+    }
 
     /**
      * The main step method. This is called each time the browser updates, either by Request Animation Frame,
@@ -711,7 +707,7 @@ var TimeStep = new Class({
      *
      * @param {number} time - The timestamp passed in from RequestAnimationFrame or setTimeout.
      */
-    step: function (time)
+    step(time)
     {
         this.now = time;
 
@@ -745,7 +741,7 @@ var TimeStep = new Class({
         this.lastTime = time;
 
         this.frame++;
-    },
+    }
 
     /**
      * Manually calls `TimeStep.step`.
@@ -753,7 +749,7 @@ var TimeStep = new Class({
      * @method Phaser.Core.TimeStep#tick
      * @since 3.0.0
      */
-    tick: function ()
+    tick()
     {
         var now = window.performance.now();
 
@@ -765,7 +761,7 @@ var TimeStep = new Class({
         {
             this.step(now);
         }
-    },
+    }
 
     /**
      * Sends the TimeStep to sleep, stopping Request Animation Frame (or SetTimeout) and toggling the `running` flag to false.
@@ -773,7 +769,7 @@ var TimeStep = new Class({
      * @method Phaser.Core.TimeStep#sleep
      * @since 3.0.0
      */
-    sleep: function ()
+    sleep()
     {
         if (this.running)
         {
@@ -781,7 +777,7 @@ var TimeStep = new Class({
 
             this.running = false;
         }
-    },
+    }
 
     /**
      * Wakes-up the TimeStep, restarting Request Animation Frame (or SetTimeout) and toggling the `running` flag to true.
@@ -792,7 +788,7 @@ var TimeStep = new Class({
      *
      * @param {boolean} [seamless=false] - Adjust the startTime based on the lastTime values.
      */
-    wake: function (seamless)
+    wake(seamless)
     {
         if (seamless === undefined) { seamless = false; }
 
@@ -818,7 +814,7 @@ var TimeStep = new Class({
         this.fpsLimitTriggered = false;
 
         this.tick();
-    },
+    }
 
     /**
      * Gets the duration which the game has been running, in seconds.
@@ -828,10 +824,10 @@ var TimeStep = new Class({
      *
      * @return {number} The duration in seconds.
      */
-    getDuration: function ()
+    getDuration()
     {
         return Math.round(this.lastTime - this.startTime) / 1000;
-    },
+    }
 
     /**
      * Gets the duration which the game has been running, in ms.
@@ -841,10 +837,10 @@ var TimeStep = new Class({
      *
      * @return {number} The duration in ms.
      */
-    getDurationMS: function ()
+    getDurationMS()
     {
         return Math.round(this.lastTime - this.startTime);
-    },
+    }
 
     /**
      * Stops the TimeStep running.
@@ -854,7 +850,7 @@ var TimeStep = new Class({
      *
      * @return {this} The TimeStep object.
      */
-    stop: function ()
+    stop()
     {
         this.running = false;
         this.started = false;
@@ -862,7 +858,7 @@ var TimeStep = new Class({
         this.raf.stop();
 
         return this;
-    },
+    }
 
     /**
      * Destroys the TimeStep. This will stop Request Animation Frame, stop the step, clear the callbacks and null
@@ -871,7 +867,7 @@ var TimeStep = new Class({
      * @method Phaser.Core.TimeStep#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy()
     {
         this.stop();
 
@@ -882,6 +878,4 @@ var TimeStep = new Class({
         this.callback = null;
     }
 
-});
-
-module.exports = TimeStep;
+}

@@ -13,9 +13,9 @@ import { GetEaseFunction } from './GetEaseFunction';
 import { GetNewValue } from './GetNewValue';
 import { GetValueOp } from './GetValueOp';
 
-const BaseTween = require('../tween/BaseTween');
-const Defaults = require('../tween/Defaults');
-const Tween = require('../tween/Tween');
+import { BaseTween } from '../tween/BaseTween';
+import { TWEEN_DEFAULTS as Defaults } from '../tween/Defaults';
+import { Tween } from '../tween/Tween';
 
 /**
  * Creates a new Number Tween.

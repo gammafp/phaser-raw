@@ -4,18 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { MATH_CONST } from '../../math/const';
+import { TWEEN_CONST } from './const';
+import { TweenData } from './TweenData';
+import { TweenFrameData } from './TweenFrameData';
+import { BaseTween } from './BaseTween';
 
-var BaseTween = require('./BaseTween');
-var Class = require('../../utils/Class');
-var Events = require('../events');
-var GameObjectCreator = require('../../gameobjects/GameObjectCreator');
-var GameObjectFactory = require('../../gameobjects/GameObjectFactory');
-var TWEEN_CONST = require('./const');
-var TweenData = require('./TweenData');
-var TweenFrameData = require('./TweenFrameData');
+const Events = require('../events');
+const GameObjectCreator = require('../../gameobjects/GameObjectCreator');
+const GameObjectFactory = require('../../gameobjects/GameObjectFactory');
 
 /**
  * @classdesc
@@ -34,15 +31,11 @@ var TweenFrameData = require('./TweenFrameData');
  * @param {Phaser.Tweens.TweenManager} parent - A reference to the Tween Manager that owns this Tween.
  * @param {object[]} targets - An array of targets to be tweened. This array should not be manipulated outside of this Tween.
  */
-var Tween = new Class({
+export class Tween extends BaseTween {
 
-    Extends: BaseTween,
-
-    initialize:
-
-    function Tween (parent, targets)
+    constructor(parent: any, targets: any[])
     {
-        BaseTween.call(this, parent);
+        super(parent);
 
         /**
          * An array of references to the target/s this Tween is operating on.
@@ -167,7 +160,7 @@ var Tween = new Class({
          * @since 3.88.0
          */
         this.isNumberTween = false;
-    },
+    }
 
     /**
      * Adds a new TweenData to this Tween. Typically, this method is called
@@ -196,14 +189,14 @@ var Tween = new Class({
      *
      * @return {Phaser.Tweens.TweenData} The TweenData instance that was added.
      */
-    add: function (targetIndex, key, getEnd, getStart, getActive, ease, delay, duration, yoyo, hold, repeat, repeatDelay, flipX, flipY, interpolation, interpolationData)
+    add(targetIndex, key, getEnd, getStart, getActive, ease, delay, duration, yoyo, hold, repeat, repeatDelay, flipX, flipY, interpolation, interpolationData)
     {
         var tweenData = new TweenData(this, targetIndex, key, getEnd, getStart, getActive, ease, delay, duration, yoyo, hold, repeat, repeatDelay, flipX, flipY, interpolation, interpolationData);
 
         this.totalData = this.data.push(tweenData);
 
         return tweenData;
-    },
+    }
 
     /**
      * Adds a new TweenFrameData to this Tween. Typically, this method is called
@@ -226,14 +219,14 @@ var Tween = new Class({
      *
      * @return {Phaser.Tweens.TweenFrameData} The TweenFrameData instance that was added.
      */
-    addFrame: function (targetIndex, texture, frame, delay, duration, hold, repeat, repeatDelay, flipX, flipY)
+    addFrame(targetIndex, texture, frame, delay, duration, hold, repeat, repeatDelay, flipX, flipY)
     {
         var tweenData = new TweenFrameData(this, targetIndex, texture, frame, delay, duration, hold, repeat, repeatDelay, flipX, flipY);
 
         this.totalData = this.data.push(tweenData);
 
         return tweenData;
-    },
+    }
 
     /**
      * Returns the current value of the specified Tween Data.
@@ -247,7 +240,7 @@ var Tween = new Class({
      *
      * @return {number|null} The value of the requested Tween Data, or `null` if this Tween has been destroyed.
      */
-    getValue: function (index)
+    getValue(index)
     {
         if (index === undefined) { index = 0; }
 
@@ -259,7 +252,7 @@ var Tween = new Class({
         }
 
         return value;
-    },
+    }
 
     /**
      * See if this Tween is currently acting upon the given target.
@@ -271,10 +264,10 @@ var Tween = new Class({
      *
      * @return {boolean} `true` if the given target is a target of this Tween, otherwise `false`.
      */
-    hasTarget: function (target)
+    hasTarget(target)
     {
         return (this.targets && this.targets.indexOf(target) !== -1);
-    },
+    }
 
     /**
      * Updates the 'end' value of the given property across all matching targets, as long
@@ -298,7 +291,7 @@ var Tween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    updateTo: function (key, value, startToCurrent)
+    updateTo(key, value, startToCurrent)
     {
         if (startToCurrent === undefined) { startToCurrent = false; }
 
@@ -321,7 +314,7 @@ var Tween = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Restarts the Tween from the beginning.
@@ -335,7 +328,7 @@ var Tween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    restart: function ()
+    restart()
     {
         switch (this.state)
         {
@@ -363,7 +356,7 @@ var Tween = new Class({
         this.hasStarted = false;
 
         return this;
-    },
+    }
 
     /**
      * Internal method that advances to the next state of the Tween during playback.
@@ -375,7 +368,7 @@ var Tween = new Class({
      *
      * @return {boolean} `true` if this Tween has completed, otherwise `false`.
      */
-    nextState: function ()
+    nextState()
     {
         if (this.loopCounter > 0)
         {
@@ -412,7 +405,7 @@ var Tween = new Class({
         }
 
         return false;
-    },
+    }
 
     /**
      * Internal method that handles this tween completing and starting
@@ -421,13 +414,13 @@ var Tween = new Class({
      * @method Phaser.Tweens.Tween#onCompleteHandler
      * @since 3.60.0
      */
-    onCompleteHandler: function ()
+    onCompleteHandler()
     {
         this.progress = 1;
         this.totalProgress = 1;
 
         BaseTween.prototype.onCompleteHandler.call(this);
-    },
+    }
 
     /**
      * Starts a Tween playing.
@@ -445,7 +438,7 @@ var Tween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    play: function ()
+    play()
     {
         if (this.isDestroyed())
         {
@@ -464,7 +457,7 @@ var Tween = new Class({
         this.setActiveState();
 
         return this;
-    },
+    }
 
     /**
      * Seeks to a specific point in the Tween.
@@ -500,7 +493,7 @@ var Tween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    seek: function (amount, delta, emit)
+    seek(amount, delta, emit)
     {
         if (amount === undefined) { amount = 0; }
         if (delta === undefined) { delta = 16.6; }
@@ -551,7 +544,7 @@ var Tween = new Class({
         this.isSeeking = false;
 
         return this;
-    },
+    }
 
     /**
      * Initialises all of the Tween Data and Tween values.
@@ -563,7 +556,7 @@ var Tween = new Class({
      *
      * @param {boolean} [isSeeking=false] - Is the Tween Data being reset as part of a seek?
      */
-    initTweenData: function (isSeeking)
+    initTweenData(isSeeking)
     {
         if (isSeeking === undefined) { isSeeking = false; }
 
@@ -594,7 +587,7 @@ var Tween = new Class({
         {
             this.totalDuration = duration + completeDelay;
         }
-    },
+    }
 
     /**
      * Resets this Tween ready for another play-through.
@@ -612,7 +605,7 @@ var Tween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    reset: function (skipInit)
+    reset(skipInit)
     {
         if (skipInit === undefined) { skipInit = false; }
 
@@ -638,7 +631,7 @@ var Tween = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Internal method that advances the Tween based on the time values.
@@ -653,7 +646,7 @@ var Tween = new Class({
      *
      * @return {boolean} Returns `true` if this Tween has finished and should be removed from the Tween Manager, otherwise returns `false`.
      */
-    update: function (delta)
+    update(delta)
     {
         if (this.isPendingRemove() || this.isDestroyed())
         {
@@ -739,7 +732,7 @@ var Tween = new Class({
         }
 
         return remove;
-    },
+    }
 
     /**
      * Moves this Tween forward by the given amount of milliseconds.
@@ -757,12 +750,12 @@ var Tween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    forward: function (ms)
+    forward(ms)
     {
         this.update(ms);
 
         return this;
-    },
+    }
 
     /**
      * Moves this Tween backward by the given amount of milliseconds.
@@ -780,12 +773,12 @@ var Tween = new Class({
      *
      * @return {this} This Tween instance.
      */
-    rewind: function (ms)
+    rewind(ms)
     {
         this.update(-ms);
 
         return this;
-    },
+    }
 
     /**
      * Internal method that will emit a Tween based Event and invoke the given callback.
@@ -796,7 +789,7 @@ var Tween = new Class({
      * @param {Phaser.Types.Tweens.Event} event - The Event to be dispatched.
      * @param {Phaser.Types.Tweens.TweenCallbackTypes} [callback] - The name of the callback to be invoked. Can be `null` or `undefined` to skip invocation.
      */
-    dispatchEvent: function (event, callback)
+    dispatchEvent(event, callback)
     {
         if (!this.isSeeking)
         {
@@ -814,7 +807,7 @@ var Tween = new Class({
                 handler.func.apply(this.callbackScope, [ this, this.targets ].concat(handler.params));
             }
         }
-    },
+    }
 
     /**
      * Handles the destroy process of this Tween, clearing out the
@@ -824,14 +817,14 @@ var Tween = new Class({
      * @method Phaser.Tweens.Tween#destroy
      * @since 3.60.0
      */
-    destroy: function ()
+    destroy()
     {
         BaseTween.prototype.destroy.call(this);
 
         this.targets = null;
     }
 
-});
+};
 
 /**
  * Creates a new Tween object.
@@ -866,5 +859,3 @@ GameObjectCreator.register('tween', function (config)
 {
     return this.scene.sys.tweens.create(config);
 });
-
-module.exports = Tween;

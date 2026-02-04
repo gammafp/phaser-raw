@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const RESERVED = require('../tween/ReservedProps');
+import { ReservedProps as RESERVED } from '../tween/ReservedProps';
 
 /**
  * Internal function used by the Tween Builder to return an array of properties

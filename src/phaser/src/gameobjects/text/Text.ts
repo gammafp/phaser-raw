@@ -27,10 +27,10 @@ import type { Transform } from '../components/Transform';
 import type { Visible } from '../components/Visible';
 
 import { TextStyle } from './TextStyle';
+import { GetTextSize } from './GetTextSize';
 
 const Components = require('../components');
 const GameObject = require('../GameObject');
-const GetTextSize = require('./GetTextSize');
 const TextRender = require('./TextRender');
 
 /**

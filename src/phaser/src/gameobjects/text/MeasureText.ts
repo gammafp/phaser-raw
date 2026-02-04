@@ -16,19 +16,18 @@ import { CanvasPool } from '../../display/canvas/CanvasPool';
  *
  * @return {Phaser.Types.GameObjects.Text.TextMetrics} An object containing the ascent, descent and fontSize of the TextStyle.
  */
-var MeasureText = function (textStyle)
-{
-    var canvas = CanvasPool.create(this);
-    var context = canvas.getContext('2d', { willReadFrequently: true });
+export const MeasureText = (textStyle: any): any => {
+    const canvas = CanvasPool.create(this);
+    const context = canvas.getContext('2d', { willReadFrequently: true });
 
     textStyle.syncFont(canvas, context);
 
-    var metrics = context.measureText(textStyle.testString);
+    const metrics = context.measureText(textStyle.testString);
 
     if ('actualBoundingBoxAscent' in metrics)
     {
-        var ascent = metrics.actualBoundingBoxAscent;
-        var descent = metrics.actualBoundingBoxDescent;
+        const ascent = metrics.actualBoundingBoxAscent;
+        const descent = metrics.actualBoundingBoxDescent;
 
         CanvasPool.remove(canvas);
 
@@ -39,9 +38,9 @@ var MeasureText = function (textStyle)
         };
     }
 
-    var width = Math.ceil(metrics.width * textStyle.baselineX);
-    var baseline = width;
-    var height = 2 * baseline;
+    let width = Math.ceil(metrics.width * textStyle.baselineX);
+    let baseline = width;
+    let height = 2 * baseline;
 
     baseline = baseline * textStyle.baselineY | 0;
 
@@ -57,13 +56,13 @@ var MeasureText = function (textStyle)
     context.fillStyle = '#000';
     context.fillText(textStyle.testString, 0, baseline);
 
-    var output = {
+    const output = {
         ascent: 0,
         descent: 0,
         fontSize: 0
     };
 
-    var imagedata = context.getImageData(0, 0, width, height);
+    const imagedata = context.getImageData(0, 0, width, height);
 
     if (!imagedata)
     {
@@ -76,13 +75,13 @@ var MeasureText = function (textStyle)
         return output;
     }
 
-    var pixels = imagedata.data;
-    var numPixels = pixels.length;
-    var line = width * 4;
-    var i;
-    var j;
-    var idx = 0;
-    var stop = false;
+    const pixels = imagedata.data;
+    const numPixels = pixels.length;
+    const line = width * 4;
+    let i: number;
+    let j: number;
+    let idx = 0;
+    let stop = false;
 
     // ascent. scan from top to bottom until we find a non red pixel
     for (i = 0; i < baseline; i++)
@@ -140,5 +139,3 @@ var MeasureText = function (textStyle)
 
     return output;
 };
-
-module.exports = MeasureText;

@@ -20,7 +20,7 @@
  * @since 3.60.0
  */
 
-var TWEEN_CONST = {
+export const TWEEN_CONST = {
 
     /**
      * TweenData state.
@@ -215,5 +215,3 @@ var TWEEN_CONST = {
     MAX: 999999999999
 
 };
-
-module.exports = TWEEN_CONST;

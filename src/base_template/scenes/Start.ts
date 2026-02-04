@@ -51,6 +51,13 @@ export class Start extends Phaser.Scene {
             yoyo: true,
             loop: -1
         });
+        
+        // Create cursor to move the ship with the mouse
+        this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
+            ship.x = pointer.x;
+            ship.y = pointer.y;
+        });
+    
     }
 
     update() {

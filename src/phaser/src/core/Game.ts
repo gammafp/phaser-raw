@@ -12,7 +12,7 @@ import { CanvasPool } from '../display/canvas/CanvasPool';
 import { CacheManager } from '../cache/CacheManager';
 
 const AnimationManager = require('../animations/AnimationManager');
-const Config = require('./Config');
+import { Config } from './Config';
 import { CreateDOMContainer } from '../dom/CreateDOMContainer';
 import { CreateRenderer } from './CreateRenderer';
 const DataManager = require('../data/DataManager');
@@ -27,7 +27,7 @@ const PluginManager = require('../plugins/PluginManager');
 const ScaleManager = require('../scale/ScaleManager');
 const TextureEvents = require('../textures/events');
 const TextureManager = require('../textures/TextureManager');
-const TimeStep = require('./TimeStep');
+import { TimeStep } from './TimeStep';
 import { VisibilityHandler } from './VisibilityHandler';
 
 if (typeof PLUGIN_FBINSTANT)

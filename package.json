@@ -10,7 +10,8 @@
     "stats": "bun scripts/ts-js-stats.ts",
     "ts-js-stats": "bun scripts/ts-js-stats.ts",
     "validate-ts": "bun scripts/validate-ts-syntax.ts",
-    "validate-js": "bun scripts/validate-js-syntax.ts"
+    "validate-js": "bun scripts/validate-js-syntax.ts",
+    "validate-imports": "bun scripts/validate-imports-smart.ts"
   },
   "devDependencies": {
     "@types/node": "^22.15.21",

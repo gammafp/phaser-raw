@@ -4,13 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { Clamp } from '../../math/Clamp';
+import { BaseTweenData } from './BaseTweenData';
 
-var BaseTweenData = require('./BaseTweenData');
-var Class = require('../../utils/Class');
-var Events = require('../events');
+const Events = require('../events');
 
 /**
  * @classdesc
@@ -44,15 +41,11 @@ var Events = require('../events');
  * @param {boolean} flipX - Should toggleFlipX be called when yoyo or repeat happens?
  * @param {boolean} flipY - Should toggleFlipY be called when yoyo or repeat happens?
  */
-var TweenFrameData = new Class({
+export class TweenFrameData extends BaseTweenData {
 
-    Extends: BaseTweenData,
-
-    initialize:
-
-    function TweenFrameData (tween, targetIndex, texture, frame, delay, duration, hold, repeat, repeatDelay, flipX, flipY)
+    constructor(tween: any, targetIndex: number, texture: string, frame: string | number, delay: any, duration: number, hold: number, repeat: number, repeatDelay: number, flipX: boolean, flipY: boolean)
     {
-        BaseTweenData.call(this, tween, targetIndex, delay, duration, false, hold, repeat, repeatDelay, flipX, flipY);
+        super(tween, targetIndex, delay, duration, false, hold, repeat, repeatDelay, flipX, flipY);
 
         /**
          * The property of the target to be tweened.
@@ -111,7 +104,7 @@ var TweenFrameData = new Class({
          * @since 3.60.0
          */
         this.yoyo = (repeat !== 0) ? true : false;
-    },
+    }
 
     /**
      * Internal method that resets this Tween Data entirely, including the progress and elapsed values.
@@ -123,7 +116,7 @@ var TweenFrameData = new Class({
      *
      * @param {boolean} [isSeeking=false] - Is the Tween Data being reset as part of a Tween seek?
      */
-    reset: function (isSeeking)
+    reset(isSeeking)
     {
         BaseTweenData.prototype.reset.call(this);
 
@@ -139,7 +132,7 @@ var TweenFrameData = new Class({
         {
             target.setTexture(this.startTexture, this.startFrame);
         }
-    },
+    }
 
     /**
      * Internal method that advances this TweenData based on the delta value given.
@@ -153,7 +146,7 @@ var TweenFrameData = new Class({
      *
      * @return {boolean} `true` if this TweenData is still playing, or `false` if it has finished entirely.
      */
-    update: function (delta)
+    update(delta)
     {
         var tween = this.tween;
         var targetIndex = this.targetIndex;
@@ -266,7 +259,7 @@ var TweenFrameData = new Class({
 
         //  Return TRUE if this TweenData still playing, otherwise FALSE
         return !this.isComplete();
-    },
+    }
 
     /**
      * Internal method that will emit a TweenData based Event on the
@@ -278,7 +271,7 @@ var TweenFrameData = new Class({
      * @param {Phaser.Types.Tweens.Event} event - The Event to be dispatched.
      * @param {Phaser.Types.Tweens.TweenCallbackTypes} [callback] - The name of the callback to be invoked. Can be `null` or `undefined` to skip invocation.
      */
-    dispatchEvent: function (event, callback)
+    dispatchEvent(event, callback)
     {
         var tween = this.tween;
 
@@ -296,7 +289,7 @@ var TweenFrameData = new Class({
                 handler.func.apply(tween.callbackScope, [ tween, target, key ].concat(handler.params));
             }
         }
-    },
+    }
 
     /**
      * Immediately destroys this TweenData, nulling of all its references.
@@ -304,7 +297,7 @@ var TweenFrameData = new Class({
      * @method Phaser.Tweens.TweenFrameData#destroy
      * @since 3.60.0
      */
-    destroy: function ()
+    destroy()
     {
         BaseTweenData.prototype.destroy.call(this);
 
@@ -314,6 +307,4 @@ var TweenFrameData = new Class({
         this.endFrame = null;
     }
 
-});
-
-module.exports = TweenFrameData;
+}

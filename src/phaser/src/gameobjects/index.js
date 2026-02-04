@@ -18,6 +18,8 @@ import './sprite/SpriteCreator';
 
 import { Text } from './text/Text';
 import { TextStyle } from './text/TextStyle';
+import { GetTextSize } from './text/GetTextSize';
+import { MeasureText } from './text/MeasureText';
 import './text/TextFactory';
 import './text/TextCreator';
 
@@ -55,8 +57,8 @@ var GameObjects = {
     Sprite: Sprite,
 
     Text: Text,
-    GetTextSize: require('./text/GetTextSize'),
-    MeasureText: require('./text/MeasureText'),
+    GetTextSize: GetTextSize,
+    MeasureText: MeasureText,
     TextStyle: TextStyle,
 
     TileSprite: require('./tilesprite/TileSprite'),

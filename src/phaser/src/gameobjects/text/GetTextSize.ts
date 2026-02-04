@@ -16,15 +16,14 @@
  *
  * @return {Phaser.Types.GameObjects.Text.GetTextSizeObject} An object containing dimensions of the Text object.
  */
-var GetTextSize = function (text, size, lines)
-{
-    var canvas = text.canvas;
-    var context = text.context;
-    var style = text.style;
+export const GetTextSize = (text: any, size: any, lines: string[]): any => {
+    const canvas = text.canvas;
+    const context = text.context;
+    const style = text.style;
 
-    var lineWidths = [];
-    var maxLineWidth = 0;
-    var drawnLines = lines.length;
+    const lineWidths: number[] = [];
+    let maxLineWidth = 0;
+    let drawnLines = lines.length;
 
     if (style.maxLines > 0 && style.maxLines < lines.length)
     {
@@ -34,11 +33,11 @@ var GetTextSize = function (text, size, lines)
     style.syncFont(canvas, context);
 
     //  Text Width
-    var letterSpacing = text.letterSpacing;
+    const letterSpacing = text.letterSpacing;
 
-    for (var i = 0; i < drawnLines; i++)
+    for (let i = 0; i < drawnLines; i++)
     {
-        var lineWidth = style.strokeThickness;
+        let lineWidth = style.strokeThickness;
 
         if (letterSpacing === 0)
         {
@@ -46,9 +45,9 @@ var GetTextSize = function (text, size, lines)
         }
         else
         {
-            var line = lines[i];
+            const line = lines[i];
             
-            for (var j = 0; j < line.length; j++)
+            for (let j = 0; j < line.length; j++)
             {
                 lineWidth += context.measureText(line[j]).width;
             }
@@ -71,9 +70,9 @@ var GetTextSize = function (text, size, lines)
 
     //  Text Height
 
-    var lineHeight = size.fontSize + style.strokeThickness;
-    var height = lineHeight * drawnLines;
-    var lineSpacing = text.lineSpacing;
+    const lineHeight = size.fontSize + style.strokeThickness;
+    let height = lineHeight * drawnLines;
+    const lineSpacing = text.lineSpacing;
 
     //  Adjust for line spacing
     if (drawnLines > 1)
@@ -90,5 +89,3 @@ var GetTextSize = function (text, size, lines)
         lineHeight: lineHeight
     };
 };
-
-module.exports = GetTextSize;

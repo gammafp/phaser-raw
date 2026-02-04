@@ -10,8 +10,8 @@ import { GetBoolean } from './GetBoolean';
 import { GetTargets } from './GetTargets';
 import { TweenBuilder } from './TweenBuilder';
 
-const BaseTween = require('../tween/BaseTween');
-const TweenChain = require('../tween/TweenChain');
+import { BaseTween } from '../tween/BaseTween';
+import { TweenChain } from '../tween/TweenChain';
 
 /**
  * Creates a new Tween Chain instance.

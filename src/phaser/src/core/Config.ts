@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetFastValue } from '../utils/object/GetFastValue';
 import { GetValue } from '../utils/object/GetValue';
 import { IsPlainObject } from '../utils/object/IsPlainObject';
@@ -13,11 +11,10 @@ import { NOOP } from '../utils/NOOP';
 import { ValueToColor } from '../display/color/ValueToColor';
 import { PHASER_CONST as CONST } from '../const';
 
-var Class = require('../utils/Class');
-var DefaultPlugins = require('../plugins/DefaultPlugins');
-var Device = require('../device');
-var PhaserMath = require('../math/');
-var PIPELINE_CONST = require('../renderer/webgl/pipelines/const');
+const DefaultPlugins = require('../plugins/DefaultPlugins');
+const Device = require('../device');
+const PhaserMath = require('../math/');
+const PIPELINE_CONST = require('../renderer/webgl/pipelines/const');
 
 /**
  * @classdesc
@@ -32,15 +29,13 @@ var PIPELINE_CONST = require('../renderer/webgl/pipelines/const');
  *
  * @see Phaser.Game#config
  */
-var Config = new Class({
+export class Config {
 
-    initialize:
+    [key: string]: any;
 
-    function Config (config)
+    constructor(config: any = {})
     {
-        if (config === undefined) { config = {}; }
-
-        var defaultBannerColor = [
+        const defaultBannerColor = [
             '#ff0000',
             '#ffff00',
             '#00ff00',
@@ -48,11 +43,11 @@ var Config = new Class({
             '#000000'
         ];
 
-        var defaultBannerTextColor = '#ffffff';
+        const defaultBannerTextColor = '#ffffff';
 
         //  Scale Manager - Anything set in here over-rides anything set in the core game config
 
-        var scaleConfig = GetValue(config, 'scale', null);
+        const scaleConfig = GetValue(config, 'scale', null);
 
         /**
          * @const {(number|string)} Phaser.Core.Config#width - The width of the underlying canvas, in pixels.
@@ -455,7 +450,7 @@ var Config = new Class({
          */
         this.maxLights = GetValue(renderConfig, 'maxLights', 10, config);
 
-        var bgc = GetValue(config, 'backgroundColor', 0);
+        const bgc = GetValue(config, 'backgroundColor', 0);
 
         /**
          * @const {Phaser.Display.Color} Phaser.Core.Config#backgroundColor - The background color of the game canvas. The default is black. This value is ignored if `transparent` is set to `true`.
@@ -594,8 +589,8 @@ var Config = new Class({
          */
         this.installScenePlugins = [];
 
-        var plugins = GetValue(config, 'plugins', null);
-        var defaultPlugins = DefaultPlugins.DefaultScene;
+        const plugins = GetValue(config, 'plugins', null);
+        let defaultPlugins = DefaultPlugins.DefaultScene;
 
         if (plugins)
         {
@@ -626,7 +621,7 @@ var Config = new Class({
         this.defaultPlugins = defaultPlugins;
 
         //  Default / Missing Images
-        var pngPrefix = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAg';
+        const pngPrefix = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAg';
 
         /**
          * @const {string} Phaser.Core.Config#defaultImage - A base64 encoded PNG that will be used as the default blank texture.
@@ -656,6 +651,4 @@ var Config = new Class({
         }
     }
 
-});
-
-module.exports = Config;
+}
