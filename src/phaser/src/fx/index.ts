@@ -4,7 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
+/**
+ * @namespace Phaser.FX
+ */
 
 import { Extend } from '../utils/object/Extend';
 import { Barrel } from './Barrel';
@@ -24,12 +26,7 @@ import { Vignette } from './Vignette';
 import { Wipe } from './Wipe';
 import { FX_CONST } from './const';
 
-/**
- * @namespace Phaser.FX
- */
-
-var FX = {
-
+const FX: any = {
     Barrel,
     Controller,
     Bloom,
@@ -45,9 +42,29 @@ var FX = {
     Shine,
     Vignette,
     Wipe
-
 };
 
-FX = Extend(false, FX, FX_CONST);
+// Merge FX_CONST into FX namespace
+Extend(false, FX, FX_CONST);
 
-module.exports = FX;
+export default FX;
+
+// Also export individual classes for tree-shaking
+export {
+    Barrel,
+    Controller,
+    Bloom,
+    Blur,
+    Bokeh,
+    Circle,
+    ColorMatrix,
+    Displacement,
+    Glow,
+    Gradient,
+    Pixelate,
+    Shadow,
+    Shine,
+    Vignette,
+    Wipe,
+    FX_CONST
+};
