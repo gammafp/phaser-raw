@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Axis = require('./Axis');
-var Button = require('./Button');
+import { Axis } from './Axis';
+import { Button } from './Button';
 var Class = require('../../utils/Class');
 var EventEmitter = require('eventemitter3');
 import { Vector2 } from '../../math/Vector2';

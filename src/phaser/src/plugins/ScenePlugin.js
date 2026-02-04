@@ -4,7 +4,7 @@
 * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
 */
 
-var BasePlugin = require('./BasePlugin');
+import { BasePlugin } from './BasePlugin';
 var Class = require('../utils/Class');
 var SceneEvents = require('../scene/events');
 

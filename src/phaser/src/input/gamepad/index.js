@@ -8,10 +8,13 @@
  * @namespace Phaser.Input.Gamepad
  */
 
+import { Axis } from './Axis';
+import { Button } from './Button';
+
 module.exports = {
 
-    Axis: require('./Axis'),
-    Button: require('./Button'),
+    Axis,
+    Button,
     Events: require('./events'),
     Gamepad: require('./Gamepad'),
     GamepadPlugin: require('./GamepadPlugin'),

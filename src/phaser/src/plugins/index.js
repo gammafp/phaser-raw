@@ -8,9 +8,11 @@
  * @namespace Phaser.Plugins
  */
 
+import { BasePlugin } from './BasePlugin';
+
 module.exports = {
 
-    BasePlugin: require('./BasePlugin'),
+    BasePlugin,
     DefaultPlugins: require('./DefaultPlugins'),
     PluginCache: require('./PluginCache'),
     PluginManager: require('./PluginManager'),
