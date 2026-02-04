@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GameObjectCreator = require('../gameobjects/GameObjectCreator');
-var ParseToTilemap = require('./ParseToTilemap');
+const GameObjectCreator = require('../gameobjects/GameObjectCreator');
+import { ParseToTilemap } from './ParseToTilemap';
 
 /**
  * Creates a Tilemap from the given key or data, or creates a blank Tilemap if no key/data provided.
@@ -20,10 +20,9 @@ var ParseToTilemap = require('./ParseToTilemap');
  *
  * @return {Phaser.Tilemaps.Tilemap}
  */
-GameObjectCreator.register('tilemap', function (config)
+GameObjectCreator.register('tilemap', function (config: any)
 {
-    // Defaults are applied in ParseToTilemap
-    var c = (config !== undefined) ? config : {};
+    const c = (config !== undefined) ? config : {};
 
     return ParseToTilemap(
         this.scene,

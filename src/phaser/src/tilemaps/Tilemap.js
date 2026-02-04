@@ -20,7 +20,7 @@ import * as ORIENTATION from './const/ORIENTATION_CONST';
 import { Sprite } from '../gameobjects/sprite/Sprite';
 var Tile = require('./Tile');
 var TilemapComponents = require('./components');
-var TilemapLayer = require('./TilemapLayer');
+import { TilemapLayer } from './TilemapLayer';
 var Tileset = require('./Tileset');
 
 /**

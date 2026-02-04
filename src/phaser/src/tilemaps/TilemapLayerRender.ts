@@ -5,8 +5,9 @@
  */
 
 import { NOOP } from '../utils/NOOP';
-var renderWebGL = NOOP;
-var renderCanvas = NOOP;
+
+let renderWebGL = NOOP;
+let renderCanvas = NOOP;
 
 if (typeof WEBGL_RENDERER)
 {
@@ -18,9 +19,4 @@ if (typeof CANVAS_RENDERER)
     renderCanvas = require('./TilemapLayerCanvasRenderer');
 }
 
-module.exports = {
-
-    renderWebGL: renderWebGL,
-    renderCanvas: renderCanvas
-
-};
+export { renderWebGL, renderCanvas };

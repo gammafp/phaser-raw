@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GameObjectFactory = require('../gameobjects/GameObjectFactory');
-var ParseToTilemap = require('./ParseToTilemap');
+const GameObjectFactory = require('../gameobjects/GameObjectFactory');
+import { ParseToTilemap } from './ParseToTilemap';
 
 /**
  * Creates a Tilemap from the given key or data, or creates a blank Tilemap if no key/data provided.
@@ -36,12 +36,8 @@ var ParseToTilemap = require('./ParseToTilemap');
  *
  * @return {Phaser.Tilemaps.Tilemap}
  */
-GameObjectFactory.register('tilemap', function (key, tileWidth, tileHeight, width, height, data, insertNull)
+GameObjectFactory.register('tilemap', function (key?: any, tileWidth?: number, tileHeight?: number, width?: number, height?: number, data?: any, insertNull?: boolean)
 {
-    // Allow users to specify null to indicate that they want the default value, since null is
-    // shorter & more legible than undefined. Convert null to undefined to allow ParseToTilemap
-    // defaults to take effect.
-
     if (key === null) { key = undefined; }
     if (tileWidth === null) { tileWidth = undefined; }
     if (tileHeight === null) { tileHeight = undefined; }
@@ -50,11 +46,3 @@ GameObjectFactory.register('tilemap', function (key, tileWidth, tileHeight, widt
 
     return ParseToTilemap(this.scene, key, tileWidth, tileHeight, width, height, data, insertNull);
 });
-
-//  When registering a factory function 'this' refers to the GameObjectFactory context.
-//
-//  There are several properties available to use:
-//
-//  this.scene - a reference to the Scene that owns the GameObjectFactory
-//  this.displayList - a reference to the Display List the Scene owns
-//  this.updateList - a reference to the Update List the Scene owns

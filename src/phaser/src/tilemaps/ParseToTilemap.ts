@@ -7,7 +7,7 @@
 import * as Formats from './Formats';
 import { MapData } from './mapdata/MapData';
 import { Parse } from './parsers/Parse';
-var Tilemap = require('./Tilemap');
+const Tilemap = require('./Tilemap');
 
 /**
  * Create a Tilemap from the given key or data. If neither is given, make a blank Tilemap. When
@@ -35,24 +35,18 @@ var Tilemap = require('./Tilemap');
  *
  * @return {Phaser.Tilemaps.Tilemap}
  */
-var ParseToTilemap = function (scene, key, tileWidth, tileHeight, width, height, data, insertNull)
+export const ParseToTilemap = (scene: any, key?: string, tileWidth: number = 32, tileHeight: number = 32, width: number = 10, height: number = 10, data?: any, insertNull: boolean = false): any =>
 {
-    if (tileWidth === undefined) { tileWidth = 32; }
-    if (tileHeight === undefined) { tileHeight = 32; }
-    if (width === undefined) { width = 10; }
-    if (height === undefined) { height = 10; }
-    if (insertNull === undefined) { insertNull = false; }
-
-    var mapData = null;
+    let mapData: any = null;
 
     if (Array.isArray(data))
     {
-        var name = key !== undefined ? key : 'map';
+        const name = key !== undefined ? key : 'map';
         mapData = Parse(name, Formats.ARRAY_2D, data, tileWidth, tileHeight, insertNull);
     }
     else if (key !== undefined)
     {
-        var tilemapData = scene.cache.tilemap.get(key);
+        const tilemapData = scene.cache.tilemap.get(key);
 
         if (!tilemapData)
         {
@@ -76,5 +70,3 @@ var ParseToTilemap = function (scene, key, tileWidth, tileHeight, width, height,
 
     return new Tilemap(scene, mapData);
 };
-
-module.exports = ParseToTilemap;
