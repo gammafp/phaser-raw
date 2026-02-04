@@ -4,8 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var GetFastValue = require('../utils/object/GetFastValue');
+import { GetFastValue } from '../utils/object/GetFastValue';
 
 /**
  * @classdesc
@@ -20,138 +19,37 @@ var GetFastValue = require('../utils/object/GetFastValue');
  *
  * @param {Phaser.Types.Time.TimerEventConfig} config - The configuration for the Timer Event, including its delay and callback.
  */
-var TimerEvent = new Class({
+export class TimerEvent {
+    delay: number;
+    repeat: number;
+    repeatCount: number;
+    loop: boolean;
+    callback: Function | undefined;
+    callbackScope: any;
+    args: any[];
+    timeScale: number;
+    startAt: number;
+    elapsed: number;
+    paused: boolean;
+    hasDispatched: boolean;
 
-    initialize:
-
-    function TimerEvent (config)
+    constructor(config: any)
     {
-        /**
-         * The delay in ms at which this TimerEvent fires.
-         *
-         * @name Phaser.Time.TimerEvent#delay
-         * @type {number}
-         * @default 0
-         * @readonly
-         * @since 3.0.0
-         */
         this.delay = 0;
-
-        /**
-         * The total number of times this TimerEvent will repeat before finishing.
-         *
-         * @name Phaser.Time.TimerEvent#repeat
-         * @type {number}
-         * @default 0
-         * @readonly
-         * @since 3.0.0
-         */
         this.repeat = 0;
-
-        /**
-         * If repeating this contains the current repeat count.
-         *
-         * @name Phaser.Time.TimerEvent#repeatCount
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
         this.repeatCount = 0;
-
-        /**
-         * True if this TimerEvent loops, otherwise false.
-         *
-         * @name Phaser.Time.TimerEvent#loop
-         * @type {boolean}
-         * @default false
-         * @readonly
-         * @since 3.0.0
-         */
         this.loop = false;
-
-        /**
-         * The callback that will be called when the TimerEvent occurs.
-         *
-         * @name Phaser.Time.TimerEvent#callback
-         * @type {function}
-         * @since 3.0.0
-         */
-        this.callback;
-
-        /**
-         * The scope in which the callback will be called.
-         *
-         * @name Phaser.Time.TimerEvent#callbackScope
-         * @type {object}
-         * @since 3.0.0
-         */
-        this.callbackScope;
-
-        /**
-         * Additional arguments to be passed to the callback.
-         *
-         * @name Phaser.Time.TimerEvent#args
-         * @type {array}
-         * @since 3.0.0
-         */
-        this.args;
-
-        /**
-         * Scale the time causing this TimerEvent to update.
-         *
-         * @name Phaser.Time.TimerEvent#timeScale
-         * @type {number}
-         * @default 1
-         * @since 3.0.0
-         */
+        this.callback = undefined;
+        this.callbackScope = undefined;
+        this.args = [];
         this.timeScale = 1;
-
-        /**
-         * Start this many MS into the elapsed (useful if you want a long duration with repeat, but for the first loop to fire quickly)
-         *
-         * @name Phaser.Time.TimerEvent#startAt
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
         this.startAt = 0;
-
-        /**
-         * The time in milliseconds which has elapsed since the Timer Event's creation.
-         *
-         * This value is local for the Timer Event and is relative to its Clock. As such, it's influenced by the Clock's time scale and paused state, the Timer Event's initial {@link #startAt} property, and the Timer Event's {@link #timeScale} and {@link #paused} state.
-         *
-         * @name Phaser.Time.TimerEvent#elapsed
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
         this.elapsed = 0;
-
-        /**
-         * Whether or not this timer is paused.
-         *
-         * @name Phaser.Time.TimerEvent#paused
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
-         */
         this.paused = false;
-
-        /**
-         * Whether the Timer Event's function has been called.
-         *
-         * When the Timer Event fires, this property will be set to `true` before the callback function is invoked and will be reset immediately afterward if the Timer Event should repeat. The value of this property does not directly influence whether the Timer Event will be removed from its Clock, but can prevent it from firing.
-         *
-         * @name Phaser.Time.TimerEvent#hasDispatched
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
-         */
         this.hasDispatched = false;
 
         this.reset(config);
-    },
+    }
 
     /**
      * Completely reinitializes the Timer Event, regardless of its current state, according to a configuration object.
@@ -163,7 +61,7 @@ var TimerEvent = new Class({
      *
      * @return {Phaser.Time.TimerEvent} This TimerEvent object.
      */
-    reset: function (config)
+    reset(config: any): this
     {
         this.delay = GetFastValue(config, 'delay', 0);
 
@@ -194,7 +92,7 @@ var TimerEvent = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Gets the progress of the current iteration, not factoring in repeats.
@@ -204,10 +102,10 @@ var TimerEvent = new Class({
      *
      * @return {number} A number between 0 and 1 representing the current progress.
      */
-    getProgress: function ()
+    getProgress(): number
     {
         return (this.elapsed / this.delay);
-    },
+    }
 
     /**
      * Gets the progress of the timer overall, factoring in repeats.
@@ -217,12 +115,12 @@ var TimerEvent = new Class({
      *
      * @return {number} The overall progress of the Timer Event, between 0 and 1.
      */
-    getOverallProgress: function ()
+    getOverallProgress(): number
     {
         if (this.repeat > 0)
         {
-            var totalDuration = this.delay + (this.delay * this.repeat);
-            var totalElapsed = this.elapsed + (this.delay * (this.repeat - this.repeatCount));
+            const totalDuration = this.delay + (this.delay * this.repeat);
+            const totalElapsed = this.elapsed + (this.delay * (this.repeat - this.repeatCount));
 
             return (totalElapsed / totalDuration);
         }
@@ -230,7 +128,7 @@ var TimerEvent = new Class({
         {
             return this.getProgress();
         }
-    },
+    }
 
     /**
      * Returns the number of times this Timer Event will repeat before finishing.
@@ -242,10 +140,10 @@ var TimerEvent = new Class({
      *
      * @return {number} How many times the Timer Event will repeat.
      */
-    getRepeatCount: function ()
+    getRepeatCount(): number
     {
         return this.repeatCount;
-    },
+    }
 
     /**
      * Returns the local elapsed time for the current iteration of the Timer Event.
@@ -255,10 +153,10 @@ var TimerEvent = new Class({
      *
      * @return {number} The local elapsed time in milliseconds.
      */
-    getElapsed: function ()
+    getElapsed(): number
     {
         return this.elapsed;
-    },
+    }
 
     /**
      * Returns the local elapsed time for the current iteration of the Timer Event in seconds.
@@ -268,10 +166,10 @@ var TimerEvent = new Class({
      *
      * @return {number} The local elapsed time in seconds.
      */
-    getElapsedSeconds: function ()
+    getElapsedSeconds(): number
     {
         return this.elapsed * 0.001;
-    },
+    }
 
     /**
      * Returns the time interval until the next iteration of the Timer Event.
@@ -281,10 +179,10 @@ var TimerEvent = new Class({
      *
      * @return {number} The time interval in milliseconds.
      */
-    getRemaining: function ()
+    getRemaining(): number
     {
         return this.delay - this.elapsed;
-    },
+    }
 
     /**
      * Returns the time interval until the next iteration of the Timer Event in seconds.
@@ -294,10 +192,10 @@ var TimerEvent = new Class({
      *
      * @return {number} The time interval in seconds.
      */
-    getRemainingSeconds: function ()
+    getRemainingSeconds(): number
     {
         return this.getRemaining() * 0.001;
-    },
+    }
 
     /**
      * Returns the time interval until the last iteration of the Timer Event.
@@ -307,10 +205,10 @@ var TimerEvent = new Class({
      *
      * @return {number} The time interval in milliseconds.
      */
-    getOverallRemaining: function ()
+    getOverallRemaining(): number
     {
         return this.delay * (1 + this.repeatCount) - this.elapsed;
-    },
+    }
 
     /**
      * Returns the time interval until the last iteration of the Timer Event in seconds.
@@ -320,10 +218,10 @@ var TimerEvent = new Class({
      *
      * @return {number} The time interval in seconds.
      */
-    getOverallRemainingSeconds: function ()
+    getOverallRemainingSeconds(): number
     {
         return this.getOverallRemaining() * 0.001;
-    },
+    }
 
     /**
      * Forces the Timer Event to immediately expire, thus scheduling its removal in the next frame.
@@ -333,7 +231,7 @@ var TimerEvent = new Class({
      *
      * @param {boolean} [dispatchCallback=false] - If `true`, the function of the Timer Event will be called before its removal.
      */
-    remove: function (dispatchCallback)
+    remove(dispatchCallback?: boolean): void
     {
         if (dispatchCallback === undefined) { dispatchCallback = false; }
 
@@ -342,7 +240,7 @@ var TimerEvent = new Class({
         this.hasDispatched = !dispatchCallback;
 
         this.repeatCount = 0;
-    },
+    }
 
     /**
      * Destroys all object references in the Timer Event, i.e. its callback, scope, and arguments.
@@ -352,13 +250,10 @@ var TimerEvent = new Class({
      * @method Phaser.Time.TimerEvent#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy(): void
     {
         this.callback = undefined;
         this.callbackScope = undefined;
         this.args = [];
     }
-
-});
-
-module.exports = TimerEvent;
+}

@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "ts-js-stats": "bun scripts/ts-js-stats.ts"
+    "stats": "bun scripts/ts-js-stats.ts",
+    "ts-js-stats": "bun scripts/ts-js-stats.ts",
+    "validate-ts": "bun scripts/validate-ts-syntax.ts",
+    "validate-js": "bun scripts/validate-js-syntax.ts"
   },
   "devDependencies": {
     "@types/node": "^22.15.21",

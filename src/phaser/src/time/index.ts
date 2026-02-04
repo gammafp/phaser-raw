@@ -8,11 +8,7 @@
  * @namespace Phaser.Time
  */
 
-const Clock = require('./Clock');
-const Timeline = require('./Timeline');
-const TimerEvent = require('./TimerEvent');
-
-export { Clock };
+export { Clock } from './Clock';
+export { Timeline } from './Timeline';
+export { TimerEvent } from './TimerEvent';
 export * as Events from './events';
-export { Timeline };
-export { TimerEvent };

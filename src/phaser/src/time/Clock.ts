@@ -4,11 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var PluginCache = require('../plugins/PluginCache');
-var SceneEvents = require('../scene/events');
-var TimerEvent = require('./TimerEvent');
-var Remove = require('../utils/array/Remove');
+const PluginCache = require('../plugins/PluginCache');
+import * as SceneEvents from '../scene/events';
+import { Remove } from '../utils/array/Remove';
 
 /**
  * @classdesc
@@ -21,112 +19,119 @@ var Remove = require('../utils/array/Remove');
  *
  * @param {Phaser.Scene} scene - The Scene which owns this Clock.
  */
-var Clock = new Class({
+export class Clock {
+    /**
+     * The Scene which owns this Clock.
+     *
+     * @name Phaser.Time.Clock#scene
+     * @type {Phaser.Scene}
+     * @since 3.0.0
+     */
+    scene: any;
 
-    initialize:
+    /**
+     * The Scene Systems object of the Scene which owns this Clock.
+     *
+     * @name Phaser.Time.Clock#systems
+     * @type {Phaser.Scenes.Systems}
+     * @since 3.0.0
+     */
+    systems: any;
 
-    function Clock (scene)
+    /**
+     * The current time of the Clock, in milliseconds.
+     *
+     * If accessed externally, this is equivalent to the `time` parameter normally passed to a Scene's `update` method.
+     *
+     * @name Phaser.Time.Clock#now
+     * @type {number}
+     * @since 3.0.0
+     */
+    now: number;
+
+    /**
+     * The time the Clock (and Scene) started, in milliseconds.
+     *
+     * This can be compared to the `time` parameter passed to a Scene's `update` method.
+     *
+     * @name Phaser.Time.Clock#startTime
+     * @type {number}
+     * @since 3.60.0
+     */
+    startTime: number;
+
+    /**
+     * The scale of the Clock's time delta.
+     *
+     * The time delta is the time elapsed between two consecutive frames and influences the speed of time for this Clock and anything which uses it, such as its Timer Events. Values higher than 1 increase the speed of time, while values smaller than 1 decrease it. A value of 0 freezes time and is effectively equivalent to pausing the Clock.
+     *
+     * @name Phaser.Time.Clock#timeScale
+     * @type {number}
+     * @default 1
+     * @since 3.0.0
+     */
+    timeScale: number;
+
+    /**
+     * Whether the Clock is paused (`true`) or active (`false`).
+     *
+     * When paused, the Clock will not update any of its Timer Events, thus freezing time.
+     *
+     * @name Phaser.Time.Clock#paused
+     * @type {boolean}
+     * @default false
+     * @since 3.0.0
+     */
+    paused: boolean;
+
+    /**
+     * An array of all Timer Events whose delays haven't expired - these are actively updating Timer Events.
+     *
+     * @name Phaser.Time.Clock#_active
+     * @type {Phaser.Time.TimerEvent[]}
+     * @private
+     * @default []
+     * @since 3.0.0
+     */
+    _active: any[];
+
+    /**
+     * An array of all Timer Events which will be added to the Clock at the start of the next frame.
+     *
+     * @name Phaser.Time.Clock#_pendingInsertion
+     * @type {Phaser.Time.TimerEvent[]}
+     * @private
+     * @default []
+     * @since 3.0.0
+     */
+    _pendingInsertion: any[];
+
+    /**
+     * An array of all Timer Events which will be removed from the Clock at the start of the next frame.
+     *
+     * @name Phaser.Time.Clock#_pendingRemoval
+     * @type {Phaser.Time.TimerEvent[]}
+     * @private
+     * @default []
+     * @since 3.0.0
+     */
+    _pendingRemoval: any[];
+
+    constructor(scene: any)
     {
-        /**
-         * The Scene which owns this Clock.
-         *
-         * @name Phaser.Time.Clock#scene
-         * @type {Phaser.Scene}
-         * @since 3.0.0
-         */
         this.scene = scene;
-
-        /**
-         * The Scene Systems object of the Scene which owns this Clock.
-         *
-         * @name Phaser.Time.Clock#systems
-         * @type {Phaser.Scenes.Systems}
-         * @since 3.0.0
-         */
         this.systems = scene.sys;
-
-        /**
-         * The current time of the Clock, in milliseconds.
-         *
-         * If accessed externally, this is equivalent to the `time` parameter normally passed to a Scene's `update` method.
-         *
-         * @name Phaser.Time.Clock#now
-         * @type {number}
-         * @since 3.0.0
-         */
         this.now = 0;
-
-        /**
-         * The time the Clock (and Scene) started, in milliseconds.
-         *
-         * This can be compared to the `time` parameter passed to a Scene's `update` method.
-         *
-         * @name Phaser.Time.Clock#startTime
-         * @type {number}
-         * @since 3.60.0
-         */
         this.startTime = 0;
-
-        /**
-         * The scale of the Clock's time delta.
-         *
-         * The time delta is the time elapsed between two consecutive frames and influences the speed of time for this Clock and anything which uses it, such as its Timer Events. Values higher than 1 increase the speed of time, while values smaller than 1 decrease it. A value of 0 freezes time and is effectively equivalent to pausing the Clock.
-         *
-         * @name Phaser.Time.Clock#timeScale
-         * @type {number}
-         * @default 1
-         * @since 3.0.0
-         */
         this.timeScale = 1;
-
-        /**
-         * Whether the Clock is paused (`true`) or active (`false`).
-         *
-         * When paused, the Clock will not update any of its Timer Events, thus freezing time.
-         *
-         * @name Phaser.Time.Clock#paused
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
-         */
         this.paused = false;
-
-        /**
-         * An array of all Timer Events whose delays haven't expired - these are actively updating Timer Events.
-         *
-         * @name Phaser.Time.Clock#_active
-         * @type {Phaser.Time.TimerEvent[]}
-         * @private
-         * @default []
-         * @since 3.0.0
-         */
         this._active = [];
-
-        /**
-         * An array of all Timer Events which will be added to the Clock at the start of the next frame.
-         *
-         * @name Phaser.Time.Clock#_pendingInsertion
-         * @type {Phaser.Time.TimerEvent[]}
-         * @private
-         * @default []
-         * @since 3.0.0
-         */
         this._pendingInsertion = [];
-
-        /**
-         * An array of all Timer Events which will be removed from the Clock at the start of the next frame.
-         *
-         * @name Phaser.Time.Clock#_pendingRemoval
-         * @type {Phaser.Time.TimerEvent[]}
-         * @private
-         * @default []
-         * @since 3.0.0
-         */
         this._pendingRemoval = [];
 
         scene.sys.events.once(SceneEvents.BOOT, this.boot, this);
         scene.sys.events.on(SceneEvents.START, this.start, this);
-    },
+    }
 
     /**
      * This method is called automatically, only once, when the Scene is first created.
@@ -136,13 +141,13 @@ var Clock = new Class({
      * @private
      * @since 3.5.1
      */
-    boot: function ()
+    boot(): void
     {
         //  Sync with the TimeStep
         this.now = this.systems.game.loop.time;
 
         this.systems.events.once(SceneEvents.DESTROY, this.destroy, this);
-    },
+    }
 
     /**
      * This method is called automatically by the Scene when it is starting up.
@@ -153,16 +158,16 @@ var Clock = new Class({
      * @private
      * @since 3.5.0
      */
-    start: function ()
+    start(): void
     {
         this.startTime = this.systems.game.loop.time;
 
-        var eventEmitter = this.systems.events;
+        const eventEmitter = this.systems.events;
 
         eventEmitter.on(SceneEvents.PRE_UPDATE, this.preUpdate, this);
         eventEmitter.on(SceneEvents.UPDATE, this.update, this);
         eventEmitter.once(SceneEvents.SHUTDOWN, this.shutdown, this);
-    },
+    }
 
     /**
      * Creates a Timer Event and adds it to this Clock at the start of the next frame.
@@ -184,9 +189,11 @@ var Clock = new Class({
      *
      * @return {Phaser.Time.TimerEvent} The Timer Event which was created, or passed in.
      */
-    addEvent: function (config)
+    addEvent(config: any): any
     {
-        var event;
+        let event: any;
+
+        const TimerEvent = require('./TimerEvent');
 
         if (config instanceof TimerEvent)
         {
@@ -211,7 +218,7 @@ var Clock = new Class({
         this._pendingInsertion.push(event);
 
         return event;
-    },
+    }
 
     /**
      * Creates a Timer Event and adds it to the Clock at the start of the frame.
@@ -228,10 +235,10 @@ var Clock = new Class({
      *
      * @return {Phaser.Time.TimerEvent} The Timer Event which was created.
      */
-    delayedCall: function (delay, callback, args, callbackScope)
+    delayedCall(delay: number, callback: Function, args?: any[], callbackScope?: any): any
     {
         return this.addEvent({ delay: delay, callback: callback, args: args, callbackScope: callbackScope });
-    },
+    }
 
     /**
      * Clears and recreates the array of pending Timer Events.
@@ -241,12 +248,12 @@ var Clock = new Class({
      *
      * @return {this} - This Clock instance.
      */
-    clearPendingEvents: function ()
+    clearPendingEvents(): this
     {
         this._pendingInsertion = [];
 
         return this;
-    },
+    }
 
     /**
      * Removes the given Timer Event, or an array of Timer Events, from this Clock.
@@ -261,16 +268,16 @@ var Clock = new Class({
      *
      * @return {this} - This Clock instance.
      */
-    removeEvent: function (events)
+    removeEvent(events: any | any[]): this
     {
         if (!Array.isArray(events))
         {
             events = [ events ];
         }
 
-        for (var i = 0; i < events.length; i++)
+        for (let i = 0; i < events.length; i++)
         {
-            var event = events[i];
+            const event = events[i];
 
             Remove(this._pendingRemoval, event);
             Remove(this._pendingInsertion, event);
@@ -278,7 +285,7 @@ var Clock = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Schedules all active Timer Events for removal at the start of the frame.
@@ -288,12 +295,12 @@ var Clock = new Class({
      *
      * @return {this} - This Clock instance.
      */
-    removeAllEvents: function ()
+    removeAllEvents(): this
     {
         this._pendingRemoval = this._pendingRemoval.concat(this._active);
 
         return this;
-    },
+    }
 
     /**
      * Updates the arrays of active and pending Timer Events. Called at the start of the frame.
@@ -304,10 +311,10 @@ var Clock = new Class({
      * @param {number} time - The current time. Either a High Resolution Timer value if it comes from Request Animation Frame, or Date.now if using SetTimeout.
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    preUpdate: function ()
+    preUpdate(): void
     {
-        var toRemove = this._pendingRemoval.length;
-        var toInsert = this._pendingInsertion.length;
+        const toRemove = this._pendingRemoval.length;
+        const toInsert = this._pendingInsertion.length;
 
         if (toRemove === 0 && toInsert === 0)
         {
@@ -315,15 +322,15 @@ var Clock = new Class({
             return;
         }
 
-        var i;
-        var event;
+        let i: number;
+        let event: any;
 
         //  Delete old events
         for (i = 0; i < toRemove; i++)
         {
             event = this._pendingRemoval[i];
 
-            var index = this._active.indexOf(event);
+            const index = this._active.indexOf(event);
 
             if (index > -1)
             {
@@ -344,7 +351,7 @@ var Clock = new Class({
         //  Clear the lists
         this._pendingRemoval.length = 0;
         this._pendingInsertion.length = 0;
-    },
+    }
 
     /**
      * Updates the Clock's internal time and all of its Timer Events.
@@ -355,7 +362,7 @@ var Clock = new Class({
      * @param {number} time - The current time. Either a High Resolution Timer value if it comes from Request Animation Frame, or Date.now if using SetTimeout.
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    update: function (time, delta)
+    update(time: number, delta: number): void
     {
         this.now = time;
 
@@ -366,9 +373,9 @@ var Clock = new Class({
 
         delta *= this.timeScale;
 
-        for (var i = 0; i < this._active.length; i++)
+        for (let i = 0; i < this._active.length; i++)
         {
-            var event = this._active[i];
+            const event = this._active[i];
 
             if (event.paused)
             {
@@ -383,7 +390,7 @@ var Clock = new Class({
 
             if (event.elapsed >= event.delay)
             {
-                var remainder = event.elapsed - event.delay;
+                let remainder = event.elapsed - event.delay;
 
                 //  Limit it, in case it's checked in the callback
                 event.elapsed = event.delay;
@@ -423,7 +430,7 @@ var Clock = new Class({
                 }
             }
         }
-    },
+    }
 
     /**
      * The Scene that owns this plugin is shutting down.
@@ -433,9 +440,9 @@ var Clock = new Class({
      * @private
      * @since 3.0.0
      */
-    shutdown: function ()
+    shutdown(): void
     {
-        var i;
+        let i: number;
 
         for (i = 0; i < this._pendingInsertion.length; i++)
         {
@@ -456,12 +463,12 @@ var Clock = new Class({
         this._pendingRemoval.length = 0;
         this._pendingInsertion.length = 0;
 
-        var eventEmitter = this.systems.events;
+        const eventEmitter = this.systems.events;
 
         eventEmitter.off(SceneEvents.PRE_UPDATE, this.preUpdate, this);
         eventEmitter.off(SceneEvents.UPDATE, this.update, this);
         eventEmitter.off(SceneEvents.SHUTDOWN, this.shutdown, this);
-    },
+    }
 
     /**
      * The Scene that owns this plugin is being destroyed.
@@ -471,7 +478,7 @@ var Clock = new Class({
      * @private
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy(): void
     {
         this.shutdown();
 
@@ -480,9 +487,6 @@ var Clock = new Class({
         this.scene = null;
         this.systems = null;
     }
-
-});
+}
 
 PluginCache.register('Clock', Clock, 'time');
-
-module.exports = Clock;

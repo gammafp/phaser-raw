@@ -18,7 +18,7 @@ import { LOADER_CONST } from './const';
 import { File } from './File';
 import { FileTypesManager } from './FileTypesManager';
 import { GetURL } from './GetURL';
-const LoaderPlugin = require('./LoaderPlugin');
+import { LoaderPlugin } from './LoaderPlugin';
 import { MergeXHRSettings } from './MergeXHRSettings';
 import { MultiFile } from './MultiFile';
 import { XHRLoader } from './XHRLoader';
