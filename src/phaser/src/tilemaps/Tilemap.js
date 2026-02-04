@@ -11,12 +11,12 @@ import { GetFastValue } from '../utils/object/GetFastValue';
 import { Rotate } from '../math/Rotate';
 import { SpliceOne } from '../utils/array/SpliceOne';
 
-var BuildTilesetIndex = require('./parsers/tiled/BuildTilesetIndex');
+import { BuildTilesetIndex } from './parsers/tiled/BuildTilesetIndex';
 var Class = require('../utils/Class');
-var Formats = require('./Formats');
-var LayerData = require('./mapdata/LayerData');
+import * as Formats from './Formats';
+import { LayerData } from './mapdata/LayerData';
 var ObjectHelper = require('./ObjectHelper');
-var ORIENTATION = require('./const/ORIENTATION_CONST');
+import * as ORIENTATION from './const/ORIENTATION_CONST';
 import { Sprite } from '../gameobjects/sprite/Sprite';
 var Tile = require('./Tile');
 var TilemapComponents = require('./components');

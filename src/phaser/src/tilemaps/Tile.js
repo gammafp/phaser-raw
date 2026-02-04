@@ -10,7 +10,7 @@ import { DeepCopy } from '../utils/object/DeepCopy';
 
 var Class = require('../utils/Class');
 var Components = require('../gameobjects/components');
-var CONST = require('./const/ORIENTATION_CONST');
+import * as CONST from './const/ORIENTATION_CONST';
 var Rectangle = require('../geom/rectangle');
 
 /**

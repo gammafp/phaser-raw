@@ -25,7 +25,7 @@ var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var GetOverlapX = require('./GetOverlapX');
 var GetOverlapY = require('./GetOverlapY');
-var GetTilesWithinWorldXY = require('../../tilemaps/components/GetTilesWithinWorldXY');
+import { GetTilesWithinWorldXY } from '../../tilemaps/components/GetTilesWithinWorldXY';
 var ProcessQueue = require('../../structs/ProcessQueue');
 var ProcessTileCallbacks = require('./tilemap/ProcessTileCallbacks');
 import { Rectangle } from '../../geom/rectangle/Rectangle';
