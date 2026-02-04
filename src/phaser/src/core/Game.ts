@@ -15,7 +15,7 @@ const AnimationManager = require('../animations/AnimationManager');
 import { Config } from './Config';
 import { CreateDOMContainer } from '../dom/CreateDOMContainer';
 import { CreateRenderer } from './CreateRenderer';
-const DataManager = require('../data/DataManager');
+import { DataManager } from '../data/DataManager';
 import { DebugHeader } from './DebugHeader';
 const Device = require('../device');
 import { DOMContentLoaded } from '../dom/DOMContentLoaded';

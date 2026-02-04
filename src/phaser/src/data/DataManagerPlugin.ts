@@ -4,10 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var DataManager = require('./DataManager');
-var PluginCache = require('../plugins/PluginCache');
-var SceneEvents = require('../scene/events');
+import { DataManager } from './DataManager';
+const PluginCache = require('../plugins/PluginCache');
+const SceneEvents = require('../scene/events');
 
 /**
  * @classdesc
@@ -23,15 +22,14 @@ var SceneEvents = require('../scene/events');
  *
  * @param {Phaser.Scene} scene - A reference to the Scene that this DataManager belongs to.
  */
-var DataManagerPlugin = new Class({
+export class DataManagerPlugin extends DataManager {
 
-    Extends: DataManager,
+    scene: any;
+    systems: any;
 
-    initialize:
-
-    function DataManagerPlugin (scene)
+    constructor(scene: any)
     {
-        DataManager.call(this, scene, scene.sys.events);
+        super(scene, scene.sys.events);
 
         /**
          * A reference to the Scene that this DataManager belongs to.
@@ -53,7 +51,7 @@ var DataManagerPlugin = new Class({
 
         scene.sys.events.once(SceneEvents.BOOT, this.boot, this);
         scene.sys.events.on(SceneEvents.START, this.start, this);
-    },
+    }
 
     /**
      * This method is called automatically, only once, when the Scene is first created.
@@ -63,12 +61,12 @@ var DataManagerPlugin = new Class({
      * @private
      * @since 3.5.1
      */
-    boot: function ()
+    boot(): void
     {
         this.events = this.systems.events;
 
         this.events.once(SceneEvents.DESTROY, this.destroy, this);
-    },
+    }
 
     /**
      * This method is called automatically by the Scene when it is starting up.
@@ -79,10 +77,10 @@ var DataManagerPlugin = new Class({
      * @private
      * @since 3.5.0
      */
-    start: function ()
+    start(): void
     {
         this.events.once(SceneEvents.SHUTDOWN, this.shutdown, this);
-    },
+    }
 
     /**
      * The Scene that owns this plugin is shutting down.
@@ -92,10 +90,10 @@ var DataManagerPlugin = new Class({
      * @private
      * @since 3.5.0
      */
-    shutdown: function ()
+    shutdown(): void
     {
         this.systems.events.off(SceneEvents.SHUTDOWN, this.shutdown, this);
-    },
+    }
 
     /**
      * The Scene that owns this plugin is being destroyed.
@@ -104,9 +102,9 @@ var DataManagerPlugin = new Class({
      * @method Phaser.Data.DataManagerPlugin#destroy
      * @since 3.5.0
      */
-    destroy: function ()
+    destroy(): void
     {
-        DataManager.prototype.destroy.call(this);
+        super.destroy();
 
         this.events.off(SceneEvents.START, this.start, this);
 
@@ -114,8 +112,6 @@ var DataManagerPlugin = new Class({
         this.systems = null;
     }
 
-});
+}
 
 PluginCache.register('DataManagerPlugin', DataManagerPlugin, 'data');
-
-module.exports = DataManagerPlugin;

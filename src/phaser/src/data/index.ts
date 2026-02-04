@@ -8,8 +8,8 @@
  * @namespace Phaser.Data
  */
 
-const DataManager = require('./DataManager');
-const DataManagerPlugin = require('./DataManagerPlugin');
+import { DataManager } from './DataManager';
+import { DataManagerPlugin } from './DataManagerPlugin';
 
 export { DataManager };
 export { DataManagerPlugin };
