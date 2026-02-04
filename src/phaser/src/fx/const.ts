@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var FX_CONST = {
+export const FX_CONST = {
 
     /**
      * The Glow FX.
@@ -147,5 +147,3 @@ var FX_CONST = {
     BOKEH: 19
 
 };
-
-module.exports = FX_CONST;

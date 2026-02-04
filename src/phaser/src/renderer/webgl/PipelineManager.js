@@ -10,6 +10,7 @@ import { GetFastValue } from '../../utils/object/GetFastValue';
 import { SnapCeil } from '../../math/snap/SnapCeil';
 import { Each as ArrayEach } from '../../utils/array/Each';
 import { Remove as ArrayRemove } from '../../utils/array/Remove';
+import { FX_CONST } from '../../fx/const';
 
 var Class = require('../../utils/Class');
 var CONST = require('./pipelines/const');
@@ -20,7 +21,6 @@ var RenderTarget = require('./RenderTarget');
 //  Default Phaser 3 Pipelines
 var BitmapMaskPipeline = require('./pipelines/BitmapMaskPipeline');
 var FX = require('./pipelines/fx');
-var FX_CONST = require('../../fx/const');
 var FXPipeline = require('./pipelines/FXPipeline');
 var LightPipeline = require('./pipelines/LightPipeline');
 var MobilePipeline = require('./pipelines/MobilePipeline');

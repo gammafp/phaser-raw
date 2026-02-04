@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-
 /**
  * @classdesc
  * FX Controller is the base class that all built-in FX use.
@@ -20,44 +18,46 @@ var Class = require('../utils/Class');
  * @param {number} type - The FX Type constant.
  * @param {Phaser.GameObjects.GameObject} gameObject - A reference to the Game Object that has this fx.
  */
-var Controller = new Class({
+export class Controller {
 
-    initialize:
+    /**
+     * The FX_CONST type of this effect.
+     *
+     * @name Phaser.FX.Controller#type
+     * @type {number}
+     * @since 3.60.0
+     */
+    type: number;
 
-    function Controller (type, gameObject)
+    /**
+     * A reference to the Game Object that owns this effect.
+     *
+     * @name Phaser.FX.Controller#gameObject
+     * @type {Phaser.GameObjects.GameObject}
+     * @since 3.60.0
+     */
+    gameObject: any;
+
+    /**
+     * Toggle this boolean to enable or disable this effect,
+     * without removing and adding it from the Game Object.
+     *
+     * Only works for Pre FX.
+     *
+     * Post FX are always active.
+     *
+     * @name Phaser.FX.Controller#active
+     * @type {boolean}
+     * @since 3.60.0
+     */
+    active: boolean;
+
+    constructor(type: number, gameObject: any)
     {
-        /**
-         * The FX_CONST type of this effect.
-         *
-         * @name Phaser.FX.Controller#type
-         * @type {number}
-         * @since 3.60.0
-         */
         this.type = type;
-
-        /**
-         * A reference to the Game Object that owns this effect.
-         *
-         * @name Phaser.FX.Controller#gameObject
-         * @type {Phaser.GameObjects.GameObject}
-         * @since 3.60.0
-         */
         this.gameObject = gameObject;
-
-        /**
-         * Toggle this boolean to enable or disable this effect,
-         * without removing and adding it from the Game Object.
-         *
-         * Only works for Pre FX.
-         *
-         * Post FX are always active.
-         *
-         * @name Phaser.FX.Controller#active
-         * @type {boolean}
-         * @since 3.60.0
-         */
         this.active = true;
-    },
+    }
 
     /**
      * Sets the active state of this FX Controller.
@@ -71,12 +71,12 @@ var Controller = new Class({
      *
      * @return {this} This FX Controller instance.
      */
-    setActive: function (value)
+    setActive(value: boolean): this
     {
         this.active = value;
 
         return this;
-    },
+    }
 
     /**
      * Destroys this FX Controller.
@@ -84,12 +84,10 @@ var Controller = new Class({
      * @method Phaser.FX.Controller#destroy
      * @since 3.60.0
      */
-    destroy: function ()
+    destroy(): void
     {
         this.gameObject = null;
         this.active = false;
     }
 
-});
-
-module.exports = Controller;
+}

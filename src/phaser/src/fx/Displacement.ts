@@ -4,9 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var Controller = require('./Controller');
-var FX_CONST = require('./const');
+import { Controller } from './Controller';
+import { FX_CONST } from './const';
 
 /**
  * @classdesc
@@ -40,49 +39,43 @@ var FX_CONST = require('./const');
  * @param {number} [x=0.005] - The amount of horizontal displacement to apply. A very small float number, such as 0.005.
  * @param {number} [y=0.005] - The amount of vertical displacement to apply. A very small float number, such as 0.005.
  */
-var Displacement = new Class({
+export class Displacement extends Controller {
 
-    Extends: Controller,
+    /**
+     * The amount of horizontal displacement to apply.
+     *
+     * @name Phaser.FX.Displacement#x
+     * @type {number}
+     * @since 3.60.0
+     */
+    x: number;
 
-    initialize:
+    /**
+     * The amount of vertical displacement to apply.
+     *
+     * @name Phaser.FX.Displacement#y
+     * @type {number}
+     * @since 3.60.0
+     */
+    y: number;
 
-    function Displacement (gameObject, texture, x, y)
+    /**
+     * The underlying texture used for displacement.
+     *
+     * @name Phaser.FX.Displacement#glTexture
+     * @type {Phaser.Renderer.WebGL.Wrappers.WebGLTextureWrapper}
+     * @since 3.60.0
+     */
+    glTexture: any;
+
+    constructor(gameObject: any, texture: string = '__WHITE', x: number = 0.005, y: number = 0.005)
     {
-        if (texture === undefined) { texture = '__WHITE'; }
-        if (x === undefined) { x = 0.005; }
-        if (y === undefined) { y = 0.005; }
+        super(FX_CONST.DISPLACEMENT, gameObject);
 
-        Controller.call(this, FX_CONST.DISPLACEMENT, gameObject);
-
-        /**
-         * The amount of horizontal displacement to apply.
-         *
-         * @name Phaser.FX.Displacement#x
-         * @type {number}
-         * @since 3.60.0
-         */
         this.x = x;
-
-        /**
-         * The amount of vertical displacement to apply.
-         *
-         * @name Phaser.FX.Displacement#y
-         * @type {number}
-         * @since 3.60.0
-         */
         this.y = y;
-
-        /**
-         * The underlying texture used for displacement.
-         *
-         * @name Phaser.FX.Displacement#glTexture
-         * @type {Phaser.Renderer.WebGL.Wrappers.WebGLTextureWrapper}
-         * @since 3.60.0
-         */
-        this.glTexture;
-
         this.setTexture(texture);
-    },
+    }
 
     /**
      * Sets the Texture to be used for the displacement effect.
@@ -96,9 +89,9 @@ var Displacement = new Class({
      *
      * @return {this} This FX Controller.
      */
-    setTexture: function (texture)
+    setTexture(texture: string = '__WHITE'): this
     {
-        var phaserTexture = this.gameObject.scene.sys.textures.getFrame(texture);
+        const phaserTexture = this.gameObject.scene.sys.textures.getFrame(texture);
 
         if (phaserTexture)
         {
@@ -108,6 +101,4 @@ var Displacement = new Class({
         return this;
     }
 
-});
-
-module.exports = Displacement;
+}

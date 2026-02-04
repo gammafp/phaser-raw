@@ -5,9 +5,7 @@
  */
 
 import { ColorMatrix as BaseColorMatrix } from '../display/ColorMatrix';
-
-var Class = require('../utils/Class');
-var FX_CONST = require('./const');
+import { FX_CONST } from './const';
 
 /**
  * @classdesc
@@ -38,52 +36,50 @@ var FX_CONST = require('./const');
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - A reference to the Game Object that has this fx.
  */
-var ColorMatrix = new Class({
+export class ColorMatrix extends BaseColorMatrix {
 
-    Extends: BaseColorMatrix,
+    /**
+     * The FX_CONST type of this effect.
+     *
+     * @name Phaser.FX.ColorMatrix#type
+     * @type {number}
+     * @since 3.60.0
+     */
+    type: number;
 
-    initialize:
+    /**
+     * A reference to the Game Object that owns this effect.
+     *
+     * @name Phaser.FX.ColorMatrix#gameObject
+     * @type {Phaser.GameObjects.GameObject}
+     * @since 3.60.0
+     */
+    gameObject: any;
 
-    function ColorMatrix (gameObject)
+    /**
+     * Toggle this boolean to enable or disable this effect,
+     * without removing and adding it from the Game Object.
+     *
+     * @name Phaser.FX.ColorMatrix#active
+     * @type {boolean}
+     * @since 3.60.0
+     */
+    active: boolean;
+
+    constructor(gameObject: any)
     {
-        BaseColorMatrix.call(this);
+        super();
 
-        /**
-         * The FX_CONST type of this effect.
-         *
-         * @name Phaser.FX.ColorMatrix#type
-         * @type {number}
-         * @since 3.60.0
-         */
         this.type = FX_CONST.COLOR_MATRIX;
-
-        /**
-         * A reference to the Game Object that owns this effect.
-         *
-         * @name Phaser.FX.ColorMatrix#gameObject
-         * @type {Phaser.GameObjects.GameObject}
-         * @since 3.60.0
-         */
         this.gameObject = gameObject;
-
-        /**
-         * Toggle this boolean to enable or disable this effect,
-         * without removing and adding it from the Game Object.
-         *
-         * @name Phaser.FX.ColorMatrix#active
-         * @type {boolean}
-         * @since 3.60.0
-         */
         this.active = true;
-    },
+    }
 
-    destroy: function ()
+    destroy(): void
     {
         this.gameObject = null;
         this._matrix = null;
         this._data = null;
     }
 
-});
-
-module.exports = ColorMatrix;
+}

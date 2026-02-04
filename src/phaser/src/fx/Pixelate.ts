@@ -4,9 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var Controller = require('./Controller');
-var FX_CONST = require('./const');
+import { Controller } from './Controller';
+import { FX_CONST } from './const';
 
 /**
  * @classdesc
@@ -37,28 +36,22 @@ var FX_CONST = require('./const');
  * @param {Phaser.GameObjects.GameObject} gameObject - A reference to the Game Object that has this fx.
  * @param {number} [amount=1] - The amount of pixelation to apply.
  */
-var Pixelate = new Class({
+export class Pixelate extends Controller {
 
-    Extends: Controller,
+    /**
+     * The amount of pixelation to apply.
+     *
+     * @name Phaser.FX.Pixelate#amount
+     * @type {number}
+     * @since 3.60.0
+     */
+    amount: number;
 
-    initialize:
-
-    function Pixelate (gameObject, amount)
+    constructor(gameObject: any, amount: number = 1)
     {
-        if (amount === undefined) { amount = 1; }
+        super(FX_CONST.PIXELATE, gameObject);
 
-        Controller.call(this, FX_CONST.PIXELATE, gameObject);
-
-        /**
-         * The amount of pixelation to apply.
-         *
-         * @name Phaser.FX.Pixelate#amount
-         * @type {number}
-         * @since 3.60.0
-         */
         this.amount = amount;
     }
 
-});
-
-module.exports = Pixelate;
+}

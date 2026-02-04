@@ -7,10 +7,10 @@
 // TODO: Convert this file to TypeScript
 
 import { GetFastValue } from '../../../utils/object/GetFastValue';
+import { FX_CONST } from '../../../fx/const';
 
 var Class = require('../../../utils/Class');
 var FX = require('../pipelines/fx');
-var FX_CONST = require('../../../fx/const');
 var PreFXPipeline = require('./PreFXPipeline');
 var Shaders = require('../shaders');
 var Utils = require('../Utils');

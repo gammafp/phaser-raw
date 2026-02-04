@@ -4,9 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var Controller = require('./Controller');
-var FX_CONST = require('./const');
+import { Controller } from './Controller';
+import { FX_CONST } from './const';
 
 /**
  * @classdesc
@@ -35,30 +34,24 @@ var FX_CONST = require('./const');
  * @param {Phaser.GameObjects.GameObject} gameObject - A reference to the Game Object that has this fx.
  * @param {number} [amount=1] - The amount of distortion applied to the barrel effect. A value of 1 is no distortion. Typically keep this within +- 1.
  */
-var Barrel = new Class({
+export class Barrel extends Controller {
 
-    Extends: Controller,
+    /**
+     * The amount of distortion applied to the barrel effect.
+     *
+     * Typically keep this within the range 1 (no distortion) to +- 1.
+     *
+     * @name Phaser.FX.Barrel#amount
+     * @type {number}
+     * @since 3.60.0
+     */
+    amount: number;
 
-    initialize:
-
-    function Barrel (gameObject, amount)
+    constructor(gameObject: any, amount: number = 1)
     {
-        if (amount === undefined) { amount = 1; }
+        super(FX_CONST.BARREL, gameObject);
 
-        Controller.call(this, FX_CONST.BARREL, gameObject);
-
-        /**
-         * The amount of distortion applied to the barrel effect.
-         *
-         * Typically keep this within the range 1 (no distortion) to +- 1.
-         *
-         * @name Phaser.FX.Barrel#amount
-         * @type {number}
-         * @since 3.60.0
-         */
         this.amount = amount;
     }
 
-});
-
-module.exports = Barrel;
+}

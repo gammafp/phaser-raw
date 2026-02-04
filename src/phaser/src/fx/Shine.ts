@@ -4,9 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var Controller = require('./Controller');
-var FX_CONST = require('./const');
+import { Controller } from './Controller';
+import { FX_CONST } from './const';
 
 /**
  * @classdesc
@@ -40,58 +39,52 @@ var FX_CONST = require('./const');
  * @param {number} [gradient=3] - The gradient of the Shine effect.
  * @param {boolean} [reveal=false] - Does this Shine effect reveal or get added to its target?
  */
-var Shine = new Class({
+export class Shine extends Controller {
 
-    Extends: Controller,
+    /**
+     * The speed of the Shine effect.
+     *
+     * @name Phaser.FX.Shine#speed
+     * @type {number}
+     * @since 3.60.0
+     */
+    speed: number;
 
-    initialize:
+    /**
+     * The line width of the Shine effect.
+     *
+     * @name Phaser.FX.Shine#lineWidth
+     * @type {number}
+     * @since 3.60.0
+     */
+    lineWidth: number;
 
-    function Shine (gameObject, speed, lineWidth, gradient, reveal)
+    /**
+     * The gradient of the Shine effect.
+     *
+     * @name Phaser.FX.Shine#gradient
+     * @type {number}
+     * @since 3.60.0
+     */
+    gradient: number;
+
+    /**
+     * Does this Shine effect reveal or get added to its target?
+     *
+     * @name Phaser.FX.Shine#reveal
+     * @type {boolean}
+     * @since 3.60.0
+     */
+    reveal: boolean;
+
+    constructor(gameObject: any, speed: number = 0.5, lineWidth: number = 0.5, gradient: number = 3, reveal: boolean = false)
     {
-        if (speed === undefined) { speed = 0.5; }
-        if (lineWidth === undefined) { lineWidth = 0.5; }
-        if (gradient === undefined) { gradient = 3; }
-        if (reveal === undefined) { reveal = false; }
+        super(FX_CONST.SHINE, gameObject);
 
-        Controller.call(this, FX_CONST.SHINE, gameObject);
-
-        /**
-         * The speed of the Shine effect.
-         *
-         * @name Phaser.FX.Shine#speed
-         * @type {number}
-         * @since 3.60.0
-         */
         this.speed = speed;
-
-        /**
-         * The line width of the Shine effect.
-         *
-         * @name Phaser.FX.Shine#lineWidth
-         * @type {number}
-         * @since 3.60.0
-         */
         this.lineWidth = lineWidth;
-
-        /**
-         * The gradient of the Shine effect.
-         *
-         * @name Phaser.FX.Shine#gradient
-         * @type {number}
-         * @since 3.60.0
-         */
         this.gradient = gradient;
-
-        /**
-         * Does this Shine effect reveal or get added to its target?
-         *
-         * @name Phaser.FX.Shine#reveal
-         * @type {boolean}
-         * @since 3.60.0
-         */
         this.reveal = reveal;
     }
 
-});
-
-module.exports = Shine;
+}

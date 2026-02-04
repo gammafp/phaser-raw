@@ -4,9 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var Controller = require('./Controller');
-var FX_CONST = require('./const');
+import { Controller } from './Controller';
+import { FX_CONST } from './const';
 
 /**
  * @classdesc
@@ -51,69 +50,64 @@ var FX_CONST = require('./const');
  * @param {number} [axis=0] - The axis of the wipe effect. Either 0 or 1. Set in conjunction with the direction property.
  * @param {boolean} [reveal=false] - Is this a reveal (true) or a fade (false) effect?
  */
-var Wipe = new Class({
+export class Wipe extends Controller {
 
-    Extends: Controller,
+    /**
+     * The progress of the Wipe effect. This value is normalized to the range 0 to 1.
+     *
+     * Adjust this value to make the wipe transition (i.e. via a Tween)
+     *
+     * @name Phaser.FX.Wipe#progress
+     * @type {number}
+     * @since 3.60.0
+     */
+    progress: number;
 
-    initialize:
+    /**
+     * The width of the wipe effect. This value is normalized in the range 0 to 1.
+     *
+     * @name Phaser.FX.Wipe#wipeWidth
+     * @type {number}
+     * @since 3.60.0
+     */
+    wipeWidth: number;
 
-    function Wipe (gameObject, wipeWidth, direction, axis, reveal)
+    /**
+     * The direction of the wipe effect. Either 0 or 1. Set in conjunction with the axis property.
+     *
+     * @name Phaser.FX.Wipe#direction
+     * @type {number}
+     * @since 3.60.0
+     */
+    direction: number;
+
+    /**
+     * The axis of the wipe effect. Either 0 or 1. Set in conjunction with the direction property.
+     *
+     * @name Phaser.FX.Wipe#axis
+     * @type {number}
+     * @since 3.60.0
+     */
+    axis: number;
+
+    /**
+     * Is this a reveal (true) or a fade (false) effect?
+     *
+     * @name Phaser.FX.Wipe#reveal
+     * @type {boolean}
+     * @since 3.60.0
+     */
+    reveal: boolean;
+
+    constructor(gameObject: any, wipeWidth: number = 0.1, direction: number = 0, axis: number = 0, reveal: boolean = false)
     {
-        if (wipeWidth === undefined) { wipeWidth = 0.1; }
-        if (direction === undefined) { direction = 0; }
-        if (axis === undefined) { axis = 0; }
-        if (reveal === undefined) { reveal = false; }
+        super(FX_CONST.WIPE, gameObject);
 
-        Controller.call(this, FX_CONST.WIPE, gameObject);
-
-        /**
-         * The progress of the Wipe effect. This value is normalized to the range 0 to 1.
-         *
-         * Adjust this value to make the wipe transition (i.e. via a Tween)
-         *
-         * @name Phaser.FX.Wipe#progress
-         * @type {number}
-         * @since 3.60.0
-         */
         this.progress = 0;
-
-        /**
-         * The width of the wipe effect. This value is normalized in the range 0 to 1.
-         *
-         * @name Phaser.FX.Wipe#wipeWidth
-         * @type {number}
-         * @since 3.60.0
-         */
         this.wipeWidth = wipeWidth;
-
-        /**
-         * The direction of the wipe effect. Either 0 or 1. Set in conjunction with the axis property.
-         *
-         * @name Phaser.FX.Wipe#direction
-         * @type {number}
-         * @since 3.60.0
-         */
         this.direction = direction;
-
-        /**
-         * The axis of the wipe effect. Either 0 or 1. Set in conjunction with the direction property.
-         *
-         * @name Phaser.FX.Wipe#axis
-         * @type {number}
-         * @since 3.60.0
-         */
         this.axis = axis;
-
-        /**
-         * Is this a reveal (true) or a fade (false) effect?
-         *
-         * @name Phaser.FX.Wipe#reveal
-         * @type {boolean}
-         * @since 3.60.0
-         */
         this.reveal = reveal;
     }
 
-});
-
-module.exports = Wipe;
+}

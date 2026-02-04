@@ -7,8 +7,22 @@
 // TODO: Convert this file to TypeScript
 
 import { Extend } from '../utils/object/Extend';
-
-var FX_CONST = require('./const');
+import { Barrel } from './Barrel';
+import { Controller } from './Controller';
+import { Bloom } from './Bloom';
+import { Blur } from './Blur';
+import { Bokeh } from './Bokeh';
+import { Circle } from './Circle';
+import { ColorMatrix } from './ColorMatrix';
+import { Displacement } from './Displacement';
+import { Glow } from './Glow';
+import { Gradient } from './Gradient';
+import { Pixelate } from './Pixelate';
+import { Shadow } from './Shadow';
+import { Shine } from './Shine';
+import { Vignette } from './Vignette';
+import { Wipe } from './Wipe';
+import { FX_CONST } from './const';
 
 /**
  * @namespace Phaser.FX
@@ -16,21 +30,21 @@ var FX_CONST = require('./const');
 
 var FX = {
 
-    Barrel: require('./Barrel'),
-    Controller: require('./Controller'),
-    Bloom: require('./Bloom'),
-    Blur: require('./Blur'),
-    Bokeh: require('./Bokeh'),
-    Circle: require('./Circle'),
-    ColorMatrix: require('./ColorMatrix'),
-    Displacement: require('./Displacement'),
-    Glow: require('./Glow'),
-    Gradient: require('./Gradient'),
-    Pixelate: require('./Pixelate'),
-    Shadow: require('./Shadow'),
-    Shine: require('./Shine'),
-    Vignette: require('./Vignette'),
-    Wipe: require('./Wipe')
+    Barrel,
+    Controller,
+    Bloom,
+    Blur,
+    Bokeh,
+    Circle,
+    ColorMatrix,
+    Displacement,
+    Glow,
+    Gradient,
+    Pixelate,
+    Shadow,
+    Shine,
+    Vignette,
+    Wipe
 
 };
 

@@ -4,9 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var Controller = require('./Controller');
-var FX_CONST = require('./const');
+import { Controller } from './Controller';
+import { FX_CONST } from './const';
 
 /**
  * @classdesc
@@ -40,61 +39,58 @@ var FX_CONST = require('./const');
  * @param {number} [innerStrength=0] - The strength of the glow inward from the edge of the Sprite.
  * @param {boolean} [knockout=false] - If `true` only the glow is drawn, not the texture itself.
  */
-var Glow = new Class({
+export class Glow extends Controller {
 
-    Extends: Controller,
+    /**
+     * The strength of the glow outward from the edge of the Sprite.
+     *
+     * @name Phaser.FX.Glow#outerStrength
+     * @type {number}
+     * @since 3.60.0
+     */
+    outerStrength: number;
 
-    initialize:
+    /**
+     * The strength of the glow inward from the edge of the Sprite.
+     *
+     * @name Phaser.FX.Glow#innerStrength
+     * @type {number}
+     * @since 3.60.0
+     */
+    innerStrength: number;
 
-    function Glow (gameObject, color, outerStrength, innerStrength, knockout)
+    /**
+     * If `true` only the glow is drawn, not the texture itself.
+     *
+     * @name Phaser.FX.Glow#knockout
+     * @type {number}
+     * @since 3.60.0
+     */
+    knockout: boolean;
+
+    /**
+     * A 4 element array of gl color values.
+     *
+     * @name Phaser.FX.Glow#glcolor
+     * @type {number[]}
+     * @since 3.60.0
+     */
+    glcolor: number[];
+
+    constructor(gameObject: any, color?: number, outerStrength: number = 4, innerStrength: number = 0, knockout: boolean = false)
     {
-        if (outerStrength === undefined) { outerStrength = 4; }
-        if (innerStrength === undefined) { innerStrength = 0; }
-        if (knockout === undefined) { knockout = false; }
+        super(FX_CONST.GLOW, gameObject);
 
-        Controller.call(this, FX_CONST.GLOW, gameObject);
-
-        /**
-         * The strength of the glow outward from the edge of the Sprite.
-         *
-         * @name Phaser.FX.Glow#outerStrength
-         * @type {number}
-         * @since 3.60.0
-         */
         this.outerStrength = outerStrength;
-
-        /**
-         * The strength of the glow inward from the edge of the Sprite.
-         *
-         * @name Phaser.FX.Glow#innerStrength
-         * @type {number}
-         * @since 3.60.0
-         */
         this.innerStrength = innerStrength;
-
-        /**
-         * If `true` only the glow is drawn, not the texture itself.
-         *
-         * @name Phaser.FX.Glow#knockout
-         * @type {number}
-         * @since 3.60.0
-         */
         this.knockout = knockout;
-
-        /**
-         * A 4 element array of gl color values.
-         *
-         * @name Phaser.FX.Glow#glcolor
-         * @type {number[]}
-         * @since 3.60.0
-         */
         this.glcolor = [ 1, 1, 1, 1 ];
 
         if (color !== undefined)
         {
             this.color = color;
         }
-    },
+    }
 
     /**
      * The color of the glow as a number value.
@@ -103,26 +99,20 @@ var Glow = new Class({
      * @type {number}
      * @since 3.60.0
      */
-    color: {
+    get color(): number
+    {
+        const color = this.glcolor;
 
-        get: function ()
-        {
-            var color = this.glcolor;
-
-            return (((color[0] * 255) << 16) + ((color[1] * 255) << 8) + (color[2] * 255 | 0));
-        },
-
-        set: function (value)
-        {
-            var color = this.glcolor;
-
-            color[0] = ((value >> 16) & 0xFF) / 255;
-            color[1] = ((value >> 8) & 0xFF) / 255;
-            color[2] = (value & 0xFF) / 255;
-        }
-
+        return (((color[0] * 255) << 16) + ((color[1] * 255) << 8) + (color[2] * 255 | 0));
     }
 
-});
+    set color(value: number)
+    {
+        const color = this.glcolor;
 
-module.exports = Glow;
+        color[0] = ((value >> 16) & 0xFF) / 255;
+        color[1] = ((value >> 8) & 0xFF) / 255;
+        color[2] = (value & 0xFF) / 255;
+    }
+
+}
