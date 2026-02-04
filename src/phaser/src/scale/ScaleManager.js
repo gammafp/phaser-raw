@@ -21,7 +21,7 @@ var GameEvents = require('../core/events');
 import { Rectangle } from '../geom/rectangle/Rectangle';
 var Size = require('../structs/Size');
 import { Vector2 } from '../math/Vector2';
-var Camera = require('../cameras/2d/Camera');
+import { Camera } from '../cameras/2d/Camera';
 
 /**
  * @classdesc

@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Events = require('./events');
+import * as Events from './events';
+import type { Game } from './Game';
 
 /**
  * The Visibility Handler is responsible for listening out for document level visibility change events.
@@ -20,10 +21,10 @@ var Events = require('./events');
  *
  * @param {Phaser.Game} game - The Game instance this Visibility Handler is working on.
  */
-var VisibilityHandler = function (game)
+export const VisibilityHandler = (game: Game): void =>
 {
-    var hiddenVar;
-    var eventEmitter = game.events;
+    let hiddenVar: string | undefined;
+    const eventEmitter = game.events;
 
     if (document.hidden !== undefined)
     {
@@ -31,15 +32,15 @@ var VisibilityHandler = function (game)
     }
     else
     {
-        var vendors = [ 'webkit', 'moz', 'ms' ];
+        const vendors = [ 'webkit', 'moz', 'ms' ];
 
-        vendors.forEach(function (prefix)
+        vendors.forEach((prefix) =>
         {
-            if (document[prefix + 'Hidden'] !== undefined)
+            if ((document as any)[prefix + 'Hidden'] !== undefined)
             {
-                document.hidden = function ()
+                (document as any).hidden = () =>
                 {
-                    return document[prefix + 'Hidden'];
+                    return (document as any)[prefix + 'Hidden'];
                 };
 
                 hiddenVar = prefix + 'visibilitychange';
@@ -48,7 +49,7 @@ var VisibilityHandler = function (game)
         });
     }
 
-    var onChange = function (event)
+    const onChange = (event: any): void =>
     {
         if (document.hidden || event.type === 'pause')
         {
@@ -81,5 +82,3 @@ var VisibilityHandler = function (game)
         window.focus();
     }
 };
-
-module.exports = VisibilityHandler;

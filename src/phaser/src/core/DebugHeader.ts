@@ -5,6 +5,7 @@
  */
 
 import { PHASER_CONST as CONST } from '../const';
+import type { Game } from './Game';
 
 /**
  * Called automatically by Phaser.Game and responsible for creating the console.log debug header.
@@ -16,16 +17,16 @@ import { PHASER_CONST as CONST } from '../const';
  *
  * @param {Phaser.Game} game - The Phaser.Game instance which will output this debug header.
  */
-var DebugHeader = function (game)
+export const DebugHeader = (game: Game): void =>
 {
-    var config = game.config;
+    const config = game.config;
 
     if (config.hideBanner)
     {
         return;
     }
 
-    var renderType = 'WebGL';
+    let renderType = 'WebGL';
 
     if (config.renderType === CONST.CANVAS)
     {
@@ -36,10 +37,10 @@ var DebugHeader = function (game)
         renderType = 'Headless';
     }
 
-    var audioConfig = config.audio;
-    var deviceAudio = game.device.audio;
+    const audioConfig = config.audio;
+    const deviceAudio = game.device.audio;
 
-    var audioType;
+    let audioType: string;
 
     if (deviceAudio.webAudio && !audioConfig.disableWebAudio)
     {
@@ -56,14 +57,14 @@ var DebugHeader = function (game)
 
     if (!game.device.browser.ie)
     {
-        var c = '';
-        var args = [ c ];
+        let c = '';
+        const args: any[] = [ c ];
 
         if (Array.isArray(config.bannerBackgroundColor))
         {
-            var lastColor;
+            let lastColor: string;
 
-            config.bannerBackgroundColor.forEach(function (color)
+            config.bannerBackgroundColor.forEach((color: string) =>
             {
                 c = c.concat('%c ');
 
@@ -82,7 +83,6 @@ var DebugHeader = function (game)
             args.push('color: ' + config.bannerTextColor + '; background: ' + config.bannerBackgroundColor);
         }
 
-        //  URL link background color (always transparent to support different browser themes)
         args.push('background: transparent');
 
         if (config.gameTitle)
@@ -100,7 +100,7 @@ var DebugHeader = function (game)
             }
         }
 
-        var fb = (typeof PLUGIN_FBINSTANT) ? '-FB' : '';
+        const fb = (typeof PLUGIN_FBINSTANT) ? '-FB' : '';
 
         if (!config.hidePhaser)
         {
@@ -119,5 +119,3 @@ var DebugHeader = function (game)
         console.log('Phaser v' + CONST.VERSION + ' / https://phaser.io');
     }
 };
-
-module.exports = DebugHeader;

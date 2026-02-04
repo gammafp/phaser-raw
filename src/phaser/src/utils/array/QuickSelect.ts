@@ -4,22 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this Floyd-Rivest algorithm to TypeScript
-
-/**
- * @ignore
- */
-function swap (arr, i, j)
+function swap<T>(arr: T[], i: number, j: number): void
 {
-    var tmp = arr[i];
+    const tmp = arr[i];
     arr[i] = arr[j];
     arr[j] = tmp;
 }
 
-/**
- * @ignore
- */
-function defaultCompare (a, b)
+function defaultCompare(a: any, b: any): number
 {
     return a < b ? -1 : a > b ? 1 : 0;
 }
@@ -43,7 +35,7 @@ function defaultCompare (a, b)
  * @param {number} [right] - The index of the right part of the range.
  * @param {function} [compare] - An optional comparison function. Is passed two elements and should return 0, 1 or -1.
  */
-var QuickSelect = function (arr, k, left, right, compare)
+export const QuickSelect = <T>(arr: T[], k: number, left?: number, right?: number, compare?: (a: T, b: T) => number): void =>
 {
     if (left === undefined) { left = 0; }
     if (right === undefined) { right = arr.length - 1; }
@@ -53,20 +45,20 @@ var QuickSelect = function (arr, k, left, right, compare)
     {
         if (right - left > 600)
         {
-            var n = right - left + 1;
-            var m = k - left + 1;
-            var z = Math.log(n);
-            var s = 0.5 * Math.exp(2 * z / 3);
-            var sd = 0.5 * Math.sqrt(z * s * (n - s) / n) * (m - n / 2 < 0 ? -1 : 1);
-            var newLeft = Math.max(left, Math.floor(k - m * s / n + sd));
-            var newRight = Math.min(right, Math.floor(k + (n - m) * s / n + sd));
+            const n = right - left + 1;
+            const m = k - left + 1;
+            const z = Math.log(n);
+            const s = 0.5 * Math.exp(2 * z / 3);
+            const sd = 0.5 * Math.sqrt(z * s * (n - s) / n) * (m - n / 2 < 0 ? -1 : 1);
+            const newLeft = Math.max(left, Math.floor(k - m * s / n + sd));
+            const newRight = Math.min(right, Math.floor(k + (n - m) * s / n + sd));
 
             QuickSelect(arr, k, newLeft, newRight, compare);
         }
 
-        var t = arr[k];
-        var i = left;
-        var j = right;
+        const t = arr[k];
+        let i = left;
+        let j = right;
 
         swap(arr, left, k);
 
@@ -114,5 +106,3 @@ var QuickSelect = function (arr, k, left, right, compare)
         }
     }
 };
-
-module.exports = QuickSelect;

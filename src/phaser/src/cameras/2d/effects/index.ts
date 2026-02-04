@@ -8,13 +8,9 @@
  * @namespace Phaser.Cameras.Scene2D.Effects
  */
 
-module.exports = {
-
-    Fade: require('./Fade'),
-    Flash: require('./Flash'),
-    Pan: require('./Pan'),
-    Shake: require('./Shake'),
-    RotateTo: require('./RotateTo'),
-    Zoom: require('./Zoom')
-
-};
+export { Fade } from './Fade';
+export { Flash } from './Flash';
+export { Pan } from './Pan';
+export { Shake } from './Shake';
+export { RotateTo } from './RotateTo';
+export { Zoom } from './Zoom';

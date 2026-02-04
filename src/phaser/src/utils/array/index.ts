@@ -8,9 +8,8 @@
  * @namespace Phaser.Utils.Array
  */
 
-// Complex algorithms (still in JS)
-const QuickSelect = require('./QuickSelect');
-const StableSort = require('./StableSort');
+export { QuickSelect } from './QuickSelect';
+export { StableSort } from './StableSort';
 
 // Export all array functions for tree-shaking
 export { Add } from './Add';
@@ -47,8 +46,4 @@ export { SortByDigits } from './SortByDigits';
 export { SpliceOne } from './SpliceOne';
 export { Swap } from './Swap';
 
-// Export complex algorithms (still in JS)
-export { QuickSelect, StableSort };
-
-// Export matrix utilities (all converted)
 export * as Matrix from './matrix';

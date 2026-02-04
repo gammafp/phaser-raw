@@ -18,6 +18,7 @@ import { PHASER_CONST as CONST } from './const';
 // New imports
 
 import { Scene } from './scene/Scene';
+import { Game } from './core/Game';
 
 
 export const Actions = require('./actions');
@@ -44,7 +45,7 @@ export const Scale = require('./scale');
 export const ScaleModes = require('./renderer/ScaleModes');
 
 // export const Scene = require('./scene/Scene');
-export { Scene };
+export { Scene, Game };
 
 export const Scenes = require('./scene');
 export const Structs = require('./structs');
@@ -66,7 +67,6 @@ export const LEFT = CONST.LEFT;
 export const RIGHT = CONST.RIGHT;
 export const UP = CONST.UP;
 export const DOWN = CONST.DOWN;
-export const Game = require('./core/Game');
 export const DOM = require('./dom');
 
 // Optional plugins

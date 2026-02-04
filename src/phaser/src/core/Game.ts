@@ -11,25 +11,24 @@ import { SoundManagerCreator } from '../sound/SoundManagerCreator';
 import { CanvasPool } from '../display/canvas/CanvasPool';
 import { CacheManager } from '../cache/CacheManager';
 
-var AnimationManager = require('../animations/AnimationManager');
-var Class = require('../utils/Class');
-var Config = require('./Config');
+const AnimationManager = require('../animations/AnimationManager');
+const Config = require('./Config');
 import { CreateDOMContainer } from '../dom/CreateDOMContainer';
-var CreateRenderer = require('./CreateRenderer');
-var DataManager = require('../data/DataManager');
-var DebugHeader = require('./DebugHeader');
-var Device = require('../device');
+import { CreateRenderer } from './CreateRenderer';
+const DataManager = require('../data/DataManager');
+import { DebugHeader } from './DebugHeader';
+const Device = require('../device');
 import { DOMContentLoaded } from '../dom/DOMContentLoaded';
-var EventEmitter = require('eventemitter3');
-var Events = require('./events');
-var InputManager = require('../input/InputManager');
-var PluginCache = require('../plugins/PluginCache');
-var PluginManager = require('../plugins/PluginManager');
-var ScaleManager = require('../scale/ScaleManager');
-var TextureEvents = require('../textures/events');
-var TextureManager = require('../textures/TextureManager');
-var TimeStep = require('./TimeStep');
-var VisibilityHandler = require('./VisibilityHandler');
+import { EventEmitter } from 'eventemitter3';
+import * as Events from './events';
+const InputManager = require('../input/InputManager');
+const PluginCache = require('../plugins/PluginCache');
+const PluginManager = require('../plugins/PluginManager');
+const ScaleManager = require('../scale/ScaleManager');
+const TextureEvents = require('../textures/events');
+const TextureManager = require('../textures/TextureManager');
+const TimeStep = require('./TimeStep');
+import { VisibilityHandler } from './VisibilityHandler';
 
 if (typeof PLUGIN_FBINSTANT)
 {
@@ -57,12 +56,12 @@ if (typeof PLUGIN_FBINSTANT)
  *
  * @param {Phaser.Types.Core.GameConfig} [GameConfig] - The configuration object for your Phaser Game instance.
  */
-var Game = new Class({
+export class Game extends EventEmitter {
 
-    initialize:
-
-    function Game (config)
+    constructor(config?: any)
     {
+        super();
+
         /**
          * The parsed Game Configuration object.
          *
@@ -352,7 +351,7 @@ var Game = new Class({
 
         //  Wait for the DOM Ready event, then call boot.
         DOMContentLoaded(this.boot.bind(this));
-    },
+    }
 
     /**
      * This method is called automatically when the DOM is ready. It is responsible for creating the renderer,
@@ -365,7 +364,7 @@ var Game = new Class({
      * @listens Phaser.Textures.Events#READY
      * @since 3.0.0
      */
-    boot: function ()
+    boot()
     {
         if (!PluginCache.hasCore('EventEmitter'))
         {
@@ -397,7 +396,7 @@ var Game = new Class({
         {
             window.PHASER_GAME = this;
         }
-    },
+    }
 
     /**
      * Called automatically when the Texture Manager has finished setting up and preparing the
@@ -408,13 +407,13 @@ var Game = new Class({
      * @fires Phaser.Game#READY
      * @since 3.12.0
      */
-    texturesReady: function ()
+    texturesReady()
     {
         //  Start all the other systems
         this.events.emit(Events.READY);
 
         this.start();
-    },
+    }
 
     /**
      * Called automatically by Game.boot once all of the global systems have finished setting themselves up.
@@ -425,7 +424,7 @@ var Game = new Class({
      * @protected
      * @since 3.0.0
      */
-    start: function ()
+    start()
     {
         this.isRunning = true;
 
@@ -448,7 +447,7 @@ var Game = new Class({
         eventEmitter.on(Events.VISIBLE, this.onVisible, this);
         eventEmitter.on(Events.BLUR, this.onBlur, this);
         eventEmitter.on(Events.FOCUS, this.onFocus, this);
-    },
+    }
 
     /**
      * The main Game Step. Called automatically by the Time Step, once per browser frame (typically as a result of
@@ -469,7 +468,7 @@ var Game = new Class({
      * @param {number} time - The current time. Either a High Resolution Timer value if it comes from Request Animation Frame, or Date.now if using SetTimeout.
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    step: function (time, delta)
+    step(time, delta)
     {
         if (this.pendingDestroy)
         {
@@ -518,7 +517,7 @@ var Game = new Class({
         //  The final event before the step repeats. Your last chance to do anything to the canvas before it all starts again.
 
         eventEmitter.emit(Events.POST_RENDER, renderer, time, delta);
-    },
+    }
 
     /**
      * A special version of the Game Step for the HEADLESS renderer only.
@@ -538,7 +537,7 @@ var Game = new Class({
      * @param {number} time - The current time. Either a High Resolution Timer value if it comes from Request Animation Frame, or Date.now if using SetTimeout.
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    headlessStep: function (time, delta)
+    headlessStep(time, delta)
     {
         if (this.pendingDestroy)
         {
@@ -574,7 +573,7 @@ var Game = new Class({
         eventEmitter.emit(Events.PRE_RENDER, null, time, delta);
 
         eventEmitter.emit(Events.POST_RENDER, null, time, delta);
-    },
+    }
 
     /**
      * Called automatically by the Visibility Handler.
@@ -585,12 +584,12 @@ var Game = new Class({
      * @fires Phaser.Core.Events#PAUSE
      * @since 3.0.0
      */
-    onHidden: function ()
+    onHidden()
     {
         this.loop.pause();
 
         this.events.emit(Events.PAUSE);
-    },
+    }
 
     /**
      * This will pause the entire game and emit a `PAUSE` event.
@@ -603,7 +602,7 @@ var Game = new Class({
      * @fires Phaser.Core.Events#PAUSE
      * @since 3.60.0
      */
-    pause: function ()
+    pause()
     {
         var wasPaused = this.isPaused;
 
@@ -613,7 +612,7 @@ var Game = new Class({
         {
             this.events.emit(Events.PAUSE);
         }
-    },
+    }
 
     /**
      * Called automatically by the Visibility Handler.
@@ -624,12 +623,12 @@ var Game = new Class({
      * @fires Phaser.Core.Events#RESUME
      * @since 3.0.0
      */
-    onVisible: function ()
+    onVisible()
     {
         this.loop.resume();
 
         this.events.emit(Events.RESUME, this.loop.pauseDuration);
-    },
+    }
 
     /**
      * This will resume the entire game and emit a `RESUME` event.
@@ -640,7 +639,7 @@ var Game = new Class({
      * @fires Phaser.Core.Events#RESUME
      * @since 3.60.0
      */
-    resume: function ()
+    resume()
     {
         var wasPaused = this.isPaused;
 
@@ -650,7 +649,7 @@ var Game = new Class({
         {
             this.events.emit(Events.RESUME, 0);
         }
-    },
+    }
 
     /**
      * Called automatically by the Visibility Handler.
@@ -660,12 +659,12 @@ var Game = new Class({
      * @protected
      * @since 3.0.0
      */
-    onBlur: function ()
+    onBlur()
     {
         this.hasFocus = false;
 
         this.loop.blur();
-    },
+    }
 
     /**
      * Called automatically by the Visibility Handler.
@@ -675,12 +674,12 @@ var Game = new Class({
      * @protected
      * @since 3.0.0
      */
-    onFocus: function ()
+    onFocus()
     {
         this.hasFocus = true;
 
         this.loop.focus();
-    },
+    }
 
     /**
      * Returns the current game frame.
@@ -692,10 +691,10 @@ var Game = new Class({
      *
      * @return {number} The current game frame.
      */
-    getFrame: function ()
+    getFrame()
     {
         return this.loop.frame;
-    },
+    }
 
     /**
      * Returns the time that the current game step started at, as based on `performance.now`.
@@ -705,10 +704,10 @@ var Game = new Class({
      *
      * @return {number} The current game timestamp.
      */
-    getTime: function ()
+    getTime()
     {
         return this.loop.now;
-    },
+    }
 
     /**
      * Flags this Game instance as needing to be destroyed on the _next frame_, making this an asynchronous operation.
@@ -727,7 +726,7 @@ var Game = new Class({
      * @param {boolean} removeCanvas - Set to `true` if you would like the parent canvas element removed from the DOM, or `false` to leave it in place.
      * @param {boolean} [noReturn=false] - If `true` all the core Phaser plugins are destroyed. You cannot create another instance of Phaser on the same web page if you do this.
      */
-    destroy: function (removeCanvas, noReturn)
+    destroy(removeCanvas, noReturn)
     {
         if (noReturn === undefined) { noReturn = false; }
 
@@ -735,7 +734,7 @@ var Game = new Class({
 
         this.removeCanvas = removeCanvas;
         this.noReturn = noReturn;
-    },
+    }
 
     /**
      * Destroys this Phaser.Game instance, all global systems, all sub-systems and all Scenes.
@@ -744,7 +743,7 @@ var Game = new Class({
      * @private
      * @since 3.5.0
      */
-    runDestroy: function ()
+    runDestroy()
     {
         this.scene.destroy();
 
@@ -777,9 +776,7 @@ var Game = new Class({
         this.pendingDestroy = false;
     }
 
-});
-
-module.exports = Game;
+}
 
 /**
  * "Computers are good at following instructions, but not at reading your mind." - Donald Knuth

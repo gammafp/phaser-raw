@@ -12,9 +12,5 @@
  * @namespace Phaser.Types.Cameras
  */
 
-module.exports = {
-
-    Controls: require('./controls'),
-    Scene2D: require('./2d')
-
-};
+export * as Controls from './controls';
+export * as Scene2D from './2d';

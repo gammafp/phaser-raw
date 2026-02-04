@@ -10,7 +10,7 @@ import { GetFastValue } from '../../utils/object/GetFastValue';
 import { GetValue } from '../../utils/object/GetValue';
 import { MATH_CONST } from '../../math/const';
 
-var BaseCamera = require('../../cameras/2d/BaseCamera');
+import { BaseCamera } from '../../cameras/2d/BaseCamera';
 var Class = require('../../utils/Class');
 var Commands = require('./Commands');
 var Components = require('../components');

@@ -8,6 +8,7 @@ import { CanvasInterpolation } from '../display/canvas/CanvasInterpolation';
 import { CanvasPool } from '../display/canvas/CanvasPool';
 import { PHASER_CONST as CONST } from '../const';
 import { FEATURES_DEVICE as Features } from '../device/Features';
+import type { Game } from './Game';
 
 /**
  * Called automatically by Phaser.Game and responsible for creating the renderer it will use.
@@ -19,7 +20,7 @@ import { FEATURES_DEVICE as Features } from '../device/Features';
  *
  * @param {Phaser.Game} game - The Phaser.Game instance on which the renderer will be set.
  */
-var CreateRenderer = function (game)
+export const CreateRenderer = (game: Game): any =>
 {
     var config = game.config;
 
@@ -135,4 +136,4 @@ var CreateRenderer = function (game)
     }
 };
 
-module.exports = CreateRenderer;
+

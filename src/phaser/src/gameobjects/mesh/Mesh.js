@@ -18,7 +18,7 @@ import { GenerateVerts } from '../../geom/mesh/GenerateVerts';
 var GetCalcMatrix = require('../GetCalcMatrix');
 import { Matrix4 } from '../../math/Matrix4';
 var MeshRender = require('./MeshRender');
-var StableSort = require('../../utils/array/StableSort');
+import { StableSort } from '../../utils/array/StableSort';
 import { Vector3 } from '../../math/Vector3';
 import { Vertex } from '../../geom/mesh/Vertex';
 

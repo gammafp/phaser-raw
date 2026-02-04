@@ -7,7 +7,7 @@
 var ArrayUtils = require('../utils/array');
 var Class = require('../utils/Class');
 import { NOOP } from '../utils/NOOP';
-var StableSort = require('../utils/array/StableSort');
+import { StableSort } from '../utils/array/StableSort';
 
 /**
  * @callback EachListCallback<I>

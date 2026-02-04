@@ -12,7 +12,7 @@ import { CanvasPool } from '../display/canvas/CanvasPool';
 import { PHASER_CONST as CONST } from '../const';
 
 var BlendModes = require('../renderer/BlendModes');
-var Camera = require('../cameras/2d/Camera');
+import { Camera } from '../cameras/2d/Camera';
 var Class = require('../utils/Class');
 var Frame = require('./Frame');
 var PIPELINES = require('../renderer/webgl/pipelines/const');

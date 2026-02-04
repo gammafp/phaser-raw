@@ -8,9 +8,5 @@
  * @namespace Phaser.Cameras.Controls
  */
 
-module.exports = {
-
-    FixedKeyControl: require('./FixedKeyControl'),
-    SmoothedKeyControl: require('./SmoothedKeyControl')
-
-};
+export { FixedKeyControl } from './FixedKeyControl';
+export { SmoothedKeyControl } from './SmoothedKeyControl';

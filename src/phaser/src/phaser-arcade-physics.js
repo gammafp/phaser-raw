@@ -32,7 +32,7 @@ var Phaser = {
     DOM: require('./dom'),
     Events: require('./events'),
     FX: require('./fx'),
-    Game: require('./core/Game'),
+    Game: Game,
     GameObjects: require('./gameobjects'),
     Geom: require('./geom'),
     Input: require('./input'),

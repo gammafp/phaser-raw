@@ -35,7 +35,7 @@ var ParticleBounds = require('./ParticleBounds');
 var RandomZone = require('./zones/RandomZone');
 import { Rectangle } from '../../geom/rectangle/Rectangle';
 var Render = require('./ParticleEmitterRender');
-var StableSort = require('../../utils/array/StableSort');
+import { StableSort } from '../../utils/array/StableSort';
 import { TransformMatrix } from '../components/TransformMatrix';
 import { Vector2 } from '../../math/Vector2';
 

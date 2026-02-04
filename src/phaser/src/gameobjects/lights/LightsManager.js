@@ -14,7 +14,7 @@ import { RGB } from '../../display/RGB';
 var Class = require('../../utils/Class');
 var Light = require('./Light');
 var PointLight = require('../pointlight/PointLight');
-var StableSort = require('../../utils/array/StableSort');
+import { StableSort } from '../../utils/array/StableSort';
 var Utils = require('../../renderer/webgl/Utils');
 
 /**

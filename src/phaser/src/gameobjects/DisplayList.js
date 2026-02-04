@@ -9,7 +9,7 @@ var List = require('../structs/List');
 var PluginCache = require('../plugins/PluginCache');
 var GameObjectEvents = require('./events');
 var SceneEvents = require('../scene/events');
-var StableSort = require('../utils/array/StableSort');
+import { StableSort } from '../utils/array/StableSort';
 
 /**
  * @classdesc
