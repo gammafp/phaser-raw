@@ -5,6 +5,7 @@
  */
 
 import { GetTileAt } from './GetTileAt';
+import type { Tilemaps } from 'phaser';
 
 /**
  * Calculates interesting faces at the given tile coordinates of the specified layer. Interesting
@@ -18,7 +19,7 @@ import { GetTileAt } from './GetTileAt';
  * @param {number} tileY - The y coordinate.
  * @param {Phaser.Tilemaps.LayerData} layer - The Tilemap Layer to act upon.
  */
-export const CalculateFacesAt = (tileX: number, tileY: number, layer: any): void =>
+export const CalculateFacesAt = (tileX: number, tileY: number, layer: Tilemaps.LayerData): void =>
 {
     const tile = GetTileAt(tileX, tileY, true, layer);
     const above = GetTileAt(tileX, tileY - 1, true, layer);

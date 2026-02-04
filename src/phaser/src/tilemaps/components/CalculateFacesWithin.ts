@@ -4,6 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import type { Tilemaps } from 'phaser';
 import { GetTileAt } from './GetTileAt';
 import { GetTilesWithin } from './GetTilesWithin';
 
@@ -21,18 +22,18 @@ import { GetTilesWithin } from './GetTilesWithin';
  * @param {number} height - How many tiles tall from the `tileY` index the area will be.
  * @param {Phaser.Tilemaps.LayerData} layer - The Tilemap Layer to act upon.
  */
-export const CalculateFacesWithin = (tileX, tileY, width, height, layer): any =>
+export const CalculateFacesWithin = (tileX: number, tileY: number, width: number, height: number, layer: Tilemaps.LayerData): void =>
 {
-    var above = null;
-    var below = null;
-    var left = null;
-    var right = null;
+    let above: Tilemaps.Tile | null = null;
+    let below: Tilemaps.Tile | null = null;
+    let left: Tilemaps.Tile | null = null;
+    let right: Tilemaps.Tile | null = null;
 
-    var tiles = GetTilesWithin(tileX, tileY, width, height, null, layer);
+    const tiles = GetTilesWithin(tileX, tileY, width, height, null, layer);
 
-    for (var i = 0; i < tiles.length; i++)
+    for (let i = 0; i < tiles.length; i++)
     {
-        var tile = tiles[i];
+        const tile = tiles[i];
 
         if (tile)
         {
