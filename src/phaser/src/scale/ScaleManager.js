@@ -19,7 +19,7 @@ var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var GameEvents = require('../core/events');
 import { Rectangle } from '../geom/rectangle/Rectangle';
-var Size = require('../structs/Size');
+import { Size } from '../structs/Size';
 import { Vector2 } from '../math/Vector2';
 import { Camera } from '../cameras/2d/Camera';
 

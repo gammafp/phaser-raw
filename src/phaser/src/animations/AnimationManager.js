@@ -15,7 +15,7 @@ import { MATH_CONST } from '../math/const';
 
 var Animation = require('./Animation');
 var Class = require('../utils/Class');
-var CustomMap = require('../structs/Map');
+import { Map as CustomMap } from '../structs/Map';
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var GameEvents = require('../core/events');

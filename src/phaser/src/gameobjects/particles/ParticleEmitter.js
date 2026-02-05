@@ -29,7 +29,7 @@ var EmitterOp = require('./EmitterOp');
 var Events = require('./events');
 var GameObject = require('../GameObject');
 var GravityWell = require('./GravityWell');
-var List = require('../../structs/List');
+import { List } from '../../structs/List';
 var Particle = require('./Particle');
 var ParticleBounds = require('./ParticleBounds');
 var RandomZone = require('./zones/RandomZone');

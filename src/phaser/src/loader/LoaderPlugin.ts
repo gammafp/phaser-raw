@@ -12,7 +12,7 @@ import { GetValue } from '../utils/object/GetValue';
 import { IsPlainObject } from '../utils/object/IsPlainObject';
 import { LOADER_CONST as CONST } from './const';
 
-const CustomSet = require('../structs/Set');
+import { Set as CustomSet } from '../structs/Set';
 import { EventEmitter } from 'eventemitter3';
 import * as Events from './events';
 import { FileTypesManager } from './FileTypesManager';

@@ -14,7 +14,7 @@ import { FX_CONST } from '../../fx/const';
 
 var Class = require('../../utils/Class');
 var CONST = require('./pipelines/const');
-var CustomMap = require('../../structs/Map');
+import { Map as CustomMap } from '../../structs/Map';
 var Device = require('../../device/');
 var RenderTarget = require('./RenderTarget');
 

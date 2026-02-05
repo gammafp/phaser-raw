@@ -32,7 +32,7 @@ const findTsFiles = async (dir: string, tsFiles: Set<string>): Promise<void> => 
   }
 };
 
-// Check .js files for require() of converted modules
+// Check .js and .ts files for require() of converted modules
 const checkJsFiles = async (dir: string, tsFiles: Set<string>, errors: ImportError[]): Promise<void> => {
   const entries = await readdir(dir, { withFileTypes: true });
 
@@ -44,7 +44,12 @@ const checkJsFiles = async (dir: string, tsFiles: Set<string>, errors: ImportErr
       continue;
     }
 
-    if (!entry.name.endsWith('.js')) {
+    // Check both .js and .ts files (but not .d.ts)
+    if (!entry.name.endsWith('.js') && !entry.name.endsWith('.ts')) {
+      continue;
+    }
+    
+    if (entry.name.endsWith('.d.ts')) {
       continue;
     }
 
@@ -90,13 +95,13 @@ const main = async () => {
   await findTsFiles(TARGET_ROOT, tsFiles);
   console.log(`   Found ${tsFiles.size} TypeScript modules\n`);
 
-  console.log("🔍 Checking JavaScript files for outdated require() statements...");
+  console.log("🔍 Checking JavaScript and TypeScript files for outdated require() statements...");
   const errors: ImportError[] = [];
   await checkJsFiles(TARGET_ROOT, tsFiles, errors);
 
   if (errors.length === 0) {
     console.log("\n✅ BUILD PASSED\n");
-    console.log("   All JavaScript files are using compatible imports.");
+    console.log("   All JavaScript and TypeScript files are using compatible imports.");
     console.log("   No require() statements found for converted TypeScript modules.\n");
     return;
   }

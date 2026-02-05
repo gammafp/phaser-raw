@@ -17,7 +17,7 @@ var Actions = require('../../actions/');
 var Class = require('../../utils/Class');
 var Events = require('../events');
 var EventEmitter = require('eventemitter3');
-var Set = require('../../structs/Set');
+import { Set } from '../../structs/Set';
 import { Sprite } from '../sprite/Sprite';
 
 /**

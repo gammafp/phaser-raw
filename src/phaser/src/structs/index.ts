@@ -8,12 +8,12 @@
  * @namespace Phaser.Structs
  */
 
-const List = require('./List');
-const Map = require('./Map');
-const ProcessQueue = require('./ProcessQueue');
-const RTree = require('./RTree');
-const Set = require('./Set');
-const Size = require('./Size');
+import { List } from './List';
+import { Map } from './Map';
+import { ProcessQueue } from './ProcessQueue';
+import RTree from './RTree';
+import { Set } from './Set';
+import { Size } from './Size';
 
 export * as Events from './events';
 export { List };

@@ -292,25 +292,8 @@ function printResults(result: ComparisonResult) {
         console.log('');
     }
 
-    // Trivial changes
-    if (result.trivialChanges.length > 0) {
-        console.log(`📝 COPYRIGHT ONLY CHANGES (${result.trivialChanges.length} files)`);
-        console.log('────────────────────────────────────────────────────────────────');
-        console.log('These files ONLY have copyright year changes (2025 → 2026):\n');
-        
-        const grouped = groupByDirectory(result.trivialChanges);
-        const dirs = Object.keys(grouped).sort();
-        const dirsToShow = Math.min(5, dirs.length);
-        
-        for (const dir of dirs.slice(0, dirsToShow)) {
-            console.log(`  📁 ${dir}/ (${grouped[dir].length} files)`);
-        }
-        
-        if (dirs.length > dirsToShow) {
-            console.log(`  ... and ${dirs.length - dirsToShow} more folders`);
-        }
-        console.log('');
-    }
+    // Trivial changes - HIDDEN (only show count in summary)
+    // These files only have copyright year changes (2025 → 2026) - we ignore them
 
     // Modified files
     if (result.modified.length > 0) {
@@ -318,29 +301,30 @@ function printResults(result: ComparisonResult) {
         console.log('────────────────────────────────────────────────────────────────');
         console.log('These files have real code changes that need review:\n');
         
-        // Analyze some diffs
-        const diffsToShow = Math.min(10, result.modified.length);
-        console.log(`Showing diff analysis for the first ${diffsToShow} files:\n`);
+        // Group by directory for better readability
+        const grouped = groupByDirectory(result.modified);
+        const dirs = Object.keys(grouped).sort();
         
-        for (let i = 0; i < diffsToShow; i++) {
-            const file = result.modified[i];
-            const diff = getFileDiff(file);
+        for (const dir of dirs) {
+            console.log(`  📁 ${dir}/ (${grouped[dir].length} file${grouped[dir].length > 1 ? 's' : ''})`);
             
-            if (diff) {
-                console.log(`  📝 ${file}`);
-                console.log(`     Lines: ${diff.totalLines} | ` +
-                           `Changed: ${diff.linesChanged} | ` +
-                           `Added: ${diff.linesAdded} | ` +
-                           `Removed: ${diff.linesRemoved}`);
-            } else {
-                console.log(`  📝 ${file} (could not analyze)`);
+            // Show all files in this directory with diff stats
+            for (const fileName of grouped[dir].sort()) {
+                const file = path.join(dir, fileName).replace(/\\/g, '/');
+                const diff = getFileDiff(file);
+                
+                if (diff) {
+                    const changePercent = ((diff.linesChanged / diff.totalLines) * 100).toFixed(0);
+                    console.log(`     ⚠️  ${fileName}`);
+                    console.log(`         ${diff.totalLines} lines | ` +
+                               `${diff.linesChanged} changed (${changePercent}%) | ` +
+                               `+${diff.linesAdded} | -${diff.linesRemoved}`);
+                } else {
+                    console.log(`     ⚠️  ${fileName} (could not analyze)`);
+                }
             }
+            console.log('');
         }
-        
-        if (result.modified.length > diffsToShow) {
-            console.log(`\n  ... and ${result.modified.length - diffsToShow} more modified files`);
-        }
-        console.log('');
     }
 
     // Identical files
@@ -358,19 +342,12 @@ function printResults(result: ComparisonResult) {
     console.log(`❌ Only in ${SRC_BASE}:        ${result.onlyInSrc.length} files`);
     console.log(`🆕 Only in ${SRC_4_BASE}:     ${result.onlyInSrc4.length} files`);
     console.log(`⚠️  Significantly modified:    ${result.modified.length} files`);
-    console.log(`📝 Copyright only changes:     ${result.trivialChanges.length} files`);
+    console.log(`📝 Copyright only (ignored):   ${result.trivialChanges.length} files`);
     console.log(`✅ Identical files:            ${result.identical.length} files\n`);
 
     const totalFiles = result.onlyInSrc.length + result.onlyInSrc4.length + 
                       result.modified.length + result.trivialChanges.length + result.identical.length;
     console.log(`📦 Total unique files:        ${totalFiles}\n`);
-    
-    // Show percentage
-    const totalChanged = result.modified.length + result.trivialChanges.length;
-    if (totalChanged > 0) {
-        const copyrightPercent = ((result.trivialChanges.length / totalChanged) * 100).toFixed(1);
-        console.log(`💡 ${copyrightPercent}% of changed files have ONLY copyright year changes\n`);
-    }
 
     // Change analysis
     if (result.onlyInSrc4.length > 0 || result.modified.length > 0) {
@@ -385,13 +362,13 @@ function printResults(result: ComparisonResult) {
             console.log(`✓ There are ${result.modified.length} files with significant changes (require manual review)`);
         }
         
-        if (result.trivialChanges.length > 0) {
-            console.log(`✓ There are ${result.trivialChanges.length} files with ONLY copyright changes (can skip)`);
-        }
-        
         if (result.onlyInSrc.length > 0) {
             console.log(`⚠ There are ${result.onlyInSrc.length} files in src that are NOT in src_4.0`);
             console.log(`  (they may be customizations or obsolete files)`);
+        }
+        
+        if (result.trivialChanges.length > 0) {
+            console.log(`\nℹ️  Note: ${result.trivialChanges.length} files with ONLY copyright changes (2025→2026) were ignored`);
         }
         console.log('');
     }

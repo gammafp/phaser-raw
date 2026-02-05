@@ -464,26 +464,6 @@ rbush.prototype = {
 
             } else calcBBox(path[i], this.toBBox);
         }
-    },
-
-    compareMinX: function (a, b)
-    {
-        return a.left - b.left;
-    },
-
-    compareMinY: function (a, b)
-    {
-        return a.top - b.top;
-    },
-
-    toBBox: function (a)
-    {
-        return {
-            minX: a.left,
-            minY: a.top,
-            maxX: a.right,
-            maxY: a.bottom
-        };
     }
 };
 
@@ -603,4 +583,4 @@ function multiSelect (arr, left, right, n, compare)
     }
 }
 
-module.exports = rbush;
+export default rbush;

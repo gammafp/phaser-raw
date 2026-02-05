@@ -23,14 +23,18 @@ import { MeasureText } from './text/MeasureText';
 import './text/TextFactory';
 import './text/TextCreator';
 
+import { DisplayList } from './DisplayList';
+import { Layer } from './layer/Layer';
+import { UpdateList } from './UpdateList';
+
 var GameObjects = {
 
     Events: require('./events'),
 
-    DisplayList: require('./DisplayList'),
+    DisplayList: DisplayList,
     GameObjectCreator: require('./GameObjectCreator'),
     GameObjectFactory: require('./GameObjectFactory'),
-    UpdateList: require('./UpdateList'),
+    UpdateList: UpdateList,
 
     Components: require('./components'),
     GetCalcMatrix: require('./GetCalcMatrix'),
@@ -48,7 +52,7 @@ var GameObjects = {
     Graphics: require('./graphics/Graphics'),
     Group: require('./group/Group'),
     Image: Image,
-    Layer: require('./layer/Layer'),
+    Layer: Layer,
     Particles: require('./particles'),
     PathFollower: require('./pathfollower/PathFollower'),
     RenderTexture: require('./rendertexture/RenderTexture'),

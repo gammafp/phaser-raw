@@ -11,7 +11,7 @@ import { GetFastValue } from '../utils/object/GetFastValue';
 
 var Animation = require('./Animation');
 var Class = require('../utils/Class');
-var CustomMap = require('../structs/Map');
+import { Map as CustomMap } from '../structs/Map';
 var Events = require('./events');
 
 /**

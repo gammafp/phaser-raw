@@ -4,12 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { Clamp } from '../math/Clamp';
 import { SnapFloor } from '../math/snap/SnapFloor';
-
-var Class = require('../utils/Class');
 import { Vector2 } from '../math/Vector2';
 
 /**
@@ -30,11 +26,20 @@ import { Vector2 } from '../math/Vector2';
  * @param {number} [aspectMode=0] - The aspect mode of the Size component. Defaults to 0, no mode.
  * @param {any} [parent=null] - The parent of this Size component. Can be any object with public `width` and `height` properties. Dimensions are clamped to keep them within the parent bounds where possible.
  */
-var Size = new Class({
+export class Size {
 
-    initialize:
+    _width: number;
+    _height: number;
+    _parent: any;
+    aspectMode: number;
+    aspectRatio: number;
+    minWidth: number;
+    minHeight: number;
+    maxWidth: number;
+    maxHeight: number;
+    snapTo: Vector2;
 
-    function Size (width, height, aspectMode, parent)
+    constructor(width: number = 0, height: number = width, aspectMode: number = 0, parent: any = null)
     {
         if (width === undefined) { width = 0; }
         if (height === undefined) { height = width; }
@@ -154,7 +159,7 @@ var Size = new Class({
          * @since 3.16.0
          */
         this.snapTo = new Vector2();
-    },
+    }
 
     /**
      * Sets the aspect mode of this Size component.
@@ -178,14 +183,14 @@ var Size = new Class({
      *
      * @return {this} This Size component instance.
      */
-    setAspectMode: function (value)
+    setAspectMode(value)
     {
         if (value === undefined) { value = 0; }
 
         this.aspectMode = value;
 
         return this.setSize(this._width, this._height);
-    },
+    }
 
     /**
      * By setting snap values, when this Size component is modified its dimensions will automatically
@@ -207,7 +212,7 @@ var Size = new Class({
      *
      * @return {this} This Size component instance.
      */
-    setSnap: function (snapWidth, snapHeight)
+    setSnap(snapWidth, snapHeight)
     {
         if (snapWidth === undefined) { snapWidth = 0; }
         if (snapHeight === undefined) { snapHeight = snapWidth; }
@@ -215,7 +220,7 @@ var Size = new Class({
         this.snapTo.set(snapWidth, snapHeight);
 
         return this.setSize(this._width, this._height);
-    },
+    }
 
     /**
      * Sets, or clears, the parent of this Size component.
@@ -240,12 +245,12 @@ var Size = new Class({
      *
      * @return {this} This Size component instance.
      */
-    setParent: function (parent)
+    setParent(parent)
     {
         this._parent = parent;
 
         return this.setSize(this._width, this._height);
-    },
+    }
 
     /**
      * Set the minimum width and height values this Size component will allow.
@@ -265,7 +270,7 @@ var Size = new Class({
      *
      * @return {this} This Size component instance.
      */
-    setMin: function (width, height)
+    setMin(width, height)
     {
         if (width === undefined) { width = 0; }
         if (height === undefined) { height = width; }
@@ -274,7 +279,7 @@ var Size = new Class({
         this.minHeight = Clamp(height, 0, this.maxHeight);
 
         return this.setSize(this._width, this._height);
-    },
+    }
 
     /**
      * Set the maximum width and height values this Size component will allow.
@@ -292,7 +297,7 @@ var Size = new Class({
      *
      * @return {this} This Size component instance.
      */
-    setMax: function (width, height)
+    setMax(width, height)
     {
         if (width === undefined) { width = Number.MAX_VALUE; }
         if (height === undefined) { height = width; }
@@ -301,7 +306,7 @@ var Size = new Class({
         this.maxHeight = Clamp(height, this.minHeight, Number.MAX_VALUE);
 
         return this.setSize(this._width, this._height);
-    },
+    }
 
     /**
      * Sets the width and height of this Size component based on the aspect mode.
@@ -326,7 +331,7 @@ var Size = new Class({
      *
      * @return {this} This Size component instance.
      */
-    setSize: function (width, height)
+    setSize(width, height)
     {
         if (width === undefined) { width = 0; }
         if (height === undefined) { height = width; }
@@ -359,7 +364,7 @@ var Size = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Sets a new aspect ratio, overriding what was there previously.
@@ -373,12 +378,12 @@ var Size = new Class({
      *
      * @return {this} This Size component instance.
      */
-    setAspectRatio: function (ratio)
+    setAspectRatio(ratio)
     {
         this.aspectRatio = ratio;
 
         return this.setSize(this._width, this._height);
-    },
+    }
 
     /**
      * Sets a new width and height for this Size component and updates the aspect ratio based on them.
@@ -393,14 +398,14 @@ var Size = new Class({
      *
      * @return {this} This Size component instance.
      */
-    resize: function (width, height)
+    resize(width, height)
     {
         this._width = this.getNewWidth(SnapFloor(width, this.snapTo.x));
         this._height = this.getNewHeight(SnapFloor(height, this.snapTo.y));
         this.aspectRatio = (this._height === 0) ? 1 : this._width / this._height;
 
         return this;
-    },
+    }
 
     /**
      * Takes a new width and passes it through the min/max clamp and then checks it doesn't exceed the parent width.
@@ -413,7 +418,7 @@ var Size = new Class({
      *
      * @return {number} The modified width value.
      */
-    getNewWidth: function (value, checkParent)
+    getNewWidth(value, checkParent)
     {
         if (checkParent === undefined) { checkParent = true; }
 
@@ -425,7 +430,7 @@ var Size = new Class({
         }
 
         return value;
-    },
+    }
 
     /**
      * Takes a new height and passes it through the min/max clamp and then checks it doesn't exceed the parent height.
@@ -438,7 +443,7 @@ var Size = new Class({
      *
      * @return {number} The modified height value.
      */
-    getNewHeight: function (value, checkParent)
+    getNewHeight(value, checkParent)
     {
         if (checkParent === undefined) { checkParent = true; }
 
@@ -450,7 +455,7 @@ var Size = new Class({
         }
 
         return value;
-    },
+    }
 
     /**
      * The current `width` and `height` are adjusted to fit inside the given dimensions, while keeping the aspect ratio.
@@ -470,7 +475,7 @@ var Size = new Class({
      *
      * @return {this} This Size component instance.
      */
-    constrain: function (width, height, fit)
+    constrain(width, height, fit)
     {
         if (width === undefined) { width = 0; }
         if (height === undefined) { height = width; }
@@ -519,7 +524,7 @@ var Size = new Class({
         this._height = height;
 
         return this;
-    },
+    }
 
     /**
      * The current `width` and `height` are adjusted to fit inside the given dimensions, while keeping the aspect ratio.
@@ -537,10 +542,10 @@ var Size = new Class({
      *
      * @return {this} This Size component instance.
      */
-    fitTo: function (width, height)
+    fitTo(width, height)
     {
         return this.constrain(width, height, true);
-    },
+    }
 
     /**
      * The current `width` and `height` are adjusted so that they fully envelope the given dimensions, while keeping the aspect ratio.
@@ -558,10 +563,10 @@ var Size = new Class({
      *
      * @return {this} This Size component instance.
      */
-    envelop: function (width, height)
+    envelop(width, height)
     {
         return this.constrain(width, height, false);
-    },
+    }
 
     /**
      * Sets the width of this Size component.
@@ -575,10 +580,10 @@ var Size = new Class({
      *
      * @return {this} This Size component instance.
      */
-    setWidth: function (value)
+    setWidth(value)
     {
         return this.setSize(value, this._height);
-    },
+    }
 
     /**
      * Sets the height of this Size component.
@@ -592,10 +597,10 @@ var Size = new Class({
      *
      * @return {this} This Size component instance.
      */
-    setHeight: function (value)
+    setHeight(value)
     {
         return this.setSize(this._width, value);
-    },
+    }
 
     /**
      * Returns a string representation of this Size component.
@@ -605,10 +610,10 @@ var Size = new Class({
      *
      * @return {string} A string representation of this Size component.
      */
-    toString: function ()
+    toString()
     {
         return '[{ Size (width=' + this._width + ' height=' + this._height + ' aspectRatio=' + this.aspectRatio + ' aspectMode=' + this.aspectMode + ') }]';
-    },
+    }
 
     /**
      * Sets the values of this Size component to the `element.style.width` and `height`
@@ -619,14 +624,14 @@ var Size = new Class({
      *
      * @param {HTMLElement} element - The DOM Element to set the CSS style on.
      */
-    setCSS: function (element)
+    setCSS(element)
     {
         if (element && element.style)
         {
             element.style.width = this._width + 'px';
             element.style.height = this._height + 'px';
         }
-    },
+    }
 
     /**
      * Copies the aspect mode, aspect ratio, width and height from this Size component
@@ -639,14 +644,14 @@ var Size = new Class({
      *
      * @return {Phaser.Structs.Size} The updated destination Size component.
      */
-    copy: function (destination)
+    copy(destination)
     {
         destination.setAspectMode(this.aspectMode);
 
         destination.aspectRatio = this.aspectRatio;
 
         return destination.setSize(this.width, this.height);
-    },
+    }
 
     /**
      * Destroys this Size component.
@@ -658,11 +663,11 @@ var Size = new Class({
      * @method Phaser.Structs.Size#destroy
      * @since 3.16.0
      */
-    destroy: function ()
+    destroy()
     {
         this._parent = null;
         this.snapTo = null;
-    },
+    }
 
     /**
      * The width of this Size component.
@@ -678,19 +683,16 @@ var Size = new Class({
      * @type {number}
      * @since 3.16.0
      */
-    width: {
 
-        get: function ()
-        {
-            return this._width;
-        },
+    get width()
+    {
+        return this._width;
+    }
 
-        set: function (value)
-        {
-            this.setSize(value, this._height);
-        }
-
-    },
+    set width(value)
+    {
+        this.setSize(value, this._height);
+    }
 
     /**
      * The height of this Size component.
@@ -706,21 +708,18 @@ var Size = new Class({
      * @type {number}
      * @since 3.16.0
      */
-    height: {
 
-        get: function ()
-        {
-            return this._height;
-        },
-
-        set: function (value)
-        {
-            this.setSize(this._width, value);
-        }
-
+    get height()
+    {
+        return this._height;
     }
 
-});
+    set height(value)
+    {
+        this.setSize(this._width, value);
+    }
+
+};
 
 /**
  * Do not make the size fit the aspect ratio. Change the ratio when the size changes.
@@ -771,5 +770,3 @@ Size.FIT = 3;
  * @since 3.16.0
  */
 Size.ENVELOP = 4;
-
-module.exports = Size;

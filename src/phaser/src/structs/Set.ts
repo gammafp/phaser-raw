@@ -4,16 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-
 /**
- * @callback EachSetCallback<E>
- *
- * @param {E} entry - The Set entry.
- * @param {number} index - The index of the entry within the Set.
- *
- * @return {?boolean} The callback result.
+ * Callback function for iterating over set entries.
  */
+export type EachSetCallback<E> = (entry: E, index: number) => boolean | void;
 
 /**
  * @classdesc
@@ -29,11 +23,11 @@ var Class = require('../utils/Class');
  *
  * @param {Array.<*>} [elements] - An optional array of elements to insert into this Set.
  */
-var Set = new Class({
+export class Set<T = any> {
 
-    initialize:
+    entries: T[];
 
-    function Set (elements)
+    constructor(elements?: T[])
     {
         /**
          * The entries of this Set. Stored internally as an array.
@@ -54,7 +48,7 @@ var Set = new Class({
                 this.set(elements[i]);
             }
         }
-    },
+    }
 
     /**
      * Inserts the provided value into this Set. If the value is already contained in this Set this method will have no effect.
@@ -69,7 +63,7 @@ var Set = new Class({
      *
      * @return {Phaser.Structs.Set} This Set object.
      */
-    set: function (value)
+    set(value)
     {
         if (this.entries.indexOf(value) === -1)
         {
@@ -77,7 +71,7 @@ var Set = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Get an element of this Set which has a property of the specified name, if that property is equal to the specified value.
@@ -93,7 +87,7 @@ var Set = new Class({
      *
      * @return {*} The first element of this Set that meets the required condition, or `null` if this Set contains no elements that meet the condition.
      */
-    get: function (property, value)
+    get(property, value)
     {
         for (var i = 0; i < this.entries.length; i++)
         {
@@ -104,7 +98,7 @@ var Set = new Class({
                 return entry;
             }
         }
-    },
+    }
 
     /**
      * Returns an array containing all the values in this Set.
@@ -116,10 +110,10 @@ var Set = new Class({
      *
      * @return {Array.<*>} An array containing all the values in this Set.
      */
-    getArray: function ()
+    getArray()
     {
         return this.entries.slice(0);
-    },
+    }
 
     /**
      * Removes the given value from this Set if this Set contains that value.
@@ -134,7 +128,7 @@ var Set = new Class({
      *
      * @return {Phaser.Structs.Set} This Set object.
      */
-    delete: function (value)
+    delete(value)
     {
         var index = this.entries.indexOf(value);
 
@@ -144,7 +138,7 @@ var Set = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Dumps the contents of this Set to the console via `console.group`.
@@ -152,7 +146,7 @@ var Set = new Class({
      * @method Phaser.Structs.Set#dump
      * @since 3.0.0
      */
-    dump: function ()
+    dump()
     {
         // eslint-disable-next-line no-console
         console.group('Set');
@@ -165,7 +159,7 @@ var Set = new Class({
 
         // eslint-disable-next-line no-console
         console.groupEnd();
-    },
+    }
 
     /**
      * Passes each value in this Set to the given callback.
@@ -182,7 +176,7 @@ var Set = new Class({
      *
      * @return {Phaser.Structs.Set} This Set object.
      */
-    each: function (callback, callbackScope)
+    each(callback, callbackScope)
     {
         var i;
         var temp = this.entries.slice();
@@ -210,7 +204,7 @@ var Set = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Passes each value in this Set to the given callback.
@@ -232,7 +226,7 @@ var Set = new Class({
      *
      * @return {Phaser.Structs.Set} This Set object.
      */
-    iterate: function (callback, callbackScope)
+    iterate(callback, callbackScope)
     {
         var i;
         var len = this.entries.length;
@@ -259,7 +253,7 @@ var Set = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Goes through each entry in this Set and invokes the given function on them, passing in the arguments.
@@ -274,7 +268,7 @@ var Set = new Class({
      *
      * @return {Phaser.Structs.Set} This Set object.
      */
-    iterateLocal: function (callbackKey)
+    iterateLocal(callbackKey)
     {
         var i;
         var args = [];
@@ -294,7 +288,7 @@ var Set = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Clears this Set so that it no longer contains any values.
@@ -306,12 +300,12 @@ var Set = new Class({
      *
      * @return {Phaser.Structs.Set} This Set object.
      */
-    clear: function ()
+    clear()
     {
         this.entries.length = 0;
 
         return this;
-    },
+    }
 
     /**
      * Returns `true` if this Set contains the given value, otherwise returns `false`.
@@ -325,10 +319,10 @@ var Set = new Class({
      *
      * @return {boolean} `true` if the given value was found in this Set, otherwise `false`.
      */
-    contains: function (value)
+    contains(value)
     {
         return (this.entries.indexOf(value) > -1);
-    },
+    }
 
     /**
      * Returns a new Set containing all values that are either in this Set or in the Set provided as an argument.
@@ -342,7 +336,7 @@ var Set = new Class({
      *
      * @return {Phaser.Structs.Set} A new Set containing all the values in this Set and the Set provided as an argument.
      */
-    union: function (set)
+    union(set)
     {
         var newSet = new Set();
 
@@ -357,7 +351,7 @@ var Set = new Class({
         });
 
         return newSet;
-    },
+    }
 
     /**
      * Returns a new Set that contains only the values which are in this Set and that are also in the given Set.
@@ -371,7 +365,7 @@ var Set = new Class({
      *
      * @return {Phaser.Structs.Set} The result of the intersection, as a new Set.
      */
-    intersect: function (set)
+    intersect(set)
     {
         var newSet = new Set();
 
@@ -384,7 +378,7 @@ var Set = new Class({
         });
 
         return newSet;
-    },
+    }
 
     /**
      * Returns a new Set containing all the values in this Set which are *not* also in the given Set.
@@ -398,7 +392,7 @@ var Set = new Class({
      *
      * @return {Phaser.Structs.Set} A new Set containing all the values in this Set that are not also in the Set provided as an argument to this method.
      */
-    difference: function (set)
+    difference(set)
     {
         var newSet = new Set();
 
@@ -411,7 +405,7 @@ var Set = new Class({
         });
 
         return newSet;
-    },
+    }
 
     /**
      * The size of this Set. This is the number of entries within it.
@@ -422,27 +416,22 @@ var Set = new Class({
      * @type {number}
      * @since 3.0.0
      */
-    size: {
 
-        get: function ()
-        {
-            return this.entries.length;
-        },
-
-        set: function (value)
-        {
-            if (value < this.entries.length)
-            {
-                return this.entries.length = value;
-            }
-            else
-            {
-                return this.entries.length;
-            }
-        }
-
+    get size()
+    {
+        return this.entries.length;
     }
 
-});
+    set size(value)
+    {
+        if (value < this.entries.length)
+        {
+            return this.entries.length = value;
+        }
+        else
+        {
+            return this.entries.length;
+        }
+    }
 
-module.exports = Set;
+}

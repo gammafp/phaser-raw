@@ -10,7 +10,7 @@ var Class = require('../../utils/Class');
 var Components = require('../components');
 var Frame = require('../../textures/Frame');
 var GameObject = require('../GameObject');
-var List = require('../../structs/List');
+import { List } from '../../structs/List';
 
 /**
  * @callback CreateCallback

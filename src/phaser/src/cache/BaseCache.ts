@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const CustomMap = require('../structs/Map');
+import { Map as CustomMap } from '../structs/Map';
 const EventEmitter = require('eventemitter3');
 const Events = require('./events');
 

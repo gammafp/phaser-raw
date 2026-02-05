@@ -4,10 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var ProcessQueue = require('../structs/ProcessQueue');
-var PluginCache = require('../plugins/PluginCache');
-var SceneEvents = require('../scene/events');
+import { ProcessQueue } from '../structs/ProcessQueue';
+const PluginCache = require('../plugins/PluginCache');
+const SceneEvents = require('../scene/events');
 
 /**
  * @classdesc
@@ -25,15 +24,14 @@ var SceneEvents = require('../scene/events');
  *
  * @param {Phaser.Scene} scene - The Scene that the Update List belongs to.
  */
-var UpdateList = new Class({
+export class UpdateList extends ProcessQueue {
 
-    Extends: ProcessQueue,
+    scene: any;
+    systems: any;
 
-    initialize:
-
-    function UpdateList (scene)
+    constructor(scene: any)
     {
-        ProcessQueue.call(this);
+        super();
 
         //  No duplicates in this list
         this.checkQueue = true;
@@ -98,7 +96,7 @@ var UpdateList = new Class({
 
         scene.sys.events.once(SceneEvents.BOOT, this.boot, this);
         scene.sys.events.on(SceneEvents.START, this.start, this);
-    },
+    }
 
     /**
      * This method is called automatically, only once, when the Scene is first created.
@@ -108,10 +106,10 @@ var UpdateList = new Class({
      * @private
      * @since 3.5.1
      */
-    boot: function ()
+    boot(): void
     {
         this.systems.events.once(SceneEvents.DESTROY, this.destroy, this);
-    },
+    }
 
     /**
      * This method is called automatically by the Scene when it is starting up.
@@ -122,14 +120,14 @@ var UpdateList = new Class({
      * @private
      * @since 3.5.0
      */
-    start: function ()
+    start(): void
     {
-        var eventEmitter = this.systems.events;
+        const eventEmitter = this.systems.events;
 
         eventEmitter.on(SceneEvents.PRE_UPDATE, this.update, this);
         eventEmitter.on(SceneEvents.UPDATE, this.sceneUpdate, this);
         eventEmitter.once(SceneEvents.SHUTDOWN, this.shutdown, this);
-    },
+    }
 
     /**
      * The update step.
@@ -142,21 +140,21 @@ var UpdateList = new Class({
      * @param {number} time - The current timestamp.
      * @param {number} delta - The delta time elapsed since the last frame.
      */
-    sceneUpdate: function (time, delta)
+    sceneUpdate(time: number, delta: number): void
     {
-        var list = this._active;
-        var length = list.length;
+        const list = this._active;
+        const length = list.length;
 
-        for (var i = 0; i < length; i++)
+        for (let i = 0; i < length; i++)
         {
-            var gameObject = list[i];
+            const gameObject = list[i];
 
             if (gameObject.active)
             {
                 gameObject.preUpdate.call(gameObject, time, delta);
             }
         }
-    },
+    }
 
     /**
      * The Scene that owns this plugin is shutting down.
@@ -166,9 +164,9 @@ var UpdateList = new Class({
      * @method Phaser.GameObjects.UpdateList#shutdown
      * @since 3.0.0
      */
-    shutdown: function ()
+    shutdown(): void
     {
-        var i = this._active.length;
+        let i = this._active.length;
 
         while (i--)
         {
@@ -197,12 +195,12 @@ var UpdateList = new Class({
 
         this.removeAllListeners();
 
-        var eventEmitter = this.systems.events;
+        const eventEmitter = this.systems.events;
 
         eventEmitter.off(SceneEvents.PRE_UPDATE, this.update, this);
         eventEmitter.off(SceneEvents.UPDATE, this.sceneUpdate, this);
         eventEmitter.off(SceneEvents.SHUTDOWN, this.shutdown, this);
-    },
+    }
 
     /**
      * The Scene that owns this plugin is being destroyed.
@@ -212,7 +210,7 @@ var UpdateList = new Class({
      * @method Phaser.GameObjects.UpdateList#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy(): void
     {
         this.shutdown();
 
@@ -291,8 +289,6 @@ var UpdateList = new Class({
      * @readonly
      * @since 3.20.0
      */
-});
+}
 
 PluginCache.register('UpdateList', UpdateList, 'updateList');
-
-module.exports = UpdateList;

@@ -4,9 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var EventEmitter = require('eventemitter3');
-var Events = require('./events');
+import { EventEmitter } from 'eventemitter3';
+import * as Events from './events';
 
 /**
  * @classdesc
@@ -29,15 +28,17 @@ var Events = require('./events');
  *
  * @generic T
  */
-var ProcessQueue = new Class({
+export class ProcessQueue<T = any> extends EventEmitter {
 
-    Extends: EventEmitter,
+    _pending: T[];
+    _active: T[];
+    _destroy: T[];
+    _toProcess: number;
+    checkQueue: boolean;
 
-    initialize:
-
-    function ProcessQueue ()
+    constructor()
     {
-        EventEmitter.call(this);
+        super();
 
         /**
          * The `pending` list is a selection of items which are due to be made 'active' in the next update.
@@ -97,7 +98,7 @@ var ProcessQueue = new Class({
          * @since 3.50.0
          */
         this.checkQueue = false;
-    },
+    }
 
     /**
      * Checks the given item to see if it is already active within this Process Queue.
@@ -112,10 +113,10 @@ var ProcessQueue = new Class({
      *
      * @return {boolean} `true` if the item is active, otherwise `false`.
      */
-    isActive: function (item)
+    isActive(item: T): boolean
     {
         return (this._active.indexOf(item) > -1);
-    },
+    }
 
     /**
      * Checks the given item to see if it is already pending addition to this Process Queue.
@@ -130,10 +131,10 @@ var ProcessQueue = new Class({
      *
      * @return {boolean} `true` if the item is pending insertion, otherwise `false`.
      */
-    isPending: function (item)
+    isPending(item: T): boolean
     {
         return (this._toProcess > 0 && this._pending.indexOf(item) > -1);
-    },
+    }
 
     /**
      * Checks the given item to see if it is already pending destruction from this Process Queue.
@@ -148,10 +149,10 @@ var ProcessQueue = new Class({
      *
      * @return {boolean} `true` if the item is pending destruction, otherwise `false`.
      */
-    isDestroying: function (item)
+    isDestroying(item: T): boolean
     {
         return (this._destroy.indexOf(item) > -1);
-    },
+    }
 
     /**
      * Adds a new item to the Process Queue.
@@ -168,7 +169,7 @@ var ProcessQueue = new Class({
      *
      * @return {*} The item that was added.
      */
-    add: function (item)
+    add(item: T): T
     {
         //  Don't add if already active or pending, but DO add if active AND in the destroy list
         if (this.checkQueue && (this.isActive(item) && !this.isDestroying(item)) || this.isPending(item))
@@ -181,7 +182,7 @@ var ProcessQueue = new Class({
         this._toProcess++;
 
         return item;
-    },
+    }
 
     /**
      * Removes an item from the Process Queue.
@@ -198,7 +199,7 @@ var ProcessQueue = new Class({
      *
      * @return {*} The item that was removed.
      */
-    remove: function (item)
+    remove(item: T): T
     {
         //  Check if it's in the _pending list
         if (this.isPending(item))
@@ -225,7 +226,7 @@ var ProcessQueue = new Class({
         //  or isn't pending or active, so cannot be removed anyway
 
         return item;
-    },
+    }
 
     /**
      * Removes all active items from this Process Queue.
@@ -237,11 +238,11 @@ var ProcessQueue = new Class({
      *
      * @return {this} This Process Queue object.
      */
-    removeAll: function ()
+    removeAll(): this
     {
-        var list = this._active;
-        var destroy = this._destroy;
-        var i = list.length;
+        const list = this._active;
+        const destroy = this._destroy;
+        let i = list.length;
 
         while (i--)
         {
@@ -251,7 +252,7 @@ var ProcessQueue = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Update this queue. First it will process any items awaiting destruction, and remove them.
@@ -266,7 +267,7 @@ var ProcessQueue = new Class({
      *
      * @return {Array.<*>} A list of active items.
      */
-    update: function ()
+    update(): T[]
     {
         if (this._toProcess === 0)
         {
@@ -274,10 +275,10 @@ var ProcessQueue = new Class({
             return this._active;
         }
 
-        var list = this._destroy;
-        var active = this._active;
-        var i;
-        var item;
+        let list = this._destroy;
+        const active = this._active;
+        let i: number;
+        let item: T;
 
         //  Clear the 'destroy' list
         for (i = 0; i < list.length; i++)
@@ -285,7 +286,7 @@ var ProcessQueue = new Class({
             item = list[i];
 
             //  Remove from the 'active' array
-            var idx = active.indexOf(item);
+            const idx = active.indexOf(item);
 
             if (idx !== -1)
             {
@@ -320,7 +321,7 @@ var ProcessQueue = new Class({
 
         //  The owner of this queue can now safely do whatever it needs to with the active list
         return active;
-    },
+    }
 
     /**
      * Returns the current list of active items.
@@ -335,10 +336,10 @@ var ProcessQueue = new Class({
      *
      * @return {Array.<*>} A list of active items.
      */
-    getActive: function ()
+    getActive(): T[]
     {
         return this._active;
-    },
+    }
 
     /**
      * The number of entries in the active list.
@@ -348,14 +349,11 @@ var ProcessQueue = new Class({
      * @readonly
      * @since 3.20.0
      */
-    length: {
 
-        get: function ()
-        {
-            return this._active.length;
-        }
-
-    },
+    get length(): number
+    {
+        return this._active.length;
+    }
 
     /**
      * Immediately destroys this process queue, clearing all of its internal arrays and resetting the process totals.
@@ -363,7 +361,7 @@ var ProcessQueue = new Class({
      * @method Phaser.Structs.ProcessQueue#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy(): void
     {
         this._toProcess = 0;
 
@@ -372,6 +370,4 @@ var ProcessQueue = new Class({
         this._destroy = [];
     }
 
-});
-
-module.exports = ProcessQueue;
+}
