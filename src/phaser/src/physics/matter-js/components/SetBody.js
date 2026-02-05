@@ -6,7 +6,7 @@
 
 // TODO: Convert this file to TypeScript
 
-import { FuzzyEquals } from '../../../math/fuzzy/Equal';
+import { Equal as FuzzyEquals } from '../../../math/fuzzy/Equal';
 import { GetFastValue } from '../../../utils/object/GetFastValue';
 
 var Bodies = require('../lib/factory/Bodies');

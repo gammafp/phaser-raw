@@ -64,5 +64,5 @@ const start_game = () => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    start_game();
+    // start_game();
 });

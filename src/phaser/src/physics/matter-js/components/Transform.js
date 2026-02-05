@@ -7,8 +7,8 @@
 // TODO: Convert this file to TypeScript
 
 import { MATH_CONST } from '../../../math/const';
-import { WrapAngle } from '../../../math/angle/Wrap';
-import { WrapAngleDegrees } from '../../../math/angle/WrapDegrees';
+import { Wrap as WrapAngle } from '../../../math/angle/Wrap';
+import { WrapDegrees as WrapAngleDegrees } from '../../../math/angle/WrapDegrees';
 
 var Body = require('../lib/body/Body');
 

@@ -30,6 +30,14 @@ export class Start extends Phaser.Scene {
 
         logo.setTint(0xff0000);
 
+
+        console.log(this.physics);
+
+        // Add logo with physics
+        // const logo2 = this.physics.add.sprite(640, 200, 'logo');
+        // logo2.setTint(0xff0000);
+
+
         const ship = this.add.sprite(640, 360, 'ship');
 
         ship.preFX?.addGlow();         // ✅ Autocomplete

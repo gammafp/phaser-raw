@@ -23,7 +23,7 @@ import * as Events from './events';
 import { InputManager } from '../input/InputManager';
 import { PluginCache } from '../plugins/PluginCache';
 import { PluginManager } from '../plugins/PluginManager';
-const ScaleManager = require('../scale/ScaleManager');
+import { ScaleManager } from '../scale/ScaleManager';
 const TextureEvents = require('../textures/events');
 import { TextureManager } from '../textures/TextureManager';
 import { TimeStep } from './TimeStep';

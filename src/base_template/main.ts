@@ -11,6 +11,13 @@ const config = {
     height: 720,
     backgroundColor: '#000000',
     pixelArt: false,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300 },
+            debug: false
+        }
+    },
     scene: [
         Start
     ],
@@ -19,6 +26,7 @@ const config = {
         // autoCenter: Phaser.Scale.CENTER_BOTH
     },
 }
+
 
 new Phaser.Game(config);
             

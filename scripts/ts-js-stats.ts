@@ -30,6 +30,10 @@ const walk = async (dir: string, counts: Counts): Promise<void> => {
       if (entry.name === 'typedefs') {
         continue;
       }
+      // Skip matter-js folder - external library that will be removed
+      if (entry.name === 'matter-js') {
+        continue;
+      }
       await walk(fullPath, counts);
       continue;
     }

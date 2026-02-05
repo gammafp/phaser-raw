@@ -18,6 +18,8 @@ import { PHASER_CONST as CONST } from './const';
 
 import { Scene } from './scene/Scene';
 import { Game } from './core/Game';
+// import * as Physics from './physics/index';
+// import { Input, Physics } from 'phaser';
 
 
 export const Actions = require('./actions');
@@ -103,7 +105,7 @@ const Phaser = {
     GameObjects,
     Geom,
     Input: require('./input'),
-
+    Physics: require('./physics'),
     Loader,
     Math,
     Plugins,
