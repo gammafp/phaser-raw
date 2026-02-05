@@ -6,7 +6,7 @@
 
 var Class = require('../utils/Class');
 import { ToJSON as ComponentsToJSON } from './components/ToJSON';
-var DataManager = require('../data/DataManager');
+import { DataManager } from '../data/DataManager';
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var SceneEvents = require('../scene/events');

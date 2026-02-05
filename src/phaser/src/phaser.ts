@@ -7,8 +7,7 @@
  *   TypeScript conversion and refactors by Francisco Pereira
  */
 
-require('./polyfills/requestVideoFrame');
-
+import './polyfills/requestVideoFrame';
 import { PHASER_CONST as CONST } from './const';
 
 /**

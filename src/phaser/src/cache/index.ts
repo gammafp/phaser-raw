@@ -8,8 +8,8 @@
  * @namespace Phaser.Cache
  */
 
-const BaseCache = require('./BaseCache');
-const CacheManager = require('./CacheManager');
+import { BaseCache } from './BaseCache';
+import { CacheManager } from './CacheManager';
 
 export { BaseCache };
 export { CacheManager };

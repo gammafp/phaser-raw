@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Layer = require('./Layer');
+import { Layer } from './Layer';
 var GameObjectFactory = require('../GameObjectFactory');
 
 /**

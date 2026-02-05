@@ -9,7 +9,7 @@
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 
 var BuildGameObject = require('../BuildGameObject');
-var Layer = require('./Layer');
+import { Layer } from './Layer';
 var GameObjectCreator = require('../GameObjectCreator');
 
 /**
