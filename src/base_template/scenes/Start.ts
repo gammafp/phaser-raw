@@ -118,6 +118,156 @@ export class Start extends Phaser.Scene {
             repeat: -1,
             rotateToPath: false
         });
+
+        // ============================================================
+        // EJEMPLO: Zone - Áreas invisibles para detección
+        // ============================================================
+        
+        // EJEMPLO 1: Zone rectangular para drag & drop
+        const dropZone = this.add.zone(400, 300, 200, 150);
+        dropZone.setRectangleDropZone(200, 150);
+        
+        // Visual debug de la zona
+        const dropGraphics = this.add.graphics();
+        dropGraphics.lineStyle(2, 0x00ff00);
+        dropGraphics.strokeRect(300, 225, 200, 150);
+        
+        const dropText = this.add.text(400, 300, 'Drop Zone\n(Rectangle)', { 
+            fontSize: '14px', 
+            color: '#00ff00',
+            align: 'center'
+        }).setOrigin(0.5);
+        
+        // EJEMPLO 2: Zone con interacción (hover)
+        const interactiveZone = this.add.zone(900, 300, 150, 150)
+            .setInteractive();
+        
+        // Visual debug
+        const zoneGraphics = this.add.graphics();
+        zoneGraphics.lineStyle(2, 0xff0000);
+        zoneGraphics.strokeRect(825, 225, 150, 150);
+        
+        const zoneText = this.add.text(900, 300, 'Hover me!', { 
+            fontSize: '16px', 
+            color: '#ffffff' 
+        }).setOrigin(0.5);
+        
+        interactiveZone.on('pointerover', () => {
+            zoneGraphics.clear();
+            zoneGraphics.lineStyle(2, 0x00ff00);
+            zoneGraphics.fillStyle(0x00ff00, 0.2);
+            zoneGraphics.fillRect(825, 225, 150, 150);
+            zoneGraphics.strokeRect(825, 225, 150, 150);
+            zoneText.setText('Inside!');
+        });
+        
+        interactiveZone.on('pointerout', () => {
+            zoneGraphics.clear();
+            zoneGraphics.lineStyle(2, 0xff0000);
+            zoneGraphics.strokeRect(825, 225, 150, 150);
+            zoneText.setText('Hover me!');
+        });
+        
+        interactiveZone.on('pointerdown', () => {
+            zoneText.setText('Clicked!');
+        });
+        
+        // EJEMPLO 3: Zone circular para drag & drop
+        const circularZone = this.add.zone(1100, 500, 100, 100);
+        circularZone.setCircleDropZone(50);
+        
+        // Visual debug círculo
+        const circleGraphics = this.add.graphics();
+        circleGraphics.lineStyle(2, 0x0000ff);
+        circleGraphics.strokeCircle(1100, 500, 50);
+        
+        const circleText = this.add.text(1100, 500, 'Drop Zone\n(Circle)', { 
+            fontSize: '14px', 
+            color: '#0000ff',
+            align: 'center'
+        }).setOrigin(0.5);
+        
+        // ============================================================
+        // EJEMPLO 4: Objetos arrastrables para las drop zones
+        // ============================================================
+        
+        // Crear sprites arrastrables
+        const draggable1 = this.add.image(200, 500, 'logo').setScale(0.15);
+        const draggable2 = this.add.image(250, 500, 'logo').setScale(0.15).setTint(0xff0000);
+        const draggable3 = this.add.image(300, 500, 'logo').setScale(0.15).setTint(0x00ff00);
+        
+        // Hacer que sean arrastrables
+        draggable1.setInteractive({ draggable: true });
+        draggable2.setInteractive({ draggable: true });
+        draggable3.setInteractive({ draggable: true });
+        
+        // Texto de instrucciones
+        this.add.text(250, 450, 'Arrastra los logos a las zonas!', { 
+            fontSize: '16px', 
+            color: '#ffffff' 
+        }).setOrigin(0.5);
+        
+        // Eventos de drag
+        this.input.on('dragstart', (pointer: any, gameObject: any) => {
+            gameObject.setTint(0xffff00); // Amarillo al arrastrar
+        });
+        
+        this.input.on('drag', (pointer: any, gameObject: any, dragX: number, dragY: number) => {
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+        });
+        
+        this.input.on('dragend', (pointer: any, gameObject: any) => {
+            // Restaurar tint original
+            if (gameObject === draggable1) gameObject.setTint(0xffffff);
+            if (gameObject === draggable2) gameObject.setTint(0xff0000);
+            if (gameObject === draggable3) gameObject.setTint(0x00ff00);
+        });
+        
+        // Evento cuando se suelta en una drop zone
+        this.input.on('drop', (pointer: any, gameObject: any, dropZone: any) => {
+            gameObject.x = dropZone.x;
+            gameObject.y = dropZone.y;
+            
+            // Feedback visual
+            if (dropZone === dropZone) {
+                dropGraphics.clear();
+                dropGraphics.lineStyle(2, 0x00ff00);
+                dropGraphics.fillStyle(0x00ff00, 0.3);
+                dropGraphics.fillRect(300, 225, 200, 150);
+                dropGraphics.strokeRect(300, 225, 200, 150);
+                dropText.setText('Drop Zone\n✓ Dropped!');
+                
+                this.time.delayedCall(1000, () => {
+                    dropGraphics.clear();
+                    dropGraphics.lineStyle(2, 0x00ff00);
+                    dropGraphics.strokeRect(300, 225, 200, 150);
+                    dropText.setText('Drop Zone\n(Rectangle)');
+                });
+            }
+            
+            if (dropZone === circularZone) {
+                circleGraphics.clear();
+                circleGraphics.lineStyle(2, 0x0000ff);
+                circleGraphics.fillStyle(0x0000ff, 0.3);
+                circleGraphics.fillCircle(1100, 500, 50);
+                circleGraphics.strokeCircle(1100, 500, 50);
+                circleText.setText('Drop Zone\n✓ Dropped!');
+                
+                this.time.delayedCall(1000, () => {
+                    circleGraphics.clear();
+                    circleGraphics.lineStyle(2, 0x0000ff);
+                    circleGraphics.strokeCircle(1100, 500, 50);
+                    circleText.setText('Drop Zone\n(Circle)');
+                });
+            }
+        });
+        
+        // NOTA: Zone es útil para:
+        // - Áreas de drop (drag and drop) ✓
+        // - Trigger zones (detectar cuando el jugador entra/sale) ✓
+        // - Áreas de interacción sin sprite visible ✓
+        // - Optimización (no renderiza, solo lógica) ✓
     
     }
 
