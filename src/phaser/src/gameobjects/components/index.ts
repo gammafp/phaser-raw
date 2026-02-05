@@ -32,7 +32,7 @@ import { Transform } from './Transform';
 import { TransformMatrix } from './TransformMatrix';
 import { Visible } from './Visible';
 
-module.exports = {
+export {
     Alpha,
     AlphaSingle,
     BlendMode,

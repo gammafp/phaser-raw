@@ -10,7 +10,7 @@ import { NOOP } from '../utils/NOOP';
 // TODO: Convert this
 import { ALIGN_CONST as CONST } from '../display/align/const';
 import { GetFastValue } from '../utils/object/GetFastValue';
-var Zone = require('../gameobjects/zone/Zone');
+import { Zone } from '../gameobjects/zone/Zone';
 //
 
 const tempZone = new Zone({ sys: { queueDepthSort: NOOP, events: { once: NOOP } } }, 0, 0, 1, 1).setOrigin(0, 0);

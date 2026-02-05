@@ -1,6 +1,7 @@
 import { Start } from './scenes/Start';
 
 import Phaser from '../phaser/src/phaser';
+// import * as Phaser from 'phaser';
 
 const config = {
     type: Phaser.AUTO,

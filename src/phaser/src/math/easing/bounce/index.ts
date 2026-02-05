@@ -8,6 +8,9 @@
  * @namespace Phaser.Math.Easing.Bounce
  */
 
-export { In } from './In';
-export { InOut } from './InOut';
-export { Out } from './Out';
+import { In } from './In';
+import { InOut } from './InOut';
+import { Out } from './Out';
+
+export default { In, Out, InOut };
+export { In, InOut, Out };

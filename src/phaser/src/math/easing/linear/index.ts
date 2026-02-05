@@ -4,8 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-/**
- * @namespace Phaser.Math.Easing.Linear
- */
+import { Linear } from './Linear';
 
-export { Linear } from './Linear';
+export default Linear;
+export { Linear };

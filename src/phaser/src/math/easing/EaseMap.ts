@@ -4,18 +4,18 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import * as Back from './back';
-import * as Bounce from './bounce';
-import * as Circular from './circular';
-import * as Cubic from './cubic';
-import * as Elastic from './elastic';
-import * as Expo from './expo';
-import * as Linear from './linear';
-import * as Quadratic from './quadratic';
-import * as Quartic from './quartic';
-import * as Quintic from './quintic';
-import * as Sine from './sine';
-import * as Stepped from './stepped';
+import Back from './back';
+import Bounce from './bounce';
+import Circular from './circular';
+import Cubic from './cubic';
+import Elastic from './elastic';
+import Expo from './expo';
+import Linear from './linear';
+import Quadratic from './quadratic';
+import Quartic from './quartic';
+import Quintic from './quintic';
+import Sine from './sine';
+import Stepped from './stepped';
 
 //  EaseMap
 export const EaseMap = {
