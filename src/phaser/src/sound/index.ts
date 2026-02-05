@@ -11,15 +11,15 @@
 
 export { SoundManagerCreator } from './SoundManagerCreator';
 
-const Events = require('./events');
-const BaseSound = require('./BaseSound');
-const BaseSoundManager = require('./BaseSoundManager');
-const WebAudioSound = require('./webaudio/WebAudioSound');
-const WebAudioSoundManager = require('./webaudio/WebAudioSoundManager');
-const HTML5AudioSound = require('./html5/HTML5AudioSound');
-const HTML5AudioSoundManager = require('./html5/HTML5AudioSoundManager');
-const NoAudioSound = require('./noaudio/NoAudioSound');
-const NoAudioSoundManager = require('./noaudio/NoAudioSoundManager');
+import * as Events from './events';
+import { BaseSound } from './BaseSound';
+import { BaseSoundManager } from './BaseSoundManager';
+import { WebAudioSound } from './webaudio/WebAudioSound';
+import { WebAudioSoundManager } from './webaudio/WebAudioSoundManager';
+import { HTML5AudioSound } from './html5/HTML5AudioSound';
+import { HTML5AudioSoundManager } from './html5/HTML5AudioSoundManager';
+import { NoAudioSound } from './noaudio/NoAudioSound';
+import { NoAudioSoundManager } from './noaudio/NoAudioSoundManager';
 
 export default {
     SoundManagerCreator,

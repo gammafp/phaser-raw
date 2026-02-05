@@ -5,9 +5,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const HTML5AudioSoundManager = require('./html5/HTML5AudioSoundManager');
-const NoAudioSoundManager = require('./noaudio/NoAudioSoundManager');
-const WebAudioSoundManager = require('./webaudio/WebAudioSoundManager');
+import { HTML5AudioSoundManager } from './html5/HTML5AudioSoundManager';
+import { NoAudioSoundManager } from './noaudio/NoAudioSoundManager';
+import { WebAudioSoundManager } from './webaudio/WebAudioSoundManager';
 
 /**
  * Creates a Web Audio, HTML5 Audio or No Audio Sound Manager based on config and device settings.

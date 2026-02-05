@@ -20,7 +20,7 @@ const Device = require('../device');
 import { DOMContentLoaded } from '../dom/DOMContentLoaded';
 import { EventEmitter } from 'eventemitter3';
 import * as Events from './events';
-const InputManager = require('../input/InputManager');
+import { InputManager } from '../input/InputManager';
 const PluginCache = require('../plugins/PluginCache');
 const PluginManager = require('../plugins/PluginManager');
 const ScaleManager = require('../scale/ScaleManager');
