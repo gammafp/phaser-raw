@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { Clone } from '../../utils/object/Clone';
 
 /**
@@ -23,7 +21,7 @@ import { Clone } from '../../utils/object/Clone';
  *
  * @return {Phaser.Textures.Texture} The Texture modified by this parser.
  */
-var JSONArray = function (texture, sourceIndex, json)
+export const JSONArray = (texture: any, sourceIndex: number, json: any): any =>
 {
     //  Malformed?
     if (!json['frames'] && !json['textures'])
@@ -118,5 +116,3 @@ var JSONArray = function (texture, sourceIndex, json)
 
     return texture;
 };
-
-module.exports = JSONArray;

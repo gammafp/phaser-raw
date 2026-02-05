@@ -4,16 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { Clamp } from '../math/Clamp';
 import { Color } from '../display/color/Color';
 import { IsSizePowerOfTwo } from '../math/pow2/IsSizePowerOfTwo';
-
 import { PHASER_CONST as CONST } from '../const';
-
-var Class = require('../utils/Class');
-var Texture = require('./Texture');
+import { Texture } from './Texture';
 
 /**
  * @classdesc
@@ -47,15 +42,22 @@ var Texture = require('./Texture');
  * @param {number} width - The width of the canvas.
  * @param {number} height - The height of the canvas.
  */
-var CanvasTexture = new Class({
+export class CanvasTexture extends Texture {
 
-    Extends: Texture,
+    canvas: HTMLCanvasElement;
+    context: CanvasRenderingContext2D;
+    width: number;
+    height: number;
+    imageData: ImageData;
+    data: Uint8ClampedArray | null;
+    pixels: Uint32Array | null;
+    buffer: ArrayBuffer | null;
+    _eraseMode: boolean;
+    _drawImage: any;
 
-    initialize:
-
-    function CanvasTexture (manager, key, source, width, height)
+    constructor(manager: any, key: string, source: HTMLCanvasElement, width: number, height: number)
     {
-        Texture.call(this, manager, key, source, width, height);
+        super(manager, key, source, width, height);
 
         this.add('__BASE', 0, 0, 0, width, height);
 
@@ -172,7 +174,7 @@ var CanvasTexture = new Class({
                 this.pixels = this.imageData.data;
             }
         }
-    },
+    }
 
     /**
      * This re-creates the `imageData` from the current context.
@@ -185,7 +187,7 @@ var CanvasTexture = new Class({
      *
      * @return {Phaser.Textures.CanvasTexture} This CanvasTexture.
      */
-    update: function ()
+    update()
     {
         this.imageData = this.context.getImageData(0, 0, this.width, this.height);
 
@@ -212,7 +214,7 @@ var CanvasTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Draws the given Image or Canvas element to this CanvasTexture, then updates the internal
@@ -228,7 +230,7 @@ var CanvasTexture = new Class({
      *
      * @return {Phaser.Textures.CanvasTexture} This CanvasTexture.
      */
-    draw: function (x, y, source, update)
+    draw(x, y, source, update)
     {
         if (update === undefined) { update = true; }
 
@@ -240,7 +242,7 @@ var CanvasTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Draws the given texture frame to this CanvasTexture, then updates the internal
@@ -257,7 +259,7 @@ var CanvasTexture = new Class({
      *
      * @return {Phaser.Textures.CanvasTexture} This CanvasTexture.
      */
-    drawFrame: function (key, frame, x, y, update)
+    drawFrame(key, frame, x, y, update)
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
@@ -290,7 +292,7 @@ var CanvasTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Sets a pixel in the CanvasTexture to the given color and alpha values.
@@ -309,7 +311,7 @@ var CanvasTexture = new Class({
      *
      * @return {this} This CanvasTexture.
      */
-    setPixel: function (x, y, red, green, blue, alpha)
+    setPixel(x, y, red, green, blue, alpha)
     {
         if (alpha === undefined) { alpha = 255; }
 
@@ -331,7 +333,7 @@ var CanvasTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Puts the ImageData into the context of this CanvasTexture at the given coordinates.
@@ -349,7 +351,7 @@ var CanvasTexture = new Class({
      *
      * @return {this} This CanvasTexture.
      */
-    putData: function (imageData, x, y, dirtyX, dirtyY, dirtyWidth, dirtyHeight)
+    putData(imageData, x, y, dirtyX, dirtyY, dirtyWidth, dirtyHeight)
     {
         if (dirtyX === undefined) { dirtyX = 0; }
         if (dirtyY === undefined) { dirtyY = 0; }
@@ -359,7 +361,7 @@ var CanvasTexture = new Class({
         this.context.putImageData(imageData, x, y, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
 
         return this;
-    },
+    }
 
     /**
      * Gets an ImageData region from this CanvasTexture from the position and size specified.
@@ -375,7 +377,7 @@ var CanvasTexture = new Class({
      *
      * @return {ImageData} The ImageData extracted from this CanvasTexture.
      */
-    getData: function (x, y, width, height)
+    getData(x, y, width, height)
     {
         x = Clamp(Math.floor(x), 0, this.width - 1);
         y = Clamp(Math.floor(y), 0, this.height - 1);
@@ -385,7 +387,7 @@ var CanvasTexture = new Class({
         var imageData = this.context.getImageData(x, y, width, height);
 
         return imageData;
-    },
+    }
 
     /**
      * Get the color of a specific pixel from this texture and store it in a Color object.
@@ -402,7 +404,7 @@ var CanvasTexture = new Class({
      *
      * @return {Phaser.Display.Color} An object with the red, green, blue and alpha values set in the r, g, b and a properties.
      */
-    getPixel: function (x, y, out)
+    getPixel(x, y, out)
     {
         if (!out)
         {
@@ -424,7 +426,7 @@ var CanvasTexture = new Class({
         }
 
         return out;
-    },
+    }
 
     /**
      * Returns an array containing all of the pixels in the given region.
@@ -445,7 +447,7 @@ var CanvasTexture = new Class({
      *
      * @return {Phaser.Types.Textures.PixelConfig[][]} A 2d array of Pixel objects.
      */
-    getPixels: function (x, y, width, height)
+    getPixels(x, y, width, height)
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
@@ -479,7 +481,7 @@ var CanvasTexture = new Class({
         }
 
         return out;
-    },
+    }
 
     /**
      * Returns the Image Data index for the given pixel in this CanvasTexture.
@@ -497,7 +499,7 @@ var CanvasTexture = new Class({
      *
      * @return {number}
      */
-    getIndex: function (x, y)
+    getIndex(x, y)
     {
         x = Math.abs(Math.round(x));
         y = Math.abs(Math.round(y));
@@ -510,7 +512,7 @@ var CanvasTexture = new Class({
         {
             return -1;
         }
-    },
+    }
 
     /**
      * This should be called manually if you are running under WebGL.
@@ -522,12 +524,12 @@ var CanvasTexture = new Class({
      *
      * @return {Phaser.Textures.CanvasTexture} This CanvasTexture.
      */
-    refresh: function ()
+    refresh()
     {
         this._source.update();
 
         return this;
-    },
+    }
 
     /**
      * Gets the Canvas Element.
@@ -537,10 +539,10 @@ var CanvasTexture = new Class({
      *
      * @return {HTMLCanvasElement} The Canvas DOM element this texture is using.
      */
-    getCanvas: function ()
+    getCanvas()
     {
         return this.canvas;
-    },
+    }
 
     /**
      * Gets the 2D Canvas Rendering Context.
@@ -550,10 +552,10 @@ var CanvasTexture = new Class({
      *
      * @return {CanvasRenderingContext2D} The Canvas Rendering Context this texture is using.
      */
-    getContext: function ()
+    getContext()
     {
         return this.context;
-    },
+    }
 
     /**
      * Clears the given region of this Canvas Texture, resetting it back to transparent.
@@ -570,7 +572,7 @@ var CanvasTexture = new Class({
      *
      * @return {Phaser.Textures.CanvasTexture} The Canvas Texture.
      */
-    clear: function (x, y, width, height, update)
+    clear(x, y, width, height, update)
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
@@ -586,7 +588,7 @@ var CanvasTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Changes the size of this Canvas Texture.
@@ -599,7 +601,7 @@ var CanvasTexture = new Class({
      *
      * @return {Phaser.Textures.CanvasTexture} The Canvas Texture.
      */
-    setSize: function (width, height)
+    setSize(width, height)
     {
         if (height === undefined) { height = width; }
 
@@ -625,7 +627,7 @@ var CanvasTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Destroys this Texture and releases references to its sources and frames.
@@ -633,7 +635,7 @@ var CanvasTexture = new Class({
      * @method Phaser.Textures.CanvasTexture#destroy
      * @since 3.16.0
      */
-    destroy: function ()
+    destroy()
     {
         Texture.prototype.destroy.call(this);
 
@@ -646,6 +648,4 @@ var CanvasTexture = new Class({
         this.buffer = null;
     }
 
-});
-
-module.exports = CanvasTexture;
+}

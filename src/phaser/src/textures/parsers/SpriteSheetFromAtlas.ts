@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetFastValue } from '../../utils/object/GetFastValue';
 
 /**
@@ -31,7 +29,7 @@ import { GetFastValue } from '../../utils/object/GetFastValue';
  *
  * @return {Phaser.Textures.Texture} The Texture modified by this parser.
  */
-var SpriteSheetFromAtlas = function (texture, frame, config)
+export const SpriteSheetFromAtlas = (texture: any, frame: any, config: any): any =>
 {
     var frameWidth = GetFastValue(config, 'frameWidth', null);
     var frameHeight = GetFastValue(config, 'frameHeight', frameWidth);
@@ -184,4 +182,3 @@ var SpriteSheetFromAtlas = function (texture, frame, config)
     return texture;
 };
 
-module.exports = SpriteSheetFromAtlas;

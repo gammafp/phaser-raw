@@ -15,7 +15,7 @@
  *
  * @return {Phaser.Types.Textures.CompressedTextureData} The Compressed Texture data.
  */
-var KTXParser = function (data)
+export const KTXParser = (data: ArrayBuffer): any =>
 {
     var idCheck = [ 0xab, 0x4b, 0x54, 0x58, 0x20, 0x31, 0x31, 0xbb, 0x0d, 0x0a, 0x1a, 0x0a ];
 
@@ -92,5 +92,3 @@ var KTXParser = function (data)
         generateMipmap: false
     };
 };
-
-module.exports = KTXParser;

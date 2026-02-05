@@ -25,7 +25,7 @@ import { PluginCache } from '../plugins/PluginCache';
 import { PluginManager } from '../plugins/PluginManager';
 const ScaleManager = require('../scale/ScaleManager');
 const TextureEvents = require('../textures/events');
-const TextureManager = require('../textures/TextureManager');
+import { TextureManager } from '../textures/TextureManager';
 import { TimeStep } from './TimeStep';
 import { VisibilityHandler } from './VisibilityHandler';
 

@@ -18,7 +18,7 @@
  *
  * @return {Phaser.Textures.Texture} The Texture modified by this parser.
  */
-var AtlasXML = function (texture, sourceIndex, xml)
+export const AtlasXML = (texture: any, sourceIndex: number, xml: any): any =>
 {
     //  Malformed?
     if (!xml.getElementsByTagName('TextureAtlas'))
@@ -71,5 +71,3 @@ var AtlasXML = function (texture, sourceIndex, xml)
 
     return texture;
 };
-
-module.exports = AtlasXML;

@@ -7,50 +7,48 @@
 /**
  * @ignore
  */
-function GetSize (width, height, x, y, dx, dy, mult)
+const GetSize = (width: number, height: number, x: number, y: number, dx: number, dy: number, mult: number = 16): number =>
 {
-    if (mult === undefined) { mult = 16; }
-
     return Math.floor((width + x) / dx) * Math.floor((height + y) / dy) * mult;
-}
+};
 
 /**
  * @ignore
  */
-function PVRTC2bppSize (width, height)
+const PVRTC2bppSize = (width: number, height: number): number =>
 {
     width = Math.max(width, 16);
     height = Math.max(height, 8);
 
     return width * height / 4;
-}
+};
 
 /**
  * @ignore
  */
-function PVRTC4bppSize (width, height)
+const PVRTC4bppSize = (width: number, height: number): number =>
 {
     width = Math.max(width, 8);
     height = Math.max(height, 8);
 
     return width * height / 2;
-}
+};
 
 /**
  * @ignore
  */
-function BPTCSize (width, height)
+const BPTCSize = (width: number, height: number): number =>
 {
     return Math.ceil(width / 4) * Math.ceil(height / 4) * 16;
-}
+};
 
 /**
  * @ignore
  */
-function DXTEtcSmallSize (width, height)
+const DXTEtcSmallSize = (width: number, height: number): number =>
 {
     return GetSize(width, height, 3, 3, 4, 4, 8);
-}
+};
 
 /**
  * @ignore
@@ -244,7 +242,7 @@ var FORMATS = {
  *
  * @return {Phaser.Types.Textures.CompressedTextureData} The Compressed Texture data.
  */
-var PVRParser = function (data)
+export const PVRParser = (data: ArrayBuffer): any =>
 {
     var header = new Uint32Array(data, 0, 13);
 
@@ -307,4 +305,3 @@ var PVRParser = function (data)
     };
 };
 
-module.exports = PVRParser;

@@ -4,21 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetFastValue } from '../utils/object/GetFastValue';
 import { CanvasPool } from '../display/canvas/CanvasPool';
-
 import { PHASER_CONST as CONST } from '../const';
-
-var BlendModes = require('../renderer/BlendModes');
+const BlendModes = require('../renderer/BlendModes');
 import { Camera } from '../cameras/2d/Camera';
-var Class = require('../utils/Class');
-var Frame = require('./Frame');
-var PIPELINES = require('../renderer/webgl/pipelines/const');
-var RenderTarget = require('../renderer/webgl/RenderTarget');
-var Texture = require('./Texture');
-var Utils = require('../renderer/webgl/Utils');
+import { Frame } from './Frame';
+const PIPELINES = require('../renderer/webgl/pipelines/const');
+const RenderTarget = require('../renderer/webgl/RenderTarget');
+import { Texture } from './Texture';
+const Utils = require('../renderer/webgl/Utils');
 
 /**
  * @classdesc
@@ -64,13 +59,26 @@ var Utils = require('../renderer/webgl/Utils');
  * @param {number} [height=256] - The height of this Dymamic Texture in pixels. Defaults to 256 x 256.
  * @param {boolean} [forceEven=true] - Force the given width and height to be rounded to even values. This significantly improves the rendering quality. Set to false if you know you need an odd sized texture.
  */
-var DynamicTexture = new Class({
+export class DynamicTexture extends Texture {
 
-    Extends: Texture,
+    type: string;
+    renderer: any;
+    width: number;
+    height: number;
+    canvas: HTMLCanvasElement;
+    context: CanvasRenderingContext2D;
+    dirty: boolean;
+    isSpriteTexture: boolean;
+    isDrawing: boolean;
+    gl: any;
+    camera: any;
+    _eraseMode: boolean;
+    projectionMatrix: any;
+    _savedAlpha: number;
+    renderTarget: any;
+    pipeline: any;
 
-    initialize:
-
-    function DynamicTexture (manager, key, width, height, forceEven)
+    constructor(manager: any, key: string, width?: number, height?: number, forceEven?: boolean)
     {
         if (width === undefined) { width = 256; }
         if (height === undefined) { height = 256; }
@@ -92,7 +100,7 @@ var DynamicTexture = new Class({
 
         var source = (isCanvas) ? CanvasPool.create2D(this, width, height) : [ this ];
 
-        Texture.call(this, manager, key, source, width, height);
+        super(manager, key, source, width, height);
 
         this.add('__BASE', 0, 0, 0, width, height);
 
@@ -233,7 +241,7 @@ var DynamicTexture = new Class({
         this.pipeline = (!isCanvas) ? renderer.pipelines.get(PIPELINES.SINGLE_PIPELINE) : null;
 
         this.setSize(width, height, forceEven);
-    },
+    }
 
     /**
      * Resizes this Dynamic Texture to the new dimensions given.
@@ -254,7 +262,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture.
      */
-    setSize: function (width, height, forceEven)
+    setSize(width, height, forceEven)
     {
         if (height === undefined) { height = width; }
         if (forceEven === undefined) { forceEven = true; }
@@ -333,7 +341,7 @@ var DynamicTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Links the WebGL Textures used by this Dynamic Texture to its Render Target.
@@ -346,7 +354,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    setFromRenderTarget: function ()
+    setFromRenderTarget()
     {
         var frame = this.get();
         var source = frame.source;
@@ -358,7 +366,7 @@ var DynamicTexture = new Class({
         source.glTexture = renderTarget.texture;
 
         return this;
-    },
+    }
 
     /**
      * If you are planning on using this Render Texture as a base texture for Sprite
@@ -372,12 +380,12 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    setIsSpriteTexture: function (value)
+    setIsSpriteTexture(value)
     {
         this.isSpriteTexture = value;
 
         return this;
-    },
+    }
 
     /**
      * Fills this Dynamic Texture with the given color.
@@ -399,7 +407,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    fill: function (rgb, alpha, x, y, width, height)
+    fill(rgb, alpha, x, y, width, height)
     {
         var camera = this.camera;
         var renderer = this.renderer;
@@ -452,7 +460,7 @@ var DynamicTexture = new Class({
         this.dirty = true;
 
         return this;
-    },
+    }
 
     /**
      * Clears a portion or everything from this Dynamic Texture by erasing it and resetting it back to
@@ -467,7 +475,7 @@ var DynamicTexture = new Class({
      * 
      * @return {this} This Dynamic Texture instance.
      */
-    clear: function (x, y, width, height)
+    clear(x, y, width, height)
     {
         if (this.dirty)
         {
@@ -498,7 +506,7 @@ var DynamicTexture = new Class({
         }
         
         return this;
-    },
+    }
 
     /**
      * Takes the given texture key and frame and then stamps it at the given
@@ -522,7 +530,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    stamp: function (key, frame, x, y, config)
+    stamp(key, frame, x, y, config)
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
@@ -578,7 +586,7 @@ var DynamicTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Draws the given object, or an array of objects, to this Dynamic Texture using a blend mode of ERASE.
@@ -631,7 +639,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    erase: function (entries, x, y)
+    erase(entries, x, y)
     {
         this._eraseMode = true;
 
@@ -640,7 +648,7 @@ var DynamicTexture = new Class({
         this._eraseMode = false;
 
         return this;
-    },
+    }
 
     /**
      * Draws the given object, or an array of objects, to this Dynamic Texture.
@@ -701,14 +709,14 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    draw: function (entries, x, y, alpha, tint)
+    draw(entries, x, y, alpha, tint)
     {
         this.beginDraw();
         this.batchDraw(entries, x, y, alpha, tint);
         this.endDraw();
 
         return this;
-    },
+    }
 
     /**
      * Draws the Texture Frame to the Render Texture at the given position.
@@ -744,14 +752,14 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    drawFrame: function (key, frame, x, y, alpha, tint)
+    drawFrame(key, frame, x, y, alpha, tint)
     {
         this.beginDraw();
         this.batchDrawFrame(key, frame, x, y, alpha, tint);
         this.endDraw();
 
         return this;
-    },
+    }
 
     /**
      * Takes the given Texture Frame and draws it to this Dynamic Texture as a fill pattern,
@@ -787,7 +795,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    repeat: function (key, frame, x, y, width, height, alpha, tint, skipBatch)
+    repeat(key, frame, x, y, width, height, alpha, tint, skipBatch)
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
@@ -940,7 +948,7 @@ var DynamicTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Use this method if you need to batch draw a large number of Game Objects to
@@ -983,7 +991,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    beginDraw: function ()
+    beginDraw()
     {
         if (!this.isDrawing)
         {
@@ -1006,7 +1014,7 @@ var DynamicTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Use this method if you have already called `beginDraw` and need to batch
@@ -1084,7 +1092,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    batchDraw: function (entries, x, y, alpha, tint)
+    batchDraw(entries, x, y, alpha, tint)
     {
         if (!Array.isArray(entries))
         {
@@ -1094,7 +1102,7 @@ var DynamicTexture = new Class({
         this.batchList(entries, x, y, alpha, tint);
 
         return this;
-    },
+    }
 
     /**
      * Use this method if you have already called `beginDraw` and need to batch
@@ -1146,7 +1154,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    batchDrawFrame: function (key, frame, x, y, alpha, tint)
+    batchDrawFrame(key, frame, x, y, alpha, tint)
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
@@ -1168,7 +1176,7 @@ var DynamicTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Use this method to finish batch drawing to this Dynamic Texture.
@@ -1213,7 +1221,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    endDraw: function (erase)
+    endDraw(erase)
     {
         if (erase === undefined) { erase = this._eraseMode; }
 
@@ -1244,7 +1252,7 @@ var DynamicTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Internal method that handles the drawing of an array of children.
@@ -1259,7 +1267,7 @@ var DynamicTexture = new Class({
      * @param {number} [alpha=1] -  The alpha value. Only used when drawing Texture Frames to this texture. Game Objects use their own alpha.
      * @param {number} [tint=0xffffff] -  The tint color value. Only used when drawing Texture Frames to this texture. Game Objects use their own tint. WebGL only.
      */
-    batchList: function (children, x, y, alpha, tint)
+    batchList(children, x, y, alpha, tint)
     {
         var len = children.length;
 
@@ -1303,7 +1311,7 @@ var DynamicTexture = new Class({
                 this.batchList(entry, x, y, alpha, tint);
             }
         }
-    },
+    }
 
     /**
      * Internal method that handles drawing the contents of a Phaser Group to this Dynamic Texture.
@@ -1316,7 +1324,7 @@ var DynamicTexture = new Class({
      * @param {number} [x=0] - The x position to offset the Game Objects by.
      * @param {number} [y=0] - The y position to offset the Game Objects by.
      */
-    batchGroup: function (children, x, y)
+    batchGroup(children, x, y)
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
@@ -1330,7 +1338,7 @@ var DynamicTexture = new Class({
                 this.batchGameObject(entry, entry.x + x, entry.y + y);
             }
         }
-    },
+    }
 
     /**
      * Internal method that handles drawing a single Phaser Game Object to this Dynamic Texture.
@@ -1343,7 +1351,7 @@ var DynamicTexture = new Class({
      * @param {number} [x=0] - The x position to draw the Game Object at.
      * @param {number} [y=0] - The y position to draw the Game Object at.
      */
-    batchGameObject: function (gameObject, x, y)
+    batchGameObject(gameObject, x, y)
     {
         if (x === undefined) { x = gameObject.x; }
         if (y === undefined) { y = gameObject.y; }
@@ -1406,7 +1414,7 @@ var DynamicTexture = new Class({
         }
 
         gameObject.setPosition(prevX, prevY);
-    },
+    }
 
     /**
      * Internal method that handles the drawing a Texture Frame based on its key.
@@ -1422,7 +1430,7 @@ var DynamicTexture = new Class({
      * @param {number} [alpha=1] -  The alpha value. Only used when drawing Texture Frames to this texture. Game Objects use their own alpha.
      * @param {number} [tint=0xffffff] -  The tint color value. Only used when drawing Texture Frames to this texture. Game Objects use their own tint. WebGL only.
      */
-    batchTextureFrameKey: function (key, frame, x, y, alpha, tint)
+    batchTextureFrameKey(key, frame, x, y, alpha, tint)
     {
         var textureFrame = this.manager.getFrame(key, frame);
 
@@ -1430,7 +1438,7 @@ var DynamicTexture = new Class({
         {
             this.batchTextureFrame(textureFrame, x, y, alpha, tint);
         }
-    },
+    }
 
     /**
      * Internal method that handles the drawing of a Texture Frame to this Dynamic Texture.
@@ -1445,7 +1453,7 @@ var DynamicTexture = new Class({
      * @param {number} [alpha=1] -  The alpha value. Only used when drawing Texture Frames to this texture. Game Objects use their own alpha.
      * @param {number} [tint=0xffffff] -  The tint color value. Only used when drawing Texture Frames to this texture. Game Objects use their own tint. WebGL only.
      */
-    batchTextureFrame: function (textureFrame, x, y, alpha, tint)
+    batchTextureFrame(textureFrame, x, y, alpha, tint)
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
@@ -1480,7 +1488,7 @@ var DynamicTexture = new Class({
 
             ctx.restore();
         }
-    },
+    }
 
     /**
      * Takes a snapshot of the given area of this Dynamic Texture.
@@ -1510,7 +1518,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    snapshotArea: function (x, y, width, height, callback, type, encoderOptions)
+    snapshotArea(x, y, width, height, callback, type, encoderOptions)
     {
         if (this.renderTarget)
         {
@@ -1522,7 +1530,7 @@ var DynamicTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Takes a snapshot of the whole of this Dynamic Texture.
@@ -1548,10 +1556,10 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    snapshot: function (callback, type, encoderOptions)
+    snapshot(callback, type, encoderOptions)
     {
         return this.snapshotArea(0, 0, this.width, this.height, callback, type, encoderOptions);
-    },
+    }
 
     /**
      * Takes a snapshot of the given pixel from this Dynamic Texture.
@@ -1574,10 +1582,10 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    snapshotPixel: function (x, y, callback)
+    snapshotPixel(x, y, callback)
     {
         return this.snapshotArea(x, y, 1, 1, callback, 'pixel');
-    },
+    }
 
     /**
      * Returns the underlying WebGLTextureWrapper, if not running in Canvas mode.
@@ -1587,13 +1595,13 @@ var DynamicTexture = new Class({
      *
      * @return {?Phaser.Renderer.WebGL.Wrappers.WebGLTextureWrapper} The underlying WebGLTextureWrapper, if not running in Canvas mode.
      */
-    getWebGLTexture: function ()
+    getWebGLTexture()
     {
         if (this.renderTarget)
         {
             return this.renderTarget.texture;
         }
-    },
+    }
 
     /**
      * Renders this Dynamic Texture onto the Stamp Game Object as a BitmapMask.
@@ -1606,7 +1614,7 @@ var DynamicTexture = new Class({
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
      * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
      */
-    renderWebGL: function (renderer, src, camera, parentMatrix)
+    renderWebGL(renderer, src, camera, parentMatrix)
     {
         var stamp = this.manager.resetStamp();
 
@@ -1614,7 +1622,7 @@ var DynamicTexture = new Class({
         stamp.setOrigin(0);
 
         stamp.renderWebGL(renderer, stamp, camera, parentMatrix);
-    },
+    }
 
     /**
      * This is a NOOP method. Bitmap Masks are not supported by the Canvas Renderer.
@@ -1626,10 +1634,10 @@ var DynamicTexture = new Class({
      * @param {Phaser.GameObjects.GameObject} mask - The masked Game Object which would be rendered.
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to render to.
      */
-    renderCanvas: function ()
+    renderCanvas()
     {
         // NOOP
-    },
+    }
 
     /**
      * Destroys this Texture and releases references to its sources and frames.
@@ -1637,7 +1645,7 @@ var DynamicTexture = new Class({
      * @method Phaser.Textures.DynamicTexture#destroy
      * @since 3.60.0
      */
-    destroy: function ()
+    destroy()
     {
         var stamp = this.manager.stamp;
 
@@ -1662,6 +1670,4 @@ var DynamicTexture = new Class({
         this.renderer = null;
     }
 
-});
-
-module.exports = DynamicTexture;
+}

@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetFastValue } from '../../utils/object/GetFastValue';
 
 /**
@@ -35,7 +33,7 @@ import { GetFastValue } from '../../utils/object/GetFastValue';
  *
  * @return {Phaser.Textures.Texture} The Texture modified by this parser.
  */
-var SpriteSheet = function (texture, sourceIndex, x, y, width, height, config)
+export const SpriteSheet = (texture: any, sourceIndex: number, x: number, y: number, width: number, height: number, config: any): any =>
 {
     var frameWidth = GetFastValue(config, 'frameWidth', null);
     var frameHeight = GetFastValue(config, 'frameHeight', frameWidth);
@@ -124,4 +122,3 @@ var SpriteSheet = function (texture, sourceIndex, x, y, width, height, config)
     return texture;
 };
 
-module.exports = SpriteSheet;

@@ -5,9 +5,9 @@
  */
 
 /**
- * Adds an Image Element to a Texture.
+ * Adds a Canvas Element to a Texture.
  *
- * @function Phaser.Textures.Parsers.Image
+ * @function Phaser.Textures.Parsers.Canvas
  * @memberof Phaser.Textures.Parsers
  * @private
  * @since 3.0.0
@@ -17,7 +17,7 @@
  *
  * @return {Phaser.Textures.Texture} The Texture modified by this parser.
  */
-var Image = function (texture, sourceIndex)
+export const Canvas = (texture: any, sourceIndex: number): any =>
 {
     var source = texture.source[sourceIndex];
 
@@ -25,5 +25,3 @@ var Image = function (texture, sourceIndex)
 
     return texture;
 };
-
-module.exports = Image;

@@ -4,14 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var imageHeight = 0;
+let imageHeight = 0;
 
 /**
  * @function addFrame
  * @private
  * @since 3.0.0
  */
-var addFrame = function (texture, sourceIndex, name, frame)
+const addFrame = (texture: any, sourceIndex: number, name: string, frame: any): void =>
 {
     //  The frame values are the exact coordinates to cut the frame out of the atlas from
 
@@ -50,7 +50,7 @@ var addFrame = function (texture, sourceIndex, name, frame)
  *
  * @return {Phaser.Textures.Texture} The Texture modified by this parser.
  */
-var UnityYAML = function (texture, sourceIndex, yaml)
+export const UnityYAML = (texture: any, sourceIndex: number, yaml: any): any =>
 {
     //  Add in a __BASE entry (for the entire atlas)
     var source = texture.source[sourceIndex];
@@ -129,7 +129,6 @@ var UnityYAML = function (texture, sourceIndex, yaml)
     return texture;
 };
 
-module.exports = UnityYAML;
 
 /*
 Example data:

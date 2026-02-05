@@ -4,26 +4,22 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { Color } from '../display/color/Color';
 import { GetValue } from '../utils/object/GetValue';
 import { IsPlainObject } from '../utils/object/IsPlainObject';
-import { GenerateTexture } from '../create/GenerateTexture';
+const GenerateTexture = require('../create/GenerateTexture');
 import { CanvasPool } from '../display/canvas/CanvasPool';
 import { PHASER_CONST as CONST } from '../const';
-
-var CanvasTexture = require('./CanvasTexture');
-var Class = require('../utils/Class');
-var DynamicTexture = require('./DynamicTexture');
-var EventEmitter = require('eventemitter3');
-var Events = require('./events');
-var Frame = require('./Frame');
-var GameEvents = require('../core/events');
+import { CanvasTexture } from './CanvasTexture';
+import { DynamicTexture } from './DynamicTexture';
+import { EventEmitter } from 'eventemitter3';
+import * as Events from './events';
+import { Frame } from './Frame';
+import * as GameEvents from '../core/events';
 import { Image as ImageGameObject } from '../gameobjects/image/Image';
-var Parser = require('./parsers');
+import * as Parser from './parsers';
 import { Rectangle } from '../geom/rectangle/Rectangle';
-var Texture = require('./Texture');
+import { Texture } from './Texture';
 
 /**
  * @callback EachTextureCallback
@@ -53,15 +49,19 @@ var Texture = require('./Texture');
  *
  * @param {Phaser.Game} game - The Phaser.Game instance this Texture Manager belongs to.
  */
-var TextureManager = new Class({
+export class TextureManager extends EventEmitter {
 
-    Extends: EventEmitter,
+    game: any;
+    name: string;
+    list: Record<string, Texture>;
+    _tempCanvas: HTMLCanvasElement;
+    _tempContext: CanvasRenderingContext2D;
+    _pending: number;
+    silentWarnings: boolean;
 
-    initialize:
-
-    function TextureManager (game)
+    constructor(game: any)
     {
-        EventEmitter.call(this);
+        super();
 
         /**
          * The Game that the Texture Manager belongs to.
@@ -169,7 +169,7 @@ var TextureManager = new Class({
         this.silentWarnings = false;
 
         game.events.once(GameEvents.BOOT, this.boot, this);
-    },
+    }
 
     /**
      * The Boot Handler called by Phaser.Game when it first starts up.
@@ -178,7 +178,7 @@ var TextureManager = new Class({
      * @private
      * @since 3.0.0
      */
-    boot: function ()
+    boot()
     {
         this._pending = 3;
 
@@ -214,7 +214,7 @@ var TextureManager = new Class({
             this.stamp = new ImageGameObject(scene).setOrigin(0);
 
         }, this);
-    },
+    }
 
     /**
      * After 'onload' or 'onerror' invoked twice, emit 'ready' event.
@@ -223,7 +223,7 @@ var TextureManager = new Class({
      * @private
      * @since 3.0.0
      */
-    updatePending: function ()
+    updatePending()
     {
         this._pending--;
 
@@ -234,7 +234,7 @@ var TextureManager = new Class({
 
             this.emit(Events.READY);
         }
-    },
+    }
 
     /**
      * Checks the given texture key and throws a console.warn if the key is already in use, then returns false.
@@ -248,7 +248,7 @@ var TextureManager = new Class({
      *
      * @return {boolean} `true` if it's safe to use the texture key, otherwise `false`.
      */
-    checkKey: function (key)
+    checkKey(key)
     {
         if (!key || typeof key !== 'string' || this.exists(key))
         {
@@ -262,7 +262,7 @@ var TextureManager = new Class({
         }
 
         return true;
-    },
+    }
 
     /**
      * Removes a Texture from the Texture Manager and destroys it. This will immediately
@@ -281,7 +281,7 @@ var TextureManager = new Class({
      *
      * @return {Phaser.Textures.TextureManager} The Texture Manager.
      */
-    remove: function (key)
+    remove(key)
     {
         if (typeof key === 'string')
         {
@@ -312,7 +312,7 @@ var TextureManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Removes a key from the Texture Manager but does not destroy the Texture that was using the key.
@@ -324,7 +324,7 @@ var TextureManager = new Class({
      *
      * @return {Phaser.Textures.TextureManager} The Texture Manager.
      */
-    removeKey: function (key)
+    removeKey(key)
     {
         if (this.list.hasOwnProperty(key))
         {
@@ -332,7 +332,7 @@ var TextureManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Adds a new Texture to the Texture Manager created from the given Base64 encoded data.
@@ -352,7 +352,7 @@ var TextureManager = new Class({
      *
      * @return {this} This Texture Manager instance.
      */
-    addBase64: function (key, data)
+    addBase64(key, data)
     {
         if (this.checkKey(key))
         {
@@ -385,7 +385,7 @@ var TextureManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Gets an existing texture frame and converts it into a base64 encoded image and returns the base64 data.
@@ -406,7 +406,7 @@ var TextureManager = new Class({
      *
      * @return {string} The base64 encoded data, or an empty string if the texture frame could not be found.
      */
-    getBase64: function (key, frame, type, encoderOptions)
+    getBase64(key, frame, type, encoderOptions)
     {
         if (type === undefined) { type = 'image/png'; }
         if (encoderOptions === undefined) { encoderOptions = 0.92; }
@@ -450,7 +450,7 @@ var TextureManager = new Class({
         }
 
         return data;
-    },
+    }
 
     /**
      * Adds a new Texture to the Texture Manager created from the given Image element.
@@ -465,7 +465,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addImage: function (key, source, dataSource)
+    addImage(key, source, dataSource)
     {
         var texture = null;
 
@@ -485,7 +485,7 @@ var TextureManager = new Class({
         }
 
         return texture;
-    },
+    }
 
     /**
      * Takes a WebGLTextureWrapper and creates a Phaser Texture from it, which is added to the Texture Manager using the given key.
@@ -507,7 +507,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addGLTexture: function (key, glTexture)
+    addGLTexture(key, glTexture)
     {
         var texture = null;
 
@@ -525,7 +525,7 @@ var TextureManager = new Class({
         }
 
         return texture;
-    },
+    }
 
     /**
      * Adds a Compressed Texture to this Texture Manager.
@@ -546,7 +546,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addCompressedTexture: function (key, textureData, atlasData)
+    addCompressedTexture(key, textureData, atlasData)
     {
         var texture = null;
 
@@ -587,7 +587,7 @@ var TextureManager = new Class({
         }
 
         return texture;
-    },
+    }
 
     /**
      * Adds a Render Texture to the Texture Manager using the given key.
@@ -602,7 +602,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addRenderTexture: function (key, renderTexture)
+    addRenderTexture(key, renderTexture)
     {
         var texture = null;
 
@@ -617,7 +617,7 @@ var TextureManager = new Class({
         }
 
         return texture;
-    },
+    }
 
     /**
      * Creates a new Texture using the given config values.
@@ -662,7 +662,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    generate: function (key, config)
+    generate(key, config)
     {
         if (this.checkKey(key))
         {
@@ -678,7 +678,7 @@ var TextureManager = new Class({
         {
             return null;
         }
-    },
+    }
 
     /**
      * Creates a new Texture using a blank Canvas element of the size given.
@@ -695,7 +695,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.CanvasTexture} The Canvas Texture that was created, or `null` if the key is already in use.
      */
-    createCanvas: function (key, width, height)
+    createCanvas(key, width, height)
     {
         if (width === undefined) { width = 256; }
         if (height === undefined) { height = 256; }
@@ -708,7 +708,7 @@ var TextureManager = new Class({
         }
 
         return null;
-    },
+    }
 
     /**
      * Creates a new Canvas Texture object from an existing Canvas element
@@ -724,7 +724,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.CanvasTexture} The Canvas Texture that was created, or `null` if the key is already in use.
      */
-    addCanvas: function (key, source, skipCache)
+    addCanvas(key, source, skipCache)
     {
         if (skipCache === undefined) { skipCache = false; }
 
@@ -745,7 +745,7 @@ var TextureManager = new Class({
         }
 
         return texture;
-    },
+    }
 
     /**
      * Creates a Dynamic Texture instance and adds itself to this Texture Manager.
@@ -775,7 +775,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.DynamicTexture} The Dynamic Texture that was created, or `null` if the key is already in use.
      */
-    addDynamicTexture: function (key, width, height)
+    addDynamicTexture(key, width, height)
     {
         var texture = null;
 
@@ -802,7 +802,7 @@ var TextureManager = new Class({
         }
 
         return texture;
-    },
+    }
 
     /**
      * Adds a Texture Atlas to this Texture Manager.
@@ -824,7 +824,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addAtlas: function (key, source, data, dataSource)
+    addAtlas(key, source, data, dataSource)
     {
         //  New Texture Packer format?
         if (Array.isArray(data.textures) || Array.isArray(data.frames))
@@ -835,7 +835,7 @@ var TextureManager = new Class({
         {
             return this.addAtlasJSONHash(key, source, data, dataSource);
         }
-    },
+    }
 
     /**
      * Adds a Texture Atlas to this Texture Manager.
@@ -860,7 +860,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addAtlasJSONArray: function (key, source, data, dataSource)
+    addAtlasJSONArray(key, source, data, dataSource)
     {
         var texture = null;
 
@@ -904,7 +904,7 @@ var TextureManager = new Class({
         }
 
         return texture;
-    },
+    }
 
     /**
      * Adds a Texture Atlas to this Texture Manager.
@@ -929,7 +929,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addAtlasJSONHash: function (key, source, data, dataSource)
+    addAtlasJSONHash(key, source, data, dataSource)
     {
         var texture = null;
 
@@ -967,7 +967,7 @@ var TextureManager = new Class({
         }
 
         return texture;
-    },
+    }
 
     /**
      * Adds a Texture Atlas to this Texture Manager.
@@ -990,7 +990,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addAtlasXML: function (key, source, data, dataSource)
+    addAtlasXML(key, source, data, dataSource)
     {
         var texture = null;
 
@@ -1018,7 +1018,7 @@ var TextureManager = new Class({
         }
 
         return texture;
-    },
+    }
 
     /**
      * Adds a Unity Texture Atlas to this Texture Manager.
@@ -1041,7 +1041,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addUnityAtlas: function (key, source, data, dataSource)
+    addUnityAtlas(key, source, data, dataSource)
     {
         var texture = null;
 
@@ -1069,7 +1069,7 @@ var TextureManager = new Class({
         }
 
         return texture;
-    },
+    }
 
     /**
      * Adds a Sprite Sheet to this Texture Manager.
@@ -1092,7 +1092,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created or updated, or `null` if the key is already in use.
      */
-    addSpriteSheet: function (key, source, config, dataSource)
+    addSpriteSheet(key, source, config, dataSource)
     {
         var texture = null;
 
@@ -1123,7 +1123,7 @@ var TextureManager = new Class({
         }
 
         return texture;
-    },
+    }
 
     /**
      * Adds a Sprite Sheet to this Texture Manager, where the Sprite Sheet exists as a Frame within a Texture Atlas.
@@ -1140,7 +1140,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addSpriteSheetFromAtlas: function (key, config)
+    addSpriteSheetFromAtlas(key, config)
     {
         if (!this.checkKey(key))
         {
@@ -1182,7 +1182,7 @@ var TextureManager = new Class({
 
             return texture;
         }
-    },
+    }
 
     /**
      * Creates a texture from an array of colour data.
@@ -1203,7 +1203,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addUint8Array: function (key, data, width, height)
+    addUint8Array(key, data, width, height)
     {
         if (
             !this.checkKey(key) ||
@@ -1221,7 +1221,7 @@ var TextureManager = new Class({
         this.emit(Events.ADD_KEY + key, texture);
 
         return texture;
-    },
+    }
 
     /**
      * Creates a new Texture using the given source and dimensions.
@@ -1236,7 +1236,7 @@ var TextureManager = new Class({
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    create: function (key, source, width, height)
+    create(key, source, width, height)
     {
         var texture = null;
 
@@ -1248,7 +1248,7 @@ var TextureManager = new Class({
         }
 
         return texture;
-    },
+    }
 
     /**
      * Checks the given key to see if a Texture using it exists within this Texture Manager.
@@ -1260,10 +1260,10 @@ var TextureManager = new Class({
      *
      * @return {boolean} Returns `true` if a Texture matching the given key exists in this Texture Manager.
      */
-    exists: function (key)
+    exists(key)
     {
         return (this.list.hasOwnProperty(key));
-    },
+    }
 
     /**
      * Returns a Texture from the Texture Manager that matches the given key.
@@ -1283,7 +1283,7 @@ var TextureManager = new Class({
      *
      * @return {Phaser.Textures.Texture} The Texture matching the given key.
      */
-    get: function (key)
+    get(key)
     {
         if (key === undefined) { key = '__DEFAULT'; }
 
@@ -1303,7 +1303,7 @@ var TextureManager = new Class({
         {
             return this.list['__MISSING'];
         }
-    },
+    }
 
     /**
      * Takes a Texture key and Frame name and returns a clone of that Frame if found.
@@ -1316,13 +1316,13 @@ var TextureManager = new Class({
      *
      * @return {Phaser.Textures.Frame} A Clone of the given Frame.
      */
-    cloneFrame: function (key, frame)
+    cloneFrame(key, frame)
     {
         if (this.list[key])
         {
             return this.list[key].get(frame).clone();
         }
-    },
+    }
 
     /**
      * Takes a Texture key and Frame name and returns a reference to that Frame, if found.
@@ -1335,13 +1335,13 @@ var TextureManager = new Class({
      *
      * @return {Phaser.Textures.Frame} A Texture Frame object.
      */
-    getFrame: function (key, frame)
+    getFrame(key, frame)
     {
         if (this.list[key])
         {
             return this.list[key].get(frame);
         }
-    },
+    }
 
     /**
      * Parses the 'key' parameter and returns a Texture Frame instance.
@@ -1361,7 +1361,7 @@ var TextureManager = new Class({
      *
      * @return {Phaser.Textures.Frame} A Texture Frame object, if found, or undefined if not.
      */
-    parseFrame: function (key)
+    parseFrame(key)
     {
         if (!key)
         {
@@ -1387,7 +1387,7 @@ var TextureManager = new Class({
         {
             return key;
         }
-    },
+    }
 
     /**
      * Returns an array with all of the keys of all Textures in this Texture Manager.
@@ -1398,7 +1398,7 @@ var TextureManager = new Class({
      *
      * @return {string[]} An array containing all of the Texture keys stored in this Texture Manager.
      */
-    getTextureKeys: function ()
+    getTextureKeys()
     {
         var output = [];
 
@@ -1411,7 +1411,7 @@ var TextureManager = new Class({
         }
 
         return output;
-    },
+    }
 
     /**
      * Given a Texture and an `x` and `y` coordinate this method will return a new
@@ -1429,7 +1429,7 @@ var TextureManager = new Class({
      * @return {?Phaser.Display.Color} A Color object populated with the color values of the requested pixel,
      * or `null` if the coordinates were out of bounds.
      */
-    getPixel: function (x, y, key, frame)
+    getPixel(x, y, key, frame)
     {
         var textureFrame = this.getFrame(key, frame);
 
@@ -1458,7 +1458,7 @@ var TextureManager = new Class({
         }
 
         return null;
-    },
+    }
 
     /**
      * Given a Texture and an `x` and `y` coordinate this method will return a value between 0 and 255
@@ -1475,7 +1475,7 @@ var TextureManager = new Class({
      *
      * @return {number} A value between 0 and 255, or `null` if the coordinates were out of bounds.
      */
-    getPixelAlpha: function (x, y, key, frame)
+    getPixelAlpha(x, y, key, frame)
     {
         var textureFrame = this.getFrame(key, frame);
 
@@ -1504,7 +1504,7 @@ var TextureManager = new Class({
         }
 
         return null;
-    },
+    }
 
     /**
      * Sets the given Game Objects `texture` and `frame` properties so that it uses
@@ -1519,7 +1519,7 @@ var TextureManager = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object the texture was set on.
      */
-    setTexture: function (gameObject, key, frame)
+    setTexture(gameObject, key, frame)
     {
         if (this.list[key])
         {
@@ -1528,7 +1528,7 @@ var TextureManager = new Class({
         }
 
         return gameObject;
-    },
+    }
 
     /**
      * Changes the key being used by a Texture to the new key provided.
@@ -1546,7 +1546,7 @@ var TextureManager = new Class({
      *
      * @return {boolean} `true` if the Texture key was successfully renamed, otherwise `false`.
      */
-    renameTexture: function (currentKey, newKey)
+    renameTexture(currentKey, newKey)
     {
         var texture = this.get(currentKey);
 
@@ -1562,7 +1562,7 @@ var TextureManager = new Class({
         }
 
         return false;
-    },
+    }
 
     /**
      * Passes all Textures to the given callback.
@@ -1574,7 +1574,7 @@ var TextureManager = new Class({
      * @param {object} scope - The value to use as `this` when executing the callback.
      * @param {...*} [args] - Additional arguments that will be passed to the callback, after the child.
      */
-    each: function (callback, scope)
+    each(callback, scope)
     {
         var args = [ null ];
 
@@ -1589,7 +1589,7 @@ var TextureManager = new Class({
 
             callback.apply(scope, args);
         }
-    },
+    }
 
     /**
      * Resets the internal Stamp object, ready for drawing and returns it.
@@ -1602,7 +1602,7 @@ var TextureManager = new Class({
      *
      * @return {Phaser.GameObjects.Image} A reference to the Stamp Game Object.
      */
-    resetStamp: function (alpha, tint)
+    resetStamp(alpha, tint)
     {
         if (alpha === undefined) { alpha = 1; }
         if (tint === undefined) { tint = 0xffffff; }
@@ -1618,7 +1618,7 @@ var TextureManager = new Class({
         stamp.setTexture('__WHITE');
 
         return stamp;
-    },
+    }
 
     /**
      * Destroys the Texture Manager and all Textures stored within it.
@@ -1626,7 +1626,7 @@ var TextureManager = new Class({
      * @method Phaser.Textures.TextureManager#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy()
     {
         for (var texture in this.list)
         {
@@ -1643,6 +1643,4 @@ var TextureManager = new Class({
         CanvasPool.remove(this._tempCanvas);
     }
 
-});
-
-module.exports = TextureManager;
+}
