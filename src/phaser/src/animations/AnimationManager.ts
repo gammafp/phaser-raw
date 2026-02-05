@@ -4,21 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetFastValue } from '../utils/object/GetFastValue';
 import { GetValue } from '../utils/object/GetValue';
 import { NumberArray } from '../utils/array/NumberArray';
 import { Pad } from '../utils/string/Pad';
-
 import { MATH_CONST } from '../math/const';
-
-var Animation = require('./Animation');
-var Class = require('../utils/Class');
+import { Animation } from './Animation';
 import { Map as CustomMap } from '../structs/Map';
-var EventEmitter = require('eventemitter3');
-var Events = require('./events');
-var GameEvents = require('../core/events');
+import { EventEmitter } from 'eventemitter3';
+import * as Events from './events';
+const GameEvents = require('../core/events');
 
 /**
  * @classdesc
@@ -38,15 +33,19 @@ var GameEvents = require('../core/events');
  *
  * @param {Phaser.Game} game - A reference to the Phaser.Game instance.
  */
-var AnimationManager = new Class({
+export class AnimationManager extends EventEmitter {
 
-    Extends: EventEmitter,
+    game: any;
+    textureManager: any;
+    globalTimeScale: number;
+    anims: CustomMap<string, Animation>;
+    mixes: Map<string, any>;
+    paused: boolean;
+    name: string;
 
-    initialize:
-
-    function AnimationManager (game)
+    constructor(game: any)
     {
-        EventEmitter.call(this);
+        super();
 
         /**
          * A reference to the Phaser.Game instance.
@@ -123,7 +122,7 @@ var AnimationManager = new Class({
         this.name = 'AnimationManager';
 
         game.events.once(GameEvents.BOOT, this.boot, this);
-    },
+    }
 
     /**
      * Registers event listeners after the Game boots.
@@ -132,12 +131,12 @@ var AnimationManager = new Class({
      * @listens Phaser.Core.Events#DESTROY
      * @since 3.0.0
      */
-    boot: function ()
+    boot()
     {
         this.textureManager = this.game.textures;
 
         this.game.events.once(GameEvents.DESTROY, this.destroy, this);
-    },
+    }
 
     /**
      * Adds a mix between two animations.
@@ -167,7 +166,7 @@ var AnimationManager = new Class({
      *
      * @return {this} This Animation Manager.
      */
-    addMix: function (animA, animB, delay)
+    addMix(animA, animB, delay)
     {
         var anims = this.anims;
         var mixes = this.mixes;
@@ -190,7 +189,7 @@ var AnimationManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Removes a mix between two animations.
@@ -212,7 +211,7 @@ var AnimationManager = new Class({
      *
      * @return {this} This Animation Manager.
      */
-    removeMix: function (animA, animB)
+    removeMix(animA, animB)
     {
         var mixes = this.mixes;
 
@@ -240,7 +239,7 @@ var AnimationManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Returns the mix delay between two animations.
@@ -258,7 +257,7 @@ var AnimationManager = new Class({
      *
      * @return {number} The mix duration, or zero if no mix exists.
      */
-    getMix: function (animA, animB)
+    getMix(animA, animB)
     {
         var mixes = this.mixes;
 
@@ -275,7 +274,7 @@ var AnimationManager = new Class({
         {
             return 0;
         }
-    },
+    }
 
     /**
      * Adds an existing Animation to the Animation Manager.
@@ -289,7 +288,7 @@ var AnimationManager = new Class({
      *
      * @return {this} This Animation Manager.
      */
-    add: function (key, animation)
+    add(key, animation)
     {
         if (this.anims.has(key))
         {
@@ -305,7 +304,7 @@ var AnimationManager = new Class({
         this.emit(Events.ADD_ANIMATION, key, animation);
 
         return this;
-    },
+    }
 
     /**
      * Checks to see if the given key is already in use within the Animation Manager or not.
@@ -319,10 +318,10 @@ var AnimationManager = new Class({
      *
      * @return {boolean} `true` if the Animation already exists in the Animation Manager, or `false` if the key is available.
      */
-    exists: function (key)
+    exists(key)
     {
         return this.anims.has(key);
-    },
+    }
 
     /**
      * Create one, or more animations from a loaded Aseprite JSON file.
@@ -401,7 +400,7 @@ var AnimationManager = new Class({
      *
      * @return {Phaser.Animations.Animation[]} An array of Animation instances that were successfully created.
      */
-    createFromAseprite: function (key, tags, target)
+    createFromAseprite(key, tags, target)
     {
         var output = [];
 
@@ -491,7 +490,7 @@ var AnimationManager = new Class({
         }
 
         return output;
-    },
+    }
 
     /**
      * Creates a new Animation and adds it to the Animation Manager.
@@ -514,7 +513,7 @@ var AnimationManager = new Class({
      *
      * @return {(Phaser.Animations.Animation|false)} The Animation that was created, or `false` if the key is already in use.
      */
-    create: function (config)
+    create(config)
     {
         var key = config.key;
 
@@ -539,7 +538,7 @@ var AnimationManager = new Class({
         }
 
         return anim;
-    },
+    }
 
     /**
      * Loads this Animation Manager's Animations and settings from a JSON object.
@@ -552,7 +551,7 @@ var AnimationManager = new Class({
      *
      * @return {Phaser.Animations.Animation[]} An array containing all of the Animation objects that were created as a result of this call.
      */
-    fromJSON: function (data, clearCurrentAnimations)
+    fromJSON(data, clearCurrentAnimations)
     {
         if (clearCurrentAnimations === undefined) { clearCurrentAnimations = false; }
 
@@ -588,7 +587,7 @@ var AnimationManager = new Class({
         }
 
         return output;
-    },
+    }
 
     /**
      * Generate an array of {@link Phaser.Types.Animations.AnimationFrame} objects from a texture key and configuration object.
@@ -629,7 +628,7 @@ var AnimationManager = new Class({
      *
      * @return {Phaser.Types.Animations.AnimationFrame[]} The array of {@link Phaser.Types.Animations.AnimationFrame} objects.
      */
-    generateFrameNames: function (key, config)
+    generateFrameNames(key, config)
     {
         var prefix = GetValue(config, 'prefix', '');
         var start = GetValue(config, 'start', 0);
@@ -688,7 +687,7 @@ var AnimationManager = new Class({
         }
 
         return out;
-    },
+    }
 
     /**
      * Generate an array of {@link Phaser.Types.Animations.AnimationFrame} objects from a texture key and configuration object.
@@ -737,7 +736,7 @@ var AnimationManager = new Class({
      *
      * @return {Phaser.Types.Animations.AnimationFrame[]} The array of {@link Phaser.Types.Animations.AnimationFrame} objects.
      */
-    generateFrameNumbers: function (key, config)
+    generateFrameNumbers(key, config)
     {
         var start = GetValue(config, 'start', 0);
         var end = GetValue(config, 'end', -1);
@@ -792,7 +791,7 @@ var AnimationManager = new Class({
         }
 
         return out;
-    },
+    }
 
     /**
      * Get an Animation.
@@ -804,10 +803,10 @@ var AnimationManager = new Class({
      *
      * @return {Phaser.Animations.Animation} The Animation.
      */
-    get: function (key)
+    get(key)
     {
         return this.anims.get(key);
-    },
+    }
 
     /**
      * Returns an array of all Animation keys that are using the given
@@ -821,7 +820,7 @@ var AnimationManager = new Class({
      *
      * @return {string[]} An array of Animation keys that feature the given Texture.
      */
-    getAnimsFromTexture: function (key)
+    getAnimsFromTexture(key)
     {
         var texture = this.textureManager.get(key);
 
@@ -847,7 +846,7 @@ var AnimationManager = new Class({
         }
 
         return out;
-    },
+    }
 
     /**
      * Pause all animations.
@@ -858,7 +857,7 @@ var AnimationManager = new Class({
      *
      * @return {this} This Animation Manager.
      */
-    pauseAll: function ()
+    pauseAll()
     {
         if (!this.paused)
         {
@@ -868,7 +867,7 @@ var AnimationManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Play an animation on the given Game Objects that have an Animation Component.
@@ -881,7 +880,7 @@ var AnimationManager = new Class({
      *
      * @return {this} This Animation Manager.
      */
-    play: function (key, children)
+    play(key, children)
     {
         if (!Array.isArray(children))
         {
@@ -894,7 +893,7 @@ var AnimationManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Takes an array of Game Objects that have an Animation Component and then
@@ -935,7 +934,7 @@ var AnimationManager = new Class({
      *
      * @return {this} This Animation Manager.
      */
-    staggerPlay: function (key, children, stagger, staggerFirst)
+    staggerPlay(key, children, stagger, staggerFirst)
     {
         if (stagger === undefined) { stagger = 0; }
         if (staggerFirst === undefined) { staggerFirst = true; }
@@ -960,7 +959,7 @@ var AnimationManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Removes an Animation from this Animation Manager, based on the given key.
@@ -976,7 +975,7 @@ var AnimationManager = new Class({
      *
      * @return {Phaser.Animations.Animation} The Animation instance that was removed from the Animation Manager.
      */
-    remove: function (key)
+    remove(key)
     {
         var anim = this.get(key);
 
@@ -990,7 +989,7 @@ var AnimationManager = new Class({
         }
 
         return anim;
-    },
+    }
 
     /**
      * Resume all paused animations.
@@ -1001,7 +1000,7 @@ var AnimationManager = new Class({
      *
      * @return {this} This Animation Manager.
      */
-    resumeAll: function ()
+    resumeAll()
     {
         if (this.paused)
         {
@@ -1011,7 +1010,7 @@ var AnimationManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Returns the Animation data as JavaScript object based on the given key.
@@ -1024,7 +1023,7 @@ var AnimationManager = new Class({
      *
      * @return {Phaser.Types.Animations.JSONAnimations} The resulting JSONAnimations formatted object.
      */
-    toJSON: function (key)
+    toJSON(key)
     {
         var output = {
             anims: [],
@@ -1044,7 +1043,7 @@ var AnimationManager = new Class({
         }
 
         return output;
-    },
+    }
 
     /**
      * Destroy this Animation Manager and clean up animation definitions and references to other objects.
@@ -1053,7 +1052,7 @@ var AnimationManager = new Class({
      * @method Phaser.Animations.AnimationManager#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy()
     {
         this.anims.clear();
         this.mixes.clear();
@@ -1063,6 +1062,4 @@ var AnimationManager = new Class({
         this.game = null;
     }
 
-});
-
-module.exports = AnimationManager;
+}

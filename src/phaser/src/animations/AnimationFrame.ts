@@ -4,8 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-
 /**
  * @classdesc
  * A single frame in an Animation sequence.
@@ -26,13 +24,22 @@ var Class = require('../utils/Class');
  * @param {Phaser.Textures.Frame} frame - A reference to the Texture Frame this AnimationFrame uses for rendering.
  * @param {boolean} [isKeyFrame=false] - Is this Frame a Keyframe within the Animation?
  */
-var AnimationFrame = new Class({
+export class AnimationFrame {
 
-    initialize:
+    textureKey: string;
+    textureFrame: string | number;
+    index: number;
+    frame: any;
+    isFirst: boolean;
+    isLast: boolean;
+    prevFrame: AnimationFrame | null;
+    nextFrame: AnimationFrame | null;
+    duration: number;
+    progress: number;
+    isKeyFrame: boolean;
 
-    function AnimationFrame (textureKey, textureFrame, index, frame, isKeyFrame)
+    constructor(textureKey: string, textureFrame: string | number, index: number, frame: any, isKeyFrame: boolean = false)
     {
-        if (isKeyFrame === undefined) { isKeyFrame = false; }
 
         /**
          * The key of the Texture this AnimationFrame uses.
@@ -144,7 +151,7 @@ var AnimationFrame = new Class({
          * @since 3.50.0
          */
         this.isKeyFrame = isKeyFrame;
-    },
+    }
 
     /**
      * Generates a JavaScript object suitable for converting to JSON.
@@ -154,7 +161,7 @@ var AnimationFrame = new Class({
      *
      * @return {Phaser.Types.Animations.JSONAnimationFrame} The AnimationFrame data.
      */
-    toJSON: function ()
+    toJSON()
     {
         return {
             key: this.textureKey,
@@ -162,7 +169,7 @@ var AnimationFrame = new Class({
             duration: this.duration,
             keyframe: this.isKeyFrame
         };
-    },
+    }
 
     /**
      * Destroys this object by removing references to external resources and callbacks.
@@ -170,11 +177,9 @@ var AnimationFrame = new Class({
      * @method Phaser.Animations.AnimationFrame#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy()
     {
         this.frame = undefined;
     }
 
-});
-
-module.exports = AnimationFrame;
+}

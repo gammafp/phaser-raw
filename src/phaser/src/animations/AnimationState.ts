@@ -4,15 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { Between } from '../math/Between';
 import { GetFastValue } from '../utils/object/GetFastValue';
-
-var Animation = require('./Animation');
-var Class = require('../utils/Class');
+import { Animation } from './Animation';
 import { Map as CustomMap } from '../structs/Map';
-var Events = require('./events');
+import * as Events from './events';
 
 /**
  * @classdesc
@@ -41,11 +37,52 @@ var Events = require('./events');
  *
  * @param {Phaser.GameObjects.GameObject} parent - The Game Object to which this animation component belongs.
  */
-var AnimationState = new Class({
+export class AnimationState {
 
-    initialize:
+    parent: any;
+    animationManager: any;
+    textureManager: any;
+    globalRemoveFrames: boolean;
+    anims: CustomMap<string, any>;
+    isPlaying: boolean;
+    hasStarted: boolean;
+    currentAnim: any;
+    currentFrame: any;
+    nextAnim: string | null;
+    nextAnimsQueue: string[];
+    timeScale: number;
+    frameRate: number;
+    duration: number;
+    msPerFrame: number;
+    skipMissedFrames: boolean;
+    randomFrame: boolean;
+    delay: number;
+    repeat: number;
+    repeatDelay: number;
+    yoyo: boolean;
+    showBeforeDelay: boolean;
+    showOnStart: boolean;
+    hideOnComplete: boolean;
+    forward: boolean;
+    inReverse: boolean;
+    _reverse: boolean;
+    accumulator: number;
+    nextTick: number;
+    isWaitingForFrame: boolean;
+    pendingRepeat: boolean;
+    pendingRepeatDelay: number;
+    repeatCounter: number;
+    frameCounter: number;
+    _pendingStop: number;
+    _pendingStopValue: any;
+    _paused: boolean;
+    _wasPlaying: boolean;
+    _pendingPlayConfig: any;
+    _cc: number;
+    _frameACC: number;
+    _elapsed: number;
 
-    function AnimationState (parent)
+    constructor(parent: any)
     {
         /**
          * The Game Object to which this animation component belongs.
@@ -482,7 +519,7 @@ var AnimationState = new Class({
          * @since 3.4.0
          */
         this._pendingStopValue;
-    },
+    }
 
     /**
      * Sets an animation, or an array of animations, to be played in the future, after the current one completes or stops.
@@ -505,7 +542,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    chain: function (key)
+    chain(key)
     {
         var parent = this.parent;
 
@@ -537,7 +574,7 @@ var AnimationState = new Class({
         }
 
         return this.parent;
-    },
+    }
 
     /**
      * Returns the key of the animation currently loaded into this component.
@@ -549,10 +586,10 @@ var AnimationState = new Class({
      *
      * @return {string} The key of the Animation currently loaded into this component, or an empty string if none loaded.
      */
-    getName: function ()
+    getName()
     {
         return (this.currentAnim) ? this.currentAnim.key : '';
-    },
+    }
 
     /**
      * Returns the key of the animation frame currently displayed by this component.
@@ -562,10 +599,10 @@ var AnimationState = new Class({
      *
      * @return {string} The key of the Animation Frame currently displayed by this component, or an empty string if no animation has been loaded.
      */
-    getFrameName: function ()
+    getFrameName()
     {
         return (this.currentFrame) ? this.currentFrame.textureFrame : '';
-    },
+    }
 
     /**
      * Internal method used to load an animation into this component.
@@ -578,7 +615,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    load: function (key)
+    load(key)
     {
         if (this.isPlaying)
         {
@@ -642,7 +679,7 @@ var AnimationState = new Class({
         }
 
         return this.parent;
-    },
+    }
 
     /**
      * Pause the current animation and set the `isPlaying` property to `false`.
@@ -655,7 +692,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    pause: function (atFrame)
+    pause(atFrame)
     {
         if (!this._paused)
         {
@@ -670,7 +707,7 @@ var AnimationState = new Class({
         }
 
         return this.parent;
-    },
+    }
 
     /**
      * Resumes playback of a paused animation and sets the `isPlaying` property to `true`.
@@ -683,7 +720,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    resume: function (fromFrame)
+    resume(fromFrame)
     {
         if (this._paused)
         {
@@ -697,7 +734,7 @@ var AnimationState = new Class({
         }
 
         return this.parent;
-    },
+    }
 
     /**
      * Waits for the specified delay, in milliseconds, then starts playback of the given animation.
@@ -720,7 +757,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    playAfterDelay: function (key, delay)
+    playAfterDelay(key, delay)
     {
         if (!this.isPlaying)
         {
@@ -746,7 +783,7 @@ var AnimationState = new Class({
         }
 
         return this.parent;
-    },
+    }
 
     /**
      * Waits for the current animation to complete the `repeatCount` number of repeat cycles, then starts playback
@@ -766,7 +803,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    playAfterRepeat: function (key, repeatCount)
+    playAfterRepeat(key, repeatCount)
     {
         if (repeatCount === undefined) { repeatCount = 1; }
 
@@ -797,7 +834,7 @@ var AnimationState = new Class({
         }
 
         return this.parent;
-    },
+    }
 
     /**
      * Start playing the given animation on this Sprite.
@@ -859,7 +896,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    play: function (key, ignoreIfPlaying)
+    play(key, ignoreIfPlaying)
     {
         if (ignoreIfPlaying === undefined) { ignoreIfPlaying = false; }
 
@@ -892,7 +929,7 @@ var AnimationState = new Class({
         this._wasPlaying = true;
 
         return this.startAnimation(key);
-    },
+    }
 
     /**
      * Start playing the given animation on this Sprite, in reverse.
@@ -954,7 +991,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    playReverse: function (key, ignoreIfPlaying)
+    playReverse(key, ignoreIfPlaying)
     {
         if (ignoreIfPlaying === undefined) { ignoreIfPlaying = false; }
 
@@ -973,7 +1010,7 @@ var AnimationState = new Class({
         this._wasPlaying = true;
 
         return this.startAnimation(key);
-    },
+    }
 
     /**
      * Load the animation based on the key and set-up all of the internal values
@@ -987,7 +1024,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    startAnimation: function (key)
+    startAnimation(key)
     {
         this.load(key);
 
@@ -1026,7 +1063,7 @@ var AnimationState = new Class({
         }
 
         return gameObject;
-    },
+    }
 
     /**
      * Handles the start of an animation playback.
@@ -1035,7 +1072,7 @@ var AnimationState = new Class({
      * @private
      * @since 3.50.0
      */
-    handleStart: function ()
+    handleStart()
     {
         if (this.showOnStart)
         {
@@ -1047,7 +1084,7 @@ var AnimationState = new Class({
         this.hasStarted = true;
 
         this.emitEvents(Events.ANIMATION_START);
-    },
+    }
 
     /**
      * Handles the repeat of an animation.
@@ -1056,12 +1093,12 @@ var AnimationState = new Class({
      * @private
      * @since 3.50.0
      */
-    handleRepeat: function ()
+    handleRepeat()
     {
         this.pendingRepeat = false;
 
         this.emitEvents(Events.ANIMATION_REPEAT);
-    },
+    }
 
     /**
      * Handles the stop of an animation playback.
@@ -1070,14 +1107,14 @@ var AnimationState = new Class({
      * @private
      * @since 3.50.0
      */
-    handleStop: function ()
+    handleStop()
     {
         this._pendingStop = 0;
 
         this.isPlaying = false;
 
         this.emitEvents(Events.ANIMATION_STOP);
-    },
+    }
 
     /**
      * Handles the completion of an animation playback.
@@ -1086,7 +1123,7 @@ var AnimationState = new Class({
      * @private
      * @since 3.50.0
      */
-    handleComplete: function ()
+    handleComplete()
     {
         this._pendingStop = 0;
 
@@ -1098,7 +1135,7 @@ var AnimationState = new Class({
         }
 
         this.emitEvents(Events.ANIMATION_COMPLETE, Events.ANIMATION_COMPLETE_KEY);
-    },
+    }
 
     /**
      * Fires the given animation event.
@@ -1109,7 +1146,7 @@ var AnimationState = new Class({
      *
      * @param {string} event - The Animation Event to dispatch.
      */
-    emitEvents: function (event, keyEvent)
+    emitEvents(event, keyEvent)
     {
         var anim = this.currentAnim;
 
@@ -1128,7 +1165,7 @@ var AnimationState = new Class({
                 gameObject.emit(keyEvent + anim.key, anim, frame, gameObject, frameKey);
             }
         }
-    },
+    }
 
     /**
      * Reverse the Animation that is already playing on the Game Object.
@@ -1138,7 +1175,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    reverse: function ()
+    reverse()
     {
         if (this.isPlaying)
         {
@@ -1148,7 +1185,7 @@ var AnimationState = new Class({
         }
 
         return this.parent;
-    },
+    }
 
     /**
      * Returns a value between 0 and 1 indicating how far this animation is through, ignoring repeats and yoyos.
@@ -1161,7 +1198,7 @@ var AnimationState = new Class({
      *
      * @return {number} The progress of the current animation in frames, between 0 and 1.
      */
-    getProgress: function ()
+    getProgress()
     {
         var frame = this.currentFrame;
 
@@ -1178,7 +1215,7 @@ var AnimationState = new Class({
         }
 
         return p;
-    },
+    }
 
     /**
      * Takes a value between 0 and 1 and uses it to set how far this animation is through playback.
@@ -1195,7 +1232,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    setProgress: function (value)
+    setProgress(value)
     {
         if (!this.forward)
         {
@@ -1205,7 +1242,7 @@ var AnimationState = new Class({
         this.setCurrentFrame(this.currentAnim.getFrameByProgress(value));
 
         return this.parent;
-    },
+    }
 
     /**
      * Sets the number of times that the animation should repeat after its first play through.
@@ -1225,12 +1262,12 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    setRepeat: function (value)
+    setRepeat(value)
     {
         this.repeatCounter = (value === -1) ? Number.MAX_VALUE : value;
 
         return this.parent;
-    },
+    }
 
     /**
      * Handle the removal of an animation from the Animation Manager.
@@ -1241,7 +1278,7 @@ var AnimationState = new Class({
      * @param {string} [key] - The key of the removed Animation.
      * @param {Phaser.Animations.Animation} [animation] - The removed Animation.
      */
-    globalRemove: function (key, animation)
+    globalRemove(key, animation)
     {
         if (animation === undefined) { animation = this.currentAnim; }
 
@@ -1251,7 +1288,7 @@ var AnimationState = new Class({
 
             this.setCurrentFrame(this.currentAnim.frames[0]);
         }
-    },
+    }
 
     /**
      * Restarts the current animation from its beginning.
@@ -1272,7 +1309,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    restart: function (includeDelay, resetRepeats)
+    restart(includeDelay, resetRepeats)
     {
         if (includeDelay === undefined) { includeDelay = false; }
         if (resetRepeats === undefined) { resetRepeats = false; }
@@ -1307,7 +1344,7 @@ var AnimationState = new Class({
         this.setCurrentFrame(anim.frames[0]);
 
         return this.parent;
-    },
+    }
 
     /**
      * The current animation has completed. This dispatches the `ANIMATION_COMPLETE` event.
@@ -1324,7 +1361,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    complete: function ()
+    complete()
     {
         this._pendingStop = 0;
 
@@ -1345,7 +1382,7 @@ var AnimationState = new Class({
         }
 
         return this.parent;
-    },
+    }
 
     /**
      * Immediately stops the current animation from playing and dispatches the `ANIMATION_STOP` event.
@@ -1360,7 +1397,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    stop: function ()
+    stop()
     {
         this._pendingStop = 0;
 
@@ -1383,7 +1420,7 @@ var AnimationState = new Class({
         }
 
         return this.parent;
-    },
+    }
 
     /**
      * Stops the current animation from playing after the specified time delay, given in milliseconds.
@@ -1403,13 +1440,13 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    stopAfterDelay: function (delay)
+    stopAfterDelay(delay)
     {
         this._pendingStop = 1;
         this._pendingStopValue = delay;
 
         return this.parent;
-    },
+    }
 
     /**
      * Stops the current animation from playing when it next repeats.
@@ -1431,7 +1468,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    stopAfterRepeat: function (repeatCount)
+    stopAfterRepeat(repeatCount)
     {
         if (repeatCount === undefined) { repeatCount = 1; }
 
@@ -1444,7 +1481,7 @@ var AnimationState = new Class({
         this._pendingStopValue = repeatCount;
 
         return this.parent;
-    },
+    }
 
     /**
      * Stops the current animation from playing when it next sets the given frame.
@@ -1465,13 +1502,13 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    stopOnFrame: function (frame)
+    stopOnFrame(frame)
     {
         this._pendingStop = 3;
         this._pendingStopValue = frame;
 
         return this.parent;
-    },
+    }
 
     /**
      * Returns the total number of frames in this animation, or returns zero if no
@@ -1482,10 +1519,10 @@ var AnimationState = new Class({
      *
      * @return {number} The total number of frames in the current animation, or zero if no animation has been loaded.
      */
-    getTotalFrames: function ()
+    getTotalFrames()
     {
         return (this.currentAnim) ? this.currentAnim.getTotalFrames() : 0;
-    },
+    }
 
     /**
      * The internal update loop for the AnimationState Component.
@@ -1498,7 +1535,7 @@ var AnimationState = new Class({
      * @param {number} time - The current timestamp.
      * @param {number} delta - The delta time, in ms, elapsed since the last frame.
      */
-    update: function (time, delta)
+    update(time, delta)
     {
         var anim = this.currentAnim;
 
@@ -1562,7 +1599,7 @@ var AnimationState = new Class({
                 } while (this.isPlaying && this.accumulator > this.nextTick && safetyNet < 60);
             }
         }
-    },
+    }
 
     /**
      * Sets the given Animation Frame as being the current frame
@@ -1577,7 +1614,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object this Animation Component belongs to.
      */
-    setCurrentFrame: function (animationFrame)
+    setCurrentFrame(animationFrame)
     {
         var gameObject = this.parent;
 
@@ -1621,7 +1658,7 @@ var AnimationState = new Class({
         }
 
         return gameObject;
-    },
+    }
 
     /**
      * Advances the animation to the next frame, regardless of the time or animation state.
@@ -1635,7 +1672,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object this Animation Component belongs to.
      */
-    nextFrame: function ()
+    nextFrame()
     {
         if (this.currentAnim)
         {
@@ -1643,7 +1680,7 @@ var AnimationState = new Class({
         }
 
         return this.parent;
-    },
+    }
 
     /**
      * Advances the animation to the previous frame, regardless of the time or animation state.
@@ -1657,7 +1694,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object this Animation Component belongs to.
      */
-    previousFrame: function ()
+    previousFrame()
     {
         if (this.currentAnim)
         {
@@ -1665,7 +1702,7 @@ var AnimationState = new Class({
         }
 
         return this.parent;
-    },
+    }
 
     /**
      * Get an Animation instance that has been created locally on this Sprite.
@@ -1679,10 +1716,10 @@ var AnimationState = new Class({
      *
      * @return {Phaser.Animations.Animation} The Animation, or `null` if the key is invalid.
      */
-    get: function (key)
+    get(key)
     {
         return (this.anims) ? this.anims.get(key) : null;
-    },
+    }
 
     /**
      * Checks to see if the given key is already used locally within the animations stored on this Sprite.
@@ -1694,10 +1731,10 @@ var AnimationState = new Class({
      *
      * @return {boolean} `true` if the Animation exists locally, or `false` if the key is available, or there are no local animations.
      */
-    exists: function (key)
+    exists(key)
     {
         return (this.anims) ? this.anims.has(key) : false;
-    },
+    }
 
     /**
      * Creates a new Animation that is local specifically to this Sprite.
@@ -1723,7 +1760,7 @@ var AnimationState = new Class({
      *
      * @return {(Phaser.Animations.Animation|false)} The Animation that was created, or `false` if the key is already in use.
      */
-    create: function (config)
+    create(config)
     {
         var key = config.key;
 
@@ -1751,7 +1788,7 @@ var AnimationState = new Class({
         }
 
         return anim;
-    },
+    }
 
     /**
      * Create one, or more animations from a loaded Aseprite JSON file.
@@ -1835,10 +1872,10 @@ var AnimationState = new Class({
      *
      * @return {Phaser.Animations.Animation[]} An array of Animation instances that were successfully created.
      */
-    createFromAseprite: function (key, tags)
+    createFromAseprite(key, tags)
     {
         return this.animationManager.createFromAseprite(key, tags, this.parent);
-    },
+    }
 
     /**
      * Generate an array of {@link Phaser.Types.Animations.AnimationFrame} objects from a texture key and configuration object.
@@ -1878,10 +1915,10 @@ var AnimationState = new Class({
      *
      * @return {Phaser.Types.Animations.AnimationFrame[]} The array of {@link Phaser.Types.Animations.AnimationFrame} objects.
      */
-    generateFrameNames: function (key, config)
+    generateFrameNames(key, config)
     {
         return this.animationManager.generateFrameNames(key, config);
-    },
+    }
 
     /**
      * Generate an array of {@link Phaser.Types.Animations.AnimationFrame} objects from a texture key and configuration object.
@@ -1928,10 +1965,10 @@ var AnimationState = new Class({
      *
      * @return {Phaser.Types.Animations.AnimationFrame[]} The array of {@link Phaser.Types.Animations.AnimationFrame} objects.
      */
-    generateFrameNumbers: function (key, config)
+    generateFrameNumbers(key, config)
     {
         return this.animationManager.generateFrameNumbers(key, config);
-    },
+    }
 
     /**
      * Removes a locally created Animation from this Sprite, based on the given key.
@@ -1945,7 +1982,7 @@ var AnimationState = new Class({
      *
      * @return {Phaser.Animations.Animation} The Animation instance that was removed from this Sprite, if the key was valid.
      */
-    remove: function (key)
+    remove(key)
     {
         var anim = this.get(key);
 
@@ -1960,7 +1997,7 @@ var AnimationState = new Class({
         }
 
         return anim;
-    },
+    }
 
     /**
      * Destroy this Animation component.
@@ -1970,7 +2007,7 @@ var AnimationState = new Class({
      * @method Phaser.Animations.AnimationState#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy()
     {
         this.animationManager.off(Events.REMOVE_ANIMATION, this.globalRemove, this);
 
@@ -1986,7 +2023,7 @@ var AnimationState = new Class({
 
         this.currentAnim = null;
         this.currentFrame = null;
-    },
+    }
 
     /**
      * `true` if the current animation is paused, otherwise `false`.
@@ -1996,15 +2033,10 @@ var AnimationState = new Class({
      * @type {boolean}
      * @since 3.4.0
      */
-    isPaused: {
 
-        get: function ()
-        {
-            return this._paused;
-        }
-
+    get isPaused()
+    {
+        return this._paused;
     }
 
-});
-
-module.exports = AnimationState;
+}

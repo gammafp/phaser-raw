@@ -10,8 +10,7 @@ import { SoundManagerCreator } from '../sound/SoundManagerCreator';
 
 import { CanvasPool } from '../display/canvas/CanvasPool';
 import { CacheManager } from '../cache/CacheManager';
-
-const AnimationManager = require('../animations/AnimationManager');
+import { AnimationManager } from '../animations/AnimationManager';
 import { Config } from './Config';
 import { CreateDOMContainer } from '../dom/CreateDOMContainer';
 import { CreateRenderer } from './CreateRenderer';

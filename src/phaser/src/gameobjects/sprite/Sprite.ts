@@ -21,7 +21,7 @@ import type { Tint } from '../components/Tint';
 import type { Transform } from '../components/Transform';
 import type { Visible } from '../components/Visible';
 
-const AnimationState = require('../../animations/AnimationState');
+import { AnimationState } from '../../animations/AnimationState';
 const Components = require('../components');
 const GameObject = require('../GameObject');
 import { renderWebGL, renderCanvas } from './SpriteRender';
