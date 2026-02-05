@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Frame = require('../../textures/Frame');
+import { Frame } from '../../textures/Frame';
 
 const _FLAG = 8; // 1000 - bitmask flag for GameObject.renderMask
 

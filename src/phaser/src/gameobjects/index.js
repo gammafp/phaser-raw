@@ -26,6 +26,8 @@ import './text/TextCreator';
 import { DisplayList } from './DisplayList';
 import { Layer } from './layer/Layer';
 import { UpdateList } from './UpdateList';
+import { PathFollower } from './pathfollower/PathFollower';
+import { Zone } from './zone/Zone';
 
 var GameObjects = {
 
@@ -54,7 +56,7 @@ var GameObjects = {
     Image: Image,
     Layer: Layer,
     Particles: require('./particles'),
-    PathFollower: require('./pathfollower/PathFollower'),
+    PathFollower: PathFollower,
     RenderTexture: require('./rendertexture/RenderTexture'),
     RetroFont: require('./bitmaptext/RetroFont'),
     Rope: require('./rope/Rope'),
@@ -66,7 +68,7 @@ var GameObjects = {
     TextStyle: TextStyle,
 
     TileSprite: require('./tilesprite/TileSprite'),
-    Zone: require('./zone/Zone'),
+    Zone: Zone,
     Video: require('./video/Video'),
 
     //  Shapes

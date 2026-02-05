@@ -6,7 +6,7 @@
 
 import { Zone } from './Zone';
 const GameObjectCreator = require('../GameObjectCreator');
-const GetAdvancedValue = require('../../utils/object/GetAdvancedValue');
+import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 
 GameObjectCreator.register('zone', function (this: any, config: any, addToScene?: boolean): Zone
 {
