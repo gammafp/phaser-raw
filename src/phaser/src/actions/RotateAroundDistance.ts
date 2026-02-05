@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const MathRotateAroundDistance = require('../math/RotateAroundDistance');
+import { RotateAroundDistance as MathRotateAroundDistance } from '../math/RotateAroundDistance';
 
 /**
  * Rotates an array of Game Objects around a point by the given angle and distance.

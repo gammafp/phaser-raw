@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Random = require('../geom/ellipse/Random');
+import { Random } from '../geom/ellipse/Random';
 
 /**
  * Takes an array of Game Objects and positions them at random locations within the Ellipse.

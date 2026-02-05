@@ -5,18 +5,20 @@
  */
 
 import { NOOP } from '../utils/NOOP';
+import { TilemapLayerWebGLRenderer } from './TilemapLayerWebGLRenderer';
+import { TilemapLayerCanvasRenderer } from './TilemapLayerCanvasRenderer';
 
 let renderWebGL: any = NOOP;
 let renderCanvas: any = NOOP;
 
 if (typeof WEBGL_RENDERER)
 {
-    renderWebGL = require('./TilemapLayerWebGLRenderer').TilemapLayerWebGLRenderer;
+    renderWebGL = TilemapLayerWebGLRenderer;
 }
 
 if (typeof CANVAS_RENDERER)
 {
-    renderCanvas = require('./TilemapLayerCanvasRenderer').TilemapLayerCanvasRenderer;
+    renderCanvas = TilemapLayerCanvasRenderer;
 }
 
 export { renderWebGL, renderCanvas };

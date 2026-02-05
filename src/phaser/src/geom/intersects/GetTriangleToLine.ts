@@ -8,7 +8,7 @@
 import { TriangleToLine } from './TriangleToLine';
 import { LineToLine } from './LineToLine';
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 /**
  * Checks if a Triangle and a Line intersect, and returns the intersection points as a Point object array.

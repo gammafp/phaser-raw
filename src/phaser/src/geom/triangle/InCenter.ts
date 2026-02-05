@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 // The three angle bisectors of a triangle meet in one point called the incenter.
 // It is the center of the incircle, the circle inscribed in the triangle.

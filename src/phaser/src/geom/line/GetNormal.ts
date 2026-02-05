@@ -7,7 +7,7 @@
 import { MATH_CONST } from '../../math/const';
 import { Angle } from './Angle';
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 /**
  * Calculate the normal of the given line.

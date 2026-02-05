@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Length = require('../line/Length');
-const Point = require('../point/Point');
+import { Length } from '../line/Length';
+import { Point } from '../point/Point';
 
 /**
  * Returns an array of evenly spaced points on the perimeter of a Triangle.

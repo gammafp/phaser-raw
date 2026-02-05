@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var CONST = require('../const/ORIENTATION_CONST');
+import * as CONST from '../const/ORIENTATION_CONST';
 
 /**
  * Get the Tilemap orientation from the given string.

@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Formats = require('../Formats');
+import * as Formats from '../Formats';
 import { Parse2DArray } from './Parse2DArray';
 
 /**

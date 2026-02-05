@@ -5,7 +5,7 @@
  */
 
 // Export Triangle class (still in JS)
-const Triangle = require('./Triangle');
+import { Triangle } from './Triangle';
 
 // Export all triangle functions for tree-shaking
 export { Area } from './Area';

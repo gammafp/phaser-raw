@@ -10,7 +10,7 @@ import { LOADER_CONST as CONST } from '../const';
 import { File } from '../File';
 import { FileTypesManager } from '../FileTypesManager';
 
-const TILEMAP_FORMATS = require('../../tilemaps/Formats');
+import * as TILEMAP_FORMATS from '../../tilemaps/Formats';
 
 /**
  * @classdesc

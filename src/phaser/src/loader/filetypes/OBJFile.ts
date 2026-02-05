@@ -11,7 +11,7 @@ import { FileTypesManager } from '../FileTypesManager';
 import { MultiFile } from '../MultiFile';
 import { TextFile } from './TextFile';
 
-const ParseObj = require('../../geom/mesh/ParseObj');
+import { ParseObj } from '../../geom/mesh/ParseObj';
 
 /**
  * @classdesc

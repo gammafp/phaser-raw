@@ -6,7 +6,7 @@
 
 import { Perimeter } from './Perimeter';
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 /**
  * Returns an array of points from the perimeter of the Rectangle, where each point is spaced out based

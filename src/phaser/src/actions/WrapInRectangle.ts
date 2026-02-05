@@ -5,7 +5,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Wrap = require('../math/Wrap');
+import { Wrap } from '../math/Wrap';
 
 /**
  * Iterates through the given array and makes sure that each objects x and y

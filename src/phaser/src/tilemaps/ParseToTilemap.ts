@@ -7,7 +7,7 @@
 import * as Formats from './Formats';
 import { MapData } from './mapdata/MapData';
 import { Parse } from './parsers/Parse';
-const Tilemap = require('./Tilemap');
+import { Tilemap } from './Tilemap';
 
 /**
  * Create a Tilemap from the given key or data. If neither is given, make a blank Tilemap. When

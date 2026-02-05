@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 /**
  * Returns a Point object containing the coordinates of a point on the circumference of the Ellipse based on the given angle.

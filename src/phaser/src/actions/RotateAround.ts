@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const RotateAroundDistance = require('../math/RotateAroundDistance');
-const DistanceBetween = require('../math/distance/DistanceBetween');
+import { RotateAroundDistance } from '../math/RotateAroundDistance';
+import { DistanceBetween } from '../math/distance/DistanceBetween';
 
 /**
  * Rotates each item around the given point by the given angle.

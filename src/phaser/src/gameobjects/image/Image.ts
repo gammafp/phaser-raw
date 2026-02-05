@@ -23,7 +23,8 @@ import type { Visible } from '../components/Visible';
 
 const Components = require('../components');
 const GameObject = require('../GameObject');
-const ImageRender = require('./ImageRender');
+import { renderWebGL, renderCanvas } from './ImageRender';
+const ImageRender = { renderWebGL, renderCanvas };
 
 /**
  * @classdesc

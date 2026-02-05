@@ -6,8 +6,8 @@
 
 import { Perimeter } from './Perimeter';
 
-const Length = require('../line/Length');
-const Line = require('../line/Line');
+import { Length } from '../line/Length';
+import { Line } from '../line/Line';
 
 /**
  * Returns an array of Point objects containing the coordinates of the points around the perimeter of the Polygon,

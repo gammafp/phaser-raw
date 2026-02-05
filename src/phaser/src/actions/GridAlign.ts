@@ -8,8 +8,8 @@ import { QuickSet as AlignIn } from '../display/align/in/QuickSet';
 import { NOOP } from '../utils/NOOP';
 
 // TODO: Convert this
-var CONST = require('../display/align/const');
-var GetFastValue = require('../utils/object/GetFastValue');
+import { ALIGN_CONST as CONST } from '../display/align/const';
+import { GetFastValue } from '../utils/object/GetFastValue';
 var Zone = require('../gameobjects/zone/Zone');
 //
 

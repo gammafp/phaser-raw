@@ -9,7 +9,7 @@
 import { FromPoints } from '../geom/rectangle/FromPoints';
 import { Curve } from './Curve';
 
-const Rectangle = require('../geom/rectangle/Rectangle');
+import { Rectangle } from '../geom/rectangle/Rectangle';
 import { Vector2 } from '../math/Vector2';
 
 /**

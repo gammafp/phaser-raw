@@ -8,7 +8,7 @@ import { CenterOn } from '../../geom/rectangle/CenterOn';
 import { Clamp } from '../../math/Clamp';
 import { Linear } from '../../math/Linear';
 
-const BaseCamera = require('./BaseCamera');
+import { BaseCamera } from './BaseCamera';
 import { Mixin } from '../../utils/MixinTS';
 import { PostPipeline } from '../../gameobjects/components/PostPipeline';
 import type { PostPipeline as IPostPipeline } from '../../gameobjects/components/PostPipeline';

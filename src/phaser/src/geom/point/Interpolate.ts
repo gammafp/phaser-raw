@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Point = require('./Point');
+import { Point } from './Point';
 
 /**
  * Returns the linear interpolation point between the two given points, based on `t`.

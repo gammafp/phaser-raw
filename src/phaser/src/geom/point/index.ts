@@ -5,7 +5,7 @@
  */
 
 // Export Point class (still in JS)
-const Point = require('./Point');
+import { Point } from './Point';
 
 // Export all point functions for tree-shaking
 export { Ceil } from './Ceil';

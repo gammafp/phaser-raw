@@ -6,7 +6,7 @@
 
 import { RectangleToRectangle } from './RectangleToRectangle';
 
-const Rectangle = require('../rectangle/Rectangle');
+import { Rectangle } from '../rectangle/Rectangle';
 
 /**
  * Checks if two Rectangle shapes intersect and returns the area of this intersection as Rectangle object.

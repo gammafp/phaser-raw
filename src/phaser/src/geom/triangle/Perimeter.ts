@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Length = require('../line/Length');
+import { Length } from '../line/Length';
 
 /**
  * Gets the length of the perimeter of the given triangle.

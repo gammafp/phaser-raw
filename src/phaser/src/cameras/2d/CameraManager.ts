@@ -7,7 +7,7 @@
 import { Contains as RectangleContains } from '../../geom/rectangle/Contains';
 import { GetFastValue } from '../../utils/object/GetFastValue';
 
-const Camera = require('./Camera');
+import { Camera } from './Camera';
 const PluginCache = require('../../plugins/PluginCache');
 const ScaleEvents = require('../../scale/events');
 import * as SceneEvents from '../../scene/events';

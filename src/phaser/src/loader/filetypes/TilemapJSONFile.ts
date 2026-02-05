@@ -7,7 +7,7 @@
 import { FileTypesManager } from '../FileTypesManager';
 import { JSONFile } from './JSONFile';
 
-const TILEMAP_FORMATS = require('../../tilemaps/Formats');
+import * as TILEMAP_FORMATS from '../../tilemaps/Formats';
 
 /**
  * @classdesc

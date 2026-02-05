@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Length = require('../line/Length');
-const Line = require('../line/Line');
+import { Length } from '../line/Length';
+import { Line } from '../line/Line';
 
 /**
  * Returns the perimeter of the given Polygon.

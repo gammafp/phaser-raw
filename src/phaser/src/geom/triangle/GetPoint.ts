@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Point = require('../point/Point');
-const Length = require('../line/Length');
+import { Point } from '../point/Point';
+import { Length } from '../line/Length';
 
 /**
  * Returns a Point from around the perimeter of a Triangle.

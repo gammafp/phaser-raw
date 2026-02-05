@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Point = require('./Point');
+import { Point } from './Point';
 
 /**
  * Get the centroid or geometric center of a plane figure (the arithmetic mean position of all the points in the figure).

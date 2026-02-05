@@ -5,14 +5,14 @@
  */
 
 // Mesh classes and complex generators (still in JS)
-const Face = require('./Face');
-const GenerateGridVerts = require('./GenerateGridVerts');
-const GenerateObjVerts = require('./GenerateObjVerts');
-const GenerateVerts = require('./GenerateVerts');
-const ParseObj = require('./ParseObj');
-const ParseObjMaterial = require('./ParseObjMaterial');
-const RotateFace = require('./RotateFace');
-const Vertex = require('./Vertex');
+import { Face } from './Face';
+import { GenerateGridVerts } from './GenerateGridVerts';
+import { GenerateObjVerts } from './GenerateObjVerts';
+import { GenerateVerts } from './GenerateVerts';
+import { ParseObj } from './ParseObj';
+import { ParseObjMaterial } from './ParseObjMaterial';
+import { RotateFace } from './RotateFace';
+import { Vertex } from './Vertex';
 
 // Export all mesh components
 export {

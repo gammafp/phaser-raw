@@ -6,7 +6,7 @@
 
 import { MATH_CONST } from '../../math/const';
 
-const Rectangle = require('./Rectangle');
+import { Rectangle } from './Rectangle';
 
 /**
  * Constructs new Rectangle or repositions and resizes an existing Rectangle so that all of the given points are on or within its bounds.

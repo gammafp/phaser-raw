@@ -6,7 +6,7 @@
 
 import { DegToRad } from '../../math/DegToRad';
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 /**
  * Returns a Point from the perimeter of a Rectangle based on the given angle.

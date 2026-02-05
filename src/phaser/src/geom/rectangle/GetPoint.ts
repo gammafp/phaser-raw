@@ -6,7 +6,7 @@
 
 import { Perimeter } from './Perimeter';
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 /**
  * Calculates the coordinates of a point at a certain `position` on the Rectangle's perimeter.

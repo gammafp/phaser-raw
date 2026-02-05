@@ -5,7 +5,7 @@
  */
 
 // Export Circle class (still in JS)
-const Circle = require('./Circle');
+import { Circle } from './Circle';
 
 // Export all circle functions for tree-shaking
 export { Area } from './Area';

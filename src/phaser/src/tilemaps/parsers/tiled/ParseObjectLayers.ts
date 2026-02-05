@@ -9,7 +9,7 @@
 import { GetFastValue } from '../../../utils/object/GetFastValue';
 
 import { ParseObject } from './ParseObject';
-var ObjectLayer = require('../../mapdata/ObjectLayer');
+import { ObjectLayer } from '../../mapdata/ObjectLayer';
 import { CreateGroupLayer } from './CreateGroupLayer';
 
 /**

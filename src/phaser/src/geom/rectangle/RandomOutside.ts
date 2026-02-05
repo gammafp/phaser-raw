@@ -7,7 +7,7 @@
 import { Between } from '../../math/Between';
 import { ContainsRect } from './ContainsRect';
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 /**
  * Calculates a random point that lies within the `outer` Rectangle, but outside of the `inner` Rectangle.

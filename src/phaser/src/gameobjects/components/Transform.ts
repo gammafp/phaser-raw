@@ -10,7 +10,7 @@ import { WrapDegrees as WrapAngleDegrees } from '../../math/angle/WrapDegrees';
 import { TransformXY } from '../../math/TransformXY';
 import { Vector2 } from '../../math/Vector2';
 
-const TransformMatrix = require('./TransformMatrix');
+import { TransformMatrix } from './TransformMatrix';
 
 const _FLAG = 4; // 0100 - bitmask flag for GameObject.renderMask
 

@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 // TODO: Convert this
-var ALIGN_CONST = require('../const');
+import { ALIGN_CONST } from '../const';
 
 import { BottomCenter } from './BottomCenter';
 import { BottomLeft } from './BottomLeft';

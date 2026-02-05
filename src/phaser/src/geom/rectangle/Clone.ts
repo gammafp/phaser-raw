@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Rectangle = require('./Rectangle');
+import { Rectangle } from './Rectangle';
 
 /**
  * Creates a new Rectangle which is identical to the given one.

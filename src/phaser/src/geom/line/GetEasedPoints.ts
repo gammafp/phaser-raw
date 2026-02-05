@@ -6,8 +6,8 @@
 
 import { DistanceBetweenPoints } from '../../math/distance/DistanceBetweenPoints';
 
-const GetEaseFunction = require('../../tweens/builders/GetEaseFunction');
-const Point = require('../point/Point');
+import { GetEaseFunction } from '../../tweens/builders/GetEaseFunction';
+import { Point } from '../point/Point';
 
 /**
  * Returns an array of `quantity` Points where each point is taken from the given Line,

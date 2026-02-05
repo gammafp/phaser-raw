@@ -9,7 +9,7 @@ import { GetValue } from '../../utils/object/GetValue';
 import { GetBoolean } from '../../tweens/builders/GetBoolean';
 import { Vector2 } from '../../math/Vector2';
 
-const TWEEN_CONST = require('../../tweens/tween/const');
+import { TWEEN_CONST } from '../../tweens/tween/const';
 
 /**
  * Provides methods used for managing a Game Object following a Path.

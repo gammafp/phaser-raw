@@ -7,7 +7,7 @@
 import { GetValue } from '../utils/object/GetValue';
 import { ARNE16 } from './palettes/Arne16';
 
-const CanvasPool = require('../display/canvas/CanvasPool');
+import { CanvasPool } from '../display/canvas/CanvasPool';
 
 /**
  * Generates a texture based on the given Create configuration object.

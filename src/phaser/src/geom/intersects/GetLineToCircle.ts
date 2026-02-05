@@ -5,8 +5,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Point = require('../point/Point');
-const LineToCircle = require('./LineToCircle');
+import { Point } from '../point/Point';
+import { LineToCircle } from './LineToCircle';
 
 /**
  * Checks for intersection between the line segment and circle,

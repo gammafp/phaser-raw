@@ -9,7 +9,7 @@ var Geom = require('../../geom/');
 import { GetTilesWithin } from './GetTilesWithin';
 var Intersects = require('../../geom/intersects/');
 import { Vector2 } from '../../math/Vector2';
-var CONST = require('../const/ORIENTATION_CONST');
+import * as CONST from '../const/ORIENTATION_CONST';
 
 export const TriangleToRectangle = (triangle, rect): any =>
 {

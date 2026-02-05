@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Rectangle = require('./Rectangle');
+import { Rectangle } from './Rectangle';
 
 /**
  * Create the smallest Rectangle containing two coordinate pairs.

@@ -4,10 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Formats = require('../Formats');
-var LayerData = require('../mapdata/LayerData');
-var MapData = require('../mapdata/MapData');
-var Tile = require('../Tile');
+import * as Formats from '../Formats';
+import { LayerData } from '../mapdata/LayerData';
+import { MapData } from '../mapdata/MapData';
+import { Tile } from '../Tile';
 
 /**
  * Parses a 2D array of tile indexes into a new MapData object with a single layer.

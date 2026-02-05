@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const MathSmoothStep = require('../math/SmoothStep');
+import { SmoothStep as MathSmoothStep } from '../math/SmoothStep';
 
 /**
  * Smoothstep is a sigmoid-like interpolation and clamping function.

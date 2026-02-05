@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 //  The three medians (the lines drawn from the vertices to the bisectors of the opposite sides)
 //  meet in the centroid or center of mass (center of gravity).

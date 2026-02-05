@@ -16,7 +16,7 @@ import { MultiFile } from '../MultiFile';
 import { File } from '../File';
 
 const KTXParser = require('../../textures/parsers/KTXParser');
-const MultiAtlasFile = require('./MultiAtlasFile');
+import { MultiAtlasFile } from './MultiAtlasFile';
 const PVRParser = require('../../textures/parsers/PVRParser');
 const verifyCompressedTexture = require('../../textures/parsers/VerifyCompressedTexture');
 

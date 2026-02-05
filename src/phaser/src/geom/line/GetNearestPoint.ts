@@ -5,7 +5,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 /**
  * Get the nearest point on a line perpendicular to the given point.

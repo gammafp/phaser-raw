@@ -7,7 +7,7 @@
 import { CalculateFacesWithin } from './CalculateFacesWithin';
 import { GetTilesWithin } from './GetTilesWithin';
 import { IsInLayerBounds } from './IsInLayerBounds';
-var Tile = require('../Tile');
+import { Tile } from '../Tile';
 
 /**
  * Copies the tiles in the source rectangular area to a new destination (all specified in tile

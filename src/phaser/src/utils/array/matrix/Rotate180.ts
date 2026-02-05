@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const RotateMatrix = require('./RotateMatrix');
+import { RotateMatrix } from './RotateMatrix';
 
 /**
  * Rotates the array matrix 180 degrees.

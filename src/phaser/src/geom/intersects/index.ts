@@ -5,9 +5,9 @@
  */
 
 // Complex intersection functions (still in JS)
-const GetLineToPolygon = require('./GetLineToPolygon');
-const GetRaysFromPointToPolygon = require('./GetRaysFromPointToPolygon');
-const LineToCircle = require('./LineToCircle');
+import { GetLineToPolygon } from './GetLineToPolygon';
+import { GetRaysFromPointToPolygon } from './GetRaysFromPointToPolygon';
+import { LineToCircle } from './LineToCircle';
 
 // Export simple intersection functions for tree-shaking
 export { CircleToCircle } from './CircleToCircle';

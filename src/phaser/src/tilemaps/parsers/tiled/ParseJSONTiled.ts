@@ -10,10 +10,10 @@ import { DeepCopy } from '../../../utils/object/DeepCopy';
 
 import { AssignTileProperties } from './AssignTileProperties';
 import { BuildTilesetIndex } from './BuildTilesetIndex';
-var CONST = require('../../const/ORIENTATION_CONST');
-var Formats = require('../../Formats');
-var FromOrientationString = require('../FromOrientationString');
-var MapData = require('../../mapdata/MapData');
+import * as CONST from '../../const/ORIENTATION_CONST';
+import * as Formats from '../../Formats';
+import { FromOrientationString } from '../FromOrientationString';
+import { MapData } from '../../mapdata/MapData';
 import { ParseImageLayers } from './ParseImageLayers';
 import { ParseObjectLayers } from './ParseObjectLayers';
 import { ParseTileLayers } from './ParseTileLayers';

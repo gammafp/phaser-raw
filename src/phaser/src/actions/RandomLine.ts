@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Random = require('../geom/line/Random');
+import { Random } from '../geom/line/Random';
 
 /**
  * Takes an array of Game Objects and positions them at random locations on the Line.

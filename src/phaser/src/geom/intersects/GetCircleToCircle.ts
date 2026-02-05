@@ -7,7 +7,7 @@
 
 import { CircleToCircle } from './CircleToCircle';
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 /**
  * Checks if two Circles intersect and returns the intersection points as a Point object array.

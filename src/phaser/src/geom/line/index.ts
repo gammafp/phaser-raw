@@ -5,9 +5,9 @@
  */
 
 // Export Line class and complex algorithms (still in JS)
-const Line = require('./Line');
-const BresenhamPoints = require('./BresenhamPoints');
-const GetEasedPoints = require('./GetEasedPoints');
+import { Line } from './Line';
+import { BresenhamPoints } from './BresenhamPoints';
+import { GetEasedPoints } from './GetEasedPoints';
 
 // Export all line functions for tree-shaking
 export { Angle } from './Angle';

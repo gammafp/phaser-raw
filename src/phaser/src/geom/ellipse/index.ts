@@ -5,7 +5,7 @@
  */
 
 // Export Ellipse class (still in JS)
-const Ellipse = require('./Ellipse');
+import { Ellipse } from './Ellipse';
 
 // Export all ellipse functions for tree-shaking
 export { Area } from './Area';

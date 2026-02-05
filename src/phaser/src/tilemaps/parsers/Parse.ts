@@ -4,11 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Formats = require('../Formats');
+import * as Formats from '../Formats';
 import { Parse2DArray } from './Parse2DArray';
 import { ParseCSV } from './ParseCSV';
-var ParseJSONTiled = require('./tiled/ParseJSONTiled');
-var ParseWeltmeister = require('./impact/ParseWeltmeister');
+import { ParseJSONTiled } from './tiled/ParseJSONTiled';
+import { ParseWeltmeister } from './impact/ParseWeltmeister';
 
 /**
  * Parses raw data of a given Tilemap format into a new MapData object. If no recognized data format

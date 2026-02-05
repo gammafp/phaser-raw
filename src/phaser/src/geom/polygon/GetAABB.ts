@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Rectangle = require('../rectangle/Rectangle');
+import { Rectangle } from '../rectangle/Rectangle';
 
 /**
  * Calculates the bounding AABB rectangle of a polygon.

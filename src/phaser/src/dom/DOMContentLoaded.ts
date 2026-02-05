@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const OS = require('../device/OS');
+import { OS_DEVICE as OS } from '../device/OS';
 
 /**
  * @callback ContentLoadedCallback

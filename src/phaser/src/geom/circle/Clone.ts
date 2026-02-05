@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Circle = require('./Circle');
+import { Circle } from './Circle';
 
 /**
  * Creates a new Circle instance based on the values contained in the given source.

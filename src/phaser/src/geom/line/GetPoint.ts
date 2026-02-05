@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 /**
  * Get a point on a line that's a given percentage along its length.

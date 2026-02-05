@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const EarCut = require('../polygon/Earcut');
-const Triangle = require('./Triangle');
+import { Earcut as EarCut } from '../polygon/Earcut';
+import { Triangle } from './Triangle';
 
 /**
  * Takes an array of vertex coordinates, and optionally an array of hole indices, then returns an array

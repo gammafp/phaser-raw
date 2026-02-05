@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Point = require('./Point');
+import { Point } from './Point';
 
 /**
  * Calculates the vector projection of `pointA` onto the nonzero `pointB`. This is the

@@ -8,15 +8,12 @@
  * @namespace Phaser.Tilemaps.Parsers
  */
 
-module.exports = {
+import { FromOrientationString } from './FromOrientationString';
+import { Parse } from './Parse';
+import { Parse2DArray } from './Parse2DArray';
+import { ParseCSV } from './ParseCSV';
+import * as Impact from './impact/';
+import * as Tiled from './tiled/';
 
-    FromOrientationString: require('./FromOrientationString'),
-    Parse: require('./Parse'),
-    Parse2DArray: require('./Parse2DArray'),
-    ParseCSV: require('./ParseCSV'),
-
-    Impact: require('./impact/'),
-    Tiled: require('./tiled/')
-
-};
+export { FromOrientationString, Parse, Parse2DArray, ParseCSV, Impact, Tiled };
 

@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Triangle = require('./Triangle');
+import { Triangle } from './Triangle';
 
 /**
  * Clones a Triangle object.

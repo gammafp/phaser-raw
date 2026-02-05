@@ -5,7 +5,7 @@
  */
 
 import { NOOP } from '../../utils/NOOP';
-var CONST = require('../const/ORIENTATION_CONST');
+import * as CONST from '../const/ORIENTATION_CONST';
 import { HexagonalTileToWorldXY } from './HexagonalTileToWorldXY';
 import { IsometricTileToWorldXY } from './IsometricTileToWorldXY';
 import { StaggeredTileToWorldXY } from './StaggeredTileToWorldXY';

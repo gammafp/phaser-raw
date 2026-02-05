@@ -5,7 +5,7 @@
  */
 
 // Export Rectangle class (still in JS)
-const Rectangle = require('./Rectangle');
+import { Rectangle } from './Rectangle';
 
 // Export all rectangle functions for tree-shaking
 export { Area } from './Area';

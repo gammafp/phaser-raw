@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Rectangle = require('./Rectangle');
-const Intersects = require('../intersects/RectangleToRectangle');
+import { Rectangle } from './Rectangle';
+import { RectangleToRectangle as Intersects } from '../intersects/RectangleToRectangle';
 
 /**
  * Takes two Rectangles and first checks to see if they intersect.

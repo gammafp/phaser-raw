@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Circle = require('../circle/Circle');
+import { Circle } from '../circle/Circle';
 
 //  Adapted from https://gist.github.com/mutoo/5617691
 

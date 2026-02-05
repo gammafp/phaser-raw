@@ -7,7 +7,7 @@
 
 import { RectangleToTriangle } from './RectangleToTriangle';
 
-const GetLineToRectangle = require('./GetLineToRectangle');
+import { GetLineToRectangle } from './GetLineToRectangle';
 
 /**
  * Checks for intersection between Rectangle shape and Triangle shape,

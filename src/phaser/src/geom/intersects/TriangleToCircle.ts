@@ -6,7 +6,7 @@
 
 import { Contains } from '../triangle/Contains';
 
-const LineToCircle = require('./LineToCircle');
+import { LineToCircle } from './LineToCircle';
 
 /**
  * Checks if a Triangle and a Circle intersect.

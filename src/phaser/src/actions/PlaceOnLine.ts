@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const GetPoints = require('../geom/line/GetPoints');
-const GetEasedPoints = require('../geom/line/GetEasedPoints');
+import { GetPoints } from '../geom/line/GetPoints';
+import { GetEasedPoints } from '../geom/line/GetEasedPoints';
 
 /**
  * Positions an array of Game Objects on evenly spaced points of a Line.

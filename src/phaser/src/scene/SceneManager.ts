@@ -11,7 +11,7 @@ import { SCENE_CONST as CONST } from './const';
 
 var Events = require('./events');
 var GameEvents = require('../core/events');
-var GetValue = require('../utils/object/GetValue');
+import { GetValue } from '../utils/object/GetValue';
 var LoaderEvents = require('../loader/events');
 
 type TSceneOp = 'add' | 'remove' | 'start' | 'stop' | 'pause' | 'resume' | 'sleep' | 'wake' | 'run' | 'switch' | 'bringToTop' | 'sendToBack' | 'moveDown' | 'moveUp' | 'moveAbove' | 'moveBelow' | 'swapPosition';

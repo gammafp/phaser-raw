@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const ArrayShuffle = require('../utils/array/Shuffle');
+import { Shuffle as ArrayShuffle } from '../utils/array/Shuffle';
 
 /**
  * Shuffles the array in place. The shuffled array is both modified and returned.

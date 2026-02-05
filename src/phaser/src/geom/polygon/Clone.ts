@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Polygon = require('./Polygon');
+import { Polygon } from './Polygon';
 
 /**
  * Create a new polygon which is a copy of the specified polygon

@@ -9,12 +9,12 @@
 import { GetFastValue } from '../../../utils/object/GetFastValue';
 
 import { Base64Decode } from './Base64Decode';
-var CONST = require('../../const/ORIENTATION_CONST');
+import * as CONST from '../../const/ORIENTATION_CONST';
 import { CreateGroupLayer } from './CreateGroupLayer';
-var FromOrientationString = require('../FromOrientationString');
-var LayerData = require('../../mapdata/LayerData');
+import { FromOrientationString } from '../FromOrientationString';
+import { LayerData } from '../../mapdata/LayerData';
 import { ParseGID } from './ParseGID';
-var Tile = require('../../Tile');
+import { Tile } from '../../Tile';
 
 /**
  * Parses all tilemap layers in a Tiled JSON object into new LayerData objects.

@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Random = require('../geom/circle/Random');
+import { Random } from '../geom/circle/Random';
 
 /**
  * Takes an array of Game Objects and positions them at random locations within the Circle.

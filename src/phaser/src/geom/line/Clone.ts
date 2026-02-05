@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Line = require('./Line');
+import { Line } from './Line';
 
 /**
  * Clone the given line.

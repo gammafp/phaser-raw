@@ -7,15 +7,14 @@
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
 
 import { MATH_CONST } from '../../math/const';
-
-const CubicBezierCurve = require('../CubicBezierCurve');
-const EllipseCurve = require('../EllipseCurve');
+import { CubicBezierCurve } from '../CubicBezierCurve';
+import { EllipseCurve } from '../EllipseCurve';
 const GameObjectFactory = require('../../gameobjects/GameObjectFactory');
-const LineCurve = require('../LineCurve');
-const MovePathTo = require('./MoveTo');
-const QuadraticBezierCurve = require('../QuadraticBezierCurve');
-const Rectangle = require('../../geom/rectangle/Rectangle');
-const SplineCurve = require('../SplineCurve');
+import { LineCurve } from '../LineCurve';
+import { MoveTo } from './MoveTo';
+import { QuadraticBezier as QuadraticBezierCurve } from '../QuadraticBezierCurve';
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+import { SplineCurve } from '../SplineCurve';
 import { Vector2 } from '../../math/Vector2';
 
 /**

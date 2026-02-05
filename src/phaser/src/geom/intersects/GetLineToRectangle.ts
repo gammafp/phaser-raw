@@ -8,7 +8,7 @@
 import { LineToLine } from './LineToLine';
 import { LineToRectangle } from './LineToRectangle';
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 /**
  * Checks for intersection between the Line and a Rectangle shape,

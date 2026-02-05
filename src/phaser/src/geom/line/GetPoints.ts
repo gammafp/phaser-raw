@@ -6,7 +6,7 @@
 
 import { Length } from './Length';
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 /**
  * Get a number of points along a line's length.

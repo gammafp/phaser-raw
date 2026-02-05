@@ -8,7 +8,7 @@ import { GetBottom } from './GetBottom';
 import { GetLeft } from './GetLeft';
 import { GetRight } from './GetRight';
 import { GetTop } from './GetTop';
-var Rectangle = require('../../geom/rectangle/Rectangle');
+import { Rectangle } from '../../geom/rectangle/Rectangle';
 
 /**
  * Returns the unrotated bounds of the Game Object as a rectangle.

@@ -19,28 +19,38 @@ var CONST = require('./const');
  * @borrows Phaser.Tilemaps.Orientation.HEXAGONAL as HEXAGONAL
  */
 
-var Tilemaps = {
+import * as Components from './components';
+import * as Parsers from './parsers';
+import * as Formats from './Formats';
+import { ImageCollection } from './ImageCollection';
+import { ParseToTilemap } from './ParseToTilemap';
+import { Tile } from './Tile';
+import { Tilemap } from './Tilemap';
+import './TilemapCreator';
+import './TilemapFactory';
+import { Tileset } from './Tileset';
+import { TilemapLayer } from './TilemapLayer';
+import * as Orientation from './const/ORIENTATION_CONST';
+import { LayerData } from './mapdata/LayerData';
+import { MapData } from './mapdata/MapData';
+import { ObjectLayer } from './mapdata/ObjectLayer';
 
-    Components: require('./components'),
-    Parsers: require('./parsers'),
-
-    Formats: require('./Formats'),
-    ImageCollection: require('./ImageCollection'),
-    ParseToTilemap: require('./ParseToTilemap'),
-    Tile: require('./Tile'),
-    Tilemap: require('./Tilemap'),
-    TilemapCreator: require('./TilemapCreator'),
-    TilemapFactory: require('./TilemapFactory'),
-    Tileset: require('./Tileset'),
-    TilemapLayer: require('./TilemapLayer'),
-    Orientation: require('./const/ORIENTATION_CONST'),
-
-    LayerData: require('./mapdata/LayerData'),
-    MapData: require('./mapdata/MapData'),
-    ObjectLayer: require('./mapdata/ObjectLayer')
-
+let Tilemaps: any = {
+    Components,
+    Parsers,
+    Formats,
+    ImageCollection,
+    ParseToTilemap,
+    Tile,
+    Tilemap,
+    Tileset,
+    TilemapLayer,
+    Orientation,
+    LayerData,
+    MapData,
+    ObjectLayer
 };
 
 Tilemaps = Extend(false, Tilemaps, CONST.ORIENTATION);
 
-module.exports = Tilemaps;
+export default Tilemaps;

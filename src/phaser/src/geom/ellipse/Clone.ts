@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const Ellipse = require('./Ellipse');
+import { Ellipse } from './Ellipse';
 
 /**
  * Creates a new Ellipse instance based on the values contained in the given source.

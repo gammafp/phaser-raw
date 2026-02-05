@@ -6,7 +6,7 @@
 
 import { NULL } from '../../utils/NULL';
 
-var CONST = require('../const/ORIENTATION_CONST');
+import * as CONST from '../const/ORIENTATION_CONST';
 import { StaggeredWorldToTileY } from './StaggeredWorldToTileY';
 import { WorldToTileY } from './WorldToTileY';
 

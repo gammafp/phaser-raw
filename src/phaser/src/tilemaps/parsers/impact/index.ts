@@ -8,11 +8,9 @@
  * @namespace Phaser.Tilemaps.Parsers.Impact
  */
 
-module.exports = {
+import { ParseTileLayers } from './ParseTileLayers';
+import { ParseTilesets } from './ParseTilesets';
+import { ParseWeltmeister } from './ParseWeltmeister';
 
-    ParseTileLayers: require('./ParseTileLayers'),
-    ParseTilesets: require('./ParseTilesets'),
-    ParseWeltmeister: require('./ParseWeltmeister')
-
-};
+export { ParseTileLayers, ParseTilesets, ParseWeltmeister };
 

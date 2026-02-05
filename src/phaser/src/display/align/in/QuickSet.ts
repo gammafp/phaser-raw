@@ -14,7 +14,7 @@ import { TopCenter } from './TopCenter';
 import { TopLeft } from './TopLeft';
 import { TopRight } from './TopRight';
 
-var ALIGN_CONST = require('../const');
+import { ALIGN_CONST } from '../const';
 
 // TODO: fix types
 var AlignInMap: any[] = [];

@@ -4,11 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// Export Polygon class and complex algorithms (still in JS)
-const Polygon = require('./Polygon');
-const Earcut = require('./Earcut');
-const Simplify = require('./Simplify');
-const Smooth = require('./Smooth');
+// Export Polygon class and complex algorithms
+import { Polygon } from './Polygon';
+import { Earcut } from './Earcut';
+import { Simplify } from './Simplify';
+import { Smooth } from './Smooth';
 
 // Export all polygon functions for tree-shaking
 export { Clone } from './Clone';

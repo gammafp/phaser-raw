@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Tileset = require('../../Tileset');
+import { Tileset } from '../../Tileset';
 
 /**
  * Tilesets and Image Collections

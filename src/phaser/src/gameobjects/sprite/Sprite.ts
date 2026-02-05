@@ -24,7 +24,8 @@ import type { Visible } from '../components/Visible';
 const AnimationState = require('../../animations/AnimationState');
 const Components = require('../components');
 const GameObject = require('../GameObject');
-const SpriteRender = require('./SpriteRender');
+import { renderWebGL, renderCanvas } from './SpriteRender';
+const SpriteRender = { renderWebGL, renderCanvas };
 
 /**
  * @classdesc

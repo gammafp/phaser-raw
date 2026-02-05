@@ -7,7 +7,7 @@
 import { RotateAround } from '../../math/RotateAround';
 import { Vector2 } from '../../math/Vector2';
 
-const Rectangle = require('../../geom/rectangle/Rectangle');
+import { Rectangle } from '../../geom/rectangle/Rectangle';
 
 /**
  * Provides methods used for obtaining the bounds of a Game Object.

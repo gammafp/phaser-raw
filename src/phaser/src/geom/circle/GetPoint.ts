@@ -8,7 +8,7 @@ import { CircumferencePoint } from './CircumferencePoint';
 import { FromPercent } from '../../math/FromPercent';
 import { MATH_CONST } from '../../math/const';
 
-const Point = require('../point/Point');
+import { Point } from '../point/Point';
 
 /**
  * Returns a Point object containing the coordinates of a point on the circumference of the Circle

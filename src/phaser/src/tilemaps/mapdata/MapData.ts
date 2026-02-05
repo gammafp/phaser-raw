@@ -9,7 +9,7 @@
 import { GetFastValue } from '../../utils/object/GetFastValue';
 
 var Class = require('../../utils/Class');
-var CONST = require('../const/ORIENTATION_CONST');
+import * as CONST from '../const/ORIENTATION_CONST';
 
 /**
  * @classdesc

@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Tile = require('../Tile');
+import { Tile } from '../Tile';
 import { IsInLayerBounds } from './IsInLayerBounds';
 import { CalculateFacesAt } from './CalculateFacesAt';
 

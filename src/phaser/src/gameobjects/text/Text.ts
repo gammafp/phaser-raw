@@ -31,7 +31,8 @@ import { GetTextSize } from './GetTextSize';
 
 const Components = require('../components');
 const GameObject = require('../GameObject');
-const TextRender = require('./TextRender');
+import { renderWebGL, renderCanvas } from './TextRender';
+const TextRender = { renderWebGL, renderCanvas };
 
 /**
  * @classdesc

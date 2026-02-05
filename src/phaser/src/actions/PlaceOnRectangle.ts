@@ -4,9 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const MarchingAnts = require('../geom/rectangle/MarchingAnts');
-const RotateLeft = require('../utils/array/RotateLeft');
-const RotateRight = require('../utils/array/RotateRight');
+import { MarchingAnts } from '../geom/rectangle/MarchingAnts';
+import { RotateLeft } from '../utils/array/RotateLeft';
+import { RotateRight } from '../utils/array/RotateRight';
 
 /**
  * Takes an array of Game Objects and positions them on evenly spaced points around the perimeter of a Rectangle.

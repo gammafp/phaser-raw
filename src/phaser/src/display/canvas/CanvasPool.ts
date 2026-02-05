@@ -6,7 +6,7 @@
 
 import { Smoothing } from './Smoothing';
 
-const CONST = require('../../const');
+import { PHASER_CONST as CONST } from '../../const';
 
 // The pool into which the canvas elements are placed.
 const pool: any[] = [];

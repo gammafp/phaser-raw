@@ -21,7 +21,4 @@ if (typeof CANVAS_RENDERER)
     renderCanvas = ImageCanvasRenderer;
 }
 
-module.exports = {
-    renderWebGL: renderWebGL,
-    renderCanvas: renderCanvas
-};
+export { renderWebGL, renderCanvas };
