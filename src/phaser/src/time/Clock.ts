@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const PluginCache = require('../plugins/PluginCache');
+import { PluginCache } from '../plugins/PluginCache';
 import * as SceneEvents from '../scene/events';
 import { Remove } from '../utils/array/Remove';
 import { TimerEvent } from './TimerEvent';

@@ -12,7 +12,7 @@ import { GetPhysicsPlugins } from './GetPhysicsPlugins';
 import { GetScenePlugins } from './GetScenePlugins';
 import { Settings } from './Settings';
 
-var DefaultPlugins = require('../plugins/DefaultPlugins');
+import { DefaultPlugins } from '../plugins/DefaultPlugins';
 var Events = require('./events');
 
 /**

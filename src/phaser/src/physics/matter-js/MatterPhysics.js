@@ -26,7 +26,7 @@ var Detector = require('./lib/collision/Detector');
 var Factory = require('./Factory');
 var Pair = require('./lib/collision/Pair');
 var Pairs = require('./lib/collision/Pairs');
-var PluginCache = require('../../plugins/PluginCache');
+import { PluginCache } from '../../plugins/PluginCache';
 var Query = require('./lib/collision/Query');
 var Resolver = require('./lib/collision/Resolver');
 var SceneEvents = require('../../scene/events');

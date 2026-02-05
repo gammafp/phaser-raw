@@ -9,13 +9,15 @@
  */
 
 import { BasePlugin } from './BasePlugin';
+import { DefaultPlugins } from './DefaultPlugins';
+import { PluginCache } from './PluginCache';
+import { PluginManager } from './PluginManager';
+import { ScenePlugin } from './ScenePlugin';
 
-module.exports = {
-
+export {
     BasePlugin,
-    DefaultPlugins: require('./DefaultPlugins'),
-    PluginCache: require('./PluginCache'),
-    PluginManager: require('./PluginManager'),
-    ScenePlugin: require('./ScenePlugin')
-
+    DefaultPlugins,
+    PluginCache,
+    PluginManager,
+    ScenePlugin
 };

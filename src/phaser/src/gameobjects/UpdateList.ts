@@ -5,7 +5,7 @@
  */
 
 import { ProcessQueue } from '../structs/ProcessQueue';
-const PluginCache = require('../plugins/PluginCache');
+import { PluginCache } from '../plugins/PluginCache';
 const SceneEvents = require('../scene/events');
 
 /**

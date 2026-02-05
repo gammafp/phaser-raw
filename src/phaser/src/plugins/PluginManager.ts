@@ -4,20 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
 import { GetFastValue } from '../utils/object/GetFastValue';
 import { Remove } from '../utils/array/Remove';
-
 import { PHASER_CONST as CONST } from '../const';
 import { FileTypesManager } from '../loader/FileTypesManager';
-
-var Class = require('../utils/Class');
-var GameEvents = require('../core/events');
-var EventEmitter = require('eventemitter3');
-var GameObjectCreator = require('../gameobjects/GameObjectCreator');
-var GameObjectFactory = require('../gameobjects/GameObjectFactory');
-var PluginCache = require('./PluginCache');
+import { EventEmitter } from 'eventemitter3';
+import * as GameEvents from '../core/events';
+const GameObjectCreator = require('../gameobjects/GameObjectCreator');
+const GameObjectFactory = require('../gameobjects/GameObjectFactory');
+import { PluginCache } from './PluginCache';
 
 /**
  * @classdesc
@@ -60,15 +55,17 @@ var PluginCache = require('./PluginCache');
  *
  * @param {Phaser.Game} game - The game instance that owns this Plugin Manager.
  */
-var PluginManager = new Class({
+export class PluginManager extends EventEmitter {
 
-    Extends: EventEmitter,
+    game: any;
+    plugins: any[];
+    scenePlugins: string[];
+    _pendingGlobal: any[];
+    _pendingScene: any[];
 
-    initialize:
-
-    function PluginManager (game)
+    constructor(game: any)
     {
-        EventEmitter.call(this);
+        super();
 
         /**
          * The game instance that owns this Plugin Manager.
@@ -126,7 +123,7 @@ var PluginManager = new Class({
         {
             game.events.once(GameEvents.BOOT, this.boot, this);
         }
-    },
+    }
 
     /**
      * Runs once the game has booted and installs all of the plugins configured in the Game Config.
@@ -135,7 +132,7 @@ var PluginManager = new Class({
      * @protected
      * @since 3.0.0
      */
-    boot: function ()
+    boot()
     {
         var i;
         var entry;
@@ -211,7 +208,7 @@ var PluginManager = new Class({
         this._pendingScene = [];
 
         this.game.events.once(GameEvents.DESTROY, this.destroy, this);
-    },
+    }
 
     /**
      * Called by the Scene Systems class. Tells the plugin manager to install all Scene plugins into it.
@@ -228,7 +225,7 @@ var PluginManager = new Class({
      * @param {array} globalPlugins - An array of global plugins to install.
      * @param {array} scenePlugins - An array of scene plugins to install.
      */
-    addToScene: function (sys, globalPlugins, scenePlugins)
+    addToScene(sys, globalPlugins, scenePlugins)
     {
         var i;
         var pluginKey;
@@ -310,7 +307,7 @@ var PluginManager = new Class({
                 scene[entry.mapping] = entry.plugin;
             }
         }
-    },
+    }
 
     /**
      * Called by the Scene Systems class. Returns a list of plugins to be installed.
@@ -321,7 +318,7 @@ var PluginManager = new Class({
      *
      * @return {string[]} A list keys of all the Scene Plugins to install.
      */
-    getDefaultScenePlugins: function ()
+    getDefaultScenePlugins()
     {
         var list = this.game.config.defaultPlugins;
 
@@ -329,7 +326,7 @@ var PluginManager = new Class({
         list = list.concat(this.scenePlugins);
 
         return list;
-    },
+    }
 
     /**
      * Installs a new Scene Plugin into the Plugin Manager and optionally adds it
@@ -360,7 +357,7 @@ var PluginManager = new Class({
      * @param {Phaser.Scene} [addToScene] - Optionally automatically add this plugin to the given Scene.
      * @param {boolean} [fromLoader=false] - Is this being called by the Loader?
      */
-    installScenePlugin: function (key, plugin, mapping, addToScene, fromLoader)
+    installScenePlugin(key, plugin, mapping, addToScene, fromLoader)
     {
         if (fromLoader === undefined) { fromLoader = false; }
 
@@ -400,7 +397,7 @@ var PluginManager = new Class({
 
             instance.boot();
         }
-    },
+    }
 
     /**
      * Installs a new Global Plugin into the Plugin Manager and optionally starts it running.
@@ -433,7 +430,7 @@ var PluginManager = new Class({
      *
      * @return {?Phaser.Plugins.BasePlugin} The plugin that was started, or `null` if `start` was false, or game isn't yet booted.
      */
-    install: function (key, plugin, start, mapping, data)
+    install(key, plugin, start, mapping, data)
     {
         if (start === undefined) { start = false; }
         if (mapping === undefined) { mapping = null; }
@@ -472,7 +469,7 @@ var PluginManager = new Class({
         }
 
         return null;
-    },
+    }
 
     /**
      * Gets an index of a global plugin based on the given key.
@@ -485,7 +482,7 @@ var PluginManager = new Class({
      *
      * @return {number} The index of the plugin within the plugins array.
      */
-    getIndex: function (key)
+    getIndex(key)
     {
         var list = this.plugins;
 
@@ -500,7 +497,7 @@ var PluginManager = new Class({
         }
 
         return -1;
-    },
+    }
 
     /**
      * Gets a global plugin based on the given key.
@@ -513,7 +510,7 @@ var PluginManager = new Class({
      *
      * @return {Phaser.Types.Plugins.GlobalPlugin} The plugin entry.
      */
-    getEntry: function (key)
+    getEntry(key)
     {
         var idx = this.getIndex(key);
 
@@ -521,7 +518,7 @@ var PluginManager = new Class({
         {
             return this.plugins[idx];
         }
-    },
+    }
 
     /**
      * Checks if the given global plugin, based on its key, is active or not.
@@ -533,12 +530,12 @@ var PluginManager = new Class({
      *
      * @return {boolean} `true` if the plugin is active, otherwise `false`.
      */
-    isActive: function (key)
+    isActive(key)
     {
         var entry = this.getEntry(key);
 
         return (entry && entry.active);
-    },
+    }
 
     /**
      * Starts a global plugin running.
@@ -559,7 +556,7 @@ var PluginManager = new Class({
      *
      * @return {?Phaser.Plugins.BasePlugin} The plugin that was started, or `null` if invalid key given or plugin is already stopped.
      */
-    start: function (key, runAs)
+    start(key, runAs)
     {
         if (runAs === undefined) { runAs = key; }
 
@@ -578,7 +575,7 @@ var PluginManager = new Class({
         }
 
         return (entry) ? entry.plugin : null;
-    },
+    }
 
     /**
      * Creates a new instance of a global plugin, adds an entry into the plugins array and returns it.
@@ -592,7 +589,7 @@ var PluginManager = new Class({
      *
      * @return {?Phaser.Plugins.BasePlugin} The plugin that was started, or `null` if invalid key given.
      */
-    createEntry: function (key, runAs)
+    createEntry(key, runAs)
     {
         var entry = PluginCache.getCustom(key);
 
@@ -615,7 +612,7 @@ var PluginManager = new Class({
         }
 
         return entry;
-    },
+    }
 
     /**
      * Stops a global plugin from running.
@@ -632,7 +629,7 @@ var PluginManager = new Class({
      *
      * @return {this} The Plugin Manager.
      */
-    stop: function (key)
+    stop(key)
     {
         var entry = this.getEntry(key);
 
@@ -643,7 +640,7 @@ var PluginManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Gets a global plugin from the Plugin Manager based on the given key and returns it.
@@ -659,7 +656,7 @@ var PluginManager = new Class({
      *
      * @return {?(Phaser.Plugins.BasePlugin|function)} The plugin, or `null` if no plugin was found matching the key.
      */
-    get: function (key, autoStart)
+    get(key, autoStart)
     {
         if (autoStart === undefined) { autoStart = true; }
 
@@ -686,7 +683,7 @@ var PluginManager = new Class({
         }
 
         return null;
-    },
+    }
 
     /**
      * Returns the plugin class from the cache.
@@ -699,10 +696,10 @@ var PluginManager = new Class({
      *
      * @return {Phaser.Plugins.BasePlugin} A Plugin object
      */
-    getClass: function (key)
+    getClass(key)
     {
         return PluginCache.getCustomClass(key);
-    },
+    }
 
     /**
      * Removes a global plugin from the Plugin Manager and Plugin Cache.
@@ -714,7 +711,7 @@ var PluginManager = new Class({
      *
      * @param {string} key - The key of the plugin to remove.
      */
-    removeGlobalPlugin: function (key)
+    removeGlobalPlugin(key)
     {
         var entry = this.getEntry(key);
 
@@ -724,7 +721,7 @@ var PluginManager = new Class({
         }
 
         PluginCache.removeCustom(key);
-    },
+    }
 
     /**
      * Removes a scene plugin from the Plugin Manager and Plugin Cache.
@@ -738,12 +735,12 @@ var PluginManager = new Class({
      *
      * @param {string} key - The key of the plugin to remove.
      */
-    removeScenePlugin: function (key)
+    removeScenePlugin(key)
     {
         Remove(this.scenePlugins, key);
 
         PluginCache.remove(key);
-    },
+    }
 
     /**
      * Registers a new type of Game Object with the global Game Object Factory and / or Creator.
@@ -779,7 +776,7 @@ var PluginManager = new Class({
      * @param {function} [factoryCallback] - The callback to invoke when the Game Object Factory is called.
      * @param {function} [creatorCallback] - The callback to invoke when the Game Object Creator is called.
      */
-    registerGameObject: function (key, factoryCallback, creatorCallback)
+    registerGameObject(key, factoryCallback, creatorCallback)
     {
         if (factoryCallback)
         {
@@ -792,7 +789,7 @@ var PluginManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Removes a previously registered Game Object from the global Game Object Factory and / or Creator.
@@ -805,7 +802,7 @@ var PluginManager = new Class({
      * @param {boolean} [removeFromFactory=true] - Should the Game Object be removed from the Game Object Factory?
      * @param {boolean} [removeFromCreator=true] - Should the Game Object be removed from the Game Object Creator?
      */
-    removeGameObject: function (key, removeFromFactory, removeFromCreator)
+    removeGameObject(key, removeFromFactory, removeFromCreator)
     {
         if (removeFromFactory === undefined) { removeFromFactory = true; }
         if (removeFromCreator === undefined) { removeFromCreator = true; }
@@ -821,7 +818,7 @@ var PluginManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Registers a new file type with the global File Types Manager, making it available to all Loader
@@ -857,7 +854,7 @@ var PluginManager = new Class({
      * @param {function} callback - The callback to invoke when the Game Object Factory is called.
      * @param {Phaser.Scene} [addToScene] - Optionally add this file type into the Loader Plugin owned by the given Scene.
      */
-    registerFileType: function (key, callback, addToScene)
+    registerFileType(key, callback, addToScene)
     {
         FileTypesManager.register(key, callback);
 
@@ -865,7 +862,7 @@ var PluginManager = new Class({
         {
             addToScene.sys.load[key] = callback;
         }
-    },
+    }
 
     /**
      * Destroys this Plugin Manager and all associated plugins.
@@ -876,7 +873,7 @@ var PluginManager = new Class({
      * @method Phaser.Plugins.PluginManager#destroy
      * @since 3.8.0
      */
-    destroy: function ()
+    destroy()
     {
         for (var i = 0; i < this.plugins.length; i++)
         {
@@ -895,12 +892,10 @@ var PluginManager = new Class({
         this.scenePlugins = [];
     }
 
-});
+}
 
 /*
  * "Sometimes, the elegant implementation is just a function.
  * Not a method. Not a class. Not a framework. Just a function."
  *  -- John Carmack
  */
-
-module.exports = PluginManager;

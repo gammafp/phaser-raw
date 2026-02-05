@@ -8,7 +8,7 @@ import { Clamp } from '../math/Clamp';
 import { GetFastValue } from '../utils/object/GetFastValue';
 
 const Events = require('./events');
-const PluginCache = require('../plugins/PluginCache');
+import { PluginCache } from '../plugins/PluginCache';
 
 /**
  * @classdesc

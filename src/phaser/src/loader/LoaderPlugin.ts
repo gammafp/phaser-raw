@@ -16,7 +16,7 @@ import { Set as CustomSet } from '../structs/Set';
 import { EventEmitter } from 'eventemitter3';
 import * as Events from './events';
 import { FileTypesManager } from './FileTypesManager';
-const PluginCache = require('../plugins/PluginCache');
+import { PluginCache } from '../plugins/PluginCache';
 import * as SceneEvents from '../scene/events';
 import { XHRSettings } from './XHRSettings';
 

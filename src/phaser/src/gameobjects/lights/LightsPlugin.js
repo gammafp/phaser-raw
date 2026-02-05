@@ -6,7 +6,7 @@
 
 var Class = require('../../utils/Class');
 var LightsManager = require('./LightsManager');
-var PluginCache = require('../../plugins/PluginCache');
+import { PluginCache } from '../../plugins/PluginCache';
 var SceneEvents = require('../../scene/events');
 
 /**

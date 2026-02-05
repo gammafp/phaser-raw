@@ -6,7 +6,7 @@
 
 import EE from 'eventemitter3';
 
-const PluginCache = require('../plugins/PluginCache');
+import { PluginCache } from '../plugins/PluginCache';
 
 /**
  * @classdesc

@@ -13,7 +13,7 @@ import { TweenChainBuilder } from './builders/TweenChainBuilder';
 import { Tween } from './tween/Tween';
 import { TweenChain } from './tween/TweenChain';
 
-const PluginCache = require('../plugins/PluginCache');
+import { PluginCache } from '../plugins/PluginCache';
 const SceneEvents = require('../scene/events');
 
 /**

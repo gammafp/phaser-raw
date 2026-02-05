@@ -10,8 +10,7 @@ import { IsPlainObject } from '../utils/object/IsPlainObject';
 import { NOOP } from '../utils/NOOP';
 import { ValueToColor } from '../display/color/ValueToColor';
 import { PHASER_CONST as CONST } from '../const';
-
-const DefaultPlugins = require('../plugins/DefaultPlugins');
+import { DefaultPlugins } from '../plugins/DefaultPlugins';
 const Device = require('../device');
 const PhaserMath = require('../math/');
 const PIPELINE_CONST = require('../renderer/webgl/pipelines/const');

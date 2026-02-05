@@ -5,7 +5,7 @@
  */
 
 import { List } from '../structs/List';
-const PluginCache = require('../plugins/PluginCache');
+import { PluginCache } from '../plugins/PluginCache';
 const GameObjectEvents = require('./events');
 const SceneEvents = require('../scene/events');
 import { StableSort } from '../utils/array/StableSort';

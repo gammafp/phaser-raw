@@ -20,7 +20,7 @@ import { CreatePixelPerfectHandler } from './CreatePixelPerfectHandler';
 import * as Events from './events';
 import { EventEmitter } from 'eventemitter3';
 import { InputPluginCache } from './InputPluginCache';
-const PluginCache = require('../plugins/PluginCache');
+import { PluginCache } from '../plugins/PluginCache';
 import { Rectangle } from '../geom/rectangle/Rectangle';
 import * as SceneEvents from '../scene/events';
 import { Triangle } from '../geom/triangle/Triangle';

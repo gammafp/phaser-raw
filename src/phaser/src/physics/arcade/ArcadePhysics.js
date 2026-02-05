@@ -16,7 +16,7 @@ var Class = require('../../utils/Class');
 var Factory = require('./Factory');
 var OverlapCirc = require('./components/OverlapCirc');
 var OverlapRect = require('./components/OverlapRect');
-var PluginCache = require('../../plugins/PluginCache');
+import { PluginCache } from '../../plugins/PluginCache';
 var SceneEvents = require('../../scene/events');
 import { Vector2 } from '../../math/Vector2';
 var World = require('./World');
