@@ -32,6 +32,11 @@ import './zone/ZoneCreator';
 import { PathFollower } from './pathfollower/PathFollower';
 import { Zone } from './zone/Zone';
 
+// Import pointlight/PointLight
+import { PointLight } from './pointlight/PointLight';
+import * as PointLightCreator from './pointlight/PointLightCreator';
+import * as PointLightFactory from './pointlight/PointLightFactory';
+
 var GameObjects = {
 
     Events: require('./events'),
@@ -153,19 +158,19 @@ if (typeof WEBGL_RENDERER)
     GameObjects.Shader = require('./shader/Shader');
     GameObjects.Mesh = require('./mesh/Mesh');
     GameObjects.NineSlice = require('./nineslice/NineSlice');
-    GameObjects.PointLight = require('./pointlight/PointLight');
+    GameObjects.PointLight = PointLight;
     GameObjects.Plane = require('./plane/Plane');
 
     GameObjects.Factories.Shader = require('./shader/ShaderFactory');
     GameObjects.Factories.Mesh = require('./mesh/MeshFactory');
     GameObjects.Factories.NineSlice = require('./nineslice/NineSliceFactory');
-    GameObjects.Factories.PointLight = require('./pointlight/PointLightFactory');
+    GameObjects.Factories.PointLight = PointLightFactory;
     GameObjects.Factories.Plane = require('./plane/PlaneFactory');
 
     GameObjects.Creators.Shader = require('./shader/ShaderCreator');
     GameObjects.Creators.Mesh = require('./mesh/MeshCreator');
     GameObjects.Creators.NineSlice = require('./nineslice/NineSliceCreator');
-    GameObjects.Creators.PointLight = require('./pointlight/PointLightCreator');
+    GameObjects.Creators.PointLight = PointLightCreator;
     GameObjects.Creators.Plane = require('./plane/PlaneCreator');
 
     GameObjects.Light = require('./lights/Light');

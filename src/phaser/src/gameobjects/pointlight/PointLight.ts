@@ -4,12 +4,26 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../../utils/Class');
-var Components = require('../components');
-var GameObject = require('../GameObject');
+
+// TODO: THIS COMPONENT IS NOT WORKING CORRECTLY. IT IS NOT RENDERING THE LIGHT.
+import { Mixin } from '../../utils/MixinTS';
+import type { AlphaSingle } from '../components/AlphaSingle';
+import type { BlendMode } from '../components/BlendMode';
+import type { Depth } from '../components/Depth';
+import type { Mask } from '../components/Mask';
+import type { Pipeline } from '../components/Pipeline';
+import type { PostPipeline } from '../components/PostPipeline';
+import type { ScrollFactor } from '../components/ScrollFactor';
+import type { Transform } from '../components/Transform';
+import type { Visible } from '../components/Visible';
+
+const Components = require('../components');
+const GameObject = require('../GameObject');
 import { IntegerToColor } from '../../display/color/IntegerToColor';
-var PIPELINES_CONST = require('../../renderer/webgl/pipelines/const');
-var Render = require('./PointLightRender');
+const PIPELINES_CONST = require('../../renderer/webgl/pipelines/const');
+import { PointLightRender } from './PointLightRender';
+
+export interface PointLight extends AlphaSingle, BlendMode, Depth, Mask, Pipeline, PostPipeline, ScrollFactor, Transform, Visible {}
 
 /**
  * @classdesc
@@ -62,33 +76,32 @@ var Render = require('./PointLightRender');
  * @param {number} [intensity=1] - The intensity, or color blend, of the Point Light.
  * @param {number} [attenuation=0.1] - The attenuation  of the Point Light. This is the reduction of light from the center point.
  */
-var PointLight = new Class({
+export class PointLight extends GameObject {
 
-    Extends: GameObject,
+    static
+    {
+        Mixin(this, [
+            Components.AlphaSingle,
+            Components.BlendMode,
+            Components.Depth,
+            Components.Mask,
+            Components.Pipeline,
+            Components.PostPipeline,
+            Components.ScrollFactor,
+            Components.Transform,
+            Components.Visible,
+            PointLightRender
+        ]);
+    }
 
-    Mixins: [
-        Components.AlphaSingle,
-        Components.BlendMode,
-        Components.Depth,
-        Components.Mask,
-        Components.Pipeline,
-        Components.PostPipeline,
-        Components.ScrollFactor,
-        Components.Transform,
-        Components.Visible,
-        Render
-    ],
-
-    initialize:
-
-    function PointLight (scene, x, y, color, radius, intensity, attenuation)
+    constructor(scene, x, y, color, radius, intensity, attenuation)
     {
         if (color === undefined) { color = 0xffffff; }
         if (radius === undefined) { radius = 128; }
         if (intensity === undefined) { intensity = 1; }
         if (attenuation === undefined) { attenuation = 0.1; }
 
-        GameObject.call(this, scene, 'PointLight');
+        super(scene, 'PointLight');
 
         this.initPipeline(PIPELINES_CONST.POINTLIGHT_PIPELINE);
         this.initPostPipeline();
@@ -135,7 +148,7 @@ var PointLight = new Class({
         this.height = radius * 2;
 
         this._radius = radius;
-    },
+    }
 
     /**
      * The radius of the Point Light.
@@ -144,58 +157,42 @@ var PointLight = new Class({
      * @type {number}
      * @since 3.50.0
      */
-    radius: {
 
-        get: function ()
-        {
-            return this._radius;
-        },
-
-        set: function (value)
-        {
-            this._radius = value;
-            this.width = value * 2;
-            this.height = value * 2;
-        }
-
-    },
-
-    originX: {
-
-        get: function ()
-        {
-            return 0.5;
-        }
-
-    },
-
-    originY: {
-
-        get: function ()
-        {
-            return 0.5;
-        }
-
-    },
-
-    displayOriginX: {
-
-        get: function ()
-        {
-            return this._radius;
-        }
-
-    },
-
-    displayOriginY: {
-
-        get: function ()
-        {
-            return this._radius;
-        }
-
+    get radius()
+    {
+        return this._radius;
     }
 
-});
+    set radius(value)
+    {
+        this._radius = value;
+        this.width = value * 2;
+        this.height = value * 2;
+    }
 
-module.exports = PointLight;
+
+    get originX()
+    {
+        return 0.5;
+    }
+
+
+    get originY()
+    {
+        return 0.5;
+    }
+
+
+    get displayOriginX()
+    {
+        return this._radius;
+    }
+
+
+    get displayOriginY()
+    {
+        return this._radius;
+    }
+
+};
+

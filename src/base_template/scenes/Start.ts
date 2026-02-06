@@ -1,5 +1,5 @@
-import Phaser from '../../phaser/src/phaser';
-// import * as Phaser from 'phaser';
+// import Phaser from '../../phaser/src/phaser';
+import * as Phaser from 'phaser';
     
 export class Start extends Phaser.Scene {
 
@@ -20,6 +20,12 @@ export class Start extends Phaser.Scene {
         this.load.spritesheet('ship', 'assets/spaceship.png', { frameWidth: 176, frameHeight: 96 });
 
         this.load.audio('music', 'assets/banjo.mp3');
+
+        // Cargar modelo 3D OBJ para el ejemplo de Mesh
+        this.load.obj('skull', 'skull.obj');
+        
+        // Nota: Para mejor visualización del mesh, puedes usar cualquier textura.
+        // El logo de Phaser funcionará como textura base.
 
         // ============================================================
         // EJEMPLO FUNCIONAL: Crear fuente bitmap desde el logo
@@ -338,6 +344,77 @@ export class Start extends Phaser.Scene {
         // - Antorchas parpadeantes, disparos, explosiones ✓
         // - Mejor rendimiento que Light normal ✓
         // - No afecta otros GameObjects (solo efecto visual) ✓
+
+        // ============================================================
+        // EJEMPLO: Mesh - Renderizar modelos 3D (.obj)
+        // ============================================================
+        
+        // Crear mesh 3D con el cráneo (usando el logo de Phaser como textura)
+        const mesh = this.add.mesh(640, 360, 'logo');
+        
+        // Cargar vértices desde el archivo OBJ (escala 0.1 como en el ejemplo oficial)
+        mesh.addVerticesFromObj('skull', 0.1);
+        
+        // Configurar posición en Z y rotación inicial
+        mesh.panZ(7); // Zoom out (mismo valor que ejemplo oficial)
+        mesh.modelRotation.y += 0.5; // Rotación inicial
+        
+        // Graphics para debug (opcional)
+        const debugGraphics = this.add.graphics();
+        
+        // Control con mouse
+        const rotateRate = 1;
+        const panRate = 1;
+        const zoomRate = 4;
+        
+        // Rotación con mouse (arrastrando)
+        this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
+            if (!pointer.isDown) return;
+            
+            if (!pointer.event?.shiftKey)
+            {
+                // Rotar el modelo
+                mesh.modelRotation.y += pointer.velocity.x * (rotateRate / 800);
+                mesh.modelRotation.x += pointer.velocity.y * (rotateRate / 600);
+            }
+            else
+            {
+                // Pan con Shift presionado
+                mesh.panX(pointer.velocity.x * (panRate / 800));
+                mesh.panY(pointer.velocity.y * (panRate / 600));
+            }
+        });
+        
+        // Zoom con rueda del mouse
+        this.input.on('wheel', (pointer: any, gameObjects: any, deltaX: number, deltaY: number, deltaZ: number) => {
+            mesh.panZ(deltaY * (zoomRate / 600));
+        });
+        
+        // Toggle debug con tecla D
+        this.input.keyboard?.on('keydown-D', () => {
+            if (mesh.debugCallback)
+            {
+                mesh.setDebug();
+            }
+            else
+            {
+                mesh.setDebug(debugGraphics);
+            }
+        });
+        
+        // Texto informativo
+        this.add.text(640, 680, 'Mesh 3D: Arrastra para rotar | Shift+Arrastra para mover | Rueda para zoom | D para debug', {
+            fontSize: '14px',
+            color: '#ffffff',
+            align: 'center'
+        }).setOrigin(0.5);
+        
+        // NOTA: Mesh es ideal para:
+        // - Renderizar modelos 3D (.obj) en WebGL ✓
+        // - Geometría personalizada con vértices ✓
+        // - Texturas aplicadas a modelos 3D ✓
+        // - Rotaciones 3D (modelRotation.x, .y, .z) ✓
+        // - Pan (panX, panY, panZ) y perspectiva ✓
     
     }
 
