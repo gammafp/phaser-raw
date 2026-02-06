@@ -26,6 +26,9 @@ import './text/TextCreator';
 import { DisplayList } from './DisplayList';
 import { Layer } from './layer/Layer';
 import { UpdateList } from './UpdateList';
+import './pathfollower/PathFollowerFactory';
+import './zone/ZoneFactory';
+import './zone/ZoneCreator';
 import { PathFollower } from './pathfollower/PathFollower';
 import { Zone } from './zone/Zone';
 
@@ -99,14 +102,14 @@ var GameObjects = {
         Image, // Registered via import
         Layer: require('./layer/LayerFactory'),
         Particles: require('./particles/ParticleEmitterFactory'),
-        PathFollower: require('./pathfollower/PathFollowerFactory'),
+        PathFollower: PathFollower, // Registered via import
         RenderTexture: require('./rendertexture/RenderTextureFactory'),
         Rope: require('./rope/RopeFactory'),
         Sprite: function () {}, // Registered via import
         StaticBitmapText: require('./bitmaptext/static/BitmapTextFactory'),
         Text: function () {}, // Registered via import
         TileSprite: require('./tilesprite/TileSpriteFactory'),
-        Zone: require('./zone/ZoneFactory'),
+        Zone: Zone, // Registered via import
         Video: require('./video/VideoFactory'),
 
         //  Shapes
@@ -138,7 +141,7 @@ var GameObjects = {
         StaticBitmapText: require('./bitmaptext/static/BitmapTextCreator'),
         Text: function () {}, // Registered via import
         TileSprite: require('./tilesprite/TileSpriteCreator'),
-        Zone: require('./zone/ZoneCreator'),
+        Zone: Zone, // Registered via import
         Video: require('./video/VideoCreator')
     }
 

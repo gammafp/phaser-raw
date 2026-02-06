@@ -268,6 +268,76 @@ export class Start extends Phaser.Scene {
         // - Trigger zones (detectar cuando el jugador entra/sale) ✓
         // - Áreas de interacción sin sprite visible ✓
         // - Optimización (no renderiza, solo lógica) ✓
+
+        // ============================================================
+        // EJEMPLO: PointLight - Luces rápidas sin shader costoso
+        // ============================================================
+        
+        // EJEMPLO 1: PointLight básico estático
+        const pointLight1 = this.add.pointlight(200, 600, 0xffffff, 128, 1, 0.1);
+        
+        // EJEMPLO 2: PointLight de color con mayor intensidad
+        const pointLight2 = this.add.pointlight(400, 600, 0xff0000, 150, 2, 0.05);
+        
+        // EJEMPLO 3: PointLight animado (parpadeando)
+        const flickeringLight = this.add.pointlight(600, 600, 0xffaa00, 100, 1.5, 0.1);
+        
+        this.tweens.add({
+            targets: flickeringLight,
+            intensity: 0.3,
+            duration: 500,
+            yoyo: true,
+            repeat: -1,
+            ease: 'Sine.inOut'
+        });
+        
+        // EJEMPLO 4: PointLight que sigue al cursor
+        const cursorLight = this.add.pointlight(0, 0, 0x00ffff, 200, 2, 0.08);
+        
+        this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
+            cursorLight.x = pointer.x;
+            cursorLight.y = pointer.y;
+        });
+        
+        // EJEMPLO 5: PointLight animado moviéndose
+        const movingLight = this.add.pointlight(800, 600, 0xff00ff, 120, 1.8, 0.1);
+        
+        this.tweens.add({
+            targets: movingLight,
+            x: 1000,
+            y: 400,
+            duration: 2000,
+            yoyo: true,
+            repeat: -1,
+            ease: 'Sine.inOut'
+        });
+        
+        // EJEMPLO 6: PointLight con cambio de color
+        const colorLight = this.add.pointlight(1000, 600, 0xff0000, 130, 1.5, 0.1);
+        
+        let colorIndex = 0;
+        const colors = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff, 0x00ffff];
+        
+        this.time.addEvent({
+            delay: 1000,
+            callback: () => {
+                colorIndex = (colorIndex + 1) % colors.length;
+                // colorLight.setColor(colors[colorIndex]);
+            },
+            loop: true
+        });
+        
+        // Texto informativo
+        this.add.text(640, 650, 'PointLights: Estático | Rojo | Parpadeante | Cursor | Móvil | Color cambiante', {
+            fontSize: '14px',
+            color: '#ffffff'
+        }).setOrigin(0.5);
+        
+        // NOTA: PointLight es ideal para:
+        // - Efectos rápidos de luz sin shaders costosos ✓
+        // - Antorchas parpadeantes, disparos, explosiones ✓
+        // - Mejor rendimiento que Light normal ✓
+        // - No afecta otros GameObjects (solo efecto visual) ✓
     
     }
 
