@@ -7,9 +7,9 @@
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { Sprite } from './Sprite';
 
-const BuildGameObject = require('../BuildGameObject');
+import { BuildGameObject } from '../BuildGameObject';
 const BuildGameObjectAnimation = require('../BuildGameObjectAnimation');
-const GameObjectCreator = require('../GameObjectCreator');
+import { GameObjectCreator } from '../GameObjectCreator';
 
 /**
  * Creates a new Sprite Game Object and returns it.
@@ -45,3 +45,5 @@ GameObjectCreator.register('sprite', function (this: any, config: Record<string,
 
     return sprite;
 });
+
+

@@ -5,7 +5,7 @@
  */
 
 import { Zone } from './Zone';
-const GameObjectCreator = require('../GameObjectCreator');
+import { GameObjectCreator } from '../GameObjectCreator';
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 
 GameObjectCreator.register('zone', function (this: any, config: any, addToScene?: boolean): Zone
@@ -26,3 +26,4 @@ GameObjectCreator.register('zone', function (this: any, config: any, addToScene?
 
     return zone;
 });
+

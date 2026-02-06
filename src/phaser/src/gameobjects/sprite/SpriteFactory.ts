@@ -6,7 +6,7 @@
 
 import { Sprite } from './Sprite';
 
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new Sprite Game Object and adds it to the Scene.
@@ -35,3 +35,4 @@ GameObjectFactory.register('sprite', function (this: any, x: number, y: number, 
 //  this.scene - a reference to the Scene that owns the GameObjectFactory
 //  this.displayList - a reference to the Display List the Scene owns
 //  this.updateList - a reference to the Update List the Scene owns
+

@@ -22,7 +22,7 @@ import type { Transform } from '../components/Transform';
 import type { Visible } from '../components/Visible';
 
 const Components = require('../components');
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 import { renderWebGL, renderCanvas } from './ImageRender';
 const ImageRender = { renderWebGL, renderCanvas };
 
@@ -131,3 +131,4 @@ export class Image extends GameObject {
     }
 
 }
+

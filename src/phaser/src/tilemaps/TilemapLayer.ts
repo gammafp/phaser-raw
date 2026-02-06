@@ -32,7 +32,7 @@ import type { PostPipeline as IPostPipeline } from '../gameobjects/components/Po
 import type { ScrollFactor as IScrollFactor } from '../gameobjects/components/ScrollFactor';
 import type { Transform as ITransform } from '../gameobjects/components/Transform';
 import type { Visible as IVisible } from '../gameobjects/components/Visible';
-const GameObject = require('../gameobjects/GameObject');
+import { GameObject } from '../gameobjects/GameObject';
 const TilemapComponents = require('./components');
 import * as TilemapLayerRender from './TilemapLayerRender';
 import { Vector2 } from '../math/Vector2';

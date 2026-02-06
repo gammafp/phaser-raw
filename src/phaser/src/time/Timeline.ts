@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'eventemitter3';
-const GameObjectFactory = require('../gameobjects/GameObjectFactory');
+import { GameObjectFactory } from '../gameobjects/GameObjectFactory';
 import { GetFastValue } from '../utils/object/GetFastValue';
 import * as SceneEvents from '../scene/events';
 import * as Events from './events';
@@ -779,3 +779,4 @@ GameObjectFactory.register('timeline', function (config: any)
 {
     return new Timeline(this.scene, config);
 });
+

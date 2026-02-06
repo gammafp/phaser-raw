@@ -4,16 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
-import { GetAABB } from '../../../geom/polygon/GetAABB';
-
 var PolygonRender = require('./PolygonRender');
 var Class = require('../../../utils/Class');
-import { Earcut } from '../../../geom/polygon/Earcut';
-import { Polygon as GeomPolygon } from '../../../geom/polygon/Polygon';
+var Earcut = require('../../../geom/polygon/Earcut');
+var GetAABB = require('../../../geom/polygon/GetAABB');
+var GeomPolygon = require('../../../geom/polygon/Polygon');
 var Shape = require('../Shape');
-import { Smooth } from '../../../geom/polygon/Smooth';
+var Smooth = require('../../../geom/polygon/Smooth');
 
 /**
  * @classdesc

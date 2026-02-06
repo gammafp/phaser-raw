@@ -5,8 +5,8 @@
  */
 
 import { PathFollower } from './PathFollower';
-const BuildGameObject = require('../BuildGameObject');
-const GameObjectFactory = require('../GameObjectFactory');
+import { BuildGameObject } from '../BuildGameObject';
+import { GameObjectFactory } from '../GameObjectFactory';
 
 GameObjectFactory.register('follower', function (this: any, path: any, x: number, y: number, key: string, frame?: string | number): PathFollower
 {
@@ -17,3 +17,5 @@ GameObjectFactory.register('follower', function (this: any, path: any, x: number
 
     return sprite;
 });
+
+

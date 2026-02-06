@@ -23,7 +23,7 @@ import type { Visible } from '../components/Visible';
 
 import { AnimationState } from '../../animations/AnimationState';
 const Components = require('../components');
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 import { renderWebGL, renderCanvas } from './SpriteRender';
 const SpriteRender = { renderWebGL, renderCanvas };
 
@@ -200,3 +200,4 @@ export class Sprite extends GameObject {
     }
 
 }
+

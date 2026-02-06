@@ -11,8 +11,8 @@ import { TweenFrameData } from './TweenFrameData';
 import { BaseTween } from './BaseTween';
 
 const Events = require('../events');
-const GameObjectCreator = require('../../gameobjects/GameObjectCreator');
-const GameObjectFactory = require('../../gameobjects/GameObjectFactory');
+import { GameObjectCreator } from '../../gameobjects/GameObjectCreator';
+import { GameObjectFactory } from '../../gameobjects/GameObjectFactory';
 
 /**
  * @classdesc
@@ -859,3 +859,5 @@ GameObjectCreator.register('tween', function (config)
 {
     return this.scene.sys.tweens.create(config);
 });
+
+

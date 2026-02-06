@@ -5,9 +5,10 @@
  */
 
 import { Zone } from './Zone';
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 GameObjectFactory.register('zone', function (this: any, x: number, y: number, width?: number, height?: number): Zone
 {
     return this.displayList.add(new Zone(this.scene, x, y, width, height));
 });
+

@@ -7,7 +7,7 @@
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
-import { Line } from '../../geom/line/Line';
+var Line = require('../../geom/line/Line');
 
 /**
  * @classdesc

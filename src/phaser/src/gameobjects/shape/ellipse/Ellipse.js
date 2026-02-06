@@ -5,9 +5,9 @@
  */
 
 var Class = require('../../../utils/Class');
-import { Earcut } from '../../../geom/polygon/Earcut';
+var Earcut = require('../../../geom/polygon/Earcut');
 var EllipseRender = require('./EllipseRender');
-import { Ellipse as GeomEllipse } from '../../../geom/ellipse/Ellipse';
+var GeomEllipse = require('../../../geom/ellipse/Ellipse');
 var Shape = require('../Shape');
 
 /**

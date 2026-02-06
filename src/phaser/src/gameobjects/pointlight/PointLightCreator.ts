@@ -5,8 +5,8 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
-const BuildGameObject = require('../BuildGameObject');
-const GameObjectCreator = require('../GameObjectCreator');
+import { BuildGameObject } from '../BuildGameObject';
+import { GameObjectCreator } from '../GameObjectCreator';
 import { PointLight } from './PointLight';
 
 GameObjectCreator.register('pointlight', function (this: any, config?: any, addToScene?: boolean): PointLight
@@ -29,3 +29,5 @@ GameObjectCreator.register('pointlight', function (this: any, config?: any, addT
 
     return layer;
 });
+
+

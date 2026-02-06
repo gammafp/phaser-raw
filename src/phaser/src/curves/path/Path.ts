@@ -9,7 +9,7 @@
 import { MATH_CONST } from '../../math/const';
 import { CubicBezierCurve } from '../CubicBezierCurve';
 import { EllipseCurve } from '../EllipseCurve';
-const GameObjectFactory = require('../../gameobjects/GameObjectFactory');
+import { GameObjectFactory } from '../../gameobjects/GameObjectFactory';
 import { LineCurve } from '../LineCurve';
 import { MoveTo } from './MoveTo';
 import { QuadraticBezier as QuadraticBezierCurve } from '../QuadraticBezierCurve';
@@ -933,3 +933,4 @@ GameObjectFactory.register('path', function (x: number, y: number)
 //  this.scene - a reference to the Scene that owns the GameObjectFactory
 //  this.displayList - a reference to the Display List the Scene owns
 //  this.updateList - a reference to the Update List the Scene owns
+

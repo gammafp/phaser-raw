@@ -6,7 +6,7 @@
 
 import { Image } from './Image';
 
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new Image Game Object and adds it to the Scene.
@@ -35,3 +35,4 @@ GameObjectFactory.register('image', function (this: any, x: number, y: number, t
 //  this.scene - a reference to the Scene that owns the GameObjectFactory
 //  this.displayList - a reference to the Display List the Scene owns
 //  this.updateList - a reference to the Update List the Scene owns
+

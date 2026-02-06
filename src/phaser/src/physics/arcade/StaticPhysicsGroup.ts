@@ -10,7 +10,7 @@ import { Mixin } from '../../utils/MixinTS';
 import { ArcadeSprite } from './ArcadeSprite';
 import { Collision } from './components/Collision';
 const CONST = require('./const');
-const Group = require('../../gameobjects/group/Group');
+import { Group } from '../../gameobjects/group/Group';
 
 /**
  * @classdesc

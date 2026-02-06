@@ -1,5 +1,5 @@
-// import Phaser from '../../phaser/src/phaser';
-import * as Phaser from 'phaser';
+import Phaser from '../../phaser/src/phaser';
+// import * as Phaser from 'phaser';
     
 export class Start extends Phaser.Scene {
 

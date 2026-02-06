@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const GameObjectFactory = require('../gameobjects/GameObjectFactory');
+import { GameObjectFactory } from '../gameobjects/GameObjectFactory';
 import { ParseToTilemap } from './ParseToTilemap';
 
 /**

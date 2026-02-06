@@ -10,8 +10,8 @@ import { PHASER_CONST as CONST } from '../const';
 import { FileTypesManager } from '../loader/FileTypesManager';
 import { EventEmitter } from 'eventemitter3';
 import * as GameEvents from '../core/events';
-const GameObjectCreator = require('../gameobjects/GameObjectCreator');
-const GameObjectFactory = require('../gameobjects/GameObjectFactory');
+import { GameObjectCreator } from '../gameobjects/GameObjectCreator';
+import { GameObjectFactory } from '../gameobjects/GameObjectFactory';
 import { PluginCache } from './PluginCache';
 
 /**
@@ -899,3 +899,5 @@ export class PluginManager extends EventEmitter {
  * Not a method. Not a class. Not a framework. Just a function."
  *  -- John Carmack
  */
+
+

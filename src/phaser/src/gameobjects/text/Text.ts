@@ -30,7 +30,7 @@ import { TextStyle } from './TextStyle';
 import { GetTextSize } from './GetTextSize';
 
 const Components = require('../components');
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 import { renderWebGL, renderCanvas } from './TextRender';
 const TextRender = { renderWebGL, renderCanvas };
 
@@ -1628,3 +1628,4 @@ export class Text extends GameObject {
      */
 
 }
+

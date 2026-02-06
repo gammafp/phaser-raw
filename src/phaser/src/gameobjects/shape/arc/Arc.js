@@ -4,15 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// TODO: Convert this file to TypeScript
-
-import { DegToRad } from '../../../math/DegToRad';
-import { MATH_CONST } from '../../../math/const';
-
 var ArcRender = require('./ArcRender');
 var Class = require('../../../utils/Class');
-import { Earcut } from '../../../geom/polygon/Earcut';
-import { Circle as GeomCircle } from '../../../geom/circle/Circle';
+var DegToRad = require('../../../math/DegToRad');
+var Earcut = require('../../../geom/polygon/Earcut');
+var GeomCircle = require('../../../geom/circle/Circle');
+var MATH_CONST = require('../../../math/const');
 var Shape = require('../Shape');
 
 /**

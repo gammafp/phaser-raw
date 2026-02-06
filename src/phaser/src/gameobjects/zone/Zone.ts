@@ -10,7 +10,7 @@ const BlendModes = require('../../renderer/BlendModes');
 import { Circle } from '../../geom/circle/Circle';
 import { Mixin } from '../../utils/MixinTS';
 import * as Components from '../components';
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 import { Rectangle } from '../../geom/rectangle/Rectangle';
 
 export interface Zone extends
@@ -136,3 +136,4 @@ export class Zone extends GameObject {
     }
 
 }
+

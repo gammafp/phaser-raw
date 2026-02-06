@@ -6,7 +6,7 @@
 
 var StarRender = require('./StarRender');
 var Class = require('../../../utils/Class');
-import { Earcut } from '../../../geom/polygon/Earcut';
+var Earcut = require('../../../geom/polygon/Earcut');
 var Shape = require('../Shape');
 
 /**

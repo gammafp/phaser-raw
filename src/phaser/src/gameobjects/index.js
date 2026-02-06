@@ -26,48 +26,102 @@ import './text/TextCreator';
 import { DisplayList } from './DisplayList';
 import { Layer } from './layer/Layer';
 import { UpdateList } from './UpdateList';
+import { GameObject } from './GameObject';
+import { BuildGameObject } from './BuildGameObject';
+import { GameObjectCreator } from './GameObjectCreator';
+import { GameObjectFactory } from './GameObjectFactory';
+import { GetCalcMatrix } from './GetCalcMatrix';
+import { PathFollower } from './pathfollower/PathFollower';
 import './pathfollower/PathFollowerFactory';
+import { Zone } from './zone/Zone';
 import './zone/ZoneFactory';
 import './zone/ZoneCreator';
-import { PathFollower } from './pathfollower/PathFollower';
-import { Zone } from './zone/Zone';
-
-// Import pointlight/PointLight
+import { Mesh } from './mesh/Mesh';
+import * as MeshFactory from './mesh/MeshFactory';
+import * as MeshCreator from './mesh/MeshCreator';
 import { PointLight } from './pointlight/PointLight';
-import * as PointLightCreator from './pointlight/PointLightCreator';
 import * as PointLightFactory from './pointlight/PointLightFactory';
+import * as PointLightCreator from './pointlight/PointLightCreator';
+import { Extern } from './extern/Extern';
+import * as ExternFactory from './extern/ExternFactory';
+import { Blitter } from './blitter/Blitter';
+import * as BlitterFactory from './blitter/BlitterFactory';
+import * as BlitterCreator from './blitter/BlitterCreator';
+import { Bob } from './blitter/Bob';
+import { Container } from './container/Container';
+import * as ContainerFactory from './container/ContainerFactory';
+import * as ContainerCreator from './container/ContainerCreator';
+import { DOMElement } from './domelement/DOMElement';
+import * as DOMElementFactory from './domelement/DOMElementFactory';
+import { Graphics } from './graphics/Graphics';
+import * as GraphicsFactory from './graphics/GraphicsFactory';
+import * as GraphicsCreator from './graphics/GraphicsCreator';
+import { Group } from './group/Group';
+import * as GroupFactory from './group/GroupFactory';
+import * as GroupCreator from './group/GroupCreator';
+// import { NineSlice } from './nineslice/NineSlice';
+// import * as NineSliceFactory from './nineslice/NineSliceFactory';
+// import * as NineSliceCreator from './nineslice/NineSliceCreator';
+import { Plane } from './plane/Plane';
+import * as PlaneFactory from './plane/PlaneFactory';
+import * as PlaneCreator from './plane/PlaneCreator';
+import { RenderTexture } from './rendertexture/RenderTexture';
+import * as RenderTextureFactory from './rendertexture/RenderTextureFactory';
+import * as RenderTextureCreator from './rendertexture/RenderTextureCreator';
+// import { Rope } from './rope/Rope';
+// import * as RopeFactory from './rope/RopeFactory';
+// import * as RopeCreator from './rope/RopeCreator';
+import { Shader } from './shader/Shader';
+import * as ShaderFactory from './shader/ShaderFactory';
+import * as ShaderCreator from './shader/ShaderCreator';
+import { TileSprite } from './tilesprite/TileSprite';
+import * as TileSpriteFactory from './tilesprite/TileSpriteFactory';
+import * as TileSpriteCreator from './tilesprite/TileSpriteCreator';
+import { Video } from './video/Video';
+import * as VideoFactory from './video/VideoFactory';
+import * as VideoCreator from './video/VideoCreator';
+import { BitmapText } from './bitmaptext/static/BitmapText';
+import * as BitmapTextFactory from './bitmaptext/static/BitmapTextFactory';
+import * as BitmapTextCreator from './bitmaptext/static/BitmapTextCreator';
+import { DynamicBitmapText } from './bitmaptext/dynamic/DynamicBitmapText';
+import * as DynamicBitmapTextFactory from './bitmaptext/dynamic/DynamicBitmapTextFactory';
+import * as DynamicBitmapTextCreator from './bitmaptext/dynamic/DynamicBitmapTextCreator';
+import { RetroFont } from './bitmaptext/RetroFont';
+import * as Particles from './particles';
+import * as ParticleEmitterFactory from './particles/ParticleEmitterFactory';
+import * as ParticleEmitterCreator from './particles/ParticleEmitterCreator';
 
 var GameObjects = {
 
     Events: require('./events'),
 
     DisplayList: DisplayList,
-    GameObjectCreator: require('./GameObjectCreator'),
-    GameObjectFactory: require('./GameObjectFactory'),
+    GameObjectCreator: GameObjectCreator,
+    GameObjectFactory: GameObjectFactory,
     UpdateList: UpdateList,
 
     Components: require('./components'),
-    GetCalcMatrix: require('./GetCalcMatrix'),
+    GetCalcMatrix: GetCalcMatrix,
 
-    BuildGameObject: require('./BuildGameObject'),
+    BuildGameObject: BuildGameObject,
     BuildGameObjectAnimation: require('./BuildGameObjectAnimation'),
-    GameObject: require('./GameObject'),
-    BitmapText: require('./bitmaptext/static/BitmapText'),
-    Blitter: require('./blitter/Blitter'),
-    Bob: require('./blitter/Bob'),
-    Container: require('./container/Container'),
-    DOMElement: require('./domelement/DOMElement'),
-    DynamicBitmapText: require('./bitmaptext/dynamic/DynamicBitmapText'),
-    Extern: require('./extern/Extern'),
-    Graphics: require('./graphics/Graphics'),
-    Group: require('./group/Group'),
+    GameObject: GameObject,
+    BitmapText: BitmapText,
+    Blitter: Blitter,
+    Bob: Bob,
+    Container: Container,
+    DOMElement: DOMElement,
+    DynamicBitmapText: DynamicBitmapText,
+    Extern: Extern,
+    Graphics: Graphics,
+    Group: Group,
     Image: Image,
     Layer: Layer,
-    Particles: require('./particles'),
+    Particles: Particles,
     PathFollower: PathFollower,
-    RenderTexture: require('./rendertexture/RenderTexture'),
-    RetroFont: require('./bitmaptext/RetroFont'),
-    Rope: require('./rope/Rope'),
+    RenderTexture: RenderTexture,
+    RetroFont: RetroFont,
+    // Rope: Rope, // COMENTADO - Problema de inicialización con Mixin
     Sprite: Sprite,
 
     Text: Text,
@@ -75,79 +129,78 @@ var GameObjects = {
     MeasureText: MeasureText,
     TextStyle: TextStyle,
 
-    TileSprite: require('./tilesprite/TileSprite'),
+    TileSprite: TileSprite,
     Zone: Zone,
-    Video: require('./video/Video'),
+    Video: Video,
 
-    //  Shapes
-
-    Shape: require('./shape/Shape'),
-    Arc: require('./shape/arc/Arc'),
-    Curve: require('./shape/curve/Curve'),
-    Ellipse: require('./shape/ellipse/Ellipse'),
-    Grid: require('./shape/grid/Grid'),
-    IsoBox: require('./shape/isobox/IsoBox'),
-    IsoTriangle: require('./shape/isotriangle/IsoTriangle'),
-    Line: require('./shape/line/Line'),
-    Polygon: require('./shape/polygon/Polygon'),
-    Rectangle: require('./shape/rectangle/Rectangle'),
-    Star: require('./shape/star/Star'),
-    Triangle: require('./shape/triangle/Triangle'),
+    //  Shapes (COMENTADOS - Usan Class.js que no es compatible con GameObject.ts)
+    // Shape: require('./shape/Shape'),
+    // Arc: require('./shape/arc/Arc'),
+    // Curve: require('./shape/curve/Curve'),
+    // Ellipse: require('./shape/ellipse/Ellipse'),
+    // Grid: require('./shape/grid/Grid'),
+    // IsoBox: require('./shape/isobox/IsoBox'),
+    // IsoTriangle: require('./shape/isotriangle/IsoTriangle'),
+    // Line: require('./shape/line/Line'),
+    // Polygon: require('./shape/polygon/Polygon'),
+    // Rectangle: require('./shape/rectangle/Rectangle'),
+    // Star: require('./shape/star/Star'),
+    // Triangle: require('./shape/triangle/Triangle'),
 
     //  Game Object Factories
 
     Factories: {
-        Blitter: require('./blitter/BlitterFactory'),
-        Container: require('./container/ContainerFactory'),
-        DOMElement: require('./domelement/DOMElementFactory'),
-        DynamicBitmapText: require('./bitmaptext/dynamic/DynamicBitmapTextFactory'),
-        Extern: require('./extern/ExternFactory'),
-        Graphics: require('./graphics/GraphicsFactory'),
-        Group: require('./group/GroupFactory'),
-        Image, // Registered via import
+        Blitter: BlitterFactory,
+        Container: ContainerFactory,
+        DOMElement: DOMElementFactory,
+        DynamicBitmapText: DynamicBitmapTextFactory,
+        Extern: ExternFactory,
+        Graphics: GraphicsFactory,
+        Group: GroupFactory,
+        Image,
         Layer: require('./layer/LayerFactory'),
-        Particles: require('./particles/ParticleEmitterFactory'),
-        PathFollower: PathFollower, // Registered via import
-        RenderTexture: require('./rendertexture/RenderTextureFactory'),
-        Rope: require('./rope/RopeFactory'),
-        Sprite: function () {}, // Registered via import
-        StaticBitmapText: require('./bitmaptext/static/BitmapTextFactory'),
-        Text: function () {}, // Registered via import
-        TileSprite: require('./tilesprite/TileSpriteFactory'),
-        Zone: Zone, // Registered via import
-        Video: require('./video/VideoFactory'),
+        Particles: ParticleEmitterFactory,
+        PathFollower: PathFollower,
+        RenderTexture: RenderTextureFactory,
+        // Rope: RopeFactory,
+        Sprite: function () {},
+        StaticBitmapText: BitmapTextFactory,
+        Text: function () {},
+        TileSprite: TileSpriteFactory,
+        Zone: Zone,
+        Video: VideoFactory,
 
-        //  Shapes
-        Arc: require('./shape/arc/ArcFactory'),
-        Curve: require('./shape/curve/CurveFactory'),
-        Ellipse: require('./shape/ellipse/EllipseFactory'),
-        Grid: require('./shape/grid/GridFactory'),
-        IsoBox: require('./shape/isobox/IsoBoxFactory'),
-        IsoTriangle: require('./shape/isotriangle/IsoTriangleFactory'),
-        Line: require('./shape/line/LineFactory'),
-        Polygon: require('./shape/polygon/PolygonFactory'),
-        Rectangle: require('./shape/rectangle/RectangleFactory'),
-        Star: require('./shape/star/StarFactory'),
-        Triangle: require('./shape/triangle/TriangleFactory')
+        //  Shapes (COMENTADOS - Usan Class.js)
+        // Arc: require('./shape/arc/ArcFactory'),
+        // Curve: require('./shape/curve/CurveFactory'),
+        // Ellipse: require('./shape/ellipse/EllipseFactory'),
+        // Grid: require('./shape/grid/GridFactory'),
+        // IsoBox: require('./shape/isobox/IsoBoxFactory'),
+        // IsoTriangle: require('./shape/isotriangle/IsoTriangleFactory'),
+        // Line: require('./shape/line/LineFactory'),
+        // Polygon: require('./shape/polygon/PolygonFactory'),
+        // Rectangle: require('./shape/rectangle/RectangleFactory'),
+        // Star: require('./shape/star/StarFactory'),
+        // Triangle: require('./shape/triangle/TriangleFactory')
     },
 
     Creators: {
-        Blitter: require('./blitter/BlitterCreator'),
-        Container: require('./container/ContainerCreator'),
-        DynamicBitmapText: require('./bitmaptext/dynamic/DynamicBitmapTextCreator'),
-        Graphics: require('./graphics/GraphicsCreator'),
-        Group: require('./group/GroupCreator'),
-        Image, // Registered via import
+        Blitter: BlitterCreator,
+        Container: ContainerCreator,
+        DynamicBitmapText: DynamicBitmapTextCreator,
+        Graphics: GraphicsCreator,
+        Group: GroupCreator,
+        Image,
         Layer: require('./layer/LayerCreator'),
-        Particles: require('./particles/ParticleEmitterCreator'),
-        RenderTexture: require('./rendertexture/RenderTextureCreator'),
-        Rope: require('./rope/RopeCreator'),
-        Sprite: function () {}, // Registered via import
-        StaticBitmapText: require('./bitmaptext/static/BitmapTextCreator'),
-        Text: function () {}, // Registered via import
-        TileSprite: require('./tilesprite/TileSpriteCreator'),
-        Zone: Zone, // Registered via import
-        Video: require('./video/VideoCreator')
+        Particles: ParticleEmitterCreator,
+        RenderTexture: RenderTextureCreator,
+        // Rope: RopeCreator,
+        Sprite: function () {},
+        StaticBitmapText: BitmapTextCreator,
+        Text: function () {},
+        TileSprite: TileSpriteCreator,
+        Zone: Zone,
+        Video: VideoCreator
     }
 
 };
@@ -155,23 +208,23 @@ var GameObjects = {
 //  WebGL only Game Objects
 if (typeof WEBGL_RENDERER)
 {
-    GameObjects.Shader = require('./shader/Shader');
-    GameObjects.Mesh = require('./mesh/Mesh');
-    GameObjects.NineSlice = require('./nineslice/NineSlice');
+    GameObjects.Shader = Shader;
+    GameObjects.Mesh = Mesh;
+    // GameObjects.NineSlice = NineSlice; // COMENTADO - Problema de inicialización con Mixin
     GameObjects.PointLight = PointLight;
-    GameObjects.Plane = require('./plane/Plane');
+    GameObjects.Plane = Plane;
 
-    GameObjects.Factories.Shader = require('./shader/ShaderFactory');
-    GameObjects.Factories.Mesh = require('./mesh/MeshFactory');
-    GameObjects.Factories.NineSlice = require('./nineslice/NineSliceFactory');
+    GameObjects.Factories.Shader = ShaderFactory;
+    GameObjects.Factories.Mesh = MeshFactory;
+    // GameObjects.Factories.NineSlice = NineSliceFactory;
     GameObjects.Factories.PointLight = PointLightFactory;
-    GameObjects.Factories.Plane = require('./plane/PlaneFactory');
+    GameObjects.Factories.Plane = PlaneFactory;
 
-    GameObjects.Creators.Shader = require('./shader/ShaderCreator');
-    GameObjects.Creators.Mesh = require('./mesh/MeshCreator');
-    GameObjects.Creators.NineSlice = require('./nineslice/NineSliceCreator');
+    GameObjects.Creators.Shader = ShaderCreator;
+    GameObjects.Creators.Mesh = MeshCreator;
+    // GameObjects.Creators.NineSlice = NineSliceCreator;
     GameObjects.Creators.PointLight = PointLightCreator;
-    GameObjects.Creators.Plane = require('./plane/PlaneCreator');
+    GameObjects.Creators.Plane = PlaneCreator;
 
     GameObjects.Light = require('./lights/Light');
     GameObjects.LightsManager = require('./lights/LightsManager');

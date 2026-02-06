@@ -7,8 +7,8 @@
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { Image } from './Image';
 
-const BuildGameObject = require('../BuildGameObject');
-const GameObjectCreator = require('../GameObjectCreator');
+import { BuildGameObject } from '../BuildGameObject';
+import { GameObjectCreator } from '../GameObjectCreator';
 
 /**
  * Creates a new Image Game Object and returns it.
@@ -43,3 +43,5 @@ GameObjectCreator.register('image', function (this: any, config: Record<string, 
 });
 
 //  When registering a factory function 'this' refers to the GameObjectCreator context.
+
+

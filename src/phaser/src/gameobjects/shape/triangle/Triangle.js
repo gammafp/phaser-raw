@@ -6,7 +6,7 @@
 
 var Class = require('../../../utils/Class');
 var Shape = require('../Shape');
-import { Triangle as GeomTriangle } from '../../../geom/triangle/Triangle';
+var GeomTriangle = require('../../../geom/triangle/Triangle');
 var TriangleRender = require('./TriangleRender');
 
 /**

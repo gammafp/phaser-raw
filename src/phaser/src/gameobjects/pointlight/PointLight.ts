@@ -18,7 +18,7 @@ import type { Transform } from '../components/Transform';
 import type { Visible } from '../components/Visible';
 
 const Components = require('../components');
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 import { IntegerToColor } from '../../display/color/IntegerToColor';
 const PIPELINES_CONST = require('../../renderer/webgl/pipelines/const');
 import { PointLightRender } from './PointLightRender';
@@ -195,4 +195,5 @@ export class PointLight extends GameObject {
     }
 
 };
+
 
