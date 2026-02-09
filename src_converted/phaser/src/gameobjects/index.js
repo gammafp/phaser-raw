@@ -231,4 +231,8 @@ if (typeof WEBGL_RENDERER)
     GameObjects.LightsPlugin = require('./lights/LightsPlugin');
 }
 
+export {
+    GameObject
+};
+
 module.exports = GameObjects;

@@ -6,12 +6,12 @@
 
 import { QuickSet as AlignIn } from '../display/align/in/QuickSet';
 import { NOOP } from '../utils/NOOP';
-
-// TODO: Convert this
 import { ALIGN_CONST as CONST } from '../display/align/const';
 import { GetFastValue } from '../utils/object/GetFastValue';
 import { Zone } from '../gameobjects/zone/Zone';
-//
+
+import type { GridAlignConfig } from './typedefs/GridAlignConfig';
+
 
 const tempZone = new Zone({ sys: { queueDepthSort: NOOP, events: { once: NOOP } } }, 0, 0, 1, 1).setOrigin(0, 0);
 
@@ -31,9 +31,11 @@ const tempZone = new Zone({ sys: { queueDepthSort: NOOP, events: { once: NOOP } 
  */
 export const GridAlign = <G extends any[]>(
     items: G,
-    options: Record<string, any> = {}
+    options: GridAlignConfig = {}
 ): G =>
 {
+    if (options === undefined) { options = {}; }
+
     const widthSet = options.hasOwnProperty('width');
     const heightSet = options.hasOwnProperty('height');
 

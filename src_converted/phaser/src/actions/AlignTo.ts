@@ -5,6 +5,7 @@
  */
 
 import { QuickSet } from '../display/align/to/QuickSet';
+import type { GameObject } from '../gameobjects';
 
 /**
  * Takes an array of Game Objects and aligns them next to each other.
@@ -29,11 +30,11 @@ import { QuickSet } from '../display/align/to/QuickSet';
  * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 export const AlignTo = (
-    items: Phaser.GameObjects.GameObject[],
+    items: GameObject[],
     position: number,
     offsetX: number = 0,
     offsetY: number = 0
-): Phaser.GameObjects.GameObject[] => {
+): GameObject[] => {
     let target = items[0];
 
     for (let i = 1; i < items.length; i++)

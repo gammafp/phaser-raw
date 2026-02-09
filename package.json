@@ -12,7 +12,8 @@
     "validate-ts": "bun scripts/validate-ts-syntax.ts",
     "validate-js": "bun scripts/validate-js-syntax.ts",
     "validate-imports": "bun scripts/validate-imports-smart.ts",
-    "diff": "bun scripts/compare-src-versions.ts"
+    "diff": "bun scripts/compare-src-versions.ts",
+    "diff:folder": "bun scripts/compare-src-versions-folder.ts"
   },
   "devDependencies": {
     "@types/node": "^22.15.21",
