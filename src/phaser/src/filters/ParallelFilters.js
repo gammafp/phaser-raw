@@ -5,9 +5,9 @@
  */
 
 var Class = require('../utils/Class');
-var FilterList = require('../gameobjects/components/FilterList');
 var Controller = require('./Controller');
 var Blend = require('./Blend');
+var FilterList = require('../gameobjects/components/FilterList');
 
 /**
  * @classdesc
