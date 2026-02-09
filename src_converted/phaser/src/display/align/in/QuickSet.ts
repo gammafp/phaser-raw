@@ -15,6 +15,7 @@ import { TopLeft } from './TopLeft';
 import { TopRight } from './TopRight';
 
 import { ALIGN_CONST } from '../const';
+import { GameObject } from '../../../gameobjects';
 
 // TODO: fix types
 var AlignInMap: any[] = [];
@@ -51,12 +52,12 @@ AlignInMap[ALIGN_CONST.RIGHT_TOP] = AlignInMap[ALIGN_CONST.TOP_RIGHT];
  * @return {Phaser.GameObjects.GameObject} The Game Object that was aligned.
  */
 export const QuickSet = (
-    child: Phaser.GameObjects.GameObject,
-    alignIn: Phaser.GameObjects.GameObject,
+    child: GameObject,
+    alignIn: GameObject,
     position: number,
     offsetX: number = 0,
     offsetY: number = 0
-): Phaser.GameObjects.GameObject =>
+): GameObject =>
 {
     return AlignInMap[position](child, alignIn, offsetX, offsetY);
 };

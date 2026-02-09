@@ -4,6 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 // TODO: Convert this
+import { GameObject } from '../../../gameobjects';
 import { ALIGN_CONST } from '../const';
 
 import { BottomCenter } from './BottomCenter';
@@ -53,11 +54,11 @@ AlignToMap[ALIGN_CONST.TOP_RIGHT] = TopRight;
  * @return {Phaser.GameObjects.GameObject} The Game Object that was aligned.
  */
 export const QuickSet = (
-    child: Phaser.GameObjects.GameObject,
-    alignTo: Phaser.GameObjects.GameObject,
+    child: GameObject,
+    alignTo: GameObject,
     position: number,
     offsetX: number = 0,
     offsetY: number = 0
-): Phaser.GameObjects.GameObject => {
+): GameObject => {
     return AlignToMap[position](child, alignTo, offsetX, offsetY);
 };
