@@ -1,14 +1,13 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
 import { Contains } from '../circle/Contains';
 
-import { Point } from '../point/Point';
-
-const tmp = new Point();
+const tmp = new Vector2();
 
 /**
  * Checks for intersection between the line segment and circle.
@@ -20,11 +19,11 @@ const tmp = new Point();
  *
  * @param {Phaser.Geom.Line} line - The line segment to check.
  * @param {Phaser.Geom.Circle} circle - The circle to check against the line.
- * @param {(Phaser.Geom.Point|any)} [nearest] - An optional Point-like object. If given the closest point on the Line where the circle intersects will be stored in this object.
+ * @param {Phaser.Math.Vector2} [nearest] - An optional Vector2. If given the closest point on the Line where the circle intersects will be stored in this object.
  *
  * @return {boolean} `true` if the two objects intersect, otherwise `false`.
  */
-export const LineToCircle = (line: any, circle: any, nearest?: any): boolean =>
+export const LineToCircle = (line: any, circle: any, nearest?: Vector2): boolean =>
 {
     if (nearest === undefined) { nearest = tmp; }
 

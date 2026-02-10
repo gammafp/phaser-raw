@@ -1,27 +1,27 @@
 /**
  * @author       Florian Vazelle
  * @author       Geoffrey Glaive
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { Point } from '../point/Point';
+import { Vector2 } from '../../math/Vector2';
 import { LineToCircle } from './LineToCircle';
 
 /**
  * Checks for intersection between the line segment and circle,
- * and returns the intersection points as a Point object array.
+ * and returns the intersection points as a Vector2 array.
  *
  * @function Phaser.Geom.Intersects.GetLineToCircle
  * @since 3.0.0
  *
  * @param {Phaser.Geom.Line} line - The line segment to check.
  * @param {Phaser.Geom.Circle} circle - The circle to check against the line.
- * @param {array} [out] - An optional array in which to store the points of intersection.
+ * @param {Phaser.Math.Vector2[]} [out] - An optional array in which to store the points of intersection.
  *
- * @return {array} An array with the points of intersection if objects intersect, otherwise an empty array.
+ * @return {Phaser.Math.Vector2[]} An array with the points of intersection if objects intersect, otherwise an empty array.
  */
-export const GetLineToCircle = (line: any, circle: any, out?: any[]): any[] =>
+export const GetLineToCircle = (line: any, circle: any, out?: Vector2[]): Vector2[] =>
 {
     if (out === undefined) { out = []; }
 
@@ -57,7 +57,7 @@ export const GetLineToCircle = (line: any, circle: any, out?: any[]): any[] =>
             y = ly1 + root * lDirY;
             if (root >= 0 && root <= 1)
             {
-                out.push(new Point(x, y));
+                out.push(new Vector2(x, y));
             }
         }
         else if (lambda > 0)
@@ -67,7 +67,7 @@ export const GetLineToCircle = (line: any, circle: any, out?: any[]): any[] =>
             y = ly1 + root1 * lDirY;
             if (root1 >= 0 && root1 <= 1)
             {
-                out.push(new Point(x, y));
+                out.push(new Vector2(x, y));
             }
 
             const root2 = (-coefficientB + Math.sqrt(lambda)) / (2 * coefficientA);
@@ -75,7 +75,7 @@ export const GetLineToCircle = (line: any, circle: any, out?: any[]): any[] =>
             y = ly1 + root2 * lDirY;
             if (root2 >= 0 && root2 <= 1)
             {
-                out.push(new Point(x, y));
+                out.push(new Vector2(x, y));
             }
         }
     }

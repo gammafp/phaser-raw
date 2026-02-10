@@ -1,13 +1,12 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
 import { Between } from '../../math/Between';
+import { Vector2 } from '../../math/Vector2';
 import { ContainsRect } from './ContainsRect';
-
-import { Point } from '../point/Point';
 
 /**
  * Calculates a random point that lies within the `outer` Rectangle, but outside of the `inner` Rectangle.
@@ -16,17 +15,17 @@ import { Point } from '../point/Point';
  * @function Phaser.Geom.Rectangle.RandomOutside
  * @since 3.10.0
  *
- * @generic {Phaser.Geom.Point} O - [out,$return]
+ * @generic {Phaser.Math.Vector2} O - [out,$return]
  *
  * @param {Phaser.Geom.Rectangle} outer - The outer Rectangle to get the random point within.
  * @param {Phaser.Geom.Rectangle} inner - The inner Rectangle to exclude from the returned point.
- * @param {Phaser.Geom.Point} [out] - A Point, or Point-like object to store the result in. If not specified, a new Point will be created.
+ * @param {Phaser.Math.Vector2} [out] - A Vector2 object to store the result in. If not specified, a new Vector2 will be created.
  *
- * @return {Phaser.Geom.Point} A Point object containing the random values in its `x` and `y` properties.
+ * @return {Phaser.Math.Vector2} A Vector2 object containing the random values in its `x` and `y` properties.
  */
-export const RandomOutside = (outer: any, inner: any, out?: any): any =>
+export const RandomOutside = (outer: any, inner: any, out?: Vector2): Vector2 =>
 {
-    if (out === undefined) { out = new Point(); }
+    if (out === undefined) { out = new Vector2(); }
 
     if (ContainsRect(outer, inner))
     {

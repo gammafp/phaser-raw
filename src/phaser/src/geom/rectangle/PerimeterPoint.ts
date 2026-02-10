@@ -1,12 +1,11 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
 import { DegToRad } from '../../math/DegToRad';
-
-import { Point } from '../point/Point';
 
 /**
  * Returns a Point from the perimeter of a Rectangle based on the given angle.
@@ -14,17 +13,17 @@ import { Point } from '../point/Point';
  * @function Phaser.Geom.Rectangle.PerimeterPoint
  * @since 3.0.0
  *
- * @generic {Phaser.Geom.Point} O - [out,$return]
+ * @generic {Phaser.Math.Vector2} O - [out,$return]
  *
  * @param {Phaser.Geom.Rectangle} rectangle - The Rectangle to get the perimeter point from.
  * @param {number} angle - The angle of the point, in degrees.
- * @param {Phaser.Geom.Point} [out] - The Point object to store the position in. If not given, a new Point instance is created.
+ * @param {Phaser.Math.Vector2} [out] - The Vector2 object to store the position in. If not given, a new Vector2 instance is created.
  *
- * @return {Phaser.Geom.Point} A Point object holding the coordinates of the Rectangle perimeter.
+ * @return {Phaser.Math.Vector2} A Vector2 object holding the coordinates of the Rectangle perimeter.
  */
-export const PerimeterPoint = (rectangle: any, angle: number, out?: any): any =>
+export const PerimeterPoint = (rectangle: any, angle: number, out?: Vector2): Vector2 =>
 {
-    if (out === undefined) { out = new Point(); }
+    if (out === undefined) { out = new Vector2(); }
 
     angle = DegToRad(angle);
 

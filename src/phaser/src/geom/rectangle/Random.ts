@@ -1,10 +1,10 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { Point } from '../point/Point';
+import { Vector2 } from '../../math/Vector2';
 
 /**
  * Returns a random point within a Rectangle.
@@ -12,16 +12,16 @@ import { Point } from '../point/Point';
  * @function Phaser.Geom.Rectangle.Random
  * @since 3.0.0
  *
- * @generic {Phaser.Geom.Point} O - [out,$return]
+ * @generic {Phaser.Math.Vector2} O - [out,$return]
  *
  * @param {Phaser.Geom.Rectangle} rect - The Rectangle to return a point from.
- * @param {Phaser.Geom.Point} out - The object to update with the point's coordinates.
+ * @param {Phaser.Math.Vector2} [out] - A Vector2 to update with the point's coordinates.
  *
- * @return {Phaser.Geom.Point} The modified `out` object, or a new Point if none was provided.
+ * @return {Phaser.Math.Vector2} The modified `out` object, or a new Vector2 if none was provided.
  */
-export const Random = (rect: any, out?: any): any =>
+export const Random = (rect: any, out?: Vector2): Vector2 =>
 {
-    if (out === undefined) { out = new Point(); }
+    if (out === undefined) { out = new Vector2(); }
 
     out.x = rect.x + (Math.random() * rect.width);
     out.y = rect.y + (Math.random() * rect.height);

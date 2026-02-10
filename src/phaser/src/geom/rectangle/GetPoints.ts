@@ -1,9 +1,10 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
 import { GetPoint } from './GetPoint';
 import { Perimeter } from './Perimeter';
 
@@ -13,16 +14,16 @@ import { Perimeter } from './Perimeter';
  * @function Phaser.Geom.Rectangle.GetPoints
  * @since 3.0.0
  *
- * @generic {Phaser.Geom.Point[]} O - [out,$return]
+ * @generic {Phaser.Math.Vector2[]} O - [out,$return]
  *
  * @param {Phaser.Geom.Rectangle} rectangle - The Rectangle object to get the points from.
  * @param {number} step - Step between points. Used to calculate the number of points to return when quantity is falsey. Ignored if quantity is positive.
  * @param {number} quantity - The number of evenly spaced points from the rectangles perimeter to return. If falsey, step param will be used to calculate the number of points.
- * @param {(array|Phaser.Geom.Point[])} [out] - An optional array to store the points in.
+ * @param {Phaser.Math.Vector2[]} [out] - An optional array to store the points in.
  *
- * @return {(array|Phaser.Geom.Point[])} An array of Points from the perimeter of the rectangle.
+ * @return {Phaser.Math.Vector2[]} An array of Vector2 from the perimeter of the rectangle.
  */
-export const GetPoints = (rectangle: any, quantity: number, stepRate: number, out?: any[]): any[] =>
+export const GetPoints = (rectangle: any, quantity: number, stepRate: number, out?: Vector2[]): Vector2[] =>
 {
     if (out === undefined) { out = []; }
 

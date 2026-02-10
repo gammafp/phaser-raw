@@ -1,27 +1,26 @@
 /**
  * @author       Florian Vazelle
  * @author       Geoffrey Glaive
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
 import { CircleToCircle } from './CircleToCircle';
 
-import { Point } from '../point/Point';
-
 /**
- * Checks if two Circles intersect and returns the intersection points as a Point object array.
+ * Checks if two Circles intersect and returns the intersection points as a Vector2 array.
  *
  * @function Phaser.Geom.Intersects.GetCircleToCircle
  * @since 3.0.0
  *
  * @param {Phaser.Geom.Circle} circleA - The first Circle to check for intersection.
  * @param {Phaser.Geom.Circle} circleB - The second Circle to check for intersection.
- * @param {array} [out] - An optional array in which to store the points of intersection.
+ * @param {Phaser.Math.Vector2[]} [out] - An optional array in which to store the points of intersection.
  *
- * @return {array} An array with the points of intersection if objects intersect, otherwise an empty array.
+ * @return {Phaser.Math.Vector2[]} An array with the points of intersection if objects intersect, otherwise an empty array.
  */
-export const GetCircleToCircle = (circleA: any, circleB: any, out?: any[]): any[] =>
+export const GetCircleToCircle = (circleA: any, circleB: any, out?: Vector2[]): Vector2[] =>
 {
     if (out === undefined) { out = []; }
 
@@ -49,12 +48,12 @@ export const GetCircleToCircle = (circleA: any, circleB: any, out?: any[]): any[
 
             if (lambda === 0)
             {
-                out.push(new Point(x, (-coefficientB / (2 * coefficientA))));
+                out.push(new Vector2(x, (-coefficientB / (2 * coefficientA))));
             }
             else if (lambda > 0)
             {
-                out.push(new Point(x, (-coefficientB + Math.sqrt(lambda)) / (2 * coefficientA)));
-                out.push(new Point(x, (-coefficientB - Math.sqrt(lambda)) / (2 * coefficientA)));
+                out.push(new Vector2(x, (-coefficientB + Math.sqrt(lambda)) / (2 * coefficientA)));
+                out.push(new Vector2(x, (-coefficientB - Math.sqrt(lambda)) / (2 * coefficientA)));
             }
         }
         else
@@ -71,14 +70,14 @@ export const GetCircleToCircle = (circleA: any, circleB: any, out?: any[]): any[
             if (lambda === 0)
             {
                 x = (-coefficientB / (2 * coefficientA));
-                out.push(new Point(x, (n - (x * v1))));
+                out.push(new Vector2(x, (n - (x * v1))));
             }
             else if (lambda > 0)
             {
                 x = (-coefficientB + Math.sqrt(lambda)) / (2 * coefficientA);
-                out.push(new Point(x, (n - (x * v1))));
+                out.push(new Vector2(x, (n - (x * v1))));
                 x = (-coefficientB - Math.sqrt(lambda)) / (2 * coefficientA);
-                out.push(new Point(x, (n - (x * v1))));
+                out.push(new Vector2(x, (n - (x * v1))));
             }
         }
     }

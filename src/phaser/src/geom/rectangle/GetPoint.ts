@@ -1,12 +1,11 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
 import { Perimeter } from './Perimeter';
-
-import { Point } from '../point/Point';
 
 /**
  * Calculates the coordinates of a point at a certain `position` on the Rectangle's perimeter.
@@ -18,17 +17,17 @@ import { Point } from '../point/Point';
  * @function Phaser.Geom.Rectangle.GetPoint
  * @since 3.0.0
  *
- * @generic {Phaser.Geom.Point} O - [out,$return]
+ * @generic {Phaser.Math.Vector2} O - [out,$return]
  *
  * @param {Phaser.Geom.Rectangle} rectangle - The Rectangle to get the perimeter point from.
  * @param {number} position - The normalized distance into the Rectangle's perimeter to return.
- * @param {(Phaser.Geom.Point|object)} [out] - An object to update with the `x` and `y` coordinates of the point.
+ * @param {Phaser.Math.Vector2} [out] - A Vector2 object to update with the `x` and `y` coordinates of the point.
  *
- * @return {Phaser.Geom.Point} The updated `output` object, or a new Point if no `output` object was given.
+ * @return {Phaser.Math.Vector2} The updated `output` object, or a new Vector2 if no `output` object was given.
  */
-export const GetPoint = (rectangle: any, position: number, out?: any): any =>
+export const GetPoint = (rectangle: any, position: number, out?: Vector2): Vector2 =>
 {
-    if (out === undefined) { out = new Point(); }
+    if (out === undefined) { out = new Vector2(); }
 
     if (position <= 0 || position >= 1)
     {

@@ -1,9 +1,9 @@
-# Phaser's TS Modules - Current Version Phaser 3.90.0
+# Phaser's TS Modules — Phaser 4.0.0 (versión final)
 
-This is a project done in spare time that aims to convert Phaser files to TypeScript in order to have code that integrates more easily into TS projects and improve workflow.
+Este proyecto convierte el código fuente de **Phaser 4** a TypeScript para integrarlo mejor en proyectos TS y mejorar el flujo de trabajo. **La base de código es ya Phaser 4.0.0: esta es la versión final del framework con mucho gusto.**
 
-**Phaser framework is a library created by Richard Davey and Phaser Studio Team.
-Please visit the [official website](https://phaser.io/) for more information and official repository [here](https://github.com/photonstorm/phaser).**
+**Phaser es una biblioteca creada por Richard Davey y Phaser Studio Team.**
+**Web oficial:** [phaser.io](https://phaser.io/) · **Repositorio oficial:** [github.com/photonstorm/phaser](https://github.com/photonstorm/phaser)
 
 ![screenshot](./screenshot.png)
 
@@ -82,56 +82,28 @@ These namespaces have significant architectural changes in Phaser 4.0 and need t
 ## �📊 TypeScript Conversion Progress
 
 ### Global Summary
-![71%](https://progress-bar.xyz/71)
+![21%](https://progress-bar.xyz/21)
 
-- **Total files** (excluding typedefs): 1,651
-- **TypeScript files**: 1,173
-- **JavaScript files**: 478
-- **Progress**: **71%** 🎉
+*Última actualización según `bun run stats`.*
 
-### 🏆 Fully Converted (100%) - 20 Folders
+- **Total files** (excl. typedefs, matter-js): **1,658**
+- **TypeScript (.ts)**: **346**
+- **JavaScript (.js)**: **1,312**
+- **Progreso**: **20,87 %**
+- **Pendientes**: 1,312 archivos
 
-- [x] **actions** (54 files) - All action utilities
-- [x] **cache** (6 files) - CacheManager and BaseCache
-- [x] **cameras** (34 files) - Camera system, effects, and controls
-- [x] **core** (24 files) - Config, TimeStep, Game, CreateRenderer ✨
-- [x] **create** (8 files) - Texture generation utilities
-- [x] **curves** (9 files) - Path, MoveTo, and all Bezier curves
-- [x] **device** (9 files) - Device detection
-- [x] **display** (78 files) - ColorMatrix, RGB, Masks, Canvas utilities
-- [x] **dom** (10 files) - DOM manipulation utilities
-- [x] **events** (2 files) - Event system
-- [x] **fx** (17 files) - FX Controllers (Bloom, Blur, Glow, etc.) ✨
-- [x] **geom** (201 files) - All geometry classes and functions
-- [x] **loader** (56 files) - LoaderPlugin and all file types
-- [x] **math** (142 files) - All math utilities and functions
-- [x] **polyfills** (10 files) - Browser polyfills
-- [x] **scene** (33 files) - SceneManager, Systems, ScenePlugin
-- [x] **tilemaps** (112 files) - Complete tilemap system
-- [x] **time** (6 files) - Clock and Timeline
-- [x] **tweens** (34 files) - Complete tween system ✨
-- [x] **types** (3 files) - Type definitions
+### ✅ Fully Converted (100 %)
 
-### 📈 Nearly Complete (>90%)
+- [x] **geom** (201 files) – Geometría (Circle, Rectangle, Line, Polygon, etc.)
+- [x] **math** (143 files) – Utilidades matemáticas y funciones
 
-- [ ] **utils** (99%) - 77/78 files - Only 1 file remaining (Class.js)
+### 🔄 In Progress
 
-### 🔄 In Progress (50-90%)
+- [ ] **utils** (1,30 %) – 1/77 archivos
 
-- [ ] **data** (78%) - 7/9 files
-- [ ] **sound** (77%) - 27/35 files
-- [ ] **animations** (71%) - 12/17 files
-- [ ] **input** (66%) - 64/97 files
-- [ ] **scale** (50%) - 7/14 files
+### ⏳ Not Started (0 %)
 
-### ⏳ Lower Progress (<50%)
-
-- [ ] **structs** (40%) - 4/10 files
-- [ ] **textures** (29%) - 8/28 files
-- [ ] **gameobjects** (27%) - 73/271 files
-- [ ] **physics** (20%) - 26/130 files
-- [ ] **plugins** (17%) - 1/6 files
-- [ ] **renderer** (15%) - 16/104 files
+- [ ] actions (57), animations (17), cache (6), cameras (34), core (24), curves (9), data (9), device (9), display (77), dom (10), events (2), filters (23), gameobjects (284), input (97), loader (55), physics (55), plugins (6), polyfills (1), renderer (179), scale (14), scene (33), sound (35), structs (9), textures (30), tilemaps (116), time (6), tweens (34)
 
 ---
 
@@ -241,27 +213,28 @@ var Sprite = new Class({
 
 ## 🎯 Key Achievements
 
-- **71%** of the codebase converted to TypeScript
-- **20 complete folders** ready for production use
-- **Modern ES6+ syntax** with tree-shaking support
-- **Named exports** for optimal bundle size
-- **Zero import compatibility errors**
-- **Backup system** for safe conversions
-- **1,173 TypeScript files** converted and validated
+- **Base Phaser 4.0.0** — Versión final del framework
+- **20,87 %** del código convertido a TypeScript (346 archivos .ts)
+- **geom** y **math** al 100 % — listos para uso
+- Sintaxis **ES6+** con soporte para tree-shaking
+- **Named exports** para mejor tamaño de bundle
+- Script **validate-imports** y **--fix** para compatibilidad require/import
+- Script **convert-class-syntax** para migrar `Class` a clases ES6
+- Copias de seguridad en `temp/` en conversiones
 
 ---
 
 ## 🚀 Next Steps
 
-Recommended folders for conversion:
-1. **structs** (40%) - 6 files remaining (ProcessQueue, Map, Set, Size, List)
-2. **data** (78%) - 2 files remaining (DataManagerPlugin, DataManager)
-3. **sound** (77%) - 8 files remaining (BaseSound, HTML5Audio, WebAudio, etc.)
-4. **animations** (71%) - 5 files remaining
-5. Complete **gameobjects** (27%) - Many files remaining (shapes, sprites, etc.)
+Carpetas sugeridas para seguir la conversión a TS:
+1. **utils** (ya en progreso)
+2. **structs**, **data**, **curves**, **device**, **events**
+3. **gameobjects**, **input**, **renderer**, **physics**, etc.
+
+Para ver estadísticas al día: `bun run stats`
 
 ---
 
-*A work in progress toward a fully typed Phaser experience.*
+*Progreso hacia una base Phaser 4 totalmente tipada en TypeScript.*
 
-**TypeScript conversion by Francisco Pereira.**
+**Conversión a TypeScript por Francisco Pereira.**

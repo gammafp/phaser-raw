@@ -1,12 +1,11 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
 import { Length } from './Length';
-
-import { Point } from '../point/Point';
 
 /**
  * Get a number of points along a line's length.
@@ -21,16 +20,16 @@ import { Point } from '../point/Point';
  * @function Phaser.Geom.Line.GetPoints
  * @since 3.0.0
  *
- * @generic {Phaser.Geom.Point[]} O - [out,$return]
+ * @generic {Phaser.Math.Vector2[]} O - [out,$return]
  *
  * @param {Phaser.Geom.Line} line - The line.
  * @param {number} quantity - The number of points to place on the line. Set to `0` to use `stepRate` instead.
  * @param {number} [stepRate] - The distance between each point on the line. When set, `quantity` is implied and should be set to `0`.
- * @param {(array|Phaser.Geom.Point[])} [out] - An optional array of Points, or point-like objects, to store the coordinates of the points on the line.
+ * @param {Phaser.Math.Vector2[]} [out] - An optional array of Vector2 objects to store the coordinates of the points on the line.
  *
- * @return {(array|Phaser.Geom.Point[])} An array of Points, or point-like objects, containing the coordinates of the points on the line.
+ * @return {Phaser.Math.Vector2[]} An array of Vector2 objects containing the coordinates of the points on the line.
  */
-export const GetPoints = (line: any, quantity: number, stepRate?: number, out?: any[]): any[] =>
+export const GetPoints = (line: any, quantity: number, stepRate?: number, out?: Vector2[]): Vector2[] =>
 {
     if (out === undefined) { out = []; }
 
@@ -53,7 +52,7 @@ export const GetPoints = (line: any, quantity: number, stepRate?: number, out?: 
         const x = x1 + (x2 - x1) * position;
         const y = y1 + (y2 - y1) * position;
 
-        out.push(new Point(x, y));
+        out.push(new Vector2(x, y));
     }
 
     return out;

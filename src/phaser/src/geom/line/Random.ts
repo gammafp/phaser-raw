@@ -1,10 +1,10 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { Point } from '../point/Point';
+import { Vector2 } from '../../math/Vector2';
 
 /**
  * Returns a random point on a given Line.
@@ -12,16 +12,16 @@ import { Point } from '../point/Point';
  * @function Phaser.Geom.Line.Random
  * @since 3.0.0
  *
- * @generic {Phaser.Geom.Point} O - [out,$return]
+ * @generic {Phaser.Math.Vector2} O - [out,$return]
  *
- * @param {Phaser.Geom.Line} line - The Line to calculate the random Point on.
- * @param {(Phaser.Geom.Point|object)} [out] - An instance of a Point to be modified.
+ * @param {Phaser.Geom.Line} line - The Line to calculate the random point on.
+ * @param {Phaser.Math.Vector2} [out] - An instance of a Vector2 to be modified.
  *
- * @return {(Phaser.Geom.Point|object)} A random Point on the Line.
+ * @return {Phaser.Math.Vector2} A random point on the Line stored in a Vector2.
  */
-export const Random = (line: any, out?: any): any =>
+export const Random = (line: any, out?: Vector2): Vector2 =>
 {
-    if (out === undefined) { out = new Point(); }
+    if (out === undefined) { out = new Vector2(); }
 
     const t = Math.random();
 

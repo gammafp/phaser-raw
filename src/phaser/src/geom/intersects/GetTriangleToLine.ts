@@ -1,17 +1,16 @@
 /**
  * @author       Florian Vazelle
  * @author       Geoffrey Glaive
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
 import { TriangleToLine } from './TriangleToLine';
 import { LineToLine } from './LineToLine';
 
-import { Point } from '../point/Point';
-
 /**
- * Checks if a Triangle and a Line intersect, and returns the intersection points as a Point object array.
+ * Checks if a Triangle and a Line intersect, and returns the intersection points as a Vector2 array.
  *
  * The Line intersects the Triangle if it starts inside of it, ends inside of it, or crosses any of the Triangle's sides. Thus, the Triangle is considered "solid".
  *
@@ -20,11 +19,11 @@ import { Point } from '../point/Point';
  *
  * @param {Phaser.Geom.Triangle} triangle - The Triangle to check with.
  * @param {Phaser.Geom.Line} line - The Line to check with.
- * @param {array} [out] - An optional array in which to store the points of intersection.
+ * @param {Phaser.Math.Vector2[]} [out] - An optional array in which to store the points of intersection.
  *
- * @return {array} An array with the points of intersection if objects intersect, otherwise an empty array.
+ * @return {Phaser.Math.Vector2[]} An array with the points of intersection if objects intersect, otherwise an empty array.
  */
-export const GetTriangleToLine = (triangle: any, line: any, out?: any[]): any[] =>
+export const GetTriangleToLine = (triangle: any, line: any, out?: Vector2[]): Vector2[] =>
 {
     if (out === undefined) { out = []; }
 
@@ -34,7 +33,7 @@ export const GetTriangleToLine = (triangle: any, line: any, out?: any[]): any[] 
         const lineB = triangle.getLineB();
         const lineC = triangle.getLineC();
 
-        const output = [ new Point(), new Point(), new Point() ];
+        const output = [ new Vector2(), new Vector2(), new Vector2() ];
 
         const result = [
             LineToLine(lineA, line, output[0]),

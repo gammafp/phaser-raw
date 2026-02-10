@@ -1,29 +1,29 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { Point } from '../point/Point';
+import { Vector2 } from '../../math/Vector2';
 import { Length } from '../line/Length';
 
 /**
- * Returns a Point from around the perimeter of a Triangle.
+ * Returns a Vector2 point from around the perimeter of a Triangle.
  *
  * @function Phaser.Geom.Triangle.GetPoint
  * @since 3.0.0
  *
- * @generic {Phaser.Geom.Point} O - [out,$return]
+ * @generic {Phaser.Math.Vector2} O - [out,$return]
  *
  * @param {Phaser.Geom.Triangle} triangle - The Triangle to get the point on its perimeter from.
  * @param {number} position - The position along the perimeter of the triangle. A value between 0 and 1.
- * @param {(Phaser.Geom.Point|object)} [out] - An option Point, or Point-like object to store the value in. If not given a new Point will be created.
+ * @param {Phaser.Math.Vector2} [out] - An optional Vector2 point to store the value in. If not given a new Vector2 will be created.
  *
- * @return {(Phaser.Geom.Point|object)} A Point object containing the given position from the perimeter of the triangle.
+ * @return {Phaser.Math.Vector2} A Vector2 point object containing the given position from the perimeter of the triangle.
  */
-export const GetPoint = (triangle: any, position: number, out?: any): any =>
+export const GetPoint = (triangle: any, position: number, out?: Vector2): Vector2 =>
 {
-    if (out === undefined) { out = new Point(); }
+    if (out === undefined) { out = new Vector2(); }
 
     const line1 = triangle.getLineA();
     const line2 = triangle.getLineB();

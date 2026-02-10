@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -8,10 +8,10 @@ import { DistanceBetweenPoints } from '../../math/distance/DistanceBetweenPoints
 
 // import { GetEaseFunction } from '../../tweens/builders/GetEaseFunction';
 var GetEaseFunction = require('../../tweens/builders/GetEaseFunction');
-import { Point } from '../point/Point';
+import { Vector2 } from '../../math/Vector2';
 
 /**
- * Returns an array of `quantity` Points where each point is taken from the given Line,
+ * Returns an array of `quantity` Vector2 points where each point is taken from the given Line,
  * spaced out according to the ease function specified.
  * 
  * ```javascript
@@ -35,7 +35,7 @@ import { Point } from '../point/Point';
  * @function Phaser.Geom.Line.GetEasedPoints
  * @since 3.23.0
  *
- * @generic {Phaser.Geom.Point[]} O - [out,$return]
+ * @generic {Phaser.Math.Vector2[]} O - [out,$return]
  *
  * @param {Phaser.Geom.Line} line - The Line object.
  * @param {(string|function)} ease - The ease to use. This can be either a string from the EaseMap, or a custom function.
@@ -43,11 +43,11 @@ import { Point } from '../point/Point';
  * @param {number} [collinearThreshold=0] - An optional threshold. The final array is reduced so that each point is spaced out at least this distance apart. This helps reduce clustering in noisey eases.
  * @param {number[]} [easeParams] - An optional array of ease parameters to go with the ease.
  *
- * @return {Phaser.Geom.Point[]} An array of Geom.Points containing the coordinates of the points on the line.
+ * @return {Phaser.Math.Vector2[]} An array of Vector2 containing the coordinates of the points on the line.
  */
-export const GetEasedPoints = (line: any, ease: string | Function, quantity: number, collinearThreshold: number = 0, easeParams: number[] = []): any[] =>
+export const GetEasedPoints = (line: any, ease: string | Function, quantity: number, collinearThreshold: number = 0, easeParams: number[] = []): Vector2[] =>
 {
-    const results: any[] = [];
+    const results: Vector2[] = [];
 
     const x1 = line.x1;
     const y1 = line.y1;
@@ -65,13 +65,13 @@ export const GetEasedPoints = (line: any, ease: string | Function, quantity: num
     {
         v = easeFunc(i / q);
 
-        results.push(new Point(x1 + (spaceX * v), y1 + (spaceY * v)));
+        results.push(new Vector2(x1 + (spaceX * v), y1 + (spaceY * v)));
     }
 
     //  Always include the end of the line
     v = easeFunc(1);
 
-    results.push(new Point(x1 + (spaceX * v), y1 + (spaceY * v)));
+    results.push(new Vector2(x1 + (spaceX * v), y1 + (spaceY * v)));
 
     //  Remove collinear parts
     if (collinearThreshold > 0)

@@ -39,10 +39,10 @@ export interface NamespaceInfo {
 export const namespaceDB: NamespaceInfo[] = [
     {
         name: 'actions',
-        status: ReviewStatus.UP_TO_DATE,
-        notes: 'No significant changes',
-        filesChanged: 0,
-        percentChanged: 0,
+        status: ReviewStatus.NEEDS_PATCH,
+        notes: 'Significant diffs vs original_src/src; verify missing files and modified actions helpers',
+        filesChanged: 17,
+        percentChanged: 80,
         lastReviewed: '2026-02-10'
     },
     {

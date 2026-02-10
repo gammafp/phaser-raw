@@ -1,27 +1,27 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { Point } from '../point/Point';
+import { Vector2 } from '../../math/Vector2';
 
 /**
- * Returns the center of a Rectangle as a Point.
+ * Returns the center of a Rectangle as a Vector2.
  *
  * @function Phaser.Geom.Rectangle.GetCenter
  * @since 3.0.0
  *
- * @generic {Phaser.Geom.Point} O - [out,$return]
+ * @generic {Phaser.Math.Vector2} O - [out,$return]
  *
  * @param {Phaser.Geom.Rectangle} rect - The Rectangle to get the center of.
- * @param {(Phaser.Geom.Point|object)} [out] - Optional point-like object to update with the center coordinates.
+ * @param {Phaser.Math.Vector2} [out] - Optional Vector2 to update with the center coordinates.
  *
- * @return {(Phaser.Geom.Point|object)} The modified `out` object, or a new Point if none was provided.
+ * @return {Phaser.Math.Vector2} The modified `out` object, or a new Vector2 if none was provided.
  */
-export const GetCenter = (rect: any, out?: any): any =>
+export const GetCenter = (rect: any, out?: Vector2): Vector2 =>
 {
-    if (out === undefined) { out = new Point(); }
+    if (out === undefined) { out = new Vector2(); }
 
     out.x = rect.centerX;
     out.y = rect.centerY;

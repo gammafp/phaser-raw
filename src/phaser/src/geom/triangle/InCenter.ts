@@ -1,10 +1,10 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { Point } from '../point/Point';
+import { Vector2 } from '../../math/Vector2';
 
 // The three angle bisectors of a triangle meet in one point called the incenter.
 // It is the center of the incircle, the circle inscribed in the triangle.
@@ -24,16 +24,16 @@ function getLength(x1: number, y1: number, x2: number, y2: number): number
  * @function Phaser.Geom.Triangle.InCenter
  * @since 3.0.0
  *
- * @generic {Phaser.Geom.Point} O - [out,$return]
+ * @generic {Phaser.Math.Vector2} O - [out,$return]
  *
  * @param {Phaser.Geom.Triangle} triangle - The Triangle to find the incenter of.
- * @param {Phaser.Geom.Point} [out] - An optional Point in which to store the coordinates.
+ * @param {Phaser.Math.Vector2} [out] - An optional Vector2 point in which to store the coordinates.
  *
- * @return {Phaser.Geom.Point} Point (x, y) of the center pixel of the triangle.
+ * @return {Phaser.Math.Vector2} The center of the triangle in a Vector2.
  */
-export const InCenter = (triangle: any, out?: any): any =>
+export const InCenter = (triangle: any, out?: Vector2): Vector2 =>
 {
-    if (out === undefined) { out = new Point(); }
+    if (out === undefined) { out = new Vector2(); }
 
     const x1 = triangle.x1;
     const y1 = triangle.y1;

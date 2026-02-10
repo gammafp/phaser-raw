@@ -1,12 +1,11 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
 import { Perimeter } from './Perimeter';
-
-import { Point } from '../point/Point';
 
 /**
  * Returns an array of points from the perimeter of the Rectangle, where each point is spaced out based
@@ -15,16 +14,16 @@ import { Point } from '../point/Point';
  * @function Phaser.Geom.Rectangle.MarchingAnts
  * @since 3.0.0
  *
- * @generic {Phaser.Geom.Point[]} O - [out,$return]
+ * @generic {Phaser.Math.Vector2[]} O - [out,$return]
  *
  * @param {Phaser.Geom.Rectangle} rect - The Rectangle to get the perimeter points from.
  * @param {number} [step] - The distance between each point of the perimeter. Set to `null` if you wish to use the `quantity` parameter instead.
  * @param {number} [quantity] - The total number of points to return. The step is then calculated based on the length of the Rectangle, divided by this value.
- * @param {(array|Phaser.Geom.Point[])} [out] - An array in which the perimeter points will be stored. If not given, a new array instance is created.
+ * @param {Phaser.Math.Vector2[]} [out] - An array in which the perimeter points will be stored. If not given, a new array instance is created.
  *
- * @return {(array|Phaser.Geom.Point[])} An array containing the perimeter points from the Rectangle.
+ * @return {Phaser.Math.Vector2[]} An array containing the perimeter points from the Rectangle.
  */
-export const MarchingAnts = (rect: any, step?: number, quantity?: number, out?: any[]): any[] =>
+export const MarchingAnts = (rect: any, step?: number, quantity?: number, out?: Vector2[]): Vector2[] =>
 {
     if (out === undefined) { out = []; }
 
@@ -53,7 +52,7 @@ export const MarchingAnts = (rect: any, step?: number, quantity?: number, out?: 
 
     for (let i = 0; i < quantity; i++)
     {
-        out.push(new Point(x, y));
+        out.push(new Vector2(x, y));
 
         switch (face)
         {
