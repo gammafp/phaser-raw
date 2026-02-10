@@ -19,7 +19,67 @@ The Phaser source code is located inside the `src/phaser` folder.
 
 ---
 
-## 📊 TypeScript Conversion Progress
+## � Version Update Review Progress
+
+Tracking the review and update of namespaces comparing `src_converted` (previous version) with `src/phaser/src` (latest Phaser 4.0.0).
+
+### Review Status
+![100%](https://progress-bar.xyz/100)
+
+**All 33 namespaces have been reviewed and categorized.** Command reference:
+- `bun run review` - Show all namespaces and their status
+- `bun run review:stats` - Show review statistics  
+- `bun run diff:folder <namespace>` - Compare a specific namespace
+
+### Reviewed & Updated Namespaces
+
+- [x] **actions** - ✅ Reviewed and updated to latest version
+- [x] **animations** - ✅ Reviewed and updated to latest version
+- [x] **cache** - ✅ Reviewed and updated to latest version
+- [x] **curves** - ✅ Reviewed and updated to latest version
+- [x] **data** - ✅ Reviewed and updated to latest version
+- [x] **dom** - ✅ Reviewed and updated to latest version
+- [x] **events** - ✅ Reviewed and updated to latest version
+- [x] **plugins** - ✅ No significant changes; only trivial updates
+- [x] **scale** - ✅ Minimal changes (only 0% modifications); no structural changes
+
+### ⚠️ Needs Minor Updates/Patches (12 namespaces)
+
+These namespaces have minor fixes or improvements that need to be patched into the TypeScript version:
+
+- [ ] **device** - ⚠️ Minor update: Added support for mov/QuickTime video format. Need to patch Video.ts to include mov detection
+- [ ] **geom** - ⚠️ Remove mesh/ and point/ directories (no longer in 4.0), integrate changes to circle/ellipse/line/etc (minor algorithm updates)
+- [ ] **input** - ⚠️ TS conversion is faithful to original; upstream has moderate changes. Need to integrate InputPlugin improvements and KeyboardManager modernization
+- [ ] **math** - ⚠️ Needs update to match latest: add GetCentroid/GetVec2Bounds and reconcile SinCosTableGenerator + modified helpers
+- [ ] **polyfills** - ⚠️ Remove 9 obsolete polyfills (Array.forEach, Array.isArray, AudioContextMonkeyPatch, Math.trunc, Uint32Array, console, performance.now, requestAnimationFrame) no longer needed in 4.0
+- [ ] **scene** - ⚠️ Remove PLUGIN_FBINSTANT conditional checks and impactPhysics from InjectionMap (removed in 4.0). Minor updates to index.js exports
+- [ ] **sound** - ⚠️ WebAudioSoundManager improvements (24% changes); minor updates (0-1%) to other sound classes
+- [ ] **structs** - ⚠️ Add Set.ts to exports in index.ts (new in 4.0). Minor updates to List and ProcessQueue
+- [ ] **time** - ⚠️ Timeline improvements (54% method optimizations); minor updates to COMPLETE_EVENT
+- [ ] **types** - ⚠️ Remove 3 obsolete type definitions (CallCallback, GridAlignConfig, index in actions/) removed in 4.0
+- [ ] **utils** - ⚠️ Utils refactoring: NOOP/NULL reorganized, string helpers restructured. Update GetFirst (55%) and index.ts exports
+- [ ] **create** - ⚠️ Add GenerateTexture and 6 palette definitions (Arne16, C64, CGA, JMP, MSX) new in 4.0
+
+### ⚠️ Needs Reconversion (12 namespaces - Major Architectural Changes)
+
+These namespaces have significant architectural changes in Phaser 4.0 and need to be fully reconverted from the original source:
+
+- [ ] **cameras** - 🔴 Major changes: New filter system (internal/external), removed PostPipeline mixin, simplified effect rendering, references to Phaser 4.0.0
+- [ ] **core** - 🔴 Major architectural changes: Removed Facebook Instant Games support, eliminated pipeline config (defaultPipeline, autoMobilePipeline), unified imports to require
+- [ ] **display** - 🔴 Major changes: BaseShader API replaced (fragment/vertex/uniforms -> glsl+metadata), GeometryMask WebGL features removed, ColorMatrix expanded
+- [ ] **filters** - 🔴 New namespace in 3.90.0. Not present in original_src/src; needs full conversion to TS
+- [ ] **fx** - 🔴 Completely removed in 4.0. Replaced by filters namespace. All 17 FX files must be deleted
+- [ ] **gameobjects** - 🔴 Massive changes: new/removed files and 100+ significant modifications. Requires full reconversion
+- [ ] **loader** - 🔴 Major changes: LoaderPlugin heavily modified, new OBJFile type added, GLSLFile and CompressedTextureFile updated
+- [ ] **physics** - 🔴 Arcade & Matter physics heavily modified: World 96% rewritten, Matter Body 82%, MatterImage/Sprite 87%. Significant internal changes
+- [ ] **renderer** - 🔴 Complete rewrite for 4.0: 186 files removed (old renderNodes), 100 new files (new pipeline/FX architecture). WebGLRenderer 76% rewritten, shaders 75-96% changed
+- [ ] **textures** - 🔴 Major texture system rewrite: TextureManager 96% rewritten, Texture/DynamicTexture/TextureSource 76-79% changed. Removed DynamicTextureCommands and const-wrap
+- [ ] **tilemaps** - 🔴 Complete tilemap rewrite: Tile 98%, Tilemap 92%, TilemapLayerWebGLRenderer 92% rewritten. Removed TilemapGPULayer system
+- [ ] **tweens** - 🔴 TweenManager 93% rewritten; TweenBuilder 21% changes. Significant internal implementation changes require careful reconversion
+
+---
+
+## �📊 TypeScript Conversion Progress
 
 ### Global Summary
 ![71%](https://progress-bar.xyz/71)

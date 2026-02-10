@@ -14,7 +14,9 @@
     "validate-imports": "bun scripts/validate-imports-smart.ts",
     "detect-cycles": "bun scripts/detect-cycles.ts",
     "diff": "bun scripts/compare-src-versions.ts",
-    "diff:folder": "bun scripts/compare-src-versions-folder.ts"
+    "diff:folder": "bun scripts/compare-src-versions-folder.ts",
+    "review": "bun scripts/namespace-review-tracker.ts",
+    "review:stats": "bun scripts/namespace-review-tracker.ts --stats"
   },
   "devDependencies": {
     "@types/node": "^22.15.21",
