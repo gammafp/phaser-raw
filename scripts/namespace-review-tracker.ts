@@ -79,10 +79,10 @@ export const namespaceDB: NamespaceInfo[] = [
     },
     {
         name: 'create',
-        status: ReviewStatus.NEEDS_PATCH,
-        notes: 'Add GenerateTexture.ts and 6 palette definitions (Arne16, C64, CGA, JMP, MSX, index.ts) new in 4.0. No structural changes.',
-        filesChanged: 8,
-        percentChanged: 20,
+        status: ReviewStatus.DEPRECATED,
+        notes: 'REMOVED in 4.0 - Namespace existed in 3.90 (GenerateTexture + 5 palettes: Arne16, C64, CGA, JMP, MSX) but was completely removed in 4.0. Do not convert. Delete from TS conversion if present.',
+        filesChanged: 0,
+        percentChanged: 0,
         lastReviewed: '2026-02-10'
     },
     {
@@ -136,7 +136,7 @@ export const namespaceDB: NamespaceInfo[] = [
     {
         name: 'filters',
         status: ReviewStatus.DEPRECATED,
-        notes: 'New namespace in 3.90.0. Not present in original_src/src; needs full conversion to TS.',
+        notes: 'New namespace in 4.0.0, replacing the old "fx" namespace from 3.90. Contains 23 filter effects (Blur, Glow, Shadow, Barrel, Bokeh, etc.) managed via Camera.filters.internal/external FilterList. Full conversion to TS required.',
         filesChanged: 23,
         percentChanged: 100,
         lastReviewed: '2026-02-10'
@@ -176,9 +176,9 @@ export const namespaceDB: NamespaceInfo[] = [
     {
         name: 'loader',
         status: ReviewStatus.DEPRECATED,
-        notes: 'Major changes: LoaderPlugin heavily modified, new OBJFile type added, GLSLFile and CompressedTextureFile updated.',
+        notes: 'Major changes: LoaderPlugin 99% rewritten (1283 lines changed, CustomSet removed), OBJFile support removed in 4.0, GLSLFile API changed (shaderType param removed), CompressedTextureFile updated with better validation.',
         filesChanged: 7,
-        percentChanged: 50,
+        percentChanged: 99,
         lastReviewed: '2026-02-10'
     },
     {
