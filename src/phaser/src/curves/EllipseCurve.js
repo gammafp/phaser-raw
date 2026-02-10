@@ -4,14 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { DegToRad } from '../math/DegToRad';
+import { RadToDeg } from '../math/RadToDeg';
+import { Vector2 } from '../math/Vector2';
+
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
 
 var Class = require('../utils/Class');
 var Curve = require('./Curve');
-var DegToRad = require('../math/DegToRad');
 var GetValue = require('../utils/object/GetValue');
-var RadToDeg = require('../math/RadToDeg');
-var Vector2 = require('../math/Vector2');
 
 /**
  * @classdesc

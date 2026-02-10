@@ -4,13 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var CircleContains = require('../../geom/circle/Contains');
+import { Contains as CircleContains } from '../../geom/circle/Contains';
+import { Contains as RectangleContains } from '../../geom/rectangle/Contains';
+
+import { Vector2 } from '../../math/Vector2';
+
 var Class = require('../../utils/Class');
 var CollisionComponent = require('./components/Collision');
 var CONST = require('./const');
-var RectangleContains = require('../../geom/rectangle/Contains');
 var SetCollisionObject = require('./SetCollisionObject');
-var Vector2 = require('../../math/Vector2');
 
 /**
  * @classdesc

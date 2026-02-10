@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Clamp = require('../math/Clamp');
+import { Clamp } from '../math/Clamp';
+
 var Class = require('../utils/Class');
 var Events = require('./events');
 var GetFastValue = require('../utils/object/GetFastValue');

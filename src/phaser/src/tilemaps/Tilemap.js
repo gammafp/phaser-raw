@@ -4,15 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { DegToRad } from '../math/DegToRad';
+import { Rotate } from '../math/Rotate';
+
 var BuildTilesetIndex = require('./parsers/tiled/BuildTilesetIndex');
 var Class = require('../utils/Class');
-var DegToRad = require('../math/DegToRad');
 var Formats = require('./Formats');
 var GetFastValue = require('../utils/object/GetFastValue');
 var LayerData = require('./mapdata/LayerData');
 var ObjectHelper = require('./ObjectHelper');
 var ORIENTATION = require('./const/ORIENTATION_CONST');
-var Rotate = require('../math/Rotate');
 var SpliceOne = require('../utils/array/SpliceOne');
 var Sprite = require('../gameobjects/sprite/Sprite');
 var Tile = require('./Tile');

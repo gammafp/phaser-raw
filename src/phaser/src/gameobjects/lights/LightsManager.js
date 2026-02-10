@@ -4,9 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var CircleToRectangle = require('../../geom/intersects/CircleToRectangle');
+import { CircleToRectangle } from '../../geom/intersects/CircleToRectangle';
+
+import { DistanceBetween } from '../../math/distance/DistanceBetween';
+
 var Class = require('../../utils/Class');
-var DistanceBetween = require('../../math/distance/DistanceBetween');
 var Light = require('./Light');
 var PointLight = require('../pointlight/PointLight');
 var RGB = require('../../display/RGB');

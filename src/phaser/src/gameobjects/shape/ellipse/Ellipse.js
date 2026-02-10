@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Earcut } from '../../../geom/polygon/Earcut';
+import { Ellipse as GeomEllipse } from '../../../geom/ellipse/Ellipse';
+
 var Class = require('../../../utils/Class');
-var Earcut = require('../../../geom/polygon/Earcut');
 var EllipseRender = require('./EllipseRender');
-var GeomEllipse = require('../../../geom/ellipse/Ellipse');
 var Shape = require('../Shape');
 
 /**

@@ -4,15 +4,17 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+import { Contains as RectangleContains } from '../../geom/rectangle/Contains';
+
+import { RadToDeg } from '../../math/RadToDeg';
+import { Vector2 } from '../../math/Vector2';
+
 var Class = require('../../utils/Class');
 var CollisionComponent = require('./components/Collision');
 var CONST = require('./const');
 var Events = require('./events');
-var RadToDeg = require('../../math/RadToDeg');
-var Rectangle = require('../../geom/rectangle/Rectangle');
-var RectangleContains = require('../../geom/rectangle/Contains');
 var SetCollisionObject = require('./SetCollisionObject');
-var Vector2 = require('../../math/Vector2');
 
 /**
  * @classdesc

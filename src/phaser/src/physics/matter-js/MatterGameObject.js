@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
+
 var Components = require('./components');
 var GetFastValue = require('../../utils/object/GetFastValue');
-var Vector2 = require('../../math/Vector2');
 
 /**
  * Internal function to check if the object has a getter or setter.

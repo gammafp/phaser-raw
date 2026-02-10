@@ -4,11 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Contains as RectangleContains } from '../../geom/rectangle/Contains';
+
 var Camera = require('./Camera');
 var Class = require('../../utils/Class');
 var GetFastValue = require('../../utils/object/GetFastValue');
 var PluginCache = require('../../plugins/PluginCache');
-var RectangleContains = require('../../geom/rectangle/Contains');
 var ScaleEvents = require('../../scale/events');
 var SceneEvents = require('../../scene/events');
 

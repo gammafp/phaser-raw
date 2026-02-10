@@ -4,11 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Clamp } from '../math/Clamp';
+import { IsSizePowerOfTwo } from '../math/pow2/IsSizePowerOfTwo';
+
 var Class = require('../utils/Class');
-var Clamp = require('../math/Clamp');
 var Color = require('../display/color/Color');
 var CONST = require('../const');
-var IsSizePowerOfTwo = require('../math/pow2/IsSizePowerOfTwo');
 var Texture = require('./Texture');
 
 /**

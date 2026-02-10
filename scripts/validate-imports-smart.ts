@@ -1,5 +1,5 @@
-import { readdir, readFile } from "node:fs/promises";
-import { join, relative, sep } from "node:path";
+import { readdir, readFile, writeFile } from "node:fs/promises";
+import { join, relative } from "node:path";
 
 type ImportError = {
   file: string;
@@ -9,6 +9,12 @@ type ImportError = {
 };
 
 const TARGET_ROOT = join("src", "phaser", "src");
+
+// Extract variable name and path from a require line: "var Clamp = require('../math/Clamp');"
+function parseRequireLine(content: string): { varName: string; path: string } | null {
+  const m = content.match(/(?:var|let|const)\s+(\w+)\s*=\s*require\s*\(\s*['"]([^'"]+)['"]\s*\)/);
+  return m ? { varName: m[1], path: m[2] } : null;
+}
 
 // Find all .ts files (these are converted modules)
 const findTsFiles = async (dir: string, tsFiles: Set<string>): Promise<void> => {
@@ -67,12 +73,13 @@ const checkJsFiles = async (dir: string, tsFiles: Set<string>, errors: ImportErr
           // Resolve relative path from current file to absolute module path
           const fileDir = relative(TARGET_ROOT, join(fullPath, '..'));
           const resolvedPath = join(fileDir, requiredPath).replace(/\\/g, '/');
+          const resolvedPathNoExt = resolvedPath.replace(/\.(js|ts)$/, '');
           
-          // Check if this required module exists as .ts
-          if (tsFiles.has(resolvedPath)) {
+          // Check if this required module exists as .ts (with or without .js in require)
+          if (tsFiles.has(resolvedPath) || tsFiles.has(resolvedPathNoExt)) {
             errors.push({
               file: relative(TARGET_ROOT, fullPath),
-              module: resolvedPath,
+              module: resolvedPathNoExt,
               line: index + 1,
               content: line.trim()
             });
@@ -137,15 +144,55 @@ const main = async () => {
     console.log("");
   }
 
+  const doFix = process.argv.includes("--fix");
+  if (doFix) {
+    console.log("\n🔧 Applying --fix: replacing only the require() that point to TS modules with import...\n");
+    for (const [file, fileErrors] of byFile) {
+      const fullPath = join(TARGET_ROOT, file);
+      const content = await readFile(fullPath, "utf-8");
+      const lines = content.split("\n");
+      const linesToRemove = new Set(fileErrors.map((e) => e.line - 1));
+      const seen = new Set<string>();
+      const imports: string[] = [];
+      for (const err of fileErrors) {
+        const parsed = parseRequireLine(err.content);
+        if (!parsed) continue;
+        const key = `${parsed.path}\0${parsed.varName}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        const pathForImport = parsed.path.replace(/\.js$/, "");
+        const exportName = pathForImport.replace(/^.*\//, "");
+        if (parsed.varName === exportName) {
+          imports.push(`import { ${exportName} } from '${pathForImport}';`);
+        } else {
+          imports.push(`import { ${exportName} as ${parsed.varName} } from '${pathForImport}';`);
+        }
+      }
+      const newLines = lines.filter((_, i) => !linesToRemove.has(i));
+      let insertAt = 0;
+      for (let i = 0; i < newLines.length; i++) {
+        if (newLines[i].trim().endsWith("*/")) {
+          insertAt = i + 1;
+          while (insertAt < newLines.length && newLines[insertAt].trim() === "") insertAt++;
+          break;
+        }
+      }
+      const before = newLines.slice(0, insertAt);
+      const after = newLines.slice(insertAt);
+      const out = [...before, ...imports, "", ...after].join("\n");
+      await writeFile(fullPath, out);
+      console.log(`   Fixed ${file}`);
+    }
+    console.log("\n✅ Fix applied. Run validate-imports again to verify.\n");
+    process.exitCode = 0;
+    return;
+  }
+
   console.log("─".repeat(64));
   console.log("\n💡 HOW TO FIX:");
-  console.log("   These files are using require() for TypeScript modules.");
-  console.log("   TypeScript modules use named exports, so require() doesn't work.");
-  console.log("\n   Fix each file by:");
-  console.log("   1. Add: // TODO: Convert this file to TypeScript");
-  console.log("   2. Replace: var X = require('path')");
-  console.log("   3. With: import { X } from 'path'");
-  console.log("\n" + "═".repeat(64));
+  console.log("   Run: bun run validate-imports -- --fix");
+  console.log("   to replace only the require() that point to TS modules with import.\n");
+  console.log("═".repeat(64));
   console.log(`\n❌ BUILD FAILED: ${errors.length} errors in ${byFile.size} files\n`);
   
   process.exitCode = 1;

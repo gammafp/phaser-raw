@@ -1,0 +1,22 @@
+/**
+ * @author       Richard Davey <rich@phaser.io>
+ * @copyright    2013-2025 Phaser Studio Inc.
+ * @license      {@link https://opensource.org/licenses/MIT|MIT License}
+ */
+
+import { Circle } from './Circle';
+
+/**
+ * Creates a new Circle instance based on the values contained in the given source.
+ *
+ * @function Phaser.Geom.Circle.Clone
+ * @since 3.0.0
+ *
+ * @param {(Phaser.Geom.Circle|object)} source - The Circle to be cloned. Can be an instance of a Circle or a circle-like object, with x, y and radius properties.
+ *
+ * @return {Phaser.Geom.Circle} A clone of the source Circle.
+ */
+export const Clone = (source: any): any =>
+{
+    return new Circle(source.x, source.y, source.radius);
+};

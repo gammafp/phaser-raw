@@ -4,12 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { CatmullRom } from '../math/CatmullRom';
+import { Vector2 } from '../math/Vector2';
+
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
 
-var CatmullRom = require('../math/CatmullRom');
 var Class = require('../utils/Class');
 var Curve = require('./Curve');
-var Vector2 = require('../math/Vector2');
 
 /**
  * @classdesc

@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var MarchingAnts = require('../geom/rectangle/MarchingAnts');
+import { MarchingAnts } from '../geom/rectangle/MarchingAnts';
+
 var RotateLeft = require('../utils/array/RotateLeft');
 var RotateRight = require('../utils/array/RotateRight');
 

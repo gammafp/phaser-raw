@@ -4,14 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Circle } from '../../geom/circle/Circle';
+import { Contains as CircleContains } from '../../geom/circle/Contains';
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+import { Contains as RectangleContains } from '../../geom/rectangle/Contains';
+
 var BlendModes = require('../../renderer/BlendModes');
-var Circle = require('../../geom/circle/Circle');
-var CircleContains = require('../../geom/circle/Contains');
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
-var Rectangle = require('../../geom/rectangle/Rectangle');
-var RectangleContains = require('../../geom/rectangle/Contains');
 
 /**
  * @classdesc

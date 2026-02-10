@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
+
 var WorldToTileXY = require('./WorldToTileXY');
-var Vector2 = require('../../math/Vector2');
 
 var tempVec = new Vector2();
 

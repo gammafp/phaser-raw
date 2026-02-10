@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var DegToRad = require('../../../math/DegToRad');
+import { DegToRad } from '../../../math/DegToRad';
+
 var FillStyleCanvas = require('../FillStyleCanvas');
 var LineStyleCanvas = require('../LineStyleCanvas');
 var SetTransform = require('../../../renderer/canvas/utils/SetTransform');

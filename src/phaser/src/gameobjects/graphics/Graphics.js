@@ -4,16 +4,18 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Ellipse } from '../../geom/ellipse/Ellipse';
+
+import { MATH_CONST } from '../../math/const';
+
 var BaseCamera = require('../../cameras/2d/BaseCamera');
 var Class = require('../../utils/Class');
 var Commands = require('./Commands');
 var Components = require('../components');
-var Ellipse = require('../../geom/ellipse/Ellipse');
 var GameObject = require('../GameObject');
 var DefaultGraphicsNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultGraphicsNodes.js');
 var GetFastValue = require('../../utils/object/GetFastValue');
 var GetValue = require('../../utils/object/GetValue');
-var MATH_CONST = require('../../math/const');
 var Render = require('./GraphicsRender');
 
 /**

@@ -4,13 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Earcut } from '../../../geom/polygon/Earcut';
+import { GetAABB } from '../../../geom/polygon/GetAABB';
+import { Polygon as GeomPolygon } from '../../../geom/polygon/Polygon';
+import { Smooth } from '../../../geom/polygon/Smooth';
+
 var PolygonRender = require('./PolygonRender');
 var Class = require('../../../utils/Class');
-var Earcut = require('../../../geom/polygon/Earcut');
-var GetAABB = require('../../../geom/polygon/GetAABB');
-var GeomPolygon = require('../../../geom/polygon/Polygon');
 var Shape = require('../Shape');
-var Smooth = require('../../../geom/polygon/Smooth');
 
 /**
  * @classdesc

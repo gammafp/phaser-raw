@@ -4,6 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+
+import { Vector2 } from '../../math/Vector2';
+import { MATH_CONST } from '../../math/const';
+
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
 
 var Class = require('../../utils/Class');
@@ -13,10 +18,7 @@ var GameObjectFactory = require('../../gameobjects/GameObjectFactory');
 var LineCurve = require('../LineCurve');
 var MovePathTo = require('./MoveTo');
 var QuadraticBezierCurve = require('../QuadraticBezierCurve');
-var Rectangle = require('../../geom/rectangle/Rectangle');
 var SplineCurve = require('../SplineCurve');
-var Vector2 = require('../../math/Vector2');
-var MATH_CONST = require('../../math/const');
 
 /**
  * @classdesc

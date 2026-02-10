@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { SnapFloor } from '../../math/snap/SnapFloor';
+
 var Class = require('../../utils/Class');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
@@ -16,7 +18,6 @@ var KeyCodes = require('./keys/KeyCodes');
 var KeyCombo = require('./combo/KeyCombo');
 var KeyMap = require('./keys/KeyMap');
 var SceneEvents = require('../../scene/events');
-var SnapFloor = require('../../math/snap/SnapFloor');
 
 /**
  * @classdesc

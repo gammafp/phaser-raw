@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { MATH_CONST } from '../math/const';
+
 var Animation = require('./Animation');
 var Class = require('../utils/Class');
 var CustomMap = require('../structs/Map');
@@ -12,7 +14,6 @@ var Events = require('./events');
 var GameEvents = require('../core/events');
 var GetFastValue = require('../utils/object/GetFastValue');
 var GetValue = require('../utils/object/GetValue');
-var MATH_CONST = require('../math/const');
 var NumberArray = require('../utils/array/NumberArray');
 var Pad = require('../utils/string/Pad');
 

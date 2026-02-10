@@ -1,7 +1,4 @@
 var OverlapRect = require('./OverlapRect');
-var Circle = require('../../../geom/circle/Circle');
-var CircleToCircle = require('../../../geom/intersects/CircleToCircle');
-var CircleToRectangle = require('../../../geom/intersects/CircleToRectangle');
 
 /**
  * This method will search the given circular area and return an array of all physics bodies that
@@ -24,6 +21,10 @@ var CircleToRectangle = require('../../../geom/intersects/CircleToRectangle');
  *
  * @return {(Phaser.Physics.Arcade.Body[]|Phaser.Physics.Arcade.StaticBody[])} An array of bodies that overlap with the given area.
  */
+import { Circle } from '../../../geom/circle/Circle';
+import { CircleToCircle } from '../../../geom/intersects/CircleToCircle';
+import { CircleToRectangle } from '../../../geom/intersects/CircleToRectangle';
+
 var OverlapCirc = function (world, x, y, radius, includeDynamic, includeStatic)
 {
     var bodiesInRect = OverlapRect(world, x - radius, y - radius, 2 * radius, 2 * radius, includeDynamic, includeStatic);

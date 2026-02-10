@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { DistanceBetween } from '../../math/distance/DistanceBetween';
+
 var ALIGN_CONST = require('../../display/align/const');
 var Axes = require('./lib/geometry/Axes');
 var Bodies = require('./lib/factory/Bodies');
@@ -17,7 +19,6 @@ var Composite = require('./lib/body/Composite');
 var Composites = require('./lib/factory/Composites');
 var Constraint = require('./lib/constraint/Constraint');
 var Detector = require('./lib/collision/Detector');
-var DistanceBetween = require('../../math/distance/DistanceBetween');
 var Factory = require('./Factory');
 var GetFastValue = require('../../utils/object/GetFastValue');
 var GetValue = require('../../utils/object/GetValue');

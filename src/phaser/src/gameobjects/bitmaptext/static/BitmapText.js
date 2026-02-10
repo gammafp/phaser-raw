@@ -4,15 +4,17 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Rectangle } from '../../../geom/rectangle/Rectangle';
+
+import { Clamp } from '../../../math/Clamp';
+
 var DefaultBitmapTextNodes = require('../../../renderer/webgl/renderNodes/defaults/DefaultBitmapTextNodes');
 var Class = require('../../../utils/Class');
-var Clamp = require('../../../math/Clamp');
 var Components = require('../../components');
 var GameObject = require('../../GameObject');
 var GetBitmapTextSize = require('../GetBitmapTextSize');
 var ParseFromAtlas = require('../ParseFromAtlas');
 var ParseXMLBitmapFont = require('../ParseXMLBitmapFont');
-var Rectangle = require('../../../geom/rectangle/Rectangle');
 var Render = require('./BitmapTextRender');
 var TintModes = require('../../../renderer/TintModes');
 

@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Clamp } from '../../math/Clamp';
+
 var BaseTweenData = require('./BaseTweenData');
-var Clamp = require('../../math/Clamp');
 var Class = require('../../utils/Class');
 var Events = require('../events');
 

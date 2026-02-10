@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var RectangleToRectangle = require('../../geom/intersects/RectangleToRectangle');
+import { RectangleToRectangle } from '../../geom/intersects/RectangleToRectangle';
+
 var TransformMatrix = require('../components/TransformMatrix');
 var Utils = require('../../renderer/webgl/Utils');
 

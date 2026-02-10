@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Earcut } from '../../../geom/polygon/Earcut';
+
 var StarRender = require('./StarRender');
 var Class = require('../../../utils/Class');
-var Earcut = require('../../../geom/polygon/Earcut');
 var Shape = require('../Shape');
 
 /**

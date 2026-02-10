@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
+
 var AnimationState = require('../../animations/AnimationState');
 var CanvasPool = require('../../display/canvas/CanvasPool');
 var DefaultTileSpriteNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultTileSpriteNodes');
@@ -13,7 +15,6 @@ var GameObject = require('../GameObject');
 var Smoothing = require('../../display/canvas/Smoothing');
 var TileSpriteRender = require('./TileSpriteRender');
 var UUID = require('../../utils/string/UUID');
-var Vector2 = require('../../math/Vector2');
 
 //  bitmask flag for GameObject.renderMask
 var _FLAG = 8; // 1000

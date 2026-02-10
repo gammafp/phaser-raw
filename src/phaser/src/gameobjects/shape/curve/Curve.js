@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Earcut } from '../../../geom/polygon/Earcut';
+import { Rectangle } from '../../../geom/rectangle/Rectangle';
+
 var Class = require('../../../utils/Class');
 var CurveRender = require('./CurveRender');
-var Earcut = require('../../../geom/polygon/Earcut');
-var Rectangle = require('../../../geom/rectangle/Rectangle');
 var Shape = require('../Shape');
 
 /**

@@ -1,4 +1,3 @@
-var Rectangle = require('../geom/rectangle/Rectangle');
 var GetFastValue = require('../utils/object/GetFastValue');
 
 /**
@@ -36,6 +35,8 @@ var GetFastValue = require('../utils/object/GetFastValue');
  *
  * @returns {Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Transform} - The item that was fitted.
  */
+import { Rectangle } from '../geom/rectangle/Rectangle';
+
 var FitToRegion = function (item, scaleMode, region, itemCoverage)
 {
     if (scaleMode === undefined) { scaleMode = 0; }

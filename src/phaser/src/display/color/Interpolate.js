@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Linear = require('../../math/Linear');
+import { Linear } from '../../math/Linear';
+
 var GetColor = require('./GetColor');
 
 /**

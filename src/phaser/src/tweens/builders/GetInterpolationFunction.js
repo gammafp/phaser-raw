@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Bezier = require('../../math/interpolation/BezierInterpolation');
-var CatmullRom = require('../../math/interpolation/CatmullRomInterpolation');
-var Linear = require('../../math/interpolation/LinearInterpolation');
+
+import { BezierInterpolation as Bezier } from '../../math/interpolation/BezierInterpolation';
+import { CatmullRomInterpolation as CatmullRom } from '../../math/interpolation/CatmullRomInterpolation';
+import { LinearInterpolation as Linear } from '../../math/interpolation/LinearInterpolation';
 
 var FuncMap = {
     bezier: Bezier,

@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Rectangle = require('../../../../geom/rectangle/Rectangle');
+import { Rectangle } from '../../../../geom/rectangle/Rectangle';
+
 var Class = require('../../../../utils/Class');
 var BlendModes = require('../../../BlendModes');
 var BaseFilter = require('./BaseFilter');

@@ -4,11 +4,12 @@
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Clamp = require('../../../math/Clamp');
+import { Clamp } from '../../../math/Clamp';
+import { EaseMap } from '../../../math/easing/EaseMap';
+import { Wrap as WrapAngle } from '../../../math/angle/Wrap';
+
 var Class = require('../../../utils/Class');
 var Events = require('../events');
-var EaseMap = require('../../../math/easing/EaseMap');
-var WrapAngle = require('../../../math/angle/Wrap');
 
 /**
  * @classdesc

@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Vector2 = require('../../../math/Vector2');
+import { Vector2 } from '../../../math/Vector2';
+
 var Class = require('../../../utils/Class');
 var MakeApplyLighting = require('../shaders/additionMakers/MakeApplyLighting');
 var MakeDefineLights = require('../shaders/additionMakers/MakeDefineLights');

@@ -4,16 +4,18 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { CenterOn } from '../../geom/rectangle/CenterOn';
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+
+import { Clamp } from '../../math/Clamp';
+import { Linear } from '../../math/Linear';
+import { Vector2 } from '../../math/Vector2';
+
 var BaseCamera = require('./BaseCamera');
-var CenterOn = require('../../geom/rectangle/CenterOn');
-var Clamp = require('../../math/Clamp');
 var Class = require('../../utils/Class');
 var FilterList = require('../../gameobjects/components/FilterList');
 var Effects = require('./effects');
 var Events = require('./events');
-var Linear = require('../../math/Linear');
-var Rectangle = require('../../geom/rectangle/Rectangle');
-var Vector2 = require('../../math/Vector2');
 
 /**
  * @classdesc

@@ -4,27 +4,31 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var AngleBetweenPoints = require('../../math/angle/BetweenPoints');
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+
+import { BetweenPoints as AngleBetweenPoints } from '../../math/angle/BetweenPoints';
+import { Clamp } from '../../math/Clamp';
+import { DistanceBetween } from '../../math/distance/DistanceBetween';
+import { DistanceBetweenPoints } from '../../math/distance/DistanceBetweenPoints';
+import { Equal as FuzzyEqual } from '../../math/fuzzy/Equal';
+import { GreaterThan as FuzzyGreaterThan } from '../../math/fuzzy/GreaterThan';
+import { LessThan as FuzzyLessThan } from '../../math/fuzzy/LessThan';
+import { MATH_CONST } from '../../math/const';
+import { Vector2 } from '../../math/Vector2';
+import { Wrap } from '../../math/Wrap';
+
 var Body = require('./Body');
-var Clamp = require('../../math/Clamp');
 var Class = require('../../utils/Class');
 var Collider = require('./Collider');
 var CONST = require('./const');
-var DistanceBetween = require('../../math/distance/DistanceBetween');
-var DistanceBetweenPoints = require('../../math/distance/DistanceBetweenPoints');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
-var FuzzyEqual = require('../../math/fuzzy/Equal');
-var FuzzyGreaterThan = require('../../math/fuzzy/GreaterThan');
-var FuzzyLessThan = require('../../math/fuzzy/LessThan');
 var GetOverlapX = require('./GetOverlapX');
 var GetOverlapY = require('./GetOverlapY');
 var GetTilesWithinWorldXY = require('../../tilemaps/components/GetTilesWithinWorldXY');
 var GetValue = require('../../utils/object/GetValue');
-var MATH_CONST = require('../../math/const');
 var ProcessQueue = require('../../structs/ProcessQueue');
 var ProcessTileCallbacks = require('./tilemap/ProcessTileCallbacks');
-var Rectangle = require('../../geom/rectangle/Rectangle');
 var RTree = require('../../structs/RTree');
 var SeparateTile = require('./tilemap/SeparateTile');
 var SeparateX = require('./SeparateX');
@@ -32,8 +36,6 @@ var SeparateY = require('./SeparateY');
 var StaticBody = require('./StaticBody');
 var TileIntersectsBody = require('./tilemap/TileIntersectsBody');
 var TransformMatrix = require('../../gameobjects/components/TransformMatrix');
-var Vector2 = require('../../math/Vector2');
-var Wrap = require('../../math/Wrap');
 
 /**
  * @classdesc

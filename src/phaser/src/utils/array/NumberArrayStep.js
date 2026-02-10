@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var RoundAwayFromZero = require('../../math/RoundAwayFromZero');
+
+import { RoundAwayFromZero } from '../../math/RoundAwayFromZero';
 
 /**
  * Create an array of numbers (positive and/or negative) progressing from `start`

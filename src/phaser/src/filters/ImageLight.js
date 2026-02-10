@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Matrix4 } from '../math/Matrix4';
+
 var Class = require('../utils/Class');
 var Controller = require('./Controller');
-var Matrix4 = require('../math/Matrix4');
 var TransformMatrix = require('../gameobjects/components/TransformMatrix');
 
 /**

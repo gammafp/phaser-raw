@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
+
 var Bounds = require('./lib/geometry/Bounds');
 var Class = require('../../utils/Class');
 var Composite = require('./lib/body/Composite');
@@ -13,7 +15,6 @@ var Events = require('./events');
 var InputEvents = require('../../input/events');
 var Merge = require('../../utils/object/Merge');
 var Sleeping = require('./lib/core/Sleeping');
-var Vector2 = require('../../math/Vector2');
 var Vertices = require('./lib/geometry/Vertices');
 
 /**

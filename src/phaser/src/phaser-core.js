@@ -4,6 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+
 require('./polyfills/requestVideoFrame');
 
 var CONST = require('./const');
@@ -83,11 +84,6 @@ var Phaser = {
         XHRSettings: require('./loader/XHRSettings')
     },
     Math: {
-        Between: require('./math/Between'),
-        DegToRad: require('./math/DegToRad'),
-        FloatBetween: require('./math/FloatBetween'),
-        RadToDeg: require('./math/RadToDeg'),
-        Vector2: require('./math/Vector2')
     },
     Plugins: require('./plugins'),
     Renderer: require('./renderer'),

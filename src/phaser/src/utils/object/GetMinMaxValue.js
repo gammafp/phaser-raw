@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Clamp } from '../../math/Clamp';
+
 var GetValue = require('./GetValue');
-var Clamp = require('../../math/Clamp');
 
 /**
  * Retrieves and clamps a numerical value from an object.

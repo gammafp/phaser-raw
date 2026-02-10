@@ -4,10 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { FromPoints } from '../geom/rectangle/FromPoints';
+import { Rectangle } from '../geom/rectangle/Rectangle';
+
+import { Vector2 } from '../math/Vector2';
+
 var Class = require('../utils/Class');
-var FromPoints = require('../geom/rectangle/FromPoints');
-var Rectangle = require('../geom/rectangle/Rectangle');
-var Vector2 = require('../math/Vector2');
 
 /**
  * @classdesc

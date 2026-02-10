@@ -4,27 +4,31 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Circle = require('../geom/circle/Circle');
-var CircleContains = require('../geom/circle/Contains');
+import { Circle } from '../geom/circle/Circle';
+import { Contains as CircleContains } from '../geom/circle/Contains';
+import { Ellipse } from '../geom/ellipse/Ellipse';
+import { Contains as EllipseContains } from '../geom/ellipse/Contains';
+
+import { GEOM_CONST } from '../geom/const';
+
+import { Rectangle } from '../geom/rectangle/Rectangle';
+import { Contains as RectangleContains } from '../geom/rectangle/Contains';
+import { Triangle } from '../geom/triangle/Triangle';
+import { Contains as TriangleContains } from '../geom/triangle/Contains';
+
+import { DistanceBetween } from '../math/distance/DistanceBetween';
+
 var Class = require('../utils/Class');
 var CONST = require('./const');
 var CreateInteractiveObject = require('./CreateInteractiveObject');
 var CreatePixelPerfectHandler = require('./CreatePixelPerfectHandler');
-var DistanceBetween = require('../math/distance/DistanceBetween');
-var Ellipse = require('../geom/ellipse/Ellipse');
-var EllipseContains = require('../geom/ellipse/Contains');
 var Events = require('./events');
 var EventEmitter = require('eventemitter3');
 var GetFastValue = require('../utils/object/GetFastValue');
-var GEOM_CONST = require('../geom/const');
 var InputPluginCache = require('./InputPluginCache');
 var IsPlainObject = require('../utils/object/IsPlainObject');
 var PluginCache = require('../plugins/PluginCache');
-var Rectangle = require('../geom/rectangle/Rectangle');
-var RectangleContains = require('../geom/rectangle/Contains');
 var SceneEvents = require('../scene/events');
-var Triangle = require('../geom/triangle/Triangle');
-var TriangleContains = require('../geom/triangle/Contains');
 
 /**
  * @classdesc

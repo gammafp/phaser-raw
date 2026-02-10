@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Matrix4 } from '../math/Matrix4';
+import { Vector3 } from '../math/Vector3';
+
 var Class = require('../utils/Class');
 var Controller = require('./Controller');
-var Matrix4 = require('../math/Matrix4');
-var Vector3 = require('../math/Vector3');
 
 /**
  * @classdesc

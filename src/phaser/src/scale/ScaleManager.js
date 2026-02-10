@@ -4,9 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Rectangle } from '../geom/rectangle/Rectangle';
+
+import { Clamp } from '../math/Clamp';
+import { SnapFloor } from '../math/snap/SnapFloor';
+import { Vector2 } from '../math/Vector2';
+
 var CONST = require('./const');
 var Class = require('../utils/Class');
-var Clamp = require('../math/Clamp');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var GameEvents = require('../core/events');
@@ -14,10 +19,7 @@ var GetInnerHeight = require('../dom/GetInnerHeight');
 var GetTarget = require('../dom/GetTarget');
 var GetScreenOrientation = require('../dom/GetScreenOrientation');
 import { NOOP } from '../utils/NOOP';
-var Rectangle = require('../geom/rectangle/Rectangle');
 var Size = require('../structs/Size');
-var SnapFloor = require('../math/snap/SnapFloor');
-var Vector2 = require('../math/Vector2');
 var Camera = require('../cameras/2d/Camera');
 
 /**

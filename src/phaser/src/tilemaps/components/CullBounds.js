@@ -4,9 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Rectangle = require('../../geom/rectangle/Rectangle');
-var SnapCeil = require('../../math/snap/SnapCeil');
-var SnapFloor = require('../../math/snap/SnapFloor');
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+
+import { SnapCeil } from '../../math/snap/SnapCeil';
+import { SnapFloor } from '../../math/snap/SnapFloor';
+
 
 var bounds = new Rectangle();
 

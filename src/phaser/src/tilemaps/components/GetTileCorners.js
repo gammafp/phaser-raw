@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Vector2 = require('../../math/Vector2');
+
+import { Vector2 } from '../../math/Vector2';
 
 /**
  * Gets the corners of the Tile as an array of Vector2s.

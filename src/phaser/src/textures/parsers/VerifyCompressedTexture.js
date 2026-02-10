@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var IsSizePowerOfTwo = require('../../math/pow2/IsSizePowerOfTwo');
+
+import { IsSizePowerOfTwo } from '../../math/pow2/IsSizePowerOfTwo';
 
 /**
  * Verify whether the given compressed texture data is valid.

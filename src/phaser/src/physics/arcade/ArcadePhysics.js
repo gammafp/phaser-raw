@@ -4,10 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { DegToRad } from '../../math/DegToRad';
+import { DistanceBetween } from '../../math/distance/DistanceBetween';
+import { DistanceSquared } from '../../math/distance/DistanceSquared';
+import { Vector2 } from '../../math/Vector2';
+
 var Class = require('../../utils/Class');
-var DegToRad = require('../../math/DegToRad');
-var DistanceBetween = require('../../math/distance/DistanceBetween');
-var DistanceSquared = require('../../math/distance/DistanceSquared');
 var Factory = require('./Factory');
 var GetFastValue = require('../../utils/object/GetFastValue');
 var Merge = require('../../utils/object/Merge');
@@ -15,7 +17,6 @@ var OverlapCirc = require('./components/OverlapCirc');
 var OverlapRect = require('./components/OverlapRect');
 var PluginCache = require('../../plugins/PluginCache');
 var SceneEvents = require('../../scene/events');
-var Vector2 = require('../../math/Vector2');
 var World = require('./World');
 
 /**

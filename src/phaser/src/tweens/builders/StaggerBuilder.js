@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { MATH_CONST } from '../../math/const';
+
 var GetEaseFunction = require('./GetEaseFunction');
 var GetValue = require('../../utils/object/GetValue');
-var MATH_CONST = require('../../math/const');
 
 /**
  * Creates a Stagger function to be used by a Tween property.

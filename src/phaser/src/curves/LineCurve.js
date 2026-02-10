@@ -4,13 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { FromPoints } from '../geom/rectangle/FromPoints';
+import { Rectangle } from '../geom/rectangle/Rectangle';
+
+import { Vector2 } from '../math/Vector2';
+
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
 
 var Class = require('../utils/Class');
 var Curve = require('./Curve');
-var FromPoints = require('../geom/rectangle/FromPoints');
-var Rectangle = require('../geom/rectangle/Rectangle');
-var Vector2 = require('../math/Vector2');
 
 /**
  * @classdesc

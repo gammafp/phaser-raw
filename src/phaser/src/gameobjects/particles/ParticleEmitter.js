@@ -4,11 +4,19 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { CopyFrom } from '../../geom/rectangle/CopyFrom';
+import { Inflate } from '../../geom/rectangle/Inflate';
+import { MergeRect } from '../../geom/rectangle/MergeRect';
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+import { RectangleToRectangle } from '../../geom/intersects/RectangleToRectangle';
+
+import { Vector2 } from '../../math/Vector2';
+import { Wrap } from '../../math/Wrap';
+
 var DefaultParticleEmitterNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultParticleEmitterNodes');
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var ComponentsToJSON = require('../components/ToJSON');
-var CopyFrom = require('../../geom/rectangle/CopyFrom');
 var DeathZone = require('./zones/DeathZone');
 var EdgeZone = require('./zones/EdgeZone');
 var EmitterColorOp = require('./EmitterColorOp');
@@ -21,22 +29,16 @@ var GravityWell = require('./GravityWell');
 var HasAll = require('../../utils/object/HasAll');
 var HasAny = require('../../utils/object/HasAny');
 var HasValue = require('../../utils/object/HasValue');
-var Inflate = require('../../geom/rectangle/Inflate');
 var List = require('../../structs/List');
-var MergeRect = require('../../geom/rectangle/MergeRect');
 var MergeRight = require('../../utils/object/MergeRight');
 var Particle = require('./Particle');
 var ParticleBounds = require('./ParticleBounds');
 var RandomZone = require('./zones/RandomZone');
-var Rectangle = require('../../geom/rectangle/Rectangle');
-var RectangleToRectangle = require('../../geom/intersects/RectangleToRectangle');
 var Remove = require('../../utils/array/Remove');
 var Render = require('./ParticleEmitterRender');
 var StableSort = require('../../utils/array/StableSort');
 var TintModes = require('../../renderer/TintModes');
 var TransformMatrix = require('../components/TransformMatrix');
-var Vector2 = require('../../math/Vector2');
-var Wrap = require('../../math/Wrap');
 
 /**
  * Names of simple configuration properties.

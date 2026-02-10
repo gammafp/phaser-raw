@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var RotateAroundDistance = require('../math/RotateAroundDistance');
-var DistanceBetween = require('../math/distance/DistanceBetween');
+
+import { RotateAroundDistance } from '../math/RotateAroundDistance';
+import { DistanceBetween } from '../math/distance/DistanceBetween';
 
 /**
  * Rotates each item around the given point by the given angle.

@@ -15,6 +15,6 @@
 module.exports = {
 
     Arcade: require('./arcade'),
-    Matter: require('./matter-js')
+    // Matter: require('./matter-js')
 
 };

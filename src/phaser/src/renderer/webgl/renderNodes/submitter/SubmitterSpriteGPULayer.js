@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../../../math/Vector2';
+
 var TransformMatrix = require('../../../../gameobjects/components/TransformMatrix');
-var Vector2 = require('../../../../math/Vector2');
 var Class = require('../../../../utils/Class');
 var Merge = require('../../../../utils/object/Merge');
 var ProgramManager = require('../../ProgramManager');

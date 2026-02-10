@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Clamp = require('../../../math/Clamp');
+import { Clamp } from '../../../math/Clamp';
+import { Vector2 } from '../../../math/Vector2';
+
 var Class = require('../../../utils/Class');
 var Events = require('../events');
-var Vector2 = require('../../../math/Vector2');
 
 /**
  * @classdesc

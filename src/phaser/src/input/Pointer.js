@@ -4,12 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Angle = require('../math/angle/Between');
+import { Between as Angle } from '../math/angle/Between';
+import { DistanceBetween as Distance } from '../math/distance/DistanceBetween';
+import { Equal as FuzzyEqual } from '../math/fuzzy/Equal';
+import { SmoothStepInterpolation } from '../math/interpolation/SmoothStepInterpolation';
+import { Vector2 } from '../math/Vector2';
+
 var Class = require('../utils/Class');
-var Distance = require('../math/distance/DistanceBetween');
-var FuzzyEqual = require('../math/fuzzy/Equal');
-var SmoothStepInterpolation = require('../math/interpolation/SmoothStepInterpolation');
-var Vector2 = require('../math/Vector2');
 var OS = require('../device/OS');
 
 /**

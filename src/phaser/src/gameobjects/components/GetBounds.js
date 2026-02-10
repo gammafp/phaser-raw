@@ -4,9 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Rectangle = require('../../geom/rectangle/Rectangle');
-var RotateAround = require('../../math/RotateAround');
-var Vector2 = require('../../math/Vector2');
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+
+import { RotateAround } from '../../math/RotateAround';
+import { Vector2 } from '../../math/Vector2';
+
 
 /**
  * Provides methods used for obtaining the bounds of a Game Object.

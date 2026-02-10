@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Clamp = require('../../math/Clamp');
+
+import { Clamp } from '../../math/Clamp';
 
 //  bitmask flag for GameObject.renderMask
 var _FLAG = 2; // 0010

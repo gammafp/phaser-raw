@@ -1,0 +1,22 @@
+/**
+ * @author       Richard Davey <rich@phaser.io>
+ * @copyright    2013-2025 Phaser Studio Inc.
+ * @license      {@link https://opensource.org/licenses/MIT|MIT License}
+ */
+
+import { Triangle } from './Triangle';
+
+/**
+ * Clones a Triangle object.
+ *
+ * @function Phaser.Geom.Triangle.Clone
+ * @since 3.0.0
+ *
+ * @param {Phaser.Geom.Triangle} source - The Triangle to clone.
+ *
+ * @return {Phaser.Geom.Triangle} A new Triangle identical to the given one but separate from it.
+ */
+export const Clone = (source: any): any =>
+{
+    return new Triangle(source.x1, source.y1, source.x2, source.y2, source.x3, source.y3);
+};

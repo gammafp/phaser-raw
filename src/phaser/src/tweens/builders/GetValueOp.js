@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Between = require('../../math/Between');
-var FloatBetween = require('../../math/FloatBetween');
+
+import { Between } from '../../math/Between';
+import { FloatBetween } from '../../math/FloatBetween';
 
 /**
  * @ignore

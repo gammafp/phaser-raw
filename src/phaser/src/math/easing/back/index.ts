@@ -1,0 +1,16 @@
+/**
+ * @author       Richard Davey <rich@phaser.io>
+ * @copyright    2013-2025 Phaser Studio Inc.
+ * @license      {@link https://opensource.org/licenses/MIT|MIT License}
+ */
+
+/**
+ * @namespace Phaser.Math.Easing.Back
+ */
+
+import { In } from './In';
+import { InOut } from './InOut';
+import { Out } from './Out';
+
+export default { In, Out, InOut };
+export { In, InOut, Out };

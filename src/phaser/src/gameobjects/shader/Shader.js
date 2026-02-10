@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
+
 var Camera = require('../../cameras/2d/BaseCamera');
-var Vector2 = require('../../math/Vector2');
 var ShaderQuad = require('../../renderer/webgl/renderNodes/ShaderQuad');
 var DrawingContext = require('../../renderer/webgl/DrawingContext');
 var Class = require('../../utils/Class');

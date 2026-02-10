@@ -4,13 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+
+import { Clamp } from '../../math/Clamp';
+import { DegToRad } from '../../math/DegToRad';
+import { RotateAround } from '../../math/RotateAround';
+import { Vector2 } from '../../math/Vector2';
+
 var AnimationState = require('../../animations/AnimationState');
-var Clamp = require('../../math/Clamp');
 var Class = require('../../utils/Class');
-var DegToRad = require('../../math/DegToRad');
-var Rectangle = require('../../geom/rectangle/Rectangle');
-var RotateAround = require('../../math/RotateAround');
-var Vector2 = require('../../math/Vector2');
 
 /**
  * @classdesc

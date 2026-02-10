@@ -5,14 +5,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { IsSizePowerOfTwo } from '../../math/pow2/IsSizePowerOfTwo';
+import { Matrix4 } from '../../math/Matrix4';
+
 var ArrayEach = require('../../utils/array/Each');
 var ArrayRemove = require('../../utils/array/Remove');
 var Class = require('../../utils/Class');
 var CONST = require('../../const');
 var EventEmitter = require('eventemitter3');
 var Events = require('../events');
-var IsSizePowerOfTwo = require('../../math/pow2/IsSizePowerOfTwo');
-var Matrix4 = require('../../math/Matrix4');
 import { NOOP } from '../../utils/NOOP';
 var DrawingContext = require('./DrawingContext');
 var ScaleEvents = require('../../scale/events');

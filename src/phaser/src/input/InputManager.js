@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { TransformXY } from '../math/TransformXY';
+
 var Class = require('../utils/Class');
 var CONST = require('./const');
 var EventEmitter = require('eventemitter3');
@@ -14,7 +16,6 @@ var Mouse = require('./mouse/MouseManager');
 var Pointer = require('./Pointer');
 var Touch = require('./touch/TouchManager');
 var TransformMatrix = require('../gameobjects/components/TransformMatrix');
-var TransformXY = require('../math/TransformXY');
 
 /**
  * @classdesc

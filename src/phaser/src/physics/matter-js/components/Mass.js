@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../../math/Vector2';
+
 var Body = require('../lib/body/Body');
-var Vector2 = require('../../../math/Vector2');
 
 /**
  * Allows accessing the mass, density, and center of mass of a Matter-enabled Game Object. Should be used as a mixin and not directly.

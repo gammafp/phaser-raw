@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector4 } from '../../math/Vector4';
+
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var DOMElementRender = require('./DOMElementRender');
@@ -11,7 +13,6 @@ var GameObject = require('../GameObject');
 var IsPlainObject = require('../../utils/object/IsPlainObject');
 var RemoveFromDOM = require('../../dom/RemoveFromDOM');
 var SCENE_EVENTS = require('../../scene/events');
-var Vector4 = require('../../math/Vector4');
 
 /**
  * @classdesc

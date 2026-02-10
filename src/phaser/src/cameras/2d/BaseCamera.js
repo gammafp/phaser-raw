@@ -4,16 +4,18 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+
+import { DegToRad } from '../../math/DegToRad';
+import { Vector2 } from '../../math/Vector2';
+
 var Class = require('../../utils/Class');
 var ComponentAlphaSingle = require('../../gameobjects/components/Alpha');
 var ComponentVisible = require('../../gameobjects/components/Visible');
-var DegToRad = require('../../math/DegToRad');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
-var Rectangle = require('../../geom/rectangle/Rectangle');
 var TransformMatrix = require('../../gameobjects/components/TransformMatrix');
 var ValueToColor = require('../../display/color/ValueToColor');
-var Vector2 = require('../../math/Vector2');
 
 /**
  * @classdesc

@@ -4,11 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
+
 var Geom = require('../../geom/');
 var GetTilesWithin = require('./GetTilesWithin');
 var Intersects = require('../../geom/intersects/');
 import { NOOP } from '../../utils/NOOP';
-var Vector2 = require('../../math/Vector2');
 var CONST = require('../const/ORIENTATION_CONST');
 
 var TriangleToRectangle = function (triangle, rect)

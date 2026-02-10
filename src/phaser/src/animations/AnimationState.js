@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Between } from '../math/Between';
+
 var Animation = require('./Animation');
-var Between = require('../math/Between');
 var Class = require('../utils/Class');
 var CustomMap = require('../structs/Map');
 var Events = require('./events');

@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Rectangle } from '../geom/rectangle/Rectangle';
+
 var CanvasPool = require('../display/canvas/CanvasPool');
 var CanvasTexture = require('./CanvasTexture');
 var Class = require('../utils/Class');
@@ -19,7 +21,6 @@ var ImageGameObject = require('../gameobjects/image/Image');
 var IntegerToColor = require('../display/color/IntegerToColor');
 var IsPlainObject = require('../utils/object/IsPlainObject');
 var Parser = require('./parsers');
-var Rectangle = require('../geom/rectangle/Rectangle');
 var Texture = require('./Texture');
 var TileSpriteGameObject = require('../gameobjects/tilesprite/TileSprite');
 

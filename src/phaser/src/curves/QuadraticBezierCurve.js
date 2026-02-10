@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { QuadraticBezierInterpolation } from '../math/interpolation/QuadraticBezierInterpolation';
+import { Vector2 } from '../math/Vector2';
+
 var Class = require('../utils/Class');
 var Curve = require('./Curve');
-var QuadraticBezierInterpolation = require('../math/interpolation/QuadraticBezierInterpolation');
-var Vector2 = require('../math/Vector2');
 
 /**
  * @classdesc

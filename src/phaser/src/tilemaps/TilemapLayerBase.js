@@ -4,12 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../math/Vector2';
+
 var Class = require('../utils/Class');
 var CollisionComponent = require('../physics/arcade/components/Collision');
 var Components = require('../gameobjects/components');
 var GameObject = require('../gameobjects/GameObject');
 var TilemapComponents = require('./components');
-var Vector2 = require('../math/Vector2');
 
 /**
  * @classdesc

@@ -4,11 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+
 var GetBottom = require('./GetBottom');
 var GetLeft = require('./GetLeft');
 var GetRight = require('./GetRight');
 var GetTop = require('./GetTop');
-var Rectangle = require('../../geom/rectangle/Rectangle');
 
 /**
  * Returns the unrotated bounds of the Game Object as a rectangle.

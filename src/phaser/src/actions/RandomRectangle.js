@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Random = require('../geom/rectangle/Random');
+
+import { Random } from '../geom/rectangle/Random';
 
 /**
  * Takes an array of Game Objects and positions them at random locations within the Rectangle.

@@ -4,14 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Clamp = require('../../math/Clamp');
+import { Clamp } from '../../math/Clamp';
+import { MATH_CONST } from '../../math/const';
+
 var DefaultImageNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultImageNodes');
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var Events = require('../events');
 var GameEvents = require('../../core/events/');
 var GameObject = require('../GameObject');
-var MATH_CONST = require('../../math/const');
 var SoundEvents = require('../../sound/events/');
 var UUID = require('../../utils/string/UUID');
 var VideoRender = require('./VideoRender');

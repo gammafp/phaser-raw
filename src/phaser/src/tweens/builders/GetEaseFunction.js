@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var EaseMap = require('../../math/easing/EaseMap');
+import { EaseMap } from '../../math/easing/EaseMap';
+
 var UppercaseFirst = require('../../utils/string/UppercaseFirst');
 
 /**

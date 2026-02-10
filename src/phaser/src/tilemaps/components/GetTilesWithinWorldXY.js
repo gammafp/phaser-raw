@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Vector2 } from '../../math/Vector2';
+
 var GetTilesWithin = require('./GetTilesWithin');
-var Vector2 = require('../../math/Vector2');
 
 var pointStart = new Vector2();
 var pointEnd = new Vector2();

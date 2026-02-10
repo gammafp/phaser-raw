@@ -1,21 +1,21 @@
 #!/usr/bin/env bun
 
 /**
- * Script para comparar archivos originales con los convertidos
- * Detecta archivos perdidos, modificados o que no deberían existir
+ * Script de conciliación: compara src/phaser/src (nuestro árbol) con original_src/src_v4 (referencia v4).
+ * Detecta si hemos perdido algún archivo (existe en v4 y no lo tenemos) o tenemos de más.
  */
 
 import * as fs from 'fs';
 import * as path from 'path';
 
-const ORIGINAL_BASE = 'original_src/src';
-const CURRENT_BASE = 'src/phaser/src';
+const REFERENCE_BASE = 'original_src/src_v4';   // referencia v4
+const CURRENT_BASE = 'src/phaser/src';           // nuestro árbol a comprobar
 
 interface ComparisonResult {
-    missing: string[];           // Archivos que existen en original pero no en current (.js faltantes)
-    converted: string[];         // Archivos .js que se convirtieron a .ts
-    extra: string[];             // Archivos en current que no están en original
-    missingAndNotConverted: string[]; // Archivos .js faltantes que NO tienen .ts equivalente
+    missing: string[];           // En v4 pero no en nuestro árbol
+    converted: string[];         // En v4 como .js, nosotros tenemos .ts
+    extra: string[];             // En nuestro árbol pero no en v4
+    missingAndNotConverted: string[]; // En v4, no los tenemos (ni .js ni .ts)
 }
 
 function getAllFiles(dir: string, baseDir: string = dir): string[] {
@@ -44,17 +44,17 @@ function getAllFiles(dir: string, baseDir: string = dir): string[] {
 
 function compareDirectories(): ComparisonResult {
     console.log('╔══════════════════════════════════════════════════════════════╗');
-    console.log('║         COMPARISON: ORIGINAL vs CURRENT FILES               ║');
+    console.log('║   CONCILIACIÓN: src/phaser/src vs original_src/src_v4       ║');
     console.log('╚══════════════════════════════════════════════════════════════╝\n');
 
-    console.log(`📂 Original: ${ORIGINAL_BASE}`);
-    console.log(`📂 Current:  ${CURRENT_BASE}\n`);
+    console.log(`📂 Referencia v4:  ${REFERENCE_BASE}`);
+    console.log(`📂 Nuestro árbol:  ${CURRENT_BASE}\n`);
 
-    const originalFiles = getAllFiles(ORIGINAL_BASE);
+    const referenceFiles = getAllFiles(REFERENCE_BASE);
     const currentFiles = getAllFiles(CURRENT_BASE);
 
-    console.log(`📊 Original files: ${originalFiles.length}`);
-    console.log(`📊 Current files:  ${currentFiles.length}\n`);
+    console.log(`📊 Archivos en referencia (v4): ${referenceFiles.length}`);
+    console.log(`📊 Archivos en nuestro árbol:  ${currentFiles.length}\n`);
 
     const result: ComparisonResult = {
         missing: [],
@@ -63,40 +63,35 @@ function compareDirectories(): ComparisonResult {
         missingAndNotConverted: []
     };
 
-    // Normalizar rutas
-    const originalSet = new Set(originalFiles.map(f => f.replace(/\\/g, '/')));
+    const referenceSet = new Set(referenceFiles.map(f => f.replace(/\\/g, '/')));
     const currentSet = new Set(currentFiles.map(f => f.replace(/\\/g, '/')));
 
-    // 1. Buscar archivos faltantes
-    for (const originalFile of originalSet) {
-        if (!currentSet.has(originalFile)) {
-            // Verificar si se convirtió a .ts
-            if (originalFile.endsWith('.js')) {
-                const tsVersion = originalFile.replace(/\.js$/, '.ts');
-                
+    // 1. Archivos que están en v4 pero no los tenemos (perdidos o no convertidos)
+    for (const refFile of referenceSet) {
+        if (!currentSet.has(refFile)) {
+            if (refFile.endsWith('.js')) {
+                const tsVersion = refFile.replace(/\.js$/, '.ts');
                 if (currentSet.has(tsVersion)) {
-                    result.converted.push(originalFile);
+                    result.converted.push(refFile);
                 } else {
-                    result.missing.push(originalFile);
-                    result.missingAndNotConverted.push(originalFile);
+                    result.missing.push(refFile);
+                    result.missingAndNotConverted.push(refFile);
                 }
             } else {
-                result.missing.push(originalFile);
+                result.missing.push(refFile);
+                result.missingAndNotConverted.push(refFile);
             }
         }
     }
 
-    // 2. Buscar archivos extra (que no estaban en original)
+    // 2. Archivos que tenemos y no están en v4 (extra)
     for (const currentFile of currentSet) {
-        // Si es .ts, verificar si existe .js en original
         if (currentFile.endsWith('.ts')) {
             const jsVersion = currentFile.replace(/\.ts$/, '.js');
-            
-            if (!originalSet.has(jsVersion) && !originalSet.has(currentFile)) {
-                // Es un archivo .ts nuevo (no conversión de .js existente)
+            if (!referenceSet.has(jsVersion) && !referenceSet.has(currentFile)) {
                 result.extra.push(currentFile);
             }
-        } else if (!originalSet.has(currentFile)) {
+        } else if (!referenceSet.has(currentFile)) {
             result.extra.push(currentFile);
         }
     }
@@ -107,9 +102,9 @@ function compareDirectories(): ComparisonResult {
 function printResults(result: ComparisonResult) {
     console.log('════════════════════════════════════════════════════════════════\n');
 
-    // Archivos convertidos
+    // Tenemos el .ts equivalente al .js de v4
     if (result.converted.length > 0) {
-        console.log(`✅ CONVERTED TO TYPESCRIPT (${result.converted.length} files)`);
+        console.log(`✅ TENEMOS .TS EQUIVALENTE (${result.converted.length} files)`);
         console.log('────────────────────────────────────────────────────────────────');
         
         // Agrupar por carpeta
@@ -133,10 +128,9 @@ function printResults(result: ComparisonResult) {
 
     // Archivos perdidos (CRÍTICO)
     if (result.missingAndNotConverted.length > 0) {
-        console.log(`❌ MISSING FILES - NOT CONVERTED (${result.missingAndNotConverted.length} files)`);
+        console.log(`❌ FALTAN (están en v4, no los tenemos) (${result.missingAndNotConverted.length} files)`);
         console.log('────────────────────────────────────────────────────────────────');
-        console.log('⚠️  These files exist in original but are missing in current:');
-        console.log('⚠️  They were NOT converted to .ts\n');
+        console.log('⚠️  Existen en original_src/src_v4 pero NO en src/phaser/src:\n');
         
         for (const file of result.missingAndNotConverted.slice(0, 20)) {
             console.log(`  ❌ ${file}`);
@@ -148,11 +142,11 @@ function printResults(result: ComparisonResult) {
         console.log('');
     }
 
-    // Archivos nuevos
+    // Archivos que tenemos y no están en v4
     if (result.extra.length > 0) {
-        console.log(`🆕 NEW FILES (${result.extra.length} files)`);
+        console.log(`🆕 EXTRA (tenemos nosotros, no en v4) (${result.extra.length} files)`);
         console.log('────────────────────────────────────────────────────────────────');
-        console.log('Files that exist in current but not in original (new creations):\n');
+        console.log('Están en src/phaser/src pero NO en original_src/src_v4:\n');
         
         for (const file of result.extra.slice(0, 20)) {
             console.log(`  🆕 ${file}`);
@@ -169,13 +163,13 @@ function printResults(result: ComparisonResult) {
     // Resumen final
     console.log('📊 SUMMARY');
     console.log('────────────────────────────────────────────────────────────────');
-    console.log(`✅ Converted to TypeScript: ${result.converted.length} files`);
-    console.log(`❌ Missing (not converted):  ${result.missingAndNotConverted.length} files`);
-    console.log(`🆕 New files created:        ${result.extra.length} files\n`);
+    console.log(`✅ Tenemos .ts equivalente: ${result.converted.length} files`);
+    console.log(`❌ Faltan (en v4, no nuestros): ${result.missingAndNotConverted.length} files`);
+    console.log(`🆕 Extra (nuestros, no en v4):  ${result.extra.length} files\n`);
 
     if (result.missingAndNotConverted.length > 0) {
-        console.log('⚠️  WARNING: Some original files are missing!');
-        console.log('   These files should be restored from original_src/\n');
+        console.log('⚠️  WARNING: Hay archivos en v4 que no tenemos en src/phaser/src.');
+        console.log('   Revisar si faltan por conversión o se eliminaron en v4.\n');
     }
 
     console.log('════════════════════════════════════════════════════════════════\n');

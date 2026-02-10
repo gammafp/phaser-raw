@@ -5,16 +5,18 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Rectangle } from '../../geom/rectangle/Rectangle';
+import { Union } from '../../geom/rectangle/Union';
+
+import { Vector2 } from '../../math/Vector2';
+
 var ArrayUtils = require('../../utils/array');
 var BlendModes = require('../../renderer/BlendModes');
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var Events = require('../events');
 var GameObject = require('../GameObject');
-var Rectangle = require('../../geom/rectangle/Rectangle');
 var Render = require('./ContainerRender');
-var Union = require('../../geom/rectangle/Union');
-var Vector2 = require('../../math/Vector2');
 
 var tempTransformMatrix = new Components.TransformMatrix();
 

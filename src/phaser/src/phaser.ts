@@ -4,6 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+// New imports
+import * as Math from './math';
+
+
 require('./polyfills/requestVideoFrame');
 
 var CONST = require('./const');
@@ -32,7 +36,7 @@ const Phaser: any = {
     Geom: require('./geom'),
     Input: require('./input'),
     Loader: require('./loader'),
-    Math: require('./math'),
+    Math,
     Physics: require('./physics'),
     Plugins: require('./plugins'),
     Renderer: require('./renderer'),

@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Clamp = require('../math/Clamp');
+import { Clamp } from '../math/Clamp';
+import { SnapFloor } from '../math/snap/SnapFloor';
+import { Vector2 } from '../math/Vector2';
+
 var Class = require('../utils/Class');
-var SnapFloor = require('../math/snap/SnapFloor');
-var Vector2 = require('../math/Vector2');
 
 /**
  * @classdesc

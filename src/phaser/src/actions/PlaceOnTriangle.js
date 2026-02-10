@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var BresenhamPoints = require('../geom/line/BresenhamPoints');
+
+import { BresenhamPoints } from '../geom/line/BresenhamPoints';
 
 /**
  * Takes an array of Game Objects and positions them on evenly spaced points around the edges of a Triangle.
