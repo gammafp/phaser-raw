@@ -5,7 +5,7 @@
  */
 
 var CONST = require('../const/ORIENTATION_CONST');
-var NOOP = require('../../utils/NOOP');
+import { NOOP } from '../../utils/NOOP';
 var StaggeredTileToWorldY = require('./StaggeredTileToWorldY');
 var TileToWorldY = require('./TileToWorldY');
 

@@ -7,7 +7,7 @@
 var AlignIn = require('../display/align/in/QuickSet');
 var CONST = require('../display/align/const');
 var GetFastValue = require('../utils/object/GetFastValue');
-var NOOP = require('../utils/NOOP');
+import { NOOP } from '../utils/NOOP';
 var Zone = require('../gameobjects/zone/Zone');
 
 var tempZone = new Zone({ sys: { queueDepthSort: NOOP, events: { once: NOOP } } }, 0, 0, 1, 1).setOrigin(0, 0);

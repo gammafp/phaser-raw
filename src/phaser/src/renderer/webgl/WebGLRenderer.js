@@ -13,7 +13,7 @@ var EventEmitter = require('eventemitter3');
 var Events = require('../events');
 var IsSizePowerOfTwo = require('../../math/pow2/IsSizePowerOfTwo');
 var Matrix4 = require('../../math/Matrix4');
-var NOOP = require('../../utils/NOOP');
+import { NOOP } from '../../utils/NOOP';
 var DrawingContext = require('./DrawingContext');
 var ScaleEvents = require('../../scale/events');
 var TextureEvents = require('../../textures/events');

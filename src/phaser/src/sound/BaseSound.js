@@ -9,7 +9,7 @@ var Class = require('../utils/Class');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var Extend = require('../utils/object/Extend');
-var NOOP = require('../utils/NOOP');
+import { NOOP } from '../utils/NOOP';
 
 /**
  * @classdesc

@@ -9,7 +9,7 @@
 
 var Class = require('../utils/Class');
 var Matrix3 = require('./Matrix3');
-var NOOP = require('../utils/NOOP');
+import { NOOP } from '../utils/NOOP';
 var Vector3 = require('./Vector3');
 
 var EPSILON = 0.000001;

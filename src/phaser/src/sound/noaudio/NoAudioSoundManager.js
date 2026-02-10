@@ -9,7 +9,7 @@ var BaseSoundManager = require('../BaseSoundManager');
 var Class = require('../../utils/Class');
 var EventEmitter = require('eventemitter3');
 var NoAudioSound = require('./NoAudioSound');
-var NOOP = require('../../utils/NOOP');
+import { NOOP } from '../../utils/NOOP';
 
 /**
  * @classdesc

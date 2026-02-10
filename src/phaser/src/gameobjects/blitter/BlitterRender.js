@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var NOOP = require('../../utils/NOOP');
+import { NOOP } from '../../utils/NOOP';
 var renderWebGL = NOOP;
 var renderCanvas = NOOP;
 

@@ -8,7 +8,7 @@ var CONST = require('../const/ORIENTATION_CONST');
 var CullTiles = require('./CullTiles');
 var HexagonalCullTiles = require('./HexagonalCullTiles');
 var IsometricCullTiles = require('./IsometricCullTiles');
-var NOOP = require('../../utils/NOOP');
+import { NOOP } from '../../utils/NOOP';
 var StaggeredCullTiles = require('./StaggeredCullTiles');
 
 /**

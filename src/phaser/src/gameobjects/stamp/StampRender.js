@@ -6,7 +6,7 @@
 
 // The Stamp inherits WebGL rendering properties from the Image class.
 
-var NOOP = require('../../utils/NOOP');
+import { NOOP } from '../../utils/NOOP';
 var renderCanvas = NOOP;
 
 if (typeof CANVAS_RENDERER)

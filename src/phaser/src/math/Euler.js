@@ -7,7 +7,7 @@
 var Clamp = require('./Clamp');
 var Class = require('../utils/Class');
 var Matrix4 = require('./Matrix4');
-var NOOP = require('../utils/NOOP');
+import { NOOP } from '../utils/NOOP';
 
 var tempMatrix = new Matrix4();
 

@@ -7,7 +7,7 @@
 var CONST = require('../const/ORIENTATION_CONST');
 var HexagonalTileToWorldXY = require('./HexagonalTileToWorldXY');
 var IsometricTileToWorldXY = require('./IsometricTileToWorldXY');
-var NOOP = require('../../utils/NOOP');
+import { NOOP } from '../../utils/NOOP';
 var StaggeredTileToWorldXY = require('./StaggeredTileToWorldXY');
 var TileToWorldXY = require('./TileToWorldXY');
 

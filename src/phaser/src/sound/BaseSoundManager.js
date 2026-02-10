@@ -12,7 +12,7 @@ var Events = require('./events');
 var GameEvents = require('../core/events');
 var GetAll = require('../utils/array/GetAll');
 var GetFirst = require('../utils/array/GetFirst');
-var NOOP = require('../utils/NOOP');
+import { NOOP } from '../utils/NOOP';
 var Vector2 = require('../math/Vector2');
 
 /**

@@ -10,7 +10,7 @@ var Events = require('./events');
 var GameEvents = require('../core/events');
 var GetValue = require('../utils/object/GetValue');
 var LoaderEvents = require('../loader/events');
-var NOOP = require('../utils/NOOP');
+import { NOOP } from '../utils/NOOP';
 var Scene = require('./Scene');
 var Systems = require('./Systems');
 

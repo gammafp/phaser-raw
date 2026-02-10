@@ -7,7 +7,7 @@
 var CONST = require('../const/ORIENTATION_CONST');
 var HexagonalWorldToTileXY = require('./HexagonalWorldToTileXY');
 var IsometricWorldToTileXY = require('./IsometricWorldToTileXY');
-var NOOP = require('../../utils/NOOP');
+import { NOOP } from '../../utils/NOOP';
 var StaggeredWorldToTileXY = require('./StaggeredWorldToTileXY');
 var WorldToTileXY = require('./WorldToTileXY');
 

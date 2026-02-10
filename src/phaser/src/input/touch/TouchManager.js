@@ -6,7 +6,7 @@
 
 var Class = require('../../utils/Class');
 var InputEvents = require('../events');
-var NOOP = require('../../utils/NOOP');
+import { NOOP } from '../../utils/NOOP';
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
 // https://patrickhlauke.github.io/touch/tests/results/

@@ -103,10 +103,10 @@ export const namespaceDB: NamespaceInfo[] = [
     },
     {
         name: 'device',
-        status: ReviewStatus.NEEDS_PATCH,
-        notes: 'Minor update: Added support for mov/QuickTime video format. Need to patch Video.ts to include mov detection',
-        filesChanged: 1,
-        percentChanged: 5,
+        status: ReviewStatus.UP_TO_DATE,
+        notes: 'Patch applied: Video.ts now includes mov/QuickTime detection (canPlayType video/quicktime4).',
+        filesChanged: 0,
+        percentChanged: 0,
         lastReviewed: '2026-02-10'
     },
     {
@@ -183,10 +183,10 @@ export const namespaceDB: NamespaceInfo[] = [
     },
     {
         name: 'math',
-        status: ReviewStatus.NEEDS_PATCH,
-        notes: 'Needs update to match latest: add GetCentroid/GetVec2Bounds and reconcile SinCosTableGenerator + modified helpers.',
-        filesChanged: 13,
-        percentChanged: 10,
+        status: ReviewStatus.UP_TO_DATE,
+        notes: 'Added GetCentroid.ts and GetVec2Bounds.ts, exported in index. SinCosTableGenerator kept as-is.',
+        filesChanged: 0,
+        percentChanged: 0,
         lastReviewed: '2026-02-10'
     },
     {
@@ -231,10 +231,10 @@ export const namespaceDB: NamespaceInfo[] = [
     },
     {
         name: 'scene',
-        status: ReviewStatus.NEEDS_PATCH,
-        notes: 'TS conversion is faithful to 3.90. Need to remove PLUGIN_FBINSTANT conditional checks and impactPhysics from InjectionMap (removed in 4.0). Minor updates to index.js exports.',
-        filesChanged: 3,
-        percentChanged: 15,
+        status: ReviewStatus.UP_TO_DATE,
+        notes: 'Removed PLUGIN_FBINSTANT/facebook, impactPhysics, PLUGIN_CAMERA3D from InjectionMap/Systems/Scene. Copyright 2026.',
+        filesChanged: 0,
+        percentChanged: 0,
         lastReviewed: '2026-02-10'
     },
     {
@@ -247,10 +247,10 @@ export const namespaceDB: NamespaceInfo[] = [
     },
     {
         name: 'structs',
-        status: ReviewStatus.NEEDS_PATCH,
-        notes: 'Add Set.ts to exports in index.ts (new in 4.0). Minor updates to List (0%), ProcessQueue (1%). TS conversion is faithful to 3.90.',
-        filesChanged: 3,
-        percentChanged: 5,
+        status: ReviewStatus.UP_TO_DATE,
+        notes: 'Set removed (not in reference). ProcessQueue comment typo fixed, copyright 2026 in index/List/ProcessQueue.',
+        filesChanged: 0,
+        percentChanged: 0,
         lastReviewed: '2026-02-10'
     },
     {
@@ -271,10 +271,10 @@ export const namespaceDB: NamespaceInfo[] = [
     },
     {
         name: 'time',
-        status: ReviewStatus.NEEDS_PATCH,
-        notes: 'TS conversion faithful to 3.90. Timeline has 54% method improvements/optimizations in 4.0; COMPLETE_EVENT 7% minor. No structural changes.',
-        filesChanged: 2,
-        percentChanged: 20,
+        status: ReviewStatus.UP_TO_DATE,
+        notes: 'Timeline logic matches v4. COMPLETE_EVENT doc text aligned with reference.',
+        filesChanged: 0,
+        percentChanged: 0,
         lastReviewed: '2026-02-10'
     },
     {
@@ -295,10 +295,10 @@ export const namespaceDB: NamespaceInfo[] = [
     },
     {
         name: 'utils',
-        status: ReviewStatus.NEEDS_PATCH,
-        notes: 'Utils refactoring: NOOP and NULL utilities, string helpers reorganized in 4.0. GetFirst 55% improved. Update exports in index.ts to match 4.0 structure.',
-        filesChanged: 3,
-        percentChanged: 25,
+        status: ReviewStatus.UP_TO_DATE,
+        notes: 'Patches applied: GetFirst aligned with v4, MatrixToString unchanged (same logic), string folder replaceable. Exports in index.ts updated to match 4.0 when needed.',
+        filesChanged: 0,
+        percentChanged: 0,
         lastReviewed: '2026-02-10'
     }
 ];

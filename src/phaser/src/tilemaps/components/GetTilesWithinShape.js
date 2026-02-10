@@ -7,7 +7,7 @@
 var Geom = require('../../geom/');
 var GetTilesWithin = require('./GetTilesWithin');
 var Intersects = require('../../geom/intersects/');
-var NOOP = require('../../utils/NOOP');
+import { NOOP } from '../../utils/NOOP';
 var Vector2 = require('../../math/Vector2');
 var CONST = require('../const/ORIENTATION_CONST');
 

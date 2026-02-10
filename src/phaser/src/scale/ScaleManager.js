@@ -13,7 +13,7 @@ var GameEvents = require('../core/events');
 var GetInnerHeight = require('../dom/GetInnerHeight');
 var GetTarget = require('../dom/GetTarget');
 var GetScreenOrientation = require('../dom/GetScreenOrientation');
-var NOOP = require('../utils/NOOP');
+import { NOOP } from '../utils/NOOP';
 var Rectangle = require('../geom/rectangle/Rectangle');
 var Size = require('../structs/Size');
 var SnapFloor = require('../math/snap/SnapFloor');

@@ -10,7 +10,7 @@ var DefaultPlugins = require('../plugins/DefaultPlugins');
 var Events = require('./events');
 var GetPhysicsPlugins = require('./GetPhysicsPlugins');
 var GetScenePlugins = require('./GetScenePlugins');
-var NOOP = require('../utils/NOOP');
+import { NOOP } from '../utils/NOOP';
 var Settings = require('./Settings');
 
 /**

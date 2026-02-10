@@ -5,7 +5,7 @@
  */
 
 var Class = require('../utils/Class');
-var NOOP = require('../utils/NOOP');
+import { NOOP } from '../utils/NOOP';
 
 /**
  * @classdesc

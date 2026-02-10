@@ -6,7 +6,7 @@
 
 var CONST = require('../const/ORIENTATION_CONST');
 var HexagonalGetTileCorners = require('./HexagonalGetTileCorners');
-var NOOP = require('../../utils/NOOP');
+import { NOOP } from '../../utils/NOOP';
 var GetTileCorners = require('./GetTileCorners');
 
 /**

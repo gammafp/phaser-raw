@@ -11,7 +11,7 @@ var Device = require('../device');
 var GetFastValue = require('../utils/object/GetFastValue');
 var GetValue = require('../utils/object/GetValue');
 var IsPlainObject = require('../utils/object/IsPlainObject');
-var NOOP = require('../utils/NOOP');
+import { NOOP } from '../utils/NOOP';
 var PhaserMath = require('../math/');
 var ValueToColor = require('../display/color/ValueToColor');
 
