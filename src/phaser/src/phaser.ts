@@ -7,13 +7,12 @@
 require('./polyfills/requestVideoFrame');
 
 var CONST = require('./const');
-var Extend = require('./utils/object/Extend');
 
 /**
  * @namespace Phaser
  */
 
-var Phaser = {
+const Phaser: any = {
 
     Actions: require('./actions'),
     Animations: require('./animations'),
@@ -55,12 +54,13 @@ var Phaser = {
 
 if (typeof FEATURE_SOUND)
 {
-    Phaser.Sound = require('./sound');
+    // Phaser.Sound = require('./sound');
 }
 
 //   Merge in the consts
 
-Phaser = Extend(false, Phaser, CONST);
+Object.assign(Phaser, CONST);
+// Phaser = Extend(false, Phaser, CONST);
 
 /**
  * The root types namespace.
@@ -71,9 +71,10 @@ Phaser = Extend(false, Phaser, CONST);
 
 //  Export it
 
-module.exports = Phaser;
+// module.exports = Phaser;
+export default Phaser;
 
-global.Phaser = Phaser;
+// global.Phaser = Phaser;
 
 /*
  * "Documentation is like pizza: when it is good, it is very, very good;

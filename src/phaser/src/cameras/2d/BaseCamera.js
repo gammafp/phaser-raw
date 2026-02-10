@@ -5,7 +5,8 @@
  */
 
 var Class = require('../../utils/Class');
-var Components = require('../../gameobjects/components');
+var ComponentAlphaSingle = require('../../gameobjects/components/Alpha');
+var ComponentVisible = require('../../gameobjects/components/Visible');
 var DegToRad = require('../../math/DegToRad');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
@@ -61,8 +62,8 @@ var BaseCamera = new Class({
     Extends: EventEmitter,
 
     Mixins: [
-        Components.AlphaSingle,
-        Components.Visible
+        ComponentAlphaSingle,
+        ComponentVisible
     ],
 
     initialize:

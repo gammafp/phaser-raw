@@ -13,7 +13,7 @@ module.exports = Body;
 
 var Vertices = require('../geometry/Vertices');
 var Vector = require('../geometry/Vector');
-var Sleeping = require('../core/Sleeping');
+var Sleeping = null; // Lazy loaded to avoid circular dependency
 var Common = require('../core/Common');
 var Bounds = require('../geometry/Bounds');
 var Axes = require('../geometry/Axes');
@@ -256,6 +256,9 @@ var Axes = require('../geometry/Axes');
                 Body.setStatic(body, value);
                 break;
             case 'isSleeping':
+                if (!Sleeping) {
+                    Sleeping = require('../core/Sleeping');
+                }
                 Sleeping.set(body, value);
                 break;
             case 'mass':

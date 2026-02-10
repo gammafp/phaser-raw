@@ -22,7 +22,7 @@ export class Start extends Phaser.Scene {
         this.load.audio('music', 'assets/banjo.mp3');
 
         // Cargar modelo 3D OBJ para el ejemplo de Mesh
-        this.load.obj('skull', 'skull.obj');
+        // this.load.obj('skull', 'skull.obj');
         
         // Nota: Para mejor visualización del mesh, puedes usar cualquier textura.
         // El logo de Phaser funcionará como textura base.
@@ -46,7 +46,7 @@ export class Start extends Phaser.Scene {
         this.lights.enable();
         this.lights.setAmbientColor(0xff0000);
         
-        logo.setPipeline('Light2D');
+        // logo.setPipeline('Light2D');
 
         // Luz que sigue al puntero
         const light = this.lights.addLight(640, 360, 300, 0x0000ff, 2);
@@ -350,14 +350,14 @@ export class Start extends Phaser.Scene {
         // ============================================================
         
         // Crear mesh 3D con el cráneo (usando el logo de Phaser como textura)
-        const mesh = this.add.mesh(640, 360, 'logo');
+        // const mesh = this.add.mesh(640, 360, 'logo');
         
         // Cargar vértices desde el archivo OBJ (escala 0.1 como en el ejemplo oficial)
-        mesh.addVerticesFromObj('skull', 0.1);
+        // mesh.addVerticesFromObj('skull', 0.1);
         
         // Configurar posición en Z y rotación inicial
-        mesh.panZ(7); // Zoom out (mismo valor que ejemplo oficial)
-        mesh.modelRotation.y += 0.5; // Rotación inicial
+        // mesh.panZ(7); // Zoom out (mismo valor que ejemplo oficial)
+        // mesh.modelRotation.y += 0.5; // Rotación inicial
         
         // Graphics para debug (opcional)
         const debugGraphics = this.add.graphics();
@@ -374,32 +374,32 @@ export class Start extends Phaser.Scene {
             if (!pointer.event?.shiftKey)
             {
                 // Rotar el modelo
-                mesh.modelRotation.y += pointer.velocity.x * (rotateRate / 800);
-                mesh.modelRotation.x += pointer.velocity.y * (rotateRate / 600);
+                // mesh.modelRotation.y += pointer.velocity.x * (rotateRate / 800);
+                // mesh.modelRotation.x += pointer.velocity.y * (rotateRate / 600);
             }
             else
             {
                 // Pan con Shift presionado
-                mesh.panX(pointer.velocity.x * (panRate / 800));
-                mesh.panY(pointer.velocity.y * (panRate / 600));
+                // mesh.panX(pointer.velocity.x * (panRate / 800));
+                // mesh.panY(pointer.velocity.y * (panRate / 600));
             }
         });
         
         // Zoom con rueda del mouse
         this.input.on('wheel', (pointer: any, gameObjects: any, deltaX: number, deltaY: number, deltaZ: number) => {
-            mesh.panZ(deltaY * (zoomRate / 600));
+            // mesh.panZ(deltaY * (zoomRate / 600));
         });
         
         // Toggle debug con tecla D
         this.input.keyboard?.on('keydown-D', () => {
-            if (mesh.debugCallback)
-            {
-                mesh.setDebug();
-            }
-            else
-            {
-                mesh.setDebug(debugGraphics);
-            }
+            // if (mesh.debugCallback)
+            // {
+            //     mesh.setDebug();
+            // }
+            // else
+            // {
+            //     mesh.setDebug(debugGraphics);
+            // }
         });
         
         // Texto informativo

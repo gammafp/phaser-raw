@@ -19,7 +19,6 @@ var Key = require('../../filters/Key');
 var Mask = require('../../filters/Mask');
 var NormalTools = require('../../filters/NormalTools');
 var PanoramaBlur = require('../../filters/PanoramaBlur');
-var ParallelFilters = null;
 var Pixelate = require('../../filters/Pixelate');
 var Sampler = require('../../filters/Sampler');
 var Shadow = require('../../filters/Shadow');
@@ -631,51 +630,10 @@ var FilterList = new Class({
         return this.add(new PanoramaBlur(this.camera, config));
     },
 
-    /**
-     * Adds a Parallel Filters effect.
-     *
-     * This filter controller splits the input into two lists of filters,
-     * runs each list separately, and then blends the results together.
-     *
-     * The Parallel Filters effect is useful for reusing an input.
-     * Ordinarily, a filter modifies the input and passes it to the next filter.
-     * This effect allows you to split the input and re-use it elsewhere.
-     * It does not gain performance benefits from parallel processing;
-     * it is a convenience for reusing the input.
-     *
-     * The Parallel Filters effect is not a filter itself.
-     * It is a controller that manages two FilterLists,
-     * and the final Blend filter that combines the results.
-     * The FilterLists are named 'top' and 'bottom'.
-     * The 'top' output is applied as a blend texture to the 'bottom' output.
-     *
-     * You do not have to populate both lists. If only one is populated,
-     * it will be blended with the original input at the end.
-     * This is useful when you want to retain image data that would be lost
-     * in the filter process.
-     *
-     * @example
-     * // Create a customizable Bloom effect.
-     * const camera = this.cameras.main;
-     * const parallelFilters = camera.filters.internal.addParallelFilters();
-     * parallelFilters.top.addThreshold(0.5, 1);
-     * parallelFilters.top.addBlur();
-     * parallelFilters.blend.blendMode = Phaser.BlendModes.ADD;
-     * parallelFilters.blend.amount = 0.5;
-     *
-     * @method Phaser.GameObjects.Components.FilterList#addParallelFilters
-     * @since 4.0.0
-     * @return {Phaser.Filters.ParallelFilters} The new Parallel Filters filter controller.
-     */
-    addParallelFilters: function ()
-    {
-        // This import avoids a circular dependency.
-        if (!ParallelFilters)
-        {
-            ParallelFilters = require('../../filters/ParallelFilters');
-        }
-        return this.add(new ParallelFilters(this.camera));
-    },
+    // For technical reasons, addParallelFilters is not coded here.
+    // ParallelFilters has a circular reference to FilterList.
+    // It registers its own `addParallelFilters` method to fix this,
+    // which is documented as a part of FilterList.
 
     /**
      * Adds a Pixelate effect.

@@ -8,7 +8,7 @@ var BaseCamera = require('./BaseCamera');
 var CenterOn = require('../../geom/rectangle/CenterOn');
 var Clamp = require('../../math/Clamp');
 var Class = require('../../utils/Class');
-var Components = require('../../gameobjects/components');
+var FilterList = require('../../gameobjects/components/FilterList');
 var Effects = require('./effects');
 var Events = require('./events');
 var Linear = require('../../math/Linear');
@@ -77,8 +77,8 @@ var Camera = new Class({
          * @since 4.0.0
          */
         this.filters = {
-            internal: new Components.FilterList(this),
-            external: new Components.FilterList(this)
+            internal: new FilterList(this),
+            external: new FilterList(this)
         };
 
         /**

@@ -8,7 +8,7 @@ var Sleeping = {};
 
 module.exports = Sleeping;
 
-var Body = require('../body/Body');
+var Body = null; // Lazy loaded to avoid circular dependency
 var Events = require('./Events');
 var Common = require('./Common');
 
@@ -25,6 +25,10 @@ var Common = require('./Common');
      * @param {number} delta
      */
     Sleeping.update = function(bodies, delta) {
+        if (!Body) {
+            Body = require('../body/Body');
+        }
+        
         var timeScale = delta / Common._baseDelta,
             motionSleepThreshold = Sleeping._motionSleepThreshold;
         
