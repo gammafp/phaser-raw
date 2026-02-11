@@ -39,10 +39,10 @@ export interface NamespaceInfo {
 export const namespaceDB: NamespaceInfo[] = [
     {
         name: 'actions',
-        status: ReviewStatus.NEEDS_PATCH,
-        notes: 'Significant diffs vs original_src/src; verify missing files and modified actions helpers',
-        filesChanged: 17,
-        percentChanged: 80,
+        status: ReviewStatus.UP_TO_DATE,
+        notes: 'Logic verified vs original_src/src_v4 for all modified files. AddEffectBloom, AddMaskShape, FitToRegion converted to TS in v4_converted_staging. Typedefs AddEffectBloomConfig/Return, AddMaskShapeConfig, FitToRegionItemCoverage added. index.js maintained manually.',
+        filesChanged: 0,
+        percentChanged: 0,
         lastReviewed: '2026-02-10'
     },
     {
