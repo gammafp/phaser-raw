@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -10,6 +10,7 @@ import { GetValue } from '../utils/object/GetValue';
 import { SortByDigits } from '../utils/array/SortByDigits';
 import * as Events from './events';
 import { AnimationFrame as Frame } from './AnimationFrame';
+import type { AnimationState } from './AnimationState';
 
 /**
  * @classdesc
@@ -40,9 +41,9 @@ export class Animation {
     manager: any;
     key: string;
     type: string;
-    frames: AnimationFrame[];
-    frameRate: number;
-    duration: number;
+    frames: Frame[];
+    frameRate: number | null;
+    duration: number | null;
     msPerFrame: number;
     skipMissedFrames: boolean;
     delay: number;
@@ -127,7 +128,7 @@ export class Animation {
          * @type {number}
          * @since 3.0.0
          */
-        this.msPerFrame;
+        this.msPerFrame = 0;
 
         /**
          * Skip frames if the time lags, or always advanced anyway?
@@ -249,7 +250,7 @@ export class Animation {
      *
      * @return {number} The total number of frames in this animation.
      */
-    getTotalFrames()
+    getTotalFrames(): number
     {
         return this.frames.length;
     }
@@ -265,7 +266,7 @@ export class Animation {
      * @param {?number} [duration] - The duration to calculate the frame rate from. Pass `null` if you wish to set the `frameRate` instead.
      * @param {?number} [frameRate] - The frame rate to calculate the duration from.
      */
-    calculateDuration(target, totalFrames, duration, frameRate)
+    calculateDuration(target: Animation, totalFrames: number, duration: number | null, frameRate: number | null): void
     {
         if (duration === null && frameRate === null)
         {
@@ -286,11 +287,11 @@ export class Animation {
             //  frameRate given, derive duration from it (even if duration also specified)
             //  I.e. 15 frames in the animation, frameRate = 30 fps
             //  So duration is 15 / 30 = 0.5 * 1000 (half a second, or 500ms)
-            target.frameRate = frameRate;
-            target.duration = (totalFrames / frameRate) * 1000;
+            target.frameRate = frameRate!;
+            target.duration = (totalFrames / frameRate!) * 1000;
         }
 
-        target.msPerFrame = 1000 / target.frameRate;
+        target.msPerFrame = 1000 / target.frameRate!;
     }
 
     /**
@@ -303,7 +304,7 @@ export class Animation {
      *
      * @return {this} This Animation object.
      */
-    addFrame(config)
+    addFrame(config: string | any[]): this
     {
         return this.addFrameAt(this.frames.length, config);
     }
@@ -319,9 +320,9 @@ export class Animation {
      *
      * @return {this} This Animation object.
      */
-    addFrameAt(index, config)
+    addFrameAt(index: number, config: string | any[]): this
     {
-        var newFrames = this.getFrames(this.manager.textureManager, config);
+        const newFrames = this.getFrames(this.manager.textureManager, config);
 
         if (newFrames.length > 0)
         {
@@ -335,8 +336,8 @@ export class Animation {
             }
             else
             {
-                var pre = this.frames.slice(0, index);
-                var post = this.frames.slice(index);
+                const pre = this.frames.slice(0, index);
+                const post = this.frames.slice(index);
 
                 this.frames = pre.concat(newFrames, post);
             }
@@ -357,7 +358,7 @@ export class Animation {
      *
      * @return {boolean} `true` if the index is valid, otherwise `false`.
      */
-    checkFrame(index)
+    checkFrame(index: number): boolean
     {
         return (index >= 0 && index < this.frames.length);
     }
@@ -372,7 +373,7 @@ export class Animation {
      *
      * @param {Phaser.Animations.AnimationState} state - The Animation State belonging to the Game Object invoking this call.
      */
-    getFirstTick(state)
+    getFirstTick(state: AnimationState): void
     {
         //  When is the first update due?
         state.accumulator = 0;
@@ -390,7 +391,7 @@ export class Animation {
      *
      * @return {Phaser.Animations.AnimationFrame} The frame at the index provided from the animation sequence
      */
-    getFrameAt(index)
+    getFrameAt(index: number): Frame
     {
         return this.frames[index];
     }
@@ -407,16 +408,16 @@ export class Animation {
      *
      * @return {Phaser.Animations.AnimationFrame[]} An array of newly created AnimationFrame instances.
      */
-    getFrames(textureManager, frames, defaultTextureKey, sortFrames)
+    getFrames(textureManager: any, frames: string | any[], defaultTextureKey: string | null, sortFrames?: boolean): Frame[]
     {
         if (sortFrames === undefined) { sortFrames = true; }
 
-        var out = [];
-        var prev;
-        var animationFrame;
-        var index = 1;
-        var i;
-        var textureKey;
+        const out: Frame[] = [];
+        let prev: Frame | undefined;
+        let animationFrame: Frame;
+        let index = 1;
+        let i: number;
+        let textureKey: string;
 
         //  if frames is a string, we'll get all the frames from the texture manager as if it's a sprite sheet
         if (typeof frames === 'string')
@@ -430,8 +431,8 @@ export class Animation {
                 return out;
             }
 
-            var texture = textureManager.get(textureKey);
-            var frameKeys = texture.getFrameNames();
+            const texture = textureManager.get(textureKey);
+            const frameKeys = texture.getFrameNames();
 
             if (sortFrames)
             {
@@ -453,9 +454,9 @@ export class Animation {
 
         for (i = 0; i < frames.length; i++)
         {
-            var item = frames[i];
+            const item = frames[i];
 
-            var key = GetValue(item, 'key', defaultTextureKey);
+            const key = GetValue(item, 'key', defaultTextureKey);
 
             if (!key)
             {
@@ -463,10 +464,10 @@ export class Animation {
             }
 
             //  Could be an integer or a string
-            var frame = GetValue(item, 'frame', 0);
+            const frame = GetValue(item, 'frame', 0);
 
             //  The actual texture frame
-            var textureFrame = textureManager.getFrame(key, frame);
+            const textureFrame = textureManager.getFrame(key, frame);
 
             if (!textureFrame)
             {
@@ -507,7 +508,7 @@ export class Animation {
 
             //  Generate the progress data
 
-            var slice = 1 / (out.length - 1);
+            const slice = 1 / (out.length - 1);
 
             for (i = 0; i < out.length; i++)
             {
@@ -526,7 +527,7 @@ export class Animation {
      *
      * @param {Phaser.Animations.AnimationState} state - The Animation State belonging to the Game Object invoking this call.
      */
-    getNextTick(state)
+    getNextTick(state: AnimationState): void
     {
         state.accumulator -= state.nextTick;
 
@@ -543,7 +544,7 @@ export class Animation {
      *
      * @return {Phaser.Animations.AnimationFrame} The frame closest to the given progress value.
      */
-    getFrameByProgress(value)
+    getFrameByProgress(value: number): Frame
     {
         value = Clamp(value, 0, 1);
 
@@ -558,9 +559,9 @@ export class Animation {
      *
      * @param {Phaser.Animations.AnimationState} state - The Animation State to advance.
      */
-    nextFrame(state)
+    nextFrame(state: AnimationState): void
     {
-        var frame = state.currentFrame;
+        const frame = state.currentFrame;
 
         if (frame.isLast)
         {
@@ -591,7 +592,7 @@ export class Animation {
         }
         else
         {
-            this.updateAndGetNextTick(state, frame.nextFrame);
+            this.updateAndGetNextTick(state, frame.nextFrame!);
         }
     }
 
@@ -605,7 +606,7 @@ export class Animation {
      * @param {Phaser.Animations.AnimationState} state - The Animation State to advance.
      * @param {boolean} isReverse - Is animation in reverse mode? (Default: false)
      */
-    handleYoyoFrame(state, isReverse)
+    handleYoyoFrame(state: AnimationState, isReverse: boolean): void
     {
         if (!isReverse) { isReverse = false; }
 
@@ -630,9 +631,9 @@ export class Animation {
 
         state.forward = isReverse;
 
-        var frame = (isReverse) ? state.currentFrame.nextFrame : state.currentFrame.prevFrame;
+        const frame = (isReverse) ? state.currentFrame.nextFrame : state.currentFrame.prevFrame;
 
-        this.updateAndGetNextTick(state, frame);
+        this.updateAndGetNextTick(state, frame!);
     }
 
     /**
@@ -643,7 +644,7 @@ export class Animation {
      *
      * @return {Phaser.Animations.AnimationFrame} The last Animation Frame.
      */
-    getLastFrame()
+    getLastFrame(): Frame
     {
         return this.frames[this.frames.length - 1];
     }
@@ -657,9 +658,9 @@ export class Animation {
      *
      * @param {Phaser.Animations.AnimationState} state - The Animation State belonging to the Game Object invoking this call.
      */
-    previousFrame(state)
+    previousFrame(state: AnimationState): void
     {
-        var frame = state.currentFrame;
+        const frame = state.currentFrame;
 
         if (frame.isFirst)
         {
@@ -689,7 +690,7 @@ export class Animation {
         }
         else
         {
-            this.updateAndGetNextTick(state, frame.prevFrame);
+            this.updateAndGetNextTick(state, frame.prevFrame!);
         }
     }
 
@@ -703,7 +704,7 @@ export class Animation {
      * @param {Phaser.Animations.AnimationState} state - The Animation State.
      * @param {Phaser.Animations.AnimationFrame} frame - An Animation frame.
      */
-    updateAndGetNextTick(state, frame)
+    updateAndGetNextTick(state: AnimationState, frame: Frame): void
     {
         state.setCurrentFrame(frame);
 
@@ -721,9 +722,9 @@ export class Animation {
      *
      * @return {this} This Animation object.
      */
-    removeFrame(frame)
+    removeFrame(frame: Frame): this
     {
-        var index = this.frames.indexOf(frame);
+        const index = this.frames.indexOf(frame);
 
         if (index !== -1)
         {
@@ -744,7 +745,7 @@ export class Animation {
      *
      * @return {this} This Animation object.
      */
-    removeFrameAt(index)
+    removeFrameAt(index: number): this
     {
         this.frames.splice(index, 1);
 
@@ -765,7 +766,7 @@ export class Animation {
      *
      * @param {Phaser.Animations.AnimationState} state - The Animation State belonging to the Game Object invoking this call.
      */
-    repeatAnimation(state)
+    repeatAnimation(state: AnimationState): void
     {
         if (state._pendingStop === 2)
         {
@@ -791,11 +792,11 @@ export class Animation {
 
             if (state.forward)
             {
-                state.setCurrentFrame(state.currentFrame.nextFrame);
+                state.setCurrentFrame(state.currentFrame.nextFrame!);
             }
             else
             {
-                state.setCurrentFrame(state.currentFrame.prevFrame);
+                state.setCurrentFrame(state.currentFrame.prevFrame!);
             }
 
             if (state.isPlaying)
@@ -815,9 +816,9 @@ export class Animation {
      *
      * @return {Phaser.Types.Animations.JSONAnimation} The resulting JSONAnimation formatted object.
      */
-    toJSON()
+    toJSON(): any
     {
-        var output = {
+        const output: any = {
             key: this.key,
             type: this.type,
             frames: [],
@@ -850,14 +851,14 @@ export class Animation {
      *
      * @return {this} This Animation object.
      */
-    updateFrameSequence()
+    updateFrameSequence(): this
     {
-        var len = this.frames.length;
-        var slice = 1 / (len - 1);
+        const len = this.frames.length;
+        const slice = 1 / (len - 1);
 
-        var frame;
+        let frame: Frame;
 
-        for (var i = 0; i < len; i++)
+        for (let i = 0; i < len; i++)
         {
             frame = this.frames[i];
 
@@ -907,7 +908,7 @@ export class Animation {
      *
      * @return {this} This Animation object.
      */
-    pause()
+    pause(): this
     {
         this.paused = true;
 
@@ -922,7 +923,7 @@ export class Animation {
      *
      * @return {this} This Animation object.
      */
-    resume()
+    resume(): this
     {
         this.paused = false;
 
@@ -937,7 +938,7 @@ export class Animation {
      * @method Phaser.Animations.Animation#destroy
      * @since 3.0.0
      */
-    destroy()
+    destroy(): void
     {
         if (this.manager.off)
         {
@@ -947,7 +948,7 @@ export class Animation {
 
         this.manager.remove(this.key);
 
-        for (var i = 0; i < this.frames.length; i++)
+        for (let i = 0; i < this.frames.length; i++)
         {
             this.frames[i].destroy();
         }

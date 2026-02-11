@@ -1,14 +1,15 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { Between } from '../math/Between';
-import { GetFastValue } from '../utils/object/GetFastValue';
 import { Animation } from './Animation';
+import { Between } from '../math/Between';
 import { Map as CustomMap } from '../structs/Map';
 import * as Events from './events';
+import { GetFastValue } from '../utils/object/GetFastValue';
+import { AnimationFrame } from './AnimationFrame';
 
 /**
  * @classdesc
@@ -42,14 +43,13 @@ export class AnimationState {
     parent: any;
     animationManager: any;
     textureManager: any;
-    globalRemoveFrames: boolean;
-    anims: CustomMap<string, any>;
+    anims: CustomMap<string, Animation> | null;
     isPlaying: boolean;
     hasStarted: boolean;
-    currentAnim: any;
-    currentFrame: any;
-    nextAnim: string | null;
-    nextAnimsQueue: string[];
+    currentAnim: Animation | null;
+    currentFrame: AnimationFrame | null;
+    nextAnim: string | Animation | any | null;
+    nextAnimsQueue: any[];
     timeScale: number;
     frameRate: number;
     duration: number;
@@ -65,22 +65,15 @@ export class AnimationState {
     hideOnComplete: boolean;
     forward: boolean;
     inReverse: boolean;
-    _reverse: boolean;
     accumulator: number;
     nextTick: number;
-    isWaitingForFrame: boolean;
-    pendingRepeat: boolean;
-    pendingRepeatDelay: number;
+    delayCounter: number;
     repeatCounter: number;
-    frameCounter: number;
-    _pendingStop: number;
-    _pendingStopValue: any;
+    pendingRepeat: boolean;
     _paused: boolean;
     _wasPlaying: boolean;
-    _pendingPlayConfig: any;
-    _cc: number;
-    _frameACC: number;
-    _elapsed: number;
+    _pendingStop: number;
+    _pendingStopValue: any;
 
     constructor(parent: any)
     {
@@ -519,7 +512,7 @@ export class AnimationState {
          * @since 3.4.0
          */
         this._pendingStopValue;
-    }
+    },
 
     /**
      * Sets an animation, or an array of animations, to be played in the future, after the current one completes or stops.
@@ -542,9 +535,9 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    chain(key)
+    chain(key?: string | Animation | any | string[] | Animation[] | any[]): any
     {
-        var parent = this.parent;
+        const parent = this.parent;
 
         if (key === undefined)
         {
@@ -554,14 +547,11 @@ export class AnimationState {
             return parent;
         }
 
-        if (!Array.isArray(key))
-        {
-            key = [ key ];
-        }
+        let keyArray = Array.isArray(key) ? key : [ key ];
 
-        for (var i = 0; i < key.length; i++)
+        for (let i = 0; i < keyArray.length; i++)
         {
-            var anim = key[i];
+            const anim = keyArray[i];
 
             if (!this.nextAnim)
             {
@@ -586,7 +576,7 @@ export class AnimationState {
      *
      * @return {string} The key of the Animation currently loaded into this component, or an empty string if none loaded.
      */
-    getName()
+    getName(): string
     {
         return (this.currentAnim) ? this.currentAnim.key : '';
     }
@@ -599,7 +589,7 @@ export class AnimationState {
      *
      * @return {string} The key of the Animation Frame currently displayed by this component, or an empty string if no animation has been loaded.
      */
-    getFrameName()
+    getFrameName(): string
     {
         return (this.currentFrame) ? this.currentFrame.textureFrame : '';
     }
@@ -615,18 +605,18 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    load(key)
+    load(key: string | any): any
     {
         if (this.isPlaying)
         {
             this.stop();
         }
 
-        var manager = this.animationManager;
-        var animKey = (typeof key === 'string') ? key : GetFastValue(key, 'key', null);
+        const manager = this.animationManager;
+        const animKey = (typeof key === 'string') ? key : GetFastValue(key, 'key', null);
 
         //  Get the animation, first from the local map and, if not found, from the Animation Manager
-        var anim = (this.exists(animKey)) ? this.get(animKey) : manager.get(animKey);
+        const anim = (this.exists(animKey)) ? this.get(animKey) : manager.get(animKey);
 
         if (!anim)
         {
@@ -638,9 +628,9 @@ export class AnimationState {
 
             //  And now override the animation values, if set in the config.
 
-            var totalFrames = anim.getTotalFrames();
-            var frameRate = GetFastValue(key, 'frameRate', anim.frameRate);
-            var duration = GetFastValue(key, 'duration', anim.duration);
+            const totalFrames = anim.getTotalFrames();
+            const frameRate = GetFastValue(key, 'frameRate', anim.frameRate);
+            const duration = GetFastValue(key, 'duration', anim.duration);
 
             anim.calculateDuration(this, totalFrames, duration, frameRate);
 
@@ -656,7 +646,7 @@ export class AnimationState {
 
             this.timeScale = GetFastValue(key, 'timeScale', this.timeScale);
 
-            var startFrame = GetFastValue(key, 'startFrame', 0);
+            let startFrame = GetFastValue(key, 'startFrame', 0);
 
             if (startFrame > totalFrames)
             {
@@ -668,7 +658,7 @@ export class AnimationState {
                 startFrame = Between(0, totalFrames - 1);
             }
 
-            var frame = anim.frames[startFrame];
+            let frame = anim.frames[startFrame];
 
             if (startFrame === 0 && !this.forward)
             {
@@ -692,7 +682,7 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    pause(atFrame)
+    pause(atFrame?: AnimationFrame): any
     {
         if (!this._paused)
         {
@@ -720,7 +710,7 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    resume(fromFrame)
+    resume(fromFrame?: AnimationFrame): any
     {
         if (this._paused)
         {
@@ -757,7 +747,7 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    playAfterDelay(key, delay)
+    playAfterDelay(key: string | Animation | any, delay: number): any
     {
         if (!this.isPlaying)
         {
@@ -768,8 +758,8 @@ export class AnimationState {
         else
         {
             //  If we've got a nextAnim, move it to the queue
-            var nextAnim = this.nextAnim;
-            var queue = this.nextAnimsQueue;
+            const nextAnim = this.nextAnim;
+            const queue = this.nextAnimsQueue;
 
             if (nextAnim)
             {
@@ -803,7 +793,7 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    playAfterRepeat(key, repeatCount)
+    playAfterRepeat(key: string | Animation | any, repeatCount?: number): any
     {
         if (repeatCount === undefined) { repeatCount = 1; }
 
@@ -814,8 +804,8 @@ export class AnimationState {
         else
         {
             //  If we've got a nextAnim, move it to the queue
-            var nextAnim = this.nextAnim;
-            var queue = this.nextAnimsQueue;
+            const nextAnim = this.nextAnim;
+            const queue = this.nextAnimsQueue;
 
             if (nextAnim)
             {
@@ -896,17 +886,17 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    play(key, ignoreIfPlaying)
+    play(key: string | Animation | any, ignoreIfPlaying?: boolean): any
     {
         if (ignoreIfPlaying === undefined) { ignoreIfPlaying = false; }
 
-        var currentAnim = this.currentAnim;
-        var parent = this.parent;
+        const currentAnim = this.currentAnim;
+        const parent = this.parent;
 
         //  Must be either an Animation instance, or a PlayAnimationConfig object
-        var animKey = (typeof key === 'string') ? key : key.key;
+        const animKey = (typeof key === 'string') ? key : key.key;
 
-        if (ignoreIfPlaying && this.isPlaying && currentAnim.key === animKey)
+        if (ignoreIfPlaying && this.isPlaying && currentAnim && currentAnim.key === animKey)
         {
             return parent;
         }
@@ -914,7 +904,7 @@ export class AnimationState {
         //  Are we mixing?
         if (currentAnim && this.isPlaying)
         {
-            var mix = this.animationManager.getMix(currentAnim.key, key);
+            const mix = this.animationManager.getMix(currentAnim.key, key);
 
             if (mix > 0)
             {
@@ -991,14 +981,14 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    playReverse(key, ignoreIfPlaying)
+    playReverse(key: string | Animation | any, ignoreIfPlaying?: boolean): any
     {
         if (ignoreIfPlaying === undefined) { ignoreIfPlaying = false; }
 
         //  Must be either an Animation instance, or a PlayAnimationConfig object
-        var animKey = (typeof key === 'string') ? key : key.key;
+        const animKey = (typeof key === 'string') ? key : key.key;
 
-        if (ignoreIfPlaying && this.isPlaying && this.currentAnim.key === animKey)
+        if (ignoreIfPlaying && this.isPlaying && this.currentAnim && this.currentAnim.key === animKey)
         {
             return this.parent;
         }
@@ -1024,12 +1014,12 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    startAnimation(key)
+    startAnimation(key: string | any): any
     {
         this.load(key);
 
-        var anim = this.currentAnim;
-        var gameObject = this.parent;
+        const anim = this.currentAnim;
+        const gameObject = this.parent;
 
         if (!anim)
         {
@@ -1056,7 +1046,7 @@ export class AnimationState {
         {
             this.handleStart();
         }
-        else if (this.showBeforeDelay)
+        else if (this.showBeforeDelay && this.currentFrame)
         {
             //  We have a delay, but still need to set the frame
             this.setCurrentFrame(this.currentFrame);
@@ -1072,14 +1062,17 @@ export class AnimationState {
      * @private
      * @since 3.50.0
      */
-    handleStart()
+    handleStart(): void
     {
         if (this.showOnStart)
         {
             this.parent.setVisible(true);
         }
 
-        this.setCurrentFrame(this.currentFrame);
+        if (this.currentFrame)
+        {
+            this.setCurrentFrame(this.currentFrame);
+        }
 
         this.hasStarted = true;
 
@@ -1093,7 +1086,7 @@ export class AnimationState {
      * @private
      * @since 3.50.0
      */
-    handleRepeat()
+    handleRepeat(): void
     {
         this.pendingRepeat = false;
 
@@ -1107,7 +1100,7 @@ export class AnimationState {
      * @private
      * @since 3.50.0
      */
-    handleStop()
+    handleStop(): void
     {
         this._pendingStop = 0;
 
@@ -1123,7 +1116,7 @@ export class AnimationState {
      * @private
      * @since 3.50.0
      */
-    handleComplete()
+    handleComplete(): void
     {
         this._pendingStop = 0;
 
@@ -1146,17 +1139,17 @@ export class AnimationState {
      *
      * @param {string} event - The Animation Event to dispatch.
      */
-    emitEvents(event, keyEvent)
+    emitEvents(event: string, keyEvent?: string): void
     {
-        var anim = this.currentAnim;
+        const anim = this.currentAnim;
 
-        if (anim)
+        if (anim && this.currentFrame)
         {
-            var frame = this.currentFrame;
+            const frame = this.currentFrame;
 
-            var gameObject = this.parent;
+            const gameObject = this.parent;
 
-            var frameKey = frame.textureFrame;
+            const frameKey = frame.textureFrame;
 
             gameObject.emit(event, anim, frame, gameObject, frameKey);
 
@@ -1175,7 +1168,7 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    reverse()
+    reverse(): any
     {
         if (this.isPlaying)
         {
@@ -1198,16 +1191,16 @@ export class AnimationState {
      *
      * @return {number} The progress of the current animation in frames, between 0 and 1.
      */
-    getProgress()
+    getProgress(): number
     {
-        var frame = this.currentFrame;
+        const frame = this.currentFrame;
 
         if (!frame)
         {
             return 0;
         }
 
-        var p = frame.progress;
+        let p = frame.progress;
 
         if (this.inReverse)
         {
@@ -1232,14 +1225,17 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    setProgress(value)
+    setProgress(value: number = 0): any
     {
         if (!this.forward)
         {
             value = 1 - value;
         }
 
-        this.setCurrentFrame(this.currentAnim.getFrameByProgress(value));
+        if (this.currentAnim)
+        {
+            this.setCurrentFrame(this.currentAnim.getFrameByProgress(value));
+        }
 
         return this.parent;
     }
@@ -1262,7 +1258,7 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    setRepeat(value)
+    setRepeat(value: number): any
     {
         this.repeatCounter = (value === -1) ? Number.MAX_VALUE : value;
 
@@ -1278,15 +1274,18 @@ export class AnimationState {
      * @param {string} [key] - The key of the removed Animation.
      * @param {Phaser.Animations.Animation} [animation] - The removed Animation.
      */
-    globalRemove(key, animation)
+    globalRemove(key?: string, animation?: Animation): void
     {
         if (animation === undefined) { animation = this.currentAnim; }
 
-        if (this.isPlaying && animation.key === this.currentAnim.key)
+        if (this.isPlaying && animation && this.currentAnim && animation.key === this.currentAnim.key)
         {
             this.stop();
 
-            this.setCurrentFrame(this.currentAnim.frames[0]);
+            if (this.currentAnim.frames[0])
+            {
+                this.setCurrentFrame(this.currentAnim.frames[0]);
+            }
         }
     }
 
@@ -1309,13 +1308,10 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    restart(includeDelay, resetRepeats)
+    restart(includeDelay: boolean = false, resetRepeats: boolean = false): any
     {
-        if (includeDelay === undefined) { includeDelay = false; }
-        if (resetRepeats === undefined) { resetRepeats = false; }
-
-        var anim = this.currentAnim;
-        var gameObject = this.parent;
+        const anim = this.currentAnim;
+        const gameObject = this.parent;
 
         if (!anim)
         {
@@ -1341,7 +1337,10 @@ export class AnimationState {
         this._pendingStopValue = 0;
         this._paused = false;
 
-        this.setCurrentFrame(anim.frames[0]);
+        if (anim.frames[0])
+        {
+            this.setCurrentFrame(anim.frames[0]);
+        }
 
         return this.parent;
     }
@@ -1361,7 +1360,7 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    complete()
+    complete(): any
     {
         this._pendingStop = 0;
 
@@ -1374,7 +1373,7 @@ export class AnimationState {
 
         if (this.nextAnim)
         {
-            var key = this.nextAnim;
+            const key = this.nextAnim;
 
             this.nextAnim = (this.nextAnimsQueue.length > 0) ? this.nextAnimsQueue.shift() : null;
 
@@ -1397,7 +1396,7 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    stop()
+    stop(): any
     {
         this._pendingStop = 0;
 
@@ -1412,7 +1411,7 @@ export class AnimationState {
 
         if (this.nextAnim)
         {
-            var key = this.nextAnim;
+            const key = this.nextAnim;
 
             this.nextAnim = this.nextAnimsQueue.shift();
 
@@ -1440,7 +1439,7 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    stopAfterDelay(delay)
+    stopAfterDelay(delay: number): any
     {
         this._pendingStop = 1;
         this._pendingStopValue = delay;
@@ -1468,10 +1467,8 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    stopAfterRepeat(repeatCount)
+    stopAfterRepeat(repeatCount: number = 1): any
     {
-        if (repeatCount === undefined) { repeatCount = 1; }
-
         if (this.repeatCounter !== -1 && repeatCount > this.repeatCounter)
         {
             repeatCount = this.repeatCounter;
@@ -1502,7 +1499,7 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    stopOnFrame(frame)
+    stopOnFrame(frame: AnimationFrame): any
     {
         this._pendingStop = 3;
         this._pendingStopValue = frame;
@@ -1519,7 +1516,7 @@ export class AnimationState {
      *
      * @return {number} The total number of frames in the current animation, or zero if no animation has been loaded.
      */
-    getTotalFrames()
+    getTotalFrames(): number
     {
         return (this.currentAnim) ? this.currentAnim.getTotalFrames() : 0;
     }
@@ -1535,9 +1532,9 @@ export class AnimationState {
      * @param {number} time - The current timestamp.
      * @param {number} delta - The delta time, in ms, elapsed since the last frame.
      */
-    update(time, delta)
+    update(time: number, delta: number): void
     {
-        var anim = this.currentAnim;
+        const anim = this.currentAnim;
 
         if (!this.isPlaying || !anim || anim.paused)
         {
@@ -1581,7 +1578,7 @@ export class AnimationState {
             //  And only do more if we're skipping frames and have time left
             if (this.isPlaying && this._pendingStop === 0 && this.skipMissedFrames && this.accumulator > this.nextTick)
             {
-                var safetyNet = 0;
+                let safetyNet = 0;
 
                 do
                 {
@@ -1614,9 +1611,9 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object this Animation Component belongs to.
      */
-    setCurrentFrame(animationFrame)
+    setCurrentFrame(animationFrame: AnimationFrame): any
     {
-        var gameObject = this.parent;
+        const gameObject = this.parent;
 
         this.currentFrame = animationFrame;
 
@@ -1672,7 +1669,7 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object this Animation Component belongs to.
      */
-    nextFrame()
+    nextFrame(): any
     {
         if (this.currentAnim)
         {
@@ -1694,7 +1691,7 @@ export class AnimationState {
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object this Animation Component belongs to.
      */
-    previousFrame()
+    previousFrame(): any
     {
         if (this.currentAnim)
         {
@@ -1716,7 +1713,7 @@ export class AnimationState {
      *
      * @return {Phaser.Animations.Animation} The Animation, or `null` if the key is invalid.
      */
-    get(key)
+    get(key: string): Animation | null
     {
         return (this.anims) ? this.anims.get(key) : null;
     }
@@ -1731,7 +1728,7 @@ export class AnimationState {
      *
      * @return {boolean} `true` if the Animation exists locally, or `false` if the key is available, or there are no local animations.
      */
-    exists(key)
+    exists(key: string): boolean
     {
         return (this.anims) ? this.anims.has(key) : false;
     }
@@ -1760,11 +1757,11 @@ export class AnimationState {
      *
      * @return {(Phaser.Animations.Animation|false)} The Animation that was created, or `false` if the key is already in use.
      */
-    create(config)
+    create(config: any): Animation | false
     {
-        var key = config.key;
+        const key = config.key;
 
-        var anim = false;
+        let anim: Animation | false = false;
 
         if (key)
         {
@@ -1772,7 +1769,7 @@ export class AnimationState {
 
             if (!anim)
             {
-                anim = new Animation(this, key, config);
+                anim = new Animation(this as any, key, config);
 
                 if (!this.anims)
                 {
@@ -1872,7 +1869,7 @@ export class AnimationState {
      *
      * @return {Phaser.Animations.Animation[]} An array of Animation instances that were successfully created.
      */
-    createFromAseprite(key, tags)
+    createFromAseprite(key: string, tags?: string[]): Animation[]
     {
         return this.animationManager.createFromAseprite(key, tags, this.parent);
     }
@@ -1915,7 +1912,7 @@ export class AnimationState {
      *
      * @return {Phaser.Types.Animations.AnimationFrame[]} The array of {@link Phaser.Types.Animations.AnimationFrame} objects.
      */
-    generateFrameNames(key, config)
+    generateFrameNames(key: string, config?: any): any[]
     {
         return this.animationManager.generateFrameNames(key, config);
     }
@@ -1965,7 +1962,7 @@ export class AnimationState {
      *
      * @return {Phaser.Types.Animations.AnimationFrame[]} The array of {@link Phaser.Types.Animations.AnimationFrame} objects.
      */
-    generateFrameNumbers(key, config)
+    generateFrameNumbers(key: string, config?: any): any[]
     {
         return this.animationManager.generateFrameNumbers(key, config);
     }
@@ -1982,11 +1979,11 @@ export class AnimationState {
      *
      * @return {Phaser.Animations.Animation} The Animation instance that was removed from this Sprite, if the key was valid.
      */
-    remove(key)
+    remove(key: string): Animation | null
     {
-        var anim = this.get(key);
+        const anim = this.get(key);
 
-        if (anim)
+        if (anim && this.anims)
         {
             if (this.currentAnim === anim)
             {
@@ -2007,7 +2004,7 @@ export class AnimationState {
      * @method Phaser.Animations.AnimationState#destroy
      * @since 3.0.0
      */
-    destroy()
+    destroy(): void
     {
         this.animationManager.off(Events.REMOVE_ANIMATION, this.globalRemove, this);
 
@@ -2033,8 +2030,7 @@ export class AnimationState {
      * @type {boolean}
      * @since 3.4.0
      */
-
-    get isPaused()
+    get isPaused(): boolean
     {
         return this._paused;
     }

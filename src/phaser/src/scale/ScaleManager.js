@@ -19,7 +19,7 @@ var GetInnerHeight = require('../dom/GetInnerHeight');
 var GetTarget = require('../dom/GetTarget');
 var GetScreenOrientation = require('../dom/GetScreenOrientation');
 import { NOOP } from '../utils/NOOP';
-var Size = require('../structs/Size');
+import { Size } from '../structs/Size';
 var Camera = require('../cameras/2d/Camera');
 
 /**

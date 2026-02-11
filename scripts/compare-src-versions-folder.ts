@@ -17,8 +17,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
 
-const ORIGIN_BASE = 'src/phaser/src';
-const NEW_VERSION_DEFAULT = 'original_src/src';
+const ORIGIN_BASE = 'original_src/src';
+const NEW_VERSION_DEFAULT = 'src/phaser/src';
 
 interface FileInfo {
     path: string;

@@ -5,8 +5,8 @@
  */
 
 import { Vector2 } from '../../math/Vector2';
+import { AnimationState } from '../../animations/AnimationState';
 
-var AnimationState = require('../../animations/AnimationState');
 var CanvasPool = require('../../display/canvas/CanvasPool');
 var DefaultTileSpriteNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultTileSpriteNodes');
 var Class = require('../../utils/Class');

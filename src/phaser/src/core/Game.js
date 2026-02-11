@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { AnimationManager } from '../animations/AnimationManager';
+
 var AddToDOM = require('../dom/AddToDOM');
-var AnimationManager = require('../animations/AnimationManager');
 var CacheManager = require('../cache/CacheManager');
 var CanvasPool = require('../display/canvas/CanvasPool');
 var Class = require('../utils/Class');

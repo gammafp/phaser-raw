@@ -1,18 +1,18 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2025 Phaser Studio Inc.
+ * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { GetFastValue } from '../utils/object/GetFastValue';
-import { GetValue } from '../utils/object/GetValue';
-import { NumberArray } from '../utils/array/NumberArray';
-import { Pad } from '../utils/string/Pad';
-import { MATH_CONST } from '../math/const';
 import { Animation } from './Animation';
 import { Map as CustomMap } from '../structs/Map';
 import { EventEmitter } from 'eventemitter3';
 import * as Events from './events';
+import { GetFastValue } from '../utils/object/GetFastValue';
+import { GetValue } from '../utils/object/GetValue';
+import { MATH_CONST } from '../math/const';
+import { NumberArray } from '../utils/array/NumberArray';
+import { Pad } from '../utils/string/Pad';
 const GameEvents = require('../core/events');
 
 /**
@@ -39,7 +39,7 @@ export class AnimationManager extends EventEmitter {
     textureManager: any;
     globalTimeScale: number;
     anims: CustomMap<string, Animation>;
-    mixes: Map<string, any>;
+    mixes: CustomMap<string, any>;
     paused: boolean;
     name: string;
 
@@ -131,7 +131,7 @@ export class AnimationManager extends EventEmitter {
      * @listens Phaser.Core.Events#DESTROY
      * @since 3.0.0
      */
-    boot()
+    boot(): void
     {
         this.textureManager = this.game.textures;
 
@@ -166,17 +166,17 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {this} This Animation Manager.
      */
-    addMix(animA, animB, delay)
+    addMix(animA: string | Animation, animB: string | Animation, delay: number): this
     {
-        var anims = this.anims;
-        var mixes = this.mixes;
+        const anims = this.anims;
+        const mixes = this.mixes;
 
-        var keyA = (typeof(animA) === 'string') ? animA : animA.key;
-        var keyB = (typeof(animB) === 'string') ? animB : animB.key;
+        const keyA = (typeof(animA) === 'string') ? animA : animA.key;
+        const keyB = (typeof(animB) === 'string') ? animB : animB.key;
 
         if (anims.has(keyA) && anims.has(keyB))
         {
-            var mixObj = mixes.get(keyA);
+            let mixObj = mixes.get(keyA);
 
             if (!mixObj)
             {
@@ -211,19 +211,19 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {this} This Animation Manager.
      */
-    removeMix(animA, animB)
+    removeMix(animA: string | Animation, animB?: string | Animation): this
     {
-        var mixes = this.mixes;
+        const mixes = this.mixes;
 
-        var keyA = (typeof(animA) === 'string') ? animA : animA.key;
+        const keyA = (typeof(animA) === 'string') ? animA : animA.key;
 
-        var mixObj = mixes.get(keyA);
+        const mixObj = mixes.get(keyA);
 
         if (mixObj)
         {
             if (animB)
             {
-                var keyB = (typeof(animB) === 'string') ? animB : animB.key;
+                const keyB = (typeof(animB) === 'string') ? animB : animB.key;
 
                 if (mixObj.hasOwnProperty(keyB))
                 {
@@ -257,14 +257,14 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {number} The mix duration, or zero if no mix exists.
      */
-    getMix(animA, animB)
+    getMix(animA: string | Animation, animB: string | Animation): number
     {
-        var mixes = this.mixes;
+        const mixes = this.mixes;
 
-        var keyA = (typeof(animA) === 'string') ? animA : animA.key;
-        var keyB = (typeof(animB) === 'string') ? animB : animB.key;
+        const keyA = (typeof(animA) === 'string') ? animA : animA.key;
+        const keyB = (typeof(animB) === 'string') ? animB : animB.key;
 
-        var mixObj = mixes.get(keyA);
+        const mixObj = mixes.get(keyA);
 
         if (mixObj && mixObj.hasOwnProperty(keyB))
         {
@@ -288,7 +288,7 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {this} This Animation Manager.
      */
-    add(key, animation)
+    add(key: string, animation: Animation): this
     {
         if (this.anims.has(key))
         {
@@ -318,7 +318,7 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {boolean} `true` if the Animation already exists in the Animation Manager, or `false` if the key is available.
      */
-    exists(key)
+    exists(key: string): boolean
     {
         return this.anims.has(key);
     }
@@ -400,11 +400,11 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {Phaser.Animations.Animation[]} An array of Animation instances that were successfully created.
      */
-    createFromAseprite(key, tags, target)
+    createFromAseprite(key: string, tags?: string[], target?: any): Animation[]
     {
-        var output = [];
+        const output: Animation[] = [];
 
-        var data = this.game.cache.json.get(key);
+        const data = this.game.cache.json.get(key);
 
         if (!data)
         {
@@ -413,23 +413,21 @@ export class AnimationManager extends EventEmitter {
             return output;
         }
 
-        var _this = this;
-
-        var meta = GetValue(data, 'meta', null);
-        var frames = GetValue(data, 'frames', null);
+        const meta = GetValue(data, 'meta', null);
+        const frames = GetValue(data, 'frames', null);
 
         if (meta && frames)
         {
-            var frameTags = GetValue(meta, 'frameTags', []);
+            const frameTags = GetValue(meta, 'frameTags', []);
 
-            frameTags.forEach(function (tag)
+            frameTags.forEach((tag: any) =>
             {
-                var animFrames = [];
+                let animFrames: any[] = [];
 
-                var name = GetFastValue(tag, 'name', null);
-                var from = GetFastValue(tag, 'from', 0);
-                var to = GetFastValue(tag, 'to', 0);
-                var direction = GetFastValue(tag, 'direction', 'forward');
+                const name = GetFastValue(tag, 'name', null);
+                const from = GetFastValue(tag, 'from', 0);
+                const to = GetFastValue(tag, 'to', 0);
+                const direction = GetFastValue(tag, 'direction', 'forward');
 
                 if (!name)
                 {
@@ -440,15 +438,15 @@ export class AnimationManager extends EventEmitter {
                 if (!tags || (tags && tags.indexOf(name) > -1))
                 {
                     //  Get all the frames for this tag and calculate the total duration in milliseconds.
-                    var totalDuration = 0;
-                    for (var i = from; i <= to; i++)
+                    let totalDuration = 0;
+                    for (let i = from; i <= to; i++)
                     {
-                        var frameKey = i.toString();
-                        var frame = frames[frameKey];
+                        const frameKey = i.toString();
+                        const frame = frames[frameKey];
 
                         if (frame)
                         {
-                            var frameDuration = GetFastValue(frame, 'duration', MATH_CONST.MAX_SAFE_INTEGER);
+                            const frameDuration = GetFastValue(frame, 'duration', MATH_CONST.MAX_SAFE_INTEGER);
                             animFrames.push({ key: key, frame: frameKey, duration: frameDuration });
                             totalDuration += frameDuration;
                         }
@@ -460,14 +458,14 @@ export class AnimationManager extends EventEmitter {
                     }
 
                     //  Create the animation
-                    var createConfig = {
+                    const createConfig = {
                         key: name,
                         frames: animFrames,
                         duration: totalDuration,
                         yoyo: (direction === 'pingpong')
                     };
 
-                    var result;
+                    let result: Animation | false;
 
                     if (target)
                     {
@@ -478,7 +476,7 @@ export class AnimationManager extends EventEmitter {
                     }
                     else
                     {
-                        result = _this.create(createConfig);
+                        result = this.create(createConfig);
                     }
 
                     if (result)
@@ -513,11 +511,11 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {(Phaser.Animations.Animation|false)} The Animation that was created, or `false` if the key is already in use.
      */
-    create(config)
+    create(config: any): Animation | false
     {
-        var key = config.key;
+        const key = config.key;
 
-        var anim = false;
+        let anim: Animation | false = false;
 
         if (key)
         {
@@ -551,7 +549,7 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {Phaser.Animations.Animation[]} An array containing all of the Animation objects that were created as a result of this call.
      */
-    fromJSON(data, clearCurrentAnimations)
+    fromJSON(data: string | any, clearCurrentAnimations?: boolean): Animation[]
     {
         if (clearCurrentAnimations === undefined) { clearCurrentAnimations = false; }
 
@@ -566,14 +564,14 @@ export class AnimationManager extends EventEmitter {
             data = JSON.parse(data);
         }
 
-        var output = [];
+        const output: Animation[] = [];
 
         //  Array of animations, or a single animation?
         if (data.hasOwnProperty('anims') && Array.isArray(data.anims))
         {
-            for (var i = 0; i < data.anims.length; i++)
+            for (let i = 0; i < data.anims.length; i++)
             {
-                output.push(this.create(data.anims[i]));
+                output.push(this.create(data.anims[i])!);
             }
 
             if (data.hasOwnProperty('globalTimeScale'))
@@ -583,7 +581,7 @@ export class AnimationManager extends EventEmitter {
         }
         else if (data.hasOwnProperty('key') && data.type === 'frame')
         {
-            output.push(this.create(data));
+            output.push(this.create(data)!);
         }
 
         return output;
@@ -628,15 +626,15 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {Phaser.Types.Animations.AnimationFrame[]} The array of {@link Phaser.Types.Animations.AnimationFrame} objects.
      */
-    generateFrameNames(key, config)
+    generateFrameNames(key: string, config?: any): any[]
     {
-        var prefix = GetValue(config, 'prefix', '');
-        var start = GetValue(config, 'start', 0);
-        var end = GetValue(config, 'end', 0);
-        var suffix = GetValue(config, 'suffix', '');
-        var zeroPad = GetValue(config, 'zeroPad', 0);
-        var out = GetValue(config, 'outputArray', []);
-        var frames = GetValue(config, 'frames', false);
+        const prefix = GetValue(config, 'prefix', '');
+        const start = GetValue(config, 'start', 0);
+        const end = GetValue(config, 'end', 0);
+        const suffix = GetValue(config, 'suffix', '');
+        const zeroPad = GetValue(config, 'zeroPad', 0);
+        const out = GetValue(config, 'outputArray', []);
+        let frames = GetValue(config, 'frames', false);
 
         if (!this.textureManager.exists(key))
         {
@@ -645,14 +643,14 @@ export class AnimationManager extends EventEmitter {
             return out;
         }
 
-        var texture = this.textureManager.get(key);
+        const texture = this.textureManager.get(key);
 
         if (!texture)
         {
             return out;
         }
 
-        var i;
+        let i: number;
 
         if (!config)
         {
@@ -673,7 +671,7 @@ export class AnimationManager extends EventEmitter {
 
             for (i = 0; i < frames.length; i++)
             {
-                var frame = prefix + Pad(frames[i], zeroPad, '0', 1) + suffix;
+                const frame = prefix + Pad(frames[i], zeroPad, '0', 1) + suffix;
 
                 if (texture.has(frame))
                 {
@@ -736,13 +734,13 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {Phaser.Types.Animations.AnimationFrame[]} The array of {@link Phaser.Types.Animations.AnimationFrame} objects.
      */
-    generateFrameNumbers(key, config)
+    generateFrameNumbers(key: string, config?: any): any[]
     {
-        var start = GetValue(config, 'start', 0);
-        var end = GetValue(config, 'end', -1);
-        var first = GetValue(config, 'first', false);
-        var out = GetValue(config, 'outputArray', []);
-        var frames = GetValue(config, 'frames', false);
+        const start = GetValue(config, 'start', 0);
+        const end = GetValue(config, 'end', -1);
+        const first = GetValue(config, 'first', false);
+        const out = GetValue(config, 'outputArray', []);
+        let frames = GetValue(config, 'frames', false);
 
         if (!this.textureManager.exists(key))
         {
@@ -751,7 +749,7 @@ export class AnimationManager extends EventEmitter {
             return out;
         }
 
-        var texture = this.textureManager.get(key);
+        const texture = this.textureManager.get(key);
 
         if (!texture)
         {
@@ -766,19 +764,20 @@ export class AnimationManager extends EventEmitter {
         //  No 'frames' array? Then generate one automatically
         if (!frames)
         {
-            if (end === -1)
+            let endValue = end;
+            if (endValue === -1)
             {
                 //  -1 because of __BASE, which we don't want in our results
                 //  and -1 because frames are zero based
-                end = texture.frameTotal - 2;
+                endValue = texture.frameTotal - 2;
             }
 
-            frames = NumberArray(start, end);
+            frames = NumberArray(start, endValue);
         }
 
-        for (var i = 0; i < frames.length; i++)
+        for (let i = 0; i < frames.length; i++)
         {
-            var frameName = frames[i];
+            const frameName = frames[i];
 
             if (texture.has(frameName))
             {
@@ -803,7 +802,7 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {Phaser.Animations.Animation} The Animation.
      */
-    get(key)
+    get(key: string): Animation | undefined
     {
         return this.anims.get(key);
     }
@@ -820,21 +819,21 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {string[]} An array of Animation keys that feature the given Texture.
      */
-    getAnimsFromTexture(key)
+    getAnimsFromTexture(key: string | any): string[]
     {
-        var texture = this.textureManager.get(key);
+        const texture = this.textureManager.get(key);
 
-        var match = texture.key;
-        var anims = this.anims.getArray();
+        const match = texture.key;
+        const anims = this.anims.getArray();
 
-        var out = [];
+        const out: string[] = [];
 
-        for (var i = 0; i < anims.length; i++)
+        for (let i = 0; i < anims.length; i++)
         {
-            var anim = anims[i];
-            var frames = anim.frames;
+            const anim = anims[i];
+            const frames = anim.frames;
 
-            for (var c = 0; c < frames.length; c++)
+            for (let c = 0; c < frames.length; c++)
             {
                 if (frames[c].textureKey === match)
                 {
@@ -857,7 +856,7 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {this} This Animation Manager.
      */
-    pauseAll()
+    pauseAll(): this
     {
         if (!this.paused)
         {
@@ -880,14 +879,14 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {this} This Animation Manager.
      */
-    play(key, children)
+    play(key: string | any, children: any | any[]): this
     {
         if (!Array.isArray(children))
         {
             children = [ children ];
         }
 
-        for (var i = 0; i < children.length; i++)
+        for (let i = 0; i < children.length; i++)
         {
             children[i].anims.play(key);
         }
@@ -934,7 +933,7 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {this} This Animation Manager.
      */
-    staggerPlay(key, children, stagger, staggerFirst)
+    staggerPlay(key: string | any, children: any | any[], stagger?: number, staggerFirst?: boolean): this
     {
         if (stagger === undefined) { stagger = 0; }
         if (staggerFirst === undefined) { staggerFirst = true; }
@@ -944,16 +943,16 @@ export class AnimationManager extends EventEmitter {
             children = [ children ];
         }
 
-        var len = children.length;
+        let len = children.length;
 
         if (!staggerFirst)
         {
             len--;
         }
 
-        for (var i = 0; i < children.length; i++)
+        for (let i = 0; i < children.length; i++)
         {
-            var time = (stagger < 0) ? Math.abs(stagger) * (len - i) : stagger * i;
+            const time = (stagger < 0) ? Math.abs(stagger) * (len - i) : stagger * i;
 
             children[i].anims.playAfterDelay(key, time);
         }
@@ -975,9 +974,9 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {Phaser.Animations.Animation} The Animation instance that was removed from the Animation Manager.
      */
-    remove(key)
+    remove(key: string): Animation | undefined
     {
-        var anim = this.get(key);
+        const anim = this.get(key);
 
         if (anim)
         {
@@ -1000,7 +999,7 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {this} This Animation Manager.
      */
-    resumeAll()
+    resumeAll(): this
     {
         if (this.paused)
         {
@@ -1023,16 +1022,20 @@ export class AnimationManager extends EventEmitter {
      *
      * @return {Phaser.Types.Animations.JSONAnimations} The resulting JSONAnimations formatted object.
      */
-    toJSON(key)
+    toJSON(key?: string): any
     {
-        var output = {
+        const output: any = {
             anims: [],
             globalTimeScale: this.globalTimeScale
         };
 
         if (key !== undefined && key !== '')
         {
-            output.anims.push(this.anims.get(key).toJSON());
+            const anim = this.anims.get(key);
+            if (anim)
+            {
+                output.anims.push(anim.toJSON());
+            }
         }
         else
         {
@@ -1052,7 +1055,7 @@ export class AnimationManager extends EventEmitter {
      * @method Phaser.Animations.AnimationManager#destroy
      * @since 3.0.0
      */
-    destroy()
+    destroy(): void
     {
         this.anims.clear();
         this.mixes.clear();

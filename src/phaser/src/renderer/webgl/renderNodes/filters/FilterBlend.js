@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Map = require('../../../../structs/Map.js');
+import { Map } from '../../../../structs/Map.js';
 var Class = require('../../../../utils/Class');
 var BlendModes = require('../../../BlendModes');
 var BaseFilterShader = require('./BaseFilterShader');

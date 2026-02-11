@@ -17,6 +17,10 @@ import { MATH_CONST } from '../../math/const';
 import { Vector2 } from '../../math/Vector2';
 import { Wrap } from '../../math/Wrap';
 
+import RTree from '../../structs/RTree';
+import { ProcessQueue } from '../../structs/ProcessQueue';
+
+
 var Body = require('./Body');
 var Class = require('../../utils/Class');
 var Collider = require('./Collider');
@@ -27,9 +31,7 @@ var GetOverlapX = require('./GetOverlapX');
 var GetOverlapY = require('./GetOverlapY');
 var GetTilesWithinWorldXY = require('../../tilemaps/components/GetTilesWithinWorldXY');
 var GetValue = require('../../utils/object/GetValue');
-var ProcessQueue = require('../../structs/ProcessQueue');
 var ProcessTileCallbacks = require('./tilemap/ProcessTileCallbacks');
-var RTree = require('../../structs/RTree');
 var SeparateTile = require('./tilemap/SeparateTile');
 var SeparateX = require('./SeparateX');
 var SeparateY = require('./SeparateY');

@@ -5,7 +5,7 @@
  */
 
 var Class = require('../utils/Class');
-var CustomMap = require('../structs/Map');
+import { Map as CustomMap } from '../structs/Map';
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 

@@ -10,8 +10,8 @@ import { Clamp } from '../../math/Clamp';
 import { DegToRad } from '../../math/DegToRad';
 import { RotateAround } from '../../math/RotateAround';
 import { Vector2 } from '../../math/Vector2';
+import { AnimationState } from '../../animations/AnimationState';
 
-var AnimationState = require('../../animations/AnimationState');
 var Class = require('../../utils/Class');
 
 /**

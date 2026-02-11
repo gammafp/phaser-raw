@@ -6,7 +6,7 @@
 
 import { Vector2 } from '../../math/Vector2';
 
-var AnimationState = require('../../animations/AnimationState');
+import { AnimationState } from '../../animations/AnimationState';
 var Class = require('../../utils/Class');
 var Components = require('./components');
 var GameObject = require('../../gameobjects/GameObject');

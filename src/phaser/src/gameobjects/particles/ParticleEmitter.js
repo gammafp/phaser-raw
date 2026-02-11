@@ -13,6 +13,8 @@ import { RectangleToRectangle } from '../../geom/intersects/RectangleToRectangle
 import { Vector2 } from '../../math/Vector2';
 import { Wrap } from '../../math/Wrap';
 
+import { List } from '../../structs/List';
+
 var DefaultParticleEmitterNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultParticleEmitterNodes');
 var Class = require('../../utils/Class');
 var Components = require('../components');
@@ -29,7 +31,6 @@ var GravityWell = require('./GravityWell');
 var HasAll = require('../../utils/object/HasAll');
 var HasAny = require('../../utils/object/HasAny');
 var HasValue = require('../../utils/object/HasValue');
-var List = require('../../structs/List');
 var MergeRight = require('../../utils/object/MergeRight');
 var Particle = require('./Particle');
 var ParticleBounds = require('./ParticleBounds');

@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Map = require('../../../../structs/Map');
+import { Map } from '../../../../structs/Map';
 
 var DefaultImageNodes = new Map([
     [ 'Submitter', 'SubmitterQuad' ],

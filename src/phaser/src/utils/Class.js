@@ -145,6 +145,21 @@ function mixin (myClass, mixins)
 }
 
 /**
+ * Returns true if the value looks like a native ES6 class (or constructor function).
+ * @ignore
+ * @param {*} value
+ * @returns {boolean}
+ */
+function isNativeClass (value)
+{
+    return (
+        typeof value === 'function' &&
+        value.prototype != null &&
+        value.prototype.constructor === value
+    );
+}
+
+/**
  * Creates a new class with the given descriptor.
  * The constructor, defined by the name `initialize`,
  * is an optional function. If unspecified, an anonymous
@@ -177,10 +192,61 @@ function Class (definition)
         definition = {};
     }
 
+    //  Support native ES6 classes (or any constructor with proper prototype): return as-is.
+    if (isNativeClass(definition))
+    {
+        return definition;
+    }
+
+    //  If Extends is a native class, wrap it to make it callable
+    if (definition.Extends && isNativeClass(definition.Extends))
+    {
+        var NativeClass = definition.Extends;
+        
+        //  Create a callable wrapper
+        var callableVersion = function()
+        {
+            //  Use Reflect.construct to properly instantiate the native class
+            var instance = Reflect.construct(NativeClass, arguments, this.constructor || callableVersion);
+            
+            //  If called with .call(context), copy properties to context
+            if (this !== window && this !== global && this !== undefined)
+            {
+                Object.setPrototypeOf(this, Object.getPrototypeOf(instance));
+                for (var key in instance)
+                {
+                    if (instance.hasOwnProperty(key))
+                    {
+                        this[key] = instance[key];
+                    }
+                }
+            }
+            
+            return instance;
+        };
+        
+        //  Preserve prototype chain
+        callableVersion.prototype = Object.create(NativeClass.prototype);
+        callableVersion.prototype.constructor = callableVersion;
+        
+        //  Copy static members
+        for (var staticKey in NativeClass)
+        {
+            if (NativeClass.hasOwnProperty(staticKey))
+            {
+                callableVersion[staticKey] = NativeClass[staticKey];
+            }
+        }
+        
+        //  Replace with callable version
+        definition.Extends = callableVersion;
+    }
+
     //  The variable name here dictates what we see in Chrome debugger
     var initialize;
     var Extends;
 
+    //  Traditional Phaser.Class behavior
     if (definition.initialize)
     {
         if (typeof definition.initialize !== 'function')
@@ -245,6 +311,7 @@ function Class (definition)
 
 Class.extend = extend;
 Class.mixin = mixin;
+Class.isNativeClass = isNativeClass;
 Class.ignoreFinals = false;
 
 module.exports = Class;

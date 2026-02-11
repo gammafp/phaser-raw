@@ -4,6 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { List } from '../../structs/List';
 var BlendModes = require('../../renderer/BlendModes');
 var Class = require('../../utils/Class');
 var Components = require('../components');
@@ -11,7 +12,6 @@ var ComponentsToJSON = require('../components/ToJSON');
 var DataManager = require('../../data/DataManager');
 var EventEmitter = require('eventemitter3');
 var GameObjectEvents = require('../events');
-var List = require('../../structs/List');
 var Render = require('./LayerRender');
 var SceneEvents = require('../../scene/events');
 var StableSort = require('../../utils/array/StableSort');

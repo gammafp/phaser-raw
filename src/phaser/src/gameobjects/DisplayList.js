@@ -5,7 +5,9 @@
  */
 
 var Class = require('../utils/Class');
-var List = require('../structs/List');
+
+import { List } from '../structs/List';
+
 var PluginCache = require('../plugins/PluginCache');
 var GameObjectEvents = require('./events');
 var SceneEvents = require('../scene/events');

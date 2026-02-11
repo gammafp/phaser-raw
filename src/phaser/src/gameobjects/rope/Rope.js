@@ -5,8 +5,8 @@
  */
 
 import { Vector2 } from '../../math/Vector2';
+import { AnimationState } from '../../animations/AnimationState';
 
-var AnimationState = require('../../animations/AnimationState');
 var DefaultRopeNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultRopeNodes');
 var Class = require('../../utils/Class');
 var Components = require('../components');
