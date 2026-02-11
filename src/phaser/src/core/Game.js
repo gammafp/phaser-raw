@@ -5,18 +5,18 @@
  */
 
 import { AnimationManager } from '../animations/AnimationManager';
+import { CacheManager } from '../cache/CacheManager';
+import { DataManager } from '../data/DataManager';
+import { AddToDOM } from '../dom/AddToDOM';
+import { CreateDOMContainer } from '../dom/CreateDOMContainer';
+import { DOMContentLoaded } from '../dom/DOMContentLoaded';
 
-var AddToDOM = require('../dom/AddToDOM');
-var CacheManager = require('../cache/CacheManager');
 var CanvasPool = require('../display/canvas/CanvasPool');
 var Class = require('../utils/Class');
 var Config = require('./Config');
-var CreateDOMContainer = require('../dom/CreateDOMContainer');
 var CreateRenderer = require('./CreateRenderer');
-var DataManager = require('../data/DataManager');
 var DebugHeader = require('./DebugHeader');
 var Device = require('../device');
-var DOMContentLoaded = require('../dom/DOMContentLoaded');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var InputManager = require('../input/InputManager');

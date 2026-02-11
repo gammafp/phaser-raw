@@ -82,20 +82,25 @@ These namespaces have significant architectural changes in Phaser 4.0 and need t
 ## �📊 TypeScript Conversion Progress
 
 ### Global Summary
-![21%](https://progress-bar.xyz/21)
+![26%](https://progress-bar.xyz/26)
 
-*Última actualización según `bun run stats`.*
+*Última actualización según `bun run ts-js-stats`.*
 
-- **Total files** (excl. typedefs, matter-js): **1,658**
-- **TypeScript (.ts)**: **346**
-- **JavaScript (.js)**: **1,312**
-- **Progreso**: **20,87 %**
-- **Pendientes**: 1,312 archivos
+- **Total files**: **1,632**
+- **TypeScript (.ts)**: **418**
+- **JavaScript (.js)**: **1,214**
+- **Progreso**: **25,61 %**
+- **Pendientes**: 1,214 archivos
 
 ### ✅ Fully Converted (100 %)
 
-- [x] **geom** (201 files) – Geometría (Circle, Rectangle, Line, Polygon, etc.)
+- [x] **actions** (57 files)
+- [x] **animations** (17 files)
+- [x] **cache** (6 files)
+- [x] **data** (9 files)
+- [x] **geom** (175 files) – Geometría (Circle, Rectangle, Line, Polygon, etc.)
 - [x] **math** (143 files) – Utilidades matemáticas y funciones
+- [x] **structs** (9 files)
 
 ### 🔄 In Progress
 
@@ -103,7 +108,7 @@ These namespaces have significant architectural changes in Phaser 4.0 and need t
 
 ### ⏳ Not Started (0 %)
 
-- [ ] actions (57), animations (17), cache (6), cameras (34), core (24), curves (9), data (9), device (9), display (77), dom (10), events (2), filters (23), gameobjects (284), input (97), loader (55), physics (55), plugins (6), polyfills (1), renderer (179), scale (14), scene (33), sound (35), structs (9), textures (30), tilemaps (116), time (6), tweens (34)
+- [ ] cameras (34), core (24), curves (9), device (9), display (77), dom (10), events (2), filters (23), gameobjects (284), input (97), loader (55), physics (55), plugins (6), polyfills (1), renderer (179), scale (14), scene (33), sound (35), textures (30), tilemaps (116), time (6), tweens (34)
 
 ---
 
@@ -214,8 +219,8 @@ var Sprite = new Class({
 ## 🎯 Key Achievements
 
 - **Base Phaser 4.0.0** — Versión final del framework
-- **20,87 %** del código convertido a TypeScript (346 archivos .ts)
-- **geom** y **math** al 100 % — listos para uso
+- **25,61 %** del código convertido a TypeScript (418 archivos .ts)
+- **actions**, **animations**, **cache**, **data**, **geom**, **math** y **structs** al 100 % — listos para uso
 - Sintaxis **ES6+** con soporte para tree-shaking
 - **Named exports** para mejor tamaño de bundle
 - Script **validate-imports** y **--fix** para compatibilidad require/import
@@ -231,7 +236,7 @@ Carpetas sugeridas para seguir la conversión a TS:
 2. **structs**, **data**, **curves**, **device**, **events**
 3. **gameobjects**, **input**, **renderer**, **physics**, etc.
 
-Para ver estadísticas al día: `bun run stats`
+Para ver estadísticas al día: `bun run ts-js-stats`
 
 ---
 

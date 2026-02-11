@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { FEATURES_DEVICE as Features } from '../device/Features';
+
 var CanvasInterpolation = require('../display/canvas/CanvasInterpolation');
 var CanvasPool = require('../display/canvas/CanvasPool');
 var CONST = require('../const');
-var Features = require('../device/Features');
 
 /**
  * Called automatically by Phaser.Game and responsible for creating the renderer it will use.

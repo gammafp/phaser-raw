@@ -10,14 +10,15 @@ import { Clamp } from '../math/Clamp';
 import { SnapFloor } from '../math/snap/SnapFloor';
 import { Vector2 } from '../math/Vector2';
 
+import { GetInnerHeight } from '../dom/GetInnerHeight';
+import { GetScreenOrientation } from '../dom/GetScreenOrientation';
+import { GetTarget } from '../dom/GetTarget';
+
 var CONST = require('./const');
 var Class = require('../utils/Class');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var GameEvents = require('../core/events');
-var GetInnerHeight = require('../dom/GetInnerHeight');
-var GetTarget = require('../dom/GetTarget');
-var GetScreenOrientation = require('../dom/GetScreenOrientation');
 import { NOOP } from '../utils/NOOP';
 import { Size } from '../structs/Size';
 var Camera = require('../cameras/2d/Camera');

@@ -4,10 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { DataManager } from '../data/DataManager';
+
+
 var Class = require('../utils/Class');
 var Components = require('./components');
 var ComponentsToJSON = require('./components/ToJSON');
-var DataManager = require('../data/DataManager');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var SceneEvents = require('../scene/events');

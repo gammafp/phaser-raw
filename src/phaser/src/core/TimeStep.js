@@ -7,7 +7,7 @@
 var Class = require('../utils/Class');
 var GetValue = require('../utils/object/GetValue');
 import { NOOP } from '../utils/NOOP';
-var RequestAnimationFrame = require('../dom/RequestAnimationFrame');
+import { RequestAnimationFrame } from '../dom/RequestAnimationFrame';
 
 // http://www.testufo.com/#test=animation-time-graph
 
