@@ -159,10 +159,10 @@ export const namespaceDB: NamespaceInfo[] = [
     },
     {
         name: 'geom',
-        status: ReviewStatus.NEEDS_PATCH,
-        notes: 'TS conversion faithful to 3.90; need to remove mesh/ (8 files) and point/ (10 files) modules that were removed in 4.0. Integrate changes: 62 modified files (4-41%) with minor algorithm/signature improvements.',
-        filesChanged: 62,
-        percentChanged: 25,
+        status: ReviewStatus.UP_TO_DATE,
+        notes: 'DONE',
+        filesChanged: 0,
+        percentChanged: 0,
         lastReviewed: '2026-02-10'
     },
     {

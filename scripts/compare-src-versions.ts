@@ -11,7 +11,7 @@ import * as path from 'path';
 import * as crypto from 'crypto';
 
 const SRC_BASE = 'original_src/src';
-const SRC_4_BASE = 'original_src/src_4.0';
+const SRC_4_BASE = 'original_src/src_v4';
 
 interface FileInfo {
     path: string;

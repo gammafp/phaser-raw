@@ -1,0 +1,1062 @@
+﻿ÔòöÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòù
+Ôòæ           COMPARISON: src vs src_4.0                        Ôòæ
+ÔòÜÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòØ
+
+­ƒôé Base version:    original_src/src
+­ƒôé Version 4.0:     original_src/src_v4
+
+­ƒöì Scanning directories...
+
+­ƒôè Files in original_src/src:     2034
+­ƒôè Files in original_src/src_v4:  2121
+
+­ƒöì Analyzing changes (detecting copyright-only changes)...
+
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+
+ÔØî ONLY IN original_src/src (297 files)
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+These files exist in src but NOT in src_4.0:
+
+  ­ƒôü ./ (2 files)
+     - FEATURES.ts
+     - phaser.ts
+  ­ƒôü actions/typedefs/ (3 files)
+     - CallCallback.ts
+     - GridAlignConfig.ts
+     - index.ts
+  ­ƒôü core/typedefs/ (1 files)
+     - PipelineConfig.js
+  ­ƒôü create/ (2 files)
+     - GenerateTexture.js
+     - index.js
+  ­ƒôü create/palettes/ (6 files)
+     - Arne16.js
+     - C64.js
+     - CGA.js
+     - index.js
+     - JMP.js
+     ... and 1 more
+  ­ƒôü create/typedefs/ (3 files)
+     - GenerateTextureConfig.js
+     - index.js
+     - Palette.js
+  ­ƒôü display/align/in/ (11 files)
+     - BottomCenter.ts
+     - BottomLeft.ts
+     - BottomRight.ts
+     - Center.ts
+     - index.ts
+     ... and 6 more
+  ­ƒôü display/align/to/ (14 files)
+     - BottomCenter.ts
+     - BottomLeft.ts
+     - BottomRight.ts
+     - index.ts
+     - LeftBottom.ts
+     ... and 9 more
+  ­ƒôü display/bounds/ (17 files)
+     - CenterOn.ts
+     - GetBottom.ts
+     - GetBounds.ts
+     - GetCenterX.ts
+     - GetCenterY.ts
+     ... and 12 more
+  ­ƒôü display/color/ (21 files)
+     - Color.ts
+     - ColorSpectrum.ts
+     - ColorToRGBA.ts
+     - ComponentToHex.ts
+     - GetColor.ts
+     ... and 16 more
+  ­ƒôü display/mask/ (1 files)
+     - BitmapMask.js
+  ­ƒôü dom/ (10 files)
+     - AddToDOM.ts
+     - CreateDOMContainer.ts
+     - DOMContentLoaded.ts
+     - GetInnerHeight.ts
+     - GetScreenOrientation.ts
+     ... and 5 more
+  ­ƒôü fx/ (17 files)
+     - Barrel.js
+     - Bloom.js
+     - Blur.js
+     - Bokeh.js
+     - Circle.js
+     ... and 12 more
+  ­ƒôü gameobjects/components/ (3 files)
+     - FX.js
+     - Pipeline.js
+     - PostPipeline.js
+  ­ƒôü gameobjects/mesh/ (6 files)
+     - Mesh.js
+     - MeshCanvasRenderer.js
+     - MeshCreator.js
+     - MeshFactory.js
+     - MeshRender.js
+     ... and 1 more
+  ... and 24 more folders
+
+­ƒåò ONLY IN original_src/src_v4 (384 files)
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+These files are NEW in src_4.0:
+
+  ­ƒôü ./ (4 files)
+     + phaser-core.js
+     + phaser-esm.js
+     + phaser-no-physics.js
+     + phaser.js
+  ­ƒôü actions/ (3 files)
+     + AddEffectBloom.js
+     + AddMaskShape.js
+     + FitToRegion.js
+  ­ƒôü actions/typedefs/ (7 files)
+     + AddEffectBloomConfig.js
+     + AddEffectBloomReturn.js
+     + AddMaskShapeConfig.js
+     + CallCallback.js
+     + FitToRegionItemCoverage.js
+     ... and 2 more
+  ­ƒôü cameras/2d/typedefs/ (1 files)
+     + CameraRotateCallback.js
+  ­ƒôü core/typedefs/ (1 files)
+     + RenderNodesConfig.js
+  ­ƒôü display/align/in/ (11 files)
+     + BottomCenter.js
+     + BottomLeft.js
+     + BottomRight.js
+     + Center.js
+     + index.js
+     ... and 6 more
+  ­ƒôü display/align/to/ (14 files)
+     + BottomCenter.js
+     + BottomLeft.js
+     + BottomRight.js
+     + index.js
+     + LeftBottom.js
+     ... and 9 more
+  ­ƒôü display/bounds/ (17 files)
+     + CenterOn.js
+     + GetBottom.js
+     + GetBounds.js
+     + GetCenterX.js
+     + GetCenterY.js
+     ... and 12 more
+  ­ƒôü display/color/ (21 files)
+     + Color.js
+     + ColorSpectrum.js
+     + ColorToRGBA.js
+     + ComponentToHex.js
+     + GetColor.js
+     ... and 16 more
+  ­ƒôü dom/ (10 files)
+     + AddToDOM.js
+     + CreateDOMContainer.js
+     + DOMContentLoaded.js
+     + GetInnerHeight.js
+     + GetScreenOrientation.js
+     ... and 5 more
+  ­ƒôü filters/ (23 files)
+     + Barrel.js
+     + Blend.js
+     + Blocky.js
+     + Blur.js
+     + Bokeh.js
+     ... and 18 more
+  ­ƒôü filters/typedefs/ (8 files)
+     + BlockyConfig.js
+     + ImageLightConfig.js
+     + ImageLightSourceCallback.js
+     + index.js
+     + KeyConfig.js
+     ... and 3 more
+  ­ƒôü gameobjects/captureframe/ (5 files)
+     + CaptureFrame.js
+     + CaptureFrameCreator.js
+     + CaptureFrameFactory.js
+     + CaptureFrameRender.js
+     + CaptureFrameWebGLRenderer.js
+  ­ƒôü gameobjects/components/ (6 files)
+     + ElapseTimer.js
+     + FilterList.js
+     + Filters.js
+     + Lighting.js
+     + RenderNodes.js
+     ... and 1 more
+  ­ƒôü gameobjects/graphics/typedefs/ (1 files)
+     + WidePoint.js
+  ... and 32 more folders
+
+ÔÜá´©Å  SIGNIFICANTLY MODIFIED FILES (313 files)
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+These files have real code changes that need review:
+
+  ­ƒôü ./ (2 files)
+     ÔÜá´©Å  const.js
+         149 lines | 3 changed (2%) | +0 | -0
+     ÔÜá´©Å  phaser-arcade-physics.js
+         85 lines | 47 changed (55%) | +0 | -13
+
+  ­ƒôü actions/ (3 files)
+     ÔÜá´©Å  AlignTo.js
+         48 lines | 2 changed (4%) | +0 | -0
+     ÔÜá´©Å  GridAlign.js
+         114 lines | 3 changed (3%) | +0 | -0
+     ÔÜá´©Å  index.js
+         71 lines | 57 changed (80%) | +3 | -0
+
+  ­ƒôü animations/ (1 file)
+     ÔÜá´©Å  AnimationManager.js
+         1065 lines | 2 changed (0%) | +0 | -0
+
+  ­ƒôü cameras/2d/ (2 files)
+     ÔÜá´©Å  BaseCamera.js
+         2020 lines | 1551 changed (77%) | +58 | -0
+     ÔÜá´©Å  Camera.js
+         868 lines | 740 changed (85%) | +65 | -0
+
+  ­ƒôü cameras/2d/effects/ (3 files)
+     ÔÜá´©Å  Fade.js
+         364 lines | 59 changed (16%) | +0 | -19
+     ÔÜá´©Å  Flash.js
+         338 lines | 54 changed (16%) | +0 | -19
+     ÔÜá´©Å  RotateTo.js
+         354 lines | 337 changed (95%) | +0 | -74
+
+  ­ƒôü cameras/2d/events/ (1 file)
+     ÔÜá´©Å  POST_RENDER_EVENT.js
+         22 lines | 2 changed (9%) | +0 | -0
+
+  ­ƒôü core/ (4 files)
+     ÔÜá´©Å  Config.js
+         670 lines | 641 changed (96%) | +11 | -0
+     ÔÜá´©Å  DebugHeader.js
+         122 lines | 20 changed (16%) | +0 | -2
+     ÔÜá´©Å  Game.js
+         769 lines | 739 changed (96%) | +0 | -21
+     ÔÜá´©Å  TimeStep.js
+         885 lines | 3 changed (0%) | +0 | -0
+
+  ­ƒôü core/typedefs/ (2 files)
+     ÔÜá´©Å  GameConfig.js
+         64 lines | 28 changed (44%) | +0 | -0
+     ÔÜá´©Å  RenderConfig.js
+         27 lines | 16 changed (59%) | +3 | -0
+
+  ­ƒôü curves/ (1 file)
+     ÔÜá´©Å  Curve.js
+         612 lines | 6 changed (1%) | +0 | -0
+
+  ­ƒôü device/ (1 file)
+     ÔÜá´©Å  Video.js
+         157 lines | 124 changed (79%) | +7 | -0
+
+  ­ƒôü display/ (3 files)
+     ÔÜá´©Å  ColorMatrix.js
+         871 lines | 650 changed (75%) | +185 | -0
+     ÔÜá´©Å  RGB.js
+         215 lines | 2 changed (1%) | +0 | -0
+     ÔÜá´©Å  index.js
+         23 lines | 13 changed (57%) | +0 | -7
+
+  ­ƒôü display/canvas/ (1 file)
+     ÔÜá´©Å  CanvasPool.js
+         256 lines | 2 changed (1%) | +0 | -0
+
+  ­ƒôü display/mask/ (2 files)
+     ÔÜá´©Å  GeometryMask.js
+         123 lines | 95 changed (77%) | +0 | -187
+     ÔÜá´©Å  index.js
+         16 lines | 5 changed (31%) | +0 | -1
+
+  ­ƒôü display/shader/ (1 file)
+     ÔÜá´©Å  BaseShader.js
+         77 lines | 66 changed (86%) | +0 | -44
+
+  ­ƒôü gameobjects/ (3 files)
+     ÔÜá´©Å  GameObject.js
+         1059 lines | 907 changed (86%) | +104 | -0
+     ÔÜá´©Å  GetCalcMatrix.js
+         73 lines | 58 changed (79%) | +7 | -0
+     ÔÜá´©Å  index.js
+         156 lines | 112 changed (72%) | +3 | -0
+
+  ­ƒôü gameobjects/bitmaptext/ (3 files)
+     ÔÜá´©Å  BatchChar.js
+         87 lines | 65 changed (75%) | +11 | -0
+     ÔÜá´©Å  ParseRetroFont.js
+         127 lines | 3 changed (2%) | +0 | -0
+     ÔÜá´©Å  ParseXMLBitmapFont.js
+         134 lines | 57 changed (43%) | +0 | -22
+
+  ­ƒôü gameobjects/bitmaptext/dynamic/ (2 files)
+     ÔÜá´©Å  DynamicBitmapTextRender.js
+         27 lines | 22 changed (81%) | +0 | -1
+     ÔÜá´©Å  DynamicBitmapTextWebGLRenderer.js
+         292 lines | 273 changed (93%) | +1 | -0
+
+  ­ƒôü gameobjects/bitmaptext/static/ (3 files)
+     ÔÜá´©Å  BitmapText.js
+         1239 lines | 1148 changed (93%) | +0 | -18
+     ÔÜá´©Å  BitmapTextRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  BitmapTextWebGLRenderer.js
+         137 lines | 124 changed (91%) | +0 | -4
+
+  ­ƒôü gameobjects/bitmaptext/typedefs/ (1 file)
+     ÔÜá´©Å  DisplayCallbackConfig.js
+         24 lines | 18 changed (75%) | +1 | -0
+
+  ­ƒôü gameobjects/blitter/ (3 files)
+     ÔÜá´©Å  Blitter.js
+         314 lines | 250 changed (80%) | +17 | -0
+     ÔÜá´©Å  BlitterRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  BlitterWebGLRenderer.js
+         120 lines | 70 changed (58%) | +7 | -0
+
+  ­ƒôü gameobjects/components/ (4 files)
+     ÔÜá´©Å  Mask.js
+         132 lines | 119 changed (90%) | +0 | -24
+     ÔÜá´©Å  Tint.js
+         227 lines | 214 changed (94%) | +0 | -10
+     ÔÜá´©Å  TransformMatrix.js
+         1105 lines | 416 changed (38%) | +0 | -6
+     ÔÜá´©Å  index.js
+         41 lines | 21 changed (51%) | +3 | -0
+
+  ­ƒôü gameobjects/container/ (3 files)
+     ÔÜá´©Å  Container.js
+         1468 lines | 1352 changed (92%) | +0 | -4
+     ÔÜá´©Å  ContainerRender.js
+         28 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  ContainerWebGLRenderer.js
+         143 lines | 132 changed (92%) | +0 | -4
+
+  ­ƒôü gameobjects/domelement/ (3 files)
+     ÔÜá´©Å  DOMElement.js
+         992 lines | 2 changed (0%) | +0 | -0
+     ÔÜá´©Å  DOMElementCSSRenderer.js
+         118 lines | 77 changed (65%) | +0 | -7
+     ÔÜá´©Å  DOMElementRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+
+  ­ƒôü gameobjects/extern/ (3 files)
+     ÔÜá´©Å  Extern.js
+         131 lines | 80 changed (61%) | +24 | -0
+     ÔÜá´©Å  ExternRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  ExternWebGLRenderer.js
+         38 lines | 15 changed (39%) | +3 | -0
+
+  ­ƒôü gameobjects/graphics/ (3 files)
+     ÔÜá´©Å  Graphics.js
+         1618 lines | 1517 changed (94%) | +43 | -0
+     ÔÜá´©Å  GraphicsRender.js
+         30 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  GraphicsWebGLRenderer.js
+         433 lines | 322 changed (74%) | +83 | -0
+
+  ­ƒôü gameobjects/group/ (1 file)
+     ÔÜá´©Å  Group.js
+         1751 lines | 1701 changed (97%) | +0 | -6
+
+  ­ƒôü gameobjects/image/ (3 files)
+     ÔÜá´©Å  Image.js
+         116 lines | 93 changed (80%) | +17 | -0
+     ÔÜá´©Å  ImageRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  ImageWebGLRenderer.js
+         39 lines | 8 changed (21%) | +10 | -0
+
+  ­ƒôü gameobjects/layer/ (3 files)
+     ÔÜá´©Å  Layer.js
+         1149 lines | 1021 changed (89%) | +7 | -0
+     ÔÜá´©Å  LayerRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  LayerWebGLRenderer.js
+         113 lines | 102 changed (90%) | +0 | -5
+
+  ­ƒôü gameobjects/lights/ (3 files)
+     ÔÜá´©Å  Light.js
+         358 lines | 254 changed (71%) | +84 | -0
+     ÔÜá´©Å  LightsManager.js
+         358 lines | 71 changed (20%) | +2 | -0
+     ÔÜá´©Å  LightsPlugin.js
+         111 lines | 77 changed (69%) | +0 | -2
+
+  ­ƒôü gameobjects/nineslice/ (3 files)
+     ÔÜá´©Å  NineSlice.js
+         1018 lines | 947 changed (93%) | +23 | -0
+     ÔÜá´©Å  NineSliceRender.js
+         22 lines | 2 changed (9%) | +0 | -0
+     ÔÜá´©Å  NineSliceWebGLRenderer.js
+         87 lines | 72 changed (83%) | +0 | -7
+
+  ­ƒôü gameobjects/particles/ (5 files)
+     ÔÜá´©Å  EmitterColorOp.js
+         209 lines | 2 changed (1%) | +0 | -0
+     ÔÜá´©Å  ParticleEmitter.js
+         3995 lines | 3807 changed (95%) | +21 | -0
+     ÔÜá´©Å  ParticleEmitterCanvasRenderer.js
+         123 lines | 89 changed (72%) | +0 | -10
+     ÔÜá´©Å  ParticleEmitterRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  ParticleEmitterWebGLRenderer.js
+         151 lines | 133 changed (88%) | +0 | -3
+
+  ­ƒôü gameobjects/particles/typedefs/ (1 file)
+     ÔÜá´©Å  ParticleEmitterConfig.js
+         71 lines | 1 changed (1%) | +0 | -0
+
+  ­ƒôü gameobjects/particles/zones/ (1 file)
+     ÔÜá´©Å  EdgeZone.js
+         259 lines | 2 changed (1%) | +0 | -0
+
+  ­ƒôü gameobjects/pointlight/ (3 files)
+     ÔÜá´©Å  PointLight.js
+         216 lines | 149 changed (69%) | +14 | -0
+     ÔÜá´©Å  PointLightRender.js
+         22 lines | 2 changed (9%) | +0 | -0
+     ÔÜá´©Å  PointLightWebGLRenderer.js
+         66 lines | 42 changed (64%) | +3 | -0
+
+  ­ƒôü gameobjects/rendertexture/ (1 file)
+     ÔÜá´©Å  RenderTexture.js
+         667 lines | 636 changed (95%) | +0 | -169
+
+  ­ƒôü gameobjects/rope/ (3 files)
+     ÔÜá´©Å  Rope.js
+         1151 lines | 1090 changed (95%) | +25 | -0
+     ÔÜá´©Å  RopeRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  RopeWebGLRenderer.js
+         70 lines | 61 changed (87%) | +0 | -41
+
+  ­ƒôü gameobjects/shader/ (5 files)
+     ÔÜá´©Å  Shader.js
+         611 lines | 591 changed (97%) | +0 | -673
+     ÔÜá´©Å  ShaderCreator.js
+         48 lines | 3 changed (6%) | +0 | -0
+     ÔÜá´©Å  ShaderFactory.js
+         36 lines | 4 changed (11%) | +0 | -0
+     ÔÜá´©Å  ShaderRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  ShaderWebGLRenderer.js
+         51 lines | 46 changed (90%) | +0 | -6
+
+  ­ƒôü gameobjects/shader/typedefs/ (1 file)
+     ÔÜá´©Å  ShaderConfig.js
+         10 lines | 1 changed (10%) | +0 | -0
+
+  ­ƒôü gameobjects/shape/ (3 files)
+     ÔÜá´©Å  FillPathWebGL.js
+         66 lines | 41 changed (62%) | +9 | -0
+     ÔÜá´©Å  Shape.js
+         447 lines | 408 changed (91%) | +26 | -0
+     ÔÜá´©Å  StrokePathWebGL.js
+         74 lines | 52 changed (70%) | +6 | -0
+
+  ­ƒôü gameobjects/shape/arc/ (3 files)
+     ÔÜá´©Å  Arc.js
+         404 lines | 7 changed (2%) | +0 | -0
+     ÔÜá´©Å  ArcRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  ArcWebGLRenderer.js
+         51 lines | 27 changed (53%) | +0 | -5
+
+  ­ƒôü gameobjects/shape/curve/ (2 files)
+     ÔÜá´©Å  CurveRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  CurveWebGLRenderer.js
+         52 lines | 27 changed (52%) | +0 | -4
+
+  ­ƒôü gameobjects/shape/ellipse/ (2 files)
+     ÔÜá´©Å  EllipseRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  EllipseWebGLRenderer.js
+         51 lines | 27 changed (53%) | +0 | -5
+
+  ­ƒôü gameobjects/shape/grid/ (4 files)
+     ÔÜá´©Å  Grid.js
+         243 lines | 217 changed (89%) | +0 | -31
+     ÔÜá´©Å  GridCanvasRenderer.js
+         215 lines | 122 changed (57%) | +30 | -0
+     ÔÜá´©Å  GridRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  GridWebGLRenderer.js
+         224 lines | 149 changed (67%) | +28 | -0
+
+  ­ƒôü gameobjects/shape/isobox/ (2 files)
+     ÔÜá´©Å  IsoBoxRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  IsoBoxWebGLRenderer.js
+         129 lines | 83 changed (64%) | +0 | -2
+
+  ­ƒôü gameobjects/shape/isotriangle/ (2 files)
+     ÔÜá´©Å  IsoTriangleRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  IsoTriangleWebGLRenderer.js
+         148 lines | 119 changed (80%) | +0 | -3
+
+  ­ƒôü gameobjects/shape/line/ (2 files)
+     ÔÜá´©Å  LineRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  LineWebGLRenderer.js
+         69 lines | 55 changed (80%) | +0 | -0
+
+  ­ƒôü gameobjects/shape/polygon/ (2 files)
+     ÔÜá´©Å  PolygonRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  PolygonWebGLRenderer.js
+         51 lines | 26 changed (51%) | +0 | -5
+
+  ­ƒôü gameobjects/shape/rectangle/ (4 files)
+     ÔÜá´©Å  Rectangle.js
+         285 lines | 23 changed (8%) | +0 | -0
+     ÔÜá´©Å  RectangleCanvasRenderer.js
+         121 lines | 4 changed (3%) | +0 | -2
+     ÔÜá´©Å  RectangleRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  RectangleWebGLRenderer.js
+         72 lines | 41 changed (57%) | +0 | -0
+
+  ­ƒôü gameobjects/shape/star/ (2 files)
+     ÔÜá´©Å  StarRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  StarWebGLRenderer.js
+         51 lines | 27 changed (53%) | +0 | -5
+
+  ­ƒôü gameobjects/shape/triangle/ (2 files)
+     ÔÜá´©Å  TriangleRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  TriangleWebGLRenderer.js
+         74 lines | 50 changed (68%) | +0 | -5
+
+  ­ƒôü gameobjects/sprite/ (3 files)
+     ÔÜá´©Å  Sprite.js
+         494 lines | 446 changed (90%) | +17 | -0
+     ÔÜá´©Å  SpriteRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  SpriteWebGLRenderer.js
+         39 lines | 8 changed (21%) | +10 | -0
+
+  ­ƒôü gameobjects/text/ (3 files)
+     ÔÜá´©Å  Text.js
+         1610 lines | 1387 changed (86%) | +22 | -0
+     ÔÜá´©Å  TextRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  TextWebGLRenderer.js
+         44 lines | 38 changed (86%) | +0 | -22
+
+  ­ƒôü gameobjects/tilesprite/ (4 files)
+     ÔÜá´©Å  TileSprite.js
+         702 lines | 594 changed (85%) | +28 | -0
+     ÔÜá´©Å  TileSpriteCanvasRenderer.js
+         31 lines | 2 changed (6%) | +0 | -0
+     ÔÜá´©Å  TileSpriteRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  TileSpriteWebGLRenderer.js
+         48 lines | 42 changed (88%) | +0 | -22
+
+  ­ƒôü gameobjects/typedefs/ (1 file)
+     ÔÜá´©Å  GetCalcMatrixResults.js
+         10 lines | 5 changed (50%) | +1 | -0
+
+  ­ƒôü gameobjects/video/ (3 files)
+     ÔÜá´©Å  Video.js
+         2370 lines | 2262 changed (95%) | +22 | -0
+     ÔÜá´©Å  VideoRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  VideoWebGLRenderer.js
+         44 lines | 12 changed (27%) | +12 | -0
+
+  ­ƒôü gameobjects/zone/ (1 file)
+     ÔÜá´©Å  Zone.js
+         315 lines | 12 changed (4%) | +0 | -1
+
+  ­ƒôü geom/ (2 files)
+     ÔÜá´©Å  const.js
+         76 lines | 39 changed (51%) | +1 | -0
+     ÔÜá´©Å  index.js
+         30 lines | 11 changed (37%) | +0 | -2
+
+  ­ƒôü geom/circle/ (7 files)
+     ÔÜá´©Å  Circle.js
+         370 lines | 14 changed (4%) | +0 | -0
+     ÔÜá´©Å  CircumferencePoint.js
+         34 lines | 7 changed (21%) | +0 | -0
+     ÔÜá´©Å  ContainsPoint.js
+         26 lines | 6 changed (23%) | +0 | -0
+     ÔÜá´©Å  GetPoint.js
+         38 lines | 8 changed (21%) | +0 | -0
+     ÔÜá´©Å  GetPoints.js
+         47 lines | 4 changed (9%) | +0 | -0
+     ÔÜá´©Å  OffsetPoint.js
+         29 lines | 6 changed (21%) | +0 | -0
+     ÔÜá´©Å  Random.js
+         39 lines | 6 changed (15%) | +0 | -0
+
+  ­ƒôü geom/ellipse/ (7 files)
+     ÔÜá´©Å  CircumferencePoint.js
+         37 lines | 7 changed (19%) | +0 | -0
+     ÔÜá´©Å  ContainsPoint.js
+         26 lines | 6 changed (23%) | +0 | -0
+     ÔÜá´©Å  Ellipse.js
+         377 lines | 13 changed (3%) | +0 | -0
+     ÔÜá´©Å  GetPoint.js
+         38 lines | 8 changed (21%) | +0 | -0
+     ÔÜá´©Å  GetPoints.js
+         49 lines | 6 changed (12%) | +0 | -0
+     ÔÜá´©Å  OffsetPoint.js
+         29 lines | 6 changed (21%) | +0 | -0
+     ÔÜá´©Å  Random.js
+         36 lines | 6 changed (17%) | +0 | -0
+
+  ­ƒôü geom/intersects/ (8 files)
+     ÔÜá´©Å  GetCircleToCircle.js
+         89 lines | 10 changed (11%) | +0 | -0
+     ÔÜá´©Å  GetLineToCircle.js
+         93 lines | 36 changed (39%) | +6 | -0
+     ÔÜá´©Å  GetLineToPoints.js
+         74 lines | 2 changed (3%) | +0 | -0
+     ÔÜá´©Å  GetLineToRectangle.js
+         58 lines | 14 changed (24%) | +3 | -0
+     ÔÜá´©Å  GetTriangleToLine.js
+         57 lines | 13 changed (23%) | +3 | -0
+     ÔÜá´©Å  LineToCircle.js
+         79 lines | 4 changed (5%) | +0 | -0
+     ÔÜá´©Å  PointToLine.js
+         65 lines | 2 changed (3%) | +0 | -0
+     ÔÜá´©Å  PointToLineSegment.js
+         36 lines | 2 changed (6%) | +0 | -0
+
+  ­ƒôü geom/line/ (12 files)
+     ÔÜá´©Å  GetEasedPoints.js
+         115 lines | 6 changed (5%) | +0 | -0
+     ÔÜá´©Å  GetMidPoint.js
+         33 lines | 6 changed (18%) | +0 | -0
+     ÔÜá´©Å  GetNearestPoint.js
+         50 lines | 9 changed (18%) | +0 | -0
+     ÔÜá´©Å  GetNormal.js
+         39 lines | 7 changed (18%) | +0 | -0
+     ÔÜá´©Å  GetPoint.js
+         34 lines | 6 changed (18%) | +0 | -0
+     ÔÜá´©Å  GetPoints.js
+         62 lines | 6 changed (10%) | +0 | -0
+     ÔÜá´©Å  Line.js
+         354 lines | 10 changed (3%) | +0 | -0
+     ÔÜá´©Å  NormalAngle.js
+         29 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  NormalX.js
+         26 lines | 2 changed (8%) | +0 | -0
+     ÔÜá´©Å  NormalY.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  Random.js
+         35 lines | 7 changed (20%) | +0 | -0
+     ÔÜá´©Å  RotateAroundPoint.js
+         29 lines | 2 changed (7%) | +0 | -0
+
+  ­ƒôü geom/polygon/ (3 files)
+     ÔÜá´©Å  ContainsPoint.js
+         26 lines | 5 changed (19%) | +0 | -0
+     ÔÜá´©Å  GetPoints.js
+         72 lines | 3 changed (4%) | +0 | -0
+     ÔÜá´©Å  Polygon.js
+         222 lines | 6 changed (3%) | +0 | -0
+
+  ­ƒôü geom/rectangle/ (12 files)
+     ÔÜá´©Å  ContainsPoint.js
+         26 lines | 4 changed (15%) | +0 | -0
+     ÔÜá´©Å  GetCenter.js
+         33 lines | 6 changed (18%) | +0 | -0
+     ÔÜá´©Å  GetPoint.js
+         76 lines | 6 changed (8%) | +0 | -0
+     ÔÜá´©Å  GetPoints.js
+         46 lines | 5 changed (11%) | +0 | -0
+     ÔÜá´©Å  GetSize.js
+         34 lines | 7 changed (21%) | +0 | -0
+     ÔÜá´©Å  MarchingAnts.js
+         113 lines | 7 changed (6%) | +0 | -0
+     ÔÜá´©Å  MergePoints.js
+         44 lines | 2 changed (5%) | +0 | -0
+     ÔÜá´©Å  OffsetPoint.js
+         29 lines | 6 changed (21%) | +0 | -0
+     ÔÜá´©Å  PerimeterPoint.js
+         52 lines | 6 changed (12%) | +0 | -0
+     ÔÜá´©Å  Random.js
+         33 lines | 6 changed (18%) | +0 | -0
+     ÔÜá´©Å  RandomOutside.js
+         66 lines | 6 changed (9%) | +0 | -0
+     ÔÜá´©Å  Rectangle.js
+         506 lines | 12 changed (2%) | +0 | -0
+
+  ­ƒôü geom/triangle/ (11 files)
+     ÔÜá´©Å  Centroid.js
+         35 lines | 29 changed (83%) | +0 | -4
+     ÔÜá´©Å  CircumCenter.js
+         71 lines | 28 changed (39%) | +0 | -0
+     ÔÜá´©Å  CircumCircle.js
+         78 lines | 5 changed (6%) | +0 | -0
+     ÔÜá´©Å  ContainsArray.js
+         77 lines | 70 changed (91%) | +0 | -5
+     ÔÜá´©Å  ContainsPoint.js
+         26 lines | 4 changed (15%) | +0 | -0
+     ÔÜá´©Å  GetPoint.js
+         82 lines | 7 changed (9%) | +0 | -0
+     ÔÜá´©Å  GetPoints.js
+         88 lines | 6 changed (7%) | +0 | -0
+     ÔÜá´©Å  InCenter.js
+         60 lines | 6 changed (10%) | +0 | -0
+     ÔÜá´©Å  Random.js
+         51 lines | 6 changed (12%) | +0 | -0
+     ÔÜá´©Å  RotateAroundPoint.js
+         29 lines | 3 changed (10%) | +0 | -0
+     ÔÜá´©Å  Triangle.js
+         442 lines | 12 changed (3%) | +0 | -0
+
+  ­ƒôü input/ (1 file)
+     ÔÜá´©Å  InputPlugin.js
+         3464 lines | 1065 changed (31%) | +0 | -9
+
+  ­ƒôü input/gamepad/ (3 files)
+     ÔÜá´©Å  Button.js
+         144 lines | 120 changed (83%) | +3 | -0
+     ÔÜá´©Å  Gamepad.js
+         768 lines | 2 changed (0%) | +0 | -0
+     ÔÜá´©Å  GamepadPlugin.js
+         651 lines | 338 changed (52%) | +10 | -0
+
+  ­ƒôü input/keyboard/ (1 file)
+     ÔÜá´©Å  KeyboardManager.js
+         439 lines | 434 changed (99%) | +0 | -1
+
+  ­ƒôü input/mouse/ (1 file)
+     ÔÜá´©Å  MouseManager.js
+         571 lines | 5 changed (1%) | +0 | -0
+
+  ­ƒôü input/touch/ (1 file)
+     ÔÜá´©Å  TouchManager.js
+         402 lines | 2 changed (0%) | +0 | -0
+
+  ­ƒôü loader/ (2 files)
+     ÔÜá´©Å  GetURL.js
+         36 lines | 2 changed (6%) | +0 | -0
+     ÔÜá´©Å  LoaderPlugin.js
+         1304 lines | 1283 changed (98%) | +2 | -0
+
+  ­ƒôü loader/filetypes/ (5 files)
+     ÔÜá´©Å  CompressedTextureFile.js
+         594 lines | 143 changed (24%) | +16 | -0
+     ÔÜá´©Å  FontFile.js
+         223 lines | 2 changed (1%) | +0 | -0
+     ÔÜá´©Å  GLSLFile.js
+         182 lines | 151 changed (83%) | +0 | -222
+     ÔÜá´©Å  XMLFile.js
+         178 lines | 2 changed (1%) | +0 | -0
+     ÔÜá´©Å  index.js
+         48 lines | 18 changed (38%) | +0 | -1
+
+  ­ƒôü loader/filetypes/typedefs/ (1 file)
+     ÔÜá´©Å  GLSLFileConfig.js
+         9 lines | 4 changed (44%) | +0 | -1
+
+  ­ƒôü loader/typedefs/ (1 file)
+     ÔÜá´©Å  FileConfig.js
+         57 lines | 51 changed (89%) | +1 | -0
+
+  ­ƒôü math/ (10 files)
+     ÔÜá´©Å  Euler.js
+         278 lines | 2 changed (1%) | +0 | -0
+     ÔÜá´©Å  Quaternion.js
+         1044 lines | 2 changed (0%) | +0 | -0
+     ÔÜá´©Å  Rotate.js
+         32 lines | 20 changed (63%) | +2 | -0
+     ÔÜá´©Å  RotateAround.js
+         39 lines | 2 changed (5%) | +0 | -0
+     ÔÜá´©Å  RotateAroundDistance.js
+         36 lines | 2 changed (6%) | +0 | -0
+     ÔÜá´©Å  TransformXY.js
+         50 lines | 3 changed (6%) | +0 | -0
+     ÔÜá´©Å  Vector2.js
+         860 lines | 621 changed (72%) | +72 | -0
+     ÔÜá´©Å  Wrap.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  const.js
+         87 lines | 72 changed (83%) | +0 | -4
+     ÔÜá´©Å  index.js
+         88 lines | 47 changed (53%) | +1 | -0
+
+  ­ƒôü math/angle/ (3 files)
+     ÔÜá´©Å  CounterClockwise.js
+         40 lines | 3 changed (8%) | +0 | -0
+     ÔÜá´©Å  GetCounterClockwiseDistance.js
+         36 lines | 29 changed (81%) | +1 | -0
+     ÔÜá´©Å  RotateTo.js
+         62 lines | 4 changed (6%) | +0 | -0
+
+  ­ƒôü physics/arcade/ (8 files)
+     ÔÜá´©Å  ArcadeImage.js
+         99 lines | 53 changed (54%) | +0 | -2
+     ÔÜá´©Å  ArcadePhysics.js
+         754 lines | 3 changed (0%) | +0 | -0
+     ÔÜá´©Å  ArcadeSprite.js
+         100 lines | 53 changed (53%) | +0 | -2
+     ÔÜá´©Å  Body.js
+         2799 lines | 2 changed (0%) | +0 | -0
+     ÔÜá´©Å  PhysicsGroup.js
+         335 lines | 209 changed (62%) | +8 | -0
+     ÔÜá´©Å  StaticBody.js
+         1111 lines | 2 changed (0%) | +0 | -0
+     ÔÜá´©Å  StaticPhysicsGroup.js
+         231 lines | 67 changed (29%) | +6 | -0
+     ÔÜá´©Å  World.js
+         2505 lines | 2430 changed (97%) | +0 | -31
+
+  ­ƒôü physics/arcade/components/ (1 file)
+     ÔÜá´©Å  OverlapRect.js
+         81 lines | 15 changed (19%) | +1 | -0
+
+  ­ƒôü physics/arcade/typedefs/ (1 file)
+     ÔÜá´©Å  ArcadeColliderType.js
+         7 lines | 1 changed (14%) | +0 | -0
+
+  ­ƒôü physics/matter-js/ (2 files)
+     ÔÜá´©Å  MatterImage.js
+         138 lines | 125 changed (91%) | +0 | -6
+     ÔÜá´©Å  MatterSprite.js
+         144 lines | 131 changed (91%) | +0 | -6
+
+  ­ƒôü renderer/canvas/ (1 file)
+     ÔÜá´©Å  CanvasRenderer.js
+         895 lines | 81 changed (9%) | +0 | -6
+
+  ­ƒôü renderer/events/ (1 file)
+     ÔÜá´©Å  index.js
+         23 lines | 7 changed (30%) | +2 | -0
+
+  ­ƒôü renderer/snapshot/ (2 files)
+     ÔÜá´©Å  CanvasSnapshot.js
+         91 lines | 2 changed (2%) | +0 | -0
+     ÔÜá´©Å  WebGLSnapshot.js
+         120 lines | 34 changed (28%) | +14 | -0
+
+  ­ƒôü renderer/snapshot/typedefs/ (1 file)
+     ÔÜá´©Å  SnapshotState.js
+         18 lines | 2 changed (11%) | +1 | -0
+
+  ­ƒôü renderer/webgl/ (3 files)
+     ÔÜá´©Å  Utils.js
+         288 lines | 196 changed (68%) | +81 | -0
+     ÔÜá´©Å  WebGLRenderer.js
+         2662 lines | 2565 changed (96%) | +0 | -709
+     ÔÜá´©Å  index.js
+         37 lines | 20 changed (54%) | +3 | -0
+
+  ­ƒôü renderer/webgl/shaders/ (6 files)
+     ÔÜá´©Å  ColorMatrix-frag.js
+         30 lines | 3 changed (10%) | +0 | -0
+     ÔÜá´©Å  Multi-frag.js
+         24 lines | 23 changed (96%) | +0 | -6
+     ÔÜá´©Å  Multi-vert.js
+         34 lines | 23 changed (68%) | +10 | -0
+     ÔÜá´©Å  PointLight-frag.js
+         26 lines | 19 changed (73%) | +6 | -0
+     ÔÜá´©Å  PointLight-vert.js
+         29 lines | 22 changed (76%) | +6 | -0
+     ÔÜá´©Å  index.js
+         60 lines | 36 changed (60%) | +11 | -0
+
+  ­ƒôü renderer/webgl/shaders/src/ (5 files)
+     ÔÜá´©Å  ColorMatrix.frag
+         38 lines | 5 changed (13%) | +0 | -2
+     ÔÜá´©Å  Multi.frag
+         33 lines | 30 changed (91%) | +0 | -7
+     ÔÜá´©Å  Multi.vert
+         44 lines | 26 changed (59%) | +16 | -0
+     ÔÜá´©Å  PointLight.frag
+         39 lines | 22 changed (56%) | +12 | -0
+     ÔÜá´©Å  PointLight.vert
+         39 lines | 23 changed (59%) | +12 | -0
+
+  ­ƒôü renderer/webgl/wrappers/ (5 files)
+     ÔÜá´©Å  WebGLBufferWrapper.js
+         304 lines | 102 changed (34%) | +160 | -0
+     ÔÜá´©Å  WebGLFramebufferWrapper.js
+         354 lines | 200 changed (56%) | +144 | -0
+     ÔÜá´©Å  WebGLProgramWrapper.js
+         578 lines | 153 changed (26%) | +419 | -0
+     ÔÜá´©Å  WebGLTextureWrapper.js
+         448 lines | 384 changed (86%) | +16 | -0
+     ÔÜá´©Å  index.js
+         24 lines | 9 changed (38%) | +3 | -0
+
+  ­ƒôü scale/ (1 file)
+     ÔÜá´©Å  ScaleManager.js
+         1907 lines | 7 changed (0%) | +0 | -0
+
+  ­ƒôü scene/ (3 files)
+     ÔÜá´©Å  GetPhysicsPlugins.js
+         57 lines | 2 changed (4%) | +0 | -0
+     ÔÜá´©Å  InjectionMap.js
+         50 lines | 7 changed (14%) | +0 | -11
+     ÔÜá´©Å  index.js
+         30 lines | 18 changed (60%) | +0 | -1
+
+  ­ƒôü sound/ (2 files)
+     ÔÜá´©Å  BaseSound.js
+         498 lines | 2 changed (0%) | +0 | -0
+     ÔÜá´©Å  BaseSoundManager.js
+         838 lines | 2 changed (0%) | +0 | -0
+
+  ­ƒôü sound/noaudio/ (2 files)
+     ÔÜá´©Å  NoAudioSound.js
+         493 lines | 2 changed (0%) | +0 | -0
+     ÔÜá´©Å  NoAudioSoundManager.js
+         361 lines | 2 changed (1%) | +0 | -0
+
+  ­ƒôü sound/webaudio/ (1 file)
+     ÔÜá´©Å  WebAudioSoundManager.js
+         574 lines | 141 changed (25%) | +0 | -19
+
+  ­ƒôü structs/ (3 files)
+     ÔÜá´©Å  List.js
+         840 lines | 2 changed (0%) | +0 | -0
+     ÔÜá´©Å  ProcessQueue.js
+         378 lines | 2 changed (1%) | +0 | -0
+     ÔÜá´©Å  index.js
+         21 lines | 5 changed (24%) | +0 | -1
+
+  ­ƒôü textures/ (7 files)
+     ÔÜá´©Å  CanvasTexture.js
+         648 lines | 2 changed (0%) | +0 | -0
+     ÔÜá´©Å  DynamicTexture.js
+         1319 lines | 1270 changed (96%) | +0 | -345
+     ÔÜá´©Å  Frame.js
+         972 lines | 7 changed (1%) | +0 | -0
+     ÔÜá´©Å  Texture.js
+         721 lines | 447 changed (62%) | +140 | -0
+     ÔÜá´©Å  TextureManager.js
+         1702 lines | 1578 changed (93%) | +56 | -0
+     ÔÜá´©Å  TextureSource.js
+         489 lines | 292 changed (60%) | +120 | -0
+     ÔÜá´©Å  index.js
+         52 lines | 40 changed (77%) | +3 | -0
+
+  ­ƒôü textures/typedefs/ (1 file)
+     ÔÜá´©Å  StampConfig.js
+         18 lines | 4 changed (22%) | +0 | -2
+
+  ­ƒôü tilemaps/ (8 files)
+     ÔÜá´©Å  Tile.js
+         978 lines | 949 changed (97%) | +6 | -0
+     ÔÜá´©Å  Tilemap.js
+         2756 lines | 2510 changed (91%) | +27 | -0
+     ÔÜá´©Å  TilemapLayer.js
+         439 lines | 420 changed (96%) | +0 | -1095
+     ÔÜá´©Å  TilemapLayerCanvasRenderer.js
+         125 lines | 81 changed (65%) | +0 | -13
+     ÔÜá´©Å  TilemapLayerRender.js
+         27 lines | 2 changed (7%) | +0 | -0
+     ÔÜá´©Å  TilemapLayerWebGLRenderer.js
+         134 lines | 106 changed (79%) | +19 | -0
+     ÔÜá´©Å  Tileset.js
+         684 lines | 229 changed (33%) | +253 | -0
+     ÔÜá´©Å  index.js
+         46 lines | 12 changed (26%) | +2 | -0
+
+  ­ƒôü tilemaps/components/ (10 files)
+     ÔÜá´©Å  GetCullTilesFunction.js
+         49 lines | 6 changed (12%) | +0 | -0
+     ÔÜá´©Å  GetTileCornersFunction.js
+         47 lines | 4 changed (9%) | +0 | -0
+     ÔÜá´©Å  GetTileToWorldXFunction.js
+         34 lines | 3 changed (9%) | +0 | -0
+     ÔÜá´©Å  GetTileToWorldXYFunction.js
+         49 lines | 5 changed (10%) | +0 | -0
+     ÔÜá´©Å  GetTileToWorldYFunction.js
+         39 lines | 3 changed (8%) | +0 | -0
+     ÔÜá´©Å  GetTilesWithinShape.js
+         119 lines | 5 changed (4%) | +0 | -0
+     ÔÜá´©Å  GetWorldToTileXFunction.js
+         36 lines | 31 changed (86%) | +0 | -1
+     ÔÜá´©Å  GetWorldToTileXYFunction.js
+         49 lines | 5 changed (10%) | +0 | -0
+     ÔÜá´©Å  GetWorldToTileYFunction.js
+         39 lines | 34 changed (87%) | +0 | -1
+     ÔÜá´©Å  RenderDebug.js
+         220 lines | 2 changed (1%) | +0 | -0
+
+  ­ƒôü tilemaps/parsers/tiled/ (1 file)
+     ÔÜá´©Å  ParseTilesets.js
+         211 lines | 90 changed (43%) | +19 | -0
+
+  ­ƒôü tilemaps/typedefs/ (1 file)
+     ÔÜá´©Å  CreateFromObjectLayerConfig.js
+         17 lines | 2 changed (12%) | +1 | -0
+
+  ­ƒôü time/ (1 file)
+     ÔÜá´©Å  Timeline.js
+         893 lines | 480 changed (54%) | +12 | -0
+
+  ­ƒôü time/events/ (1 file)
+     ÔÜá´©Å  COMPLETE_EVENT.js
+         27 lines | 2 changed (7%) | +0 | -0
+
+  ­ƒôü tweens/ (1 file)
+     ÔÜá´©Å  TweenManager.js
+         1162 lines | 1073 changed (92%) | +6 | -0
+
+  ­ƒôü tweens/builders/ (2 files)
+     ÔÜá´©Å  GetEaseFunction.js
+         102 lines | 2 changed (2%) | +0 | -0
+     ÔÜá´©Å  TweenBuilder.js
+         208 lines | 42 changed (20%) | +8 | -0
+
+  ­ƒôü tweens/tween/ (2 files)
+     ÔÜá´©Å  Tween.js
+         868 lines | 2 changed (0%) | +0 | -0
+     ÔÜá´©Å  TweenData.js
+         418 lines | 2 changed (0%) | +0 | -0
+
+  ­ƒôü utils/ (1 file)
+     ÔÜá´©Å  index.js
+         21 lines | 12 changed (57%) | +0 | -12
+
+  ­ƒôü utils/array/ (1 file)
+     ÔÜá´©Å  GetFirst.js
+         77 lines | 42 changed (55%) | +1 | -0
+
+  ­ƒôü utils/array/matrix/ (1 file)
+     ÔÜá´©Å  MatrixToString.js
+         90 lines | 2 changed (2%) | +0 | -0
+
+Ô£à IDENTICAL FILES (315 files)
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+These files are exactly the same in both versions
+
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+
+­ƒôè SUMMARY
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+ÔØî Only in original_src/src:        297 files
+­ƒåò Only in original_src/src_v4:     384 files
+ÔÜá´©Å  Significantly modified:    313 files
+­ƒôØ Copyright only (ignored):   1109 files
+Ô£à Identical files:            315 files
+
+­ƒôª Total unique files:        2418
+
+­ƒÆí RECOMMENDATIONS:
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+Ô£ô There are 384 new files in src_4.0 you may want to integrate
+Ô£ô There are 313 files with significant changes (require manual review)
+ÔÜá There are 297 files in src that are NOT in src_4.0
+  (they may be customizations or obsolete files)
+
+Ôä╣´©Å  Note: 1109 files with ONLY copyright changes (2025ÔåÆ2026) were ignored
+
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+
+Ôä╣´©Å  There are differences between versions
