@@ -131,7 +131,7 @@ var Config = new Class({
         this.snapHeight = GetValue(scaleConfig, 'snap.height', 0, config);
 
         /**
-         * @const {number} Phaser.Core.Config#renderType - Force Phaser to use a specific renderer. Can be `CONST.CANVAS`, `CONST.WEBGL`, `CONST.HEADLESS` or `CONST.AUTO` (default)
+         * @const {number} Phaser.Core.Config#renderType - Force Phaser to use a specific renderer. Can be `CONST.CANVAS`, `CONST.WEBGL`, `CONST.WEBGPU`, `CONST.HEADLESS` or `CONST.AUTO` (default)
          */
         this.renderType = GetValue(config, 'type', CONST.AUTO);
 

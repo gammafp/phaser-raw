@@ -62,6 +62,7 @@ var CanvasPool = function ()
             {
                 pool.push(container);
             }
+            // WEBGL and WEBGPU canvases are not pooled (context cannot be reused)
 
             canvas = container.canvas;
         }
@@ -136,7 +137,7 @@ var CanvasPool = function ()
     {
         if (canvasType === undefined) { canvasType = CONST.CANVAS; }
 
-        if (canvasType === CONST.WEBGL)
+        if (canvasType === CONST.WEBGL || canvasType === CONST.WEBGPU)
         {
             return null;
         }

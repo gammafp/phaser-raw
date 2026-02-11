@@ -29,6 +29,7 @@ var CanvasPool = require('../display/canvas/CanvasPool');
  * @property {boolean} support32bit - Does the device context support 32bit pixel manipulation using array buffer views?
  * @property {boolean} vibration - Does the device support the Vibration API?
  * @property {boolean} webGL - Is webGL available?
+ * @property {boolean} webGPU - Is the WebGPU API available? (navigator.gpu)
  * @property {boolean} worker - Is worker available?
  */
 var Features = {
@@ -45,6 +46,7 @@ var Features = {
     support32bit: false,
     vibration: false,
     webGL: false,
+    webGPU: false,
     worker: false
 
 };
@@ -137,6 +139,8 @@ function init ()
     };
 
     Features.webGL = testWebGL();
+
+    Features.webGPU = !!(typeof navigator !== 'undefined' && navigator.gpu);
 
     Features.worker = !!window['Worker'];
 

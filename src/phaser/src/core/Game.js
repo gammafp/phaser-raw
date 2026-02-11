@@ -395,7 +395,18 @@ var Game = new Class({
         //  Start all the other systems
         this.events.emit(Events.READY);
 
-        this.start();
+        //  If the renderer has an async readyPromise (e.g. WebGPU), wait for it before starting the loop
+        if (this.renderer && this.renderer.readyPromise)
+        {
+            this.renderer.readyPromise.then(this.start.bind(this)).catch(function (err)
+            {
+                console.error('Renderer failed to initialize:', err);
+            });
+        }
+        else
+        {
+            this.start();
+        }
     },
 
     /**

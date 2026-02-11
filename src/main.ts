@@ -49,7 +49,7 @@ class SceneB extends Phaser.Scene {
 
 const start_game = () => {
     const phaser_config = {
-        type: Phaser.AUTO,
+        type: Phaser.WEBGL,
         width: 800,
         height: 600,
         // backgroundColor skyblue

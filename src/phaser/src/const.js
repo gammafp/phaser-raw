@@ -83,6 +83,17 @@ var CONST = {
     HEADLESS: 3,
 
     /**
+     * Forces Phaser to use the WebGPU Renderer. Requires browser support for the WebGPU API.
+     * If the browser does not support it, you should trap it and display a suitable message.
+     *
+     * @name Phaser.WEBGPU
+     * @const
+     * @type {number}
+     * @since 4.0.0
+     */
+    WEBGPU: 4,
+
+    /**
      * In Phaser the value -1 means 'forever' in lots of cases, this const allows you to use it instead
      * to help you remember what the value is doing in your code.
      *

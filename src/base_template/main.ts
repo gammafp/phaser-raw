@@ -1,10 +1,11 @@
-import { Start } from './scenes/Start';
+// import { Start } from './scenes/Start';
+import { OnlyTextures } from './scenes/OnlyTextures';
 
 import Phaser from '../phaser/src/phaser';
 // import * as Phaser from 'phaser';
 
 const config = {
-    type: Phaser.AUTO,
+    type: Phaser.WEBGPU,
     title: 'Overlord Rising',
     description: '',
     parent: 'game-container',
@@ -20,7 +21,7 @@ const config = {
         }
     },
     scene: [
-        Start
+        OnlyTextures
     ],
     scale: {
         // mode: Phaser.Scale.FIT,

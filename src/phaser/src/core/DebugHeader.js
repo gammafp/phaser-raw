@@ -35,6 +35,10 @@ var DebugHeader = function (game)
     {
         renderType = 'Headless';
     }
+    else if (config.renderType === CONST.WEBGPU)
+    {
+        renderType = 'WebGPU';
+    }
 
     var audioConfig = config.audio;
     var deviceAudio = game.device.audio;

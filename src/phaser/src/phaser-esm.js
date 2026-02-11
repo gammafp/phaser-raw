@@ -47,6 +47,7 @@ export const AUTO = CONST.AUTO;
 export const CANVAS = CONST.CANVAS;
 export const WEBGL = CONST.WEBGL;
 export const HEADLESS = CONST.HEADLESS;
+export const WEBGPU = CONST.WEBGPU;
 export const FOREVER = CONST.FOREVER;
 export const NONE = CONST.NONE;
 export const LEFT = CONST.LEFT;

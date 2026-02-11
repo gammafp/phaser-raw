@@ -28,3 +28,5 @@ if (typeof WEBGL_RENDERER)
 {
     module.exports.WebGL = require('./webgl');
 }
+
+module.exports.WebGPU = require('./webgpu');

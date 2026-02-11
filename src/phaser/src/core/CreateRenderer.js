@@ -33,7 +33,7 @@ var CreateRenderer = function (game)
     {
         if (config.renderType === CONST.AUTO)
         {
-            config.renderType = Features.webGL ? CONST.WEBGL : CONST.CANVAS;
+            config.renderType = Features.webGPU ? CONST.WEBGPU : (Features.webGL ? CONST.WEBGL : CONST.CANVAS);
         }
 
         if (config.renderType === CONST.WEBGL)
@@ -43,6 +43,10 @@ var CreateRenderer = function (game)
         else if (config.renderType === CONST.CANVAS)
         {
             if (!Features.canvas) { throw new Error('Cannot create Canvas context, aborting.'); }
+        }
+        else if (config.renderType === CONST.WEBGPU)
+        {
+            if (!Features.webGPU) { throw new Error('WebGPU is not supported in this browser.'); }
         }
         else
         {
@@ -89,6 +93,14 @@ var CreateRenderer = function (game)
     if (config.renderType === CONST.HEADLESS)
     {
         //  Nothing more to do here
+        return;
+    }
+
+    //  WebGPU renderer (explicit or auto-selected when available)
+    if (config.renderType === CONST.WEBGPU)
+    {
+        var WebGPURenderer = require('../renderer/webgpu/WebGPURenderer');
+        game.renderer = new WebGPURenderer(game);
         return;
     }
 
