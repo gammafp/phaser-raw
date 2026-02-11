@@ -132,20 +132,76 @@ var WebGPURenderer = function (game)
     this._quadPipeline = null;
 
     /**
-     * Pool of vertex buffers for quads (one per draw so data is not overwritten before submit).
-     * @name Phaser.Renderer.WebGPU.WebGPURenderer#_quadVertexBuffers
-     * @type {GPUBuffer[]}
+     * Max quads per batch (single texture).
+     * @name Phaser.Renderer.WebGPU.WebGPURenderer#_batchMaxQuads
+     * @type {number}
      * @private
      */
-    this._quadVertexBuffers = [];
+    this._batchMaxQuads = 8192;
 
     /**
-     * Index buffer for quad (6 indices).
-     * @name Phaser.Renderer.WebGPU.WebGPURenderer#_quadIndexBuffer
+     * Large vertex buffer for batching.
+     * @name Phaser.Renderer.WebGPU.WebGPURenderer#_batchVertexBuffer
      * @type {GPUBuffer|null}
      * @private
      */
-    this._quadIndexBuffer = null;
+    this._batchVertexBuffer = null;
+
+    /**
+     * Pregenerated index buffer for batch (6 indices per quad).
+     * @name Phaser.Renderer.WebGPU.WebGPURenderer#_batchIndexBuffer
+     * @type {GPUBuffer|null}
+     * @private
+     */
+    this._batchIndexBuffer = null;
+
+    /**
+     * Uniform buffer for resolution only.
+     * @name Phaser.Renderer.WebGPU.WebGPURenderer#_resolutionUniformBuffer
+     * @type {GPUBuffer|null}
+     * @private
+     */
+    this._resolutionUniformBuffer = null;
+
+    /**
+     * Current batch vertex data (x,y,u,v,r,g,b,a × 4 vertices per quad).
+     * @name Phaser.Renderer.WebGPU.WebGPURenderer#_batchVertices
+     * @type {Float32Array}
+     * @private
+     */
+    this._batchVertices = null;
+
+    /**
+     * Number of quads in current batch.
+     * @name Phaser.Renderer.WebGPU.WebGPURenderer#_batchQuadCount
+     * @type {number}
+     * @private
+     */
+    this._batchQuadCount = 0;
+
+    /**
+     * GPU texture object for current batch (has .texture for createView).
+     * @name Phaser.Renderer.WebGPU.WebGPURenderer#_batchGpuTex
+     * @type {object|null}
+     * @private
+     */
+    this._batchGpuTex = null;
+
+    /**
+     * Frame source (TextureSource) for current batch. Flush when this changes.
+     * @name Phaser.Renderer.WebGPU.WebGPURenderer#_batchFrameSource
+     * @type {object|null}
+     * @private
+     */
+    this._batchFrameSource = null;
+
+    /**
+     * Game object type ('Image' or 'Sprite') for current batch. Flush when this changes so Image and Sprite never share a batch.
+     * @name Phaser.Renderer.WebGPU.WebGPURenderer#_batchType
+     * @type {string|null}
+     * @private
+     */
+    this._batchType = null;
 
     /**
      * Cache: TextureSource -> { texture: GPUTexture, width, height }.
@@ -163,13 +219,6 @@ var WebGPURenderer = function (game)
      */
     this._sampler = null;
 
-    /**
-     * Pool of uniform buffers (one per draw).
-     * @name Phaser.Renderer.WebGPU.WebGPURenderer#_uniformBuffers
-     * @type {GPUBuffer[]}
-     * @private
-     */
-    this._uniformBuffers = [];
 
     /**
      * Temp matrices for building quad transform.
@@ -195,12 +244,12 @@ var WebGPURenderer = function (game)
     this._quad = new Float32Array(8);
 
     /**
-     * Vertex data for one quad: 4 vertices * (x, y, u, v) = 16 floats.
+     * Single-quad vertex scratch (x,y,u,v,r,g,b,a × 4 = 32 floats).
      * @name Phaser.Renderer.WebGPU.WebGPURenderer#_vertexData
      * @type {Float32Array}
      * @private
      */
-    this._vertexData = new Float32Array(16);
+    this._vertexData = new Float32Array(32);
 
     /**
      * Command encoder for the current frame (clear + all camera draws in one submit).
@@ -287,26 +336,25 @@ WebGPURenderer.prototype._createQuadPipeline = function (device)
         'struct VertexInput {',
         '  @location(0) position: vec2f,',
         '  @location(1) uv: vec2f,',
+        '  @location(2) color: vec4f,',
         '}',
         'struct VertexOutput {',
         '  @builtin(position) position: vec4f,',
         '  @location(0) uv: vec2f,',
+        '  @location(1) color: vec4f,',
         '}',
-        'struct Uniforms {',
-        '  resolution: vec2f,',
-        '  tint: vec4f,',
-        '}',
-        '@group(0) @binding(0) var<uniform> u: Uniforms;',
+        '@group(0) @binding(0) var<uniform> resolution: vec2f;',
         '@vertex fn vs(in: VertexInput) -> VertexOutput {',
         '  var out: VertexOutput;',
         '  out.uv = in.uv;',
-        '  out.position = vec4f((in.position / u.resolution) * vec2f(2.0, -2.0) + vec2f(-1.0, 1.0), 0.0, 1.0);',
+        '  out.color = in.color;',
+        '  out.position = vec4f((in.position / resolution) * vec2f(2.0, -2.0) + vec2f(-1.0, 1.0), 0.0, 1.0);',
         '  return out;',
         '}',
         '@group(0) @binding(1) var tex: texture_2d<f32>;',
         '@group(0) @binding(2) var s: sampler;',
         '@fragment fn fs(in: VertexOutput) -> @location(0) vec4f {',
-        '  return textureSample(tex, s, in.uv) * u.tint;',
+        '  return textureSample(tex, s, in.uv) * in.color;',
         '}'
     ].join('\n');
 
@@ -318,10 +366,11 @@ WebGPURenderer.prototype._createQuadPipeline = function (device)
             module: shaderModule,
             entryPoint: 'vs',
             buffers: [{
-                arrayStride: 16,
+                arrayStride: 32,
                 attributes: [
                     { shaderLocation: 0, offset: 0, format: 'float32x2' },
-                    { shaderLocation: 1, offset: 8, format: 'float32x2' }
+                    { shaderLocation: 1, offset: 8, format: 'float32x2' },
+                    { shaderLocation: 2, offset: 16, format: 'float32x4' }
                 ]
             }]
         },
@@ -336,27 +385,37 @@ WebGPURenderer.prototype._createQuadPipeline = function (device)
         primitive: { topology: 'triangle-list' }
     });
 
-    var poolSize = 64;
-    this._quadVertexBuffers = [];
-    this._uniformBuffers = [];
-    for (var p = 0; p < poolSize; p++)
-    {
-        this._quadVertexBuffers.push(device.createBuffer({
-            size: 64,
-            usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
-        }));
-        this._uniformBuffers.push(device.createBuffer({
-            size: 32,
-            usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
-        }));
-    }
+    var maxQuads = this._batchMaxQuads;
+    var vertexBufferSize = maxQuads * 4 * 32;
+    this._batchVertexBuffer = device.createBuffer({
+        size: vertexBufferSize,
+        usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
+    });
 
-    var indices = new Uint16Array([ 0, 1, 2, 0, 2, 3 ]);
-    this._quadIndexBuffer = device.createBuffer({
+    var indexCount = maxQuads * 6;
+    var indices = new Uint16Array(indexCount);
+    for (var i = 0; i < maxQuads; i++)
+    {
+        var base = i * 4;
+        indices[i * 6 + 0] = base + 0;
+        indices[i * 6 + 1] = base + 1;
+        indices[i * 6 + 2] = base + 2;
+        indices[i * 6 + 3] = base + 0;
+        indices[i * 6 + 4] = base + 2;
+        indices[i * 6 + 5] = base + 3;
+    }
+    this._batchIndexBuffer = device.createBuffer({
         size: indices.byteLength,
         usage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST
     });
-    device.queue.writeBuffer(this._quadIndexBuffer, 0, indices);
+    device.queue.writeBuffer(this._batchIndexBuffer, 0, indices);
+
+    this._resolutionUniformBuffer = device.createBuffer({
+        size: 8,
+        usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
+    });
+
+    this._batchVertices = new Float32Array(maxQuads * 4 * 8);
 
     this._sampler = device.createSampler({
         minFilter: 'linear',
@@ -458,25 +517,62 @@ function isImageLike (obj)
 }
 
 /**
- * Build calc matrix and quad for a single Image/Sprite, then record draw calls.
+ * Flush the current batch to the GPU (one draw call per texture).
+ * @private
+ * @param {GPURenderPassEncoder} pass - Current render pass.
+ */
+WebGPURenderer.prototype._flushBatch = function (pass)
+{
+    if (this._batchQuadCount === 0) { return; }
+
+    var count = this._batchQuadCount;
+    var numFloats = count * 4 * 8;
+    var copy = new Float32Array(numFloats);
+    copy.set(this._batchVertices.subarray(0, numFloats));
+    this.device.queue.writeBuffer(this._batchVertexBuffer, 0, copy);
+
+    var bindGroup = this.device.createBindGroup({
+        layout: this._quadPipeline.getBindGroupLayout(0),
+        entries: [
+            { binding: 0, resource: { buffer: this._resolutionUniformBuffer } },
+            { binding: 1, resource: this._batchGpuTex.texture.createView() },
+            { binding: 2, resource: this._sampler }
+        ]
+    });
+
+    pass.setPipeline(this._quadPipeline);
+    pass.setBindGroup(0, bindGroup);
+    pass.setVertexBuffer(0, this._batchVertexBuffer);
+    pass.setIndexBuffer(this._batchIndexBuffer, 'uint16');
+    pass.drawIndexed(count * 6, 1, 0, 0, 0);
+
+    this._batchQuadCount = 0;
+    this._batchType = null;
+    this._batchFrameSource = null;
+    this._batchGpuTex = null;
+};
+
+/**
+ * Push one Image/Sprite quad into the batch. Flushes if texture changes or batch is full.
  * @private
  * @param {GPURenderPassEncoder} pass - Current render pass.
  * @param {Phaser.GameObjects.GameObject} child - Image or Sprite.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - Camera.
- * @param {number} slot - Index into the vertex/uniform buffer pool (so each draw keeps its own data).
+ * @param {object} gpuTex - { texture, width, height } from _getOrCreateGPUTexture.
  */
-WebGPURenderer.prototype._drawImageQuad = function (pass, child, camera, slot)
+WebGPURenderer.prototype._pushQuadToBatch = function (pass, child, camera, gpuTex)
 {
-    if (this.width <= 0 || this.height <= 0) { return; }
-    if (slot >= this._quadVertexBuffers.length) { return; }
-
-    var vertexBuffer = this._quadVertexBuffers[slot];
-    var uniformBuffer = this._uniformBuffers[slot];
+    var maxQuads = this._batchMaxQuads;
     var frame = child.frame;
     var frameSource = frame.source;
-    var gpuTex = this._getOrCreateGPUTexture(frameSource);
-    if (!gpuTex) { return; }
 
+    var childType = child.type || '';
+    if (this._batchQuadCount > 0 && (this._batchType !== childType || this._batchFrameSource !== frameSource || this._batchGpuTex !== gpuTex || this._batchQuadCount >= maxQuads))
+    {
+        this._flushBatch(pass);
+    }
+
+    if (this._batchQuadCount >= maxQuads) { return; }
     var uvSource = frame;
     if (child.isCropped)
     {
@@ -516,46 +612,25 @@ WebGPURenderer.prototype._drawImageQuad = function (pass, child, camera, slot)
     this._calcMatrix.multiply(child.getWorldTransformMatrix(this._tempMatrix));
     this._calcMatrix.setQuad(x, y, x + frameWidth, y + frameHeight, this._quad);
 
-    var v = this._vertexData;
-    var q = this._quad;
-    v[0] = q[0]; v[1] = q[1]; v[2] = u0; v[3] = v0;
-    v[4] = q[2]; v[5] = q[3]; v[6] = u0; v[7] = v1;
-    v[8] = q[4]; v[9] = q[5]; v[10] = u1; v[11] = v1;
-    v[12] = q[6]; v[13] = q[7]; v[14] = u1; v[15] = v0;
-
-    this.device.queue.writeBuffer(vertexBuffer, 0, this._vertexData);
-
     var tint = child.tintTopLeft;
     var r = ((tint >> 16) & 0xff) / 255;
     var g = ((tint >> 8) & 0xff) / 255;
     var b = (tint & 0xff) / 255;
     var a = camera.alpha * child.alpha;
 
-    var uniformF32 = new Float32Array(8);
-    uniformF32[0] = this.width;
-    uniformF32[1] = this.height;
-    uniformF32[2] = 0;
-    uniformF32[3] = 0;
-    uniformF32[4] = r;
-    uniformF32[5] = g;
-    uniformF32[6] = b;
-    uniformF32[7] = a;
-    this.device.queue.writeBuffer(uniformBuffer, 0, uniformF32);
+    var q = this._quad;
+    var batch = this._batchVertices;
+    var offset = this._batchQuadCount * 4 * 8;
 
-    var bindGroup = this.device.createBindGroup({
-        layout: this._quadPipeline.getBindGroupLayout(0),
-        entries: [
-            { binding: 0, resource: { buffer: uniformBuffer } },
-            { binding: 1, resource: gpuTex.texture.createView() },
-            { binding: 2, resource: this._sampler }
-        ]
-    });
+    batch[offset + 0] = q[0]; batch[offset + 1] = q[1]; batch[offset + 2] = u0; batch[offset + 3] = v0; batch[offset + 4] = r; batch[offset + 5] = g; batch[offset + 6] = b; batch[offset + 7] = a;
+    batch[offset + 8] = q[2]; batch[offset + 9] = q[3]; batch[offset + 10] = u0; batch[offset + 11] = v1; batch[offset + 12] = r; batch[offset + 13] = g; batch[offset + 14] = b; batch[offset + 15] = a;
+    batch[offset + 16] = q[4]; batch[offset + 17] = q[5]; batch[offset + 18] = u1; batch[offset + 19] = v1; batch[offset + 20] = r; batch[offset + 21] = g; batch[offset + 22] = b; batch[offset + 23] = a;
+    batch[offset + 24] = q[6]; batch[offset + 25] = q[7]; batch[offset + 26] = u1; batch[offset + 27] = v0; batch[offset + 28] = r; batch[offset + 29] = g; batch[offset + 30] = b; batch[offset + 31] = a;
 
-    pass.setPipeline(this._quadPipeline);
-    pass.setBindGroup(0, bindGroup);
-    pass.setVertexBuffer(0, vertexBuffer);
-    pass.setIndexBuffer(this._quadIndexBuffer, 'uint16');
-    pass.drawIndexed(6, 1, 0, 0, 0);
+    this._batchType = childType;
+    this._batchFrameSource = frameSource;
+    this._batchGpuTex = gpuTex;
+    this._batchQuadCount++;
 };
 
 /**
@@ -602,7 +677,13 @@ WebGPURenderer.prototype.preRender = function ()
 WebGPURenderer.prototype.render = function (scene, children, camera)
 {
     if (!this.isReady || !this.device || !this.context || !this._frameEncoder) { return; }
+    if (this.width <= 0 || this.height <= 0) { return; }
     this.emit(Events.RENDER, scene, camera);
+
+    var resF32 = new Float32Array(2);
+    resF32[0] = this.width;
+    resF32[1] = this.height;
+    this.device.queue.writeBuffer(this._resolutionUniformBuffer, 0, resF32);
 
     var view = this.context.getCurrentTexture().createView();
     var pass = this._frameEncoder.beginRenderPass({
@@ -613,17 +694,25 @@ WebGPURenderer.prototype.render = function (scene, children, camera)
         }]
     });
 
-    var slot = 0;
+    this._batchQuadCount = 0;
+    this._batchType = null;
+    this._batchFrameSource = null;
+    this._batchGpuTex = null;
+
     for (var i = 0; i < children.length; i++)
     {
         var child = children[i];
         if (isImageLike(child))
         {
-            this._drawImageQuad(pass, child, camera, slot);
-            slot++;
+            var gpuTex = this._getOrCreateGPUTexture(child.frame.source);
+            if (gpuTex)
+            {
+                this._pushQuadToBatch(pass, child, camera, gpuTex);
+            }
         }
     }
 
+    this._flushBatch(pass);
     pass.end();
 };
 
@@ -695,17 +784,9 @@ WebGPURenderer.prototype.destroy = function ()
         this._textureCache.clear();
         this._textureCache = null;
     }
-    if (this._quadVertexBuffers && this._quadVertexBuffers.length)
-    {
-        this._quadVertexBuffers.forEach(function (b) { b.destroy(); });
-        this._quadVertexBuffers = [];
-    }
-    if (this._quadIndexBuffer) { this._quadIndexBuffer.destroy(); this._quadIndexBuffer = null; }
-    if (this._uniformBuffers && this._uniformBuffers.length)
-    {
-        this._uniformBuffers.forEach(function (b) { b.destroy(); });
-        this._uniformBuffers = [];
-    }
+    if (this._batchVertexBuffer) { this._batchVertexBuffer.destroy(); this._batchVertexBuffer = null; }
+    if (this._batchIndexBuffer) { this._batchIndexBuffer.destroy(); this._batchIndexBuffer = null; }
+    if (this._resolutionUniformBuffer) { this._resolutionUniformBuffer.destroy(); this._resolutionUniformBuffer = null; }
     if (this.context)
     {
         this.context.unconfigure();
