@@ -1,12 +1,10 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
 import { GetValue } from '../../utils/object/GetValue';
-
-var Class = require('../../utils/Class');
 
 /**
  * @classdesc
@@ -34,11 +32,9 @@ var Class = require('../../utils/Class');
  *
  * @param {Phaser.Types.Cameras.Controls.FixedKeyControlConfig} config - The Fixed Key Control configuration object.
  */
-var FixedKeyControl = new Class({
+export class FixedKeyControl {
 
-    initialize:
-
-    function FixedKeyControl (config)
+    constructor(config: any)
     {
         /**
          * The Camera that this Control will update.
@@ -192,7 +188,7 @@ var FixedKeyControl = new Class({
          * @since 3.0.0
          */
         this.active = (this.camera !== null);
-    },
+    }
 
     /**
      * Starts the Key Control running, providing it has been linked to a camera.
@@ -202,12 +198,12 @@ var FixedKeyControl = new Class({
      *
      * @return {this} This Key Control instance.
      */
-    start: function ()
+    start()
     {
         this.active = (this.camera !== null);
 
         return this;
-    },
+    }
 
     /**
      * Stops this Key Control from running. Call `start` to start it again.
@@ -217,12 +213,12 @@ var FixedKeyControl = new Class({
      *
      * @return {this} This Key Control instance.
      */
-    stop: function ()
+    stop()
     {
         this.active = false;
 
         return this;
-    },
+    }
 
     /**
      * Binds this Key Control to a camera.
@@ -234,12 +230,12 @@ var FixedKeyControl = new Class({
      *
      * @return {this} This Key Control instance.
      */
-    setCamera: function (camera)
+    setCamera(camera)
     {
         this.camera = camera;
 
         return this;
-    },
+    }
 
     /**
      * Applies the results of pressing the control keys to the Camera.
@@ -251,7 +247,7 @@ var FixedKeyControl = new Class({
      *
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    update: function (delta)
+    update(delta)
     {
         if (!this.active)
         {
@@ -300,7 +296,7 @@ var FixedKeyControl = new Class({
                 cam.zoom = this.maxZoom;
             }
         }
-    },
+    }
 
     /**
      * Destroys this Key Control.
@@ -308,7 +304,7 @@ var FixedKeyControl = new Class({
      * @method Phaser.Cameras.Controls.FixedKeyControl#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy()
     {
         this.camera = null;
 
@@ -321,6 +317,4 @@ var FixedKeyControl = new Class({
         this.zoomOut = null;
     }
 
-});
-
-module.exports = FixedKeyControl;
+};

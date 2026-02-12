@@ -7,11 +7,11 @@
 /**
  * @namespace Phaser.Cameras.Scene2D
  */
-
+import { BaseCamera } from './BaseCamera';
 module.exports = {
 
     Camera: require('./Camera'),
-    BaseCamera: require('./BaseCamera'),
+    BaseCamera,
     CameraManager: require('./CameraManager'),
     Effects: require('./effects'),
     Events: require('./events')

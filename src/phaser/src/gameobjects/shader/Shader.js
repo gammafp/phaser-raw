@@ -7,8 +7,8 @@
 import { GetFastValue } from '../../utils/object/GetFastValue';
 
 import { Vector2 } from '../../math/Vector2';
+import { BaseCamera } from '../../cameras/2d/BaseCamera';
 
-var Camera = require('../../cameras/2d/BaseCamera');
 var ShaderQuad = require('../../renderer/webgl/renderNodes/ShaderQuad');
 var DrawingContext = require('../../renderer/webgl/DrawingContext');
 var Class = require('../../utils/Class');
