@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -30,4 +30,4 @@
  * @param {number} duration - The duration of the effect.
  * @param {number} zoom - The destination zoom value.
  */
-module.exports = 'camerazoomstart';
+export const ZOOM_START = 'camerazoomstart';

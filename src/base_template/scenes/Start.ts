@@ -67,6 +67,11 @@ export class Start extends Phaser.Scene {
             loop: -1
         });
 
+        // Shake camera 
+        setTimeout(() => {
+            this.cameras.main.shake(1000, 0.05);
+        }, 1000);
+
         // ============================================================
         // EJEMPLO: BitmapText (COMENTADO - Requiere conversión completa)
         // ============================================================

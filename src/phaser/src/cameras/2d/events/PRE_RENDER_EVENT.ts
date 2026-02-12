@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -18,4 +18,4 @@
  *
  * @param {Phaser.Cameras.Scene2D.BaseCamera} camera - The camera that is about to render to a texture.
  */
-module.exports = 'prerender';
+export const PRE_RENDER = 'prerender';

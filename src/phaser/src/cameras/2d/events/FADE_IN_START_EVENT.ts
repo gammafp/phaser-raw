@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -22,4 +22,4 @@
  * @param {number} green - The green color channel value.
  * @param {number} blue - The blue color channel value.
  */
-module.exports = 'camerafadeinstart';
+export const FADE_IN_START = 'camerafadeinstart';

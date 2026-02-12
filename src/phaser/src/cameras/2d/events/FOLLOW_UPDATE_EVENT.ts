@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -20,4 +20,4 @@
  * @param {Phaser.Cameras.Scene2D.BaseCamera} camera - The camera that emitted the event.
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object the camera is following.
  */
-module.exports = 'followupdate';
+export const FOLLOW_UPDATE = 'followupdate';
