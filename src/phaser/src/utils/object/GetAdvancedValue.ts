@@ -1,11 +1,12 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var MATH = require('../../math');
-var GetValue = require('./GetValue');
+import { GetValue } from './GetValue';
+
+const MATH = require('../../math');
 
 /**
  * Retrieves a value from an object. Allows for more advanced selection options, including:
@@ -47,9 +48,9 @@ var GetValue = require('./GetValue');
  *
  * @return {*} The value of the requested key.
  */
-var GetAdvancedValue = function (source, key, defaultValue)
+export const GetAdvancedValue = (source: any, key: string, defaultValue: any): any =>
 {
-    var value = GetValue(source, key, null);
+    const value = GetValue(source, key, null);
 
     if (value === null)
     {
@@ -77,5 +78,3 @@ var GetAdvancedValue = function (source, key, defaultValue)
 
     return value;
 };
-
-module.exports = GetAdvancedValue;

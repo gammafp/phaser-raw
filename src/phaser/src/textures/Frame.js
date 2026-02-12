@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Extend } from '../utils/object/Extend';
+
 import { Clamp } from '../math/Clamp';
 
 var Class = require('../utils/Class');
-var Extend = require('../utils/object/Extend');
 
 /**
  * @classdesc

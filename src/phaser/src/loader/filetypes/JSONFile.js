@@ -4,13 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { GetValue } from '../../utils/object/GetValue';
+import { IsPlainObject } from '../../utils/object/IsPlainObject';
+
 var Class = require('../../utils/Class');
 var CONST = require('../const');
 var File = require('../File');
 var FileTypesManager = require('../FileTypesManager');
-var GetFastValue = require('../../utils/object/GetFastValue');
-var GetValue = require('../../utils/object/GetValue');
-var IsPlainObject = require('../../utils/object/IsPlainObject');
 
 /**
  * @classdesc

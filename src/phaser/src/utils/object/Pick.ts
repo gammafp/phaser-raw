@@ -1,10 +1,10 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var HasValue = require('./HasValue');
+import { HasValue } from './HasValue';
 
 /**
  * Returns a new object that only contains the `keys` that were found on the object provided.
@@ -18,13 +18,13 @@ var HasValue = require('./HasValue');
  *
  * @return {object} A new object that only contains the `keys` that were found on the provided object. If no `keys` were found, an empty object will be returned.
  */
-var Pick = function (object, keys)
+export const Pick = (object: any, keys: string[]): any =>
 {
-    var obj = {};
+    const obj: any = {};
 
-    for (var i = 0; i < keys.length; i++)
+    for (let i = 0; i < keys.length; i++)
     {
-        var key = keys[i];
+        const key = keys[i];
 
         if (HasValue(object, key))
         {
@@ -34,5 +34,3 @@ var Pick = function (object, keys)
 
     return obj;
 };
-
-module.exports = Pick;

@@ -4,11 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetValue } from '../../utils/object/GetValue';
+
 import { DegToRad } from '../../math/DegToRad';
 import { Vector2 } from '../../math/Vector2';
 
 var GetBoolean = require('../../tweens/builders/GetBoolean');
-var GetValue = require('../../utils/object/GetValue');
 var TWEEN_CONST = require('../../tweens/tween/const');
 
 /**

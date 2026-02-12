@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Merge } from '../../../../utils/object/Merge';
+
 var TransformMatrix = require('../../../../gameobjects/components/TransformMatrix.js');
 var Class = require('../../../../utils/Class');
-var Merge = require('../../../../utils/object/Merge');
 var RenderNode = require('../RenderNode');
 
 /**

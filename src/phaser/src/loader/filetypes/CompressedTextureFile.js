@@ -4,16 +4,17 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { IsPlainObject } from '../../utils/object/IsPlainObject';
+import { Merge } from '../../utils/object/Merge';
+
 var AtlasJSONFile = require('./AtlasJSONFile');
 var BinaryFile = require('./BinaryFile');
 var Class = require('../../utils/Class');
 var FileTypesManager = require('../FileTypesManager');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var ImageFile = require('./ImageFile');
-var IsPlainObject = require('../../utils/object/IsPlainObject');
 var JSONFile = require('./JSONFile');
 var KTXParser = require('../../textures/parsers/KTXParser');
-var Merge = require('../../utils/object/Merge');
 var MultiAtlasFile = require('./MultiAtlasFile');
 var MultiFile = require('../MultiFile');
 var PVRParser = require('../../textures/parsers/PVRParser');

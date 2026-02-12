@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetValue } from '../utils/object/GetValue';
+
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
 
-var GetValue = require('../utils/object/GetValue');
 
 import { DegToRad } from '../math/DegToRad';
 

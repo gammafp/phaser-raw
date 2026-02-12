@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -33,7 +33,7 @@
  *
  * @return {boolean} `true` if the property key was valid and the value was set, otherwise `false`.
  */
-var SetValue = function (source, key, value)
+export const SetValue = (source: any, key: string, value: any): boolean =>
 {
     if (!source || typeof source === 'number')
     {
@@ -47,12 +47,12 @@ var SetValue = function (source, key, value)
     }
     else if (key.indexOf('.') !== -1)
     {
-        var keys = key.split('.');
-        var parent = source;
-        var prev = source;
+        const keys = key.split('.');
+        let parent = source;
+        let prev = source;
 
         //  Use for loop here so we can break early
-        for (var i = 0; i < keys.length; i++)
+        for (let i = 0; i < keys.length; i++)
         {
             if (parent.hasOwnProperty(keys[i]))
             {
@@ -73,5 +73,3 @@ var SetValue = function (source, key, value)
 
     return false;
 };
-
-module.exports = SetValue;

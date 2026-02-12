@@ -4,11 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../../utils/object/GetFastValue';
+
 import { Equal as FuzzyEquals } from '../../../math/fuzzy/Equal';
 
 var Bodies = require('../lib/factory/Bodies');
 var Body = require('../lib/body/Body');
-var GetFastValue = require('../../../utils/object/GetFastValue');
 var PhysicsEditorParser = require('../PhysicsEditorParser');
 var PhysicsJSONParser = require('../PhysicsJSONParser');
 var Vertices = require('../lib/geometry/Vertices');

@@ -1,10 +1,10 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Clone = require('./Clone');
+import { Clone } from './Clone';
 
 /**
  * Creates a new Object using all values from obj1 and obj2.
@@ -21,11 +21,11 @@ var Clone = require('./Clone');
  *
  * @return {object} A new object containing the union of obj1's and obj2's properties.
  */
-var Merge = function (obj1, obj2)
+export const Merge = (obj1: any, obj2: any): any =>
 {
-    var clone = Clone(obj1);
+    const clone = Clone(obj1);
 
-    for (var key in obj2)
+    for (const key in obj2)
     {
         if (!clone.hasOwnProperty(key))
         {
@@ -35,5 +35,3 @@ var Merge = function (obj1, obj2)
 
     return clone;
 };
-
-module.exports = Merge;

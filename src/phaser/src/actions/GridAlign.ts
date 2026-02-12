@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../utils/object/GetFastValue';
+
 var AlignIn = require('../display/align/in/QuickSet');
 var CONST = require('../display/align/const');
-var GetFastValue = require('../utils/object/GetFastValue');
 var Zone = require('../gameobjects/zone/Zone');
 
 // import { QuickSet as AlignIn } from '../display/align/in/QuickSet';

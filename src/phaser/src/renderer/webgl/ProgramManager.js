@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { DeepCopy } from '../../utils/object/DeepCopy';
+
 var Class = require('../../utils/Class');
-var DeepCopy = require('../../utils/object/DeepCopy');
 
 /**
  * @classdesc

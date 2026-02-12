@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../utils/object/GetFastValue';
+
 var GameObjectFactory = require('../gameobjects/GameObjectFactory');
-var GetFastValue = require('../utils/object/GetFastValue');
 var SceneEvents = require('../scene/events');
 
 import { EventEmitter } from 'eventemitter3';

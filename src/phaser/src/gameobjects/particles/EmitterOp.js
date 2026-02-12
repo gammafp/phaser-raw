@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
 import { Between } from '../../math/Between';
 import { Clamp } from '../../math/Clamp';
 import { FloatBetween } from '../../math/FloatBetween';
@@ -12,7 +14,6 @@ import { Wrap } from '../../math/Wrap';
 
 var Class = require('../../utils/Class');
 var GetEaseFunction = require('../../tweens/builders/GetEaseFunction');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var GetInterpolationFunction = require('../../tweens/builders/GetInterpolationFunction');
 
 /**

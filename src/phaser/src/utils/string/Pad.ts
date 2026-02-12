@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -34,37 +34,36 @@
  *
  * @return {string} The padded string.
  */
-var Pad = function (str, len, pad, dir)
+// TODO: Check this code: Pad(Pad('X', 5, 'ab', 3)) -> (abXab) return this instead ('ababXabab')
+export const Pad = (
+    str: string | number | object,
+    len: number = 0,
+    pad: string = ' ',
+    dir: 1 | 2 | 3 = 3
+): string =>
 {
-    if (len === undefined) { len = 0; }
-    if (pad === undefined) { pad = ' '; }
-    if (dir === undefined) { dir = 3; }
+    const input = str.toString();
 
-    str = str.toString();
-
-    var padlen = 0;
-
-    if (len + 1 >= str.length)
+    if (len + 1 < input.length)
     {
-        switch (dir)
-        {
-            case 1:
-                str = new Array(len + 1 - str.length).join(pad) + str;
-                break;
-
-            case 3:
-                var right = Math.ceil((padlen = len - str.length) / 2);
-                var left = padlen - right;
-                str = new Array(left + 1).join(pad) + str + new Array(right + 1).join(pad);
-                break;
-
-            default:
-                str = str + new Array(len + 1 - str.length).join(pad);
-                break;
-        }
+        return input;
     }
 
-    return str;
-};
+    const padlen = len - input.length;
 
-module.exports = Pad;
+    switch (dir)
+    {
+        case 1:
+            return pad.repeat(padlen) + input;
+
+        case 3: {
+            const right = Math.ceil(padlen / 2);
+            const left = padlen - right;
+            return pad.repeat(left) + input + pad.repeat(right);
+        }
+
+        case 2:
+        default:
+            return input + pad.repeat(padlen);
+    }
+}

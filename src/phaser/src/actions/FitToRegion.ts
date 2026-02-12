@@ -2,7 +2,8 @@
  * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
-var GetFastValue = require('../utils/object/GetFastValue');
+
+import { GetFastValue } from '../utils/object/GetFastValue';
 
 import { Rectangle } from '../geom/rectangle/Rectangle';
 import type { FitToRegionItemCoverage } from './typedefs/FitToRegionItemCoverage';

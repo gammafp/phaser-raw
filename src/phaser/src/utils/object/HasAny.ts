@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -15,9 +15,9 @@
  *
  * @return {boolean} true if the source object contains at least one of the keys, false otherwise
  */
-var HasAny = function (source, keys)
+export const HasAny = (source: any, keys: string[]): boolean =>
 {
-    for (var i = 0; i < keys.length; i++)
+    for (let i = 0; i < keys.length; i++)
     {
         if (source.hasOwnProperty(keys[i]))
         {
@@ -27,5 +27,3 @@ var HasAny = function (source, keys)
 
     return false;
 };
-
-module.exports = HasAny;

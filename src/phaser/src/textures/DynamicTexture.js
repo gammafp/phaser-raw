@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../utils/object/GetFastValue';
+
 var BlendModes = require('../renderer/BlendModes');
 var Camera = require('../cameras/2d/Camera');
 var CanvasPool = require('../display/canvas/CanvasPool');
@@ -11,7 +13,6 @@ var Class = require('../utils/Class');
 var CONST = require('../const');
 var DrawingContext = require('../renderer/webgl/DrawingContext');
 var Frame = require('./Frame');
-var GetFastValue = require('../utils/object/GetFastValue');
 var Texture = require('./Texture');
 var Utils = require('../renderer/webgl/Utils');
 var DynamicTextureCommands = require('./DynamicTextureCommands');

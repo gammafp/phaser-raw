@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -14,11 +14,11 @@
  *
  * @return {object} A deep copy of the original object.
  */
-var DeepCopy = function (inObject)
+export const DeepCopy = (inObject: any): any =>
 {
-    var outObject;
-    var value;
-    var key;
+    let outObject: any;
+    let value: any;
+    let key: string;
 
     if (typeof inObject !== 'object' || inObject === null)
     {
@@ -39,5 +39,3 @@ var DeepCopy = function (inObject)
 
     return outObject;
 };
-
-module.exports = DeepCopy;

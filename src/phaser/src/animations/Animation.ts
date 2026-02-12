@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetValue } from '../utils/object/GetValue';
+
 var FindClosestInSorted = require('../utils/array/FindClosestInSorted');
-var GetValue = require('../utils/object/GetValue');
 var SortByDigits = require('../utils/array/SortByDigits');
 
 // import { FindClosestInSorted } from '../utils/array/FindClosestInSorted';

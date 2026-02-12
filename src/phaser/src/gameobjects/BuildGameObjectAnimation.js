@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GetAdvancedValue = require('../utils/object/GetAdvancedValue');
+
+import { GetAdvancedValue } from '../utils/object/GetAdvancedValue';
 
 /**
  * Adds an Animation component to a Sprite and populates it based on the given config.

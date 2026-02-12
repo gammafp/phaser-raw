@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+
 var GameObjectCreator = require('../GameObjectCreator');
-var GetAdvancedValue = require('../../utils/object/GetAdvancedValue');
 var CaptureFrame = require('./CaptureFrame');
 
 /**

@@ -4,6 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetValue } from '../utils/object/GetValue';
+import { IsPlainObject } from '../utils/object/IsPlainObject';
+
 import { Rectangle } from '../geom/rectangle/Rectangle';
 
 var CanvasPool = require('../display/canvas/CanvasPool');
@@ -16,10 +19,8 @@ var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var Frame = require('./Frame');
 var GameEvents = require('../core/events');
-var GetValue = require('../utils/object/GetValue');
 var ImageGameObject = require('../gameobjects/image/Image');
 var IntegerToColor = require('../display/color/IntegerToColor');
-var IsPlainObject = require('../utils/object/IsPlainObject');
 var Parser = require('./parsers');
 var Texture = require('./Texture');
 var TileSpriteGameObject = require('../gameobjects/tilesprite/TileSprite');

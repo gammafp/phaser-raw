@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Extend } from '../utils/object/Extend';
+
 var CONST = require('./const');
-var Extend = require('../utils/object/Extend');
 
 /**
  * @namespace Phaser.Loader

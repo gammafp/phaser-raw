@@ -4,11 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Merge } from '../../../../utils/object/Merge';
+
 import { Vector2 } from '../../../../math/Vector2';
 
 var TransformMatrix = require('../../../../gameobjects/components/TransformMatrix');
 var Class = require('../../../../utils/Class');
-var Merge = require('../../../../utils/object/Merge');
 var ProgramManager = require('../../ProgramManager');
 var MakeApplyLighting = require('../../shaders/additionMakers/MakeApplyLighting');
 var MakeApplyTint = require('../../shaders/additionMakers/MakeApplyTint');

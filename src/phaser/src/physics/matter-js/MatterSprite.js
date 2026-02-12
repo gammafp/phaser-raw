@@ -4,13 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
 import { Vector2 } from '../../math/Vector2';
 
 import { AnimationState } from '../../animations/AnimationState';
 var Class = require('../../utils/Class');
 var Components = require('./components');
 var GameObject = require('../../gameobjects/GameObject');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var Sprite = require('../../gameobjects/sprite/Sprite');
 
 /**

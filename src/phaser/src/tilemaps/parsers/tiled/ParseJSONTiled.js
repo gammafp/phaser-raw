@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { DeepCopy } from '../../../utils/object/DeepCopy';
+
 var AssignTileProperties = require('./AssignTileProperties');
 var BuildTilesetIndex = require('./BuildTilesetIndex');
 var CONST = require('../../const/ORIENTATION_CONST');
-var DeepCopy = require('../../../utils/object/DeepCopy');
 var Formats = require('../../Formats');
 var FromOrientationString = require('../FromOrientationString');
 var MapData = require('../../mapdata/MapData');

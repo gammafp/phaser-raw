@@ -1,12 +1,11 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetValue } from './GetValue';
 import { Clamp } from '../../math/Clamp';
-
-var GetValue = require('./GetValue');
 
 /**
  * Retrieves and clamps a numerical value from an object.
@@ -22,13 +21,11 @@ var GetValue = require('./GetValue');
  *
  * @return {number} The clamped value from the `source` object.
  */
-var GetMinMaxValue = function (source, key, min, max, defaultValue)
+export const GetMinMaxValue = (source: any, key: string, min: number, max: number, defaultValue?: number): number =>
 {
     if (defaultValue === undefined) { defaultValue = min; }
 
-    var value = GetValue(source, key, defaultValue);
+    const value = GetValue(source, key, defaultValue);
 
     return Clamp(value, min, max);
 };
-
-module.exports = GetMinMaxValue;

@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GetValue = require('../../utils/object/GetValue');
+
+import { GetValue } from '../../utils/object/GetValue';
 
 /**
  * Extracts an array of targets from a Tween configuration object.

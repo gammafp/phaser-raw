@@ -4,6 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { HasAll } from '../../utils/object/HasAll';
+import { HasAny } from '../../utils/object/HasAny';
+import { HasValue } from '../../utils/object/HasValue';
+import { MergeRight } from '../../utils/object/MergeRight';
+
 import { CopyFrom } from '../../geom/rectangle/CopyFrom';
 import { Inflate } from '../../geom/rectangle/Inflate';
 import { MergeRect } from '../../geom/rectangle/MergeRect';
@@ -25,13 +31,8 @@ var EmitterColorOp = require('./EmitterColorOp');
 var EmitterOp = require('./EmitterOp');
 var Events = require('./events');
 var GameObject = require('../GameObject');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var GetRandom = require('../../utils/array/GetRandom');
 var GravityWell = require('./GravityWell');
-var HasAll = require('../../utils/object/HasAll');
-var HasAny = require('../../utils/object/HasAny');
-var HasValue = require('../../utils/object/HasValue');
-var MergeRight = require('../../utils/object/MergeRight');
 var Particle = require('./Particle');
 var ParticleBounds = require('./ParticleBounds');
 var RandomZone = require('./zones/RandomZone');

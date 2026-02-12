@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
 var CanvasPool = require('../../display/canvas/CanvasPool');
 var Color = require('../../display/color/Color');
-var GetFastValue = require('../../utils/object/GetFastValue');
 
 /**
  * Takes a snapshot of an area from the current frame displayed by a WebGL canvas.

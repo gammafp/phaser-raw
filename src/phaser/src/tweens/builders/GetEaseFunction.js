@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { UppercaseFirst } from '../../utils/string/UppercaseFirst';
+
 import { EaseMap } from '../../math/easing/EaseMap';
 
-var UppercaseFirst = require('../../utils/string/UppercaseFirst');
 
 /**
  * This internal function is used to return the correct ease function for a Tween.

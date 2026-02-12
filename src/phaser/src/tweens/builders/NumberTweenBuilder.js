@@ -4,16 +4,17 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { GetValue } from '../../utils/object/GetValue';
+import { MergeRight } from '../../utils/object/MergeRight';
+
 var BaseTween = require('../tween/BaseTween');
 var Defaults = require('../tween/Defaults');
-var GetAdvancedValue = require('../../utils/object/GetAdvancedValue');
 var GetBoolean = require('./GetBoolean');
 var GetEaseFunction = require('./GetEaseFunction');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var GetNewValue = require('./GetNewValue');
-var GetValue = require('../../utils/object/GetValue');
 var GetValueOp = require('./GetValueOp');
-var MergeRight = require('../../utils/object/MergeRight');
 var Tween = require('../tween/Tween');
 
 /**

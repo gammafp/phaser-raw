@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../../utils/object/GetFastValue';
+
 var Class = require('../../../utils/Class');
 var Events = require('../events');
-var GetFastValue = require('../../../utils/object/GetFastValue');
 var ProcessKeyCombo = require('./ProcessKeyCombo');
 var ResetKeyCombo = require('./ResetKeyCombo');
 

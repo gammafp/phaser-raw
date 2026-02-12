@@ -4,13 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../utils/object/GetFastValue';
+
 import { DegToRad } from '../math/DegToRad';
 import { Rotate } from '../math/Rotate';
 
 var BuildTilesetIndex = require('./parsers/tiled/BuildTilesetIndex');
 var Class = require('../utils/Class');
 var Formats = require('./Formats');
-var GetFastValue = require('../utils/object/GetFastValue');
 var LayerData = require('./mapdata/LayerData');
 var ObjectHelper = require('./ObjectHelper');
 var ORIENTATION = require('./const/ORIENTATION_CONST');

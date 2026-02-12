@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var DeepCopy = require('../../utils/object/DeepCopy');
+
+import { DeepCopy } from '../../utils/object/DeepCopy';
 
 /**
  * Provides methods for setting the WebGL render nodes of a Game Object.

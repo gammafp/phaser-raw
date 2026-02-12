@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { UUID } from '../utils/string/UUID';
+
 var Class = require('../utils/Class');
-var UUID = require('../utils/string/UUID');
 var Controller = require('./Controller');
 
 /**

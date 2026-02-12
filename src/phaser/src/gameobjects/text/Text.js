@@ -4,6 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetValue } from '../../utils/object/GetValue';
+import { UUID } from '../../utils/string/UUID';
+
 import { AddToDOM } from '../../dom/AddToDOM';
 import { RemoveFromDOM } from '../../dom/RemoveFromDOM';
 
@@ -13,10 +16,8 @@ var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
 var GetTextSize = require('./GetTextSize');
-var GetValue = require('../../utils/object/GetValue');
 var TextRender = require('./TextRender');
 var TextStyle = require('./TextStyle');
-var UUID = require('../../utils/string/UUID');
 
 /**
  * @classdesc

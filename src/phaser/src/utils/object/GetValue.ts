@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -40,7 +40,7 @@
  *
  * @return {*} The value of the requested key.
  */
-var GetValue = function (source, key, defaultValue, altSource)
+export const GetValue = (source: any, key: string, defaultValue: any, altSource?: any): any =>
 {
     if ((!source && !altSource) || typeof source === 'number')
     {
@@ -56,16 +56,16 @@ var GetValue = function (source, key, defaultValue, altSource)
     }
     else if (key.indexOf('.') !== -1)
     {
-        var keys = key.split('.');
-        var parentA = source;
-        var parentB = altSource;
-        var valueA = defaultValue;
-        var valueB = defaultValue;
-        var valueAFound = true;
-        var valueBFound = true;
+        const keys = key.split('.');
+        let parentA = source;
+        let parentB = altSource;
+        let valueA = defaultValue;
+        let valueB = defaultValue;
+        let valueAFound = true;
+        let valueBFound = true;
 
         //  Use for loop here so we can break early
-        for (var i = 0; i < keys.length; i++)
+        for (let i = 0; i < keys.length; i++)
         {
             if (parentA && parentA.hasOwnProperty(keys[i]))
             {
@@ -108,5 +108,3 @@ var GetValue = function (source, key, defaultValue, altSource)
         return defaultValue;
     }
 };
-
-module.exports = GetValue;

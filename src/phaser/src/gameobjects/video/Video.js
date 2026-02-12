@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { UUID } from '../../utils/string/UUID';
+
 import { Clamp } from '../../math/Clamp';
 import { MATH_CONST } from '../../math/const';
 
@@ -14,7 +16,6 @@ var Events = require('../events');
 var GameEvents = require('../../core/events/');
 var GameObject = require('../GameObject');
 var SoundEvents = require('../../sound/events/');
-var UUID = require('../../utils/string/UUID');
 var VideoRender = require('./VideoRender');
 
 /**

@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -23,9 +23,4 @@
  *
  * @return {string} A new string, same as the first, but with the first letter capitalized.
  */
-var UppercaseFirst = function (str)
-{
-    return str && str[0].toUpperCase() + str.slice(1);
-};
-
-module.exports = UppercaseFirst;
+export const UppercaseFirst = (str: string) => str && str[0].toUpperCase() + str.slice(1);

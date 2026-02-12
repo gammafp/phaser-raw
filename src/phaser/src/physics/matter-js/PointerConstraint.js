@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Merge } from '../../utils/object/Merge';
+
 import { Vector2 } from '../../math/Vector2';
 
 var Bounds = require('./lib/geometry/Bounds');
@@ -13,7 +15,6 @@ var Constraint = require('./lib/constraint/Constraint');
 var Detector = require('./lib/collision/Detector');
 var Events = require('./events');
 var InputEvents = require('../../input/events');
-var Merge = require('../../utils/object/Merge');
 var Sleeping = require('./lib/core/Sleeping');
 var Vertices = require('./lib/geometry/Vertices');
 

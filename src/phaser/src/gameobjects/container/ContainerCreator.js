@@ -5,11 +5,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
 var BuildGameObject = require('../BuildGameObject');
 var Container = require('./Container');
 var GameObjectCreator = require('../GameObjectCreator');
-var GetAdvancedValue = require('../../utils/object/GetAdvancedValue');
-var GetFastValue = require('../../utils/object/GetFastValue');
 
 /**
  * Creates a new Container Game Object and returns it.

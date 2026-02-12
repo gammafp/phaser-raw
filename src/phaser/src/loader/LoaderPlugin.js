@@ -4,15 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../utils/object/GetFastValue';
+import { GetValue } from '../utils/object/GetValue';
+import { IsPlainObject } from '../utils/object/IsPlainObject';
+
 import { PluginCache } from '../plugins/PluginCache';
 var Class = require('../utils/Class');
 var CONST = require('./const');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var FileTypesManager = require('./FileTypesManager');
-var GetFastValue = require('../utils/object/GetFastValue');
-var GetValue = require('../utils/object/GetValue');
-var IsPlainObject = require('../utils/object/IsPlainObject');
 var SceneEvents = require('../scene/events');
 var XHRSettings = require('./XHRSettings');
 

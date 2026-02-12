@@ -4,11 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetAdvancedValue } from '../../../utils/object/GetAdvancedValue';
+import { GetValue } from '../../../utils/object/GetValue';
+
 var BitmapText = require('./BitmapText');
 var BuildGameObject = require('../../BuildGameObject');
 var GameObjectCreator = require('../../GameObjectCreator');
-var GetAdvancedValue = require('../../../utils/object/GetAdvancedValue');
-var GetValue = require('../../../utils/object/GetValue');
 
 /**
  * Creates a new Bitmap Text Game Object and returns it.

@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Pick = require('../../../utils/object/Pick');
+import { Pick } from '../../../utils/object/Pick';
+
 var ParseGID = require('./ParseGID');
 
 var copyPoints = function (p) { return { x: p.x, y: p.y }; };

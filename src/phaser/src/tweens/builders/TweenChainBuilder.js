@@ -4,11 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { GetValue } from '../../utils/object/GetValue';
+
 var BaseTween = require('../tween/BaseTween');
-var GetAdvancedValue = require('../../utils/object/GetAdvancedValue');
 var GetBoolean = require('./GetBoolean');
 var GetTargets = require('./GetTargets');
-var GetValue = require('../../utils/object/GetValue');
 var TweenBuilder = require('./TweenBuilder');
 var TweenChain = require('../tween/TweenChain');
 

@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
 var Class = require('../../utils/Class');
 var CONST = require('../const/ORIENTATION_CONST');
-var GetFastValue = require('../../utils/object/GetFastValue');
 
 /**
  * @classdesc

@@ -4,6 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { GetValue } from '../../utils/object/GetValue';
+
 var Bodies = require('./lib/factory/Bodies');
 var Body = require('./lib/body/Body');
 var Class = require('../../utils/Class');
@@ -12,8 +15,6 @@ var Composite = require('./lib/body/Composite');
 var Engine = require('./lib/core/Engine');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
-var GetFastValue = require('../../utils/object/GetFastValue');
-var GetValue = require('../../utils/object/GetValue');
 var MatterBody = require('./lib/body/Body');
 var MatterEvents = require('./lib/core/Events');
 var MatterTileBody = require('./MatterTileBody');

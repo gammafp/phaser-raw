@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -16,9 +16,9 @@
  *
  * @return {*} The value if found; otherwise, defaultValue (null if none provided)
  */
-var GetFastValue = function (source, key, defaultValue)
+export const GetFastValue = (source: any, key: string, defaultValue?: any): any =>
 {
-    var t = typeof(source);
+    const t = typeof(source);
 
     if (!source || t === 'number' || t === 'string')
     {
@@ -33,5 +33,3 @@ var GetFastValue = function (source, key, defaultValue)
         return defaultValue;
     }
 };
-
-module.exports = GetFastValue;

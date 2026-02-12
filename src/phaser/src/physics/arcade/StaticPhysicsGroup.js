@@ -4,13 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { IsPlainObject } from '../../utils/object/IsPlainObject';
+
 var ArcadeSprite = require('./ArcadeSprite');
 var Class = require('../../utils/Class');
 var CollisionComponent = require('./components/Collision');
 var CONST = require('./const');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var Group = require('../../gameobjects/group/Group');
-var IsPlainObject = require('../../utils/object/IsPlainObject');
 
 /**
  * @classdesc

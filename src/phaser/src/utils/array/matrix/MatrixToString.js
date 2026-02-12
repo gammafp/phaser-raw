@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Pad = require('../../string/Pad');
+import { Pad } from '../../string/Pad';
+
 var CheckMatrix = require('./CheckMatrix');
 
 /**

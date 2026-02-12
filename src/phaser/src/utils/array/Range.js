@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GetValue = require('../object/GetValue');
+import { GetValue } from '../object/GetValue';
+
 var Shuffle = require('./Shuffle');
 
 var BuildChunk = function (a, b, qty)

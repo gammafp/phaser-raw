@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -17,7 +17,7 @@
  *
  * @return {string} The modified string.
  */
-var RemoveAt = function (string, index)
+export const RemoveAt = (string: string, index: number): string =>
 {
     if (index === 0)
     {
@@ -27,6 +27,4 @@ var RemoveAt = function (string, index)
     {
         return string.slice(0, index) + string.slice(index + 1);
     }
-};
-
-module.exports = RemoveAt;
+}

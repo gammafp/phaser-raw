@@ -59,7 +59,7 @@ import { Wrap } from './Wrap';
 import { MATH_CONST } from './const';
 // TODO: Fix this import
 // import { Extend } from '../utils/object/Extend';
-var Extend = require('../utils/object/Extend');
+import { Extend } from '../utils/object/Extend';
 
 const Angle = require('./angle');
 const Distance = require('./distance');

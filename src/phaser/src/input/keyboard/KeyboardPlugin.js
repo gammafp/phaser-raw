@@ -4,13 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetValue } from '../../utils/object/GetValue';
+
 import { SnapFloor } from '../../math/snap/SnapFloor';
 
 var Class = require('../../utils/Class');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var GameEvents = require('../../core/events');
-var GetValue = require('../../utils/object/GetValue');
 var InputEvents = require('../events');
 var InputPluginCache = require('../InputPluginCache');
 var Key = require('./keys/Key');

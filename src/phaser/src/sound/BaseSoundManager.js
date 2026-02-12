@@ -5,10 +5,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Clone } from '../utils/object/Clone';
+
 import { Vector2 } from '../math/Vector2';
 
 var Class = require('../utils/Class');
-var Clone = require('../utils/object/Clone');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var GameEvents = require('../core/events');

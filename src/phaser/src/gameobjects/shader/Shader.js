@@ -4,13 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+
 import { Vector2 } from '../../math/Vector2';
 
 var Camera = require('../../cameras/2d/BaseCamera');
 var ShaderQuad = require('../../renderer/webgl/renderNodes/ShaderQuad');
 var DrawingContext = require('../../renderer/webgl/DrawingContext');
 var Class = require('../../utils/Class');
-var GetFastValue = require('../../utils/object/GetFastValue');
 var Components = require('../components');
 var GameObject = require('../GameObject');
 var ShaderRender = require('./ShaderRender');

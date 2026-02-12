@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GetFastValue = require('../../../utils/object/GetFastValue');
+
+import { GetFastValue } from '../../../utils/object/GetFastValue';
 
 /**
  * Parse a Tiled group layer and create a state object for inheriting.

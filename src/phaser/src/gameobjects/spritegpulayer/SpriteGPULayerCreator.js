@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+
 var BlendModes = require('../../renderer/BlendModes');
 var GameObjectCreator = require('../GameObjectCreator');
-var GetAdvancedValue = require('../../utils/object/GetAdvancedValue');
 var SpriteGPULayer = require('./SpriteGPULayer');
 
 /**

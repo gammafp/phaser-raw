@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Merge } from '../../../../utils/object/Merge';
+
 var Class = require('../../../../utils/Class');
-var Merge = require('../../../../utils/object/Merge');
 var Utils = require('../../Utils.js');
 var RenderNode = require('../RenderNode');
 

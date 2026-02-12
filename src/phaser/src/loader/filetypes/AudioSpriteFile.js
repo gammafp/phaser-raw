@@ -4,11 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { IsPlainObject } from '../../utils/object/IsPlainObject';
+
 var AudioFile = require('./AudioFile');
 var Class = require('../../utils/Class');
 var FileTypesManager = require('../FileTypesManager');
-var GetFastValue = require('../../utils/object/GetFastValue');
-var IsPlainObject = require('../../utils/object/IsPlainObject');
 var JSONFile = require('./JSONFile');
 var MultiFile = require('../MultiFile');
 

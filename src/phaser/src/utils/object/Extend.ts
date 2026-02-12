@@ -1,10 +1,10 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var IsPlainObject = require('./IsPlainObject');
+import { IsPlainObject } from './IsPlainObject';
 
 // @param {boolean} deep - Perform a deep copy?
 // @param {object} target - The target object to copy to.
@@ -20,19 +20,19 @@ var IsPlainObject = require('./IsPlainObject');
  *
  * @return {object} The extended object.
  */
-var Extend = function ()
+export const Extend = function(...args: any[]): any
 {
-    var options, name, src, copy, copyIsArray, clone,
-        target = arguments[0] || {},
-        i = 1,
-        length = arguments.length,
-        deep = false;
+    let options: any, name: string, src: any, copy: any, copyIsArray: boolean, clone: any;
+    let target: any = args[0] || {};
+    let i = 1;
+    const length = args.length;
+    let deep = false;
 
     // Handle a deep copy situation
     if (typeof target === 'boolean')
     {
         deep = target;
-        target = arguments[1] || {};
+        target = args[1] || {};
 
         // skip the boolean and the target
         i = 2;
@@ -48,7 +48,7 @@ var Extend = function ()
     for (; i < length; i++)
     {
         // Only deal with non-null/undefined values
-        if ((options = arguments[i]) != null)
+        if ((options = args[i]) != null)
         {
             // Extend the base object
             for (name in options)
@@ -91,5 +91,3 @@ var Extend = function ()
     // Return the modified object
     return target;
 };
-
-module.exports = Extend;

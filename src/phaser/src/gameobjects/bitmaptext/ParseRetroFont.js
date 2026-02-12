@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GetValue = require('../../utils/object/GetValue');
+
+import { GetValue } from '../../utils/object/GetValue';
 
 /**
  * Parses a Retro Font configuration object so you can pass it to the BitmapText constructor

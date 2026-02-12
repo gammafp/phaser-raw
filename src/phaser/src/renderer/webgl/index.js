@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Extend } from '../../utils/object/Extend';
+
 var WEBGL_CONST = require('./const');
-var Extend = require('../../utils/object/Extend');
 
 /**
  * @namespace Phaser.Renderer.WebGL

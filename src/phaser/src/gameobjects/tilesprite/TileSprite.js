@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { UUID } from '../../utils/string/UUID';
+
 import { Vector2 } from '../../math/Vector2';
 import { AnimationState } from '../../animations/AnimationState';
 
@@ -14,7 +16,6 @@ var Components = require('../components');
 var GameObject = require('../GameObject');
 var Smoothing = require('../../display/canvas/Smoothing');
 var TileSpriteRender = require('./TileSpriteRender');
-var UUID = require('../../utils/string/UUID');
 
 //  bitmask flag for GameObject.renderMask
 var _FLAG = 8; // 1000

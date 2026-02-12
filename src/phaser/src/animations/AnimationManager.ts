@@ -5,10 +5,11 @@
  */
 
 
-var GetFastValue = require('../utils/object/GetFastValue');
-var GetValue = require('../utils/object/GetValue');
+import { GetFastValue } from '../utils/object/GetFastValue';
+import { GetValue } from '../utils/object/GetValue';
+import { Pad } from '../utils/string/Pad';
+
 var NumberArray = require('../utils/array/NumberArray');
-var Pad = require('../utils/string/Pad');
 
 // import { GetFastValue } from '../utils/object/GetFastValue';
 // import { GetValue } from '../utils/object/GetValue';

@@ -4,6 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { Merge } from '../../utils/object/Merge';
+
 import { DegToRad } from '../../math/DegToRad';
 import { DistanceBetween } from '../../math/distance/DistanceBetween';
 import { DistanceSquared } from '../../math/distance/DistanceSquared';
@@ -12,8 +15,6 @@ import { PluginCache } from '../../plugins/PluginCache';
 
 var Class = require('../../utils/Class');
 var Factory = require('./Factory');
-var GetFastValue = require('../../utils/object/GetFastValue');
-var Merge = require('../../utils/object/Merge');
 var OverlapCirc = require('./components/OverlapCirc');
 var OverlapRect = require('./components/OverlapRect');
 var SceneEvents = require('../../scene/events');

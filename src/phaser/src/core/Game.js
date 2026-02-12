@@ -14,6 +14,7 @@ import { CreateDOMContainer } from '../dom/CreateDOMContainer';
 import { DOMContentLoaded } from '../dom/DOMContentLoaded';
 import { PluginManager } from '../plugins/PluginManager';
 import { PluginCache } from '../plugins/PluginCache';
+import { ScaleManager } from '../scale/ScaleManager';
 
 var CanvasPool = require('../display/canvas/CanvasPool');
 var Class = require('../utils/Class');
@@ -24,7 +25,6 @@ var Device = require('../device');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var InputManager = require('../input/InputManager');
-var ScaleManager = require('../scale/ScaleManager');
 var TextureEvents = require('../textures/events');
 var TextureManager = require('../textures/TextureManager');
 var TimeStep = require('./TimeStep');

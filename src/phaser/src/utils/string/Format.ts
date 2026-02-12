@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -18,12 +18,10 @@
  *
  * @return {string} The string containing replaced values.
  */
-var Format = function (string, values)
+export const Format = (string: string, values: any[]) =>
 {
-    return string.replace(/%([0-9]+)/g, function (s, n)
+    return string.replace(/%([0-9]+)/g, (_s, n) =>
     {
         return values[Number(n) - 1];
     });
-};
-
-module.exports = Format;
+}

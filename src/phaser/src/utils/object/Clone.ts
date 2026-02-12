@@ -1,6 +1,6 @@
 /**
  * @author       Richard Davey <rich@phaser.io>
- * @copyright    2013-2026 Phaser Studio Inc.
+ * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -14,11 +14,11 @@
  *
  * @return {object} A new object with the same properties as the input object.
  */
-var Clone = function (obj)
+export const Clone = (obj: any): any =>
 {
-    var clone = {};
+    const clone: any = {};
 
-    for (var key in obj)
+    for (const key in obj)
     {
         if (Array.isArray(obj[key]))
         {
@@ -32,5 +32,3 @@ var Clone = function (obj)
 
     return clone;
 };
-
-module.exports = Clone;

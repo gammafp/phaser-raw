@@ -4,6 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { GetValue } from '../../utils/object/GetValue';
+import { Merge } from '../../utils/object/Merge';
+
 import { PluginCache } from '../../plugins/PluginCache';
 import { DistanceBetween } from '../../math/distance/DistanceBetween';
 
@@ -21,9 +25,6 @@ var Composites = require('./lib/factory/Composites');
 var Constraint = require('./lib/constraint/Constraint');
 var Detector = require('./lib/collision/Detector');
 var Factory = require('./Factory');
-var GetFastValue = require('../../utils/object/GetFastValue');
-var GetValue = require('../../utils/object/GetValue');
-var Merge = require('../../utils/object/Merge');
 var Pair = require('./lib/collision/Pair');
 var Pairs = require('./lib/collision/Pairs');
 import { PluginCache } from '../../plugins/PluginCache';

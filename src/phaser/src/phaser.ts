@@ -4,9 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-
 // New imports
 import * as Math from './math';
+
+// TODO: Deprecated?
+import * as Scenes from './scene';
+
+import { Scene } from './scene/Scene';
 
 
 require('./polyfills/requestVideoFrame');
@@ -43,7 +47,8 @@ const Phaser: any = {
     Renderer: require('./renderer'),
     Scale: require('./scale'),
     ScaleModes: require('./renderer/ScaleModes'),
-    Scenes: require('./scene'),
+    Scene: Scene,
+    Scenes,
     Structs: require('./structs'),
     Textures: require('./textures'),
     Tilemaps: require('./tilemaps'),

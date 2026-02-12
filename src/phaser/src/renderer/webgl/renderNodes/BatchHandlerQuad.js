@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { DeepCopy } from '../../../utils/object/DeepCopy';
+
 import { Vector2 } from '../../../math/Vector2';
 
 var Class = require('../../../utils/Class');
-var DeepCopy = require('../../../utils/object/DeepCopy');
 var Utils = require('../Utils');
 var ShaderSourceFS = require('../shaders/Multi-frag');
 var ShaderSourceVS = require('../shaders/Multi-vert');

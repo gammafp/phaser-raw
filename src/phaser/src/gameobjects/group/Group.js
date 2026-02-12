@@ -4,15 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { GetValue } from '../../utils/object/GetValue';
+import { HasValue } from '../../utils/object/HasValue';
+import { IsPlainObject } from '../../utils/object/IsPlainObject';
+
 var Actions = require('../../actions/');
 var Class = require('../../utils/Class');
 var Events = require('../events');
 var EventEmitter = require('eventemitter3');
 var GetAll = require('../../utils/array/GetAll');
-var GetFastValue = require('../../utils/object/GetFastValue');
-var GetValue = require('../../utils/object/GetValue');
-var HasValue = require('../../utils/object/HasValue');
-var IsPlainObject = require('../../utils/object/IsPlainObject');
 var Range = require('../../utils/array/Range');
 var Sprite = require('../sprite/Sprite');
 

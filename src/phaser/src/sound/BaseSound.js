@@ -5,10 +5,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Extend } from '../utils/object/Extend';
+
 var Class = require('../utils/Class');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
-var Extend = require('../utils/object/Extend');
 import { NOOP } from '../utils/NOOP';
 
 /**

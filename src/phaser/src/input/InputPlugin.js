@@ -4,6 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../utils/object/GetFastValue';
+import { IsPlainObject } from '../utils/object/IsPlainObject';
+
 import { Circle } from '../geom/circle/Circle';
 import { Contains as CircleContains } from '../geom/circle/Contains';
 import { Ellipse } from '../geom/ellipse/Ellipse';
@@ -25,9 +28,7 @@ var CreateInteractiveObject = require('./CreateInteractiveObject');
 var CreatePixelPerfectHandler = require('./CreatePixelPerfectHandler');
 var Events = require('./events');
 var EventEmitter = require('eventemitter3');
-var GetFastValue = require('../utils/object/GetFastValue');
 var InputPluginCache = require('./InputPluginCache');
-var IsPlainObject = require('../utils/object/IsPlainObject');
 var SceneEvents = require('../scene/events');
 
 /**

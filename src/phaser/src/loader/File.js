@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../utils/object/GetFastValue';
+
 var Class = require('../utils/Class');
 var CONST = require('./const');
 var Events = require('./events');
-var GetFastValue = require('../utils/object/GetFastValue');
 var GetURL = require('./GetURL');
 var MergeXHRSettings = require('./MergeXHRSettings');
 var XHRLoader = require('./XHRLoader');

@@ -4,6 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetFastValue } from '../../utils/object/GetFastValue';
+import { GetValue } from '../../utils/object/GetValue';
+
 import { Ellipse } from '../../geom/ellipse/Ellipse';
 
 import { MATH_CONST } from '../../math/const';
@@ -14,8 +17,6 @@ var Commands = require('./Commands');
 var Components = require('../components');
 var GameObject = require('../GameObject');
 var DefaultGraphicsNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultGraphicsNodes.js');
-var GetFastValue = require('../../utils/object/GetFastValue');
-var GetValue = require('../../utils/object/GetValue');
 var Render = require('./GraphicsRender');
 
 /**

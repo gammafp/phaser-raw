@@ -5,10 +5,11 @@
  */
 
 
+import { Extend } from './utils/object/Extend';
+
 require('./polyfills/requestVideoFrame');
 
 var CONST = require('./const');
-var Extend = require('./utils/object/Extend');
 
 /**
  * @namespace Phaser
