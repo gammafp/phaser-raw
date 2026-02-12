@@ -9,7 +9,7 @@
  * @namespace Phaser.Sound
  */
 
-export { SoundManagerCreator } from './SoundManagerCreator';
+import { SoundManagerCreator } from './SoundManagerCreator';
 
 import * as Events from './events';
 import { BaseSound } from './BaseSound';
