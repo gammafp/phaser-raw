@@ -5,11 +5,12 @@
  */
 
 
+import { NumberArray } from '../utils/array/NumberArray';
+
 import { GetFastValue } from '../utils/object/GetFastValue';
 import { GetValue } from '../utils/object/GetValue';
 import { Pad } from '../utils/string/Pad';
 
-var NumberArray = require('../utils/array/NumberArray');
 
 // import { GetFastValue } from '../utils/object/GetFastValue';
 // import { GetValue } from '../utils/object/GetValue';

@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { SoundManagerCreator } from '../sound/SoundManagerCreator';
+
 import { SceneManager } from '../scene/SceneManager';
 
 import { AnimationManager } from '../animations/AnimationManager';
@@ -32,7 +34,6 @@ var VisibilityHandler = require('./VisibilityHandler');
 
 if (typeof FEATURE_SOUND)
 {
-    var SoundManagerCreator = require('../sound/SoundManagerCreator');
 }
 
 /**

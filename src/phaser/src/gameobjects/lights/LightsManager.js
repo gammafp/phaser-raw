@@ -4,6 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { SpliceOne } from '../../utils/array/SpliceOne';
+import { StableSort } from '../../utils/array/StableSort';
+
 import { CircleToRectangle } from '../../geom/intersects/CircleToRectangle';
 
 import { DistanceBetween } from '../../math/distance/DistanceBetween';
@@ -12,8 +15,6 @@ var Class = require('../../utils/Class');
 var Light = require('./Light');
 var PointLight = require('../pointlight/PointLight');
 var RGB = require('../../display/RGB');
-var SpliceOne = require('../../utils/array/SpliceOne');
-var StableSort = require('../../utils/array/StableSort');
 var Utils = require('../../renderer/webgl/Utils');
 
 /**

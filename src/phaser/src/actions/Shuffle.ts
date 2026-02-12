@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var ArrayShuffle = require('../utils/array/Shuffle');
+import { Shuffle as ArrayShuffle } from '../utils/array/Shuffle';
+
 // TODO: Enable this import
 // import { Shuffle as ArrayShuffle } from '../utils/array/Shuffle';
 

@@ -4,6 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetAll } from '../../utils/array/GetAll';
+import { Range } from '../../utils/array/Range';
+
 import { GetFastValue } from '../../utils/object/GetFastValue';
 import { GetValue } from '../../utils/object/GetValue';
 import { HasValue } from '../../utils/object/HasValue';
@@ -13,8 +16,6 @@ var Actions = require('../../actions/');
 var Class = require('../../utils/Class');
 var Events = require('../events');
 var EventEmitter = require('eventemitter3');
-var GetAll = require('../../utils/array/GetAll');
-var Range = require('../../utils/array/Range');
 var Sprite = require('../sprite/Sprite');
 
 /**

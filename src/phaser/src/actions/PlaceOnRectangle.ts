@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { RotateLeft } from '../utils/array/RotateLeft';
+import { RotateRight } from '../utils/array/RotateRight';
+
 import { MarchingAnts } from '../geom/rectangle/MarchingAnts';
-var RotateLeft = require('../utils/array/RotateLeft');
-var RotateRight = require('../utils/array/RotateRight');
 // TODO: Enable this imports
 // import { RotateLeft } from '../utils/array/RotateLeft';
 // import { RotateRight } from '../utils/array/RotateRight';

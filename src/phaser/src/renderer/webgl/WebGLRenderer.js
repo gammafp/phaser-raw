@@ -5,11 +5,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Each as ArrayEach } from '../../utils/array/Each';
+import { Remove as ArrayRemove } from '../../utils/array/Remove';
+
 import { IsSizePowerOfTwo } from '../../math/pow2/IsSizePowerOfTwo';
 import { Matrix4 } from '../../math/Matrix4';
 
-var ArrayEach = require('../../utils/array/Each');
-var ArrayRemove = require('../../utils/array/Remove');
 var Class = require('../../utils/Class');
 var CONST = require('../../const');
 var EventEmitter = require('eventemitter3');

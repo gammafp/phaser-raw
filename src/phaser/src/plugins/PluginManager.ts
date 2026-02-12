@@ -3,12 +3,13 @@
  * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
+import { Remove } from '../utils/array/Remove';
+
 import { GetFastValue } from '../utils/object/GetFastValue';
 
 import { EventEmitter } from 'eventemitter3';
 import { PluginCache } from './PluginCache';
 
-var Remove = require('../utils/array/Remove');
 var CONST = require('../const');
 var FileTypesManager = require('../loader/FileTypesManager');
 var GameEvents = require('../core/events');

@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { StableSort } from '../utils/array/StableSort';
+
 var Class = require('../utils/Class');
 
 import { List } from '../structs/List';
@@ -11,7 +13,6 @@ import { PluginCache } from '../plugins/PluginCache';
 
 var GameObjectEvents = require('./events');
 var SceneEvents = require('../scene/events');
-var StableSort = require('../utils/array/StableSort');
 
 /**
  * @classdesc

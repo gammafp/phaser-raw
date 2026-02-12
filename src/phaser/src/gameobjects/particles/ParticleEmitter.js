@@ -4,6 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetRandom } from '../../utils/array/GetRandom';
+import { Remove } from '../../utils/array/Remove';
+import { StableSort } from '../../utils/array/StableSort';
+
 import { GetFastValue } from '../../utils/object/GetFastValue';
 import { HasAll } from '../../utils/object/HasAll';
 import { HasAny } from '../../utils/object/HasAny';
@@ -31,14 +35,11 @@ var EmitterColorOp = require('./EmitterColorOp');
 var EmitterOp = require('./EmitterOp');
 var Events = require('./events');
 var GameObject = require('../GameObject');
-var GetRandom = require('../../utils/array/GetRandom');
 var GravityWell = require('./GravityWell');
 var Particle = require('./Particle');
 var ParticleBounds = require('./ParticleBounds');
 var RandomZone = require('./zones/RandomZone');
-var Remove = require('../../utils/array/Remove');
 var Render = require('./ParticleEmitterRender');
-var StableSort = require('../../utils/array/StableSort');
 var TintModes = require('../../renderer/TintModes');
 var TransformMatrix = require('../components/TransformMatrix');
 

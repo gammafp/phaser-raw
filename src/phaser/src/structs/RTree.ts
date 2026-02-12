@@ -5,7 +5,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var quickselect = require('../utils/array/QuickSelect');
+import { QuickSelect as quickselect } from '../utils/array/QuickSelect';
+
 // import { QuickSelect as quickselect } from '../utils/array/QuickSelect';
 
 /**

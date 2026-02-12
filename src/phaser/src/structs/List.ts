@@ -5,8 +5,9 @@
  */
 
 
+import { StableSort } from '../utils/array/StableSort';
+
 var ArrayUtils = require('../utils/array');
-var StableSort = require('../utils/array/StableSort');
 
 // import * as ArrayUtils from '../utils/array';
 // import { StableSort } from '../utils/array/StableSort';

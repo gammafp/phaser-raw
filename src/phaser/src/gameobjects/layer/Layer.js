@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { StableSort } from '../../utils/array/StableSort';
+
 import { List } from '../../structs/List';
 import { DataManager } from '../../data/DataManager';
 
@@ -16,7 +18,6 @@ var EventEmitter = require('eventemitter3');
 var GameObjectEvents = require('../events');
 var Render = require('./LayerRender');
 var SceneEvents = require('../../scene/events');
-var StableSort = require('../../utils/array/StableSort');
 
 /**
  * @classdesc

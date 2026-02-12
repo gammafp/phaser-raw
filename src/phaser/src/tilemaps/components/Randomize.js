@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetRandom } from '../../utils/array/GetRandom';
+
 var GetTilesWithin = require('./GetTilesWithin');
-var GetRandom = require('../../utils/array/GetRandom');
 
 /**
  * Randomizes the indexes of a rectangular region of tiles (in tile coordinates) within the

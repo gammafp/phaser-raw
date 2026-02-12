@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Remove = require('../utils/array/Remove');
+import { Remove } from '../utils/array/Remove';
+
 var SceneEvents = require('../scene/events');
 
 import { PluginCache } from '../plugins/PluginCache';

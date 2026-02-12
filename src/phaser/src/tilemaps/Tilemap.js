@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { SpliceOne } from '../utils/array/SpliceOne';
+
 import { GetFastValue } from '../utils/object/GetFastValue';
 
 import { DegToRad } from '../math/DegToRad';
@@ -15,7 +17,6 @@ var Formats = require('./Formats');
 var LayerData = require('./mapdata/LayerData');
 var ObjectHelper = require('./ObjectHelper');
 var ORIENTATION = require('./const/ORIENTATION_CONST');
-var SpliceOne = require('../utils/array/SpliceOne');
 var Sprite = require('../gameobjects/sprite/Sprite');
 var Tile = require('./Tile');
 var TilemapComponents = require('./components');
