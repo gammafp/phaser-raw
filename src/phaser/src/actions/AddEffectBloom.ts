@@ -47,7 +47,8 @@ import type { AddEffectBloomReturn } from './typedefs/AddEffectBloomReturn';
 export const AddEffectBloom = (
     target: any,
     config?: AddEffectBloomConfig
-): AddEffectBloomReturn => {
+): AddEffectBloomReturn =>
+{
     if (!config) { config = {}; }
     const threshold = config.threshold === undefined ? 0.5 : config.threshold;
     const blurRadius = config.blurRadius === undefined ? 2 : config.blurRadius;

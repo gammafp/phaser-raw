@@ -5,11 +5,11 @@
  */
 
 import { TransformXY } from '../math/TransformXY';
+import * as Events from './events';
 
 var Class = require('../utils/Class');
 var CONST = require('./const');
 var EventEmitter = require('eventemitter3');
-var Events = require('./events');
 var GameEvents = require('../core/events');
 var Keyboard = require('./keyboard/KeyboardManager');
 var Mouse = require('./mouse/MouseManager');

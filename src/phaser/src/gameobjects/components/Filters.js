@@ -4,6 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+
 import { Vector2 } from '../../math/Vector2';
 
 var Camera = null; // Lazy loaded.
@@ -247,7 +248,6 @@ if (typeof WEBGL_RENDERER)
             if (!Camera)
             {
                 // Lazy load the camera class to avoid circular dependencies.
-                Camera = require('../../cameras/2d/Camera');
             }
 
             this.filterCamera = new Camera(0, 0, 1, 1).setScene(scene, false);

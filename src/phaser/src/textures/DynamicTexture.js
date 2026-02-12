@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Camera } from '../cameras/2d/Camera';
+
 import { GetFastValue } from '../utils/object/GetFastValue';
 
 var BlendModes = require('../renderer/BlendModes');
-var Camera = require('../cameras/2d/Camera');
 var CanvasPool = require('../display/canvas/CanvasPool');
 var Class = require('../utils/Class');
 var CONST = require('../const');

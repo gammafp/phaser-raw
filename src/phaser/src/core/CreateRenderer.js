@@ -5,10 +5,11 @@
  */
 
 import { FEATURES_DEVICE as Features } from '../device/Features';
+import { PHASER_CONST as CONST } from '../const';
 
 var CanvasInterpolation = require('../display/canvas/CanvasInterpolation');
 var CanvasPool = require('../display/canvas/CanvasPool');
-var CONST = require('../const');
+
 
 /**
  * Called automatically by Phaser.Game and responsible for creating the renderer it will use.

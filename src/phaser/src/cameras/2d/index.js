@@ -4,13 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+
 /**
  * @namespace Phaser.Cameras.Scene2D
  */
 import { BaseCamera } from './BaseCamera';
 module.exports = {
 
-    Camera: require('./Camera'),
     BaseCamera,
     CameraManager: require('./CameraManager'),
     Effects: require('./effects'),

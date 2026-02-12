@@ -22,11 +22,12 @@ import { Contains as TriangleContains } from '../geom/triangle/Contains';
 import { DistanceBetween } from '../math/distance/DistanceBetween';
 import { PluginCache } from '../plugins/PluginCache';
 
+import * as Events from './events';
+
 var Class = require('../utils/Class');
 var CONST = require('./const');
 var CreateInteractiveObject = require('./CreateInteractiveObject');
 var CreatePixelPerfectHandler = require('./CreatePixelPerfectHandler');
-var Events = require('./events');
 var EventEmitter = require('eventemitter3');
 var InputPluginCache = require('./InputPluginCache');
 var SceneEvents = require('../scene/events');

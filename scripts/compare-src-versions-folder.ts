@@ -38,6 +38,7 @@ interface FileDiff {
     linesRemoved: number;
     linesChanged: number;
     totalLines: number;
+    changedLineNumbers: number[];  // Números de línea donde hay cambios
 }
 
 function shouldIgnoreRelativePath(relativePath: string): boolean {
@@ -133,6 +134,7 @@ function getFileDiff(originFilePath: string, newFilePath: string): FileDiff {
     let linesAdded = 0;
     let linesRemoved = 0;
     let linesChanged = 0;
+    const changedLineNumbers: number[] = [];
 
     const maxLines = Math.max(originLines.length, newLines.length);
 
@@ -142,16 +144,19 @@ function getFileDiff(originFilePath: string, newFilePath: string): FileDiff {
 
         if (originLine === undefined) {
             linesAdded++;
+            changedLineNumbers.push(i + 1); // Línea añadida (numeración desde 1)
             continue;
         }
 
         if (newLine === undefined) {
             linesRemoved++;
+            // Las líneas eliminadas no tienen número en el archivo nuevo
             continue;
         }
 
         if (originLine !== newLine) {
             linesChanged++;
+            changedLineNumbers.push(i + 1); // Línea modificada (numeración desde 1)
         }
     }
 
@@ -159,7 +164,8 @@ function getFileDiff(originFilePath: string, newFilePath: string): FileDiff {
         linesAdded,
         linesRemoved,
         linesChanged,
-        totalLines: newLines.length
+        totalLines: newLines.length,
+        changedLineNumbers
     };
 }
 
@@ -275,8 +281,21 @@ function main(): void {
             const changePct =
                 diff.totalLines === 0 ? '0' : ((diff.linesChanged / diff.totalLines) * 100).toFixed(0);
 
+            // Formatear números de línea: mostrar hasta 15, luego resumir
+            let lineNumbersStr = '';
+            if (diff.changedLineNumbers.length > 0) {
+                const maxToShow = 15;
+                if (diff.changedLineNumbers.length <= maxToShow) {
+                    lineNumbersStr = ` | Lines: ${diff.changedLineNumbers.join(', ')}`;
+                } else {
+                    const shown = diff.changedLineNumbers.slice(0, maxToShow).join(', ');
+                    const remaining = diff.changedLineNumbers.length - maxToShow;
+                    lineNumbersStr = ` | Lines: ${shown}... (+${remaining} more)`;
+                }
+            }
+
             console.log(
-                `! ${file} | ${diff.totalLines} lines | ${diff.linesChanged} changed (${changePct}%) | +${diff.linesAdded} -${diff.linesRemoved}`
+                `! ${file} | ${diff.totalLines} lines | ${diff.linesChanged} changed (${changePct}%) | +${diff.linesAdded} -${diff.linesRemoved}${lineNumbersStr}`
             );
         }
 

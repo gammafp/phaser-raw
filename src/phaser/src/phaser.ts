@@ -15,7 +15,7 @@ import { Scene } from './scene/Scene';
 
 require('./polyfills/requestVideoFrame');
 
-var CONST = require('./const');
+import { PHASER_CONST as CONST } from './const';
 
 /**
  * @namespace Phaser
@@ -55,8 +55,19 @@ const Phaser: any = {
     Time: require('./time'),
     TintModes: require('./renderer/TintModes'),
     Tweens: require('./tweens'),
-    Utils: require('./utils')
+    Utils: require('./utils'),
 
+    VERSION: CONST.VERSION,
+    AUTO: CONST.AUTO,
+    CANVAS: CONST.CANVAS,
+    WEBGL: CONST.WEBGL,
+    HEADLESS: CONST.HEADLESS,
+    FOREVER: CONST.FOREVER,
+    NONE: CONST.NONE,
+    LEFT: CONST.LEFT,
+    RIGHT: CONST.RIGHT,
+    UP: CONST.UP,
+    DOWN: CONST.DOWN
 };
 
 //  Merge in the optional plugins and WebGL only features
@@ -65,11 +76,6 @@ if (typeof FEATURE_SOUND)
 {
     // Phaser.Sound = require('./sound');
 }
-
-//   Merge in the consts
-
-Object.assign(Phaser, CONST);
-// Phaser = Extend(false, Phaser, CONST);
 
 /**
  * The root types namespace.

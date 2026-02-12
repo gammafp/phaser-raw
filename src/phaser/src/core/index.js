@@ -8,12 +8,14 @@
  * @namespace Phaser.Core
  */
 
+import * as Events from './events';
+
 module.exports = {
 
     Config: require('./Config'),
     CreateRenderer: require('./CreateRenderer'),
     DebugHeader: require('./DebugHeader'),
-    Events: require('./events'),
+    Events,
     TimeStep: require('./TimeStep'),
     VisibilityHandler: require('./VisibilityHandler')
 

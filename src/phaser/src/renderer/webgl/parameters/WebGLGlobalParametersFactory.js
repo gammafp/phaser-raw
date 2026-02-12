@@ -6,7 +6,7 @@
 
 import { DeepCopy } from '../../../utils/object/DeepCopy';
 
-var CONST = require('../../../const');
+import { PHASER_CONST as CONST } from '../../../const';
 var WebGLStencilParametersFactory = require('./WebGLStencilParametersFactory');
 
 /**

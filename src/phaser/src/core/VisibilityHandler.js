@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Events = require('./events');
+import * as Events from './events';
 
 /**
  * The Visibility Handler is responsible for listening out for document level visibility change events.

@@ -102,7 +102,7 @@ var DebugHeader = function (game)
 
         if (!config.hidePhaser)
         {
-            c = c.concat('Phaser v' + CONST.VERSION + ' (' + renderType + ' | ' + audioType + ')');
+            c = c.concat('PhaserTS v' + CONST.VERSION + ' (' + renderType + ' | ' + audioType + ')');
         }
 
         c = c.concat(' %c ' + config.gameURL);
@@ -114,7 +114,7 @@ var DebugHeader = function (game)
     }
     else if (window['console'])
     {
-        console.log('Phaser v' + CONST.VERSION + ' / https://phaser.io');
+        console.log('PhaserTS v' + CONST.VERSION + ' / https://phaser.io');
     }
 };
 

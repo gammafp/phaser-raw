@@ -12,7 +12,8 @@ import { IsSizePowerOfTwo } from '../../math/pow2/IsSizePowerOfTwo';
 import { Matrix4 } from '../../math/Matrix4';
 
 var Class = require('../../utils/Class');
-var CONST = require('../../const');
+import { PHASER_CONST as CONST } from '../../const';
+
 var EventEmitter = require('eventemitter3');
 var Events = require('../events');
 import { NOOP } from '../../utils/NOOP';

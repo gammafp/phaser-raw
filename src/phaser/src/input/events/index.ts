@@ -1,0 +1,56 @@
+/**
+ * @author       Richard Davey <rich@phaser.io>
+ * @copyright    2013-2025 Phaser Studio Inc.
+ * @license      {@link https://opensource.org/licenses/MIT|MIT License}
+ */
+
+/**
+ * @namespace Phaser.Input.Events
+ */
+
+export { BOOT } from './BOOT_EVENT';
+export { DESTROY } from './DESTROY_EVENT';
+export { DRAG_END } from './DRAG_END_EVENT';
+export { DRAG_ENTER } from './DRAG_ENTER_EVENT';
+export { DRAG } from './DRAG_EVENT';
+export { DRAG_LEAVE } from './DRAG_LEAVE_EVENT';
+export { DRAG_OVER } from './DRAG_OVER_EVENT';
+export { DRAG_START } from './DRAG_START_EVENT';
+export { DROP } from './DROP_EVENT';
+export { GAME_OUT } from './GAME_OUT_EVENT';
+export { GAME_OVER } from './GAME_OVER_EVENT';
+export { GAMEOBJECT_DOWN } from './GAMEOBJECT_DOWN_EVENT';
+export { GAMEOBJECT_DRAG_END } from './GAMEOBJECT_DRAG_END_EVENT';
+export { GAMEOBJECT_DRAG_ENTER } from './GAMEOBJECT_DRAG_ENTER_EVENT';
+export { GAMEOBJECT_DRAG } from './GAMEOBJECT_DRAG_EVENT';
+export { GAMEOBJECT_DRAG_LEAVE } from './GAMEOBJECT_DRAG_LEAVE_EVENT';
+export { GAMEOBJECT_DRAG_OVER } from './GAMEOBJECT_DRAG_OVER_EVENT';
+export { GAMEOBJECT_DRAG_START } from './GAMEOBJECT_DRAG_START_EVENT';
+export { GAMEOBJECT_DROP } from './GAMEOBJECT_DROP_EVENT';
+export { GAMEOBJECT_MOVE } from './GAMEOBJECT_MOVE_EVENT';
+export { GAMEOBJECT_OUT } from './GAMEOBJECT_OUT_EVENT';
+export { GAMEOBJECT_OVER } from './GAMEOBJECT_OVER_EVENT';
+export { GAMEOBJECT_POINTER_DOWN } from './GAMEOBJECT_POINTER_DOWN_EVENT';
+export { GAMEOBJECT_POINTER_MOVE } from './GAMEOBJECT_POINTER_MOVE_EVENT';
+export { GAMEOBJECT_POINTER_OUT } from './GAMEOBJECT_POINTER_OUT_EVENT';
+export { GAMEOBJECT_POINTER_OVER } from './GAMEOBJECT_POINTER_OVER_EVENT';
+export { GAMEOBJECT_POINTER_UP } from './GAMEOBJECT_POINTER_UP_EVENT';
+export { GAMEOBJECT_POINTER_WHEEL } from './GAMEOBJECT_POINTER_WHEEL_EVENT';
+export { GAMEOBJECT_UP } from './GAMEOBJECT_UP_EVENT';
+export { GAMEOBJECT_WHEEL } from './GAMEOBJECT_WHEEL_EVENT';
+export { MANAGER_BOOT } from './MANAGER_BOOT_EVENT';
+export { MANAGER_PROCESS } from './MANAGER_PROCESS_EVENT';
+export { MANAGER_UPDATE } from './MANAGER_UPDATE_EVENT';
+export { POINTER_DOWN } from './POINTER_DOWN_EVENT';
+export { POINTER_DOWN_OUTSIDE } from './POINTER_DOWN_OUTSIDE_EVENT';
+export { POINTER_MOVE } from './POINTER_MOVE_EVENT';
+export { POINTER_OUT } from './POINTER_OUT_EVENT';
+export { POINTER_OVER } from './POINTER_OVER_EVENT';
+export { POINTER_UP } from './POINTER_UP_EVENT';
+export { POINTER_UP_OUTSIDE } from './POINTER_UP_OUTSIDE_EVENT';
+export { POINTER_WHEEL } from './POINTER_WHEEL_EVENT';
+export { POINTERLOCK_CHANGE } from './POINTERLOCK_CHANGE_EVENT';
+export { PRE_UPDATE } from './PRE_UPDATE_EVENT';
+export { SHUTDOWN } from './SHUTDOWN_EVENT';
+export { START } from './START_EVENT';
+export { UPDATE } from './UPDATE_EVENT';

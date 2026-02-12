@@ -18,6 +18,8 @@ import { PluginManager } from '../plugins/PluginManager';
 import { PluginCache } from '../plugins/PluginCache';
 import { ScaleManager } from '../scale/ScaleManager';
 
+import * as Events from './events';
+
 var CanvasPool = require('../display/canvas/CanvasPool');
 var Class = require('../utils/Class');
 var Config = require('./Config');
@@ -25,7 +27,6 @@ var CreateRenderer = require('./CreateRenderer');
 var DebugHeader = require('./DebugHeader');
 var Device = require('../device');
 var EventEmitter = require('eventemitter3');
-var Events = require('./events');
 var InputManager = require('../input/InputManager');
 var TextureEvents = require('../textures/events');
 var TextureManager = require('../textures/TextureManager');

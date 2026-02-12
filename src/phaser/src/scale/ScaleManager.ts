@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Camera } from '../cameras/2d/Camera';
+
 import { Clamp } from '../math/Clamp';
 import { GetInnerHeight } from '../dom/GetInnerHeight';
 import { GetTarget } from '../dom/GetTarget';
@@ -18,7 +20,6 @@ import { Size } from '../structs/Size';
 import { Vector2 } from '../math/Vector2';
 
 var GameEvents = require('../core/events');
-var Camera = require('../cameras/2d/Camera');
 
 /**
  * @classdesc
