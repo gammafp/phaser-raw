@@ -4,13 +4,14 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { ParseXML } from '../../dom/ParseXML';
+
 var Class = require('../../utils/Class');
 var CONST = require('../const');
 var File = require('../File');
 var FileTypesManager = require('../FileTypesManager');
 var GetFastValue = require('../../utils/object/GetFastValue');
 var IsPlainObject = require('../../utils/object/IsPlainObject');
-var ParseXML = require('../../dom/ParseXML');
 
 /**
  * @classdesc

@@ -4,11 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { PluginCache } from '../plugins/PluginCache';
+
 var ArrayRemove = require('../utils/array/Remove');
 var Class = require('../utils/Class');
 var Flatten = require('../utils/array/Flatten');
 var NumberTweenBuilder = require('./builders/NumberTweenBuilder');
-var PluginCache = require('../plugins/PluginCache');
 var SceneEvents = require('../scene/events');
 var StaggerBuilder = require('./builders/StaggerBuilder');
 var Tween = require('./tween/Tween');

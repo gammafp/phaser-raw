@@ -4,7 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var AddToDOM = require('../../dom/AddToDOM');
+import { AddToDOM } from '../../dom/AddToDOM';
+import { RemoveFromDOM } from '../../dom/RemoveFromDOM';
+
 var CanvasPool = require('../../display/canvas/CanvasPool');
 var DefaultImageNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultImageNodes');
 var Class = require('../../utils/Class');
@@ -12,7 +14,6 @@ var Components = require('../components');
 var GameObject = require('../GameObject');
 var GetTextSize = require('./GetTextSize');
 var GetValue = require('../../utils/object/GetValue');
-var RemoveFromDOM = require('../../dom/RemoveFromDOM');
 var TextRender = require('./TextRender');
 var TextStyle = require('./TextStyle');
 var UUID = require('../../utils/string/UUID');

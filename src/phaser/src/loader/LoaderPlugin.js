@@ -4,6 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { PluginCache } from '../plugins/PluginCache';
 var Class = require('../utils/Class');
 var CONST = require('./const');
 var EventEmitter = require('eventemitter3');
@@ -12,7 +13,6 @@ var FileTypesManager = require('./FileTypesManager');
 var GetFastValue = require('../utils/object/GetFastValue');
 var GetValue = require('../utils/object/GetValue');
 var IsPlainObject = require('../utils/object/IsPlainObject');
-var PluginCache = require('../plugins/PluginCache');
 var SceneEvents = require('../scene/events');
 var XHRSettings = require('./XHRSettings');
 

@@ -5,7 +5,7 @@
  */
 
 var modes = require('../../BlendModes');
-var CanvasFeatures = require('../../../device/CanvasFeatures');
+import { CANVAS_FEATURES_DEVICE as CanvasFeatures } from '../../../device/CanvasFeatures';
 
 /**
  * Returns an array which maps the default blend modes to supported Canvas blend modes.

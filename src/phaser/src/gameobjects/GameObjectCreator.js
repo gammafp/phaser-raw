@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { PluginCache } from '../plugins/PluginCache';
+
 var Class = require('../utils/Class');
-var PluginCache = require('../plugins/PluginCache');
 var SceneEvents = require('../scene/events');
 
 /**

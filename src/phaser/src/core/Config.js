@@ -4,14 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { DefaultPlugins } from '../plugins/DefaultPlugins';
+import * as Device from '../device';
+import { NOOP } from '../utils/NOOP';
+
 var Class = require('../utils/Class');
 var CONST = require('../const');
-var DefaultPlugins = require('../plugins/DefaultPlugins');
-var Device = require('../device');
 var GetFastValue = require('../utils/object/GetFastValue');
 var GetValue = require('../utils/object/GetValue');
 var IsPlainObject = require('../utils/object/IsPlainObject');
-import { NOOP } from '../utils/NOOP';
 var PhaserMath = require('../math/');
 var ValueToColor = require('../display/color/ValueToColor');
 

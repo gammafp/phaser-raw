@@ -8,6 +8,7 @@ import { DegToRad } from '../../math/DegToRad';
 import { DistanceBetween } from '../../math/distance/DistanceBetween';
 import { DistanceSquared } from '../../math/distance/DistanceSquared';
 import { Vector2 } from '../../math/Vector2';
+import { PluginCache } from '../../plugins/PluginCache';
 
 var Class = require('../../utils/Class');
 var Factory = require('./Factory');
@@ -15,7 +16,6 @@ var GetFastValue = require('../../utils/object/GetFastValue');
 var Merge = require('../../utils/object/Merge');
 var OverlapCirc = require('./components/OverlapCirc');
 var OverlapRect = require('./components/OverlapRect');
-var PluginCache = require('../../plugins/PluginCache');
 var SceneEvents = require('../../scene/events');
 var World = require('./World');
 

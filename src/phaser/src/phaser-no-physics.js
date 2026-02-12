@@ -4,6 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+
 require('./polyfills/requestVideoFrame');
 
 var CONST = require('./const');
@@ -38,7 +39,6 @@ var Phaser = {
     Renderer: require('./renderer'),
     Scale: require('./scale'),
     ScaleModes: require('./renderer/ScaleModes'),
-    Scene: require('./scene/Scene'),
     Scenes: require('./scene'),
     Structs: require('./structs'),
     Textures: require('./textures'),

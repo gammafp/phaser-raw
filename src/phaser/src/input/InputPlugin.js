@@ -17,6 +17,7 @@ import { Triangle } from '../geom/triangle/Triangle';
 import { Contains as TriangleContains } from '../geom/triangle/Contains';
 
 import { DistanceBetween } from '../math/distance/DistanceBetween';
+import { PluginCache } from '../plugins/PluginCache';
 
 var Class = require('../utils/Class');
 var CONST = require('./const');
@@ -27,7 +28,6 @@ var EventEmitter = require('eventemitter3');
 var GetFastValue = require('../utils/object/GetFastValue');
 var InputPluginCache = require('./InputPluginCache');
 var IsPlainObject = require('../utils/object/IsPlainObject');
-var PluginCache = require('../plugins/PluginCache');
 var SceneEvents = require('../scene/events');
 
 /**

@@ -6,7 +6,7 @@
 
 var Class = require('../utils/Class');
 import { ProcessQueue } from '../structs/ProcessQueue';
-var PluginCache = require('../plugins/PluginCache');
+import { PluginCache } from '../plugins/PluginCache';
 var SceneEvents = require('../scene/events');
 
 /**

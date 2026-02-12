@@ -4,6 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { PluginCache } from '../../plugins/PluginCache';
 import { DistanceBetween } from '../../math/distance/DistanceBetween';
 
 var ALIGN_CONST = require('../../display/align/const');
@@ -25,7 +26,7 @@ var GetValue = require('../../utils/object/GetValue');
 var Merge = require('../../utils/object/Merge');
 var Pair = require('./lib/collision/Pair');
 var Pairs = require('./lib/collision/Pairs');
-var PluginCache = require('../../plugins/PluginCache');
+import { PluginCache } from '../../plugins/PluginCache';
 var Query = require('./lib/collision/Query');
 var Resolver = require('./lib/collision/Resolver');
 var SceneEvents = require('../../scene/events');

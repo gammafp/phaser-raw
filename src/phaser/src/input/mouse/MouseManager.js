@@ -4,8 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+
+import { FEATURES_DEVICE as Features } from '../../device/Features';
+
 var Class = require('../../utils/Class');
-var Features = require('../../device/Features');
 var InputEvents = require('../events');
 import { NOOP } from '../../utils/NOOP';
 

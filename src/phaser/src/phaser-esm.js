@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Scene } from './scene/Scene';
+
 require('./polyfills/requestVideoFrame');
 
 var CONST = require('./const');
@@ -31,7 +33,6 @@ export const Plugins = require('./plugins');
 export const Renderer = require('./renderer');
 export const Scale = require('./scale');
 export const ScaleModes = require('./renderer/ScaleModes');
-export const Scene = require('./scene/Scene');
 export const Scenes = require('./scene');
 export const Structs = require('./structs');
 export const Sound = require('./sound');

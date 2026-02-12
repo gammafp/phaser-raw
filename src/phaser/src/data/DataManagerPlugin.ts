@@ -5,8 +5,9 @@
  */
 
 import { DataManager } from './DataManager';
+import { PluginCache } from '../plugins/PluginCache';
 
-var PluginCache = require('../plugins/PluginCache');
+
 const SceneEvents = require('../scene/events');
 
 /**

@@ -10,8 +10,10 @@ import { Equal as FuzzyEqual } from '../math/fuzzy/Equal';
 import { SmoothStepInterpolation } from '../math/interpolation/SmoothStepInterpolation';
 import { Vector2 } from '../math/Vector2';
 
+import { OS_DEVICE as OS } from '../device/OS';
+
+
 var Class = require('../utils/Class');
-var OS = require('../device/OS');
 
 /**
  * @classdesc

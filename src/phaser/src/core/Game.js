@@ -4,12 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { SceneManager } from '../scene/SceneManager';
+
 import { AnimationManager } from '../animations/AnimationManager';
 import { CacheManager } from '../cache/CacheManager';
 import { DataManager } from '../data/DataManager';
 import { AddToDOM } from '../dom/AddToDOM';
 import { CreateDOMContainer } from '../dom/CreateDOMContainer';
 import { DOMContentLoaded } from '../dom/DOMContentLoaded';
+import { PluginManager } from '../plugins/PluginManager';
+import { PluginCache } from '../plugins/PluginCache';
 
 var CanvasPool = require('../display/canvas/CanvasPool');
 var Class = require('../utils/Class');
@@ -20,10 +24,7 @@ var Device = require('../device');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var InputManager = require('../input/InputManager');
-var PluginCache = require('../plugins/PluginCache');
-var PluginManager = require('../plugins/PluginManager');
 var ScaleManager = require('../scale/ScaleManager');
-var SceneManager = require('../scene/SceneManager');
 var TextureEvents = require('../textures/events');
 var TextureManager = require('../textures/TextureManager');
 var TimeStep = require('./TimeStep');

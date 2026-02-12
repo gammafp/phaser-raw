@@ -7,8 +7,8 @@
 var Class = require('../utils/Class');
 
 import { List } from '../structs/List';
+import { PluginCache } from '../plugins/PluginCache';
 
-var PluginCache = require('../plugins/PluginCache');
 var GameObjectEvents = require('./events');
 var SceneEvents = require('../scene/events');
 var StableSort = require('../utils/array/StableSort');
