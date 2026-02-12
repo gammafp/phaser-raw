@@ -9,7 +9,7 @@ import { IsSizePowerOfTwo } from '../math/pow2/IsSizePowerOfTwo';
 
 var Class = require('../utils/Class');
 var Color = require('../display/color/Color');
-var CONST = require('../const');
+import { PHASER_CONST as CONST } from '../const';
 var Texture = require('./Texture');
 
 /**

@@ -13,7 +13,7 @@ var GameObjectFactory = require('../gameobjects/GameObjectFactory');
 var GetFastValue = require('../utils/object/GetFastValue');
 var PluginCache = require('./PluginCache');
 var Remove = require('../utils/array/Remove');
-var CONST = require('../const');
+import { PHASER_CONST as CONST } from '../const';
 
 /**
  * @classdesc

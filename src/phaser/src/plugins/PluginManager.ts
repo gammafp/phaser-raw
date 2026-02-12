@@ -9,8 +9,8 @@ import { GetFastValue } from '../utils/object/GetFastValue';
 
 import { EventEmitter } from 'eventemitter3';
 import { PluginCache } from './PluginCache';
+import { PHASER_CONST as CONST } from '../const';
 
-var CONST = require('../const');
 var FileTypesManager = require('../loader/FileTypesManager');
 var GameEvents = require('../core/events');
 var GameObjectCreator = require('../gameobjects/GameObjectCreator');

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phaser Dependency Graph</title>
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #1a1a2e; color: #eee; }
+    #header {
+      padding: 12px 20px;
+      background: #16213e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    h1 { font-size: 1.2rem; font-weight: 600; }
+    #stats { font-size: 0.85rem; opacity: 0.9; }
+    #controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    #controls button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      background: #0f3460;
+      color: #eee;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    #controls button:hover { background: #e94560; }
+    #search {
+      padding: 6px 12px;
+      border: 1px solid #0f3460;
+      border-radius: 6px;
+      background: #1a1a2e;
+      color: #eee;
+      font-size: 0.9rem;
+      width: 180px;
+    }
+    #search::placeholder { color: #666; }
+    #layout {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+    }
+    #sidebar {
+      width: 220px;
+      min-width: 180px;
+      background: #16213e;
+      padding: 12px;
+      overflow-y: auto;
+      border-right: 1px solid #0f3460;
+    }
+    #sidebar h3 {
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: #aaccff;
+    }
+    #sidebar .ns-controls {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    #sidebar .ns-controls button {
+      flex: 1;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      background: #0f3460;
+      color: #eee;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #sidebar .ns-controls button:hover { background: #e94560; }
+    #sidebar .ns-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    #sidebar label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 2px 0;
+    }
+    #sidebar label:hover { opacity: 0.9; }
+    #sidebar input[type="checkbox"] { cursor: pointer; }
+    #sidebar .ns-count { color: #888; font-size: 0.75rem; }
+    #mynetwork {
+      flex: 1;
+      height: calc(100vh - 56px);
+      background: #0f0f1a;
+    }
+    #info {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      max-width: 480px;
+      padding: 12px;
+      background: rgba(0,0,0,0.8);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="header">
+    <div>
+      <h1>🔗 Phaser Dependency Graph</h1>
+      <div id="stats">
+        48 files · 29 connections · 1 namespaces
+        
+      </div>
+    </div>
+    <div id="controls">
+      <input type="text" id="search" placeholder="Search module...">
+      <button id="btnReset">Reset view</button>
+      <button id="btnFit">Fit</button>
+    </div>
+  </div>
+
+  <div id="layout">
+    <div id="sidebar">
+      <h3>Namespaces</h3>
+      <div class="ns-controls">
+        <button id="btnShowAll">Show all</button>
+        <button id="btnHideAll">Hide all</button>
+      </div>
+      <div class="ns-list" id="nsList"></div>
+    </div>
+    <div id="mynetwork"></div>
+  </div>
+  <div id="info"></div>
+
+  <script>
+    const nodes = new vis.DataSet([{"id":"core/Config.js","label":"Config.js","title":"core/Config.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/CreateRenderer.js","label":"CreateRenderer.js","title":"core/CreateRenderer.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/DebugHeader.js","label":"DebugHeader.js","title":"core/DebugHeader.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/BLUR_EVENT.ts","label":"BLUR_EVENT.ts","title":"core/events/BLUR_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/BOOT_EVENT.ts","label":"BOOT_EVENT.ts","title":"core/events/BOOT_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/CONTEXT_LOST_EVENT.ts","label":"CONTEXT_LOST_EVENT.ts","title":"core/events/CONTEXT_LOST_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/DESTROY_EVENT.ts","label":"DESTROY_EVENT.ts","title":"core/events/DESTROY_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/FOCUS_EVENT.ts","label":"FOCUS_EVENT.ts","title":"core/events/FOCUS_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/HIDDEN_EVENT.ts","label":"HIDDEN_EVENT.ts","title":"core/events/HIDDEN_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/index.ts","label":"index.ts","title":"core/events/index.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/PAUSE_EVENT.ts","label":"PAUSE_EVENT.ts","title":"core/events/PAUSE_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/POST_RENDER_EVENT.ts","label":"POST_RENDER_EVENT.ts","title":"core/events/POST_RENDER_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/POST_STEP_EVENT.ts","label":"POST_STEP_EVENT.ts","title":"core/events/POST_STEP_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/PRE_RENDER_EVENT.ts","label":"PRE_RENDER_EVENT.ts","title":"core/events/PRE_RENDER_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/PRE_STEP_EVENT.ts","label":"PRE_STEP_EVENT.ts","title":"core/events/PRE_STEP_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/READY_EVENT.ts","label":"READY_EVENT.ts","title":"core/events/READY_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/RESUME_EVENT.ts","label":"RESUME_EVENT.ts","title":"core/events/RESUME_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/STEP_EVENT.ts","label":"STEP_EVENT.ts","title":"core/events/STEP_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/SYSTEM_READY_EVENT.ts","label":"SYSTEM_READY_EVENT.ts","title":"core/events/SYSTEM_READY_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/events/VISIBLE_EVENT.ts","label":"VISIBLE_EVENT.ts","title":"core/events/VISIBLE_EVENT.ts","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/Game.js","label":"Game.js","title":"core/Game.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/index.js","label":"index.js","title":"core/index.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/TimeStep.js","label":"TimeStep.js","title":"core/TimeStep.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/AudioConfig.js","label":"AudioConfig.js","title":"core/typedefs/AudioConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/BannerConfig.js","label":"BannerConfig.js","title":"core/typedefs/BannerConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/BootCallback.js","label":"BootCallback.js","title":"core/typedefs/BootCallback.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/CallbacksConfig.js","label":"CallbacksConfig.js","title":"core/typedefs/CallbacksConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/DOMContainerConfig.js","label":"DOMContainerConfig.js","title":"core/typedefs/DOMContainerConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/FPSConfig.js","label":"FPSConfig.js","title":"core/typedefs/FPSConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/GameConfig.js","label":"GameConfig.js","title":"core/typedefs/GameConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/GamepadInputConfig.js","label":"GamepadInputConfig.js","title":"core/typedefs/GamepadInputConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/ImagesConfig.js","label":"ImagesConfig.js","title":"core/typedefs/ImagesConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/index.js","label":"index.js","title":"core/typedefs/index.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/InputConfig.js","label":"InputConfig.js","title":"core/typedefs/InputConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/KeyboardInputConfig.js","label":"KeyboardInputConfig.js","title":"core/typedefs/KeyboardInputConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/LoaderConfig.js","label":"LoaderConfig.js","title":"core/typedefs/LoaderConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/MouseInputConfig.js","label":"MouseInputConfig.js","title":"core/typedefs/MouseInputConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/NOOP.js","label":"NOOP.js","title":"core/typedefs/NOOP.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/PhysicsConfig.js","label":"PhysicsConfig.js","title":"core/typedefs/PhysicsConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/PluginObject.js","label":"PluginObject.js","title":"core/typedefs/PluginObject.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/PluginObjectItem.js","label":"PluginObjectItem.js","title":"core/typedefs/PluginObjectItem.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/RenderConfig.js","label":"RenderConfig.js","title":"core/typedefs/RenderConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/RenderNodesConfig.js","label":"RenderNodesConfig.js","title":"core/typedefs/RenderNodesConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/ScaleConfig.js","label":"ScaleConfig.js","title":"core/typedefs/ScaleConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/TimeStepCallback.js","label":"TimeStepCallback.js","title":"core/typedefs/TimeStepCallback.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/TouchInputConfig.js","label":"TouchInputConfig.js","title":"core/typedefs/TouchInputConfig.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/typedefs/WidthHeight.js","label":"WidthHeight.js","title":"core/typedefs/WidthHeight.js","namespace":"core","color":"#e6194b","font":{"size":10}},{"id":"core/VisibilityHandler.js","label":"VisibilityHandler.js","title":"core/VisibilityHandler.js","namespace":"core","color":"#e6194b","font":{"size":10}}]);
+    const edges = new vis.DataSet([{"from":"core/events/index.ts","to":"core/events/BLUR_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/BOOT_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/CONTEXT_LOST_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/DESTROY_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/FOCUS_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/HIDDEN_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/PAUSE_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/POST_RENDER_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/POST_STEP_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/PRE_RENDER_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/PRE_STEP_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/READY_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/RESUME_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/STEP_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/SYSTEM_READY_EVENT.ts"},{"from":"core/events/index.ts","to":"core/events/VISIBLE_EVENT.ts"},{"from":"core/Game.js","to":"core/events/index.ts"},{"from":"core/Game.js","to":"core/Config.js"},{"from":"core/Game.js","to":"core/CreateRenderer.js"},{"from":"core/Game.js","to":"core/DebugHeader.js"},{"from":"core/Game.js","to":"core/TimeStep.js"},{"from":"core/Game.js","to":"core/VisibilityHandler.js"},{"from":"core/index.js","to":"core/events/index.ts"},{"from":"core/index.js","to":"core/Config.js"},{"from":"core/index.js","to":"core/CreateRenderer.js"},{"from":"core/index.js","to":"core/DebugHeader.js"},{"from":"core/index.js","to":"core/TimeStep.js"},{"from":"core/index.js","to":"core/VisibilityHandler.js"},{"from":"core/VisibilityHandler.js","to":"core/events/index.ts"}]);
+
+    const container = document.getElementById('mynetwork');
+    const data = { nodes, edges };
+
+    const options = {
+      nodes: {
+        shape: 'box',
+        margin: 8,
+        borderWidth: 1,
+        borderWidthSelected: 2,
+        shadow: true,
+      },
+      edges: {
+        arrows: 'to',
+        width: 0.5,
+        color: { opacity: 0.5 },
+      },
+      physics: {
+        enabled: true,
+        forceAtlas2Based: {
+          gravitationalConstant: -50,
+          centralGravity: 0.01,
+          springLength: 150,
+          springConstant: 0.08,
+        },
+        solver: 'forceAtlas2Based',
+        stabilization: { iterations: 150 },
+      },
+      interaction: {
+        dragNodes: true,
+        dragView: true,
+        zoomView: true,
+      },
+    };
+
+    const network = new vis.Network(container, data, options);
+
+    network.on('click', function(params) {
+      const info = document.getElementById('info');
+      if (params.nodes.length > 0) {
+        const id = params.nodes[0];
+        const node = nodes.get(id);
+        const conns = edges.get().filter(e => e.from === id || e.to === id);
+        info.innerHTML = '<strong>' + node.title + '</strong><br>' +
+          'Exports to: ' + conns.filter(e => e.from === id).length + ' · Imports from: ' + conns.filter(e => e.to === id).length;
+        info.style.display = 'block';
+      } else {
+        info.style.display = 'none';
+      }
+    });
+
+    document.getElementById('btnReset').onclick = () => network.fit();
+    document.getElementById('btnFit').onclick = () => network.fit();
+
+    // Namespace visibility
+    const namespaces = [{"name":"core","count":48}];
+    const nsCheckboxes = {};
+
+    function getNodeNamespace(id) {
+      const n = nodes.get(id);
+      return n && n.namespace ? n.namespace : (id.split('/')[0] || 'root');
+    }
+
+    function applyNamespaceVisibility() {
+      const hiddenNs = new Set();
+      Object.keys(nsCheckboxes).forEach(ns => {
+        if (!nsCheckboxes[ns].checked) hiddenNs.add(ns);
+      });
+      nodes.forEach(n => {
+        const ns = n.namespace || n.id.split('/')[0] || 'root';
+        nodes.update({ id: n.id, hidden: hiddenNs.has(ns) });
+      });
+    }
+
+    const nsList = document.getElementById('nsList');
+    namespaces.forEach(({ name, count }) => {
+      const label = document.createElement('label');
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = true;
+      cb.dataset.ns = name;
+      nsCheckboxes[name] = cb;
+      cb.onchange = applyNamespaceVisibility;
+      label.appendChild(cb);
+      label.appendChild(document.createTextNode(name));
+      const span = document.createElement('span');
+      span.className = 'ns-count';
+      span.textContent = ' (' + count + ')';
+      label.appendChild(span);
+      nsList.appendChild(label);
+    });
+
+    document.getElementById('btnShowAll').onclick = function() {
+      Object.keys(nsCheckboxes).forEach(ns => { nsCheckboxes[ns].checked = true; });
+      applyNamespaceVisibility();
+    };
+
+    document.getElementById('btnHideAll').onclick = function() {
+      Object.keys(nsCheckboxes).forEach(ns => { nsCheckboxes[ns].checked = false; });
+      applyNamespaceVisibility();
+    };
+
+    document.getElementById('search').oninput = function() {
+      const q = this.value.trim().toLowerCase();
+      if (!q) {
+        nodes.forEach(n => nodes.update({ ...n, hidden: false }));
+        return;
+      }
+      nodes.forEach(n => {
+        const match = n.title.toLowerCase().includes(q);
+        nodes.update({ ...n, hidden: !match });
+      });
+    };
+  </script>
+</body>
+</html>

@@ -12,8 +12,9 @@ import { DefaultPlugins } from '../plugins/DefaultPlugins';
 import * as Device from '../device';
 import { NOOP } from '../utils/NOOP';
 
+import { PHASER_CONST as CONST } from '../const';
+
 var Class = require('../utils/Class');
-var CONST = require('../const');
 var PhaserMath = require('../math/');
 var ValueToColor = require('../display/color/ValueToColor');
 

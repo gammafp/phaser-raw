@@ -13,7 +13,7 @@ var CanvasPool = require('../display/canvas/CanvasPool');
 var CanvasTexture = require('./CanvasTexture');
 var Class = require('../utils/Class');
 var Color = require('../display/color/Color');
-var CONST = require('../const');
+import { PHASER_CONST as CONST } from '../const';
 var DynamicTexture = require('./DynamicTexture');
 var EventEmitter = require('eventemitter3');
 var Events = require('./events');

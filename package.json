@@ -18,7 +18,9 @@
     "review": "bun scripts/namespace-review-tracker.ts",
     "review:stats": "bun scripts/namespace-review-tracker.ts --stats",
     "deps": "bun scripts/show-file-deps.ts",
-    "deps:folder": "bun scripts/show-folder-deps.ts"
+    "deps:folder": "bun scripts/show-folder-deps.ts",
+    "viewer": "bun conversor-viewer/build-graph.ts",
+    "viewer:converted": "bun conversor-viewer/build-graph.ts src_converted/phaser/src conversor-viewer/output/graph-converted.html"
   },
   "devDependencies": {
     "@types/node": "^22.15.21",

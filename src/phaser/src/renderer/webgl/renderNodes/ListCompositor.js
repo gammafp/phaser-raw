@@ -5,7 +5,7 @@
  */
 
 var Class = require('../../../utils/Class');
-var CONST = require('../../../const');
+import { PHASER_CONST as CONST } from '../../../const';
 var RenderNode = require('./RenderNode');
 
 /**

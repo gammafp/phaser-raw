@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var CONST = require('../../const');
+import { PHASER_CONST as CONST } from '../../const';
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.

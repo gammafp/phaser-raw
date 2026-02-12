@@ -11,7 +11,7 @@ import { GetFastValue } from '../utils/object/GetFastValue';
 var BlendModes = require('../renderer/BlendModes');
 var CanvasPool = require('../display/canvas/CanvasPool');
 var Class = require('../utils/Class');
-var CONST = require('../const');
+import { PHASER_CONST as CONST } from '../const';
 var DrawingContext = require('../renderer/webgl/DrawingContext');
 var Frame = require('./Frame');
 var Texture = require('./Texture');
