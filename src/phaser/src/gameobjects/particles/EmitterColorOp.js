@@ -6,10 +6,10 @@
 
 var Class = require('../../utils/Class');
 var EmitterOp = require('./EmitterOp');
-var GetColor = require('../../display/color/GetColor');
+import { GetColor } from '../../display/color/GetColor';
 var GetEaseFunction = require('../../tweens/builders/GetEaseFunction');
 var GetInterpolationFunction = require('../../tweens/builders/GetInterpolationFunction');
-var IntegerToRGB = require('../../display/color/IntegerToRGB');
+import { IntegerToRGB } from '../../display/color/IntegerToRGB';
 
 /**
  * @classdesc

@@ -9,10 +9,10 @@ import { IsPlainObject } from '../utils/object/IsPlainObject';
 
 import { Rectangle } from '../geom/rectangle/Rectangle';
 
-var CanvasPool = require('../display/canvas/CanvasPool');
+import * as CanvasPool from '../display/canvas/CanvasPool';
 var CanvasTexture = require('./CanvasTexture');
 var Class = require('../utils/Class');
-var Color = require('../display/color/Color');
+import { Color } from '../display/color/Color';
 import { PHASER_CONST as CONST } from '../const';
 var DynamicTexture = require('./DynamicTexture');
 var EventEmitter = require('eventemitter3');
@@ -20,7 +20,7 @@ var Events = require('./events');
 var Frame = require('./Frame');
 var GameEvents = require('../core/events');
 var ImageGameObject = require('../gameobjects/image/Image');
-var IntegerToColor = require('../display/color/IntegerToColor');
+import { IntegerToColor } from '../display/color/IntegerToColor';
 var Parser = require('./parsers');
 var Texture = require('./Texture');
 var TileSpriteGameObject = require('../gameobjects/tilesprite/TileSprite');

@@ -5,7 +5,8 @@
  */
 
 var GetTilesWithin = require('./GetTilesWithin');
-var Color = require('../../display/color');
+// var Color = require('../../display/color');
+import { Color } from '../../display/color';
 
 var defaultTileColor = new Color(105, 210, 231, 150);
 var defaultCollidingTileColor = new Color(243, 134, 48, 200);

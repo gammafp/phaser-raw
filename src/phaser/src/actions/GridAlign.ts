@@ -5,14 +5,10 @@
  */
 
 import { GetFastValue } from '../utils/object/GetFastValue';
+import { QuickSet as AlignIn } from '../display/align/in/QuickSet';
+import { ALIGN_CONST as CONST } from '../display/align/const';
 
-var AlignIn = require('../display/align/in/QuickSet');
-var CONST = require('../display/align/const');
 var Zone = require('../gameobjects/zone/Zone');
-
-// import { QuickSet as AlignIn } from '../display/align/in/QuickSet';
-// import { ALIGN_CONST as CONST } from '../display/align/const';
-// import { GetFastValue } from '../utils/object/GetFastValue';
 // import { Zone } from '../gameobjects/zone/Zone';
 import { NOOP } from '../utils/NOOP';
 

@@ -25,6 +25,7 @@ import Scenes from './scene';
 import Sound from './sound';
 import * as Structs from './structs';
 import * as Time from './time';
+import { Game } from './core/Game';
 
 // Not 100% converted - keep require()
 const BlendModes = require('./renderer/BlendModes');
@@ -32,7 +33,6 @@ const Cameras = require('./cameras');
 const Core = require('./core');
 const Display = require('./display');
 const Filters = require('./filters');
-const Game = require('./core/Game');
 const GameObjects = require('./gameobjects');
 const Input = require('./input');
 const Loader = require('./loader');

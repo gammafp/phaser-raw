@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var QuickSet = require('../display/align/to/QuickSet');
+import { QuickSet } from '../display/align/to/QuickSet';
 // TODO: Enable this type
 // import type { GameObject } from '../gameobjects';
 

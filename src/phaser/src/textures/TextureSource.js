@@ -6,7 +6,7 @@
 
 import { IsSizePowerOfTwo } from '../math/pow2/IsSizePowerOfTwo';
 
-var CanvasPool = require('../display/canvas/CanvasPool');
+import * as CanvasPool from '../display/canvas/CanvasPool';
 var Class = require('../utils/Class');
 var ScaleModes = require('../renderer/ScaleModes');
 var WebGLTextureWrapper = require('../renderer/webgl/wrappers/WebGLTextureWrapper');

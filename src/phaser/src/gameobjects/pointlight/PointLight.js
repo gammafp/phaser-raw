@@ -8,7 +8,7 @@ var DefaultPointLightNodes = require('../../renderer/webgl/renderNodes/defaults/
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
-var IntegerToColor = require('../../display/color/IntegerToColor');
+import { IntegerToColor } from '../../display/color/IntegerToColor';
 var Render = require('./PointLightRender');
 
 /**

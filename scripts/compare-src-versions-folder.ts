@@ -18,7 +18,7 @@ import * as path from 'path';
 import * as crypto from 'crypto';
 
 const ORIGIN_BASE = 'original_src/src';
-const NEW_VERSION_DEFAULT = 'src/phaser/src';
+const NEW_VERSION_DEFAULT = 'original_src/src_v4';
 
 interface FileInfo {
     path: string;

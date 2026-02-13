@@ -9,7 +9,7 @@ import { Camera } from '../cameras/2d/Camera';
 import { GetFastValue } from '../utils/object/GetFastValue';
 
 var BlendModes = require('../renderer/BlendModes');
-var CanvasPool = require('../display/canvas/CanvasPool');
+import * as CanvasPool from '../display/canvas/CanvasPool';
 var Class = require('../utils/Class');
 import { PHASER_CONST as CONST } from '../const';
 var DrawingContext = require('../renderer/webgl/DrawingContext');

@@ -10,8 +10,7 @@ import { Merge } from '../../utils/object/Merge';
 
 import { PluginCache } from '../../plugins/PluginCache';
 import { DistanceBetween } from '../../math/distance/DistanceBetween';
-
-var ALIGN_CONST = require('../../display/align/const');
+import { ALIGN_CONST } from '../../display/align/const';
 var Axes = require('./lib/geometry/Axes');
 var Bodies = require('./lib/factory/Bodies');
 var Body = require('./lib/body/Body');

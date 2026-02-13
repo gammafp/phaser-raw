@@ -6,7 +6,7 @@
 
 var Class = require('../utils/Class');
 var Controller = require('./Controller');
-var Color = require('../display/color/Color');
+import { Color } from '../display/color/Color';
 
 /**
  * @classdesc

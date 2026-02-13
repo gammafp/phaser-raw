@@ -10,7 +10,7 @@ import { UUID } from '../../utils/string/UUID';
 import { AddToDOM } from '../../dom/AddToDOM';
 import { RemoveFromDOM } from '../../dom/RemoveFromDOM';
 
-var CanvasPool = require('../../display/canvas/CanvasPool');
+import * as CanvasPool from '../../display/canvas/CanvasPool';
 var DefaultImageNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultImageNodes');
 var Class = require('../../utils/Class');
 var Components = require('../components');

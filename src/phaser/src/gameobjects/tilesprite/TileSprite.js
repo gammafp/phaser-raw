@@ -9,12 +9,12 @@ import { UUID } from '../../utils/string/UUID';
 import { Vector2 } from '../../math/Vector2';
 import { AnimationState } from '../../animations/AnimationState';
 
-var CanvasPool = require('../../display/canvas/CanvasPool');
+import * as CanvasPool from '../../display/canvas/CanvasPool';
 var DefaultTileSpriteNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultTileSpriteNodes');
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
-var Smoothing = require('../../display/canvas/Smoothing');
+import * as Smoothing from '../../display/canvas/Smoothing';
 var TileSpriteRender = require('./TileSpriteRender');
 
 //  bitmask flag for GameObject.renderMask

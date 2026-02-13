@@ -6,7 +6,7 @@
 
 import { OS_DEVICE as OS } from './OS';
 import { BROWSER_DEVICE as Browser } from './Browser';
-var CanvasPool = require('../display/canvas/CanvasPool');
+import * as CanvasPool from '../display/canvas/CanvasPool';
 
 /**
  * Determines the features of the browser running this Phaser Game instance.

@@ -11,7 +11,7 @@ import { Mixin } from '../../utils/MixinTS';
 import EventEmitter from 'eventemitter3';
 
 var TransformMatrix = require('../../gameobjects/components/TransformMatrix');
-var ValueToColor = require('../../display/color/ValueToColor');
+import { ValueToColor } from '../../display/color/ValueToColor';
 
 var ComponentAlphaSingle = require('../../gameobjects/components/Alpha');
 var ComponentVisible = require('../../gameobjects/components/Visible');

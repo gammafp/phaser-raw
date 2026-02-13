@@ -124,8 +124,8 @@ const PhaserMath = {
     Fuzzy,
     Interpolation,
     Pow2,
-    Snap
+    Snap,
+    ...MATH_CONST
 };
 
-// Merge in the consts
-export default Extend(false, PhaserMath, MATH_CONST);
+export default PhaserMath;

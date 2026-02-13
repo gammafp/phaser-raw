@@ -8,7 +8,7 @@ import { Clamp } from '../math/Clamp';
 import { IsSizePowerOfTwo } from '../math/pow2/IsSizePowerOfTwo';
 
 var Class = require('../utils/Class');
-var Color = require('../display/color/Color');
+import { Color } from '../display/color/Color';
 import { PHASER_CONST as CONST } from '../const';
 var Texture = require('./Texture');
 
