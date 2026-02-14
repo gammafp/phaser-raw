@@ -11,7 +11,7 @@
  * @memberof Phaser.Textures
  * @since 4.0.0
  */
-var CONST = {
+export const WrapMode = {
     /**
      * Clamp to edge wrap mode.
      *
@@ -41,6 +41,4 @@ var CONST = {
      * @since 4.0.0
      */
     MIRRORED_REPEAT: 33648
-};
-
-module.exports = CONST;
+} as const;

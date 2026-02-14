@@ -16,10 +16,10 @@ import { Merge } from '../../utils/object/Merge';
 
 
 import { FileTypesManager } from '../FileTypesManager';
-var KTXParser = require('../../textures/parsers/KTXParser');
+import { KTXParser } from '../../textures/parsers/KTXParser';
 import { MultiFile } from '../MultiFile';
-var PVRParser = require('../../textures/parsers/PVRParser');
-var verifyCompressedTexture = require('../../textures/parsers/VerifyCompressedTexture');
+import { PVRParser } from '../../textures/parsers/PVRParser';
+import { verifyCompressedTexture } from '../../textures/parsers/VerifyCompressedTexture';
 
 /**
  * @classdesc

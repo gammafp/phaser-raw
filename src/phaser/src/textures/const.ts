@@ -11,7 +11,7 @@
  * @memberof Phaser.Textures
  * @since 3.0.0
  */
-var CONST = {
+export const FilterMode = {
 
     /**
      * Linear filter type.
@@ -33,6 +33,4 @@ var CONST = {
      */
     NEAREST: 1
 
-};
-
-module.exports = CONST;
+} as const;

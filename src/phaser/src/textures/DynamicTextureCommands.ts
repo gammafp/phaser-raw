@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-module.exports = {
+export const DynamicTextureCommands = {
 
     CLEAR: 0,
     FILL: 1,
@@ -16,4 +16,4 @@ module.exports = {
     CALLBACK: 7,
     CAPTURE: 8
 
-};
+} as const;

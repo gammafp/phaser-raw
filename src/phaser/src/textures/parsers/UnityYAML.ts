@@ -4,18 +4,19 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var imageHeight = 0;
+import type { Texture } from '../Texture';
+
+let imageHeight = 0;
 
 /**
  * @function addFrame
  * @private
  * @since 3.0.0
  */
-var addFrame = function (texture, sourceIndex, name, frame)
-{
+const addFrame = (texture: Texture, sourceIndex: number, name: string, frame: { x: number; y: number; width: number; height: number }): void => {
     //  The frame values are the exact coordinates to cut the frame out of the atlas from
 
-    var y = imageHeight - frame.y - frame.height;
+    const y = imageHeight - frame.y - frame.height;
 
     texture.add(name, sourceIndex, frame.x, y, frame.width, frame.height);
 
@@ -50,38 +51,37 @@ var addFrame = function (texture, sourceIndex, name, frame)
  *
  * @return {Phaser.Textures.Texture} The Texture modified by this parser.
  */
-var UnityYAML = function (texture, sourceIndex, yaml)
-{
+export const UnityYAML = (texture: Texture, sourceIndex: number, yaml: string): Texture => {
     //  Add in a __BASE entry (for the entire atlas)
-    var source = texture.source[sourceIndex];
+    const source = texture.source[sourceIndex];
 
     texture.add('__BASE', sourceIndex, 0, 0, source.width, source.height);
 
     imageHeight = source.height;
 
-    var data = yaml.split('\n');
+    const data = yaml.split('\n');
 
-    var lineRegExp = /^[ ]*(- )*(\w+)+[: ]+(.*)/;
+    const lineRegExp = /^[ ]*(- )*(\w+)+[: ]+(.*)/;
 
-    var prevSprite = '';
-    var currentSprite = '';
-    var rect = { x: 0, y: 0, width: 0, height: 0 };
+    let prevSprite = '';
+    let currentSprite = '';
+    let rect = { x: 0, y: 0, width: 0, height: 0 };
 
     // var pivot = { x: 0, y: 0 };
     // var border = { x: 0, y: 0, z: 0, w: 0 };
 
-    for (var i = 0; i < data.length; i++)
+    for (let i = 0; i < data.length; i++)
     {
-        var results = data[i].match(lineRegExp);
+        const results = data[i].match(lineRegExp);
 
         if (!results)
         {
             continue;
         }
 
-        var isList = (results[1] === '- ');
-        var key = results[2];
-        var value = results[3];
+        const isList = (results[1] === '- ');
+        const key = results[2];
+        const value = results[3];
 
         if (isList)
         {
@@ -128,8 +128,6 @@ var UnityYAML = function (texture, sourceIndex, yaml)
 
     return texture;
 };
-
-module.exports = UnityYAML;
 
 /*
 Example data:

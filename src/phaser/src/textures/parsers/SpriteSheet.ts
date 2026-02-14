@@ -6,6 +6,7 @@
 
 
 import { GetFastValue } from '../../utils/object/GetFastValue';
+import type { Texture } from '../Texture';
 
 /**
  * Parses a Sprite Sheet and adds the Frames to the Texture.
@@ -34,10 +35,9 @@ import { GetFastValue } from '../../utils/object/GetFastValue';
  *
  * @return {Phaser.Textures.Texture} The Texture modified by this parser.
  */
-var SpriteSheet = function (texture, sourceIndex, x, y, width, height, config)
-{
-    var frameWidth = GetFastValue(config, 'frameWidth', null);
-    var frameHeight = GetFastValue(config, 'frameHeight', frameWidth);
+export const SpriteSheet = (texture: Texture, sourceIndex: number, x: number, y: number, width: number, height: number, config: any): Texture => {
+    const frameWidth = GetFastValue(config, 'frameWidth', null);
+    const frameHeight = GetFastValue(config, 'frameHeight', frameWidth);
 
     //  If missing we can't proceed
     if (frameWidth === null)
@@ -46,18 +46,18 @@ var SpriteSheet = function (texture, sourceIndex, x, y, width, height, config)
     }
 
     //  Add in a __BASE entry (for the entire atlas)
-    var source = texture.source[sourceIndex];
+    const source = texture.source[sourceIndex];
 
     texture.add('__BASE', sourceIndex, 0, 0, source.width, source.height);
 
-    var startFrame = GetFastValue(config, 'startFrame', 0);
-    var endFrame = GetFastValue(config, 'endFrame', -1);
-    var margin = GetFastValue(config, 'margin', 0);
-    var spacing = GetFastValue(config, 'spacing', 0);
+    let startFrame = GetFastValue(config, 'startFrame', 0);
+    let endFrame = GetFastValue(config, 'endFrame', -1);
+    const margin = GetFastValue(config, 'margin', 0);
+    const spacing = GetFastValue(config, 'spacing', 0);
 
-    var row = Math.floor((width - margin + spacing) / (frameWidth + spacing));
-    var column = Math.floor((height - margin + spacing) / (frameHeight + spacing));
-    var total = row * column;
+    const row = Math.floor((width - margin + spacing) / (frameWidth + spacing));
+    const column = Math.floor((height - margin + spacing) / (frameHeight + spacing));
+    const total = row * column;
 
     if (total === 0)
     {
@@ -80,19 +80,19 @@ var SpriteSheet = function (texture, sourceIndex, x, y, width, height, config)
         endFrame = total;
     }
 
-    var fx = margin;
-    var fy = margin;
-    var ax = 0;
-    var ay = 0;
-    var c = 0;
+    let fx = margin;
+    let fy = margin;
+    let ax = 0;
+    let ay = 0;
+    let c = 0;
 
-    for (var i = 0; i < total; i++)
+    for (let i = 0; i < total; i++)
     {
         ax = 0;
         ay = 0;
 
-        var w = fx + frameWidth;
-        var h = fy + frameHeight;
+        const w = fx + frameWidth;
+        const h = fy + frameHeight;
 
         if (w > width)
         {
@@ -122,5 +122,3 @@ var SpriteSheet = function (texture, sourceIndex, x, y, width, height, config)
 
     return texture;
 };
-
-module.exports = SpriteSheet;

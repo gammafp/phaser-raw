@@ -11,7 +11,7 @@ var Bob = require('./Bob');
 var DefaultBlitterNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultBlitterNodes');
 var Class = require('../../utils/Class');
 var Components = require('../components');
-var Frame = require('../../textures/Frame');
+import { Frame } from '../../textures/Frame';
 var GameObject = require('../GameObject');
 
 /**

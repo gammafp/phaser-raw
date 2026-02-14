@@ -27,9 +27,8 @@ import { VisibilityHandler } from './VisibilityHandler';
 
 import * as CanvasPool from '../display/canvas/CanvasPool';
 import { InputManager } from '../input/InputManager';
-
-const TextureManager = require('../textures/TextureManager');
-const TextureEvents = require('../textures/events');
+import { TextureManager } from '../textures/TextureManager';
+import * as TextureEvents from '../textures/events';
 
 
 /**

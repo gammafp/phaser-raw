@@ -5,8 +5,7 @@
  */
 
 import { Controller } from './Controller';
-
-const Texture = require('../textures/Texture');
+import { Texture } from '../textures/Texture';
 
 /**
  * @classdesc

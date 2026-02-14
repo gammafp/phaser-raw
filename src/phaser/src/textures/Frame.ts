@@ -4,11 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { Extend } from '../utils/object/Extend';
-
 import { Clamp } from '../math/Clamp';
-
-var Class = require('../utils/Class');
+import { Extend } from '../utils/object/Extend';
 
 /**
  * @classdesc
@@ -27,275 +24,70 @@ var Class = require('../utils/Class');
  * @param {number} width - The width of this Frame.
  * @param {number} height - The height of this Frame.
  */
-var Frame = new Class({
+export class Frame {
 
-    initialize:
+    texture: any;
+    name: string | number;
+    source: any;
+    sourceIndex: number;
+    cutX: number;
+    cutY: number;
+    cutWidth: number;
+    cutHeight: number;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    halfWidth: number;
+    halfHeight: number;
+    centerX: number;
+    centerY: number;
+    pivotX: number;
+    pivotY: number;
+    customPivot: boolean;
+    rotated: boolean;
+    autoRound: number;
+    customData: any;
+    u0: number;
+    v0: number;
+    u1: number;
+    v1: number;
+    data: any;
 
-    function Frame (texture, name, sourceIndex, x, y, width, height)
+    constructor (texture: any, name: string | number, sourceIndex: number, x?: number, y?: number, width?: number, height?: number)
     {
-        /**
-         * The Texture this Frame is a part of.
-         *
-         * @name Phaser.Textures.Frame#texture
-         * @type {Phaser.Textures.Texture}
-         * @since 3.0.0
-         */
         this.texture = texture;
-
-        /**
-         * The name of this Frame.
-         * The name is unique within the Texture.
-         *
-         * @name Phaser.Textures.Frame#name
-         * @type {string}
-         * @since 3.0.0
-         */
         this.name = name;
-
-        /**
-         * The TextureSource this Frame is part of.
-         *
-         * @name Phaser.Textures.Frame#source
-         * @type {Phaser.Textures.TextureSource}
-         * @since 3.0.0
-         */
         this.source = texture.source[sourceIndex];
-
-        /**
-         * The index of the TextureSource in the Texture sources array.
-         *
-         * @name Phaser.Textures.Frame#sourceIndex
-         * @type {number}
-         * @since 3.0.0
-         */
         this.sourceIndex = sourceIndex;
 
-        /**
-         * X position within the source image to cut from.
-         *
-         * @name Phaser.Textures.Frame#cutX
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.cutX;
+        this.cutX = 0;
+        this.cutY = 0;
+        this.cutWidth = 0;
+        this.cutHeight = 0;
 
-        /**
-         * Y position within the source image to cut from.
-         *
-         * @name Phaser.Textures.Frame#cutY
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.cutY;
-
-        /**
-         * The width of the area in the source image to cut.
-         *
-         * @name Phaser.Textures.Frame#cutWidth
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.cutWidth;
-
-        /**
-         * The height of the area in the source image to cut.
-         *
-         * @name Phaser.Textures.Frame#cutHeight
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.cutHeight;
-
-        /**
-         * The X rendering offset of this Frame, taking trim into account.
-         *
-         * @name Phaser.Textures.Frame#x
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
         this.x = 0;
-
-        /**
-         * The Y rendering offset of this Frame, taking trim into account.
-         *
-         * @name Phaser.Textures.Frame#y
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
         this.y = 0;
 
-        /**
-         * The rendering width of this Frame, taking trim into account.
-         *
-         * @name Phaser.Textures.Frame#width
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.width;
+        this.width = 0;
+        this.height = 0;
+        this.halfWidth = 0;
+        this.halfHeight = 0;
+        this.centerX = 0;
+        this.centerY = 0;
 
-        /**
-         * The rendering height of this Frame, taking trim into account.
-         *
-         * @name Phaser.Textures.Frame#height
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.height;
-
-        /**
-         * Half the width, floored.
-         * Precalculated for the renderer.
-         *
-         * @name Phaser.Textures.Frame#halfWidth
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.halfWidth;
-
-        /**
-         * Half the height, floored.
-         * Precalculated for the renderer.
-         *
-         * @name Phaser.Textures.Frame#halfHeight
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.halfHeight;
-
-        /**
-         * The x center of this frame, floored.
-         *
-         * @name Phaser.Textures.Frame#centerX
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.centerX;
-
-        /**
-         * The y center of this frame, floored.
-         *
-         * @name Phaser.Textures.Frame#centerY
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.centerY;
-
-        /**
-         * The horizontal pivot point of this Frame.
-         *
-         * @name Phaser.Textures.Frame#pivotX
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
         this.pivotX = 0;
-
-        /**
-         * The vertical pivot point of this Frame.
-         *
-         * @name Phaser.Textures.Frame#pivotY
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
         this.pivotY = 0;
-
-        /**
-         * Does this Frame have a custom pivot point?
-         *
-         * @name Phaser.Textures.Frame#customPivot
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
-         */
         this.customPivot = false;
-
-        /**
-         * **CURRENTLY UNSUPPORTED**
-         *
-         * Is this frame is rotated or not in the Texture?
-         * Rotation allows you to use rotated frames in texture atlas packing.
-         * It has nothing to do with Sprite rotation.
-         *
-         * @name Phaser.Textures.Frame#rotated
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
-         */
         this.rotated = false;
-
-        /**
-         * Over-rides the Renderer setting.
-         * -1 = use Renderer Setting
-         * 0 = No rounding
-         * 1 = Round
-         *
-         * @name Phaser.Textures.Frame#autoRound
-         * @type {number}
-         * @default -1
-         * @since 3.0.0
-         */
         this.autoRound = -1;
-
-        /**
-         * Any Frame specific custom data can be stored here.
-         *
-         * @name Phaser.Textures.Frame#customData
-         * @type {object}
-         * @since 3.0.0
-         */
         this.customData = {};
 
-        /**
-         * WebGL UV u0 value.
-         *
-         * @name Phaser.Textures.Frame#u0
-         * @type {number}
-         * @default 0
-         * @since 3.11.0
-         */
         this.u0 = 0;
-
-        /**
-         * WebGL UV v0 value.
-         *
-         * @name Phaser.Textures.Frame#v0
-         * @type {number}
-         * @default 0
-         * @since 3.11.0
-         */
         this.v0 = 0;
-
-        /**
-         * WebGL UV u1 value.
-         *
-         * @name Phaser.Textures.Frame#u1
-         * @type {number}
-         * @default 0
-         * @since 3.11.0
-         */
         this.u1 = 0;
-
-        /**
-         * WebGL UV v1 value.
-         *
-         * @name Phaser.Textures.Frame#v1
-         * @type {number}
-         * @default 0
-         * @since 3.11.0
-         */
         this.v1 = 0;
 
-        /**
-         * The un-modified source frame, trim and UV data.
-         *
-         * @name Phaser.Textures.Frame#data
-         * @type {object}
-         * @private
-         * @since 3.0.0
-         */
         this.data = {
             cut: {
                 x: 0,
@@ -335,8 +127,8 @@ var Frame = new Class({
             }
         };
 
-        this.setSize(width, height, x, y);
-    },
+        this.setSize(width ?? 0, height ?? 0, x ?? 0, y ?? 0);
+    }
 
     /**
      * Sets the x and y position within the source image to cut from.
@@ -349,7 +141,7 @@ var Frame = new Class({
      *
      * @return {this} This Frame object.
      */
-    setCutPosition: function (x, y)
+    setCutPosition (x?: number, y?: number): this
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
@@ -358,7 +150,7 @@ var Frame = new Class({
         this.cutY = y;
 
         return this.updateUVs();
-    },
+    }
 
     /**
      * Sets the width, and height of the area in the source image to cut.
@@ -371,13 +163,13 @@ var Frame = new Class({
      *
      * @return {this} This Frame object.
      */
-    setCutSize: function (width, height)
+    setCutSize (width: number, height: number): this
     {
         this.cutWidth = width;
         this.cutHeight = height;
 
         return this.updateUVs();
-    },
+    }
 
     /**
      * Sets the width, height, x and y of this Frame.
@@ -395,7 +187,7 @@ var Frame = new Class({
      *
      * @return {this} This Frame object.
      */
-    setSize: function (width, height, x, y)
+    setSize (width: number, height: number, x?: number, y?: number): this
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
@@ -412,8 +204,8 @@ var Frame = new Class({
         this.centerX = Math.floor(width / 2);
         this.centerY = Math.floor(height / 2);
 
-        var data = this.data;
-        var cut = data.cut;
+        const data = this.data;
+        const cut = data.cut;
 
         cut.x = x;
         cut.y = y;
@@ -430,7 +222,7 @@ var Frame = new Class({
 
         data.radius = 0.5 * Math.sqrt(width * width + height * height);
 
-        var drawImage = data.drawImage;
+        const drawImage = data.drawImage;
 
         drawImage.x = x;
         drawImage.y = y;
@@ -438,7 +230,7 @@ var Frame = new Class({
         drawImage.height = height;
 
         return this.updateUVs();
-    },
+    }
 
     /**
      * If the frame was trimmed when added to the Texture Atlas, this records the trim and source data.
@@ -455,12 +247,10 @@ var Frame = new Class({
      *
      * @return {this} This Frame object.
      */
-    setTrim: function (actualWidth, actualHeight, destX, destY, destWidth, destHeight)
+    setTrim (actualWidth: number, actualHeight: number, destX: number, destY: number, destWidth: number, destHeight: number): this
     {
-        var data = this.data;
-        var ss = data.spriteSourceSize;
-
-        //  Store actual values
+        const data = this.data;
+        const ss = data.spriteSourceSize;
 
         data.trim = true;
 
@@ -474,7 +264,6 @@ var Frame = new Class({
         ss.r = destX + destWidth;
         ss.b = destY + destHeight;
 
-        //  Adjust properties
         this.x = destX;
         this.y = destY;
 
@@ -488,7 +277,7 @@ var Frame = new Class({
         this.centerY = Math.floor(destHeight / 2);
 
         return this.updateUVs();
-    },
+    }
 
     /**
      * Sets the scale9 center rectangle values.
@@ -507,9 +296,9 @@ var Frame = new Class({
      *
      * @return {this} This Frame object.
      */
-    setScale9: function (x, y, width, height)
+    setScale9 (x: number, y: number, width: number, height: number): this
     {
-        var data = this.data;
+        const data = this.data;
 
         data.scale9 = true;
         data.is3Slice = (y === 0 && height === this.height);
@@ -520,14 +309,14 @@ var Frame = new Class({
         data.scale9Borders.h = height;
 
         return this;
-    },
+    }
 
     /**
      * Takes a crop data object and, based on the rectangular region given, calculates the
      * required UV coordinates in order to crop this Frame for WebGL and Canvas rendering.
      *
      * The crop size as well as coordinates can not exceed the the size of the frame.
-     * 
+     *
      * This is called directly by the Game Object Texture Components `setCrop` method.
      * Please use that method to crop a Game Object.
      *
@@ -544,16 +333,14 @@ var Frame = new Class({
      *
      * @return {object} The updated crop data object.
      */
-    setCropUVs: function (crop, x, y, width, height, flipX, flipY)
+    setCropUVs (crop: any, x: number, y: number, width: number, height: number, flipX: boolean, flipY: boolean): any
     {
-        //  Clamp the input values
-
-        var cx = this.cutX;
-        var cy = this.cutY;
-        var cw = this.cutWidth;
-        var ch = this.cutHeight;
-        var rw = this.realWidth;
-        var rh = this.realHeight;
+        const cx = this.cutX;
+        const cy = this.cutY;
+        const cw = this.cutWidth;
+        const ch = this.cutHeight;
+        const rw = this.realWidth;
+        const rh = this.realHeight;
 
         x = Clamp(x, 0, rw);
         y = Clamp(y, 0, rh);
@@ -561,34 +348,31 @@ var Frame = new Class({
         width = Clamp(width, 0, rw - x);
         height = Clamp(height, 0, rh - y);
 
-        var ox = cx + x;
-        var oy = cy + y;
-        var ow = width;
-        var oh = height;
+        let ox = cx + x;
+        let oy = cy + y;
+        let ow = width;
+        let oh = height;
 
-        var data = this.data;
+        const data = this.data;
 
         if (data.trim)
         {
-            var ss = data.spriteSourceSize;
-
-            //  Need to check for intersection between the cut area and the crop area
-            //  If there is none, we set UV to be empty, otherwise set it to be the intersection area
+            const ss = data.spriteSourceSize;
 
             width = Clamp(width, 0, ss.x + cw - x);
             height = Clamp(height, 0, ss.y + ch - y);
 
-            var cropRight = x + width;
-            var cropBottom = y + height;
+            const cropRight = x + width;
+            const cropBottom = y + height;
 
-            var intersects = !(ss.r < x || ss.b < y || ss.x > cropRight || ss.y > cropBottom);
+            const intersects = !(ss.r < x || ss.b < y || ss.x > cropRight || ss.y > cropBottom);
 
             if (intersects)
             {
-                var ix = Math.max(ss.x, x);
-                var iy = Math.max(ss.y, y);
-                var iw = Math.min(ss.r, cropRight) - ix;
-                var ih = Math.min(ss.b, cropBottom) - iy;
+                const ix = Math.max(ss.x, x);
+                const iy = Math.max(ss.y, y);
+                const iw = Math.min(ss.r, cropRight) - ix;
+                const ih = Math.min(ss.b, cropBottom) - iy;
 
                 ow = iw;
                 oh = ih;
@@ -638,10 +422,8 @@ var Frame = new Class({
             }
         }
 
-        var tw = this.source.width;
-        var th = this.source.height;
-
-        //  Map the given coordinates into UV space, clamping to the 0-1 range.
+        const tw = this.source.width;
+        const th = this.source.height;
 
         crop.u0 = Math.max(0, ox / tw);
         crop.v0 = 1 - Math.max(0, oy / th);
@@ -663,7 +445,7 @@ var Frame = new Class({
         crop.flipY = flipY;
 
         return crop;
-    },
+    }
 
     /**
      * Takes a crop data object and recalculates the UVs based on the dimensions inside the crop object.
@@ -678,10 +460,10 @@ var Frame = new Class({
      *
      * @return {object} The updated crop data object.
      */
-    updateCropUVs: function (crop, flipX, flipY)
+    updateCropUVs (crop: any, flipX: boolean, flipY: boolean): any
     {
         return this.setCropUVs(crop, crop.x, crop.y, crop.width, crop.height, flipX, flipY);
-    },
+    }
 
     /**
      * Directly sets the canvas and WebGL UV data for this frame.
@@ -701,16 +483,12 @@ var Frame = new Class({
      *
      * @return {this} This Frame object.
      */
-    setUVs: function (width, height, u0, v0, u1, v1)
+    setUVs (width: number, height: number, u0: number, v0: number, u1: number, v1: number): this
     {
-        //  Canvas data
-
-        var cd = this.data.drawImage;
+        const cd = this.data.drawImage;
 
         cd.width = width;
         cd.height = height;
-
-        //  WebGL data
 
         this.u0 = u0;
         this.v0 = v0;
@@ -719,7 +497,7 @@ var Frame = new Class({
         this.v1 = v1;
 
         return this;
-    },
+    }
 
     /**
      * Updates the internal WebGL UV cache and the drawImage cache.
@@ -729,24 +507,20 @@ var Frame = new Class({
      *
      * @return {this} This Frame object.
      */
-    updateUVs: function ()
+    updateUVs (): this
     {
-        var cx = this.cutX;
-        var cy = this.cutY;
-        var cw = this.cutWidth;
-        var ch = this.cutHeight;
+        const cx = this.cutX;
+        const cy = this.cutY;
+        const cw = this.cutWidth;
+        const ch = this.cutHeight;
 
-        //  Canvas data
-
-        var cd = this.data.drawImage;
+        const cd = this.data.drawImage;
 
         cd.width = cw;
         cd.height = ch;
 
-        //  WebGL data
-
-        var tw = this.source.width;
-        var th = this.source.height;
+        const tw = this.source.width;
+        const th = this.source.height;
 
         this.u0 = cx / tw;
         this.v0 = 1 - cy / th;
@@ -755,7 +529,7 @@ var Frame = new Class({
         this.v1 = 1 - (cy + ch) / th;
 
         return this;
-    },
+    }
 
     /**
      * Updates the internal WebGL UV cache.
@@ -765,10 +539,10 @@ var Frame = new Class({
      *
      * @return {this} This Frame object.
      */
-    updateUVsInverted: function ()
+    updateUVsInverted (): this
     {
-        var tw = this.source.width;
-        var th = this.source.height;
+        const tw = this.source.width;
+        const th = this.source.height;
 
         this.u0 = (this.cutX + this.cutHeight) / tw;
         this.v0 = 1 - this.cutY / th;
@@ -777,7 +551,7 @@ var Frame = new Class({
         this.v1 = 1 - (this.cutY + this.cutWidth) / th;
 
         return this;
-    },
+    }
 
     /**
      * Clones this Frame into a new Frame object.
@@ -787,9 +561,9 @@ var Frame = new Class({
      *
      * @return {Phaser.Textures.Frame} A clone of this Frame.
      */
-    clone: function ()
+    clone (): Frame
     {
-        var clone = new Frame(this.texture, this.name, this.sourceIndex);
+        const clone = new Frame(this.texture, this.name, this.sourceIndex);
 
         clone.cutX = this.cutX;
         clone.cutY = this.cutY;
@@ -815,7 +589,7 @@ var Frame = new Class({
         clone.updateUVs();
 
         return clone;
-    },
+    }
 
     /**
      * Destroys this Frame by nulling its reference to the parent Texture and and data objects.
@@ -823,29 +597,26 @@ var Frame = new Class({
      * @method Phaser.Textures.Frame#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy (): void
     {
         this.texture = null;
         this.source = null;
         this.customData = null;
         this.data = null;
-    },
+    }
 
     /**
      * A reference to the Texture Source WebGL Texture that this Frame is using.
-     * 
+     *
      * @name Phaser.Textures.Frame#glTexture
      * @type {Phaser.Renderer.WebGL.Wrappers.WebGLTextureWrapper}
      * @readonly
      * @since 3.11.0
      */
-    glTexture: {
-
-        get: function ()
-        {
-            return this.source.glTexture;
-        }
-    },
+    get glTexture (): any
+    {
+        return this.source.glTexture;
+    }
 
     /**
      * The width of the Frame in its un-trimmed, un-padded state, as prepared in the art package,
@@ -856,14 +627,10 @@ var Frame = new Class({
      * @readonly
      * @since 3.0.0
      */
-    realWidth: {
-
-        get: function ()
-        {
-            return this.data.sourceSize.w;
-        }
-
-    },
+    get realWidth (): number
+    {
+        return this.data.sourceSize.w;
+    }
 
     /**
      * The height of the Frame in its un-trimmed, un-padded state, as prepared in the art package,
@@ -874,14 +641,10 @@ var Frame = new Class({
      * @readonly
      * @since 3.0.0
      */
-    realHeight: {
-
-        get: function ()
-        {
-            return this.data.sourceSize.h;
-        }
-
-    },
+    get realHeight (): number
+    {
+        return this.data.sourceSize.h;
+    }
 
     /**
      * The radius of the Frame (derived from sqrt(w * w + h * h) / 2)
@@ -891,14 +654,10 @@ var Frame = new Class({
      * @readonly
      * @since 3.0.0
      */
-    radius: {
-
-        get: function ()
-        {
-            return this.data.radius;
-        }
-
-    },
+    get radius (): number
+    {
+        return this.data.radius;
+    }
 
     /**
      * Is the Frame trimmed or not?
@@ -908,14 +667,10 @@ var Frame = new Class({
      * @readonly
      * @since 3.0.0
      */
-    trimmed: {
-
-        get: function ()
-        {
-            return this.data.trim;
-        }
-
-    },
+    get trimmed (): boolean
+    {
+        return this.data.trim;
+    }
 
     /**
      * Does the Frame have scale9 border data?
@@ -925,14 +680,10 @@ var Frame = new Class({
      * @readonly
      * @since 3.70.0
      */
-    scale9: {
-
-        get: function ()
-        {
-            return this.data.scale9;
-        }
-
-    },
+    get scale9 (): boolean
+    {
+        return this.data.scale9;
+    }
 
     /**
      * If the Frame has scale9 border data, is it 3-slice or 9-slice data?
@@ -942,14 +693,10 @@ var Frame = new Class({
      * @readonly
      * @since 3.70.0
      */
-    is3Slice: {
-
-        get: function ()
-        {
-            return this.data.is3Slice;
-        }
-
-    },
+    get is3Slice (): boolean
+    {
+        return this.data.is3Slice;
+    }
 
     /**
      * The Canvas drawImage data object.
@@ -959,15 +706,9 @@ var Frame = new Class({
      * @readonly
      * @since 3.0.0
      */
-    canvasData: {
-
-        get: function ()
-        {
-            return this.data.drawImage;
-        }
-
+    get canvasData (): any
+    {
+        return this.data.drawImage;
     }
 
-});
-
-module.exports = Frame;
+}

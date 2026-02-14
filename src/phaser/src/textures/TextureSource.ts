@@ -7,9 +7,8 @@
 import { IsSizePowerOfTwo } from '../math/pow2/IsSizePowerOfTwo';
 
 import * as CanvasPool from '../display/canvas/CanvasPool';
-var Class = require('../utils/Class');
-var ScaleModes = require('../renderer/ScaleModes');
-var WebGLTextureWrapper = require('../renderer/webgl/wrappers/WebGLTextureWrapper');
+import ScaleModes from '../renderer/ScaleModes';
+import WebGLTextureWrapper from '../renderer/webgl/wrappers/WebGLTextureWrapper';
 
 /**
  * @classdesc
@@ -30,15 +29,28 @@ var WebGLTextureWrapper = require('../renderer/webgl/wrappers/WebGLTextureWrappe
  * @param {number} [height] - Optional height of the source image. If not given it's derived from the source itself.
  * @param {boolean} [flipY=true] - Sets the `UNPACK_FLIP_Y_WEBGL` flag the WebGL Texture uses during upload.
  */
-var TextureSource = new Class({
+export class TextureSource {
 
-    initialize:
+    renderer: any;
+    texture: any;
+    source: any;
+    image: any;
+    compressionAlgorithm: number | null;
+    resolution: number;
+    width: number;
+    height: number;
+    scaleMode: number;
+    isCanvas: boolean;
+    isVideo: boolean;
+    isRenderTexture: boolean;
+    isGLTexture: boolean;
+    isPowerOf2: boolean;
+    glTexture: any;
+    flipY: boolean;
 
-    function TextureSource (texture, source, width, height, flipY)
+    constructor(texture: any, source: any, width?: number, height?: number, flipY: boolean = true)
     {
-        if (flipY === undefined) { flipY = true; }
-
-        var game = texture.manager.game;
+        const game = texture.manager.game;
 
         /**
          * A reference to the Canvas or WebGL Renderer.
@@ -204,7 +216,7 @@ var TextureSource = new Class({
         this.flipY = flipY;
 
         this.init(game);
-    },
+    }
 
     /**
      * Creates a WebGL Texture, if required, and sets the Texture filter mode.
@@ -214,21 +226,21 @@ var TextureSource = new Class({
      *
      * @param {Phaser.Game} game - A reference to the Phaser Game instance.
      */
-    init: function (game)
+    init(game: any): void
     {
-        var renderer = this.renderer;
+        const renderer = this.renderer;
 
         if (renderer)
         {
-            var source = this.source;
+            const source = this.source;
 
             if (renderer.gl)
             {
-                var image = this.image;
-                var flipY = this.flipY;
-                var width = this.width;
-                var height = this.height;
-                var scaleMode = this.scaleMode;
+                const image = this.image;
+                const flipY = this.flipY;
+                const width = this.width;
+                const height = this.height;
+                const scaleMode = this.scaleMode;
 
                 if (this.isCanvas)
                 {
@@ -259,7 +271,7 @@ var TextureSource = new Class({
                     this.glTexture = renderer.createTextureFromSource(image, width, height, scaleMode, undefined, flipY);
                 }
 
-                if (typeof WEBGL_DEBUG)
+                if (typeof WEBGL_DEBUG !== 'undefined')
                 {
                     this.glTexture.spectorMetadata = { textureKey: this.texture.key };
                 }
@@ -274,7 +286,7 @@ var TextureSource = new Class({
         {
             this.setFilter(1);
         }
-    },
+    }
 
     /**
      * Sets the Filter Mode for this Texture.
@@ -288,7 +300,7 @@ var TextureSource = new Class({
      *
      * @param {Phaser.Textures.FilterMode} filterMode - The Filter Mode.
      */
-    setFilter: function (filterMode)
+    setFilter(filterMode: number): void
     {
         if (this.renderer && this.renderer.gl)
         {
@@ -296,7 +308,7 @@ var TextureSource = new Class({
         }
 
         this.scaleMode = filterMode;
-    },
+    }
 
     /**
      * Sets the `UNPACK_FLIP_Y_WEBGL` flag for the WebGL Texture during texture upload.
@@ -306,17 +318,15 @@ var TextureSource = new Class({
      *
      * @param {boolean} [value=true] - Should the WebGL Texture be flipped on the Y axis on texture upload or not?
      */
-    setFlipY: function (value)
+    setFlipY(value: boolean = true): this
     {
-        if (value === undefined) { value = true; }
-
         if (value === this.flipY) { return this; }
 
         this.flipY = value;
         this.update();
 
         return this;
-    },
+    }
 
     /**
      * Sets the wrap mode for this TextureSource.
@@ -340,7 +350,7 @@ var TextureSource = new Class({
      *
      * @return {this} This TextureSource instance.
      */
-    setWrap: function (wrapModeS, wrapModeT)
+    setWrap(wrapModeS: number, wrapModeT: number): this
     {
         if (this.renderer && this.renderer.gl)
         {
@@ -348,7 +358,7 @@ var TextureSource = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Update the underlying WebGLTexture with the current source data.
@@ -360,16 +370,16 @@ var TextureSource = new Class({
      * @method Phaser.Textures.TextureSource#update
      * @since 3.7.0
      */
-    update: function ()
+    update(): void
     {
-        var renderer = this.renderer;
-        var image = this.image;
-        var flipY = this.flipY;
-        var gl = renderer.gl;
+        const renderer = this.renderer;
+        const image = this.image;
+        const flipY = this.flipY;
+        const gl = renderer.gl;
 
         if (gl)
         {
-            var textureWrapper = this.glTexture;
+            const textureWrapper = this.glTexture;
             if (this.isCanvas)
             {
                 renderer.updateCanvasTexture(image, textureWrapper, flipY);
@@ -393,7 +403,7 @@ var TextureSource = new Class({
                 );
             }
         }
-    },
+    }
 
     /**
      * Updates the dimensions of this Texture Source.
@@ -405,7 +415,7 @@ var TextureSource = new Class({
      * @param {number} width - The new width of the source image.
      * @param {number} height - The new height of the source image.
      */
-    updateSize: function (width, height)
+    updateSize(width: number, height: number): void
     {
         if (this.width === width && this.height === height)
         {
@@ -414,7 +424,7 @@ var TextureSource = new Class({
         this.width = width;
         this.height = height;
         this.isPowerOf2 = IsSizePowerOfTwo(width, height);
-    },
+    }
 
     /**
      * Change the source data of this TextureSource.
@@ -438,7 +448,7 @@ var TextureSource = new Class({
      *
      * @param {Phaser.Types.Textures.TextureSource} source - The new source data.
      */
-    updateSource: function (source)
+    updateSource(source: any): void
     {
         // Tidy up unused pool canvases.
         if (this.isCanvas && source !== this.image && !(source instanceof HTMLCanvasElement))
@@ -457,7 +467,7 @@ var TextureSource = new Class({
         this.isRenderTexture = (source.type === 'RenderTexture' || source.type === 'DynamicTexture');
         this.isGLTexture = source instanceof WebGLTextureWrapper;
         this.update();
-    },
+    }
 
     /**
      * Destroys this Texture Source and nulls the references.
@@ -465,7 +475,7 @@ var TextureSource = new Class({
      * @method Phaser.Textures.TextureSource#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy(): void
     {
         if (this.glTexture)
         {
@@ -484,6 +494,4 @@ var TextureSource = new Class({
         this.glTexture = null;
     }
 
-});
-
-module.exports = TextureSource;
+}

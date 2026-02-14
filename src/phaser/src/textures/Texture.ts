@@ -4,11 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
-var Frame = require('./Frame');
-var TextureSource = require('./TextureSource');
+import { Frame } from './Frame';
+import { TextureSource } from './TextureSource';
+import { FilterMode } from './const';
 
-var TEXTURE_MISSING_ERROR = 'Texture "%s" has no frame "%s"';
+const TEXTURE_MISSING_ERROR = 'Texture "%s" has no frame "%s"';
 
 /**
  * @classdesc
@@ -36,11 +36,25 @@ var TEXTURE_MISSING_ERROR = 'Texture "%s" has no frame "%s"';
  * @param {number} [width] - The width of the Texture. This is optional and automatically derived from the source images.
  * @param {number} [height] - The height of the Texture. This is optional and automatically derived from the source images.
  */
-var Texture = new Class({
+export class Texture {
 
-    initialize:
+    manager: any;
+    key: string;
+    source: TextureSource[];
+    dataSource: any[];
+    frames: Record<string | number, Frame>;
+    customData: Record<string, any>;
+    firstFrame: string;
+    frameTotal: number;
+    smoothPixelArt: boolean | null;
 
-    function Texture (manager, key, source, width, height)
+    constructor(
+        manager: any,
+        key: string,
+        source: any | any[],
+        width?: number,
+        height?: number
+    )
     {
         if (!Array.isArray(source))
         {
@@ -140,11 +154,11 @@ var Texture = new Class({
         this.smoothPixelArt = null;
 
         //  Load the Sources
-        for (var i = 0; i < source.length; i++)
+        for (let i = 0; i < source.length; i++)
         {
             this.source.push(new TextureSource(this, source[i], width, height));
         }
-    },
+    }
 
     /**
      * Adds a new Frame to this Texture.
@@ -165,14 +179,14 @@ var Texture = new Class({
      *
      * @return {?Phaser.Textures.Frame} The Frame that was added to this Texture, or `null` if the given name already exists.
      */
-    add: function (name, sourceIndex, x, y, width, height)
+    add(name: string | number, sourceIndex: number, x: number, y: number, width: number, height: number): Frame | null
     {
         if (this.has(name))
         {
             return null;
         }
 
-        var frame = new Frame(this, name, sourceIndex, x, y, width, height);
+        const frame = new Frame(this, name, sourceIndex, x, y, width, height);
 
         this.frames[name] = frame;
 
@@ -182,13 +196,13 @@ var Texture = new Class({
         //  should the dev incorrectly specify the frame index
         if (this.firstFrame === '__BASE')
         {
-            this.firstFrame = name;
+            this.firstFrame = String(name);
         }
 
         this.frameTotal++;
 
         return frame;
-    },
+    }
 
     /**
      * Removes the given Frame from this Texture. The Frame is destroyed immediately.
@@ -203,11 +217,11 @@ var Texture = new Class({
      *
      * @return {boolean} True if a Frame with the matching key was removed from this Texture.
      */
-    remove: function (name)
+    remove(name: string): boolean
     {
         if (this.has(name))
         {
-            var frame = this.get(name);
+            const frame = this.get(name);
 
             frame.destroy();
 
@@ -217,7 +231,7 @@ var Texture = new Class({
         }
 
         return false;
-    },
+    }
 
     /**
      * Checks to see if a Frame matching the given key exists within this Texture.
@@ -229,10 +243,10 @@ var Texture = new Class({
      *
      * @return {boolean} True if a Frame with the matching key exists in this Texture.
      */
-    has: function (name)
+    has(name: string | number): boolean
     {
-        return this.frames.hasOwnProperty(name);
-    },
+        return Object.prototype.hasOwnProperty.call(this.frames, name);
+    }
 
     /**
      * Gets a Frame from this Texture based on either the key or the index of the Frame.
@@ -248,7 +262,7 @@ var Texture = new Class({
      *
      * @return {Phaser.Textures.Frame} The Texture Frame.
      */
-    get: function (name)
+    get(name?: string | number): Frame
     {
         //  null, undefined, empty string, zero
         if (!name)
@@ -256,7 +270,7 @@ var Texture = new Class({
             name = this.firstFrame;
         }
 
-        var frame = this.frames[name];
+        let frame = this.frames[name];
 
         if (!frame)
         {
@@ -266,7 +280,7 @@ var Texture = new Class({
         }
 
         return frame;
-    },
+    }
 
     /**
      * Takes the given TextureSource and returns the index of it within this Texture.
@@ -281,9 +295,9 @@ var Texture = new Class({
      *
      * @return {number} The index of the TextureSource within this Texture, or -1 if not in this Texture.
      */
-    getTextureSourceIndex: function (source)
+    getTextureSourceIndex(source: TextureSource): number
     {
-        for (var i = 0; i < this.source.length; i++)
+        for (let i = 0; i < this.source.length; i++)
         {
             if (this.source[i] === source)
             {
@@ -292,7 +306,7 @@ var Texture = new Class({
         }
 
         return -1;
-    },
+    }
 
     /**
      * Returns an array of all the Frames in the given TextureSource.
@@ -305,20 +319,18 @@ var Texture = new Class({
      *
      * @return {Phaser.Textures.Frame[]} An array of Texture Frames.
      */
-    getFramesFromTextureSource: function (sourceIndex, includeBase)
+    getFramesFromTextureSource(sourceIndex: number, includeBase: boolean = false): Frame[]
     {
-        if (includeBase === undefined) { includeBase = false; }
+        const out: Frame[] = [];
 
-        var out = [];
-
-        for (var frameName in this.frames)
+        for (const frameName in this.frames)
         {
             if (frameName === '__BASE' && !includeBase)
             {
                 continue;
             }
 
-            var frame = this.frames[frameName];
+            const frame = this.frames[frameName];
 
             if (frame.sourceIndex === sourceIndex)
             {
@@ -327,7 +339,7 @@ var Texture = new Class({
         }
 
         return out;
-    },
+    }
 
     /**
      * Based on the given Texture Source Index, this method will get all of the Frames using
@@ -343,22 +355,20 @@ var Texture = new Class({
      *
      * @return {Phaser.Types.Math.RectangleLike} An object containing the bounds of the Frames using the given Texture Source Index.
      */
-    getFrameBounds: function (sourceIndex)
+    getFrameBounds(sourceIndex: number = 0): { x: number; y: number; width: number; height: number }
     {
-        if (sourceIndex === undefined) { sourceIndex = 0; }
+        const frames = this.getFramesFromTextureSource(sourceIndex, true);
 
-        var frames = this.getFramesFromTextureSource(sourceIndex, true);
+        const baseFrame = frames[0];
 
-        var baseFrame = frames[0];
+        let minX = baseFrame.cutX;
+        let minY = baseFrame.cutY;
+        let maxX = baseFrame.cutX + baseFrame.cutWidth;
+        let maxY = baseFrame.cutY + baseFrame.cutHeight;
 
-        var minX = baseFrame.cutX;
-        var minY = baseFrame.cutY;
-        var maxX = baseFrame.cutX + baseFrame.cutWidth;
-        var maxY = baseFrame.cutY + baseFrame.cutHeight;
-
-        for (var i = 1; i < frames.length; i++)
+        for (let i = 1; i < frames.length; i++)
         {
-            var frame = frames[i];
+            const frame = frames[i];
 
             if (frame.cutX < minX)
             {
@@ -382,7 +392,7 @@ var Texture = new Class({
         }
 
         return { x: minX, y: minY, width: maxX - minX, height: maxY - minY };
-    },
+    }
 
     /**
      * Returns an array with all of the names of the Frames in this Texture.
@@ -397,15 +407,13 @@ var Texture = new Class({
      *
      * @return {string[]} An array of all Frame names in this Texture.
      */
-    getFrameNames: function (includeBase)
+    getFrameNames(includeBase: boolean = false): string[]
     {
-        if (includeBase === undefined) { includeBase = false; }
-
-        var out = Object.keys(this.frames);
+        const out = Object.keys(this.frames);
 
         if (!includeBase)
         {
-            var idx = out.indexOf('__BASE');
+            const idx = out.indexOf('__BASE');
 
             if (idx !== -1)
             {
@@ -414,7 +422,7 @@ var Texture = new Class({
         }
 
         return out;
-    },
+    }
 
     /**
      * Given a Frame name, return the source image it uses to render with.
@@ -428,14 +436,14 @@ var Texture = new Class({
      *
      * @return {(HTMLImageElement|HTMLCanvasElement|Phaser.GameObjects.RenderTexture)} The DOM Image, Canvas Element or Render Texture.
      */
-    getSourceImage: function (name)
+    getSourceImage(name?: string | number): any
     {
         if (name === undefined || name === null || this.frameTotal === 1)
         {
             name = '__BASE';
         }
 
-        var frame = this.frames[name];
+        const frame = this.frames[name];
 
         if (frame)
         {
@@ -447,7 +455,7 @@ var Texture = new Class({
 
             return this.frames['__BASE'].source.image;
         }
-    },
+    }
 
     /**
      * Given a Frame name, return the data source image it uses to render with.
@@ -462,15 +470,15 @@ var Texture = new Class({
      *
      * @return {(HTMLImageElement|HTMLCanvasElement)} The DOM Image or Canvas Element.
      */
-    getDataSourceImage: function (name)
+    getDataSourceImage(name?: string | number): any
     {
         if (name === undefined || name === null || this.frameTotal === 1)
         {
             name = '__BASE';
         }
 
-        var frame = this.frames[name];
-        var idx;
+        const frame = this.frames[name];
+        let idx: number;
 
         if (!frame)
         {
@@ -484,7 +492,7 @@ var Texture = new Class({
         }
 
         return this.dataSource[idx].image;
-    },
+    }
 
     /**
      * Set the source data for this Texture.
@@ -507,21 +515,19 @@ var Texture = new Class({
      * @param {number} [width] - Width to use, if not available from the data (e.g. using a Uint8Array)
      * @param {number} [height] - Height to use, if not available from the data (e.g. using a Uint8Array)
      */
-    setSource: function (data, startIndex, renew, width, height)
+    setSource(data: any | any[], startIndex: number = 0, renew: boolean = false, width?: number, height?: number): void
     {
-        if (startIndex === undefined) { startIndex = 0; }
-        if (renew === undefined) { renew = false; }
         if (!Array.isArray(data))
         {
             data = [ data ];
         }
-        for (var i = 0; i < data.length; i++)
+        for (let i = 0; i < data.length; i++)
         {
-            var index = i + startIndex;
-            var datum = data[i];
-            var source = this.source[index];
-            var w = datum.naturalWidth || datum.videoWidth || datum.width || source.width || width || 0;
-            var h = datum.naturalHeight || datum.videoHeight || datum.height || source.height || height || 0;
+            const index = i + startIndex;
+            const datum = data[i];
+            const source = this.source[index];
+            const w = datum.naturalWidth || datum.videoWidth || datum.width || source?.width || width || 0;
+            const h = datum.naturalHeight || datum.videoHeight || datum.height || source?.height || height || 0;
 
             if (source)
             {
@@ -534,7 +540,7 @@ var Texture = new Class({
             }
             this.source[index] = new TextureSource(this, datum, w, h);
         }
-    },
+    }
 
     /**
      * Adds a data source image to this Texture.
@@ -553,21 +559,19 @@ var Texture = new Class({
      * @param {number} [width] - Width to use, if not available from the data (e.g. using a Uint8Array)
      * @param {number} [height] - Height to use, if not available from the data (e.g. using a Uint8Array)
      */
-    setDataSource: function (data, startIndex, renew, width, height)
+    setDataSource(data: any | any[], startIndex: number = 0, renew: boolean = false, width?: number, height?: number): void
     {
-        if (startIndex === undefined) { startIndex = 0; }
-        if (renew === undefined) { renew = false; }
         if (!Array.isArray(data))
         {
             data = [ data ];
         }
-        for (var i = 0; i < data.length; i++)
+        for (let i = 0; i < data.length; i++)
         {
-            var index = i + startIndex;
-            var datum = data[i];
-            var source = this.dataSource[index];
-            var w = datum.naturalWidth || datum.videoWidth || datum.width || source.width || width || 0;
-            var h = datum.naturalHeight || datum.videoHeight || datum.height || source.height || height || 0;
+            const index = i + startIndex;
+            const datum = data[i];
+            const source = this.dataSource[index];
+            const w = datum.naturalWidth || datum.videoWidth || datum.width || source?.width || width || 0;
+            const h = datum.naturalHeight || datum.videoHeight || datum.height || source?.height || height || 0;
 
             if (source)
             {
@@ -580,7 +584,7 @@ var Texture = new Class({
             }
             this.dataSource[index] = new TextureSource(this, datum, w, h);
         }
-    },
+    }
 
     /**
      * Sets the Filter Mode for this Texture.
@@ -596,20 +600,18 @@ var Texture = new Class({
      *
      * @param {Phaser.Textures.FilterMode} filterMode - The Filter Mode.
      */
-    setFilter: function (filterMode)
+    setFilter(filterMode: number): void
     {
-        var i;
-
-        for (i = 0; i < this.source.length; i++)
+        for (let i = 0; i < this.source.length; i++)
         {
             this.source[i].setFilter(filterMode);
         }
 
-        for (i = 0; i < this.dataSource.length; i++)
+        for (let i = 0; i < this.dataSource.length; i++)
         {
             this.dataSource[i].setFilter(filterMode);
         }
-    },
+    }
 
     /**
      * Set the `smoothPixelArt` property for this Texture.
@@ -622,15 +624,15 @@ var Texture = new Class({
      * @since 4.0.0
      * @param {boolean|null} value - The value of the smoothPixelArt property.
      */
-    setSmoothPixelArt: function (value)
+    setSmoothPixelArt(value: boolean | null): void
     {
         this.smoothPixelArt = value;
 
         if (value)
         {
-            this.setFilter(Phaser.Textures.FilterMode.LINEAR);
+            this.setFilter(FilterMode.LINEAR);
         }
-    },
+    }
 
     /**
      * Set the wrap mode for this Texture.
@@ -653,20 +655,20 @@ var Texture = new Class({
      * @param {Phaser.Textures.WrapMode} wrapModeS - The wrap mode for the S (horizontal) axis.
      * @param {Phaser.Textures.WrapMode} [wrapModeT] - The wrap mode for the T (vertical) axis.
      */
-    setWrap: function (wrapModeS, wrapModeT)
+    setWrap(wrapModeS: number, wrapModeT?: number): void
     {
         if (wrapModeT === undefined) { wrapModeT = wrapModeS; }
 
-        for (var i = 0; i < this.source.length; i++)
+        for (let i = 0; i < this.source.length; i++)
         {
             this.source[i].setWrap(wrapModeS, wrapModeT);
         }
 
-        for (i = 0; i < this.dataSource.length; i++)
+        for (let i = 0; i < this.dataSource.length; i++)
         {
             this.dataSource[i].setWrap(wrapModeS, wrapModeT);
         }
-    },
+    }
 
     /**
      * Destroys this Texture and releases references to its sources and frames.
@@ -674,13 +676,12 @@ var Texture = new Class({
      * @method Phaser.Textures.Texture#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy(): void
     {
-        var i;
-        var source = this.source;
-        var dataSource = this.dataSource;
+        const source = this.source;
+        const dataSource = this.dataSource;
 
-        for (i = 0; i < source.length; i++)
+        for (let i = 0; i < source.length; i++)
         {
             if (source[i])
             {
@@ -688,7 +689,7 @@ var Texture = new Class({
             }
         }
 
-        for (i = 0; i < dataSource.length; i++)
+        for (let i = 0; i < dataSource.length; i++)
         {
             if (dataSource[i])
             {
@@ -696,9 +697,9 @@ var Texture = new Class({
             }
         }
 
-        for (var frameName in this.frames)
+        for (const frameName in this.frames)
         {
-            var frame = this.frames[frameName];
+            const frame = this.frames[frameName];
 
             if (frame)
             {
@@ -715,6 +716,4 @@ var Texture = new Class({
         this.manager = null;
     }
 
-});
-
-module.exports = Texture;
+}

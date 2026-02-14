@@ -15,12 +15,11 @@
  *
  * @return {Phaser.Types.Textures.CompressedTextureData} The Compressed Texture data.
  */
-var KTXParser = function (data)
-{
-    var idCheck = [ 0xab, 0x4b, 0x54, 0x58, 0x20, 0x31, 0x31, 0xbb, 0x0d, 0x0a, 0x1a, 0x0a ];
+export const KTXParser = (data: ArrayBuffer): any | undefined => {
+    const idCheck = [ 0xab, 0x4b, 0x54, 0x58, 0x20, 0x31, 0x31, 0xbb, 0x0d, 0x0a, 0x1a, 0x0a ];
 
-    var i;
-    var id = new Uint8Array(data, 0, 12);
+    let i;
+    const id = new Uint8Array(data, 0, 12);
 
     for (i = 0; i < id.length; i++)
     {
@@ -32,13 +31,13 @@ var KTXParser = function (data)
         }
     }
 
-    var size = Uint32Array.BYTES_PER_ELEMENT;
+    const size = Uint32Array.BYTES_PER_ELEMENT;
 
-    var head = new DataView(data, 12, 13 * size);
+    const head = new DataView(data, 12, 13 * size);
 
-    var littleEndian = (head.getUint32(0, true) === 0x04030201);
+    const littleEndian = (head.getUint32(0, true) === 0x04030201);
 
-    var glType = head.getUint32(1 * size, littleEndian);
+    const glType = head.getUint32(1 * size, littleEndian);
 
     if (glType !== 0)
     {
@@ -47,23 +46,23 @@ var KTXParser = function (data)
         return;
     }
 
-    var internalFormat = head.getUint32(4 * size, littleEndian);
-    var width = head.getUint32(6 * size, littleEndian);
-    var height = head.getUint32(7 * size, littleEndian);
+    const internalFormat = head.getUint32(4 * size, littleEndian);
+    const width = head.getUint32(6 * size, littleEndian);
+    const height = head.getUint32(7 * size, littleEndian);
 
-    var mipmapLevels = Math.max(1, head.getUint32(11 * size, littleEndian));
+    const mipmapLevels = Math.max(1, head.getUint32(11 * size, littleEndian));
 
-    var bytesOfKeyValueData = head.getUint32(12 * size, littleEndian);
+    const bytesOfKeyValueData = head.getUint32(12 * size, littleEndian);
 
-    var mipmaps = new Array(mipmapLevels);
+    const mipmaps = new Array(mipmapLevels);
 
-    var offset = 12 + 13 * 4 + bytesOfKeyValueData;
-    var levelWidth = width;
-    var levelHeight = height;
+    let offset = 12 + 13 * 4 + bytesOfKeyValueData;
+    let levelWidth = width;
+    let levelHeight = height;
 
     for (i = 0; i < mipmapLevels; i++)
     {
-        var levelSize = new Int32Array(data, offset, 1)[0];
+        const levelSize = new Int32Array(data, offset, 1)[0];
 
         // levelSize field
         offset += 4;
@@ -92,5 +91,3 @@ var KTXParser = function (data)
         generateMipmap: false
     };
 };
-
-module.exports = KTXParser;

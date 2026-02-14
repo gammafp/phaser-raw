@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import type { Texture } from '../Texture';
+
 /**
  * Adds an Image Element to a Texture.
  *
@@ -17,13 +19,10 @@
  *
  * @return {Phaser.Textures.Texture} The Texture modified by this parser.
  */
-var Image = function (texture, sourceIndex)
-{
-    var source = texture.source[sourceIndex];
+export const Image = (texture: Texture, sourceIndex: number): Texture => {
+    const source = texture.source[sourceIndex];
 
     texture.add('__BASE', sourceIndex, 0, 0, source.width, source.height);
 
     return texture;
 };
-
-module.exports = Image;

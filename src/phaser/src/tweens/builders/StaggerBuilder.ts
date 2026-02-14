@@ -56,7 +56,7 @@ export const StaggerBuilder = (value: number | number[], options?: any): Functio
 
     let result: Function;
 
-    const start = GetValue(options, 'start', 0);
+    let start = GetValue(options, 'start', 0);
     const ease = GetValue(options, 'ease', null);
     const grid = GetValue(options, 'grid', null);
 

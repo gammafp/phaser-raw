@@ -7,17 +7,15 @@
 /**
  * @ignore
  */
-function GetSize (width, height, x, y, dx, dy, mult)
+function GetSize (width: number, height: number, x: number, y: number, dx: number, dy: number, mult: number = 16): number
 {
-    if (mult === undefined) { mult = 16; }
-
     return Math.floor((width + x) / dx) * Math.floor((height + y) / dy) * mult;
 }
 
 /**
  * @ignore
  */
-function PVRTC2bppSize (width, height)
+function PVRTC2bppSize (width: number, height: number): number
 {
     width = Math.max(width, 16);
     height = Math.max(height, 8);
@@ -28,7 +26,7 @@ function PVRTC2bppSize (width, height)
 /**
  * @ignore
  */
-function PVRTC4bppSize (width, height)
+function PVRTC4bppSize (width: number, height: number): number
 {
     width = Math.max(width, 8);
     height = Math.max(height, 8);
@@ -39,7 +37,7 @@ function PVRTC4bppSize (width, height)
 /**
  * @ignore
  */
-function BPTCSize (width, height)
+function BPTCSize (width: number, height: number): number
 {
     return Math.ceil(width / 4) * Math.ceil(height / 4) * 16;
 }
@@ -47,7 +45,7 @@ function BPTCSize (width, height)
 /**
  * @ignore
  */
-function DXTEtcSmallSize (width, height)
+function DXTEtcSmallSize (width: number, height: number): number
 {
     return GetSize(width, height, 3, 3, 4, 4, 8);
 }
@@ -55,7 +53,7 @@ function DXTEtcSmallSize (width, height)
 /**
  * @ignore
  */
-function DXTEtcAstcBigSize (width, height)
+function DXTEtcAstcBigSize (width: number, height: number): number
 {
     return GetSize(width, height, 3, 3, 4, 4);
 }
@@ -63,7 +61,7 @@ function DXTEtcAstcBigSize (width, height)
 /**
  * @ignore
  */
-function ATC5x4Size (width, height)
+function ATC5x4Size (width: number, height: number): number
 {
     return GetSize(width, height, 4, 3, 5, 4);
 }
@@ -71,7 +69,7 @@ function ATC5x4Size (width, height)
 /**
  * @ignore
  */
-function ATC5x5Size (width, height)
+function ATC5x5Size (width: number, height: number): number
 {
     return GetSize(width, height, 4, 4, 5, 5);
 }
@@ -79,7 +77,7 @@ function ATC5x5Size (width, height)
 /**
  * @ignore
  */
-function ATC6x5Size (width, height)
+function ATC6x5Size (width: number, height: number): number
 {
     return GetSize(width, height, 5, 4, 6, 5);
 }
@@ -87,7 +85,7 @@ function ATC6x5Size (width, height)
 /**
  * @ignore
  */
-function ATC6x6Size (width, height)
+function ATC6x6Size (width: number, height: number): number
 {
     return GetSize(width, height, 5, 5, 6, 6);
 }
@@ -95,7 +93,7 @@ function ATC6x6Size (width, height)
 /**
  * @ignore
  */
-function ATC8x5Size (width, height)
+function ATC8x5Size (width: number, height: number): number
 {
     return GetSize(width, height, 7, 4, 8, 5);
 }
@@ -103,7 +101,7 @@ function ATC8x5Size (width, height)
 /**
  * @ignore
  */
-function ATC8x6Size (width, height)
+function ATC8x6Size (width: number, height: number): number
 {
     return GetSize(width, height, 7, 5, 8, 6);
 }
@@ -111,7 +109,7 @@ function ATC8x6Size (width, height)
 /**
  * @ignore
  */
-function ATC8x8Size (width, height)
+function ATC8x8Size (width: number, height: number): number
 {
     return GetSize(width, height, 7, 7, 8, 8);
 }
@@ -119,7 +117,7 @@ function ATC8x8Size (width, height)
 /**
  * @ignore
  */
-function ATC10x5Size (width, height)
+function ATC10x5Size (width: number, height: number): number
 {
     return GetSize(width, height, 9, 4, 10, 5);
 }
@@ -127,7 +125,7 @@ function ATC10x5Size (width, height)
 /**
  * @ignore
  */
-function ATC10x6Size (width, height)
+function ATC10x6Size (width: number, height: number): number
 {
     return GetSize(width, height, 9, 5, 10, 6);
 }
@@ -135,7 +133,7 @@ function ATC10x6Size (width, height)
 /**
  * @ignore
  */
-function ATC10x8Size (width, height)
+function ATC10x8Size (width: number, height: number): number
 {
     return GetSize(width, height, 9, 7, 10, 8);
 }
@@ -143,7 +141,7 @@ function ATC10x8Size (width, height)
 /**
  * @ignore
  */
-function ATC10x10Size (width, height)
+function ATC10x10Size (width: number, height: number): number
 {
     return GetSize(width, height, 9, 9, 10, 10);
 }
@@ -151,7 +149,7 @@ function ATC10x10Size (width, height)
 /**
  * @ignore
  */
-function ATC12x10Size (width, height)
+function ATC12x10Size (width: number, height: number): number
 {
     return GetSize(width, height, 11, 9, 12, 10);
 }
@@ -159,7 +157,7 @@ function ATC12x10Size (width, height)
 /**
  * @ignore
  */
-function ATC12x12Size (width, height)
+function ATC12x12Size (width: number, height: number): number
 {
     return GetSize(width, height, 11, 11, 12, 12);
 }
@@ -200,7 +198,7 @@ function ATC12x12Size (width, height)
 /**
  * @ignore
  */
-var FORMATS = {
+const FORMATS: Record<number, { sizeFunc: (width: number, height: number) => number; glFormat: number[] }> = {
     0: { sizeFunc: PVRTC2bppSize, glFormat: [ 0x8C01 ] },
     1: { sizeFunc: PVRTC2bppSize, glFormat: [ 0x8C03 ] },
     2: { sizeFunc: PVRTC4bppSize, glFormat: [ 0x8C00 ] },
@@ -244,46 +242,45 @@ var FORMATS = {
  *
  * @return {Phaser.Types.Textures.CompressedTextureData} The Compressed Texture data.
  */
-var PVRParser = function (data)
-{
-    var header = new Uint32Array(data, 0, 13);
+export const PVRParser = (data: ArrayBuffer): any => {
+    const header = new Uint32Array(data, 0, 13);
 
     // VERSION
-    var version = header[0];
-    var versionMatch = version === 0x03525650;
+    const version = header[0];
+    const versionMatch = version === 0x03525650;
 
     //  PIXEL_FORMAT_INDEX
-    var pvrFormat = versionMatch ? header[2] : header[3];
+    const pvrFormat = versionMatch ? header[2] : header[3];
 
     // Colour Space
-    var colorSpace = header[4];
+    const colorSpace = header[4];
 
-    var internalFormat = FORMATS[pvrFormat].glFormat[colorSpace];
-    var sizeFunction = FORMATS[pvrFormat].sizeFunc;
+    const internalFormat = FORMATS[pvrFormat].glFormat[colorSpace];
+    const sizeFunction = FORMATS[pvrFormat].sizeFunc;
 
     //  MIPMAPCOUNT_INDEX
-    var mipmapLevels = header[11];
+    const mipmapLevels = header[11];
 
     //  WIDTH_INDEX
-    var width = header[7];
+    const width = header[7];
 
     //  HEIGHT_INDEX
-    var height = header[6];
+    const height = header[6];
 
     //  HEADER_SIZE + METADATA_SIZE_INDEX
-    var dataOffset = 52 + header[12];
+    const dataOffset = 52 + header[12];
 
-    var image = new Uint8Array(data, dataOffset);
+    const image = new Uint8Array(data, dataOffset);
 
-    var mipmaps = new Array(mipmapLevels);
+    const mipmaps = new Array(mipmapLevels);
 
-    var offset = 0;
-    var levelWidth = width;
-    var levelHeight = height;
+    let offset = 0;
+    let levelWidth = width;
+    let levelHeight = height;
 
-    for (var i = 0; i < mipmapLevels; i++)
+    for (let i = 0; i < mipmapLevels; i++)
     {
-        var levelSize = sizeFunction(levelWidth, levelHeight);
+        const levelSize = sizeFunction(levelWidth, levelHeight);
 
         mipmaps[i] = {
             data: new Uint8Array(image.buffer, image.byteOffset + offset, levelSize),
@@ -306,5 +303,3 @@ var PVRParser = function (data)
         generateMipmap: false
     };
 };
-
-module.exports = PVRParser;

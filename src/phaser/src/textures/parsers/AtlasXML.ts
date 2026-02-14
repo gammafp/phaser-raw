@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import type { Texture } from '../Texture';
+
 /**
  * Parses an XML Texture Atlas object and adds all the Frames into a Texture.
  *
@@ -18,8 +20,7 @@
  *
  * @return {Phaser.Textures.Texture} The Texture modified by this parser.
  */
-var AtlasXML = function (texture, sourceIndex, xml)
-{
+export const AtlasXML = (texture: Texture, sourceIndex: number, xml: any): Texture | undefined => {
     //  Malformed?
     if (!xml.getElementsByTagName('TextureAtlas'))
     {
@@ -28,24 +29,24 @@ var AtlasXML = function (texture, sourceIndex, xml)
     }
 
     //  Add in a __BASE entry (for the entire atlas)
-    var source = texture.source[sourceIndex];
+    const source = texture.source[sourceIndex];
 
     texture.add('__BASE', sourceIndex, 0, 0, source.width, source.height);
 
     //  By this stage frames is a fully parsed array
-    var frames = xml.getElementsByTagName('SubTexture');
+    const frames = xml.getElementsByTagName('SubTexture');
 
-    var newFrame;
+    let newFrame;
 
-    for (var i = 0; i < frames.length; i++)
+    for (let i = 0; i < frames.length; i++)
     {
-        var frame = frames[i].attributes;
+        const frame = frames[i].attributes;
 
-        var name = frame.name.value;
-        var x = parseInt(frame.x.value, 10);
-        var y = parseInt(frame.y.value, 10);
-        var width = parseInt(frame.width.value, 10);
-        var height = parseInt(frame.height.value, 10);
+        const name = frame.name.value;
+        const x = parseInt(frame.x.value, 10);
+        const y = parseInt(frame.y.value, 10);
+        const width = parseInt(frame.width.value, 10);
+        const height = parseInt(frame.height.value, 10);
 
         //  The frame values are the exact coordinates to cut the frame out of the atlas from
         newFrame = texture.add(name, sourceIndex, x, y, width, height);
@@ -53,10 +54,10 @@ var AtlasXML = function (texture, sourceIndex, xml)
         //  These are the original (non-trimmed) sprite values
         if (frame.frameX)
         {
-            var frameX = Math.abs(parseInt(frame.frameX.value, 10));
-            var frameY = Math.abs(parseInt(frame.frameY.value, 10));
-            var frameWidth = parseInt(frame.frameWidth.value, 10);
-            var frameHeight = parseInt(frame.frameHeight.value, 10);
+            const frameX = Math.abs(parseInt(frame.frameX.value, 10));
+            const frameY = Math.abs(parseInt(frame.frameY.value, 10));
+            const frameWidth = parseInt(frame.frameWidth.value, 10);
+            const frameHeight = parseInt(frame.frameHeight.value, 10);
 
             newFrame.setTrim(
                 width,
@@ -71,5 +72,3 @@ var AtlasXML = function (texture, sourceIndex, xml)
 
     return texture;
 };
-
-module.exports = AtlasXML;

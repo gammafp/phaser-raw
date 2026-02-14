@@ -6,6 +6,7 @@
 
 
 import { Clone } from '../../utils/object/Clone';
+import type { Texture } from '../Texture';
 
 /**
  * Parses a Texture Atlas JSON Array and adds the Frames to the Texture.
@@ -22,8 +23,7 @@ import { Clone } from '../../utils/object/Clone';
  *
  * @return {Phaser.Textures.Texture} The Texture modified by this parser.
  */
-var JSONArray = function (texture, sourceIndex, json)
-{
+export const JSONArray = (texture: Texture, sourceIndex: number, json: any): Texture | undefined => {
     //  Malformed?
     if (!json['frames'] && !json['textures'])
     {
@@ -32,18 +32,18 @@ var JSONArray = function (texture, sourceIndex, json)
     }
 
     //  Add in a __BASE entry (for the entire atlas)
-    var source = texture.source[sourceIndex];
+    const source = texture.source[sourceIndex];
 
     texture.add('__BASE', sourceIndex, 0, 0, source.width, source.height);
 
     //  By this stage frames is a fully parsed array
-    var frames = (Array.isArray(json.textures)) ? json.textures[sourceIndex].frames : json.frames;
+    const frames = (Array.isArray(json.textures)) ? json.textures[sourceIndex].frames : json.frames;
 
-    var newFrame;
+    let newFrame;
 
-    for (var i = 0; i < frames.length; i++)
+    for (let i = 0; i < frames.length; i++)
     {
-        var src = frames[i];
+        const src = frames[i];
 
         //  The frame values are the exact coordinates to cut the frame out of the atlas from
         newFrame = texture.add(src.filename, sourceIndex, src.frame.x, src.frame.y, src.frame.w, src.frame.h);
@@ -74,7 +74,7 @@ var JSONArray = function (texture, sourceIndex, json)
             newFrame.updateUVsInverted();
         }
 
-        var pivot = src.anchor || src.pivot;
+        const pivot = src.anchor || src.pivot;
 
         if (pivot)
         {
@@ -98,7 +98,7 @@ var JSONArray = function (texture, sourceIndex, json)
     }
 
     //  Copy over any additional data that was in the JSON to Texture.customData
-    for (var dataKey in json)
+    for (const dataKey in json)
     {
         if (dataKey === 'frames')
         {
@@ -117,5 +117,3 @@ var JSONArray = function (texture, sourceIndex, json)
 
     return texture;
 };
-
-module.exports = JSONArray;

@@ -5,7 +5,7 @@
  */
 
 var CameraEvents = require('../../../cameras/2d/events');
-var DynamicTextureCommands = require('../../../textures/DynamicTextureCommands');
+import { DynamicTextureCommands } from '../../../textures/DynamicTextureCommands';
 var Class = require('../../../utils/Class');
 var BlendModes = require('../../BlendModes');
 var RenderNode = require('./RenderNode');

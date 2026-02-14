@@ -5,7 +5,7 @@
  */
 
 var Class = require('../../utils/Class');
-var Frame = require('../../textures/Frame');
+import { Frame } from '../../textures/Frame';
 
 /**
  * @classdesc

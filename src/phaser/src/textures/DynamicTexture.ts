@@ -5,19 +5,19 @@
  */
 
 import { Camera } from '../cameras/2d/Camera';
-
 import { GetFastValue } from '../utils/object/GetFastValue';
-
-var BlendModes = require('../renderer/BlendModes');
+// @ts-expect-error - BlendModes is a CommonJS module without type declarations
+import * as BlendModes from '../renderer/BlendModes';
 import * as CanvasPool from '../display/canvas/CanvasPool';
-var Class = require('../utils/Class');
 import { PHASER_CONST as CONST } from '../const';
-var DrawingContext = require('../renderer/webgl/DrawingContext');
-var Frame = require('./Frame');
-var Texture = require('./Texture');
-var Utils = require('../renderer/webgl/Utils');
-var DynamicTextureCommands = require('./DynamicTextureCommands');
-var TransformMatrix = require('../gameobjects/components/TransformMatrix');
+// @ts-expect-error - DrawingContext is a CommonJS module without type declarations
+import DrawingContext from '../renderer/webgl/DrawingContext';
+import { Texture } from './Texture';
+// @ts-expect-error - Utils is a CommonJS module without type declarations
+import * as Utils from '../renderer/webgl/Utils';
+import { DynamicTextureCommands } from './DynamicTextureCommands';
+// @ts-expect-error - TransformMatrix is a CommonJS module without type declarations
+import TransformMatrix from '../gameobjects/components/TransformMatrix';
 
 /**
  * @classdesc
@@ -63,35 +63,41 @@ var TransformMatrix = require('../gameobjects/components/TransformMatrix');
  * @param {number} [height=256] - The height of this Dymamic Texture in pixels. Defaults to 256 x 256.
  * @param {boolean} [forceEven=true] - Force the given width and height to be rounded to even values. This significantly improves the rendering quality. Set to false if you know you need an odd sized texture.
  */
-var DynamicTexture = new Class({
+export class DynamicTexture extends Texture {
 
-    Extends: Texture,
+    type: string;
+    renderer: any;
+    width: number;
+    height: number;
+    commandBuffer: any[];
+    canvas: HTMLCanvasElement | null;
+    context: CanvasRenderingContext2D | null;
+    camera: any;
+    drawingContext: any;
 
-    initialize:
-
-    function DynamicTexture (manager, key, width, height, forceEven)
+    constructor(
+        manager: any,
+        key: string,
+        width: number = 256,
+        height: number = 256,
+        forceEven: boolean = true
+    )
     {
-        if (width === undefined) { width = 256; }
-        if (height === undefined) { height = 256; }
-        if (forceEven === undefined) { forceEven = true; }
+        const renderer = manager.game.renderer;
+        const isCanvas = (renderer && renderer.type === CONST.CANVAS);
+        // Create source without using 'this' (cannot use 'this' before super() in derived class)
+        const source = (isCanvas)
+            ? CanvasPool.create2D(Object.create(null), width, height)
+            : (() => {
+                const placeholder = document.createElement('canvas');
+                placeholder.width = width;
+                placeholder.height = height;
+                return [ placeholder ];
+            })();
 
-        /**
-         * The internal data type of this object.
-         *
-         * @name Phaser.Textures.DynamicTexture#type
-         * @type {string}
-         * @readonly
-         * @since 3.60.0
-         */
+        super(manager, key, source, width, height);
+
         this.type = 'DynamicTexture';
-
-        var renderer = manager.game.renderer;
-
-        var isCanvas = (renderer && renderer.type === CONST.CANVAS);
-
-        var source = (isCanvas) ? CanvasPool.create2D(this, width, height) : [ this ];
-
-        Texture.call(this, manager, key, source, width, height);
 
         this.add('__BASE', 0, 0, 0, width, height);
 
@@ -144,7 +150,7 @@ var DynamicTexture = new Class({
          * @type {HTMLCanvasElement}
          * @since 3.2.0
          */
-        this.canvas = (isCanvas) ? source : null;
+        this.canvas = (isCanvas) ? (source as HTMLCanvasElement) : null;
 
         /**
          * The 2D Canvas Rendering Context.
@@ -154,7 +160,7 @@ var DynamicTexture = new Class({
          * @type {CanvasRenderingContext2D}
          * @since 3.7.0
          */
-        this.context = (isCanvas) ? source.getContext('2d', { willReadFrequently: true }) : null;
+        this.context = (isCanvas) ? (source as HTMLCanvasElement).getContext('2d', { willReadFrequently: true }) : null;
 
         /**
          * An internal Camera that can be used to move around this Dynamic Texture.
@@ -187,12 +193,12 @@ var DynamicTexture = new Class({
 
         if (!isCanvas)
         {
-            var frame = this.get();
-            frame.source.glTexture = this.drawingContext.texture;
+            const frame = this.get();
+            (frame.source as any).glTexture = this.drawingContext.texture;
         }
 
         this.setSize(width, height, forceEven);
-    },
+    }
 
     /**
      * Resizes this Dynamic Texture to the new dimensions given.
@@ -213,7 +219,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture.
      */
-    setSize: function (width, height, forceEven)
+    setSize(width: number, height?: number, forceEven?: boolean): this
     {
         if (height === undefined) { height = width; }
         if (forceEven === undefined) { forceEven = true; }
@@ -234,8 +240,8 @@ var DynamicTexture = new Class({
             }
         }
 
-        var frame = this.get();
-        var source = frame.source;
+        const frame = this.get();
+        const source = frame.source;
 
         if (width !== this.width || height !== this.height)
         {
@@ -245,7 +251,7 @@ var DynamicTexture = new Class({
                 this.canvas.height = height;
             }
 
-            var drawingContext = this.drawingContext;
+            const drawingContext = this.drawingContext;
 
             if (drawingContext && (drawingContext.width !== width || drawingContext.height !== height))
             {
@@ -265,7 +271,7 @@ var DynamicTexture = new Class({
         else
         {
             //  Resize the frame
-            var baseFrame = this.getSourceImage();
+            const baseFrame = this.getSourceImage();
 
             if (frame.cutX + width > baseFrame.width)
             {
@@ -281,7 +287,7 @@ var DynamicTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Render the buffered drawing commands to this Dynamic Texture.
@@ -291,11 +297,11 @@ var DynamicTexture = new Class({
      * @since 4.0.0
      * @return {this} This Dynamic Texture instance.
      */
-    render: function ()
+    render(): this
     {
         if (this.commandBuffer.length === 0)
         {
-            return;
+            return this;
         }
 
         this.camera.preRender();
@@ -310,7 +316,7 @@ var DynamicTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Render the DynamicTexture using the WebGL render system.
@@ -319,10 +325,10 @@ var DynamicTexture = new Class({
      * @since 4.0.0
      * @private
      */
-    _renderWebGL: function ()
+    _renderWebGL(): void
     {
         this.renderer.renderNodes.getNode('DynamicTextureHandler').run(this);
-    },
+    }
 
     /**
      * Render the DynamicTexture using the Canvas render system.
@@ -331,27 +337,47 @@ var DynamicTexture = new Class({
      * @since 4.0.0
      * @private
      */
-    _renderCanvas: function ()
+    _renderCanvas(): void
     {
-        var camera = this.camera;
-        var context = this.context;
-        var renderer = this.renderer;
-        var textureManager = this.manager;
+        const camera = this.camera;
+        const context = this.context;
+        const renderer = this.renderer;
+        const textureManager = this.manager;
+
+        if (!context)
+        {
+            return;
+        }
 
         renderer.setContext(context);
 
         // Big list of reused variables.
-        var alpha, blendMode, blendModePrev, frame, height, key, originX, originY, rotation, scaleX, scaleY, tint, width, x, y;
+        let alpha: number | undefined;
+        let blendMode: number | undefined;
+        let blendModePrev: number | undefined;
+        let frame: any;
+        let height: number | undefined;
+        let key: string | undefined;
+        let originX: number | undefined;
+        let originY: number | undefined;
+        let rotation: number | undefined;
+        let scaleX: number | undefined;
+        let scaleY: number | undefined;
+        let tint: number | undefined;
+        let width: number | undefined;
+        let x: number | undefined;
+        let y: number | undefined;
+        let object: any;
 
         // Traverse commands.
-        var commandBuffer = this.commandBuffer;
-        var commandBufferLength = commandBuffer.length;
-        var preserveBuffer = false;
-        var eraseMode = false;
+        const commandBuffer = this.commandBuffer;
+        const commandBufferLength = commandBuffer.length;
+        let preserveBuffer = false;
+        let eraseMode = false;
 
-        for (var index = 0; index < commandBufferLength; index++)
+        for (let index = 0; index < commandBufferLength; index++)
         {
-            var command = commandBuffer[index];
+            const command = commandBuffer[index];
 
             switch (command)
             {
@@ -362,7 +388,7 @@ var DynamicTexture = new Class({
                     width = commandBuffer[++index];
                     height = commandBuffer[++index];
 
-                    if (x !== undefined && y !== undefined && width !== undefined && height !== undefined)
+                    if (x !== undefined && y !== undefined && width !== undefined && height !== undefined && context)
                     {
                         context.clearRect(x, y, width, height);
                     }
@@ -378,16 +404,16 @@ var DynamicTexture = new Class({
 
                 case DynamicTextureCommands.FILL:
                 {
-                    var color = commandBuffer[++index];
+                    const color = commandBuffer[++index];
                     x = commandBuffer[++index];
                     y = commandBuffer[++index];
                     width = commandBuffer[++index];
                     height = commandBuffer[++index];
 
                     alpha = (color >> 24 & 0xFF) / 255;
-                    var r = (color >> 16 & 0xFF);
-                    var g = (color >> 8 & 0xFF);
-                    var b = (color & 0xFF);
+                    const r = (color >> 16 & 0xFF);
+                    const g = (color >> 8 & 0xFF);
+                    const b = (color & 0xFF);
 
                     context.save();
                     context.globalCompositeOperation = 'source-over';
@@ -418,7 +444,7 @@ var DynamicTexture = new Class({
                         blendMode = BlendModes.ERASE;
                     }
 
-                    var stamp = textureManager.resetStamp(alpha, tint);
+                    const stamp = textureManager.resetStamp(alpha, tint);
 
                     stamp.setPosition(x, y)
                         .setRotation(rotation)
@@ -449,18 +475,18 @@ var DynamicTexture = new Class({
 
                     width = commandBuffer[++index];
                     height = commandBuffer[++index];
-                    var tilePositionX = commandBuffer[++index];
-                    var tilePositionY = commandBuffer[++index];
-                    var tileRotation = commandBuffer[++index];
-                    var tileScaleX = commandBuffer[++index];
-                    var tileScaleY = commandBuffer[++index];
+                    const tilePositionX = commandBuffer[++index];
+                    const tilePositionY = commandBuffer[++index];
+                    const tileRotation = commandBuffer[++index];
+                    const tileScaleX = commandBuffer[++index];
+                    const tileScaleY = commandBuffer[++index];
 
                     if (eraseMode)
                     {
                         blendMode = BlendModes.ERASE;
                     }
 
-                    var repeat = textureManager.resetTileSprite(alpha, tint);
+                    const repeat = textureManager.resetTileSprite(alpha, tint);
 
                     repeat.setPosition(x, y)
                         .setRotation(rotation)
@@ -480,19 +506,22 @@ var DynamicTexture = new Class({
 
                 case DynamicTextureCommands.DRAW:
                 {
-                    var object = commandBuffer[++index];
+                    object = commandBuffer[++index];
                     x = commandBuffer[++index];
                     y = commandBuffer[++index];
 
+                    let prevX: number | undefined;
+                    let prevY: number | undefined;
+
                     if (x !== undefined)
                     {
-                        var prevX = object.x;
+                        prevX = object.x;
                         object.x = x;
                     }
 
                     if (y !== undefined)
                     {
-                        var prevY = object.y;
+                        prevY = object.y;
                         object.y = y;
                     }
 
@@ -536,7 +565,7 @@ var DynamicTexture = new Class({
 
                 case DynamicTextureCommands.CALLBACK:
                 {
-                    var callback = commandBuffer[++index];
+                    const callback = commandBuffer[++index];
                     callback();
                     break;
                 }
@@ -544,9 +573,9 @@ var DynamicTexture = new Class({
                 case DynamicTextureCommands.CAPTURE:
                 {
                     object = commandBuffer[++index];
-                    var config = commandBuffer[++index];
+                    const config = commandBuffer[++index];
 
-                    var cacheConfig = this.startCapture(object, config);
+                    const cacheConfig = this.startCapture(object, config);
                     object.renderCanvas(
                         renderer,
                         object,
@@ -566,7 +595,7 @@ var DynamicTexture = new Class({
 
         // Finish rendering.
         renderer.setContext();
-    },
+    }
 
     /**
      * Fills this Dynamic Texture with the given color.
@@ -588,7 +617,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    fill: function (rgb, alpha, x, y, width, height)
+    fill(rgb: number, alpha?: number, x?: number, y?: number, width?: number, height?: number): this
     {
         if (alpha === undefined) { alpha = 1; }
         if (x === undefined) { x = 0; }
@@ -596,10 +625,10 @@ var DynamicTexture = new Class({
         if (width === undefined) { width = this.width; }
         if (height === undefined) { height = this.height; }
 
-        var r = (rgb >> 16 & 0xFF);
-        var g = (rgb >> 8 & 0xFF);
-        var b = (rgb & 0xFF);
-        var color = Utils.getTintFromFloats(r / 255, g / 255, b / 255, alpha);
+        const r = (rgb >> 16 & 0xFF);
+        const g = (rgb >> 8 & 0xFF);
+        const b = (rgb & 0xFF);
+        const color = Utils.getTintFromFloats(r / 255, g / 255, b / 255, alpha);
 
         this.commandBuffer.push(
             DynamicTextureCommands.FILL,
@@ -609,7 +638,7 @@ var DynamicTexture = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Clears a portion or everything from this Dynamic Texture by erasing it and resetting it back to
@@ -625,7 +654,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    clear: function (x, y, width, height)
+    clear(x?: number, y?: number, width?: number, height?: number): this
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
@@ -635,7 +664,7 @@ var DynamicTexture = new Class({
         this.commandBuffer.push(DynamicTextureCommands.CLEAR, x, y, width, height);
 
         return this;
-    },
+    }
 
     /**
      * Takes the given texture key and frame and then stamps it at the given
@@ -661,21 +690,21 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    stamp: function (key, frame, x, y, config)
+    stamp(key: string, frame?: string | number | null, x?: number, y?: number, config?: any): this
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
 
-        var alpha = GetFastValue(config, 'alpha', 1);
-        var tint = GetFastValue(config, 'tint', 0xffffff);
-        var angle = GetFastValue(config, 'angle', 0);
-        var rotation = GetFastValue(config, 'rotation', 0);
-        var scale = GetFastValue(config, 'scale', 1);
-        var scaleX = GetFastValue(config, 'scaleX', scale);
-        var scaleY = GetFastValue(config, 'scaleY', scale);
-        var originX = GetFastValue(config, 'originX', 0.5);
-        var originY = GetFastValue(config, 'originY', 0.5);
-        var blendMode = GetFastValue(config, 'blendMode', 0);
+        const alpha = GetFastValue(config, 'alpha', 1);
+        const tint = GetFastValue(config, 'tint', 0xffffff);
+        const angle = GetFastValue(config, 'angle', 0);
+        let rotation = GetFastValue(config, 'rotation', 0);
+        const scale = GetFastValue(config, 'scale', 1);
+        const scaleX = GetFastValue(config, 'scaleX', scale);
+        const scaleY = GetFastValue(config, 'scaleY', scale);
+        const originX = GetFastValue(config, 'originX', 0.5);
+        const originY = GetFastValue(config, 'originY', 0.5);
+        const blendMode = GetFastValue(config, 'blendMode', 0);
 
         if (angle !== 0)
         {
@@ -690,7 +719,7 @@ var DynamicTexture = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Draws the given object, or an array of objects, to this Dynamic Texture using a blend mode of ERASE.
@@ -710,10 +739,10 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    erase: function (entries, x, y, alpha, tint)
+    erase(entries: any, x?: number, y?: number, alpha?: number, tint?: number): this
     {
-        var commandBuffer = this.commandBuffer;
-        var commandBufferLength = commandBuffer.length;
+        const commandBuffer = this.commandBuffer;
+        const commandBufferLength = commandBuffer.length;
         if (
             commandBuffer[commandBufferLength - 2] === DynamicTextureCommands.SET_ERASE &&
             !commandBuffer[commandBufferLength - 1]
@@ -733,7 +762,7 @@ var DynamicTexture = new Class({
         commandBuffer.push(DynamicTextureCommands.SET_ERASE, false);
 
         return this;
-    },
+    }
 
     /**
      * Draws the given object, or an array of objects, to this Dynamic Texture.
@@ -785,18 +814,18 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    draw: function (entries, x, y, alpha, tint)
+    draw(entries: any, x?: number, y?: number, alpha?: number, tint?: number): this
     {
         if (!Array.isArray(entries))
         {
             entries = [ entries ];
         }
 
-        var len = entries.length;
+        const len = entries.length;
 
-        for (var i = 0; i < len; i++)
+        for (let i = 0; i < len; i++)
         {
-            var entry = entries[i];
+            const entry = entries[i];
 
             if (!entry || entry === this)
             {
@@ -811,11 +840,11 @@ var DynamicTexture = new Class({
             else if (entry.isParent || entry.list)
             {
                 //  Groups / Display Lists
-                var children = entry.getChildren();
+                const children = entry.getChildren();
 
-                for (var c = 0; c < children.length; c++)
+                for (let c = 0; c < children.length; c++)
                 {
-                    var child = children[c];
+                    const child = children[c];
                     if (child.willRender(this.camera))
                     {
                         this.draw(child, x, y);
@@ -827,10 +856,10 @@ var DynamicTexture = new Class({
                 //  Texture key
                 this.stamp(entry, null, x, y, { alpha: alpha, tint: tint });
             }
-            else if (entry instanceof Frame)
+            else if (entry && typeof entry === 'object' && 'texture' in entry && entry.texture && typeof (entry as any).texture.key === 'string')
             {
                 //  Texture Frame instance
-                this.stamp(entry.texture.key, entry, x, y, { alpha: alpha, tint: tint });
+                this.stamp((entry as any).texture.key, entry, x, y, { alpha: alpha, tint: tint });
             }
             else if (Array.isArray(entry))
             {
@@ -840,7 +869,7 @@ var DynamicTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Draws the given object to this Dynamic Texture.
@@ -855,14 +884,14 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    capture: function (entry, config)
+    capture(entry: any, config?: any): this
     {
         if (!config) { config = {}; }
 
         this.commandBuffer.push(DynamicTextureCommands.CAPTURE, entry, config);
 
         return this;
-    },
+    }
 
     /**
      * Prepares an object to be rendered using the `capture` method.
@@ -877,12 +906,12 @@ var DynamicTexture = new Class({
      *
      * @return {Phaser.Types.Textures.CaptureConfig} A configuration object containing the appropriate parent transform in `transform`, and the cached object properties in any fields that were overridden.
      */
-    startCapture: function (entry, config)
+    startCapture(entry: any, config: any): any
     {
-        var cacheConfig = {};
+        const cacheConfig: any = {};
 
         // Compute the parent transform.
-        var parentTransform = undefined;
+        let parentTransform: TransformMatrix | undefined;
         if (config.transform instanceof TransformMatrix)
         {
             parentTransform = config.transform;
@@ -967,7 +996,7 @@ var DynamicTexture = new Class({
         }
 
         return cacheConfig;
-    },
+    }
 
     /**
      * Restores the object properties that were overridden during the `capture` method.
@@ -980,7 +1009,7 @@ var DynamicTexture = new Class({
      * @param {Phaser.GameObjects.GameObject} entry - The GameObject to restore the properties on.
      * @param {Phaser.Types.Textures.CaptureConfig} cacheConfig - The cached properties to restore.
      */
-    finishCapture: function (entry, cacheConfig)
+    finishCapture(entry: any, cacheConfig: any): void
     {
         // Restore the object properties.
         if (cacheConfig.x !== undefined)
@@ -1023,7 +1052,7 @@ var DynamicTexture = new Class({
         {
             entry.blendMode = cacheConfig.blendMode;
         }
-    },
+    }
 
     /**
      * Takes the given Texture Frame and draws it to this Dynamic Texture as a fill pattern,
@@ -1053,34 +1082,34 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    repeat: function (key, frame, x, y, width, height, config)
+    repeat(key: string, frame?: string | number | null, x?: number, y?: number, width?: number, height?: number, config?: any): this
     {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
         if (width === undefined) { width = this.width; }
         if (height === undefined) { height = this.height; }
 
-        var alpha = GetFastValue(config, 'alpha', 1);
-        var tint = GetFastValue(config, 'tint', 0xffffff);
-        var angle = GetFastValue(config, 'angle', 0);
-        var rotation = GetFastValue(config, 'rotation', 0);
-        var scale = GetFastValue(config, 'scale', 1);
-        var scaleX = GetFastValue(config, 'scaleX', scale);
-        var scaleY = GetFastValue(config, 'scaleY', scale);
-        var originX = GetFastValue(config, 'originX', 0);
-        var originY = GetFastValue(config, 'originY', 0);
-        var blendMode = GetFastValue(config, 'blendMode', 0);
+        const alpha = GetFastValue(config, 'alpha', 1);
+        const tint = GetFastValue(config, 'tint', 0xffffff);
+        const angle = GetFastValue(config, 'angle', 0);
+        let rotation = GetFastValue(config, 'rotation', 0);
+        const scale = GetFastValue(config, 'scale', 1);
+        const scaleX = GetFastValue(config, 'scaleX', scale);
+        const scaleY = GetFastValue(config, 'scaleY', scale);
+        const originX = GetFastValue(config, 'originX', 0);
+        const originY = GetFastValue(config, 'originY', 0);
+        const blendMode = GetFastValue(config, 'blendMode', 0);
 
         if (angle !== 0)
         {
             rotation = angle * Math.PI / 180;
         }
 
-        var tilePositionX = GetFastValue(config, 'tilePositionX', 0);
-        var tilePositionY = GetFastValue(config, 'tilePositionY', 0);
-        var tileRotation = GetFastValue(config, 'tileRotation', 0);
-        var tileScaleX = GetFastValue(config, 'tileScaleX', 1);
-        var tileScaleY = GetFastValue(config, 'tileScaleY', 1);
+        const tilePositionX = GetFastValue(config, 'tilePositionX', 0);
+        const tilePositionY = GetFastValue(config, 'tilePositionY', 0);
+        const tileRotation = GetFastValue(config, 'tileRotation', 0);
+        const tileScaleX = GetFastValue(config, 'tileScaleX', 1);
+        const tileScaleY = GetFastValue(config, 'tileScaleY', 1);
 
         this.commandBuffer.push(
             DynamicTextureCommands.REPEAT,
@@ -1092,7 +1121,7 @@ var DynamicTexture = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Sets the preserve flag for this Dynamic Texture.
@@ -1108,12 +1137,12 @@ var DynamicTexture = new Class({
      * @param {boolean} preserve - Whether to preserve the command buffer after rendering.
      * @returns {this} This Dynamic Texture instance.
      */
-    preserve: function (preserve)
+    preserve(preserve: boolean): this
     {
         this.commandBuffer.push(DynamicTextureCommands.PRESERVE, preserve);
 
         return this;
-    },
+    }
 
     /**
      * Adds a callback to run during the render process.
@@ -1127,12 +1156,12 @@ var DynamicTexture = new Class({
      * @param {Function} callback - A callback function to run during the render process.
      * @returns {this} This Dynamic Texture instance.
      */
-    callback: function (callback)
+    callback(callback: () => void): this
     {
         this.commandBuffer.push(DynamicTextureCommands.CALLBACK, callback);
 
         return this;
-    },
+    }
 
     /**
      * Takes a snapshot of the given area of this Dynamic Texture.
@@ -1162,7 +1191,7 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    snapshotArea: function (x, y, width, height, callback, type, encoderOptions)
+    snapshotArea(x: number, y: number, width: number, height: number, callback: any, type?: string, encoderOptions?: number): this
     {
         if (this.drawingContext)
         {
@@ -1174,7 +1203,7 @@ var DynamicTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Takes a snapshot of the whole of this Dynamic Texture.
@@ -1200,10 +1229,10 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    snapshot: function (callback, type, encoderOptions)
+    snapshot(callback: any, type?: string, encoderOptions?: number): this
     {
         return this.snapshotArea(0, 0, this.width, this.height, callback, type, encoderOptions);
-    },
+    }
 
     /**
      * Takes a snapshot of the given pixel from this Dynamic Texture.
@@ -1226,10 +1255,10 @@ var DynamicTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    snapshotPixel: function (x, y, callback)
+    snapshotPixel(x: number, y: number, callback: any): this
     {
         return this.snapshotArea(x, y, 1, 1, callback, 'pixel');
-    },
+    }
 
     /**
      * Returns the underlying WebGLTextureWrapper, if not running in Canvas mode.
@@ -1239,13 +1268,13 @@ var DynamicTexture = new Class({
      *
      * @return {?Phaser.Renderer.WebGL.Wrappers.WebGLTextureWrapper} The underlying WebGLTextureWrapper, if not running in Canvas mode.
      */
-    getWebGLTexture: function ()
+    getWebGLTexture(): any
     {
         if (this.drawingContext)
         {
             return this.drawingContext.texture;
         }
-    },
+    }
 
     /**
      * Sets this Dynamic Texture onto the TextureManager.Stamp
@@ -1259,15 +1288,15 @@ var DynamicTexture = new Class({
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
      * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
      */
-    renderWebGL: function (renderer, src, camera, parentMatrix)
+    renderWebGL(renderer: any, _src: any, camera: any, parentMatrix: any): void
     {
-        var stamp = this.manager.resetStamp();
+        const stamp = this.manager.resetStamp();
 
         stamp.setTexture(this);
         stamp.setOrigin(0);
 
         stamp.renderWebGLStep(renderer, stamp, camera, parentMatrix);
-    },
+    }
 
     /**
      * This is a NOOP method. Bitmap Masks are not supported by the Canvas Renderer.
@@ -1279,10 +1308,10 @@ var DynamicTexture = new Class({
      * @param {Phaser.GameObjects.GameObject} mask - The masked Game Object which would be rendered.
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to render to.
      */
-    renderCanvas: function ()
+    renderCanvas(): void
     {
         // NOOP
-    },
+    }
 
     /**
      * Destroys this Texture and releases references to its sources and frames.
@@ -1290,9 +1319,9 @@ var DynamicTexture = new Class({
      * @method Phaser.Textures.DynamicTexture#destroy
      * @since 3.60.0
      */
-    destroy: function ()
+    destroy(): void
     {
-        var stamp = this.manager.stamp;
+        const stamp = this.manager.stamp;
 
         if (stamp && stamp.texture === this)
         {
@@ -1315,6 +1344,4 @@ var DynamicTexture = new Class({
         this.renderer = null;
     }
 
-});
-
-module.exports = DynamicTexture;
+}

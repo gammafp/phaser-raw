@@ -6,6 +6,7 @@
 
 
 import { Clone } from '../../utils/object/Clone';
+import type { Texture } from '../Texture';
 
 /**
  * Parses a Texture Atlas JSON Hash and adds the Frames to the Texture.
@@ -22,8 +23,7 @@ import { Clone } from '../../utils/object/Clone';
  *
  * @return {Phaser.Textures.Texture} The Texture modified by this parser.
  */
-var JSONHash = function (texture, sourceIndex, json)
-{
+export const JSONHash = (texture: Texture, sourceIndex: number, json: any): Texture | undefined => {
     //  Malformed?
     if (!json['frames'])
     {
@@ -32,22 +32,22 @@ var JSONHash = function (texture, sourceIndex, json)
     }
 
     //  Add in a __BASE entry (for the entire atlas)
-    var source = texture.source[sourceIndex];
+    const source = texture.source[sourceIndex];
 
     texture.add('__BASE', sourceIndex, 0, 0, source.width, source.height);
 
     //  By this stage frames is a fully parsed Object
-    var frames = json.frames;
-    var newFrame;
+    const frames = json.frames;
+    let newFrame;
 
-    for (var key in frames)
+    for (const key in frames)
     {
         if (!frames.hasOwnProperty(key))
         {
             continue;
         }
 
-        var src = frames[key];
+        const src = frames[key];
 
         //  The frame values are the exact coordinates to cut the frame out of the atlas from
         newFrame = texture.add(key, sourceIndex, src.frame.x, src.frame.y, src.frame.w, src.frame.h);
@@ -78,7 +78,7 @@ var JSONHash = function (texture, sourceIndex, json)
             newFrame.updateUVsInverted();
         }
 
-        var pivot = src.anchor || src.pivot;
+        const pivot = src.anchor || src.pivot;
 
         if (pivot)
         {
@@ -102,7 +102,7 @@ var JSONHash = function (texture, sourceIndex, json)
     }
 
     //  Copy over any additional data that was in the JSON to Texture.customData
-    for (var dataKey in json)
+    for (const dataKey in json)
     {
         if (dataKey === 'frames')
         {
@@ -121,5 +121,3 @@ var JSONHash = function (texture, sourceIndex, json)
 
     return texture;
 };
-
-module.exports = JSONHash;

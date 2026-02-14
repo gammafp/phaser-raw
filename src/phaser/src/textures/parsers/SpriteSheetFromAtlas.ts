@@ -6,6 +6,8 @@
 
 
 import { GetFastValue } from '../../utils/object/GetFastValue';
+import type { Texture } from '../Texture';
+import type { Frame } from '../Frame';
 
 /**
  * Parses a Sprite Sheet and adds the Frames to the Texture, where the Sprite Sheet is stored as a frame within an Atlas.
@@ -30,10 +32,9 @@ import { GetFastValue } from '../../utils/object/GetFastValue';
  *
  * @return {Phaser.Textures.Texture} The Texture modified by this parser.
  */
-var SpriteSheetFromAtlas = function (texture, frame, config)
-{
-    var frameWidth = GetFastValue(config, 'frameWidth', null);
-    var frameHeight = GetFastValue(config, 'frameHeight', frameWidth);
+export const SpriteSheetFromAtlas = (texture: Texture, frame: Frame, config: any): Texture => {
+    const frameWidth = GetFastValue(config, 'frameWidth', null);
+    const frameHeight = GetFastValue(config, 'frameHeight', frameWidth);
 
     //  If missing we can't proceed
     if (!frameWidth)
@@ -42,37 +43,37 @@ var SpriteSheetFromAtlas = function (texture, frame, config)
     }
 
     //  Add in a __BASE entry (for the entire atlas frame)
-    var source = texture.source[0];
+    const source = texture.source[0];
     texture.add('__BASE', 0, 0, 0, source.width, source.height);
 
-    var startFrame = GetFastValue(config, 'startFrame', 0);
-    var endFrame = GetFastValue(config, 'endFrame', -1);
-    var margin = GetFastValue(config, 'margin', 0);
-    var spacing = GetFastValue(config, 'spacing', 0);
+    let startFrame = GetFastValue(config, 'startFrame', 0);
+    let endFrame = GetFastValue(config, 'endFrame', -1);
+    const margin = GetFastValue(config, 'margin', 0);
+    const spacing = GetFastValue(config, 'spacing', 0);
 
-    var x = frame.cutX;
-    var y = frame.cutY;
+    const x = frame.cutX;
+    const y = frame.cutY;
 
-    var cutWidth = frame.cutWidth;
-    var cutHeight = frame.cutHeight;
-    var sheetWidth = frame.realWidth;
-    var sheetHeight = frame.realHeight;
+    const cutWidth = frame.cutWidth;
+    const cutHeight = frame.cutHeight;
+    const sheetWidth = frame.realWidth;
+    const sheetHeight = frame.realHeight;
 
-    var row = Math.floor((sheetWidth - margin + spacing) / (frameWidth + spacing));
-    var column = Math.floor((sheetHeight - margin + spacing) / (frameHeight + spacing));
-    var total = row * column;
+    const row = Math.floor((sheetWidth - margin + spacing) / (frameWidth + spacing));
+    const column = Math.floor((sheetHeight - margin + spacing) / (frameHeight + spacing));
+    let total = row * column;
 
     //  trim offsets
 
-    var leftPad = frame.x;
-    var leftWidth = frameWidth - leftPad;
+    const leftPad = frame.x;
+    const leftWidth = frameWidth - leftPad;
 
-    var rightWidth = frameWidth - ((sheetWidth - cutWidth) - leftPad);
+    const rightWidth = frameWidth - ((sheetWidth - cutWidth) - leftPad);
 
-    var topPad = frame.y;
-    var topHeight = frameHeight - topPad;
+    const topPad = frame.y;
+    const topHeight = frameHeight - topPad;
 
-    var bottomHeight = frameHeight - ((sheetHeight - cutHeight) - topPad);
+    const bottomHeight = frameHeight - ((sheetHeight - cutHeight) - topPad);
 
     if (startFrame > total || startFrame < -total)
     {
@@ -90,31 +91,31 @@ var SpriteSheetFromAtlas = function (texture, frame, config)
         total = startFrame + (endFrame + 1);
     }
 
-    var sheetFrame;
-    var frameX = margin;
-    var frameY = margin;
-    var frameIndex = 0;
-    var sourceIndex = 0;
+    let sheetFrame;
+    let frameX = margin;
+    let frameY = margin;
+    let frameIndex = 0;
+    const sourceIndex = 0;
 
-    for (var sheetY = 0; sheetY < column; sheetY++)
+    for (let sheetY = 0; sheetY < column; sheetY++)
     {
-        var topRow = (sheetY === 0);
-        var bottomRow = (sheetY === column - 1);
+        const topRow = (sheetY === 0);
+        const bottomRow = (sheetY === column - 1);
 
-        for (var sheetX = 0; sheetX < row; sheetX++)
+        for (let sheetX = 0; sheetX < row; sheetX++)
         {
-            var leftRow = (sheetX === 0);
-            var rightRow = (sheetX === row - 1);
+            const leftRow = (sheetX === 0);
+            const rightRow = (sheetX === row - 1);
 
             sheetFrame = texture.add(frameIndex, sourceIndex, x + frameX, y + frameY, frameWidth, frameHeight);
 
             if (leftRow || topRow || rightRow || bottomRow)
             {
-                var destX = (leftRow) ? leftPad : 0;
-                var destY = (topRow) ? topPad : 0;
+                const destX = (leftRow) ? leftPad : 0;
+                const destY = (topRow) ? topPad : 0;
 
-                var trimWidth = 0;
-                var trimHeight = 0;
+                let trimWidth = 0;
+                let trimHeight = 0;
 
                 if (leftRow)
                 {
@@ -136,8 +137,8 @@ var SpriteSheetFromAtlas = function (texture, frame, config)
                     trimHeight += (frameHeight - bottomHeight);
                 }
 
-                var destWidth = frameWidth - trimWidth;
-                var destHeight = frameHeight - trimHeight;
+                const destWidth = frameWidth - trimWidth;
+                const destHeight = frameHeight - trimHeight;
 
                 sheetFrame.cutWidth = destWidth;
                 sheetFrame.cutHeight = destHeight;
@@ -182,5 +183,3 @@ var SpriteSheetFromAtlas = function (texture, frame, config)
 
     return texture;
 };
-
-module.exports = SpriteSheetFromAtlas;

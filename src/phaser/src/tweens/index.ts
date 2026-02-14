@@ -13,7 +13,7 @@ export { TWEEN_CONST as States } from './tween/const';
 export * as Builders from './builders';
 export * as Events from './events';
 
-export const TweenManager = require('./TweenManager');
+export { TweenManager } from './TweenManager';
 export { Tween } from './tween/Tween';
 export { TweenData } from './tween/TweenData';
 export { TweenFrameData } from './tween/TweenFrameData';
