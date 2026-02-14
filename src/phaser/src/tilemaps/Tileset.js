@@ -29,11 +29,9 @@ var Class = require('../utils/Class');
  * @param {object} [tileData={}] - Data stored per tile. These typically are created in Tiled when editing a tileset, e.g. from Tiled's tile collision editor or terrain editor.
  * @param {object} [tileOffset={x: 0, y: 0}] - Tile texture drawing offset.
  */
-var Tileset = new Class({
+var Tileset = class {
 
-    initialize:
-
-    function Tileset (name, firstgid, tileWidth, tileHeight, tileMargin, tileSpacing, tileProperties, tileData, tileOffset)
+    constructor(name, firstgid, tileWidth, tileHeight, tileMargin, tileSpacing, tileProperties, tileData, tileOffset)
     {
         if (tileWidth === undefined || tileWidth <= 0) { tileWidth = 32; }
         if (tileHeight === undefined || tileHeight <= 0) { tileHeight = 32; }
@@ -252,7 +250,7 @@ var Tileset = new Class({
          * @private
          */
         this._animationDataIndexMap = null;
-    },
+    }
 
     /**
      * Get a tiles properties that are stored in the Tileset. Returns null if tile index is not
@@ -265,12 +263,12 @@ var Tileset = new Class({
      *
      * @return {?(object|undefined)}
      */
-    getTileProperties: function (tileIndex)
+    getTileProperties(tileIndex)
     {
         if (!this.containsTileIndex(tileIndex)) { return null; }
 
         return this.tileProperties[tileIndex - this.firstgid];
-    },
+    }
 
     /**
      * Get a tile's data that is stored in the Tileset. Returns null if tile index is not contained
@@ -284,12 +282,12 @@ var Tileset = new Class({
      *
      * @return {?object|undefined}
      */
-    getTileData: function (tileIndex)
+    getTileData(tileIndex)
     {
         if (!this.containsTileIndex(tileIndex)) { return null; }
 
         return this.tileData[tileIndex - this.firstgid];
-    },
+    }
 
     /**
      * Get a tile's collision group that is stored in the Tileset. Returns null if tile index is not
@@ -302,12 +300,12 @@ var Tileset = new Class({
      *
      * @return {?object}
      */
-    getTileCollisionGroup: function (tileIndex)
+    getTileCollisionGroup(tileIndex)
     {
         var data = this.getTileData(tileIndex);
 
         return (data && data.objectgroup) ? data.objectgroup : null;
-    },
+    }
 
     /**
      * Returns true if and only if this Tileset contains the given tile index.
@@ -319,13 +317,13 @@ var Tileset = new Class({
      *
      * @return {boolean}
      */
-    containsTileIndex: function (tileIndex)
+    containsTileIndex(tileIndex)
     {
         return (
             tileIndex >= this.firstgid &&
             tileIndex < (this.firstgid + this.total)
         );
-    },
+    }
 
     /**
      * Returns the ID of the tile to use, given a base tile and time,
@@ -339,7 +337,7 @@ var Tileset = new Class({
      * @param {number} milliseconds - The current time in milliseconds.
      * @return {?number} The tile ID to use, or null if the tile is not contained in this tileset.
      */
-    getAnimatedTileId: function (tileIndex, milliseconds)
+    getAnimatedTileId(tileIndex, milliseconds)
     {
         if (!this.containsTileIndex(tileIndex)) { return null; }
 
@@ -380,7 +378,7 @@ var Tileset = new Class({
         }
 
         return null;
-    },
+    }
 
     /**
      * Returns the texture coordinates (UV in pixels) in the Tileset image for the given tile index.
@@ -394,12 +392,12 @@ var Tileset = new Class({
      * @return {?object} Object in the form { x, y } representing the top-left UV coordinate
      * within the Tileset image.
      */
-    getTileTextureCoordinates: function (tileIndex)
+    getTileTextureCoordinates(tileIndex)
     {
         if (!this.containsTileIndex(tileIndex)) { return null; }
 
         return this.texCoordinates[tileIndex - this.firstgid];
-    },
+    }
 
     /**
      * Sets the image associated with this Tileset and updates the tile data (rows, columns, etc.).
@@ -411,7 +409,7 @@ var Tileset = new Class({
      *
      * @return {Phaser.Tilemaps.Tileset} This Tileset object.
      */
-    setImage: function (texture)
+    setImage(texture)
     {
         this.image = texture;
 
@@ -431,7 +429,7 @@ var Tileset = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Sets the tile width & height and updates the tile data (rows, columns, etc.).
@@ -444,7 +442,7 @@ var Tileset = new Class({
      *
      * @return {Phaser.Tilemaps.Tileset} This Tileset object.
      */
-    setTileSize: function (tileWidth, tileHeight)
+    setTileSize(tileWidth, tileHeight)
     {
         if (tileWidth !== undefined) { this.tileWidth = tileWidth; }
         if (tileHeight !== undefined) { this.tileHeight = tileHeight; }
@@ -455,7 +453,7 @@ var Tileset = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Sets the tile margin and spacing and updates the tile data (rows, columns, etc.).
@@ -468,7 +466,7 @@ var Tileset = new Class({
      *
      * @return {Phaser.Tilemaps.Tileset} This Tileset object.
      */
-    setSpacing: function (margin, spacing)
+    setSpacing(margin, spacing)
     {
         if (margin !== undefined) { this.tileMargin = margin; }
         if (spacing !== undefined) { this.tileSpacing = spacing; }
@@ -479,7 +477,7 @@ var Tileset = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Updates tile texture coordinates and tileset data.
@@ -494,7 +492,7 @@ var Tileset = new Class({
      *
      * @return {Phaser.Tilemaps.Tileset} This Tileset object.
      */
-    updateTileData: function (imageWidth, imageHeight, offsetX, offsetY)
+    updateTileData(imageWidth, imageHeight, offsetX, offsetY)
     {
         if (offsetX === undefined) { offsetX = 0; }
         if (offsetY === undefined) { offsetY = 0; }
@@ -542,7 +540,7 @@ var Tileset = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Get or create the texture containing the animation data for this tileset.
@@ -553,7 +551,7 @@ var Tileset = new Class({
      * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - The renderer to use.
      * @return {Phaser.Renderer.WebGL.Wrappers.WebGLTextureWrapper} The animation data texture.
      */
-    getAnimationDataTexture: function (renderer)
+    getAnimationDataTexture(renderer)
     {
         if (!this._animationDataTexture)
         {
@@ -561,7 +559,7 @@ var Tileset = new Class({
         }
 
         return this._animationDataTexture;
-    },
+    }
 
     /**
      * Get or create the map from tile index to animation data index.
@@ -572,7 +570,7 @@ var Tileset = new Class({
      * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - The renderer to use.
      * @return {Map<number, number>} The map from tile index to animation data index.
      */
-    getAnimationDataIndexMap: function (renderer)
+    getAnimationDataIndexMap(renderer)
     {
         if (!this._animationDataIndexMap)
         {
@@ -580,7 +578,7 @@ var Tileset = new Class({
         }
 
         return this._animationDataIndexMap;
-    },
+    }
 
     /**
      * Creates a new WebGLTexture for the tileset's animation data.
@@ -592,7 +590,7 @@ var Tileset = new Class({
      *
      * @return {Phaser.Renderer.WebGL.Wrappers.WebGLTextureWrapper} The new WebGLTexture.
      */
-    createAnimationDataTexture: function (renderer)
+    createAnimationDataTexture(renderer)
     {
         var tileData = this.tileData;
         var total = this.total;
@@ -679,6 +677,6 @@ var Tileset = new Class({
         this.maxAnimationLength = maxLength;
     }
 
-});
+};
 
 module.exports = Tileset;

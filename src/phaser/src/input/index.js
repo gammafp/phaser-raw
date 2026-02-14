@@ -5,8 +5,17 @@
  */
 
 import { Extend } from '../utils/object/Extend';
-
-var CONST = require('./const');
+import * as Gamepad from './gamepad';
+import * as Keyboard from './keyboard';
+import * as Mouse from './mouse';
+import * as Touch from './touch';
+import { CreatePixelPerfectHandler } from './CreatePixelPerfectHandler';
+import { CreateInteractiveObject } from './CreateInteractiveObject';
+import { InputPluginCache } from './InputPluginCache';
+import { INPUT_CONST as CONST } from './const';
+import { InputManager } from './InputManager';
+import { InputPlugin } from './InputPlugin';
+import { Pointer } from './Pointer';
 
 /**
  * @namespace Phaser.Input
@@ -14,17 +23,17 @@ var CONST = require('./const');
 
 var Input = {
 
-    CreatePixelPerfectHandler: require('./CreatePixelPerfectHandler'),
-    CreateInteractiveObject: require('./CreateInteractiveObject'),
+    CreatePixelPerfectHandler: CreatePixelPerfectHandler,
+    CreateInteractiveObject: CreateInteractiveObject,
     Events: require('./events'),
-    Gamepad: require('./gamepad'),
-    InputManager: require('./InputManager'),
-    InputPlugin: require('./InputPlugin'),
-    InputPluginCache: require('./InputPluginCache'),
-    Keyboard: require('./keyboard'),
-    Mouse: require('./mouse'),
-    Pointer: require('./Pointer'),
-    Touch: require('./touch')
+    Gamepad: Gamepad,
+    InputManager: InputManager,
+    InputPlugin: InputPlugin,
+    InputPluginCache: InputPluginCache,
+    Keyboard: Keyboard,
+    Mouse: Mouse,
+    Pointer: Pointer,
+    Touch: Touch
 
 };
 

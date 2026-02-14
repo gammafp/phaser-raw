@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { NULL } from '../../utils/NULL';
+
 var CONST = require('../const/ORIENTATION_CONST');
-var NULL = require('../../utils/NULL');
 var StaggeredWorldToTileY = require('./StaggeredWorldToTileY');
 var WorldToTileY = require('./WorldToTileY');
 

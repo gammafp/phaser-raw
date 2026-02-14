@@ -10,11 +10,11 @@ import { StableSort } from '../../utils/array/StableSort';
 import { CircleToRectangle } from '../../geom/intersects/CircleToRectangle';
 
 import { DistanceBetween } from '../../math/distance/DistanceBetween';
+import { RGB } from '../../display/RGB';
 
 var Class = require('../../utils/Class');
 var Light = require('./Light');
 var PointLight = require('../pointlight/PointLight');
-var RGB = require('../../display/RGB');
 var Utils = require('../../renderer/webgl/Utils');
 
 /**

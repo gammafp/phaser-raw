@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { ColorMatrix as DisplayColorMatrix } from '../display/ColorMatrix';
+
 var Class = require('../utils/Class');
 var Controller = require('./Controller');
-var DisplayColorMatrix = require('../display/ColorMatrix');
 
 /**
  * @classdesc

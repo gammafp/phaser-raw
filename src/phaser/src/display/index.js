@@ -4,6 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { BaseShader } from './shader/BaseShader';
+import { ColorMatrix } from './ColorMatrix';
+import { RGB } from './RGB';
+
 /**
  * @namespace Phaser.Display
  */
@@ -11,12 +15,12 @@
 module.exports = {
 
     Align: require('./align'),
-    BaseShader: require('./shader/BaseShader'),
+    BaseShader: BaseShader,
     Bounds: require('./bounds'),
     Canvas: require('./canvas'),
     Color: require('./color'),
-    ColorMatrix: require('./ColorMatrix'),
+    ColorMatrix: ColorMatrix,
     Masks: require('./mask'),
-    RGB: require('./RGB')
+    RGB: RGB
 
 };

@@ -33,19 +33,18 @@ var TintModes = require('../renderer/TintModes');
  * @param {number} [x=0] - The world x position where the top left of this layer will be placed.
  * @param {number} [y=0] - The world y position where the top left of this layer will be placed.
  */
-var TilemapLayer = new Class({
+var TilemapLayer = class extends TilemapLayerBase {
 
-    Extends: TilemapLayerBase,
-
-    Mixins: [
-        TilemapLayerRender
-    ],
-
-    initialize:
-
-    function TilemapLayer (scene, tilemap, layerIndex, tileset, x, y)
+    static
     {
-        TilemapLayerBase.call(this, 'TilemapLayer', scene, tilemap, layerIndex, x, y);
+        Class.mixin(this, [
+            TilemapLayerRender
+        ], false);
+    }
+
+    constructor(scene, tilemap, layerIndex, tileset, x, y)
+    {
+        super('TilemapLayer', scene, tilemap, layerIndex, x, y);
 
         /**
          * An array of `Tileset` objects associated with this layer.
@@ -176,7 +175,7 @@ var TilemapLayer = new Class({
         this.setTilesets(tileset);
 
         this.initRenderNodes(this._defaultRenderNodesMap);
-    },
+    }
 
     /**
      * The default render nodes for this Game Object.
@@ -188,12 +187,11 @@ var TilemapLayer = new Class({
      * @readonly
      * @since 4.0.0
      */
-    _defaultRenderNodesMap: {
-        get: function ()
-        {
-            return DefaultTilemapLayerNodes;
-        }
-    },
+
+    get _defaultRenderNodesMap()
+    {
+        return DefaultTilemapLayerNodes;
+    }
 
     /**
      * Populates the internal `tileset` array with the Tileset references this Layer requires for rendering.
@@ -204,7 +202,7 @@ var TilemapLayer = new Class({
      *
      * @param {(string|string[]|Phaser.Tilemaps.Tileset|Phaser.Tilemaps.Tileset[])} tileset - The tileset, or an array of tilesets, used to render this layer. Can be a string or a Tileset object.
      */
-    setTilesets: function (tilesets)
+    setTilesets(tilesets)
     {
         var gidMap = [];
         var setList = [];
@@ -239,7 +237,7 @@ var TilemapLayer = new Class({
 
         this.gidMap = gidMap;
         this.tileset = setList;
-    },
+    }
 
     /**
      * Sets the rendering (draw) order of the tiles in this layer.
@@ -266,7 +264,7 @@ var TilemapLayer = new Class({
      *
      * @return {this} This Tilemap Layer object.
      */
-    setRenderOrder: function (renderOrder)
+    setRenderOrder(renderOrder)
     {
         var orders = [ 'right-down', 'left-down', 'right-up', 'left-up' ];
 
@@ -281,7 +279,7 @@ var TilemapLayer = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Returns the tiles in the given layer that are within the cameras viewport.
@@ -294,10 +292,10 @@ var TilemapLayer = new Class({
      *
      * @return {Phaser.Tilemaps.Tile[]} An array of Tile objects to render.
      */
-    cull: function (camera)
+    cull(camera)
     {
         return this.cullCallback(this.layer, camera, this.culledTiles, this._renderOrder);
-    },
+    }
 
     /**
      * You can control if the Cameras should cull tiles before rendering them or not.
@@ -313,14 +311,14 @@ var TilemapLayer = new Class({
      *
      * @return {this} This Tilemap Layer object.
      */
-    setSkipCull: function (value)
+    setSkipCull(value)
     {
         if (value === undefined) { value = true; }
 
         this.skipCull = value;
 
         return this;
-    },
+    }
 
     /**
      * When a Camera culls the tiles in this layer it does so using its view into the world, building up a
@@ -337,7 +335,7 @@ var TilemapLayer = new Class({
      *
      * @return {this} This Tilemap Layer object.
      */
-    setCullPadding: function (paddingX, paddingY)
+    setCullPadding(paddingX, paddingY)
     {
         if (paddingX === undefined) { paddingX = 1; }
         if (paddingY === undefined) { paddingY = 1; }
@@ -346,7 +344,7 @@ var TilemapLayer = new Class({
         this.cullPaddingY = paddingY;
 
         return this;
-    },
+    }
 
     /**
      * Sets an additive tint on each Tile within the given area.
@@ -373,7 +371,7 @@ var TilemapLayer = new Class({
      *
      * @return {this} This Tilemap Layer object.
      */
-    setTint: function (tint, tileX, tileY, width, height, filteringOptions)
+    setTint(tint, tileX, tileY, width, height, filteringOptions)
     {
         if (tint === undefined) { tint = 0xffffff; }
 
@@ -383,7 +381,7 @@ var TilemapLayer = new Class({
         };
 
         return this.forEachTile(tintTile, this, tileX, tileY, width, height, filteringOptions);
-    },
+    }
 
     /**
      * Sets the tint fill mode to use when applying the tint to the texture.
@@ -414,7 +412,7 @@ var TilemapLayer = new Class({
      *
      * @return {this} This Tilemap Layer object.
      */
-    setTintFill: function (tintFill, tileX, tileY, width, height, filteringOptions)
+    setTintFill(tintFill, tileX, tileY, width, height, filteringOptions)
     {
         if (tintFill === undefined) { tintFill = TintModes.MULTIPLY; }
 
@@ -424,15 +422,15 @@ var TilemapLayer = new Class({
         };
 
         return this.forEachTile(tintTile, this, tileX, tileY, width, height, filteringOptions);
-    },
+    }
 
-    destroy: function (removeFromTilemap)
+    destroy(removeFromTilemap)
     {
         this.culledTiles.length = 0;
         this.cullCallback = null;
 
         TilemapLayerBase.prototype.destroy.call(this, removeFromTilemap);
     }
-});
+};
 
 module.exports = TilemapLayer;

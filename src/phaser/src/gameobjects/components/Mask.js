@@ -5,7 +5,7 @@
  */
 
 import { PHASER_CONST as CONST } from '../../const';
-var GeometryMask = require('../../display/mask/GeometryMask');
+import { GeometryMask } from '../../display/mask/GeometryMask';
 
 /**
  * Provides methods used for getting and setting the mask of a Game Object.

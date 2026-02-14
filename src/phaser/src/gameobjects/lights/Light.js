@@ -5,10 +5,10 @@
  */
 
 import { Circle } from '../../geom/circle/Circle';
+import { RGB } from '../../display/RGB';
 
 var Class = require('../../utils/Class');
 var Components = require('../components');
-var RGB = require('../../display/RGB');
 var Utils = require('../../renderer/webgl/Utils');
 
 /**

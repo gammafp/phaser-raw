@@ -26,8 +26,8 @@ import { TimeStep } from './TimeStep';
 import { VisibilityHandler } from './VisibilityHandler';
 
 import * as CanvasPool from '../display/canvas/CanvasPool';
+import { InputManager } from '../input/InputManager';
 
-const InputManager = require('../input/InputManager');
 const TextureManager = require('../textures/TextureManager');
 const TextureEvents = require('../textures/events');
 
