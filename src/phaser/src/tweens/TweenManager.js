@@ -10,13 +10,13 @@ import { Flatten } from '../utils/array/Flatten';
 import { PluginCache } from '../plugins/PluginCache';
 
 var Class = require('../utils/Class');
-var NumberTweenBuilder = require('./builders/NumberTweenBuilder');
+import { NumberTweenBuilder } from './builders/NumberTweenBuilder';
 var SceneEvents = require('../scene/events');
-var StaggerBuilder = require('./builders/StaggerBuilder');
-var Tween = require('./tween/Tween');
-var TweenBuilder = require('./builders/TweenBuilder');
-var TweenChain = require('./tween/TweenChain');
-var TweenChainBuilder = require('./builders/TweenChainBuilder');
+import { StaggerBuilder } from './builders/StaggerBuilder';
+import { Tween } from './tween/Tween';
+import { TweenBuilder } from './builders/TweenBuilder';
+import { TweenChain } from './tween/TweenChain';
+import { TweenChainBuilder } from './builders/TweenChainBuilder';
 
 /**
  * @classdesc
@@ -64,11 +64,9 @@ var TweenChainBuilder = require('./builders/TweenChainBuilder');
  *
  * @param {Phaser.Scene} scene - The Scene which owns this Tween Manager.
  */
-var TweenManager = new Class({
+var TweenManager = class {
 
-    initialize:
-
-    function TweenManager (scene)
+    constructor(scene)
     {
         /**
          * The Scene which owns this Tween Manager.
@@ -209,7 +207,7 @@ var TweenManager = new Class({
 
         this.events.once(SceneEvents.BOOT, this.boot, this);
         this.events.on(SceneEvents.START, this.start, this);
-    },
+    }
 
     /**
      * This method is called automatically, only once, when the Scene is first created.
@@ -219,10 +217,10 @@ var TweenManager = new Class({
      * @private
      * @since 3.5.1
      */
-    boot: function ()
+    boot()
     {
         this.events.once(SceneEvents.DESTROY, this.destroy, this);
-    },
+    }
 
     /**
      * This method is called automatically by the Scene when it is starting up.
@@ -233,7 +231,7 @@ var TweenManager = new Class({
      * @private
      * @since 3.5.0
      */
-    start: function ()
+    start()
     {
         this.timeScale = 1;
         this.paused = false;
@@ -244,7 +242,7 @@ var TweenManager = new Class({
 
         this.events.on(SceneEvents.UPDATE, this.update, this);
         this.events.once(SceneEvents.SHUTDOWN, this.shutdown, this);
-    },
+    }
 
     /**
      * Create a Tween and return it, but does not add it to this Tween Manager.
@@ -264,7 +262,7 @@ var TweenManager = new Class({
      *
      * @return {Phaser.Tweens.Tween|Phaser.Tweens.Tween[]} The created Tween, or an array of Tweens if an array of tween configs was provided.
      */
-    create: function (config)
+    create(config)
     {
         if (!Array.isArray(config))
         {
@@ -293,7 +291,7 @@ var TweenManager = new Class({
         }
 
         return (result.length === 1) ? result[0] : result;
-    },
+    }
 
     /**
      * Create a Tween and add it to this Tween Manager by passing a Tween Configuration object.
@@ -332,7 +330,7 @@ var TweenManager = new Class({
      *
      * @return {Phaser.Tweens.Tween} The created Tween.
      */
-    add: function (config)
+    add(config)
     {
         var tween = config;
         var tweens = this.tweens;
@@ -356,7 +354,7 @@ var TweenManager = new Class({
         }
 
         return tween;
-    },
+    }
 
     /**
      * Create multiple Tweens and add them all to this Tween Manager, by passing an array of Tween Configuration objects.
@@ -382,7 +380,7 @@ var TweenManager = new Class({
      *
      * @return {Phaser.Tweens.Tween[]} An array of created Tweens.
      */
-    addMultiple: function (configs)
+    addMultiple(configs)
     {
         var tween;
         var result = [];
@@ -414,7 +412,7 @@ var TweenManager = new Class({
         }
 
         return result;
-    },
+    }
 
     /**
      * Create a sequence of Tweens, chained to one-another, and add them to this Tween Manager.
@@ -435,14 +433,14 @@ var TweenManager = new Class({
      *
      * @return {Phaser.Tweens.TweenChain} The Tween Chain instance.
      */
-    chain: function (config)
+    chain(config)
     {
         var chain = TweenChainBuilder(this, config);
 
         this.tweens.push(chain.init());
 
         return chain;
-    },
+    }
 
     /**
      * Returns an array containing this Tween and all Tweens chained to it,
@@ -457,10 +455,10 @@ var TweenManager = new Class({
      *
      * @return {Phaser.Tweens.Tween[]} An array of the chained tweens, or an empty array if there aren't any.
      */
-    getChainedTweens: function (tween)
+    getChainedTweens(tween)
     {
         return tween.getChainedTweens();
-    },
+    }
 
     /**
      * Check to see if the given Tween instance exists within this Tween Manager.
@@ -476,10 +474,10 @@ var TweenManager = new Class({
      *
      * @return {boolean} `true` if the Tween exists within this Tween Manager, otherwise `false`.
      */
-    has: function (tween)
+    has(tween)
     {
         return (this.tweens.indexOf(tween) > -1);
-    },
+    }
 
     /**
      * Add an existing Tween to this Tween Manager.
@@ -493,7 +491,7 @@ var TweenManager = new Class({
      *
      * @return {this} This Tween Manager instance.
      */
-    existing: function (tween)
+    existing(tween)
     {
         if (!this.has(tween))
         {
@@ -501,7 +499,7 @@ var TweenManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Create a Number Tween and add it to the active Tween list.
@@ -523,14 +521,14 @@ var TweenManager = new Class({
      *
      * @return {Phaser.Tweens.Tween} The created Number Tween.
      */
-    addCounter: function (config)
+    addCounter(config)
     {
         var tween = NumberTweenBuilder(this, config);
 
         this.tweens.push(tween.reset());
 
         return tween;
-    },
+    }
 
     /**
      * Creates a Stagger function to be used by a Tween property.
@@ -573,10 +571,10 @@ var TweenManager = new Class({
      *
      * @return {function} The stagger function.
      */
-    stagger: function (value, options)
+    stagger(value, options)
     {
         return StaggerBuilder(value, options);
-    },
+    }
 
     /**
      * Set the limits that are used when a browser encounters lag, or delays that cause the elapsed
@@ -600,7 +598,7 @@ var TweenManager = new Class({
      *
      * @return {this} This Tween Manager instance.
      */
-    setLagSmooth: function (limit, skip)
+    setLagSmooth(limit, skip)
     {
         if (limit === undefined) { limit = 1 / 1e-8; }
         if (skip === undefined) { skip = 0; }
@@ -609,7 +607,7 @@ var TweenManager = new Class({
         this.lagSkip = Math.min(skip, this.maxLag);
 
         return this;
-    },
+    }
 
     /**
      * Limits the Tween system to run at a particular frame rate.
@@ -625,7 +623,7 @@ var TweenManager = new Class({
      *
      * @return {this} This Tween Manager instance.
      */
-    setFps: function (fps)
+    setFps(fps)
     {
         if (fps === undefined) { fps = 240; }
 
@@ -633,7 +631,7 @@ var TweenManager = new Class({
         this.nextTime = this.time * 1000 + this.gap;
 
         return this;
-    },
+    }
 
     /**
      * Internal method that calculates the delta value, along with the other timing values,
@@ -648,7 +646,7 @@ var TweenManager = new Class({
      *
      * @return {number} The new delta value.
      */
-    getDelta: function (tick)
+    getDelta(tick)
     {
         var elapsed = Date.now() - this.prevTime;
 
@@ -675,7 +673,7 @@ var TweenManager = new Class({
         }
 
         return delta;
-    },
+    }
 
     /**
      * Manually advance the Tween system by one step.
@@ -688,12 +686,12 @@ var TweenManager = new Class({
      *
      * @return {this} This Tween Manager instance.
      */
-    tick: function ()
+    tick()
     {
         this.step(true);
 
         return this;
-    },
+    }
 
     /**
      * Internal update handler.
@@ -704,13 +702,13 @@ var TweenManager = new Class({
      * @method Phaser.Tweens.TweenManager#update
      * @since 3.0.0
      */
-    update: function ()
+    update()
     {
         if (!this.paused)
         {
             this.step(false);
         }
-    },
+    }
 
     /**
      * Updates all Tweens belonging to this Tween Manager.
@@ -722,7 +720,7 @@ var TweenManager = new Class({
      *
      * @param {boolean} [tick=false] - Is this a manual tick, or an automated tick?
      */
-    step: function (tick)
+    step(tick)
     {
         if (tick === undefined) { tick = false; }
 
@@ -778,7 +776,7 @@ var TweenManager = new Class({
         }
 
         this.processing = false;
-    },
+    }
 
     /**
      * Removes the given Tween from this Tween Manager, even if it hasn't started
@@ -795,7 +793,7 @@ var TweenManager = new Class({
      *
      * @return {this} This Tween Manager instance.
      */
-    remove: function (tween)
+    remove(tween)
     {
         if (this.processing)
         {
@@ -811,7 +809,7 @@ var TweenManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Resets the given Tween.
@@ -827,7 +825,7 @@ var TweenManager = new Class({
      *
      * @return {this} This Tween Manager instance.
      */
-    reset: function (tween)
+    reset(tween)
     {
         this.existing(tween);
 
@@ -836,7 +834,7 @@ var TweenManager = new Class({
         tween.setActiveState();
 
         return this;
-    },
+    }
 
     /**
      * Checks if a Tween is active and adds it to the Tween Manager at the start of the frame if it isn't.
@@ -848,14 +846,14 @@ var TweenManager = new Class({
      *
      * @return {this} This Tween Manager instance.
      */
-    makeActive: function (tween)
+    makeActive(tween)
     {
         this.existing(tween);
 
         tween.setActiveState();
 
         return this;
-    },
+    }
 
     /**
      * Passes all Tweens to the given callback.
@@ -869,7 +867,7 @@ var TweenManager = new Class({
      *
      * @return {this} This Tween Manager instance.
      */
-    each: function (callback, scope)
+    each(callback, scope)
     {
         var i;
         var args = [ null ];
@@ -887,7 +885,7 @@ var TweenManager = new Class({
         });
 
         return this;
-    },
+    }
 
     /**
      * Returns an array containing references to all Tweens in this Tween Manager.
@@ -903,10 +901,10 @@ var TweenManager = new Class({
      *
      * @return {Phaser.Tweens.Tween[]} A new array containing references to all Tweens.
      */
-    getTweens: function ()
+    getTweens()
     {
         return this.tweens.slice();
-    },
+    }
 
     /**
      * Returns an array of all Tweens in the Tween Manager which affect the given target, or array of targets.
@@ -922,7 +920,7 @@ var TweenManager = new Class({
      *
      * @return {Phaser.Tweens.Tween[]} A new array containing all Tweens which affect the given target(s).
      */
-    getTweensOf: function (target)
+    getTweensOf(target)
     {
         var output = [];
         var list = this.tweens;
@@ -952,7 +950,7 @@ var TweenManager = new Class({
         }
 
         return output;
-    },
+    }
 
     /**
      * Returns the scale of the time delta for all Tweens owned by this Tween Manager.
@@ -962,10 +960,10 @@ var TweenManager = new Class({
      *
      * @return {number} The scale of the time delta, usually 1.
      */
-    getGlobalTimeScale: function ()
+    getGlobalTimeScale()
     {
         return this.timeScale;
-    },
+    }
 
     /**
      * Sets a new scale of the time delta for this Tween Manager.
@@ -979,12 +977,12 @@ var TweenManager = new Class({
      *
      * @return {this} This Tween Manager instance.
      */
-    setGlobalTimeScale: function (value)
+    setGlobalTimeScale(value)
     {
         this.timeScale = value;
 
         return this;
-    },
+    }
 
     /**
      * Checks if the given object is being affected by a _playing_ Tween.
@@ -998,7 +996,7 @@ var TweenManager = new Class({
      *
      * @return {boolean} Returns `true` if a tween is active on the given target, otherwise `false`.
      */
-    isTweening: function (target)
+    isTweening(target)
     {
         var list = this.tweens;
         var tween;
@@ -1014,7 +1012,7 @@ var TweenManager = new Class({
         }
 
         return false;
-    },
+    }
 
     /**
      * Destroys all Tweens in this Tween Manager.
@@ -1031,7 +1029,7 @@ var TweenManager = new Class({
      *
      * @return {this} This Tween Manager instance.
      */
-    killAll: function ()
+    killAll()
     {
         var tweens = (this.processing) ? this.getTweens() : this.tweens;
 
@@ -1046,7 +1044,7 @@ var TweenManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Stops all Tweens which affect the given target or array of targets.
@@ -1067,7 +1065,7 @@ var TweenManager = new Class({
      *
      * @return {this} This Tween Manager instance.
      */
-    killTweensOf: function (target)
+    killTweensOf(target)
     {
         var tweens = this.getTweensOf(target);
 
@@ -1077,7 +1075,7 @@ var TweenManager = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Pauses this Tween Manager. No Tweens will update while paused.
@@ -1093,12 +1091,12 @@ var TweenManager = new Class({
      *
      * @return {this} This Tween Manager instance.
      */
-    pauseAll: function ()
+    pauseAll()
     {
         this.paused = true;
 
         return this;
-    },
+    }
 
     /**
      * Resumes playback of this Tween Manager.
@@ -1114,12 +1112,12 @@ var TweenManager = new Class({
      *
      * @return {this} This Tween Manager instance.
      */
-    resumeAll: function ()
+    resumeAll()
     {
         this.paused = false;
 
         return this;
-    },
+    }
 
     /**
      * The Scene that owns this plugin is shutting down.
@@ -1129,7 +1127,7 @@ var TweenManager = new Class({
      * @method Phaser.Tweens.TweenManager#shutdown
      * @since 3.0.0
      */
-    shutdown: function ()
+    shutdown()
     {
         this.killAll();
 
@@ -1137,7 +1135,7 @@ var TweenManager = new Class({
 
         this.events.off(SceneEvents.UPDATE, this.update, this);
         this.events.off(SceneEvents.SHUTDOWN, this.shutdown, this);
-    },
+    }
 
     /**
      * The Scene that owns this plugin is being destroyed.
@@ -1146,7 +1144,7 @@ var TweenManager = new Class({
      * @method Phaser.Tweens.TweenManager#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy()
     {
         this.shutdown();
 
@@ -1156,7 +1154,7 @@ var TweenManager = new Class({
         this.events = null;
     }
 
-});
+};
 
 PluginCache.register('TweenManager', TweenManager, 'tweens');
 

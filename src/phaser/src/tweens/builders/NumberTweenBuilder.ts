@@ -9,13 +9,13 @@ import { GetFastValue } from '../../utils/object/GetFastValue';
 import { GetValue } from '../../utils/object/GetValue';
 import { MergeRight } from '../../utils/object/MergeRight';
 
-var BaseTween = require('../tween/BaseTween');
-var Defaults = require('../tween/Defaults');
-var GetBoolean = require('./GetBoolean');
-var GetEaseFunction = require('./GetEaseFunction');
-var GetNewValue = require('./GetNewValue');
-var GetValueOp = require('./GetValueOp');
-var Tween = require('../tween/Tween');
+import { BaseTween } from '../tween/BaseTween';
+import { TWEEN_DEFAULTS } from '../tween/Defaults';
+import { GetBoolean } from './GetBoolean';
+import { GetEaseFunction } from './GetEaseFunction';
+import { GetNewValue } from './GetNewValue';
+import { GetValueOp } from './GetValueOp';
+import { Tween } from '../tween/Tween';
 
 /**
  * Creates a new Number Tween.
@@ -29,8 +29,7 @@ var Tween = require('../tween/Tween');
  *
  * @return {Phaser.Tweens.Tween} The new tween.
  */
-var NumberTweenBuilder = function (parent, config, defaults)
-{
+export const NumberTweenBuilder = (parent: any, config: any, defaults?: any): any => {
     if (config instanceof Tween)
     {
         config.parent = parent;
@@ -40,11 +39,11 @@ var NumberTweenBuilder = function (parent, config, defaults)
 
     if (defaults === undefined)
     {
-        defaults = Defaults;
+        defaults = TWEEN_DEFAULTS;
     }
     else
     {
-        defaults = MergeRight(Defaults, defaults);
+        defaults = MergeRight(TWEEN_DEFAULTS, defaults);
     }
 
     //  var tween = this.tweens.addCounter({
@@ -57,20 +56,20 @@ var NumberTweenBuilder = function (parent, config, defaults)
     //
     //  tween.getValue()
 
-    var from = GetFastValue(config, 'from', 0);
-    var to = GetFastValue(config, 'to', 1);
+    const from = GetFastValue(config, 'from', 0);
+    const to = GetFastValue(config, 'to', 1);
 
-    var targets = [ { value: from } ];
+    const targets = [ { value: from } ];
 
-    var delay = GetFastValue(config, 'delay', defaults.delay);
-    var easeParams = GetFastValue(config, 'easeParams', defaults.easeParams);
-    var ease = GetFastValue(config, 'ease', defaults.ease);
+    const delay = GetFastValue(config, 'delay', defaults.delay);
+    const easeParams = GetFastValue(config, 'easeParams', defaults.easeParams);
+    const ease = GetFastValue(config, 'ease', defaults.ease);
 
-    var ops = GetValueOp('value', to);
+    const ops = GetValueOp('value', to);
 
-    var tween = new Tween(parent, targets);
+    const tween = new Tween(parent, targets);
 
-    var tweenData = tween.add(
+    const tweenData = tween.add(
         0,
         'value',
         ops.getEnd,
@@ -100,17 +99,17 @@ var NumberTweenBuilder = function (parent, config, defaults)
     //  Set the Callbacks
     tween.callbackScope = GetValue(config, 'callbackScope', tween);
 
-    var callbacks = BaseTween.TYPES;
+    const callbacks = BaseTween.TYPES;
 
-    for (var i = 0; i < callbacks.length; i++)
+    for (let i = 0; i < callbacks.length; i++)
     {
-        var type = callbacks[i];
+        const type = callbacks[i];
 
-        var callback = GetValue(config, type, false);
+        const callback = GetValue(config, type, false);
 
         if (callback)
         {
-            var callbackParams = GetValue(config, type + 'Params', []);
+            const callbackParams = GetValue(config, type + 'Params', []);
 
             tween.setCallback(type, callback, callbackParams);
         }
@@ -118,5 +117,3 @@ var NumberTweenBuilder = function (parent, config, defaults)
 
     return tween;
 };
-
-module.exports = NumberTweenBuilder;

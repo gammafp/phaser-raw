@@ -13,8 +13,8 @@ import { SnapTo } from '../../math/snap/SnapTo';
 import { Wrap } from '../../math/Wrap';
 
 var Class = require('../../utils/Class');
-var GetEaseFunction = require('../../tweens/builders/GetEaseFunction');
-var GetInterpolationFunction = require('../../tweens/builders/GetInterpolationFunction');
+import { GetEaseFunction } from '../../tweens/builders/GetEaseFunction';
+import { GetInterpolationFunction } from '../../tweens/builders/GetInterpolationFunction';
 
 /**
  * @classdesc

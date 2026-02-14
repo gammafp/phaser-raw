@@ -6,9 +6,8 @@
 
 import { Clamp } from '../../math/Clamp';
 
-var BaseTweenData = require('./BaseTweenData');
-var Class = require('../../utils/Class');
-var Events = require('../events');
+import { BaseTweenData } from './BaseTweenData';
+import * as Events from '../events';
 
 /**
  * @classdesc
@@ -42,15 +41,16 @@ var Events = require('../events');
  * @param {boolean} flipX - Should toggleFlipX be called when yoyo or repeat happens?
  * @param {boolean} flipY - Should toggleFlipY be called when yoyo or repeat happens?
  */
-var TweenFrameData = new Class({
+export class TweenFrameData extends BaseTweenData {
 
-    Extends: BaseTweenData,
+    startTexture: string | null;
+    endTexture: string;
+    startFrame: string | number | null;
+    endFrame: string | number;
 
-    initialize:
-
-    function TweenFrameData (tween, targetIndex, texture, frame, delay, duration, hold, repeat, repeatDelay, flipX, flipY)
+    constructor(tween: any, targetIndex: number, texture: string, frame: string | number, delay: Function, duration: number, hold: number, repeat: number, repeatDelay: number, flipX: boolean, flipY: boolean)
     {
-        BaseTweenData.call(this, tween, targetIndex, delay, duration, false, hold, repeat, repeatDelay, flipX, flipY);
+        super(tween, targetIndex, delay, duration, false, hold, repeat, repeatDelay, flipX, flipY);
 
         /**
          * The property of the target to be tweened.
@@ -109,7 +109,7 @@ var TweenFrameData = new Class({
          * @since 3.60.0
          */
         this.yoyo = (repeat !== 0) ? true : false;
-    },
+    }
 
     /**
      * Internal method that resets this Tween Data entirely, including the progress and elapsed values.
@@ -121,11 +121,11 @@ var TweenFrameData = new Class({
      *
      * @param {boolean} [isSeeking=false] - Is the Tween Data being reset as part of a Tween seek?
      */
-    reset: function (isSeeking)
+    reset(isSeeking?: boolean): void
     {
-        BaseTweenData.prototype.reset.call(this);
+        super.reset();
 
-        var target = this.tween.targets[this.targetIndex];
+        const target = this.tween.targets[this.targetIndex];
 
         if (!this.startTexture)
         {
@@ -137,7 +137,7 @@ var TweenFrameData = new Class({
         {
             target.setTexture(this.startTexture, this.startFrame);
         }
-    },
+    }
 
     /**
      * Internal method that advances this TweenData based on the delta value given.
@@ -151,11 +151,11 @@ var TweenFrameData = new Class({
      *
      * @return {boolean} `true` if this TweenData is still playing, or `false` if it has finished entirely.
      */
-    update: function (delta)
+    update(delta: number): boolean
     {
-        var tween = this.tween;
-        var targetIndex = this.targetIndex;
-        var target = tween.targets[targetIndex];
+        const tween = this.tween;
+        const targetIndex = this.targetIndex;
+        const target = tween.targets[targetIndex];
 
         //  Bail out if we don't have a target to act upon
         if (!target)
@@ -183,7 +183,7 @@ var TweenFrameData = new Class({
                 {
                     this.setPlayingForwardState();
 
-                    this.dispatchEvent(Events.TWEEN_REPEAT, 'onRepeat');
+                    this.dispatchEvent(Events.TWEEN_REPEAT_EVENT, 'onRepeat');
                 }
                 else if (this.isHolding())
                 {
@@ -206,15 +206,15 @@ var TweenFrameData = new Class({
             return true;
         }
 
-        var forward = this.isPlayingForward();
-        var backward = this.isPlayingBackward();
+        const forward = this.isPlayingForward();
+        const backward = this.isPlayingBackward();
 
         if (forward || backward)
         {
-            var elapsed = this.elapsed;
-            var duration = this.duration;
-            var diff = 0;
-            var complete = false;
+            let elapsed = this.elapsed;
+            const duration = this.duration;
+            let diff = 0;
+            let complete = false;
 
             elapsed += delta;
 
@@ -229,7 +229,7 @@ var TweenFrameData = new Class({
                 elapsed = 0;
             }
 
-            var progress = Clamp(elapsed / duration, 0, 1);
+            const progress = Clamp(elapsed / duration, 0, 1);
 
             this.elapsed = elapsed;
             this.progress = progress;
@@ -259,12 +259,12 @@ var TweenFrameData = new Class({
                 }
             }
 
-            this.dispatchEvent(Events.TWEEN_UPDATE, 'onUpdate');
+            this.dispatchEvent(Events.TWEEN_UPDATE_EVENT, 'onUpdate');
         }
 
         //  Return TRUE if this TweenData still playing, otherwise FALSE
         return !this.isComplete();
-    },
+    }
 
     /**
      * Internal method that will emit a TweenData based Event on the
@@ -276,25 +276,25 @@ var TweenFrameData = new Class({
      * @param {Phaser.Types.Tweens.Event} event - The Event to be dispatched.
      * @param {Phaser.Types.Tweens.TweenCallbackTypes} [callback] - The name of the callback to be invoked. Can be `null` or `undefined` to skip invocation.
      */
-    dispatchEvent: function (event, callback)
+    dispatchEvent(event: string, callback: string): void
     {
-        var tween = this.tween;
+        const tween = this.tween;
 
         if (!tween.isSeeking)
         {
-            var target = tween.targets[this.targetIndex];
-            var key = this.key;
+            const target = tween.targets[this.targetIndex];
+            const key = this.key;
 
             tween.emit(event, tween, key, target);
 
-            var handler = tween.callbacks[callback];
+            const handler = tween.callbacks[callback];
 
             if (handler)
             {
                 handler.func.apply(tween.callbackScope, [ tween, target, key ].concat(handler.params));
             }
         }
-    },
+    }
 
     /**
      * Immediately destroys this TweenData, nulling of all its references.
@@ -302,16 +302,14 @@ var TweenFrameData = new Class({
      * @method Phaser.Tweens.TweenFrameData#destroy
      * @since 3.60.0
      */
-    destroy: function ()
+    destroy(): void
     {
-        BaseTweenData.prototype.destroy.call(this);
+        super.destroy();
 
         this.startTexture = null;
-        this.endTexture = null;
+        this.endTexture = null as any;
         this.startFrame = null;
-        this.endFrame = null;
+        this.endFrame = null as any;
     }
 
-});
-
-module.exports = TweenFrameData;
+}

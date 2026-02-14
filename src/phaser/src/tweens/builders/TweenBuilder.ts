@@ -9,16 +9,16 @@ import { GetFastValue } from '../../utils/object/GetFastValue';
 import { GetValue } from '../../utils/object/GetValue';
 import { MergeRight } from '../../utils/object/MergeRight';
 
-var BaseTween = require('../tween/BaseTween');
-var Defaults = require('../tween/Defaults');
-var GetBoolean = require('./GetBoolean');
-var GetEaseFunction = require('./GetEaseFunction');
-var GetInterpolationFunction = require('./GetInterpolationFunction');
-var GetNewValue = require('./GetNewValue');
-var GetProps = require('./GetProps');
-var GetTargets = require('./GetTargets');
-var GetValueOp = require('./GetValueOp');
-var Tween = require('../tween/Tween');
+import { BaseTween } from '../tween/BaseTween';
+import { TWEEN_DEFAULTS } from '../tween/Defaults';
+import { GetBoolean } from './GetBoolean';
+import { GetEaseFunction } from './GetEaseFunction';
+import { GetInterpolationFunction } from './GetInterpolationFunction';
+import { GetNewValue } from './GetNewValue';
+import { GetProps } from './GetProps';
+import { GetTargets } from './GetTargets';
+import { GetValueOp } from './GetValueOp';
+import { Tween } from '../tween/Tween';
 
 /**
  * Creates a new Tween.
@@ -32,8 +32,7 @@ var Tween = require('../tween/Tween');
  *
  * @return {Phaser.Tweens.Tween} The new tween.
  */
-var TweenBuilder = function (parent, config, defaults)
-{
+export const TweenBuilder = (parent: any, config: any, defaults?: any): any => {
     if (config instanceof Tween)
     {
         config.parent = parent;
@@ -43,43 +42,42 @@ var TweenBuilder = function (parent, config, defaults)
 
     if (defaults === undefined)
     {
-        defaults = Defaults;
+        defaults = TWEEN_DEFAULTS;
     }
     else
     {
-        defaults = MergeRight(Defaults, defaults);
+        defaults = MergeRight(TWEEN_DEFAULTS, defaults);
     }
 
     //  Create arrays of the Targets and the Properties. This Targets array should not be manipulated outside of this Tween.
-    var targets = GetTargets(config);
+    let targets = GetTargets(config);
 
     if (!targets && defaults.targets)
     {
         targets = defaults.targets;
     }
 
-    var props = GetProps(config);
+    const props = GetProps(config);
 
     //  Default Tween values
 
-    var delay = GetFastValue(config, 'delay', defaults.delay);
-    var duration = GetFastValue(config, 'duration', defaults.duration);
-    var easeParams = GetFastValue(config, 'easeParams', defaults.easeParams);
-    var ease = GetFastValue(config, 'ease', defaults.ease);
-    var hold = GetFastValue(config, 'hold', defaults.hold);
-    var repeat = GetFastValue(config, 'repeat', defaults.repeat);
-    var repeatDelay = GetFastValue(config, 'repeatDelay', defaults.repeatDelay);
-    var yoyo = GetBoolean(config, 'yoyo', defaults.yoyo);
-    var flipX = GetBoolean(config, 'flipX', defaults.flipX);
-    var flipY = GetBoolean(config, 'flipY', defaults.flipY);
-    var interpolation = GetFastValue(config, 'interpolation', defaults.interpolation);
+    const delay = GetFastValue(config, 'delay', defaults.delay);
+    const duration = GetFastValue(config, 'duration', defaults.duration);
+    const easeParams = GetFastValue(config, 'easeParams', defaults.easeParams);
+    const ease = GetFastValue(config, 'ease', defaults.ease);
+    const hold = GetFastValue(config, 'hold', defaults.hold);
+    const repeat = GetFastValue(config, 'repeat', defaults.repeat);
+    const repeatDelay = GetFastValue(config, 'repeatDelay', defaults.repeatDelay);
+    const yoyo = GetBoolean(config, 'yoyo', defaults.yoyo);
+    const flipX = GetBoolean(config, 'flipX', defaults.flipX);
+    const flipY = GetBoolean(config, 'flipY', defaults.flipY);
+    const interpolation = GetFastValue(config, 'interpolation', defaults.interpolation);
 
-    var addTarget = function (tween, targetIndex, key, value)
-    {
+    const addTarget = function (tween: any, targetIndex: number, key: string, value: any): void {
         if (key === 'texture')
         {
-            var texture = value;
-            var frame = undefined;
+            let texture = value;
+            let frame: any = undefined;
 
             if (Array.isArray(value))
             {
@@ -120,9 +118,9 @@ var TweenBuilder = function (parent, config, defaults)
         }
         else
         {
-            var ops = GetValueOp(key, value);
+            const ops = GetValueOp(key, value);
 
-            var interpolationFunc = GetInterpolationFunction(GetFastValue(value, 'interpolation', interpolation));
+            const interpolationFunc = GetInterpolationFunction(GetFastValue(value, 'interpolation', interpolation));
 
             tween.add(
                 targetIndex,
@@ -145,18 +143,18 @@ var TweenBuilder = function (parent, config, defaults)
         }
     };
 
-    var tween = new Tween(parent, targets);
+    const tween = new Tween(parent, targets);
 
     //  Loop through every property defined in the Tween, i.e.: props { x, y, alpha }
-    for (var p = 0; p < props.length; p++)
+    for (let p = 0; p < props.length; p++)
     {
-        var key = props[p].key;
-        var value = props[p].value;
+        const key = props[p].key;
+        const value = props[p].value;
 
         //  Create 1 TweenData per target, per property
-        for (var targetIndex = 0; targetIndex < targets.length; targetIndex++)
+        for (let targetIndex = 0; targetIndex < targets.length; targetIndex++)
         {
-            var target = targets[targetIndex];
+            const target = targets[targetIndex];
 
             //  Skip null or undefined targets
             if (!target)
@@ -186,17 +184,17 @@ var TweenBuilder = function (parent, config, defaults)
     //  Set the Callbacks
     tween.callbackScope = GetFastValue(config, 'callbackScope', tween);
 
-    var callbacks = BaseTween.TYPES;
+    const callbacks = BaseTween.TYPES;
 
-    for (var i = 0; i < callbacks.length; i++)
+    for (let i = 0; i < callbacks.length; i++)
     {
-        var type = callbacks[i];
+        const type = callbacks[i];
 
-        var callback = GetValue(config, type, false);
+        const callback = GetValue(config, type, false);
 
         if (callback)
         {
-            var callbackParams = GetValue(config, type + 'Params', []);
+            const callbackParams = GetValue(config, type + 'Params', []);
 
             tween.setCallback(type, callback, callbackParams);
         }
@@ -204,5 +202,3 @@ var TweenBuilder = function (parent, config, defaults)
 
     return tween;
 };
-
-module.exports = TweenBuilder;

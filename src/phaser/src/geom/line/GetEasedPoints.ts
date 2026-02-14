@@ -6,8 +6,7 @@
 
 import { DistanceBetweenPoints } from '../../math/distance/DistanceBetweenPoints';
 
-// import { GetEaseFunction } from '../../tweens/builders/GetEaseFunction';
-var GetEaseFunction = require('../../tweens/builders/GetEaseFunction');
+import { GetEaseFunction } from '../../tweens/builders/GetEaseFunction';
 import { Vector2 } from '../../math/Vector2';
 
 /**

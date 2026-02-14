@@ -20,7 +20,7 @@
  * @since 3.60.0
  */
 
-var TWEEN_CONST = {
+export const TWEEN_CONST = {
 
     /**
      * TweenData state.
@@ -204,7 +204,7 @@ var TWEEN_CONST = {
     /**
      * A large integer value used for 'infinite' style countdowns.
      *
-     * Similar use-case to Number.MAX_SAFE_INTEGER but we cannot use that because it's not
+     * Similar use-case to Number.MAX_SAFE_INTEGER but we cannot use it because it's not
      * supported on IE.
      *
      * @name Phaser.Tweens.States.MAX
@@ -215,5 +215,3 @@ var TWEEN_CONST = {
     MAX: 999999999999
 
 };
-
-module.exports = TWEEN_CONST;

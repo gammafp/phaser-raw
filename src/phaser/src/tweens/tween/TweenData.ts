@@ -6,9 +6,8 @@
 
 import { Clamp } from '../../math/Clamp';
 
-var BaseTweenData = require('./BaseTweenData');
-var Class = require('../../utils/Class');
-var Events = require('../events');
+import { BaseTweenData } from './BaseTweenData';
+import * as Events from '../events';
 
 /**
  * @classdesc
@@ -48,15 +47,16 @@ var Events = require('../events');
  * @param {?function} interpolation - The interpolation function to be used for arrays of data. Defaults to 'null'.
  * @param {?number[]} interpolationData - The array of interpolation data to be set. Defaults to 'null'.
  */
-var TweenData = new Class({
+export class TweenData extends BaseTweenData {
 
-    Extends: BaseTweenData,
+    ease: Function;
+    previous: number;
+    interpolation: Function | null;
+    interpolationData: number[] | null;
 
-    initialize:
-
-    function TweenData (tween, targetIndex, key, getEnd, getStart, getActive, ease, delay, duration, yoyo, hold, repeat, repeatDelay, flipX, flipY, interpolation, interpolationData)
+    constructor(tween: any, targetIndex: number, key: string, getEnd: Function, getStart: Function, getActive: Function | null, ease: Function, delay: Function, duration: number, yoyo: boolean, hold: number, repeat: number, repeatDelay: number, flipX: boolean, flipY: boolean, interpolation: Function | null, interpolationData: number[] | null)
     {
-        BaseTweenData.call(this, tween, targetIndex, delay, duration, yoyo, hold, repeat, repeatDelay, flipX, flipY);
+        super(tween, targetIndex, delay, duration, yoyo, hold, repeat, repeatDelay, flipX, flipY);
 
         /**
          * The property of the target to be tweened.
@@ -169,7 +169,7 @@ var TweenData = new Class({
          * @since 3.60.0
          */
         this.interpolationData = interpolationData;
-    },
+    }
 
     /**
      * Internal method that resets this Tween Data entirely, including the progress and elapsed values.
@@ -181,12 +181,12 @@ var TweenData = new Class({
      *
      * @param {boolean} [isSeeking=false] - Is the Tween Data being reset as part of a Tween seek?
      */
-    reset: function (isSeeking)
+    reset(isSeeking?: boolean): void
     {
-        BaseTweenData.prototype.reset.call(this);
+        super.reset();
 
-        var target = this.tween.targets[this.targetIndex];
-        var key = this.key;
+        const target = this.tween.targets[this.targetIndex];
+        const key = this.key;
 
         if (isSeeking)
         {
@@ -202,7 +202,7 @@ var TweenData = new Class({
         {
             target[key] = this.getActiveValue(target, key, 0);
         }
-    },
+    }
 
     /**
      * Internal method that advances this TweenData based on the delta value given.
@@ -216,14 +216,14 @@ var TweenData = new Class({
      *
      * @return {boolean} `true` if this TweenData is still playing, or `false` if it has finished entirely.
      */
-    update: function (delta)
+    update(delta: number): boolean
     {
-        var tween = this.tween;
-        var totalTargets = tween.totalTargets;
+        const tween = this.tween;
+        const totalTargets = tween.totalTargets;
 
-        var targetIndex = this.targetIndex;
-        var target = tween.targets[targetIndex];
-        var key = this.key;
+        const targetIndex = this.targetIndex;
+        const target = tween.targets[targetIndex];
+        const key = this.key;
 
         //  Bail out if we don't have a target to act upon
         if (!target || target.isDestroyed)
@@ -251,7 +251,7 @@ var TweenData = new Class({
                 {
                     this.setPlayingForwardState();
 
-                    this.dispatchEvent(Events.TWEEN_REPEAT, 'onRepeat');
+                    this.dispatchEvent(Events.TWEEN_REPEAT_EVENT, 'onRepeat');
                 }
                 else if (this.isHolding())
                 {
@@ -277,15 +277,15 @@ var TweenData = new Class({
             return true;
         }
 
-        var forward = this.isPlayingForward();
-        var backward = this.isPlayingBackward();
+        const forward = this.isPlayingForward();
+        const backward = this.isPlayingBackward();
 
         if (forward || backward)
         {
-            var elapsed = this.elapsed;
-            var duration = this.duration;
-            var diff = 0;
-            var complete = false;
+            let elapsed = this.elapsed;
+            const duration = this.duration;
+            let diff = 0;
+            let complete = false;
 
             elapsed += delta;
 
@@ -300,7 +300,7 @@ var TweenData = new Class({
                 elapsed = 0;
             }
 
-            var progress = Clamp(elapsed / duration, 0, 1);
+            let progress = Clamp(elapsed / duration, 0, 1);
 
             this.elapsed = elapsed;
             this.progress = progress;
@@ -311,7 +311,7 @@ var TweenData = new Class({
                 progress = 1 - progress;
             }
 
-            var v = this.ease(progress);
+            const v = this.ease(progress);
 
             if (this.interpolation)
             {
@@ -357,12 +357,12 @@ var TweenData = new Class({
                 }
             }
 
-            this.dispatchEvent(Events.TWEEN_UPDATE, 'onUpdate');
+            this.dispatchEvent(Events.TWEEN_UPDATE_EVENT, 'onUpdate');
         }
 
         //  Return TRUE if this TweenData still playing, otherwise FALSE
         return !this.isComplete();
-    },
+    }
 
     /**
      * Internal method that will emit a TweenData based Event on the
@@ -374,28 +374,28 @@ var TweenData = new Class({
      * @param {Phaser.Types.Tweens.Event} event - The Event to be dispatched.
      * @param {Phaser.Types.Tweens.TweenCallbackTypes} [callback] - The name of the callback to be invoked. Can be `null` or `undefined` to skip invocation.
      */
-    dispatchEvent: function (event, callback)
+    dispatchEvent(event: string, callback: string): void
     {
-        var tween = this.tween;
+        const tween = this.tween;
 
         if (!tween.isSeeking)
         {
-            var target = tween.targets[this.targetIndex];
-            var key = this.key;
+            const target = tween.targets[this.targetIndex];
+            const key = this.key;
 
-            var current = this.current;
-            var previous = this.previous;
+            const current = this.current;
+            const previous = this.previous;
 
             tween.emit(event, tween, key, target, current, previous);
 
-            var handler = tween.callbacks[callback];
+            const handler = tween.callbacks[callback];
 
             if (handler)
             {
                 handler.func.apply(tween.callbackScope, [ tween, target, key, current, previous ].concat(handler.params));
             }
         }
-    },
+    }
 
     /**
      * Immediately destroys this TweenData, nulling of all its references.
@@ -403,16 +403,14 @@ var TweenData = new Class({
      * @method Phaser.Tweens.TweenData#destroy
      * @since 3.60.0
      */
-    destroy: function ()
+    destroy(): void
     {
-        BaseTweenData.prototype.destroy.call(this);
+        super.destroy();
 
         this.getActiveValue = null;
-        this.getEndValue = null;
-        this.getStartValue = null;
-        this.ease = null;
+        this.getEndValue = null as any;
+        this.getStartValue = null as any;
+        this.ease = null as any;
     }
 
-});
-
-module.exports = TweenData;
+}

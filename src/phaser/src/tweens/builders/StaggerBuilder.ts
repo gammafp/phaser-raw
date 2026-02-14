@@ -8,7 +8,7 @@ import { GetValue } from '../../utils/object/GetValue';
 
 import { MATH_CONST } from '../../math/const';
 
-var GetEaseFunction = require('./GetEaseFunction');
+import { GetEaseFunction } from './GetEaseFunction';
 
 /**
  * Creates a Stagger function to be used by a Tween property.
@@ -51,27 +51,26 @@ var GetEaseFunction = require('./GetEaseFunction');
  *
  * @return {function} The stagger function.
  */
-var StaggerBuilder = function (value, options)
-{
+export const StaggerBuilder = (value: number | number[], options?: any): Function => {
     if (options === undefined) { options = {}; }
 
-    var result;
+    let result: Function;
 
-    var start = GetValue(options, 'start', 0);
-    var ease = GetValue(options, 'ease', null);
-    var grid = GetValue(options, 'grid', null);
+    const start = GetValue(options, 'start', 0);
+    const ease = GetValue(options, 'ease', null);
+    const grid = GetValue(options, 'grid', null);
 
-    var from = GetValue(options, 'from', 0);
+    const from = GetValue(options, 'from', 0);
 
-    var fromFirst = (from === 'first');
-    var fromCenter = (from === 'center');
-    var fromLast = (from === 'last');
-    var fromValue = (typeof(from) === 'number');
+    const fromFirst = (from === 'first');
+    const fromCenter = (from === 'center');
+    const fromLast = (from === 'last');
+    const fromValue = (typeof(from) === 'number');
 
-    var isRange = (Array.isArray(value));
-    var value1 = (isRange) ? parseFloat(value[0]) : parseFloat(value);
-    var value2 = (isRange) ? parseFloat(value[1]) : 0;
-    var maxValue = Math.max(value1, value2);
+    const isRange = (Array.isArray(value));
+    const value1 = (isRange) ? parseFloat((value as number[])[0] as any) : parseFloat(value as any);
+    const value2 = (isRange) ? parseFloat((value as number[])[1] as any) : 0;
+    const maxValue = Math.max(value1, value2);
 
     if (isRange)
     {
@@ -81,16 +80,16 @@ var StaggerBuilder = function (value, options)
     if (grid)
     {
         //  Pre-calc the grid to save doing it for every TweenData update
-        var gridWidth = grid[0];
-        var gridHeight = grid[1];
+        const gridWidth = grid[0];
+        const gridHeight = grid[1];
 
-        var fromX = 0;
-        var fromY = 0;
+        let fromX = 0;
+        let fromY = 0;
 
-        var distanceX = 0;
-        var distanceY = 0;
+        let distanceX = 0;
+        let distanceY = 0;
 
-        var gridValues = [];
+        const gridValues: number[][] = [];
 
         if (fromLast)
         {
@@ -108,18 +107,18 @@ var StaggerBuilder = function (value, options)
             fromY = (gridHeight - 1) / 2;
         }
 
-        var gridMax = MATH_CONST.MIN_SAFE_INTEGER;
+        let gridMax = MATH_CONST.MIN_SAFE_INTEGER;
 
-        for (var toY = 0; toY < gridHeight; toY++)
+        for (let toY = 0; toY < gridHeight; toY++)
         {
             gridValues[toY] = [];
 
-            for (var toX = 0; toX < gridWidth; toX++)
+            for (let toX = 0; toX < gridWidth; toX++)
             {
                 distanceX = fromX - toX;
                 distanceY = fromY - toY;
 
-                var dist = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+                const dist = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
                 if (dist > gridMax)
                 {
@@ -129,32 +128,28 @@ var StaggerBuilder = function (value, options)
                 gridValues[toY][toX] = dist;
             }
         }
-    }
 
-    var easeFunction = (ease) ? GetEaseFunction(ease) : null;
+        const easeFunction = (ease) ? GetEaseFunction(ease) : null;
 
-    if (grid)
-    {
-        result = function (target, key, value, index)
-        {
-            var gridSpace = 0;
-            var toX = index % gridWidth;
-            var toY = Math.floor(index / gridWidth);
+        result = function (target: any, key: string, value: any, index: number): number {
+            let gridSpace = 0;
+            const toX = index % gridWidth;
+            const toY = Math.floor(index / gridWidth);
 
             if (toX >= 0 && toX < gridWidth && toY >= 0 && toY < gridHeight)
             {
                 gridSpace = gridValues[toY][toX];
             }
 
-            var output;
+            let output: number;
 
             if (isRange)
             {
-                var diff = (value2 - value1);
+                const diff = (value2 - value1);
 
                 if (easeFunction)
                 {
-                    output = ((gridSpace / gridMax) * diff) * easeFunction(gridSpace / gridMax);
+                    output = ((gridSpace / gridMax) * diff) * (easeFunction as any)(gridSpace / gridMax);
                 }
                 else
                 {
@@ -163,7 +158,7 @@ var StaggerBuilder = function (value, options)
             }
             else if (easeFunction)
             {
-                output = (gridSpace * value1) * easeFunction(gridSpace / gridMax);
+                output = (gridSpace * value1) * (easeFunction as any)(gridSpace / gridMax);
             }
             else
             {
@@ -175,12 +170,13 @@ var StaggerBuilder = function (value, options)
     }
     else
     {
-        result = function (target, key, value, index, total)
-        {
+        const easeFunction = (ease) ? GetEaseFunction(ease) : null;
+
+        result = function (target: any, key: string, value: any, index: number, total: number): number {
             //  zero offset
             total--;
 
-            var fromIndex;
+            let fromIndex: number;
 
             if (fromFirst)
             {
@@ -199,11 +195,11 @@ var StaggerBuilder = function (value, options)
                 fromIndex = Math.abs(from - index);
             }
 
-            var output;
+            let output: number;
 
             if (isRange)
             {
-                var spacing;
+                let spacing: number;
 
                 if (fromCenter)
                 {
@@ -216,7 +212,7 @@ var StaggerBuilder = function (value, options)
 
                 if (easeFunction)
                 {
-                    output = spacing * easeFunction(fromIndex / total);
+                    output = spacing * (easeFunction as any)(fromIndex / total);
                 }
                 else
                 {
@@ -225,7 +221,7 @@ var StaggerBuilder = function (value, options)
             }
             else if (easeFunction)
             {
-                output = (total * maxValue) * easeFunction(fromIndex / total);
+                output = (total * maxValue) * (easeFunction as any)(fromIndex / total);
             }
             else
             {
@@ -238,5 +234,3 @@ var StaggerBuilder = function (value, options)
 
     return result;
 };
-
-module.exports = StaggerBuilder;

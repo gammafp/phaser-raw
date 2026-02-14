@@ -9,7 +9,7 @@ import { BezierInterpolation as Bezier } from '../../math/interpolation/BezierIn
 import { CatmullRomInterpolation as CatmullRom } from '../../math/interpolation/CatmullRomInterpolation';
 import { LinearInterpolation as Linear } from '../../math/interpolation/LinearInterpolation';
 
-var FuncMap = {
+const FuncMap: Record<string, Function> = {
     bezier: Bezier,
     catmull: CatmullRom,
     catmullrom: CatmullRom,
@@ -28,15 +28,14 @@ var FuncMap = {
  *
  * @return {?function} The interpolation function to use, or `null`.
  */
-var GetInterpolationFunction = function (interpolation)
-{
+export const GetInterpolationFunction = (interpolation: string | Function | null): Function | null => {
     if (interpolation === null)
     {
         return null;
     }
 
     //  Default interpolation function
-    var interpolationFunction = FuncMap.linear;
+    let interpolationFunction: Function = FuncMap.linear;
 
     //  Prepare interpolation function
     if (typeof interpolation === 'string')
@@ -58,5 +57,3 @@ var GetInterpolationFunction = function (interpolation)
     //  Return interpolation function
     return interpolationFunction;
 };
-
-module.exports = GetInterpolationFunction;

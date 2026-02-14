@@ -4,9 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../../utils/Class');
-var Events = require('../events');
-var TWEEN_CONST = require('./const');
+import * as Events from '../events';
+import { TWEEN_CONST } from './const';
 
 /**
  * @classdesc
@@ -40,11 +39,34 @@ var TWEEN_CONST = require('./const');
  * @param {?function} interpolation - The interpolation function to be used for arrays of data. Defaults to 'null'.
  * @param {?number[]} interpolationData - The array of interpolation data to be set. Defaults to 'null'.
  */
-var BaseTweenData = new Class({
+export class BaseTweenData {
 
-    initialize:
+    tween: any;
+    targetIndex: number;
+    duration: number;
+    totalDuration: number;
+    delay: number;
+    getDelay: Function;
+    yoyo: boolean;
+    hold: number;
+    repeat: number;
+    repeatDelay: number;
+    repeatCounter: number;
+    flipX: boolean;
+    flipY: boolean;
+    progress: number;
+    elapsed: number;
+    state: number;
+    isCountdown: boolean;
+    key: string;
+    start: any;
+    current: any;
+    end: any;
+    getStartValue: Function;
+    getEndValue: Function;
+    getActiveValue: Function | null;
 
-    function BaseTweenData (tween, targetIndex, delay, duration, yoyo, hold, repeat, repeatDelay, flipX, flipY)
+    constructor(tween: any, targetIndex: number, delay: Function, duration: number, yoyo: boolean, hold: number, repeat: number, repeatDelay: number, flipX: boolean, flipY: boolean)
     {
         /**
          * A reference to the Tween that this TweenData instance belongs to.
@@ -215,7 +237,7 @@ var BaseTweenData = new Class({
          * @since 3.60.0
          */
         this.isCountdown = false;
-    },
+    }
 
     /**
      * Returns a reference to the target object belonging to this TweenData.
@@ -225,10 +247,10 @@ var BaseTweenData = new Class({
      *
      * @return {object} The target object. Can be any JavaScript object, but is typically a Game Object.
      */
-    getTarget: function ()
+    getTarget(): any
     {
         return this.tween.targets[this.targetIndex];
-    },
+    }
 
     /**
      * Sets this TweenData's target object property to be the given value.
@@ -238,12 +260,12 @@ var BaseTweenData = new Class({
      *
      * @param {number} [value] - The value to set on the target. If not given, sets it to the last `current` value.
      */
-    setTargetValue: function (value)
+    setTargetValue(value?: number): void
     {
         if (value === undefined) { value = this.current; }
 
         this.tween.targets[this.targetIndex][this.key] = value;
-    },
+    }
 
     /**
      * Sets this TweenData state to CREATED.
@@ -251,11 +273,11 @@ var BaseTweenData = new Class({
      * @method Phaser.Tweens.BaseTweenData#setCreatedState
      * @since 3.60.0
      */
-    setCreatedState: function ()
+    setCreatedState(): void
     {
         this.state = TWEEN_CONST.CREATED;
         this.isCountdown = false;
-    },
+    }
 
     /**
      * Sets this TweenData state to DELAY.
@@ -263,11 +285,11 @@ var BaseTweenData = new Class({
      * @method Phaser.Tweens.BaseTweenData#setDelayState
      * @since 3.60.0
      */
-    setDelayState: function ()
+    setDelayState(): void
     {
         this.state = TWEEN_CONST.DELAY;
         this.isCountdown = true;
-    },
+    }
 
     /**
      * Sets this TweenData state to PENDING_RENDER.
@@ -275,11 +297,11 @@ var BaseTweenData = new Class({
      * @method Phaser.Tweens.BaseTweenData#setPendingRenderState
      * @since 3.60.0
      */
-    setPendingRenderState: function ()
+    setPendingRenderState(): void
     {
         this.state = TWEEN_CONST.PENDING_RENDER;
         this.isCountdown = false;
-    },
+    }
 
     /**
      * Sets this TweenData state to PLAYING_FORWARD.
@@ -287,11 +309,11 @@ var BaseTweenData = new Class({
      * @method Phaser.Tweens.BaseTweenData#setPlayingForwardState
      * @since 3.60.0
      */
-    setPlayingForwardState: function ()
+    setPlayingForwardState(): void
     {
         this.state = TWEEN_CONST.PLAYING_FORWARD;
         this.isCountdown = false;
-    },
+    }
 
     /**
      * Sets this TweenData state to PLAYING_BACKWARD.
@@ -299,11 +321,11 @@ var BaseTweenData = new Class({
      * @method Phaser.Tweens.BaseTweenData#setPlayingBackwardState
      * @since 3.60.0
      */
-    setPlayingBackwardState: function ()
+    setPlayingBackwardState(): void
     {
         this.state = TWEEN_CONST.PLAYING_BACKWARD;
         this.isCountdown = false;
-    },
+    }
 
     /**
      * Sets this TweenData state to HOLD_DELAY.
@@ -311,11 +333,11 @@ var BaseTweenData = new Class({
      * @method Phaser.Tweens.BaseTweenData#setHoldState
      * @since 3.60.0
      */
-    setHoldState: function ()
+    setHoldState(): void
     {
         this.state = TWEEN_CONST.HOLD_DELAY;
         this.isCountdown = true;
-    },
+    }
 
     /**
      * Sets this TweenData state to REPEAT_DELAY.
@@ -323,11 +345,11 @@ var BaseTweenData = new Class({
      * @method Phaser.Tweens.BaseTweenData#setRepeatState
      * @since 3.60.0
      */
-    setRepeatState: function ()
+    setRepeatState(): void
     {
         this.state = TWEEN_CONST.REPEAT_DELAY;
         this.isCountdown = true;
-    },
+    }
 
     /**
      * Sets this TweenData state to COMPLETE.
@@ -335,11 +357,11 @@ var BaseTweenData = new Class({
      * @method Phaser.Tweens.BaseTweenData#setCompleteState
      * @since 3.60.0
      */
-    setCompleteState: function ()
+    setCompleteState(): void
     {
         this.state = TWEEN_CONST.COMPLETE;
         this.isCountdown = false;
-    },
+    }
 
     /**
      * Returns `true` if this TweenData has a _current_ state of CREATED, otherwise `false`.
@@ -349,10 +371,10 @@ var BaseTweenData = new Class({
      *
      * @return {boolean} `true` if this TweenData has a _current_ state of CREATED, otherwise `false`.
      */
-    isCreated: function ()
+    isCreated(): boolean
     {
         return (this.state === TWEEN_CONST.CREATED);
-    },
+    }
 
     /**
      * Returns `true` if this TweenData has a _current_ state of DELAY, otherwise `false`.
@@ -362,10 +384,10 @@ var BaseTweenData = new Class({
      *
      * @return {boolean} `true` if this TweenData has a _current_ state of DELAY, otherwise `false`.
      */
-    isDelayed: function ()
+    isDelayed(): boolean
     {
         return (this.state === TWEEN_CONST.DELAY);
-    },
+    }
 
     /**
      * Returns `true` if this TweenData has a _current_ state of PENDING_RENDER, otherwise `false`.
@@ -375,10 +397,10 @@ var BaseTweenData = new Class({
      *
      * @return {boolean} `true` if this TweenData has a _current_ state of PENDING_RENDER, otherwise `false`.
      */
-    isPendingRender: function ()
+    isPendingRender(): boolean
     {
         return (this.state === TWEEN_CONST.PENDING_RENDER);
-    },
+    }
 
     /**
      * Returns `true` if this TweenData has a _current_ state of PLAYING_FORWARD, otherwise `false`.
@@ -388,10 +410,10 @@ var BaseTweenData = new Class({
      *
      * @return {boolean} `true` if this TweenData has a _current_ state of PLAYING_FORWARD, otherwise `false`.
      */
-    isPlayingForward: function ()
+    isPlayingForward(): boolean
     {
         return (this.state === TWEEN_CONST.PLAYING_FORWARD);
-    },
+    }
 
     /**
      * Returns `true` if this TweenData has a _current_ state of PLAYING_BACKWARD, otherwise `false`.
@@ -401,10 +423,10 @@ var BaseTweenData = new Class({
      *
      * @return {boolean} `true` if this TweenData has a _current_ state of PLAYING_BACKWARD, otherwise `false`.
      */
-    isPlayingBackward: function ()
+    isPlayingBackward(): boolean
     {
         return (this.state === TWEEN_CONST.PLAYING_BACKWARD);
-    },
+    }
 
     /**
      * Returns `true` if this TweenData has a _current_ state of HOLD_DELAY, otherwise `false`.
@@ -414,10 +436,10 @@ var BaseTweenData = new Class({
      *
      * @return {boolean} `true` if this TweenData has a _current_ state of HOLD_DELAY, otherwise `false`.
      */
-    isHolding: function ()
+    isHolding(): boolean
     {
         return (this.state === TWEEN_CONST.HOLD_DELAY);
-    },
+    }
 
     /**
      * Returns `true` if this TweenData has a _current_ state of REPEAT_DELAY, otherwise `false`.
@@ -427,10 +449,10 @@ var BaseTweenData = new Class({
      *
      * @return {boolean} `true` if this TweenData has a _current_ state of REPEAT_DELAY, otherwise `false`.
      */
-    isRepeating: function ()
+    isRepeating(): boolean
     {
         return (this.state === TWEEN_CONST.REPEAT_DELAY);
-    },
+    }
 
     /**
      * Returns `true` if this TweenData has a _current_ state of COMPLETE, otherwise `false`.
@@ -440,10 +462,10 @@ var BaseTweenData = new Class({
      *
      * @return {boolean} `true` if this TweenData has a _current_ state of COMPLETE, otherwise `false`.
      */
-    isComplete: function ()
+    isComplete(): boolean
     {
         return (this.state === TWEEN_CONST.COMPLETE);
-    },
+    }
 
     /**
      * Internal method used as part of the playback process that checks if this
@@ -456,7 +478,7 @@ var BaseTweenData = new Class({
      *
      * @param {number} diff - Any extra time that needs to be accounted for in the elapsed and progress values.
      */
-    setStateFromEnd: function (diff)
+    setStateFromEnd(diff: number): void
     {
         if (this.yoyo)
         {
@@ -470,7 +492,7 @@ var BaseTweenData = new Class({
         {
             this.setCompleteState();
         }
-    },
+    }
 
     /**
      * Internal method used as part of the playback process that checks if this
@@ -482,7 +504,7 @@ var BaseTweenData = new Class({
      *
      * @param {number} diff - Any extra time that needs to be accounted for in the elapsed and progress values.
      */
-    setStateFromStart: function (diff)
+    setStateFromStart(diff: number): void
     {
         if (this.repeatCounter > 0)
         {
@@ -492,7 +514,7 @@ var BaseTweenData = new Class({
         {
             this.setCompleteState();
         }
-    },
+    }
 
     /**
      * Internal method that resets this Tween Data entirely, including the progress and elapsed values.
@@ -502,14 +524,14 @@ var BaseTweenData = new Class({
      * @method Phaser.Tweens.BaseTweenData#reset
      * @since 3.60.0
      */
-    reset: function ()
+    reset(): void
     {
-        var tween = this.tween;
-        var totalTargets = tween.totalTargets;
+        const tween = this.tween;
+        const totalTargets = tween.totalTargets;
 
-        var targetIndex = this.targetIndex;
-        var target = tween.targets[targetIndex];
-        var key = this.key;
+        const targetIndex = this.targetIndex;
+        const target = tween.targets[targetIndex];
+        const key = this.key;
 
         this.progress = 0;
         this.elapsed = 0;
@@ -525,7 +547,7 @@ var BaseTweenData = new Class({
         //  calcDuration:
 
         //  Set t1 (duration + hold + yoyo)
-        var t1 = this.duration + this.hold;
+        let t1 = this.duration + this.hold;
 
         if (this.yoyo)
         {
@@ -533,7 +555,7 @@ var BaseTweenData = new Class({
         }
 
         //  Set t2 (repeatDelay + duration + hold + yoyo)
-        var t2 = t1 + this.repeatDelay;
+        const t2 = t1 + this.repeatDelay;
 
         //  Total Duration
         this.totalDuration = this.delay + t1;
@@ -565,7 +587,7 @@ var BaseTweenData = new Class({
 
             this.setDelayState();
         }
-    },
+    }
 
     /**
      * Internal method that handles repeating or yoyo'ing this TweenData.
@@ -581,16 +603,16 @@ var BaseTweenData = new Class({
      * @param {boolean} setStart - Set the TweenData start values?
      * @param {boolean} isYoyo - Is this call a Yoyo check?
      */
-    onRepeat: function (diff, setStart, isYoyo)
+    onRepeat(diff: number, setStart: boolean, isYoyo?: boolean): void
     {
-        var tween = this.tween;
-        var totalTargets = tween.totalTargets;
+        const tween = this.tween;
+        const totalTargets = tween.totalTargets;
 
-        var targetIndex = this.targetIndex;
-        var target = tween.targets[targetIndex];
-        var key = this.key;
+        const targetIndex = this.targetIndex;
+        const target = tween.targets[targetIndex];
+        const key = this.key;
 
-        var isTweenData = (key !== 'texture');
+        const isTweenData = (key !== 'texture');
 
         //  Account for any extra time we got from the previous frame
         this.elapsed = diff;
@@ -615,7 +637,7 @@ var BaseTweenData = new Class({
         {
             this.setPlayingBackwardState();
 
-            this.dispatchEvent(Events.TWEEN_YOYO, 'onYoyo');
+            this.dispatchEvent(Events.TWEEN_YOYO_EVENT, 'onYoyo');
 
             return;
         }
@@ -646,9 +668,14 @@ var BaseTweenData = new Class({
         {
             this.setPlayingForwardState();
 
-            this.dispatchEvent(Events.TWEEN_REPEAT, 'onRepeat');
+            this.dispatchEvent(Events.TWEEN_REPEAT_EVENT, 'onRepeat');
         }
-    },
+    }
+
+    dispatchEvent(event: string, callback: string): void
+    {
+        // Implementación debe ser añadida por las clases hijas
+    }
 
     /**
      * Immediately destroys this TweenData, nulling of all its references.
@@ -656,13 +683,11 @@ var BaseTweenData = new Class({
      * @method Phaser.Tweens.BaseTweenData#destroy
      * @since 3.60.0
      */
-    destroy: function ()
+    destroy(): void
     {
         this.tween = null;
-        this.getDelay = null;
+        this.getDelay = null as any;
         this.setCompleteState();
     }
 
-});
-
-module.exports = BaseTweenData;
+}

@@ -22,10 +22,9 @@ import { EaseMap } from '../../math/easing/EaseMap';
  *
  * @return {function} The ease function.
  */
-var GetEaseFunction = function (ease, easeParams)
-{
+export const GetEaseFunction = (ease: string | Function, easeParams?: number[]): Function => {
     //  Default ease function
-    var easeFunction = EaseMap.Power0;
+    let easeFunction: Function = EaseMap.Power0;
 
     //  Prepare ease function
     if (typeof ease === 'string')
@@ -40,7 +39,7 @@ var GetEaseFunction = function (ease, easeParams)
         else
         {
             //  Do some string manipulation to try and find it
-            var direction = '';
+            let direction = '';
 
             if (ease.indexOf('.'))
             {
@@ -50,7 +49,7 @@ var GetEaseFunction = function (ease, easeParams)
 
                 direction = ease.substring(ease.indexOf('.') + 1);
 
-                var directionLower = direction.toLowerCase();
+                const directionLower = direction.toLowerCase();
 
                 if (directionLower === 'in')
                 {
@@ -87,17 +86,14 @@ var GetEaseFunction = function (ease, easeParams)
         return easeFunction;
     }
 
-    var cloneParams = easeParams.slice(0);
+    const cloneParams = easeParams.slice(0);
 
     cloneParams.unshift(0);
 
     //  Return ease function with custom ease parameters
-    return function (v)
-    {
+    return function (v: number): number {
         cloneParams[0] = v;
 
         return easeFunction.apply(this, cloneParams);
     };
 };
-
-module.exports = GetEaseFunction;

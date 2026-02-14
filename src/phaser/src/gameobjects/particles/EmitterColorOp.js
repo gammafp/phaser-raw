@@ -7,8 +7,8 @@
 var Class = require('../../utils/Class');
 var EmitterOp = require('./EmitterOp');
 import { GetColor } from '../../display/color/GetColor';
-var GetEaseFunction = require('../../tweens/builders/GetEaseFunction');
-var GetInterpolationFunction = require('../../tweens/builders/GetInterpolationFunction');
+import { GetEaseFunction } from '../../tweens/builders/GetEaseFunction';
+import { GetInterpolationFunction } from '../../tweens/builders/GetInterpolationFunction';
 import { IntegerToRGB } from '../../display/color/IntegerToRGB';
 
 /**

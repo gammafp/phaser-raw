@@ -23,7 +23,7 @@
  * @property {function} [interpolation=null] - The interpolation function to use for array-based tween values.
  */
 
-var TWEEN_DEFAULTS = {
+export const TWEEN_DEFAULTS = {
     targets: null,
     delay: 0,
     duration: 1000,
@@ -38,5 +38,3 @@ var TWEEN_DEFAULTS = {
     persist: false,
     interpolation: null
 };
-
-module.exports = TWEEN_DEFAULTS;

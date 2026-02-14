@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var RESERVED = require('../tween/ReservedProps');
+import { RESERVED } from '../tween/ReservedProps';
 
 /**
  * Internal function used by the Tween Builder to return an array of properties
@@ -19,10 +19,9 @@ var RESERVED = require('../tween/ReservedProps');
  *
  * @return {string[]} An array of all the properties the tween will operate on.
  */
-var GetProps = function (config)
-{
-    var key;
-    var keys = [];
+export const GetProps = (config: any): Array<{ key: string; value: any }> => {
+    let key: string;
+    const keys: Array<{ key: string; value: any }> = [];
 
     //  First see if we have a props object
 
@@ -51,5 +50,3 @@ var GetProps = function (config)
 
     return keys;
 };
-
-module.exports = GetProps;
