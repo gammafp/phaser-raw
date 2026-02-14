@@ -63,7 +63,7 @@ import { TweenChainBuilder } from './builders/TweenChainBuilder';
  *
  * @param {Phaser.Scene} scene - The Scene which owns this Tween Manager.
  */
-class TweenManager {
+export class TweenManager {
 
     scene: any;
     events: any;
@@ -95,13 +95,13 @@ class TweenManager {
         this.lagSkip = 33;
         this.gap = 1000 / 240;
 
-        this.events.once(SceneEvents.BOOT_EVENT, this.boot, this);
-        this.events.on(SceneEvents.START_EVENT, this.start, this);
+        this.events.once(SceneEvents.BOOT, this.boot, this);
+        this.events.on(SceneEvents.START, this.start, this);
     }
 
     boot(): void
     {
-        this.events.once(SceneEvents.DESTROY_EVENT, this.destroy, this);
+        this.events.once(SceneEvents.DESTROY, this.destroy, this);
     }
 
     start(): void
@@ -113,8 +113,8 @@ class TweenManager {
         this.prevTime = this.startTime;
         this.nextTime = this.gap;
 
-        this.events.on(SceneEvents.UPDATE_EVENT, this.update, this);
-        this.events.once(SceneEvents.SHUTDOWN_EVENT, this.shutdown, this);
+        this.events.on(SceneEvents.UPDATE, this.update, this);
+        this.events.once(SceneEvents.SHUTDOWN, this.shutdown, this);
     }
 
     create(config: any): any
@@ -547,15 +547,15 @@ class TweenManager {
 
         this.tweens = [];
 
-        this.events.off(SceneEvents.UPDATE_EVENT, this.update, this);
-        this.events.off(SceneEvents.SHUTDOWN_EVENT, this.shutdown, this);
+        this.events.off(SceneEvents.UPDATE, this.update, this);
+        this.events.off(SceneEvents.SHUTDOWN, this.shutdown, this);
     }
 
     destroy(): void
     {
         this.shutdown();
 
-        this.events.off(SceneEvents.START_EVENT, this.start, this);
+        this.events.off(SceneEvents.START, this.start, this);
 
         this.scene = null;
         this.events = null;
@@ -564,5 +564,3 @@ class TweenManager {
 }
 
 PluginCache.register('TweenManager', TweenManager, 'tweens');
-
-export { TweenManager };
