@@ -5,8 +5,7 @@
  */
 
 import { GetFastValue } from '../../../utils/object/GetFastValue';
-
-var CreateGroupLayer = require('./CreateGroupLayer');
+import { CreateGroupLayer } from './CreateGroupLayer';
 
 /**
  * Parses a Tiled JSON object into an array of objects with details about the image layers.
@@ -18,13 +17,13 @@ var CreateGroupLayer = require('./CreateGroupLayer');
  *
  * @return {array} Array of objects that include critical info about the map's image layers
  */
-var ParseImageLayers = function (json)
+export const ParseImageLayers = function (json: any): any[]
 {
-    var images = [];
+    const images: any[] = [];
 
     // State inherited from a parent group
-    var groupStack = [];
-    var curGroupState = CreateGroupLayer(json);
+    const groupStack: any[] = [];
+    let curGroupState = CreateGroupLayer(json);
 
     while (curGroupState.i < curGroupState.layers.length || groupStack.length > 0)
     {
@@ -45,7 +44,7 @@ var ParseImageLayers = function (json)
         }
 
         // Get current layer and advance iterator
-        var curi = curGroupState.layers[curGroupState.i];
+        const curi = curGroupState.layers[curGroupState.i];
         curGroupState.i++;
 
         if (curi.type !== 'imagelayer')
@@ -53,7 +52,7 @@ var ParseImageLayers = function (json)
             if (curi.type === 'group')
             {
                 // Compute next state inherited from group
-                var nextGroupState = CreateGroupLayer(json, curi, curGroupState);
+                const nextGroupState = CreateGroupLayer(json, curi, curGroupState);
 
                 // Preserve current state before recursing
                 groupStack.push(curGroupState);
@@ -64,8 +63,8 @@ var ParseImageLayers = function (json)
             continue;
         }
 
-        var layerOffsetX = GetFastValue(curi, 'offsetx', 0) + GetFastValue(curi, 'startx', 0);
-        var layerOffsetY = GetFastValue(curi, 'offsety', 0) + GetFastValue(curi, 'starty', 0);
+        const layerOffsetX = GetFastValue(curi, 'offsetx', 0) + GetFastValue(curi, 'startx', 0);
+        const layerOffsetY = GetFastValue(curi, 'offsety', 0) + GetFastValue(curi, 'starty', 0);
         images.push({
             name: (curGroupState.name + curi.name),
             image: curi.image,
@@ -79,5 +78,3 @@ var ParseImageLayers = function (json)
 
     return images;
 };
-
-module.exports = ParseImageLayers;

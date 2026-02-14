@@ -19,7 +19,7 @@ import { GetFastValue } from '../../../utils/object/GetFastValue';
  *
  * @return {object} A group state object with proper values for updating children layers.
  */
-var CreateGroupLayer = function (json, group, parentState)
+export const CreateGroupLayer = function (json: any, group?: any, parentState?: any): any
 {
     if (!group)
     {
@@ -37,8 +37,8 @@ var CreateGroupLayer = function (json, group, parentState)
     }
 
     // Compute group layer x, y
-    var layerX = group.x + GetFastValue(group, 'startx', 0) * json.tilewidth + GetFastValue(group, 'offsetx', 0);
-    var layerY = group.y + GetFastValue(group, 'starty', 0) * json.tileheight + GetFastValue(group, 'offsety', 0);
+    const layerX = group.x + GetFastValue(group, 'startx', 0) * json.tilewidth + GetFastValue(group, 'offsetx', 0);
+    const layerY = group.y + GetFastValue(group, 'starty', 0) * json.tileheight + GetFastValue(group, 'offsety', 0);
 
     // Compute next state inherited from group
     return {
@@ -51,5 +51,3 @@ var CreateGroupLayer = function (json, group, parentState)
         y: parentState.y + layerY
     };
 };
-
-module.exports = CreateGroupLayer;

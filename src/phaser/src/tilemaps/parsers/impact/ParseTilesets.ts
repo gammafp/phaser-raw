@@ -4,7 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-
 import { Tileset } from '../../Tileset';
 
 /**
@@ -17,17 +16,17 @@ import { Tileset } from '../../Tileset';
  *
  * @return {array} An array of Tilesets.
  */
-var ParseTilesets = function (json)
+export const ParseTilesets = (json: any): any[] =>
 {
-    var tilesets = [];
-    var tilesetsNames = [];
+    const tilesets: any[] = [];
+    const tilesetsNames: string[] = [];
 
-    for (var i = 0; i < json.layer.length; i++)
+    for (let i = 0; i < json.layer.length; i++)
     {
-        var layer = json.layer[i];
+        const layer = json.layer[i];
 
         // A relative filepath to the source image (within Weltmeister) is used for the name
-        var tilesetName = layer.tilesetName;
+        const tilesetName = layer.tilesetName;
 
         // Only add unique tilesets that have a valid name. Collision layers will have a blank name.
         if (tilesetName !== '' && tilesetsNames.indexOf(tilesetName) === -1)
@@ -42,5 +41,3 @@ var ParseTilesets = function (json)
 
     return tilesets;
 };
-
-module.exports = ParseTilesets;

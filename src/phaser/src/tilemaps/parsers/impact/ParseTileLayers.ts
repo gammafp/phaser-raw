@@ -4,7 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-
 import { LayerData } from '../../mapdata/LayerData';
 import { Tile } from '../../Tile';
 
@@ -21,15 +20,15 @@ import { Tile } from '../../Tile';
  * @return {Phaser.Tilemaps.LayerData[]} - An array of LayerData objects, one for each entry in
  * json.layers with the type 'tilelayer'.
  */
-var ParseTileLayers = function (json, insertNull)
+export const ParseTileLayers = (json: any, insertNull: boolean): any[] =>
 {
-    var tileLayers = [];
+    const tileLayers: any[] = [];
 
-    for (var i = 0; i < json.layer.length; i++)
+    for (let i = 0; i < json.layer.length; i++)
     {
-        var layer = json.layer[i];
+        const layer = json.layer[i];
 
-        var layerData = new LayerData({
+        const layerData = new LayerData({
             name: layer.name,
             width: layer.width,
             height: layer.height,
@@ -38,19 +37,19 @@ var ParseTileLayers = function (json, insertNull)
             visible: layer.visible === 1
         });
 
-        var row = [];
-        var tileGrid = [];
+        let row: any[] = [];
+        const tileGrid: any[] = [];
 
         //  Loop through the data field in the JSON. This is a 2D array containing the tile indexes,
         //  one after the other. The indexes are relative to the tileset that contains the tile.
-        for (var y = 0; y < layer.data.length; y++)
+        for (let y = 0; y < layer.data.length; y++)
         {
-            for (var x = 0; x < layer.data[y].length; x++)
+            for (let x = 0; x < layer.data[y].length; x++)
             {
                 // In Weltmeister, 0 = no tile, but the Tilemap API expects -1 = no tile.
-                var index = layer.data[y][x] - 1;
+                const index = layer.data[y][x] - 1;
 
-                var tile;
+                let tile: any;
 
                 if (index > -1)
                 {
@@ -77,5 +76,3 @@ var ParseTileLayers = function (json, insertNull)
 
     return tileLayers;
 };
-
-module.exports = ParseTileLayers;

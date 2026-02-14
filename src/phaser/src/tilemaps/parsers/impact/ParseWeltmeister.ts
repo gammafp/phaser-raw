@@ -6,9 +6,8 @@
 
 import { Formats } from '../../Formats';
 import { MapData } from '../../mapdata/MapData';
-
-var ParseTileLayers = require('./ParseTileLayers');
-var ParseTilesets = require('./ParseTilesets');
+import { ParseTileLayers } from './ParseTileLayers';
+import { ParseTilesets } from './ParseTilesets';
 
 /**
  * Parses a Weltmeister JSON object into a new MapData object.
@@ -27,7 +26,7 @@ var ParseTilesets = require('./ParseTilesets');
  *
  * @return {?Phaser.Tilemaps.MapData} The created MapData object, or `null` if the data can't be parsed.
  */
-var ParseWeltmeister = function (name, json, insertNull)
+export const ParseWeltmeister = (name: string, json: any, insertNull: boolean): any | null =>
 {
     if (json.layer.length === 0)
     {
@@ -35,16 +34,16 @@ var ParseWeltmeister = function (name, json, insertNull)
         return null;
     }
 
-    var width = 0;
-    var height = 0;
+    let width = 0;
+    let height = 0;
 
-    for (var i = 0; i < json.layer.length; i++)
+    for (let i = 0; i < json.layer.length; i++)
     {
         if (json.layer[i].width > width) { width = json.layer[i].width; }
         if (json.layer[i].height > height) { height = json.layer[i].height; }
     }
 
-    var mapData = new MapData({
+    const mapData = new MapData({
         width: width,
         height: height,
         name: name,
@@ -58,5 +57,3 @@ var ParseWeltmeister = function (name, json, insertNull)
 
     return mapData;
 };
-
-module.exports = ParseWeltmeister;

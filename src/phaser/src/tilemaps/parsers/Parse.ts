@@ -4,12 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { ParseWeltmeister } from './impact/ParseWeltmeister';
 import { Formats } from '../Formats';
 import { Parse2DArray } from './Parse2DArray';
 import { ParseCSV } from './ParseCSV';
-
-var ParseJSONTiled = require('./tiled/ParseJSONTiled');
-var ParseWeltmeister = require('./impact/ParseWeltmeister');
+import { ParseJSONTiled } from './tiled/ParseJSONTiled';
 
 /**
  * Parses raw data of a given Tilemap format into a new MapData object. If no recognized data format
@@ -36,9 +35,9 @@ var ParseWeltmeister = require('./impact/ParseWeltmeister');
  *
  * @return {Phaser.Tilemaps.MapData} The created `MapData` object.
  */
-var Parse = function (name, mapFormat, data, tileWidth, tileHeight, insertNull)
+export const Parse = (name: string, mapFormat: number, data: number[][] | string | any, tileWidth: number, tileHeight: number, insertNull: boolean): any | null =>
 {
-    var newMap;
+    let newMap: any;
 
     switch (mapFormat)
     {
@@ -61,5 +60,3 @@ var Parse = function (name, mapFormat, data, tileWidth, tileHeight, insertNull)
 
     return newMap;
 };
-
-module.exports = Parse;

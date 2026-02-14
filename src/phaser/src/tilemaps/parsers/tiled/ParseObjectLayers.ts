@@ -5,11 +5,9 @@
  */
 
 import { ObjectLayer } from '../../mapdata/ObjectLayer';
-
 import { GetFastValue } from '../../../utils/object/GetFastValue';
-
-var ParseObject = require('./ParseObject');
-var CreateGroupLayer = require('./CreateGroupLayer');
+import { ParseObject } from './ParseObject';
+import { CreateGroupLayer } from './CreateGroupLayer';
 
 /**
  * Parses a Tiled JSON object into an array of ObjectLayer objects.
@@ -21,13 +19,13 @@ var CreateGroupLayer = require('./CreateGroupLayer');
  *
  * @return {array} An array of all object layers in the tilemap as `ObjectLayer`s.
  */
-var ParseObjectLayers = function (json)
+export const ParseObjectLayers = function (json: any): ObjectLayer[]
 {
-    var objectLayers = [];
+    const objectLayers: ObjectLayer[] = [];
 
     // State inherited from a parent group
-    var groupStack = [];
-    var curGroupState = CreateGroupLayer(json);
+    const groupStack: any[] = [];
+    let curGroupState = CreateGroupLayer(json);
 
     while (curGroupState.i < curGroupState.layers.length || groupStack.length > 0)
     {
@@ -48,7 +46,7 @@ var ParseObjectLayers = function (json)
         }
 
         // Get current layer and advance iterator
-        var curo = curGroupState.layers[curGroupState.i];
+        const curo = curGroupState.layers[curGroupState.i];
         curGroupState.i++;
 
         // Modify inherited properties
@@ -60,7 +58,7 @@ var ParseObjectLayers = function (json)
             if (curo.type === 'group')
             {
                 // Compute next state inherited from group
-                var nextGroupState = CreateGroupLayer(json, curo, curGroupState);
+                const nextGroupState = CreateGroupLayer(json, curo, curGroupState);
 
                 // Preserve current state before recursing
                 groupStack.push(curGroupState);
@@ -72,18 +70,18 @@ var ParseObjectLayers = function (json)
         }
 
         curo.name = curGroupState.name + curo.name;
-        var offsetX = curGroupState.x + GetFastValue(curo, 'startx', 0) + GetFastValue(curo, 'offsetx', 0);
-        var offsetY = curGroupState.y + GetFastValue(curo, 'starty', 0) + GetFastValue(curo, 'offsety', 0);
+        const offsetX = curGroupState.x + GetFastValue(curo, 'startx', 0) + GetFastValue(curo, 'offsetx', 0);
+        const offsetY = curGroupState.y + GetFastValue(curo, 'starty', 0) + GetFastValue(curo, 'offsety', 0);
 
-        var objects = [];
-        for (var j = 0; j < curo.objects.length; j++)
+        const objects: any[] = [];
+        for (let j = 0; j < curo.objects.length; j++)
         {
-            var parsedObject = ParseObject(curo.objects[j], offsetX, offsetY);
+            const parsedObject = ParseObject(curo.objects[j], offsetX, offsetY);
 
             objects.push(parsedObject);
         }
 
-        var objectLayer = new ObjectLayer(curo);
+        const objectLayer = new ObjectLayer(curo);
         objectLayer.objects = objects;
 
         objectLayers.push(objectLayer);
@@ -91,5 +89,3 @@ var ParseObjectLayers = function (json)
 
     return objectLayers;
 };
-
-module.exports = ParseObjectLayers;

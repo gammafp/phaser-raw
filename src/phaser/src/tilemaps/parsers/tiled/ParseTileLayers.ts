@@ -10,10 +10,8 @@ import { FromOrientationString } from '../FromOrientationString';
 import { LayerData } from '../../mapdata/LayerData';
 import { ParseGID } from './ParseGID';
 import { Tile } from '../../Tile';
-
 import { GetFastValue } from '../../../utils/object/GetFastValue';
-
-var CreateGroupLayer = require('./CreateGroupLayer');
+import { CreateGroupLayer } from './CreateGroupLayer';
 
 /**
  * Parses all tilemap layers in a Tiled JSON object into new LayerData objects.
@@ -28,14 +26,14 @@ var CreateGroupLayer = require('./CreateGroupLayer');
  * @return {Phaser.Tilemaps.LayerData[]} - An array of LayerData objects, one for each entry in
  * json.layers with the type 'tilelayer'.
  */
-var ParseTileLayers = function (json, insertNull)
+export const ParseTileLayers = function (json: any, insertNull: boolean): LayerData[]
 {
-    var infiniteMap = GetFastValue(json, 'infinite', false);
-    var tileLayers = [];
+    const infiniteMap = GetFastValue(json, 'infinite', false);
+    const tileLayers: LayerData[] = [];
 
     // State inherited from a parent group
-    var groupStack = [];
-    var curGroupState = CreateGroupLayer(json);
+    const groupStack: any[] = [];
+    let curGroupState = CreateGroupLayer(json);
 
     while (curGroupState.i < curGroupState.layers.length || groupStack.length > 0)
     {
@@ -55,7 +53,7 @@ var ParseTileLayers = function (json, insertNull)
             continue;
         }
 
-        var curl = curGroupState.layers[curGroupState.i];
+        const curl = curGroupState.layers[curGroupState.i];
         curGroupState.i++;
 
         if (curl.type !== 'tilelayer')
@@ -63,7 +61,7 @@ var ParseTileLayers = function (json, insertNull)
             if (curl.type === 'group')
             {
                 // Compute next state inherited from group
-                var nextGroupState = CreateGroupLayer(json, curl, curGroupState);
+                const nextGroupState = CreateGroupLayer(json, curl, curGroupState);
 
                 // Preserve current state before recursing
                 groupStack.push(curGroupState);
@@ -88,7 +86,7 @@ var ParseTileLayers = function (json, insertNull)
             // Chunks for an infinite map
             if (curl.chunks)
             {
-                for (var i = 0; i < curl.chunks.length; i++)
+                for (let i = 0; i < curl.chunks.length; i++)
                 {
                     curl.chunks[i].data = Base64Decode(curl.chunks[i].data);
                 }
@@ -109,20 +107,20 @@ var ParseTileLayers = function (json, insertNull)
         //  from. Need to set which tileset in the cache = which tileset in the JSON, if you do this
         //  manually it means you can use the same map data but a new tileset.
 
-        var layerData;
-        var gidInfo;
-        var tile;
-        var blankTile;
-        var triangleHeight;
-        var triangleWidth;
+        let layerData: LayerData;
+        let gidInfo: any;
+        let tile: any;
+        let blankTile: any;
+        let triangleHeight: number;
+        let triangleWidth: number;
 
-        var output = [];
-        var x = 0;
+        const output: any[] = [];
+        let x = 0;
 
         if (infiniteMap)
         {
-            var layerOffsetX = (GetFastValue(curl, 'startx', 0) + curl.x);
-            var layerOffsetY = (GetFastValue(curl, 'starty', 0) + curl.y);
+            const layerOffsetX = (GetFastValue(curl, 'startx', 0) + curl.x);
+            const layerOffsetY = (GetFastValue(curl, 'starty', 0) + curl.y);
 
             layerData = new LayerData({
                 name: (curGroupState.name + curl.name),
@@ -159,11 +157,13 @@ var ParseTileLayers = function (json, insertNull)
                 }
             }
 
-            for (var c = 0; c < curl.height; c++)
+            let c: number;
+            let len: number;
+            for (c = 0; c < curl.height; c++)
             {
                 output[c] = [ null ];
 
-                for (var j = 0; j < curl.width; j++)
+                for (let j = 0; j < curl.width; j++)
                 {
                     output[c][j] = null;
                 }
@@ -171,17 +171,17 @@ var ParseTileLayers = function (json, insertNull)
 
             for (c = 0, len = curl.chunks.length; c < len; c++)
             {
-                var chunk = curl.chunks[c];
+                const chunk = curl.chunks[c];
 
-                var offsetX = (chunk.x - layerOffsetX);
-                var offsetY = (chunk.y - layerOffsetY);
+                const offsetX = (chunk.x - layerOffsetX);
+                const offsetY = (chunk.y - layerOffsetY);
 
-                var y = 0;
+                let y = 0;
 
-                for (var t = 0, len2 = chunk.data.length; t < len2; t++)
+                for (let t = 0, len2 = chunk.data.length; t < len2; t++)
                 {
-                    var newOffsetX = x + offsetX;
-                    var newOffsetY = y + offsetY;
+                    const newOffsetX = x + offsetX;
+                    const newOffsetY = y + offsetY;
 
                     gidInfo = ParseGID(chunk.data[t]);
 
@@ -252,10 +252,10 @@ var ParseTileLayers = function (json, insertNull)
                     layerData.heightInPixels = layerData.tileHeight * (layerData.height + 0.5);
                 }
             }
-            var row = [];
+            let row: any[] = [];
 
             //  Loop through the data field in the JSON.
-            for (var k = 0, len = curl.data.length; k < len; k++)
+            for (let k = 0, len = curl.data.length; k < len; k++)
             {
                 gidInfo = ParseGID(curl.data[k]);
 
@@ -296,5 +296,3 @@ var ParseTileLayers = function (json, insertNull)
 
     return tileLayers;
 };
-
-module.exports = ParseTileLayers;

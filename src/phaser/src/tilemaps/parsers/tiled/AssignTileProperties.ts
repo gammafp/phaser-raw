@@ -15,28 +15,28 @@ import { Extend } from '../../../utils/object/Extend';
  *
  * @param {Phaser.Tilemaps.MapData} mapData - The Map Data object.
  */
-var AssignTileProperties = function (mapData)
+export const AssignTileProperties = function (mapData: any): void
 {
-    var layerData;
-    var tile;
-    var sid;
-    var set;
-    var row;
+    let layerData: any;
+    let tile: any;
+    let sid: number;
+    let set: any;
+    let row: any[];
 
     // go through each of the map data layers
-    for (var i = 0; i < mapData.layers.length; i++)
+    for (let i = 0; i < mapData.layers.length; i++)
     {
         layerData = mapData.layers[i];
 
         set = null;
 
         // rows of tiles
-        for (var j = 0; j < layerData.data.length; j++)
+        for (let j = 0; j < layerData.data.length; j++)
         {
             row = layerData.data[j];
 
             // individual tiles
-            for (var k = 0; k < row.length; k++)
+            for (let k = 0; k < row.length; k++)
             {
                 tile = row[k];
 
@@ -64,5 +64,3 @@ var AssignTileProperties = function (mapData)
         }
     }
 };
-
-module.exports = AssignTileProperties;

@@ -4,12 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Parse } from './parsers/Parse';
+
 import { Formats } from './Formats';
 import { MapData } from './mapdata/MapData';
 // import { Parse } from './parsers/Parse';
 import { Tilemap } from './Tilemap';
 
-var Parse = require('./parsers/Parse');
 
 /**
  * Create a Tilemap from the given key or data. If neither is given, make a blank Tilemap. When

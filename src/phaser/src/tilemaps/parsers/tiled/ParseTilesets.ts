@@ -6,9 +6,8 @@
 
 import { Tileset } from '../../Tileset';
 import { ImageCollection } from '../../ImageCollection';
-
-var ParseObject = require('./ParseObject');
-var ParseWangsets = require('./ParseWangsets');
+import { ParseObject } from './ParseObject';
+import { ParseWangsets } from './ParseWangsets';
 
 /**
  * Tilesets and Image Collections.
@@ -20,17 +19,17 @@ var ParseWangsets = require('./ParseWangsets');
  *
  * @return {object} An object containing the tileset and image collection data.
  */
-var ParseTilesets = function (json)
+export const ParseTilesets = function (json: any): { tilesets: any[]; imageCollections: any[] }
 {
-    var tilesets = [];
-    var imageCollections = [];
-    var lastSet = null;
-    var stringID;
+    const tilesets: any[] = [];
+    const imageCollections: any[] = [];
+    let lastSet: any = null;
+    let stringID: string;
 
-    for (var i = 0; i < json.tilesets.length; i++)
+    for (let i = 0; i < json.tilesets.length; i++)
     {
         //  name, firstgid, width, height, margin, spacing, properties
-        var set = json.tilesets[i];
+        const set = json.tilesets[i];
 
         if (set.source)
         {
@@ -38,12 +37,12 @@ var ParseTilesets = function (json)
         }
         else if (set.image)
         {
-            var newSet = new Tileset(set.name, set.firstgid, set.tilewidth, set.tileheight, set.margin, set.spacing, undefined, undefined, set.tileoffset);
+            const newSet = new Tileset(set.name, set.firstgid, set.tilewidth, set.tileheight, set.margin, set.spacing, undefined, undefined, set.tileoffset);
 
             if (json.version > 1)
             {
-                var datas = undefined;
-                var props = undefined;
+                let datas: any = undefined;
+                let props: any = undefined;
 
                 if (Array.isArray(set.tiles))
                 {
@@ -51,16 +50,16 @@ var ParseTilesets = function (json)
                     props = props || {};
 
                     // Tiled 1.2+
-                    for (var t = 0; t < set.tiles.length; t++)
+                    for (let t = 0; t < set.tiles.length; t++)
                     {
-                        var tile = set.tiles[t];
+                        const tile = set.tiles[t];
 
                         //  Convert tileproperties.
                         if (tile.properties)
                         {
-                            var newPropData = {};
+                            const newPropData: any = {};
 
-                            tile.properties.forEach(function (propData)
+                            tile.properties.forEach(function (propData: any)
                             {
                                 newPropData[propData['name']] = propData['value'];
                             });
@@ -75,7 +74,7 @@ var ParseTilesets = function (json)
 
                             if (tile.objectgroup.objects)
                             {
-                                var parsedObjects2 = tile.objectgroup.objects.map(function (obj)
+                                const parsedObjects2 = tile.objectgroup.objects.map(function (obj: any)
                                 {
                                     return ParseObject(obj);
                                 });
@@ -99,21 +98,21 @@ var ParseTilesets = function (json)
                     }
 
                     // Sum up animation length.
-                    for (var tid in datas)
+                    for (stringID in datas)
                     {
-                        var animData = datas[tid].animation;
+                        const animData = datas[stringID].animation;
 
                         if (animData)
                         {
-                            var animTime = 0;
+                            let animTime = 0;
 
-                            for (var j = 0; j < animData.length; j++)
+                            for (let j = 0; j < animData.length; j++)
                             {
                                 animData[j].startTime = animTime;
                                 animTime += animData[j].duration;
                             }
 
-                            datas[tid].animationDuration = animTime;
+                            datas[stringID].animationDuration = animTime;
                         }
                     }
                 }
@@ -150,11 +149,11 @@ var ParseTilesets = function (json)
                     // Parse the objects into Phaser format to match handling of other Tiled objects
                     for (stringID in newSet.tileData)
                     {
-                        var objectGroup = newSet.tileData[stringID].objectgroup;
+                        const objectGroup = newSet.tileData[stringID].objectgroup;
 
                         if (objectGroup && objectGroup.objects)
                         {
-                            var parsedObjects1 = objectGroup.objects.map(function (obj)
+                            const parsedObjects1 = objectGroup.objects.map(function (obj: any)
                             {
                                 return ParseObject(obj);
                             });
@@ -173,19 +172,19 @@ var ParseTilesets = function (json)
         }
         else
         {
-            var newCollection = new ImageCollection(set.name, set.firstgid, set.tilewidth, set.tileheight, set.margin, set.spacing, set.properties);
+            const newCollection = new ImageCollection(set.name, set.firstgid, set.tilewidth, set.tileheight, set.margin, set.spacing, set.properties);
 
-            var maxId = 0;
+            let maxId = 0;
 
-            for (t = 0; t < set.tiles.length; t++)
+            for (let t = 0; t < set.tiles.length; t++)
             {
-                tile = set.tiles[t];
+                const tile = set.tiles[t];
 
-                var image = tile.image;
-                var tileId = parseInt(tile.id, 10);
-                var gid = set.firstgid + tileId;
-                var width = tile.imagewidth;
-                var height = tile.imageheight;
+                const image = tile.image;
+                const tileId = parseInt(tile.id, 10);
+                const gid = set.firstgid + tileId;
+                const width = tile.imagewidth;
+                const height = tile.imageheight;
                 newCollection.addImage(gid, image, width, height);
 
                 maxId = Math.max(tileId, maxId);
@@ -207,5 +206,3 @@ var ParseTilesets = function (json)
 
     return { tilesets: tilesets, imageCollections: imageCollections };
 };
-
-module.exports = ParseTilesets;

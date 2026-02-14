@@ -8,15 +8,13 @@ import { ORIENTATION_CONST as CONST } from '../../const/ORIENTATION_CONST';
 import { Formats } from '../../Formats';
 import { FromOrientationString } from '../FromOrientationString';
 import { MapData } from '../../mapdata/MapData';
-
 import { DeepCopy } from '../../../utils/object/DeepCopy';
-
-var AssignTileProperties = require('./AssignTileProperties');
-var BuildTilesetIndex = require('./BuildTilesetIndex');
-var ParseImageLayers = require('./ParseImageLayers');
-var ParseObjectLayers = require('./ParseObjectLayers');
-var ParseTileLayers = require('./ParseTileLayers');
-var ParseTilesets = require('./ParseTilesets');
+import { AssignTileProperties } from './AssignTileProperties';
+import { BuildTilesetIndex } from './BuildTilesetIndex';
+import { ParseImageLayers } from './ParseImageLayers';
+import { ParseObjectLayers } from './ParseObjectLayers';
+import { ParseTileLayers } from './ParseTileLayers';
+import { ParseTilesets } from './ParseTilesets';
 
 /**
  * Parses a Tiled JSON object into a new MapData object.
@@ -35,12 +33,12 @@ var ParseTilesets = require('./ParseTilesets');
  *
  * @return {?Phaser.Tilemaps.MapData} The created MapData object, or `null` if the data can't be parsed.
  */
-var ParseJSONTiled = function (name, source, insertNull)
+export const ParseJSONTiled = function (name: string, source: any, insertNull: boolean): MapData | null
 {
-    var json = DeepCopy(source);
+    const json = DeepCopy(source);
 
     //  Map data will consist of: layers, objects, images, tilesets, sizes
-    var mapData = new MapData({
+    const mapData = new MapData({
         width: json.width,
         height: json.height,
         name: name,
@@ -62,13 +60,13 @@ var ParseJSONTiled = function (name, source, insertNull)
 
         if (mapData.staggerAxis === 'y')
         {
-            var triangleHeight = (mapData.tileHeight - mapData.hexSideLength) / 2;
+            const triangleHeight = (mapData.tileHeight - mapData.hexSideLength) / 2;
             mapData.widthInPixels = mapData.tileWidth * (mapData.width + 0.5);
             mapData.heightInPixels = mapData.height * (mapData.hexSideLength + triangleHeight) + triangleHeight;
         }
         else
         {
-            var triangleWidth = (mapData.tileWidth - mapData.hexSideLength) / 2;
+            const triangleWidth = (mapData.tileWidth - mapData.hexSideLength) / 2;
             mapData.widthInPixels = mapData.width * (mapData.hexSideLength + triangleWidth) + triangleWidth;
             mapData.heightInPixels = mapData.tileHeight * (mapData.height + 0.5);
         }
@@ -77,7 +75,7 @@ var ParseJSONTiled = function (name, source, insertNull)
     mapData.layers = ParseTileLayers(json, insertNull);
     mapData.images = ParseImageLayers(json);
 
-    var sets = ParseTilesets(json);
+    const sets = ParseTilesets(json);
 
     mapData.tilesets = sets.tilesets;
     mapData.imageCollections = sets.imageCollections;
@@ -90,5 +88,3 @@ var ParseJSONTiled = function (name, source, insertNull)
 
     return mapData;
 };
-
-module.exports = ParseJSONTiled;

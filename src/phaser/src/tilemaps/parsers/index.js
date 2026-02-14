@@ -5,13 +5,13 @@
  */
 
 
+
 /**
  * @namespace Phaser.Tilemaps.Parsers
  */
 
 module.exports = {
 
-    Parse: require('./Parse'),
 
     Impact: require('./impact/'),
     Tiled: require('./tiled/')

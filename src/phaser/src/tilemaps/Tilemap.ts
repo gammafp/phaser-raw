@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { BuildTilesetIndex } from './parsers/tiled/BuildTilesetIndex';
+
 import { Formats } from './Formats';
 import { LayerData } from './mapdata/LayerData';
 import { ORIENTATION_CONST as ORIENTATION } from './const/ORIENTATION_CONST';
@@ -19,7 +21,6 @@ import { Tileset } from './Tileset';
 import { Tile } from './Tile';
 import { ObjectHelper } from './ObjectHelper';
 
-const BuildTilesetIndex = require('./parsers/tiled/BuildTilesetIndex');
 const Sprite = require('../gameobjects/sprite/Sprite');
 const TilemapComponents = require('./components');
 

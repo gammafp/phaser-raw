@@ -24,12 +24,12 @@
  *
  * @return {object} An object containing the tileset and image collection data.
  */
-var ParseWangsets = function (wangsets, datas)
+export const ParseWangsets = function (wangsets: any[], datas: any): void
 {
-    for (var w = 0; w < wangsets.length; w++)
+    for (let w = 0; w < wangsets.length; w++)
     {
-        var wangset = wangsets[w];
-        var identifier = w;
+        const wangset = wangsets[w];
+        let identifier: string | number = w;
 
         if (wangset.name && wangset.name !== '')
         {
@@ -38,12 +38,12 @@ var ParseWangsets = function (wangsets, datas)
 
         if (Array.isArray(wangset.wangtiles) && wangset.wangtiles.length > 0)
         {
-            var edgeColors = {};
-            var cornerColors = {};
+            const edgeColors: any = {};
+            const cornerColors: any = {};
 
-            var c;
-            var color;
-            var colorIndex;
+            let c: number;
+            let color: any;
+            let colorIndex: number;
 
             // Tiled before v2020.09.09
             if (Array.isArray(wangset.edgecolors))
@@ -90,22 +90,22 @@ var ParseWangsets = function (wangsets, datas)
             }
 
             // The wangid layout is north, northeast, east, southeast, etc.
-            var idLayout = [
+            const idLayout = [
                 edgeColors, cornerColors, edgeColors, cornerColors,
                 edgeColors, cornerColors, edgeColors, cornerColors
             ];
 
-            for (var t = 0; t < wangset.wangtiles.length; t++)
+            for (let t = 0; t < wangset.wangtiles.length; t++)
             {
-                var wangtile = wangset.wangtiles[t];
+                const wangtile = wangset.wangtiles[t];
 
-                var obj = (datas[wangtile.tileid] || (datas[wangtile.tileid] = {}));
+                let obj = (datas[wangtile.tileid] || (datas[wangtile.tileid] = {}));
 
                 obj = (obj.wangid || (obj.wangid = {}));
 
-                var wangid = [];
+                const wangid: any[] = [];
 
-                for (var i = 0; i < Math.min(idLayout.length, wangtile.wangid.length); i++)
+                for (let i = 0; i < Math.min(idLayout.length, wangtile.wangid.length); i++)
                 {
                     color = wangtile.wangid[i];
 
@@ -115,7 +115,7 @@ var ParseWangsets = function (wangsets, datas)
                         continue;
                     }
 
-                    var renamed = idLayout[i][color];
+                    const renamed = idLayout[i][color];
 
                     if (renamed !== undefined)
                     {
@@ -131,5 +131,3 @@ var ParseWangsets = function (wangsets, datas)
         }
     }
 };
-
-module.exports = ParseWangsets;

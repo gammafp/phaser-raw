@@ -17,25 +17,25 @@ import { Tileset } from '../../Tileset';
  *
  * @return {array} An array of Tileset objects.
  */
-var BuildTilesetIndex = function (mapData)
+export const BuildTilesetIndex = function (mapData: any): any[]
 {
-    var i;
-    var set;
-    var tiles = [];
+    let i: number;
+    let set: any;
+    const tiles: any[] = [];
 
     for (i = 0; i < mapData.imageCollections.length; i++)
     {
-        var collection = mapData.imageCollections[i];
-        var images = collection.images;
+        const collection = mapData.imageCollections[i];
+        const images = collection.images;
 
-        for (var j = 0; j < images.length; j++)
+        for (let j = 0; j < images.length; j++)
         {
-            var image = images[j];
-            var offset = {
+            const image = images[j];
+            const offset = {
                 x: 0,
                 y: image.height - mapData.tileHeight
             };
-            
+
             set = new Tileset(image.image, image.gid, image.width, image.height, 0, 0, undefined, undefined, offset);
 
             set.updateTileData(image.width, image.height);
@@ -48,14 +48,14 @@ var BuildTilesetIndex = function (mapData)
     {
         set = mapData.tilesets[i];
 
-        var x = set.tileMargin;
-        var y = set.tileMargin;
+        let x = set.tileMargin;
+        let y = set.tileMargin;
 
-        var count = 0;
-        var countX = 0;
-        var countY = 0;
+        let count = 0;
+        let countX = 0;
+        let countY = 0;
 
-        for (var t = set.firstgid; t < set.firstgid + set.total; t++)
+        for (let t = set.firstgid; t < set.firstgid + set.total; t++)
         {
             //  Can add extra properties here as needed
             tiles[t] = [ x, y, i ];
@@ -89,5 +89,3 @@ var BuildTilesetIndex = function (mapData)
 
     return tiles;
 };
-
-module.exports = BuildTilesetIndex;
