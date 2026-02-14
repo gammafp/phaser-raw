@@ -5,10 +5,11 @@
  */
 
 
+import { Formats as TILEMAP_FORMATS } from '../../tilemaps/Formats';
+
 import { JSONFile } from './JSONFile';
 
 import { FileTypesManager } from '../FileTypesManager';
-var TILEMAP_FORMATS = require('../../tilemaps/Formats');
 
 /**
  * @classdesc

@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Formats = require('../Formats');
-var Parse2DArray = require('./Parse2DArray');
-var ParseCSV = require('./ParseCSV');
+import { Formats } from '../Formats';
+import { Parse2DArray } from './Parse2DArray';
+import { ParseCSV } from './ParseCSV';
+
 var ParseJSONTiled = require('./tiled/ParseJSONTiled');
 var ParseWeltmeister = require('./impact/ParseWeltmeister');
 

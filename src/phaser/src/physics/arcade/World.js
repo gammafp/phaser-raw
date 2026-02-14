@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { GetTilesWithinWorldXY } from '../../tilemaps/components/GetTilesWithinWorldXY';
+
 import { GetValue } from '../../utils/object/GetValue';
 
 import { Rectangle } from '../../geom/rectangle/Rectangle';
@@ -31,7 +33,6 @@ var EventEmitter = require('eventemitter3');
 var Events = require('./events');
 var GetOverlapX = require('./GetOverlapX');
 var GetOverlapY = require('./GetOverlapY');
-var GetTilesWithinWorldXY = require('../../tilemaps/components/GetTilesWithinWorldXY');
 var ProcessTileCallbacks = require('./tilemap/ProcessTileCallbacks');
 var SeparateTile = require('./tilemap/SeparateTile');
 var SeparateX = require('./SeparateX');

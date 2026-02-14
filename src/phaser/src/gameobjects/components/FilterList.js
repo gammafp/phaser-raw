@@ -4,27 +4,28 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Barrel } from '../../filters/Barrel';
+import { Blend } from '../../filters/Blend';
+import { Blocky } from '../../filters/Blocky';
+import { Blur } from '../../filters/Blur';
+import { Bokeh } from '../../filters/Bokeh';
+import { ColorMatrix } from '../../filters/ColorMatrix';
+import { CombineColorMatrix } from '../../filters/CombineColorMatrix';
+import { Displacement } from '../../filters/Displacement';
+import { Glow } from '../../filters/Glow';
+import { ImageLight } from '../../filters/ImageLight';
+import { Key } from '../../filters/Key';
+import { Mask } from '../../filters/Mask';
+import { NormalTools } from '../../filters/NormalTools';
+import { PanoramaBlur } from '../../filters/PanoramaBlur';
+import { Pixelate } from '../../filters/Pixelate';
+import { Sampler } from '../../filters/Sampler';
+import { Shadow } from '../../filters/Shadow';
+import { Threshold } from '../../filters/Threshold';
+import { Vignette } from '../../filters/Vignette';
+import { Wipe } from '../../filters/Wipe';
+
 var Class = require('../../utils/Class');
-var Barrel = require('../../filters/Barrel');
-var Blend = require('../../filters/Blend');
-var Blocky = require('../../filters/Blocky');
-var Blur = require('../../filters/Blur');
-var Bokeh = require('../../filters/Bokeh');
-var ColorMatrix = require('../../filters/ColorMatrix');
-var CombineColorMatrix = require('../../filters/CombineColorMatrix');
-var Displacement = require('../../filters/Displacement');
-var Glow = require('../../filters/Glow');
-var ImageLight = require('../../filters/ImageLight');
-var Key = require('../../filters/Key');
-var Mask = require('../../filters/Mask');
-var NormalTools = require('../../filters/NormalTools');
-var PanoramaBlur = require('../../filters/PanoramaBlur');
-var Pixelate = require('../../filters/Pixelate');
-var Sampler = require('../../filters/Sampler');
-var Shadow = require('../../filters/Shadow');
-var Threshold = require('../../filters/Threshold');
-var Vignette = require('../../filters/Vignette');
-var Wipe = require('../../filters/Wipe');
 
 /**
  * @classdesc

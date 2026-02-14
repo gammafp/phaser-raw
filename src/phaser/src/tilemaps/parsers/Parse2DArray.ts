@@ -4,11 +4,12 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Tile } from '../Tile';
+
 import { Formats } from '../Formats';
 import { LayerData } from '../mapdata/LayerData';
 import { MapData } from '../mapdata/MapData';
 
-const Tile = require('../Tile');
 
 /**
  * Parses a 2D array of tile indexes into a new MapData object with a single layer.

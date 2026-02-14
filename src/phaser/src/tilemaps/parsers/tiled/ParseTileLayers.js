@@ -4,15 +4,16 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Base64Decode } from './Base64Decode';
+import { ORIENTATION_CONST as CONST } from '../../const/ORIENTATION_CONST';
+import { FromOrientationString } from '../FromOrientationString';
+import { LayerData } from '../../mapdata/LayerData';
+import { ParseGID } from './ParseGID';
+import { Tile } from '../../Tile';
+
 import { GetFastValue } from '../../../utils/object/GetFastValue';
 
-var Base64Decode = require('./Base64Decode');
-var CONST = require('../../const/ORIENTATION_CONST');
 var CreateGroupLayer = require('./CreateGroupLayer');
-var FromOrientationString = require('../FromOrientationString');
-var LayerData = require('../../mapdata/LayerData');
-var ParseGID = require('./ParseGID');
-var Tile = require('../../Tile');
 
 /**
  * Parses all tilemap layers in a Tiled JSON object into new LayerData objects.

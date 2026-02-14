@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Tileset = require('../../Tileset');
-var ImageCollection = require('../../ImageCollection');
+import { Tileset } from '../../Tileset';
+import { ImageCollection } from '../../ImageCollection';
+
 var ParseObject = require('./ParseObject');
 var ParseWangsets = require('./ParseWangsets');
 

@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var LayerData = require('../../mapdata/LayerData');
-var Tile = require('../../Tile');
+
+import { LayerData } from '../../mapdata/LayerData';
+import { Tile } from '../../Tile';
 
 /**
  * Parses all tilemap layers in an Impact JSON object into new LayerData objects.

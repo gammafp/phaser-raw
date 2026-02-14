@@ -4,14 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { ORIENTATION_CONST as CONST } from '../../const/ORIENTATION_CONST';
+import { Formats } from '../../Formats';
+import { FromOrientationString } from '../FromOrientationString';
+import { MapData } from '../../mapdata/MapData';
+
 import { DeepCopy } from '../../../utils/object/DeepCopy';
 
 var AssignTileProperties = require('./AssignTileProperties');
 var BuildTilesetIndex = require('./BuildTilesetIndex');
-var CONST = require('../../const/ORIENTATION_CONST');
-var Formats = require('../../Formats');
-var FromOrientationString = require('../FromOrientationString');
-var MapData = require('../../mapdata/MapData');
 var ParseImageLayers = require('./ParseImageLayers');
 var ParseObjectLayers = require('./ParseObjectLayers');
 var ParseTileLayers = require('./ParseTileLayers');

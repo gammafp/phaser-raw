@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Formats = require('../../Formats');
-var MapData = require('../../mapdata/MapData');
+import { Formats } from '../../Formats';
+import { MapData } from '../../mapdata/MapData';
+
 var ParseTileLayers = require('./ParseTileLayers');
 var ParseTilesets = require('./ParseTilesets');
 

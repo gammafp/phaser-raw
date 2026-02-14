@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Formats as TILEMAP_FORMATS } from '../../tilemaps/Formats';
+
 import { GetFastValue } from '../../utils/object/GetFastValue';
 import { IsPlainObject } from '../../utils/object/IsPlainObject';
 
@@ -12,7 +14,6 @@ import { FILE_CONST } from '../const';
 const CONST = FILE_CONST;
 import { File } from '../File';
 import { FileTypesManager } from '../FileTypesManager';
-var TILEMAP_FORMATS = require('../../tilemaps/Formats');
 
 /**
  * @classdesc

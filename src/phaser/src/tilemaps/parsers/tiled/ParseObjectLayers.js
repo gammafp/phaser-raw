@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { ObjectLayer } from '../../mapdata/ObjectLayer';
+
 import { GetFastValue } from '../../../utils/object/GetFastValue';
 
 var ParseObject = require('./ParseObject');
-var ObjectLayer = require('../../mapdata/ObjectLayer');
 var CreateGroupLayer = require('./CreateGroupLayer');
 
 /**
