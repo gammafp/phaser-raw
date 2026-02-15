@@ -7,7 +7,7 @@
 import { Frame } from '../../textures/Frame';
 
 //  bitmask flag for GameObject.renderMask
-var _FLAG = 8; // 1000
+const _FLAG = 8; // 1000
 
 /**
  * Provides methods used for getting and setting the texture of a Game Object.
@@ -16,7 +16,27 @@ var _FLAG = 8; // 1000
  * @since 3.0.0
  */
 
-var TextureCrop = {
+export interface TextureCrop {
+    texture: any;
+    frame: any;
+    isCropped: boolean;
+    scene: any;
+    renderFlags: number;
+    _sizeComponent: boolean;
+    _originComponent: boolean;
+    _crop: any;
+    flipX: boolean;
+    flipY: boolean;
+    setSizeToFrame(): this;
+    setOrigin(x: number, y: number): this;
+    updateDisplayOrigin(): this;
+    setCrop(x?: number | any, y?: number, width?: number, height?: number): this;
+    setTexture(key: string, frame?: string | number): this;
+    setFrame(frame: string | number | any, updateSize?: boolean, updateOrigin?: boolean): this;
+    resetCropObject(): any;
+}
+
+export const TextureCrop = {
 
     /**
      * The Texture this Game Object is using to render with.
@@ -82,7 +102,7 @@ var TextureCrop = {
      *
      * @return {this} This Game Object instance.
      */
-    setCrop: function (x, y, width, height)
+    setCrop(this: any, x?: number | any, y?: number, width?: number, height?: number): any
     {
         if (x === undefined)
         {
@@ -96,7 +116,7 @@ var TextureCrop = {
             }
             else
             {
-                var rect = x;
+                const rect = x;
 
                 this.frame.setCropUVs(this._crop, rect.x, rect.y, rect.width, rect.height, this.flipX, this.flipY);
             }
@@ -120,7 +140,7 @@ var TextureCrop = {
      *
      * @return {this} This Game Object instance.
      */
-    setTexture: function (key, frame)
+    setTexture(this: any, key: string, frame?: string | number): any
     {
         this.texture = this.scene.sys.textures.get(key);
 
@@ -148,7 +168,7 @@ var TextureCrop = {
      *
      * @return {this} This Game Object instance.
      */
-    setFrame: function (frame, updateSize, updateOrigin)
+    setFrame(this: any, frame?: string | number | any, updateSize?: boolean, updateOrigin?: boolean): any
     {
         if (updateSize === undefined) { updateSize = true; }
         if (updateOrigin === undefined) { updateOrigin = true; }
@@ -207,11 +227,9 @@ var TextureCrop = {
      *
      * @return {object} The crop object.
      */
-    resetCropObject: function ()
+    resetCropObject(): any
     {
         return { u0: 0, v0: 0, u1: 0, v1: 0, width: 0, height: 0, x: 0, y: 0, flipX: false, flipY: false, cx: 0, cy: 0, cw: 0, ch: 0 };
     }
 
 };
-
-module.exports = TextureCrop;

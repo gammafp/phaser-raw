@@ -11,7 +11,22 @@
  * @since 3.0.0
  */
 
-var Size = {
+export interface Size {
+    _sizeComponent: boolean;
+    width: number;
+    height: number;
+    scaleX: number;
+    scaleY: number;
+    frame: any;
+    input: any;
+    displayWidth: number;
+    displayHeight: number;
+    setSizeToFrame(frame?: any): this;
+    setSize(width: number, height: number): this;
+    setDisplaySize(width: number, height: number): this;
+}
+
+export const Size = {
 
     /**
      * A property indicating that a Game Object has this component.
@@ -61,18 +76,14 @@ var Size = {
      * @type {number}
      * @since 3.0.0
      */
-    displayWidth: {
+    get displayWidth(): number
+    {
+        return Math.abs(this.scaleX * this.frame.realWidth);
+    },
 
-        get: function ()
-        {
-            return Math.abs(this.scaleX * this.frame.realWidth);
-        },
-
-        set: function (value)
-        {
-            this.scaleX = value / this.frame.realWidth;
-        }
-
+    set displayWidth(value: number)
+    {
+        this.scaleX = value / this.frame.realWidth;
     },
 
     /**
@@ -86,18 +97,14 @@ var Size = {
      * @type {number}
      * @since 3.0.0
      */
-    displayHeight: {
+    get displayHeight(): number
+    {
+        return Math.abs(this.scaleY * this.frame.realHeight);
+    },
 
-        get: function ()
-        {
-            return Math.abs(this.scaleY * this.frame.realHeight);
-        },
-
-        set: function (value)
-        {
-            this.scaleY = value / this.frame.realHeight;
-        }
-
+    set displayHeight(value: number)
+    {
+        this.scaleY = value / this.frame.realHeight;
     },
 
     /**
@@ -118,14 +125,14 @@ var Size = {
      *
      * @return {this} This Game Object instance.
      */
-    setSizeToFrame: function (frame)
+    setSizeToFrame(this: any, frame?: any): any
     {
         if (!frame) { frame = this.frame; }
 
         this.width = frame.realWidth;
         this.height = frame.realHeight;
 
-        var input = this.input;
+        const input = this.input;
 
         if (input && !input.customHitArea)
         {
@@ -155,7 +162,7 @@ var Size = {
      *
      * @return {this} This Game Object instance.
      */
-    setSize: function (width, height)
+    setSize(this: any, width: number, height: number): any
     {
         this.width = width;
         this.height = height;
@@ -176,7 +183,7 @@ var Size = {
      *
      * @return {this} This Game Object instance.
      */
-    setDisplaySize: function (width, height)
+    setDisplaySize(this: any, width: number, height: number): any
     {
         this.displayWidth = width;
         this.displayHeight = height;
@@ -185,5 +192,3 @@ var Size = {
     }
 
 };
-
-module.exports = Size;

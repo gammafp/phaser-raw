@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { TransformMatrix } from '../gameobjects/components/TransformMatrix';
+
 import { Matrix4 } from '../math/Matrix4';
 import { Controller } from './Controller';
 
-const TransformMatrix = require('../gameobjects/components/TransformMatrix');
 
 /**
  * @classdesc

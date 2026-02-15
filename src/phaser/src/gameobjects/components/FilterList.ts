@@ -25,8 +25,6 @@ import { Threshold } from '../../filters/Threshold';
 import { Vignette } from '../../filters/Vignette';
 import { Wipe } from '../../filters/Wipe';
 
-var Class = require('../../utils/Class');
-
 /**
  * @classdesc
  * A list of filters being applied to a {@link Phaser.Cameras.Scene2D.Camera}.
@@ -95,8 +93,11 @@ var Class = require('../../utils/Class');
  *
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that owns this list.
  */
-var FilterList = new Class({
-    initialize: function FilterList (camera)
+export class FilterList {
+    camera: any;
+    list: any[];
+
+    constructor(camera: any)
     {
         /**
          * The Camera that owns this list.
@@ -121,7 +122,7 @@ var FilterList = new Class({
          * @since 4.0.0
          */
         this.list = [];
-    },
+    }
 
     /**
      * Destroys and removes all filters in this list.
@@ -130,11 +131,11 @@ var FilterList = new Class({
      * @since 4.0.0
      * @returns {this} This FilterList instance.
      */
-    clear: function ()
+    clear(): this
     {
-        for (var i = 0; i < this.list.length; i++)
+        for (let i = 0; i < this.list.length; i++)
         {
-            var filter = this.list[i];
+            const filter = this.list[i];
             if (!filter.ignoreDestroy)
             {
                 filter.destroy();
@@ -144,7 +145,7 @@ var FilterList = new Class({
         this.list.length = 0;
 
         return this;
-    },
+    }
 
     /**
      * Adds a filter to this list.
@@ -157,7 +158,7 @@ var FilterList = new Class({
      *
      * @return {Phaser.Filters.Controller} The filter that was added.
      */
-    add: function (filter, index)
+    add(filter: any, index?: number): any
     {
         if (index === undefined)
         {
@@ -169,7 +170,7 @@ var FilterList = new Class({
         }
 
         return filter;
-    },
+    }
 
     /**
      * Removes a filter from this list, then destroys it.
@@ -182,9 +183,9 @@ var FilterList = new Class({
      *
      * @return {this} This FilterList instance.
      */
-    remove: function (filter, forceDestroy)
+    remove(filter: any, forceDestroy?: boolean): this
     {
-        var index = this.list.indexOf(filter);
+        const index = this.list.indexOf(filter);
 
         if (index !== -1)
         {
@@ -196,7 +197,7 @@ var FilterList = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Returns all active filters in this list.
@@ -205,10 +206,10 @@ var FilterList = new Class({
      * @since 4.0.0
      * @return {Phaser.Filters.Controller[]} The active filters in this list.
      */
-    getActive: function ()
+    getActive(): any[]
     {
         return this.list.filter(isActive);
-    },
+    }
 
     /**
      * Adds a Barrel effect.
@@ -221,10 +222,10 @@ var FilterList = new Class({
      * @param {number} [amount=1] - The amount of distortion applied to the barrel effect. A value of 1 is no distortion. Typically keep this within +- 1.
      * @return {Phaser.Filters.Barrel} The new Barrel filter controller.
      */
-    addBarrel: function (amount)
+    addBarrel(amount?: number): any
     {
         return this.add(new Barrel(this.camera, amount));
-    },
+    }
 
     /**
      * Adds a Blend effect.
@@ -241,7 +242,7 @@ var FilterList = new Class({
      * @param {number[]} [color=[1, 1, 1, 1]] - The color to apply to the blend texture. Each value corresponds to a color channel in RGBA. The expected range is 0 to 1, but you can go outside that range for different effects.
      * @return {Phaser.Filters.Blend} The new Blend filter controller.
      */
-    addBlend: function (texture, blendMode, amount, color)
+    addBlend(texture?: string, blendMode?: any, amount?: number, color?: number[]): any
     {
         return this.add(new Blend(
             this.camera,
@@ -250,7 +251,7 @@ var FilterList = new Class({
             amount,
             color
         ));
-    },
+    }
 
     /**
      * Adds a Blocky effect.
@@ -280,10 +281,10 @@ var FilterList = new Class({
      * @param {Phaser.Types.Filters.BlockyConfig} [config] - The configuration object for the Blocky effect.
      * @return {Phaser.Filters.Blocky} The new Blocky filter controller.
      */
-    addBlocky: function (config)
+    addBlocky(config?: any): any
     {
         return this.add(new Blocky(this.camera, config));
-    },
+    }
 
     /**
      * Adds a Blur effect.
@@ -305,7 +306,7 @@ var FilterList = new Class({
      *
      * @return {Phaser.Filters.Blur} The new Blur filter controller.
      */
-    addBlur: function (quality, x, y, strength, color, steps)
+    addBlur(quality?: number, x?: number, y?: number, strength?: number, color?: number, steps?: number): any
     {
         return this.add(new Blur(
             this.camera,
@@ -316,7 +317,7 @@ var FilterList = new Class({
             color,
             steps
         ));
-    },
+    }
 
     /**
      * Adds a Bokeh effect.
@@ -337,7 +338,7 @@ var FilterList = new Class({
      *
      * @return {Phaser.Filters.Bokeh} The new Bokeh filter controller.
      */
-    addBokeh: function (radius, amount, contrast)
+    addBokeh(radius?: number, amount?: number, contrast?: number): any
     {
         return this.add(new Bokeh(
             this.camera,
@@ -345,7 +346,7 @@ var FilterList = new Class({
             amount,
             contrast
         ));
-    },
+    }
 
     /**
      * Adds a Color Matrix effect.
@@ -360,10 +361,10 @@ var FilterList = new Class({
      * @since 4.0.0
      * @return {Phaser.Filters.ColorMatrix} The new ColorMatrix filter controller.
      */
-    addColorMatrix: function ()
+    addColorMatrix(): any
     {
         return this.add(new ColorMatrix(this.camera));
-    },
+    }
 
     /**
      * Adds a Combine Color Matrix effect.
@@ -380,10 +381,10 @@ var FilterList = new Class({
      * @param {string | Phaser.Textures.Texture} [texture='__WHITE'] - The texture or texture key to use for the transfer texture.
      * @returns
      */
-    addCombineColorMatrix: function (texture)
+    addCombineColorMatrix(texture?: string | any): any
     {
         return this.add(new CombineColorMatrix(this.camera, texture));
-    },
+    }
 
     /**
      * Adds a Displacement effect.
@@ -403,7 +404,7 @@ var FilterList = new Class({
      *
      * @return {Phaser.Filters.Displacement} The new Displacement filter controller.
      */
-    addDisplacement: function (texture, x, y)
+    addDisplacement(texture?: string, x?: number, y?: number): any
     {
         return this.add(new Displacement(
             this.camera,
@@ -411,7 +412,7 @@ var FilterList = new Class({
             x,
             y
         ));
-    },
+    }
 
     /**
      * Adds a Glow effect.
@@ -434,7 +435,7 @@ var FilterList = new Class({
      *
      * @return {Phaser.Filters.Glow} The new Glow filter controller.
      */
-    addGlow: function (color, outerStrength, innerStrength, scale, knockout, quality, distance)
+    addGlow(color?: number, outerStrength?: number, innerStrength?: number, scale?: number, knockout?: boolean, quality?: number, distance?: number): any
     {
         return this.add(new Glow(
             this.camera,
@@ -446,7 +447,7 @@ var FilterList = new Class({
             quality,
             distance
         ));
-    },
+    }
 
     /**
      * Adds an ImageLight effect.
@@ -478,10 +479,10 @@ var FilterList = new Class({
      * @param {Phaser.Types.Filters.ImageLightConfig} config
      * @returns {Phaser.Filters.ImageLight} The new ImageLight filter controller.
      */
-    addImageLight: function (config)
+    addImageLight(config: any): any
     {
         return this.add(new ImageLight(this.camera, config));
-    },
+    }
 
     /**
      * Adds a Key effect.
@@ -504,10 +505,10 @@ var FilterList = new Class({
      *
      * @returns {Phaser.Filters.Key} The new Key filter controller.
      */
-    addKey: function (config)
+    addKey(config?: any): any
     {
         return this.add(new Key(this.camera, config));
-    },
+    }
 
     /**
      * Adds a Mask effect.
@@ -549,7 +550,7 @@ var FilterList = new Class({
      *
      * @return {Phaser.Filters.Mask} The new Mask filter controller.
      */
-    addMask: function (mask, invert, viewCamera, viewTransform, scaleFactor)
+    addMask(mask?: string | any, invert?: boolean, viewCamera?: any, viewTransform?: string, scaleFactor?: number): any
     {
         return this.add(new Mask(
             this.camera,
@@ -559,7 +560,7 @@ var FilterList = new Class({
             viewTransform,
             scaleFactor
         ));
-    },
+    }
 
     /**
      * Adds a NormalTools effect.
@@ -596,10 +597,10 @@ var FilterList = new Class({
      * @param {Phaser.Types.Filters.NormalToolsConfig} config
      * @returns {Phaser.Filters.NormalTools} The new NormalTools filter controller.
      */
-    addNormalTools: function (config)
+    addNormalTools(config: any): any
     {
         return this.add(new NormalTools(this.camera, config));
-    },
+    }
 
     /**
      * Adds a PanoramaBlur effect.
@@ -626,10 +627,10 @@ var FilterList = new Class({
      *
      * @return {Phaser.Filters.PanoramaBlur} The new PanoramaBlur filter controller.
      */
-    addPanoramaBlur: function (config)
+    addPanoramaBlur(config: any): any
     {
         return this.add(new PanoramaBlur(this.camera, config));
-    },
+    }
 
     // For technical reasons, addParallelFilters is not coded here.
     // ParallelFilters has a circular reference to FilterList.
@@ -651,13 +652,13 @@ var FilterList = new Class({
      *
      * @return {Phaser.Filters.Pixelate} The new Pixelate filter controller.
      */
-    addPixelate: function (amount)
+    addPixelate(amount?: number): any
     {
         return this.add(new Pixelate(
             this.camera,
             amount
         ));
-    },
+    }
 
     /**
      * Adds a Sampler effect.
@@ -677,14 +678,14 @@ var FilterList = new Class({
      *
      * @return {Phaser.Filters.Sampler} The new Sampler filter controller.
      */
-    addSampler: function (callback, region)
+    addSampler(callback: any, region?: any): any
     {
         return this.add(new Sampler(
             this.camera,
             callback,
             region
         ));
-    },
+    }
 
     /**
      * Adds a Shadow effect.
@@ -706,7 +707,7 @@ var FilterList = new Class({
      *
      * @return {Phaser.Filters.Shadow} The new Shadow filter controller.
      */
-    addShadow: function (x, y, decay, power, color, samples, intensity)
+    addShadow(x?: number, y?: number, decay?: number, power?: number, color?: number, samples?: number, intensity?: number): any
     {
         return this.add(new Shadow(
             this.camera,
@@ -718,7 +719,7 @@ var FilterList = new Class({
             samples,
             intensity
         ));
-    },
+    }
 
     /**
      * Adds a Threshold effect.
@@ -745,7 +746,7 @@ var FilterList = new Class({
      *
      * @return {Phaser.Filters.Threshold} The new Threshold filter controller.
      */
-    addThreshold: function (edge1, edge2, invert)
+    addThreshold(edge1?: number | number[], edge2?: number | number[], invert?: boolean | boolean[]): any
     {
         return this.add(new Threshold(
             this.camera,
@@ -753,7 +754,7 @@ var FilterList = new Class({
             edge2,
             invert
         ));
-    },
+    }
 
     /**
      * Adds a Tilt Shift effect.
@@ -776,7 +777,7 @@ var FilterList = new Class({
      *
      * @return {Phaser.Filters.Bokeh} The new Bokeh filter controller.
      */
-    addTiltShift: function (radius, amount, contrast, blurX, blurY, strength)
+    addTiltShift(radius?: number, amount?: number, contrast?: number, blurX?: number, blurY?: number, strength?: number): any
     {
         return this.add(new Bokeh(
             this.camera,
@@ -788,7 +789,7 @@ var FilterList = new Class({
             blurY,
             strength
         ));
-    },
+    }
 
     /**
      * Adds a Vignette effect.
@@ -814,10 +815,10 @@ var FilterList = new Class({
      *
      * @return {Phaser.Filters.Vignette} The new Vignette filter controller.
      */
-    addVignette: function (x, y, radius, strength, color, blendMode)
+    addVignette(x?: number, y?: number, radius?: number, strength?: number, color?: number | string | any, blendMode?: number): any
     {
         return this.add(new Vignette(this.camera, x, y, radius, strength, color, blendMode));
-    },
+    }
 
     /**
      * Adds a Wipe effect.
@@ -848,10 +849,10 @@ var FilterList = new Class({
      *
      * @returns {Phaser.Filters.Wipe} - The new Wipe filter instance.
      */
-    addWipe: function (wipeWidth, direction, axis, reveal, wipeTexture)
+    addWipe(wipeWidth?: number, direction?: number, axis?: number, reveal?: number, wipeTexture?: string | any): any
     {
         return this.add(new Wipe(this.camera, wipeWidth, direction, axis, reveal, wipeTexture));
-    },
+    }
 
     /**
      * Destroys this FilterList.
@@ -859,17 +860,15 @@ var FilterList = new Class({
      * @method Phaser.GameObjects.Components.FilterList#destroy
      * @since 4.0.0
      */
-    destroy: function ()
+    destroy(): void
     {
         this.clear();
 
         this.camera = null;
     }
-});
+}
 
-function isActive (filter)
+function isActive(filter: any): boolean
 {
     return filter.active;
 }
-
-module.exports = FilterList;

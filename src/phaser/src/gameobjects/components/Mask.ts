@@ -17,7 +17,17 @@ import { GeometryMask } from '../../display/mask/GeometryMask';
  * @since 3.0.0
  */
 
-var Mask = {
+export interface Mask {
+    mask: any;
+    scene: any;
+    type: string;
+    geom: any;
+    setMask(mask: any): this;
+    clearMask(destroyMask?: boolean): this;
+    createGeometryMask(graphics?: any): any;
+}
+
+export const Mask = {
 
     /**
      * The Mask this Game Object is using during render.
@@ -50,7 +60,7 @@ var Mask = {
      *
      * @return {this} This Game Object instance.
      */
-    setMask: function (mask)
+    setMask(this: any, mask: any): any
     {
         if (this.scene.renderer.type === CONST.WEBGL)
         {
@@ -76,7 +86,7 @@ var Mask = {
      *
      * @return {this} This Game Object instance.
      */
-    clearMask: function (destroyMask)
+    clearMask(this: any, destroyMask?: boolean): any
     {
         if (destroyMask === undefined) { destroyMask = false; }
 
@@ -115,7 +125,7 @@ var Mask = {
      *
      * @return {Phaser.Display.Masks.GeometryMask} This Geometry Mask that was created.
      */
-    createGeometryMask: function (graphics)
+    createGeometryMask(this: any, graphics?: any): any
     {
         if (graphics === undefined && (this.type === 'Graphics' || this.geom))
         {
@@ -127,5 +137,3 @@ var Mask = {
     }
 
 };
-
-module.exports = Mask;

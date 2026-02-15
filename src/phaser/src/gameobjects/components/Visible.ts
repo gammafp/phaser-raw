@@ -5,7 +5,7 @@
  */
 
 //  bitmask flag for GameObject.renderMask
-var _FLAG = 1; // 0001
+const _FLAG = 1; // 0001
 
 /**
  * Provides methods used for setting the visibility of a Game Object.
@@ -15,7 +15,14 @@ var _FLAG = 1; // 0001
  * @since 3.0.0
  */
 
-var Visible = {
+export interface Visible {
+    _visible: boolean;
+    renderFlags: number;
+    visible: boolean;
+    setVisible(value: boolean): this;
+}
+
+export const Visible = {
 
     /**
      * Private internal value. Holds the visible value.
@@ -37,27 +44,23 @@ var Visible = {
      * @type {boolean}
      * @since 3.0.0
      */
-    visible: {
+    get visible(): boolean
+    {
+        return this._visible;
+    },
 
-        get: function ()
+    set visible(value: boolean)
+    {
+        if (value)
         {
-            return this._visible;
-        },
-
-        set: function (value)
-        {
-            if (value)
-            {
-                this._visible = true;
-                this.renderFlags |= _FLAG;
-            }
-            else
-            {
-                this._visible = false;
-                this.renderFlags &= ~_FLAG;
-            }
+            this._visible = true;
+            this.renderFlags |= _FLAG;
         }
-
+        else
+        {
+            this._visible = false;
+            this.renderFlags &= ~_FLAG;
+        }
     },
 
     /**
@@ -72,12 +75,10 @@ var Visible = {
      *
      * @return {this} This Game Object instance.
      */
-    setVisible: function (value)
+    setVisible(this: any, value: boolean): any
     {
         this.visible = value;
 
         return this;
     }
 };
-
-module.exports = Visible;

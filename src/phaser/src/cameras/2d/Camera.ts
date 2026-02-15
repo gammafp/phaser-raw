@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { FilterList } from '../../gameobjects/components/FilterList';
+
 import { CenterOn } from '../../geom/rectangle/CenterOn';
 import { Rectangle } from '../../geom/rectangle/Rectangle';
 
@@ -17,7 +19,6 @@ import * as Effects from './effects';
 
 import * as Events from './events';
 
-var FilterList = require('../../gameobjects/components/FilterList');
 
 /**
  * @classdesc

@@ -4,11 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-
 import { Vector2 } from '../../math/Vector2';
+import { TransformMatrix } from './TransformMatrix';
 
-var Camera = null; // Lazy loaded.
-var TransformMatrix = require('./TransformMatrix');
+let Camera: any = null; // Lazy loaded.
 
 /**
  * Provides methods used for setting the filters properties of a Game Object.
@@ -51,9 +50,52 @@ var TransformMatrix = require('./TransformMatrix');
  * @namespace Phaser.GameObjects.Components.Filters
  * @since 4.0.0
  */
-var Filters = {};
 
-if (typeof WEBGL_RENDERER)
+export interface Filters {
+    filterCamera: any;
+    filters: any;
+    renderFilters: boolean;
+    maxFilterSize: any;
+    filtersAutoFocus: boolean;
+    filtersFocusContext: boolean;
+    filtersForceComposite: boolean;
+    _filtersMatrix: any;
+    _filtersViewMatrix: any;
+    scene: any;
+    x: number;
+    y: number;
+    rotation: number;
+    scaleX: number;
+    scaleY: number;
+    originX: number;
+    originY: number;
+    width: number;
+    height: number;
+    type: string;
+    flipX: boolean;
+    flipY: boolean;
+    parentContainer: any;
+    scrollFactorX: number;
+    scrollFactorY: number;
+    willRenderFilters(): boolean;
+    enableFilters(): this;
+    renderWebGLFilters(renderer: any, gameObject: any, drawingContext: any, parentMatrix?: any, renderStep?: number): void;
+    focusFilters(): this;
+    focusFiltersOnCamera(camera: any): this;
+    focusFiltersOverride(x?: number, y?: number, width?: number, height?: number): this;
+    setFilterSize(width: number, height: number): this;
+    setFiltersAutoFocus(value: boolean): this;
+    setFiltersFocusContext(value: boolean): this;
+    setFiltersForceComposite(value: boolean): this;
+    setRenderFilters(value: boolean): this;
+    getBounds?: any;
+    addRenderStep?: any;
+    renderWebGLStep?: any;
+}
+
+let Filters: any = {};
+
+if (typeof WEBGL_RENDERER !== 'undefined')
 {
     Filters =
     {
@@ -85,15 +127,13 @@ if (typeof WEBGL_RENDERER)
          * @since 4.0.0
          * @webglOnly
          */
-        filters: {
-            get: function ()
+        get filters(): any
+        {
+            if (this.filterCamera)
             {
-                if (this.filterCamera)
-                {
-                    return this.filterCamera.filters;
-                }
-                return null;
+                return this.filterCamera.filters;
             }
+            return null;
         },
 
         /**
@@ -211,7 +251,7 @@ if (typeof WEBGL_RENDERER)
          * @webglOnly
          * @return {boolean} Whether the Game Object will render filters.
          */
-        willRenderFilters: function ()
+        willRenderFilters(this: any): boolean
         {
             return this.renderFilters &&
                 this.filters &&
@@ -236,14 +276,14 @@ if (typeof WEBGL_RENDERER)
          * @webglOnly
          * @returns {this}
          */
-        enableFilters: function ()
+        enableFilters(this: any): any
         {
             if (this.filterCamera || !this.scene.renderer.gl)
             {
                 return this;
             }
 
-            var scene = this.scene;
+            const scene = this.scene;
 
             if (!Camera)
             {
@@ -262,7 +302,7 @@ if (typeof WEBGL_RENDERER)
 
             if (!this.maxFilterSize)
             {
-                var maxTextureSize = scene.renderer.getMaxTextureSize();
+                const maxTextureSize = scene.renderer.getMaxTextureSize();
                 this.maxFilterSize = new Vector2(maxTextureSize, maxTextureSize);
             }
 
@@ -302,13 +342,13 @@ if (typeof WEBGL_RENDERER)
          * @param {Phaser.GameObjects.Components.TransformMatrix} [parentMatrix] - The parent matrix of the Game Object, if it has one.
          * @param {number} [renderStep=0] - The index of this function in the Game Object's list of render processes. Used to support multiple rendering functions.
          */
-        renderWebGLFilters: function (
-            renderer,
-            gameObject,
-            drawingContext,
-            parentMatrix,
-            renderStep
-        )
+        renderWebGLFilters(
+            renderer: any,
+            gameObject: any,
+            drawingContext: any,
+            parentMatrix?: any,
+            renderStep?: number
+        ): void
         {
             if (!gameObject.willRenderFilters())
             {
@@ -322,7 +362,7 @@ if (typeof WEBGL_RENDERER)
                 return;
             }
 
-            var camera = drawingContext.camera;
+            const camera = drawingContext.camera;
 
             // Ordinarily, we would add the game object to the camera's render list here.
             // But because child objects are added to the filter camera's render list,
@@ -330,8 +370,8 @@ if (typeof WEBGL_RENDERER)
             // and then take its filter camera's render list
             // and add it to the drawingContext's render list.
 
-            var filtersAutoFocus = gameObject.filtersAutoFocus;
-            var filtersFocusContext = gameObject.filtersFocusContext;
+            const filtersAutoFocus = gameObject.filtersAutoFocus;
+            const filtersFocusContext = gameObject.filtersFocusContext;
 
             if (filtersAutoFocus)
             {
@@ -345,23 +385,23 @@ if (typeof WEBGL_RENDERER)
                 }
             }
 
-            var filterCamera = gameObject.filterCamera;
+            const filterCamera = gameObject.filterCamera;
             filterCamera.preRender();
 
             if (filtersAutoFocus && filtersFocusContext)
             {
-                var parent = gameObject.parentContainer;
+                const parent = gameObject.parentContainer;
                 if (parent)
                 {
                     // Apply the game object's parent world transform to the filter camera.
-                    var parentWorldMatrix = parent.getWorldTransformMatrix();
+                    const parentWorldMatrix = parent.getWorldTransformMatrix();
                     filterCamera.matrix.multiply(parentWorldMatrix);
                 }
             }
 
             // Get transform.
-            var transformMatrix = gameObject._filtersMatrix;
-            var cameraMatrix = gameObject._filtersViewMatrix.copyWithScrollFactorFrom(
+            const transformMatrix = gameObject._filtersMatrix;
+            const cameraMatrix = gameObject._filtersViewMatrix.copyWithScrollFactorFrom(
                 camera.getViewMatrix(!drawingContext.useCanvas),
                 camera.scrollX, camera.scrollY,
                 gameObject.scrollFactorX, gameObject.scrollFactorY
@@ -384,8 +424,8 @@ if (typeof WEBGL_RENDERER)
                 }
                 else
                 {
-                    var flipX = gameObject.flipX ? -1 : 1;
-                    var flipY = gameObject.flipY ? -1 : 1;
+                    const flipX = gameObject.flipX ? -1 : 1;
+                    const flipY = gameObject.flipY ? -1 : 1;
                     transformMatrix.applyITRS(
                         gameObject.x,
                         gameObject.y,
@@ -396,8 +436,8 @@ if (typeof WEBGL_RENDERER)
                 }
 
                 // Offset origin.
-                var width = filterCamera.width;
-                var height = filterCamera.height;
+                const width = filterCamera.width;
+                const height = filterCamera.height;
                 transformMatrix.translate(
                     -width * filterCamera.originX,
                     -height * filterCamera.originY
@@ -411,8 +451,8 @@ if (typeof WEBGL_RENDERER)
             // because the camera needs to be set further away,
             // going to infinity at scrollFactor 0.
             // The scroll factor is baked into the transformMatrix, above.
-            var scrollX = gameObject.scrollFactorX;
-            var scrollY = gameObject.scrollFactorY;
+            const scrollX = gameObject.scrollFactorX;
+            const scrollY = gameObject.scrollFactorY;
             gameObject.scrollFactorX = 1;
             gameObject.scrollFactorY = 1;
 
@@ -433,8 +473,8 @@ if (typeof WEBGL_RENDERER)
 
             // Add the game object's filter camera's render list
             // to the drawingContext's render list.
-            var filterRenderListLength = filterCamera.renderList.length;
-            for (var i = 0; i < filterRenderListLength; i++)
+            const filterRenderListLength = filterCamera.renderList.length;
+            for (let i = 0; i < filterRenderListLength; i++)
             {
                 camera.addToRenderList(filterCamera.renderList[i]);
             }
@@ -456,14 +496,14 @@ if (typeof WEBGL_RENDERER)
          * @since 4.0.0
          * @returns {this}
          */
-        focusFilters: function ()
+        focusFilters(this: any): any
         {
-            var posX = this.x;
-            var posY = this.y;
-            var originX = this.originX;
-            var originY = this.originY;
-            var width = this.width;
-            var height = this.height;
+            const posX = this.x;
+            const posY = this.y;
+            let originX = this.originX;
+            let originY = this.originY;
+            const width = this.width;
+            const height = this.height;
 
             if (
                 this.type === 'Layer' ||
@@ -477,9 +517,9 @@ if (typeof WEBGL_RENDERER)
                 return this;
             }
 
-            var rotation = this.rotation;
-            var scaleX = this.scaleX;
-            var scaleY = this.scaleY;
+            const rotation = this.rotation;
+            let scaleX = this.scaleX;
+            let scaleY = this.scaleY;
 
             // Handle flip.
             if (this.flipX)
@@ -493,8 +533,8 @@ if (typeof WEBGL_RENDERER)
                 originY = 1 - originY;
             }
 
-            var centerX = posX + width * (0.5 - originX);
-            var centerY = posY + height * (0.5 - originY);
+            const centerX = posX + width * (0.5 - originX);
+            const centerY = posY + height * (0.5 - originY);
 
             // Set the filter camera size to match the object.
             this.setFilterSize(width, height);
@@ -519,15 +559,15 @@ if (typeof WEBGL_RENDERER)
          * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera to focus on.
          * @returns {this}
          */
-        focusFiltersOnCamera: function (camera)
+        focusFiltersOnCamera(this: any, camera: any): any
         {
-            var width = camera.width;
-            var height = camera.height;
-            var posX = camera.scrollX;
-            var posY = camera.scrollY;
-            var rotation = camera.rotation;
-            var zoomX = camera.zoomX;
-            var zoomY = camera.zoomY;
+            const width = camera.width;
+            const height = camera.height;
+            const posX = camera.scrollX;
+            const posY = camera.scrollY;
+            const rotation = camera.rotation;
+            const zoomX = camera.zoomX;
+            const zoomY = camera.zoomY;
 
             // Set the filter camera size to match the object.
             this.setFilterSize(width, height);
@@ -559,9 +599,9 @@ if (typeof WEBGL_RENDERER)
          * @param {number} [height] - The height of the focus area. Default is the filter height.
          * @returns {this}
          */
-        focusFiltersOverride: function (x, y, width, height)
+        focusFiltersOverride(this: any, x?: number, y?: number, width?: number, height?: number): any
         {
-            var filterCamera = this.filterCamera;
+            const filterCamera = this.filterCamera;
 
             // Maintain size.
             if (width === undefined)
@@ -583,14 +623,14 @@ if (typeof WEBGL_RENDERER)
                 y = height / 2;
             }
 
-            var objectX = this.x;
-            var objectY = this.y;
+            const objectX = this.x;
+            const objectY = this.y;
 
             this.setFilterSize(width, height);
             filterCamera.setScroll(objectX - x, objectY - y);
 
-            var originX = x / width;
-            var originY = y / height;
+            const originX = x / width;
+            const originY = y / height;
 
             filterCamera.setOrigin(originX, originY);
 
@@ -620,13 +660,13 @@ if (typeof WEBGL_RENDERER)
          * @param {number} height - Base height of the filter texture.
          * @returns {this}
          */
-        setFilterSize: function (width, height)
+        setFilterSize(this: any, width: number, height: number): any
         {
             // Sanitize inputs.
             width = Math.max(1, Math.min(Math.ceil(width), this.maxFilterSize.x));
             height = Math.max(1, Math.min(Math.ceil(height), this.maxFilterSize.y));
 
-            var filterCamera = this.filterCamera;
+            const filterCamera = this.filterCamera;
             if (!filterCamera)
             {
                 return this;
@@ -646,7 +686,7 @@ if (typeof WEBGL_RENDERER)
          * @param {boolean} value - Whether filters should be updated every frame.
          * @returns {this}
          */
-        setFiltersAutoFocus: function (value)
+        setFiltersAutoFocus(this: any, value: boolean): any
         {
             this.filtersAutoFocus = value;
 
@@ -663,7 +703,7 @@ if (typeof WEBGL_RENDERER)
          * @param {boolean} value - Whether the filters should focus on the context.
          * @returns {this}
          */
-        setFiltersFocusContext: function (value)
+        setFiltersFocusContext(this: any, value: boolean): any
         {
             this.filtersFocusContext = value;
 
@@ -680,7 +720,7 @@ if (typeof WEBGL_RENDERER)
          * @param {boolean} value - Whether the object should always draw to a framebuffer, even if there are no active filters.
          * @returns {this}
          */
-        setFiltersForceComposite: function (value)
+        setFiltersForceComposite(this: any, value: boolean): any
         {
             this.filtersForceComposite = value;
 
@@ -697,7 +737,7 @@ if (typeof WEBGL_RENDERER)
          * @param {boolean} value - Whether the filters should be rendered.
          * @returns {this}
          */
-        setRenderFilters: function (value)
+        setRenderFilters(this: any, value: boolean): any
         {
             this.renderFilters = value;
 
@@ -706,4 +746,4 @@ if (typeof WEBGL_RENDERER)
     };
 }
 
-module.exports = Filters;
+export { Filters };

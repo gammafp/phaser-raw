@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { TransformMatrix } from '../../gameobjects/components/TransformMatrix';
+
 import { GetTilesWithinWorldXY } from '../../tilemaps/components/GetTilesWithinWorldXY';
 
 import { GetValue } from '../../utils/object/GetValue';
@@ -39,7 +41,6 @@ var SeparateX = require('./SeparateX');
 var SeparateY = require('./SeparateY');
 var StaticBody = require('./StaticBody');
 var TileIntersectsBody = require('./tilemap/TileIntersectsBody');
-var TransformMatrix = require('../../gameobjects/components/TransformMatrix');
 
 /**
  * @classdesc

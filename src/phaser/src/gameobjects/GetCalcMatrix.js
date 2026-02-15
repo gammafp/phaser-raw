@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var TransformMatrix = require('./components/TransformMatrix');
+
+import { TransformMatrix } from './components/TransformMatrix';
 
 var camMatrix = new TransformMatrix();
 var spriteMatrix = new TransformMatrix();

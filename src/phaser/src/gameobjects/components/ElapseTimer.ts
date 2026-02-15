@@ -36,7 +36,18 @@
  * @namespace Phaser.GameObjects.Components.ElapseTimer
  * @since 4.0.0
  */
-var ElapseTimer = {
+
+export interface ElapseTimer {
+    timeElapsed: number;
+    timeElapsedResetPeriod: number;
+    timePaused: boolean;
+    setTimerResetPeriod(period: number): this;
+    setTimerPaused(paused?: boolean): this;
+    resetTimer(ms?: number): this;
+    updateTimer(time: number, delta: number): this;
+}
+
+export const ElapseTimer = {
 
     /**
      * The time elapsed since timer initialization, in milliseconds.
@@ -83,7 +94,7 @@ var ElapseTimer = {
      * @param {number} period - The time after which `timeElapsed` will reset, in milliseconds.
      * @return {this} This game object.
      */
-    setTimerResetPeriod: function (period)
+    setTimerResetPeriod(this: any, period: number): any
     {
         this.timeElapsedResetPeriod = period;
 
@@ -98,7 +109,7 @@ var ElapseTimer = {
      * @param {boolean} [paused] - Pause state (`true` to pause, `false` to unpause). If not specified, the timer will unpause.
      * @return {this} This game object.
      */
-    setTimerPaused: function (paused)
+    setTimerPaused(this: any, paused?: boolean): any
     {
         this.timePaused = !!paused;
 
@@ -113,7 +124,7 @@ var ElapseTimer = {
      * @param {number} [ms=0] - The time to reset the timer to.
      * @return {this} This game object.
      */
-    resetTimer: function (ms)
+    resetTimer(this: any, ms?: number): any
     {
         if (ms === undefined) { ms = 0; }
         this.timeElapsed = ms;
@@ -136,7 +147,7 @@ var ElapseTimer = {
      * @param {number} delta - The time since the last update, in milliseconds.
      * @return {this} This game object.
      */
-    updateTimer: function (time, delta)
+    updateTimer(this: any, time: number, delta: number): any
     {
         if (!this.timePaused)
         {
@@ -151,5 +162,3 @@ var ElapseTimer = {
         return this;
     }
 };
-
-module.exports = ElapseTimer;

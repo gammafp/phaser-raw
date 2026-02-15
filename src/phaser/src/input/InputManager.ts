@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { TransformMatrix } from '../gameobjects/components/TransformMatrix';
+
 import { TransformXY } from '../math/TransformXY';
 import * as Events from './events';
 import { MouseManager } from './mouse/MouseManager';
@@ -14,7 +16,6 @@ import { EventEmitter } from 'eventemitter3';
 
 const GameEvents = require('../core/events');
 import { Pointer } from './Pointer';
-const TransformMatrix = require('../gameobjects/components/TransformMatrix');
 
 /**
  * @classdesc

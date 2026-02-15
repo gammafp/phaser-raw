@@ -4,12 +4,13 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { TransformMatrix } from '../../../gameobjects/components/TransformMatrix';
+
 import { Rectangle } from '../../../geom/rectangle/Rectangle';
 import { Equal } from '../../../math/fuzzy/Equal';
 
 var CameraEvents = require('../../../cameras/2d/events');
 import { GetColor32 } from '../../../display/color/GetColor32';
-var TransformMatrix = require('../../../gameobjects/components/TransformMatrix.js');
 var Class = require('../../../utils/Class');
 var Utils = require('../Utils.js');
 var RenderNode = require('./RenderNode');

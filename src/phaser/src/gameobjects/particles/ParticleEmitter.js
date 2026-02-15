@@ -4,6 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { ToJSON as ComponentsToJSON } from '../components/ToJSON';
+import { TransformMatrix } from '../components/TransformMatrix';
+
 import { GetRandom } from '../../utils/array/GetRandom';
 import { Remove } from '../../utils/array/Remove';
 import { StableSort } from '../../utils/array/StableSort';
@@ -28,7 +31,6 @@ import { List } from '../../structs/List';
 var DefaultParticleEmitterNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultParticleEmitterNodes');
 var Class = require('../../utils/Class');
 var Components = require('../components');
-var ComponentsToJSON = require('../components/ToJSON');
 var DeathZone = require('./zones/DeathZone');
 var EdgeZone = require('./zones/EdgeZone');
 var EmitterColorOp = require('./EmitterColorOp');
@@ -41,7 +43,6 @@ var ParticleBounds = require('./ParticleBounds');
 var RandomZone = require('./zones/RandomZone');
 var Render = require('./ParticleEmitterRender');
 var TintModes = require('../../renderer/TintModes');
-var TransformMatrix = require('../components/TransformMatrix');
 
 /**
  * Names of simple configuration properties.

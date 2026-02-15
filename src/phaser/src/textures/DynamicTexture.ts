@@ -17,7 +17,7 @@ import { Texture } from './Texture';
 import * as Utils from '../renderer/webgl/Utils';
 import { DynamicTextureCommands } from './DynamicTextureCommands';
 // @ts-expect-error - TransformMatrix is a CommonJS module without type declarations
-import TransformMatrix from '../gameobjects/components/TransformMatrix';
+import { TransformMatrix } from '../gameobjects/components/TransformMatrix';
 
 /**
  * @classdesc

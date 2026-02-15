@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var TintModes = require('../../renderer/TintModes');
+const TintModes = require('../../renderer/TintModes');
 
 /**
  * Provides methods used for setting the tint of a Game Object.
@@ -15,7 +15,20 @@ var TintModes = require('../../renderer/TintModes');
  * @since 3.0.0
  */
 
-var Tint = {
+export interface Tint {
+    tintTopLeft: number;
+    tintTopRight: number;
+    tintBottomLeft: number;
+    tintBottomRight: number;
+    tintFill: number;
+    tint: number;
+    isTinted: boolean;
+    clearTint(): this;
+    setTint(topLeft?: number, topRight?: number, bottomLeft?: number, bottomRight?: number): this;
+    setTintFill(mode: number): this;
+}
+
+export const Tint = {
 
     /**
      * The tint value being applied to the top-left vertice of the Game Object.
@@ -98,7 +111,7 @@ var Tint = {
      *
      * @return {this} This Game Object instance.
      */
-    clearTint: function ()
+    clearTint(this: any): any
     {
         this.setTint(0xffffff);
         this.setTintFill(TintModes.MULTIPLY);
@@ -131,7 +144,7 @@ var Tint = {
      *
      * @return {this} This Game Object instance.
      */
-    setTint: function (topLeft, topRight, bottomLeft, bottomRight)
+    setTint(this: any, topLeft?: number, topRight?: number, bottomLeft?: number, bottomRight?: number): any
     {
         if (topLeft === undefined) { topLeft = 0xffffff; }
 
@@ -163,7 +176,7 @@ var Tint = {
      * @param {number} mode - The tint mode to use.
      * @returns {this} This Game Object instance.
      */
-    setTintFill: function (mode)
+    setTintFill(this: any, mode: number): any
     {
         this.tintFill = mode;
         return this;
@@ -178,17 +191,14 @@ var Tint = {
      * @webglOnly
      * @since 3.0.0
      */
-    tint: {
+    get tint(): number
+    {
+        return this.tintTopLeft;
+    },
 
-        get: function ()
-        {
-            return this.tintTopLeft;
-        },
-
-        set: function (value)
-        {
-            this.setTint(value, value, value, value);
-        }
+    set tint(value: number)
+    {
+        this.setTint(value, value, value, value);
     },
 
     /**
@@ -204,23 +214,17 @@ var Tint = {
      * @readonly
      * @since 3.11.0
      */
-    isTinted: {
+    get isTinted(): boolean
+    {
+        const white = 0xffffff;
 
-        get: function ()
-        {
-            var white = 0xffffff;
-
-            return (
-                this.tintFill === TintModes.MULTIPLY ||
-                this.tintTopLeft !== white ||
-                this.tintTopRight !== white ||
-                this.tintBottomLeft !== white ||
-                this.tintBottomRight !== white
-            );
-        }
-
+        return (
+            this.tintFill === TintModes.MULTIPLY ||
+            this.tintTopLeft !== white ||
+            this.tintTopRight !== white ||
+            this.tintBottomLeft !== white ||
+            this.tintBottomRight !== white
+        );
     }
 
 };
-
-module.exports = Tint;

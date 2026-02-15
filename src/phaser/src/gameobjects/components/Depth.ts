@@ -4,6 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import * as ArrayUtils from '../../utils/array';
+
 /**
  * Provides methods used for setting the depth of a Game Object.
  * Should be applied as a mixin and not used directly.
@@ -12,9 +14,19 @@
  * @since 3.0.0
  */
 
-var ArrayUtils = require('../../utils/array');
+export interface Depth {
+    _depth: number;
+    displayList: any;
+    depth: number;
+    setDepth(value?: number): this;
+    setToTop(): this;
+    setToBack(): this;
+    setAbove(gameObject: any): this;
+    setBelow(gameObject: any): this;
+    getDisplayList(): any;
+}
 
-var Depth = {
+export const Depth = {
 
     /**
      * Private internal value. Holds the depth of the Game Object.
@@ -42,23 +54,19 @@ var Depth = {
      * @type {number}
      * @since 3.0.0
      */
-    depth: {
+    get depth(): number
+    {
+        return this._depth;
+    },
 
-        get: function ()
+    set depth(value: number)
+    {
+        if (this.displayList)
         {
-            return this._depth;
-        },
-
-        set: function (value)
-        {
-            if (this.displayList)
-            {
-                this.displayList.queueDepthSort();
-            }
-
-            this._depth = value;
+            this.displayList.queueDepthSort();
         }
 
+        this._depth = value;
     },
 
     /**
@@ -79,7 +87,7 @@ var Depth = {
      *
      * @return {this} This Game Object instance.
      */
-    setDepth: function (value)
+    setDepth(this: any, value?: number): any
     {
         if (value === undefined) { value = 0; }
 
@@ -100,9 +108,9 @@ var Depth = {
      * 
      * @return {this} This Game Object instance.
      */
-    setToTop: function ()
+    setToTop(this: any): any
     {
-        var list = this.getDisplayList();
+        const list = this.getDisplayList();
 
         if (list)
         {
@@ -124,9 +132,9 @@ var Depth = {
      * 
      * @return {this} This Game Object instance.
      */
-    setToBack: function ()
+    setToBack(this: any): any
     {
-        var list = this.getDisplayList();
+        const list = this.getDisplayList();
 
         if (list)
         {
@@ -152,9 +160,9 @@ var Depth = {
      * 
      * @return {this} This Game Object instance.
      */
-    setAbove: function (gameObject)
+    setAbove(this: any, gameObject: any): any
     {
-        var list = this.getDisplayList();
+        const list = this.getDisplayList();
 
         if (list && gameObject)
         {
@@ -180,9 +188,9 @@ var Depth = {
      * 
      * @return {this} This Game Object instance.
      */
-    setBelow: function (gameObject)
+    setBelow(this: any, gameObject: any): any
     {
-        var list = this.getDisplayList();
+        const list = this.getDisplayList();
 
         if (list && gameObject)
         {
@@ -193,5 +201,3 @@ var Depth = {
     }
 
 };
-
-module.exports = Depth;

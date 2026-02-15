@@ -5,6 +5,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { TransformMatrix } from '../../gameobjects/components/TransformMatrix';
+
 var CameraEvents = require('../../cameras/2d/events');
 var CanvasSnapshot = require('../snapshot/CanvasSnapshot');
 var Class = require('../../utils/Class');
@@ -15,7 +17,6 @@ var GetBlendModes = require('./utils/GetBlendModes');
 var ScaleEvents = require('../../scale/events');
 var TextureEvents = require('../../textures/events');
 var GameEvents = require('../../core/events');
-var TransformMatrix = require('../../gameobjects/components/TransformMatrix');
 
 /**
  * @classdesc

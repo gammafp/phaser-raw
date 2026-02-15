@@ -12,7 +12,18 @@
  * @since 3.0.0
  */
 
-var Flip = {
+export interface Flip {
+    flipX: boolean;
+    flipY: boolean;
+    toggleFlipX(): this;
+    toggleFlipY(): this;
+    setFlipX(value: boolean): this;
+    setFlipY(value: boolean): this;
+    setFlip(x: boolean, y: boolean): this;
+    resetFlip(): this;
+}
+
+export const Flip = {
 
     /**
      * The horizontally flipped state of the Game Object.
@@ -54,7 +65,7 @@ var Flip = {
      *
      * @return {this} This Game Object instance.
      */
-    toggleFlipX: function ()
+    toggleFlipX(this: any): any
     {
         this.flipX = !this.flipX;
 
@@ -69,7 +80,7 @@ var Flip = {
      *
      * @return {this} This Game Object instance.
      */
-    toggleFlipY: function ()
+    toggleFlipY(this: any): any
     {
         this.flipY = !this.flipY;
 
@@ -90,7 +101,7 @@ var Flip = {
      *
      * @return {this} This Game Object instance.
      */
-    setFlipX: function (value)
+    setFlipX(this: any, value: boolean): any
     {
         this.flipX = value;
 
@@ -107,7 +118,7 @@ var Flip = {
      *
      * @return {this} This Game Object instance.
      */
-    setFlipY: function (value)
+    setFlipY(this: any, value: boolean): any
     {
         this.flipY = value;
 
@@ -129,7 +140,7 @@ var Flip = {
      *
      * @return {this} This Game Object instance.
      */
-    setFlip: function (x, y)
+    setFlip(this: any, x: boolean, y: boolean): any
     {
         this.flipX = x;
         this.flipY = y;
@@ -145,7 +156,7 @@ var Flip = {
      *
      * @return {this} This Game Object instance.
      */
-    resetFlip: function ()
+    resetFlip(this: any): any
     {
         this.flipX = false;
         this.flipY = false;
@@ -154,5 +165,3 @@ var Flip = {
     }
 
 };
-
-module.exports = Flip;

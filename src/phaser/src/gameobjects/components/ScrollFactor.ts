@@ -11,7 +11,13 @@
  * @since 3.0.0
  */
 
-var ScrollFactor = {
+export interface ScrollFactor {
+    scrollFactorX: number;
+    scrollFactorY: number;
+    setScrollFactor(x: number, y?: number): this;
+}
+
+export const ScrollFactor = {
 
     /**
      * The horizontal scroll factor of this Game Object.
@@ -86,7 +92,7 @@ var ScrollFactor = {
      *
      * @return {this} This Game Object instance.
      */
-    setScrollFactor: function (x, y)
+    setScrollFactor(this: any, x: number, y?: number): any
     {
         if (y === undefined) { y = x; }
 
@@ -97,5 +103,3 @@ var ScrollFactor = {
     }
 
 };
-
-module.exports = ScrollFactor;

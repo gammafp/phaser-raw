@@ -13,7 +13,20 @@
  * @webglOnly
  * @since 4.0.0
  */
-var Lighting = {
+
+export interface Lighting {
+    lighting: boolean;
+    selfShadow: {
+        enabled: boolean | null;
+        penumbra: number;
+        diffuseFlatThreshold: number;
+    };
+    scene: any;
+    setLighting(enable: boolean): this;
+    setSelfShadow(enabled?: boolean | null, penumbra?: number, diffuseFlatThreshold?: number): this;
+}
+
+export const Lighting = {
 
     /**
      * Should this GameObject use lighting?
@@ -57,7 +70,7 @@ var Lighting = {
      * @param {boolean} enable - `true` to use lighting, or `false` to disable it.
      * @return {this} This GameObject instance.
      */
-    setLighting: function (enable)
+    setLighting(this: any, enable: boolean): any
     {
         this.lighting = enable;
 
@@ -76,7 +89,7 @@ var Lighting = {
      * @param {number} [diffuseFlatThreshold] - The texture brightness threshold at which the diffuse lighting will be considered flat. Range is 0-1. Default is 1/3.
      * @return {this} This GameObject instance.
      */
-    setSelfShadow: function (enabled, penumbra, diffuseFlatThreshold)
+    setSelfShadow(this: any, enabled?: boolean | null, penumbra?: number, diffuseFlatThreshold?: number): any
     {
         if (enabled !== undefined)
         {
@@ -103,5 +116,3 @@ var Lighting = {
         return this;
     }
 };
-
-module.exports = Lighting;

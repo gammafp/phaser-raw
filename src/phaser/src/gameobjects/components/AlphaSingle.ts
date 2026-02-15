@@ -4,11 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-
 import { Clamp } from '../../math/Clamp';
 
 //  bitmask flag for GameObject.renderMask
-var _FLAG = 2; // 0010
+const _FLAG = 2; // 0010
 
 /**
  * Provides methods used for setting the alpha property of a Game Object.
@@ -18,7 +17,15 @@ var _FLAG = 2; // 0010
  * @since 3.22.0
  */
 
-var AlphaSingle = {
+export interface AlphaSingle {
+    _alpha: number;
+    renderFlags: number;
+    clearAlpha(): this;
+    setAlpha(value?: number): this;
+    alpha: number;
+}
+
+export const AlphaSingle = {
 
     /**
      * Private internal value. Holds the global alpha value.
@@ -41,7 +48,7 @@ var AlphaSingle = {
      *
      * @return {this} This Game Object instance.
      */
-    clearAlpha: function ()
+    clearAlpha(this: any): any
     {
         return this.setAlpha(1);
     },
@@ -57,7 +64,7 @@ var AlphaSingle = {
      *
      * @return {this} This Game Object instance.
      */
-    setAlpha: function (value)
+    setAlpha(this: any, value?: number): any
     {
         if (value === undefined) { value = 1; }
 
@@ -75,31 +82,25 @@ var AlphaSingle = {
      * @type {number}
      * @since 3.0.0
      */
-    alpha: {
+    get alpha(): number
+    {
+        return this._alpha;
+    },
 
-        get: function ()
+    set alpha(value: number)
+    {
+        const v = Clamp(value, 0, 1);
+
+        this._alpha = v;
+
+        if (v === 0)
         {
-            return this._alpha;
-        },
-
-        set: function (value)
-        {
-            var v = Clamp(value, 0, 1);
-
-            this._alpha = v;
-
-            if (v === 0)
-            {
-                this.renderFlags &= ~_FLAG;
-            }
-            else
-            {
-                this.renderFlags |= _FLAG;
-            }
+            this.renderFlags &= ~_FLAG;
         }
-
+        else
+        {
+            this.renderFlags |= _FLAG;
+        }
     }
 
 };
-
-module.exports = AlphaSingle;

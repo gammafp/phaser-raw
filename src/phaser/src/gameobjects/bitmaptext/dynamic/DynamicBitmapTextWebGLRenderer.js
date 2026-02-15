@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { TransformMatrix } from '../../components/TransformMatrix';
+
 var GetCalcMatrix = require('../../GetCalcMatrix');
 var TintModes = require('../../../renderer/TintModes');
-var TransformMatrix = require('../../components/TransformMatrix');
 var Utils = require('../../../renderer/webgl/Utils');
 
 var tempMatrix = new TransformMatrix();

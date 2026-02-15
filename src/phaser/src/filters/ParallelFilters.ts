@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { FilterList } from '../gameobjects/components/FilterList';
+
 import { Controller } from './Controller';
 import { Blend } from './Blend';
 
-const FilterList = require('../gameobjects/components/FilterList');
 
 /**
  * @classdesc

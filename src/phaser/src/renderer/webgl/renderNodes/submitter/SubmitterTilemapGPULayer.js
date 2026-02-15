@@ -4,11 +4,12 @@
  * @license      None
  */
 
+import { TransformMatrix } from '../../../../gameobjects/components/TransformMatrix';
+
 import { Merge } from '../../../../utils/object/Merge';
 
 import { Vector2 } from '../../../../math/Vector2';
 
-var TransformMatrix = require('../../../../gameobjects/components/TransformMatrix');
 var Class = require('../../../../utils/Class');
 var ProgramManager = require('../../ProgramManager');
 var MakeAnimLength = require('../../shaders/additionMakers/MakeAnimLength');

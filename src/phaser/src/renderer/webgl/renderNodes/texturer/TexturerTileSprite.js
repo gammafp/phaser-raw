@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var TransformMatrix = require('../../../../gameobjects/components/TransformMatrix');
+import { TransformMatrix } from '../../../../gameobjects/components/TransformMatrix';
+
 var Class = require('../../../../utils/Class');
 var RenderNode = require('../RenderNode');
 

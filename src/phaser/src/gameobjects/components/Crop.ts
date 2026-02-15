@@ -11,7 +11,18 @@
  * @since 3.12.0
  */
 
-var Crop = {
+export interface Crop {
+    texture: any;
+    frame: any;
+    isCropped: boolean;
+    flipX: boolean;
+    flipY: boolean;
+    _crop: any;
+    setCrop(x?: number | any, y?: number, width?: number, height?: number): this;
+    resetCropObject(): any;
+}
+
+export const Crop = {
 
     /**
      * The Texture this Game Object is using to render with.
@@ -77,7 +88,7 @@ var Crop = {
      *
      * @return {this} This Game Object instance.
      */
-    setCrop: function (x, y, width, height)
+    setCrop(this: any, x?: number | any, y?: number, width?: number, height?: number): any
     {
         if (x === undefined)
         {
@@ -91,7 +102,7 @@ var Crop = {
             }
             else
             {
-                var rect = x;
+                const rect = x;
 
                 this.frame.setCropUVs(this._crop, rect.x, rect.y, rect.width, rect.height, this.flipX, this.flipY);
             }
@@ -111,11 +122,9 @@ var Crop = {
      *
      * @return {object} The crop object.
      */
-    resetCropObject: function ()
+    resetCropObject(): any
     {
         return { u0: 0, v0: 0, u1: 0, v1: 0, width: 0, height: 0, x: 0, y: 0, flipX: false, flipY: false, cx: 0, cy: 0, cw: 0, ch: 0 };
     }
 
 };
-
-module.exports = Crop;

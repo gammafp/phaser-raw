@@ -3,6 +3,10 @@
  * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
+import { TransformMatrix } from '../../gameobjects/components/TransformMatrix';
+import { Alpha as ComponentAlphaSingle } from '../../gameobjects/components/Alpha';
+import { Visible as ComponentVisible } from '../../gameobjects/components/Visible';
+
 import { Rectangle } from '../../geom/rectangle/Rectangle';
 import { DegToRad } from '../../math/DegToRad';
 import { Vector2 } from '../../math/Vector2';
@@ -10,11 +14,8 @@ import { Mixin } from '../../utils/MixinTS';
 
 import EventEmitter from 'eventemitter3';
 
-var TransformMatrix = require('../../gameobjects/components/TransformMatrix');
 import { ValueToColor } from '../../display/color/ValueToColor';
 
-var ComponentAlphaSingle = require('../../gameobjects/components/Alpha');
-var ComponentVisible = require('../../gameobjects/components/Visible');
 
 var Events = require('./events');
 

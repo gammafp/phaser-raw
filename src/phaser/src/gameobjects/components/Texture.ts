@@ -7,7 +7,7 @@
 import { Frame } from '../../textures/Frame';
 
 //  bitmask flag for GameObject.renderMask
-var _FLAG = 8; // 1000
+const _FLAG = 8; // 1000
 
 /**
  * Provides methods used for getting and setting the texture of a Game Object.
@@ -16,7 +16,22 @@ var _FLAG = 8; // 1000
  * @since 3.0.0
  */
 
-var Texture = {
+export interface Texture {
+    texture: any;
+    frame: any;
+    isCropped: boolean;
+    scene: any;
+    renderFlags: number;
+    _sizeComponent: boolean;
+    _originComponent: boolean;
+    setSizeToFrame(): this;
+    setOrigin(x: number, y: number): this;
+    updateDisplayOrigin(): this;
+    setTexture(key: string | any, frame?: string | number, updateSize?: boolean, updateOrigin?: boolean): this;
+    setFrame(frame: string | number | any, updateSize?: boolean, updateOrigin?: boolean): this;
+}
+
+export const Texture = {
 
     /**
      * The Texture this Game Object is using to render with.
@@ -65,7 +80,7 @@ var Texture = {
      *
      * @return {this} This Game Object instance.
      */
-    setTexture: function (key, frame, updateSize, updateOrigin)
+    setTexture(this: any, key: string | any, frame?: string | number, updateSize?: boolean, updateOrigin?: boolean): any
     {
         this.texture = this.scene.sys.textures.get(key);
 
@@ -93,7 +108,7 @@ var Texture = {
      *
      * @return {this} This Game Object instance.
      */
-    setFrame: function (frame, updateSize, updateOrigin)
+    setFrame(this: any, frame?: string | number | any, updateSize?: boolean, updateOrigin?: boolean): any
     {
         if (updateSize === undefined) { updateSize = true; }
         if (updateOrigin === undefined) { updateOrigin = true; }
@@ -139,5 +154,3 @@ var Texture = {
     }
 
 };
-
-module.exports = Texture;

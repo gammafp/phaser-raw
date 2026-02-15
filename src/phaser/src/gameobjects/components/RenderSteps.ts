@@ -12,9 +12,16 @@
  * @webglOnly
  * @since 4.0.0
  */
-var RenderSteps = {};
 
-if (typeof WEBGL_RENDERER)
+export interface RenderSteps {
+    _renderSteps: any[] | null;
+    renderWebGLStep(renderer: any, gameObject: any, drawingContext: any, parentMatrix?: any, renderStep?: number, displayList?: any[], displayListIndex?: number): void;
+    addRenderStep(fn: any, index?: number): this;
+}
+
+let RenderSteps: any = {};
+
+if (typeof WEBGL_RENDERER !== 'undefined')
 {
     RenderSteps = {
         /**
@@ -53,22 +60,22 @@ if (typeof WEBGL_RENDERER)
          * @param {Phaser.GameObjects.GameObject[]} [displayList] - The display list which is currently being rendered. If not provided, it will be created with the Game Object.
          * @param {number} [displayListIndex=0] - The index of the Game Object within the display list.
          */
-        renderWebGLStep: function (
-            renderer,
-            gameObject,
-            drawingContext,
-            parentMatrix,
-            renderStep,
-            displayList,
-            displayListIndex
-        )
+        renderWebGLStep(
+            renderer: any,
+            gameObject: any,
+            drawingContext: any,
+            parentMatrix?: any,
+            renderStep?: number,
+            displayList?: any[],
+            displayListIndex?: number
+        ): void
         {
             if (renderStep === undefined)
             {
                 renderStep = 0;
             }
 
-            var fn = gameObject._renderSteps[renderStep];
+            const fn = gameObject._renderSteps[renderStep];
 
             if (!fn)
             {
@@ -101,7 +108,7 @@ if (typeof WEBGL_RENDERER)
          * 
          * @return {this} This Game Object instance.
          */
-        addRenderStep: function (fn, index)
+        addRenderStep(this: any, fn: any, index?: number): any
         {
             if (!this._renderSteps)
             {
@@ -121,4 +128,4 @@ if (typeof WEBGL_RENDERER)
     };
 }
 
-module.exports = RenderSteps;
+export { RenderSteps };

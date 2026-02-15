@@ -5,10 +5,8 @@
  */
 
 import { Rectangle } from '../../geom/rectangle/Rectangle';
-
 import { RotateAround } from '../../math/RotateAround';
 import { Vector2 } from '../../math/Vector2';
-
 
 /**
  * Provides methods used for obtaining the bounds of a Game Object.
@@ -18,7 +16,29 @@ import { Vector2 } from '../../math/Vector2';
  * @since 3.0.0
  */
 
-var GetBounds = {
+export interface GetBounds {
+    x: number;
+    y: number;
+    rotation: number;
+    displayWidth: number;
+    displayHeight: number;
+    originX: number;
+    originY: number;
+    parentContainer: any;
+    prepareBoundsOutput(output: any, includeParent?: boolean): any;
+    getCenter(output?: any, includeParent?: boolean): any;
+    getTopLeft(output?: any, includeParent?: boolean): any;
+    getTopCenter(output?: any, includeParent?: boolean): any;
+    getTopRight(output?: any, includeParent?: boolean): any;
+    getLeftCenter(output?: any, includeParent?: boolean): any;
+    getRightCenter(output?: any, includeParent?: boolean): any;
+    getBottomLeft(output?: any, includeParent?: boolean): any;
+    getBottomCenter(output?: any, includeParent?: boolean): any;
+    getBottomRight(output?: any, includeParent?: boolean): any;
+    getBounds(output?: any): any;
+}
+
+export const GetBounds = {
 
     /**
      * Processes the bounds output vector before returning it.
@@ -34,7 +54,7 @@ var GetBounds = {
      *
      * @return {Phaser.Types.Math.Vector2Like} The values stored in the output object.
      */
-    prepareBoundsOutput: function (output, includeParent)
+    prepareBoundsOutput(this: any, output: any, includeParent?: boolean): any
     {
         if (includeParent === undefined) { includeParent = false; }
 
@@ -45,7 +65,7 @@ var GetBounds = {
 
         if (includeParent && this.parentContainer)
         {
-            var parentMatrix = this.parentContainer.getBoundsTransformMatrix();
+            const parentMatrix = this.parentContainer.getBoundsTransformMatrix();
 
             parentMatrix.transformPoint(output.x, output.y, output);
         }
@@ -69,7 +89,7 @@ var GetBounds = {
      *
      * @return {Phaser.Types.Math.Vector2Like} The values stored in the output object.
      */
-    getCenter: function (output, includeParent)
+    getCenter(this: any, output?: any, includeParent?: boolean): any
     {
         if (output === undefined) { output = new Vector2(); }
 
@@ -95,7 +115,7 @@ var GetBounds = {
      *
      * @return {Phaser.Types.Math.Vector2Like} The values stored in the output object.
      */
-    getTopLeft: function (output, includeParent)
+    getTopLeft(this: any, output?: any, includeParent?: boolean): any
     {
         if (!output) { output = new Vector2(); }
 
@@ -121,7 +141,7 @@ var GetBounds = {
      *
      * @return {Phaser.Types.Math.Vector2Like} The values stored in the output object.
      */
-    getTopCenter: function (output, includeParent)
+    getTopCenter(this: any, output?: any, includeParent?: boolean): any
     {
         if (!output) { output = new Vector2(); }
 
@@ -147,7 +167,7 @@ var GetBounds = {
      *
      * @return {Phaser.Types.Math.Vector2Like} The values stored in the output object.
      */
-    getTopRight: function (output, includeParent)
+    getTopRight(this: any, output?: any, includeParent?: boolean): any
     {
         if (!output) { output = new Vector2(); }
 
@@ -173,7 +193,7 @@ var GetBounds = {
      *
      * @return {Phaser.Types.Math.Vector2Like} The values stored in the output object.
      */
-    getLeftCenter: function (output, includeParent)
+    getLeftCenter(this: any, output?: any, includeParent?: boolean): any
     {
         if (!output) { output = new Vector2(); }
 
@@ -199,7 +219,7 @@ var GetBounds = {
      *
      * @return {Phaser.Types.Math.Vector2Like} The values stored in the output object.
      */
-    getRightCenter: function (output, includeParent)
+    getRightCenter(this: any, output?: any, includeParent?: boolean): any
     {
         if (!output) { output = new Vector2(); }
 
@@ -225,7 +245,7 @@ var GetBounds = {
      *
      * @return {Phaser.Types.Math.Vector2Like} The values stored in the output object.
      */
-    getBottomLeft: function (output, includeParent)
+    getBottomLeft(this: any, output?: any, includeParent?: boolean): any
     {
         if (!output) { output = new Vector2(); }
 
@@ -251,7 +271,7 @@ var GetBounds = {
      *
      * @return {Phaser.Types.Math.Vector2Like} The values stored in the output object.
      */
-    getBottomCenter: function (output, includeParent)
+    getBottomCenter(this: any, output?: any, includeParent?: boolean): any
     {
         if (!output) { output = new Vector2(); }
 
@@ -277,7 +297,7 @@ var GetBounds = {
      *
      * @return {Phaser.Types.Math.Vector2Like} The values stored in the output object.
      */
-    getBottomRight: function (output, includeParent)
+    getBottomRight(this: any, output?: any, includeParent?: boolean): any
     {
         if (!output) { output = new Vector2(); }
 
@@ -301,19 +321,19 @@ var GetBounds = {
      *
      * @return {(Phaser.Geom.Rectangle|object)} The values stored in the output object.
      */
-    getBounds: function (output)
+    getBounds(this: any, output?: any): any
     {
         if (output === undefined) { output = new Rectangle(); }
 
         //  We can use the output object to temporarily store the x/y coords in:
 
-        var TLx, TLy, TRx, TRy, BLx, BLy, BRx, BRy;
+        let TLx: number, TLy: number, TRx: number, TRy: number, BLx: number, BLy: number, BRx: number, BRy: number;
 
         // Instead of doing a check if parent container is
         // defined per corner we only do it once.
         if (this.parentContainer)
         {
-            var parentMatrix = this.parentContainer.getBoundsTransformMatrix();
+            const parentMatrix = this.parentContainer.getBoundsTransformMatrix();
 
             this.getTopLeft(output);
             parentMatrix.transformPoint(output.x, output.y, output);
@@ -371,5 +391,3 @@ var GetBounds = {
     }
 
 };
-
-module.exports = GetBounds;

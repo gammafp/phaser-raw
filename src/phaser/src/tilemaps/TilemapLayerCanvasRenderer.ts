@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const TransformMatrix = require('../gameobjects/components/TransformMatrix');
+
+import { TransformMatrix } from '../gameobjects/components/TransformMatrix';
 
 const camMatrix = new TransformMatrix();
 const layerMatrix = new TransformMatrix();

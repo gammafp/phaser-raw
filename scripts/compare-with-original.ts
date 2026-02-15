@@ -11,6 +11,14 @@ import * as path from 'path';
 const REFERENCE_BASE = 'original_src/src_v4';   // referencia v4
 const CURRENT_BASE = 'src/phaser/src';           // nuestro árbol a comprobar
 
+// Archivos de bundles/entrada que no necesitan conversión (se ignoran en comparación)
+const IGNORED_FILES = [
+    'phaser-arcade-physics.js',
+    'phaser-core.js',
+    'phaser-esm.js',
+    'phaser-no-physics.js'
+];
+
 interface ComparisonResult {
     missing: string[];           // En v4 pero no en nuestro árbol
     converted: string[];         // En v4 como .js, nosotros tenemos .ts
@@ -68,6 +76,12 @@ function compareDirectories(): ComparisonResult {
 
     // 1. Archivos que están en v4 pero no los tenemos (perdidos o no convertidos)
     for (const refFile of referenceSet) {
+        // Ignorar archivos de bundles
+        const baseName = path.basename(refFile);
+        if (IGNORED_FILES.includes(baseName)) {
+            continue;
+        }
+
         if (!currentSet.has(refFile)) {
             if (refFile.endsWith('.js')) {
                 const tsVersion = refFile.replace(/\.js$/, '.ts');

@@ -15,3 +15,4 @@ export { PRE_RENDER } from './PRE_RENDER_EVENT';
 export { RENDER } from './RENDER_EVENT';
 export { RESIZE } from './RESIZE_EVENT';
 export { RESTORE_WEBGL } from './RESTORE_WEBGL_EVENT';
+export { SET_PARALLEL_TEXTURE_UNITS } from './SET_PARALLEL_TEXTURE_UNITS_EVENT';

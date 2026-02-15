@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var BlendModes = require('../../renderer/BlendModes');
+const BlendModes = require('../../renderer/BlendModes');
 
 /**
  * Provides methods used for setting the blend mode of a Game Object.
@@ -14,7 +14,13 @@ var BlendModes = require('../../renderer/BlendModes');
  * @since 3.0.0
  */
 
-var BlendMode = {
+export interface BlendMode {
+    _blendMode: number;
+    blendMode: number | string;
+    setBlendMode(value: number | string): this;
+}
+
+export const BlendMode = {
 
     /**
      * Private internal value. Holds the current blend mode.
@@ -53,28 +59,24 @@ var BlendMode = {
      * @type {(Phaser.BlendModes|string|number)}
      * @since 3.0.0
      */
-    blendMode: {
+    get blendMode(): number | string
+    {
+        return this._blendMode;
+    },
 
-        get: function ()
+    set blendMode(value: number | string)
+    {
+        if (typeof value === 'string')
         {
-            return this._blendMode;
-        },
-
-        set: function (value)
-        {
-            if (typeof value === 'string')
-            {
-                value = BlendModes[value];
-            }
-
-            value |= 0;
-
-            if (value >= -1)
-            {
-                this._blendMode = value;
-            }
+            value = BlendModes[value];
         }
 
+        value |= 0;
+
+        if (value >= -1)
+        {
+            this._blendMode = value;
+        }
     },
 
     /**
@@ -106,7 +108,7 @@ var BlendMode = {
      *
      * @return {this} This Game Object instance.
      */
-    setBlendMode: function (value)
+    setBlendMode(this: any, value: number | string): any
     {
         this.blendMode = value;
 
@@ -114,5 +116,3 @@ var BlendMode = {
     }
 
 };
-
-module.exports = BlendMode;

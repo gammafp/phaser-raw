@@ -5,10 +5,8 @@
  */
 
 import { GetValue } from '../../utils/object/GetValue';
-
 import { DegToRad } from '../../math/DegToRad';
 import { Vector2 } from '../../math/Vector2';
-
 import { GetBoolean } from '../../tweens/builders/GetBoolean';
 import { TWEEN_CONST } from '../../tweens/tween/const';
 
@@ -20,7 +18,32 @@ import { TWEEN_CONST } from '../../tweens/tween/const';
  * @since 3.17.0
  */
 
-var PathFollower = {
+export interface PathFollower {
+    path: any;
+    rotateToPath: boolean;
+    pathRotationOffset: number;
+    pathOffset: any;
+    pathVector: any;
+    pathDelta: any;
+    pathTween: any;
+    pathConfig: any;
+    _prevDirection: number;
+    scene: any;
+    x: number;
+    y: number;
+    rotation: number;
+    setPath(path: any, config?: any): this;
+    setRotateToPath(value: boolean, offset?: number): this;
+    isFollowing(): boolean;
+    startFollow(config?: any, startAt?: number): this;
+    pauseFollow(): this;
+    resumeFollow(): this;
+    stopFollow(): this;
+    pathUpdate(): void;
+    setPosition(x: number, y: number): this;
+}
+
+export const PathFollower = {
 
     /**
      * The Path this PathFollower is following. It can only follow one Path at a time.
@@ -46,7 +69,7 @@ var PathFollower = {
      * this value is added to the rotation value. This allows you to rotate objects to a path but control
      * the angle of the rotation as well.
      *
-     * @name Phaser.GameObjects.PathFollower#pathRotationOffset
+     * @name Phaser.GameObjects.Components.PathFollower#pathRotationOffset
      * @type {number}
      * @default 0
      * @since 3.0.0
@@ -57,7 +80,7 @@ var PathFollower = {
      * An additional vector to add to the PathFollowers position, allowing you to offset it from the
      * Path coordinates.
      *
-     * @name Phaser.GameObjects.PathFollower#pathOffset
+     * @name Phaser.GameObjects.Components.PathFollower#pathOffset
      * @type {Phaser.Math.Vector2}
      * @since 3.0.0
      */
@@ -66,7 +89,7 @@ var PathFollower = {
     /**
      * A Vector2 that stores the current point of the path the follower is on.
      *
-     * @name Phaser.GameObjects.PathFollower#pathVector
+     * @name Phaser.GameObjects.Components.PathFollower#pathVector
      * @type {Phaser.Math.Vector2}
      * @since 3.0.0
      */
@@ -75,7 +98,7 @@ var PathFollower = {
     /**
      * The distance the follower has traveled from the previous point to the current one, at the last update.
      *
-     * @name Phaser.GameObjects.PathFollower#pathDelta
+     * @name Phaser.GameObjects.Components.PathFollower#pathDelta
      * @type {Phaser.Math.Vector2}
      * @since 3.23.0
      */
@@ -84,7 +107,7 @@ var PathFollower = {
     /**
      * The Tween used for following the Path.
      *
-     * @name Phaser.GameObjects.PathFollower#pathTween
+     * @name Phaser.GameObjects.Components.PathFollower#pathTween
      * @type {Phaser.Tweens.Tween}
      * @since 3.0.0
      */
@@ -93,7 +116,7 @@ var PathFollower = {
     /**
      * Settings for the PathFollower.
      *
-     * @name Phaser.GameObjects.PathFollower#pathConfig
+     * @name Phaser.GameObjects.Components.PathFollower#pathConfig
      * @type {?Phaser.Types.GameObjects.PathFollower.PathConfig}
      * @default null
      * @since 3.0.0
@@ -103,7 +126,7 @@ var PathFollower = {
     /**
      * Records the direction of the follower so it can change direction.
      *
-     * @name Phaser.GameObjects.PathFollower#_prevDirection
+     * @name Phaser.GameObjects.Components.PathFollower#_prevDirection
      * @type {number}
      * @private
      * @since 3.0.0
@@ -123,11 +146,11 @@ var PathFollower = {
      *
      * @return {this} This Game Object.
      */
-    setPath: function (path, config)
+    setPath(this: any, path: any, config?: any): any
     {
         if (config === undefined) { config = this.pathConfig; }
 
-        var tween = this.pathTween;
+        const tween = this.pathTween;
 
         if (tween && tween.isPlaying())
         {
@@ -155,7 +178,7 @@ var PathFollower = {
      *
      * @return {this} This Game Object.
      */
-    setRotateToPath: function (value, offset)
+    setRotateToPath(this: any, value: boolean, offset?: number): any
     {
         if (offset === undefined) { offset = 0; }
 
@@ -176,9 +199,9 @@ var PathFollower = {
      *
      * @return {boolean} `true` is this PathFollower is actively following a Path, otherwise `false`.
      */
-    isFollowing: function ()
+    isFollowing(this: any): boolean
     {
-        var tween = this.pathTween;
+        const tween = this.pathTween;
 
         return (tween && tween.isPlaying());
     },
@@ -194,12 +217,12 @@ var PathFollower = {
      *
      * @return {this} This Game Object.
      */
-    startFollow: function (config, startAt)
+    startFollow(this: any, config?: any, startAt?: number): any
     {
         if (config === undefined) { config = {}; }
         if (startAt === undefined) { startAt = 0; }
 
-        var tween = this.pathTween;
+        const tween = this.pathTween;
 
         if (tween && tween.isPlaying())
         {
@@ -215,22 +238,22 @@ var PathFollower = {
         config.from = GetValue(config, 'from', 0);
         config.to = GetValue(config, 'to', 1);
 
-        var positionOnPath = GetBoolean(config, 'positionOnPath', false);
+        const positionOnPath = GetBoolean(config, 'positionOnPath', false);
 
         this.rotateToPath = GetBoolean(config, 'rotateToPath', false);
         this.pathRotationOffset = GetValue(config, 'rotationOffset', 0);
 
         //  This works, but it's not an ideal way of doing it as the follower jumps position
-        var seek = GetValue(config, 'startAt', startAt);
+        const seek = GetValue(config, 'startAt', startAt);
 
         if (seek)
         {
-            config.onStart = function (tween)
+            config.onStart = function (tween: any)
             {
-                var tweenData = tween.data[0];
+                const tweenData = tween.data[0];
                 tweenData.progress = seek;
                 tweenData.elapsed = tweenData.duration * seek;
-                var v = tweenData.ease(tweenData.progress);
+                const v = tweenData.ease(tweenData.progress);
                 tweenData.current = tweenData.start + ((tweenData.end - tweenData.start) * v);
                 tweenData.setTargetValue();
             };
@@ -274,7 +297,7 @@ var PathFollower = {
         if (this.rotateToPath)
         {
             //  Set the rotation now (in case the tween has a delay on it, etc)
-            var nextPoint = this.path.getPoint(0.1);
+            const nextPoint = this.path.getPoint(0.1);
 
             this.rotation = Math.atan2(nextPoint.y - this.y, nextPoint.x - this.x) + DegToRad(this.pathRotationOffset);
         }
@@ -293,9 +316,9 @@ var PathFollower = {
      *
      * @return {this} This Game Object.
      */
-    pauseFollow: function ()
+    pauseFollow(this: any): any
     {
-        var tween = this.pathTween;
+        const tween = this.pathTween;
 
         if (tween && tween.isPlaying())
         {
@@ -315,9 +338,9 @@ var PathFollower = {
      *
      * @return {this} This Game Object.
      */
-    resumeFollow: function ()
+    resumeFollow(this: any): any
     {
-        var tween = this.pathTween;
+        const tween = this.pathTween;
 
         if (tween && tween.isPaused())
         {
@@ -337,9 +360,9 @@ var PathFollower = {
      *
      * @return {this} This Game Object.
      */
-    stopFollow: function ()
+    stopFollow(this: any): any
     {
-        var tween = this.pathTween;
+        const tween = this.pathTween;
 
         if (tween && tween.isPlaying())
         {
@@ -357,15 +380,15 @@ var PathFollower = {
      * @method Phaser.GameObjects.Components.PathFollower#pathUpdate
      * @since 3.17.0
      */
-    pathUpdate: function ()
+    pathUpdate(this: any): void
     {
-        var tween = this.pathTween;
+        const tween = this.pathTween;
 
         if (tween && tween.data)
         {
-            var tweenData = tween.data[0];
-            var pathDelta = this.pathDelta;
-            var pathVector = this.pathVector;
+            const tweenData = tween.data[0];
+            const pathDelta = this.pathDelta;
+            const pathVector = this.pathVector;
 
             pathDelta.copy(pathVector).negate();
 
@@ -391,13 +414,13 @@ var PathFollower = {
             pathDelta.add(pathVector);
             pathVector.add(this.pathOffset);
 
-            var oldX = this.x;
-            var oldY = this.y;
+            const oldX = this.x;
+            const oldY = this.y;
 
             this.setPosition(pathVector.x, pathVector.y);
 
-            var speedX = this.x - oldX;
-            var speedY = this.y - oldY;
+            const speedX = this.x - oldX;
+            const speedY = this.y - oldY;
 
             if (speedX === 0 && speedY === 0)
             {
@@ -421,5 +444,3 @@ var PathFollower = {
     }
 
 };
-
-module.exports = PathFollower;

@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { TransformMatrix } from '../components/TransformMatrix';
+
 var Commands = require('./Commands');
 var GetCalcMatrix = require('../GetCalcMatrix');
 var Utils = require('../../renderer/webgl/Utils');
-var TransformMatrix = require('../components/TransformMatrix');
 
 var Point = function (x, y, width)
 {

@@ -4,7 +4,6 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-
 import { DeepCopy } from '../../utils/object/DeepCopy';
 
 /**
@@ -14,7 +13,18 @@ import { DeepCopy } from '../../utils/object/DeepCopy';
  * @webglOnly
  * @since 4.0.0
  */
-var RenderNodes = {
+
+export interface RenderNodes {
+    customRenderNodes: any;
+    defaultRenderNodes: any;
+    renderNodeData: any;
+    scene: any;
+    initRenderNodes(defaultNodes: any): void;
+    setRenderNodeRole(key: string, renderNode: string | any | null, renderNodeData?: any, copyData?: boolean): this;
+    setRenderNodeData(renderNode: string | any, key: string, value: any): this;
+}
+
+export const RenderNodes = {
     /**
      * Customized WebGL render nodes of this Game Object.
      * RenderNodes are responsible for managing the rendering process of this Game Object.
@@ -72,28 +82,28 @@ var RenderNodes = {
      * @since 4.0.0
      * @param {Map<string, string>} defaultNodes - The default render nodes to set for this Game Object.
      */
-    initRenderNodes: function (defaultNodes)
+    initRenderNodes(this: any, defaultNodes: any): void
     {
         this.customRenderNodes = {};
         this.defaultRenderNodes = {};
         this.renderNodeData = {};
 
-        var renderer = this.scene.sys.renderer;
+        const renderer = this.scene.sys.renderer;
 
         if (!renderer)
         {
             return;
         }
 
-        var manager = renderer.renderNodes;
+        const manager = renderer.renderNodes;
 
         if (!(manager && defaultNodes))
         {
             return;
         }
 
-        var defaultRenderNodes = this.defaultRenderNodes;
-        defaultNodes.each(function (role, node)
+        const defaultRenderNodes = this.defaultRenderNodes;
+        defaultNodes.each(function (role: string, node: string)
         {
             defaultRenderNodes[role] = manager.getNode(node);
         });
@@ -115,16 +125,16 @@ var RenderNodes = {
      * @param {boolean} [copyData=false] - Should the data be copied from the `renderNodeData` object?
      * @return {this} This Game Object instance.
      */
-    setRenderNodeRole: function (key, renderNode, renderNodeData, copyData)
+    setRenderNodeRole(this: any, key: string, renderNode: string | any | null, renderNodeData?: any, copyData?: boolean): any
     {
-        var renderer = this.scene.sys.renderer;
+        const renderer = this.scene.sys.renderer;
 
         if (!renderer)
         {
             return this;
         }
 
-        var manager = renderer.renderNodes;
+        const manager = renderer.renderNodes;
 
         if (!manager)
         {
@@ -154,7 +164,7 @@ var RenderNodes = {
         }
         else
         {
-            var node = this.customRenderNodes[key];
+            const node = this.customRenderNodes[key];
             if (node)
             {
                 delete this.renderNodeData[node.name];
@@ -180,14 +190,14 @@ var RenderNodes = {
      * @param {*} value - The value to set the property to.
      * @return {this} This Game Object instance.
      */
-    setRenderNodeData: function (renderNode, key, value)
+    setRenderNodeData(this: any, renderNode: string | any, key: string, value: any): any
     {
-        var name = renderNode;
+        let name = renderNode;
         if (typeof renderNode !== 'string')
         {
             name = renderNode.name;
         }
-        var data = this.renderNodeData[name];
+        const data = this.renderNodeData[name];
 
         if (value === undefined)
         {
@@ -201,5 +211,3 @@ var RenderNodes = {
         return this;
     }
 };
-
-module.exports = RenderNodes;

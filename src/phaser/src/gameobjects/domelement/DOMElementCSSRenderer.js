@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { TransformMatrix } from '../components/TransformMatrix';
+
 var CSSBlendModes = require('./CSSBlendModes');
 var GameObject = require('../GameObject');
-var TransformMatrix = require('../components/TransformMatrix');
 
 var tempMatrix1 = new TransformMatrix();
 var tempMatrix2 = new TransformMatrix();

@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { TransformMatrix } from '../components/TransformMatrix';
+
 import { RectangleToRectangle } from '../../geom/intersects/RectangleToRectangle';
 
-var TransformMatrix = require('../components/TransformMatrix');
 var Utils = require('../../renderer/webgl/Utils');
 
 var camMatrix = new TransformMatrix();

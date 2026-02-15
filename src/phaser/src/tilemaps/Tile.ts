@@ -4,14 +4,15 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { AlphaSingle } from '../gameobjects/components/AlphaSingle';
+import { Flip } from '../gameobjects/components/Flip';
+import { Visible } from '../gameobjects/components/Visible';
+
 import { ORIENTATION_CONST as CONST } from './const/ORIENTATION_CONST';
 
 import { DeepCopy } from '../utils/object/DeepCopy';
 import { Mixin } from '../utils/MixinTS';
 
-var AlphaSingle = require('../gameobjects/components/AlphaSingle');
-var Flip = require('../gameobjects/components/Flip');
-var Visible = require('../gameobjects/components/Visible');
 
 const Rectangle = require('../geom/rectangle');
 const TintModes = require('../renderer/TintModes');

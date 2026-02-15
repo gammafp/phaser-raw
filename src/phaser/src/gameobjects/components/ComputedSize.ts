@@ -12,7 +12,18 @@
  * @since 3.0.0
  */
 
-var ComputedSize = {
+export interface ComputedSize {
+    width: number;
+    height: number;
+    scaleX: number;
+    scaleY: number;
+    displayWidth: number;
+    displayHeight: number;
+    setSize(width: number, height: number): this;
+    setDisplaySize(width: number, height: number): this;
+}
+
+export const ComputedSize = {
 
     /**
      * The native (un-scaled) width of this Game Object.
@@ -51,18 +62,14 @@ var ComputedSize = {
      * @type {number}
      * @since 3.0.0
      */
-    displayWidth: {
+    get displayWidth(): number
+    {
+        return this.scaleX * this.width;
+    },
 
-        get: function ()
-        {
-            return this.scaleX * this.width;
-        },
-
-        set: function (value)
-        {
-            this.scaleX = value / this.width;
-        }
-
+    set displayWidth(value: number)
+    {
+        this.scaleX = value / this.width;
     },
 
     /**
@@ -76,18 +83,14 @@ var ComputedSize = {
      * @type {number}
      * @since 3.0.0
      */
-    displayHeight: {
+    get displayHeight(): number
+    {
+        return this.scaleY * this.height;
+    },
 
-        get: function ()
-        {
-            return this.scaleY * this.height;
-        },
-
-        set: function (value)
-        {
-            this.scaleY = value / this.height;
-        }
-
+    set displayHeight(value: number)
+    {
+        this.scaleY = value / this.height;
     },
 
     /**
@@ -109,7 +112,7 @@ var ComputedSize = {
      *
      * @return {this} This Game Object instance.
      */
-    setSize: function (width, height)
+    setSize(this: any, width: number, height: number): any
     {
         this.width = width;
         this.height = height;
@@ -130,7 +133,7 @@ var ComputedSize = {
      *
      * @return {this} This Game Object instance.
      */
-    setDisplaySize: function (width, height)
+    setDisplaySize(this: any, width: number, height: number): any
     {
         this.displayWidth = width;
         this.displayHeight = height;
@@ -139,5 +142,3 @@ var ComputedSize = {
     }
 
 };
-
-module.exports = ComputedSize;
