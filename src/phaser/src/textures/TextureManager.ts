@@ -15,8 +15,7 @@ import { PHASER_CONST as CONST } from '../const';
 import { DynamicTexture } from './DynamicTexture';
 import * as Events from './events';
 import * as GameEvents from '../core/events';
-// @ts-expect-error - Image is a Class-based JS module without type declarations
-import ImageGameObject from '../gameobjects/image/Image';
+import { Image as ImageGameObject } from '../gameobjects/image/Image';
 import { IntegerToColor } from '../display/color/IntegerToColor';
 import * as Parser from './parsers';
 import { Texture } from './Texture';

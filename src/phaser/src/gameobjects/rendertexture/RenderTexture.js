@@ -4,10 +4,11 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Image } from '../image/Image';
+
 import { UUID } from '../../utils/string/UUID';
 
 var Class = require('../../utils/Class');
-var Image = require('../image/Image');
 var RenderTextureRender = require('./RenderTextureRender');
 var RenderTextureRenderModes = require('./RenderTextureRenderModes');
 

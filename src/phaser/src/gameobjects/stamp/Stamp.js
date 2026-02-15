@@ -4,9 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Image } from '../image/Image';
+
 var DefaultStampNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultStampNodes');
 var Class = require('../../utils/Class');
-var Image = require('../image/Image');
 var StampRender = require('./StampRender');
 
 /**

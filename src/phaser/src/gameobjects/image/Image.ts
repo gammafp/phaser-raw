@@ -4,11 +4,26 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var DefaultImageNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultImageNodes');
-var Class = require('../../utils/Class');
-var Components = require('../components');
-var GameObject = require('../GameObject');
-var ImageRender = require('./ImageRender');
+import { Mixin } from '../../utils/MixinTS';
+import { Alpha } from '../components/Alpha';
+import { BlendMode } from '../components/BlendMode';
+import { Depth } from '../components/Depth';
+import { Flip } from '../components/Flip';
+import { GetBounds } from '../components/GetBounds';
+import { Lighting } from '../components/Lighting';
+import { Mask } from '../components/Mask';
+import { Origin } from '../components/Origin';
+import { RenderNodes } from '../components/RenderNodes';
+import { ScrollFactor } from '../components/ScrollFactor';
+import { Size } from '../components/Size';
+import { TextureCrop } from '../components/TextureCrop';
+import { Tint } from '../components/Tint';
+import { Transform } from '../components/Transform';
+import { Visible } from '../components/Visible';
+import { renderWebGL, renderCanvas } from './ImageRender';
+
+const DefaultImageNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultImageNodes');
+const GameObject = require('../GameObject');
 
 /**
  * @classdesc
@@ -47,43 +62,63 @@ var ImageRender = require('./ImageRender');
  * @param {(string|Phaser.Textures.Texture)} texture - The key, or instance of the Texture this Game Object will use to render with, as stored in the Texture Manager.
  * @param {(string|number)} [frame] - An optional frame from the Texture this Game Object is rendering with.
  */
-var Image = new Class({
 
-    Extends: GameObject,
+// Interface merging - Image now has all component methods/properties with full TypeScript support
+export interface Image extends 
+    Alpha,
+    BlendMode,
+    Depth,
+    Flip,
+    GetBounds,
+    Lighting,
+    Mask,
+    Origin,
+    RenderNodes,
+    ScrollFactor,
+    Size,
+    TextureCrop,
+    Tint,
+    Transform,
+    Visible {}
 
-    Mixins: [
-        Components.Alpha,
-        Components.BlendMode,
-        Components.Depth,
-        Components.Flip,
-        Components.GetBounds,
-        Components.Lighting,
-        Components.Mask,
-        Components.Origin,
-        Components.RenderNodes,
-        Components.ScrollFactor,
-        Components.Size,
-        Components.TextureCrop,
-        Components.Tint,
-        Components.Transform,
-        Components.Visible,
-        ImageRender
-    ],
+export class Image extends GameObject {
 
-    initialize:
+    /**
+     * The internal crop data object, as used by `setCrop` and passed to the `Frame.setCropUVs` method.
+     *
+     * @name Phaser.GameObjects.Image#_crop
+     * @type {object}
+     * @private
+     * @since 3.11.0
+     */
+    _crop: any;
 
-    function Image (scene, x, y, texture, frame)
+    static
     {
-        GameObject.call(this, scene, 'Image');
+        Mixin(this, [
+            Alpha,
+            BlendMode,
+            Depth,
+            Flip,
+            GetBounds,
+            Lighting,
+            Mask,
+            Origin,
+            RenderNodes,
+            ScrollFactor,
+            Size,
+            TextureCrop,
+            Tint,
+            Transform,
+            Visible,
+            { renderWebGL, renderCanvas }
+        ]);
+    }
 
-        /**
-         * The internal crop data object, as used by `setCrop` and passed to the `Frame.setCropUVs` method.
-         *
-         * @name Phaser.GameObjects.Image#_crop
-         * @type {object}
-         * @private
-         * @since 3.11.0
-         */
+    constructor(scene: any, x: number, y: number, texture: string | any, frame?: string | number)
+    {
+        super(scene, 'Image');
+
         this._crop = this.resetCropObject();
 
         this.setTexture(texture, frame);
@@ -91,7 +126,7 @@ var Image = new Class({
         this.setSizeToFrame();
         this.setOriginFromFrame();
         this.initRenderNodes(this._defaultRenderNodesMap);
-    },
+    }
 
     /**
      * The default render nodes for this Game Object.
@@ -103,13 +138,8 @@ var Image = new Class({
      * @readonly
      * @since 4.0.0
      */
-    _defaultRenderNodesMap: {
-        get: function ()
-        {
-            return DefaultImageNodes;
-        }
+    get _defaultRenderNodesMap(): any
+    {
+        return DefaultImageNodes;
     }
-
-});
-
-module.exports = Image;
+}

@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Image = require('./Image');
-var GameObjectFactory = require('../GameObjectFactory');
+import { Image } from './Image';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new Image Game Object and adds it to the Scene.
@@ -22,10 +23,11 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.Image} The Game Object that was created.
  */
-GameObjectFactory.register('image', function (x, y, texture, frame)
-{
+export const ImageFactory = function (this: any, x: number, y: number, texture: string | any, frame?: string | number): any {
     return this.displayList.add(new Image(this.scene, x, y, texture, frame));
-});
+};
+
+GameObjectFactory.register('image', ImageFactory);
 
 //  When registering a factory function 'this' refers to the GameObjectFactory context.
 //

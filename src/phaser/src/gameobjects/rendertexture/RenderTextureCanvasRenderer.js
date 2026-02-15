@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var ImageCanvasRenderer = require('../image/ImageCanvasRenderer');
+import { ImageCanvasRenderer } from '../image/ImageCanvasRenderer';
+
 var RenderTextureRenderModes = require('./RenderTextureRenderModes');
 
 /**

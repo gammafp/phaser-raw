@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var ImageWebGLRenderer = require('../image/ImageWebGLRenderer');
+import { ImageWebGLRenderer } from '../image/ImageWebGLRenderer';
+
 var RenderTextureRenderModes = require('./RenderTextureRenderModes');
 
 /**
