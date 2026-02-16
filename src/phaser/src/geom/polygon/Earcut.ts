@@ -3,7 +3,6 @@
  * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
-// TODO: Convert this complex algorithm to TypeScript
 
 /**
  * This module implements a modified ear slicing algorithm, optimized by z-order curve hashing and extended to
