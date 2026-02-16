@@ -5,6 +5,7 @@
  *   bun run counter.ts <directorio>
  *
  * - Cuenta todos los archivos EXCEPTO .ts
+ * - Ignora archivos que contengan "canvas" (case insensitive)
  * - No cuenta carpetas
  * - Ignora carpetas llamadas "typedef" o "typedefs"
  * - Ordena namespaces de mayor a menor contenido
@@ -21,6 +22,15 @@ type NamespaceStats = {
   count: number;
   maxLines: number;
 };
+
+function shouldIgnoreFile(filename: string): boolean {
+  const lower = filename.toLowerCase();
+
+  if (lower.endsWith(".ts")) return true;
+  if (lower.includes("canvas")) return true;
+
+  return false;
+}
 
 async function analyzeDirectory(dir: string): Promise<{ count: number; maxLines: number }> {
   let total = 0;
@@ -39,9 +49,7 @@ async function analyzeDirectory(dir: string): Promise<{ count: number; maxLines:
     if (ent.isSymbolicLink()) continue;
 
     if (ent.isDirectory()) {
-      if (EXCLUDED_DIR_NAMES.has(ent.name)) {
-        continue;
-      }
+      if (EXCLUDED_DIR_NAMES.has(ent.name)) continue;
 
       const sub = await analyzeDirectory(full);
       total += sub.count;
@@ -50,18 +58,18 @@ async function analyzeDirectory(dir: string): Promise<{ count: number; maxLines:
       }
 
     } else if (ent.isFile()) {
-      if (!ent.name.endsWith(".ts")) {
-        total += 1;
+      if (shouldIgnoreFile(ent.name)) continue;
 
-        try {
-          const content = await readFile(full, "utf8");
-          const lines = content.split("\n").length;
-          if (lines > maxLines) {
-            maxLines = lines;
-          }
-        } catch {
-          // Ignorar errores de lectura
+      total += 1;
+
+      try {
+        const content = await readFile(full, "utf8");
+        const lines = content.split("\n").length;
+        if (lines > maxLines) {
+          maxLines = lines;
         }
+      } catch {
+        // Ignorar errores de lectura
       }
     }
   }
@@ -109,7 +117,7 @@ async function main() {
     ? Math.max(...results.map((r) => r.name.length))
     : 0;
 
-  console.log(`Ordenado por contenido (sin contar .ts):`);
+  console.log(`Ordenado por contenido (sin .ts ni Canvas*):`);
   console.log(`${"namespace".padEnd(maxName)}  count   maxLines`);
   console.log(`${"-".repeat(maxName)}  -----   --------`);
 

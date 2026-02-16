@@ -33,6 +33,14 @@ import { RectangleFactory } from './shape/rectangle/RectangleFactory';
 import { StarFactory } from './shape/star/StarFactory';
 import { TriangleFactory } from './shape/triangle/TriangleFactory';
 
+import { BitmapText } from './bitmaptext/static/BitmapText';
+import { BitmapTextFactory } from './bitmaptext/static/BitmapTextFactory';
+import { BitmapTextCreator } from './bitmaptext/static/BitmapTextCreator';
+import { DynamicBitmapText } from './bitmaptext/dynamic/DynamicBitmapText';
+import { DynamicBitmapTextFactory } from './bitmaptext/dynamic/DynamicBitmapTextFactory';
+import { DynamicBitmapTextCreator } from './bitmaptext/dynamic/DynamicBitmapTextCreator';
+import { RetroFont } from './bitmaptext/RetroFont';
+
 /**
  * @namespace Phaser.GameObjects
  */
@@ -52,12 +60,12 @@ var GameObjects = {
     BuildGameObject: require('./BuildGameObject'),
     BuildGameObjectAnimation: require('./BuildGameObjectAnimation'),
     GameObject: require('./GameObject'),
-    BitmapText: require('./bitmaptext/static/BitmapText'),
+    BitmapText: BitmapText,
     Blitter: require('./blitter/Blitter'),
     Bob: require('./blitter/Bob'),
     Container: require('./container/Container'),
     DOMElement: require('./domelement/DOMElement'),
-    DynamicBitmapText: require('./bitmaptext/dynamic/DynamicBitmapText'),
+    DynamicBitmapText: DynamicBitmapText,
     Extern: require('./extern/Extern'),
     Graphics: require('./graphics/Graphics'),
     Group: require('./group/Group'),
@@ -66,7 +74,7 @@ var GameObjects = {
     Particles: require('./particles'),
     PathFollower: require('./pathfollower/PathFollower'),
     RenderTexture: require('./rendertexture/RenderTexture'),
-    RetroFont: require('./bitmaptext/RetroFont'),
+    RetroFont: RetroFont,
     Rope: require('./rope/Rope'),
     Sprite: require('./sprite/Sprite'),
     Stamp: require('./stamp/Stamp'),
@@ -101,7 +109,7 @@ var GameObjects = {
         Blitter: require('./blitter/BlitterFactory'),
         Container: require('./container/ContainerFactory'),
         DOMElement: require('./domelement/DOMElementFactory'),
-        DynamicBitmapText: require('./bitmaptext/dynamic/DynamicBitmapTextFactory'),
+        DynamicBitmapText: DynamicBitmapTextFactory,
         Extern: require('./extern/ExternFactory'),
         Graphics: require('./graphics/GraphicsFactory'),
         Group: require('./group/GroupFactory'),
@@ -113,7 +121,7 @@ var GameObjects = {
         Rope: require('./rope/RopeFactory'),
         Sprite: require('./sprite/SpriteFactory'),
         Stamp: require('./stamp/StampFactory'),
-        StaticBitmapText: require('./bitmaptext/static/BitmapTextFactory'),
+        StaticBitmapText: BitmapTextFactory,
         Text: require('./text/TextFactory'),
         TileSprite: require('./tilesprite/TileSpriteFactory'),
         Zone: require('./zone/ZoneFactory'),
@@ -136,7 +144,7 @@ var GameObjects = {
     Creators: {
         Blitter: require('./blitter/BlitterCreator'),
         Container: require('./container/ContainerCreator'),
-        DynamicBitmapText: require('./bitmaptext/dynamic/DynamicBitmapTextCreator'),
+        DynamicBitmapText: DynamicBitmapTextCreator,
         Graphics: require('./graphics/GraphicsCreator'),
         Group: require('./group/GroupCreator'),
         Image: ImageCreator,
@@ -146,7 +154,7 @@ var GameObjects = {
         Rope: require('./rope/RopeCreator'),
         Sprite: require('./sprite/SpriteCreator'),
         Stamp: require('./stamp/StampCreator'),
-        StaticBitmapText: require('./bitmaptext/static/BitmapTextCreator'),
+        StaticBitmapText: BitmapTextCreator,
         Text: require('./text/TextCreator'),
         TileSprite: require('./tilesprite/TileSpriteCreator'),
         Zone: require('./zone/ZoneCreator'),

@@ -13,7 +13,7 @@ import { IsPlainObject } from '../../utils/object/IsPlainObject';
 
 import { FileTypesManager } from '../FileTypesManager';
 import { MultiFile } from '../MultiFile';
-var ParseXMLBitmapFont = require('../../gameobjects/bitmaptext/ParseXMLBitmapFont');
+import { ParseXMLBitmapFont } from '../../gameobjects/bitmaptext/ParseXMLBitmapFont';
 
 /**
  * @classdesc

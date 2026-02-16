@@ -1,7 +1,5 @@
 import Phaser from '../../phaser/src/phaser';
 // import * as Phaser from 'phaser';
-
-console.log(Phaser);
     
 export class Start extends Phaser.Scene {
 
