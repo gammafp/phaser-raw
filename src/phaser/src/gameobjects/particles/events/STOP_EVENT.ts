@@ -25,4 +25,4 @@
  *
  * @param {Phaser.GameObjects.Particles.ParticleEmitter} emitter - A reference to the Particle Emitter that just completed.
  */
-module.exports = 'stop';
+export const STOP_EVENT: string = 'stop';

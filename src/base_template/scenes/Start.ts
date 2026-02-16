@@ -23,6 +23,8 @@ export class Start extends Phaser.Scene {
 
         this.load.audio('music', 'assets/banjo.mp3');
 
+        this.load.image('star', 'star3.png');
+
         // Cargar modelo 3D OBJ para el ejemplo de Mesh
         // this.load.obj('skull', 'skull.obj');
         
@@ -69,9 +71,15 @@ export class Start extends Phaser.Scene {
 
         // Shake camera 
         setTimeout(() => {
-            this.cameras.main.shake(1000, 0.05);
+            // this.cameras.main.shake(1000, 0.05);
         }, 1000);
 
+
+        this.add.particles(400, 200, 'ship', {
+            speed: 10,
+            lifespan: 3000,
+            gravityY: 200
+        });
         // ============================================================
         // EJEMPLO: BitmapText (COMENTADO - Requiere conversión completa)
         // ============================================================

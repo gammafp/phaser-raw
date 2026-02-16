@@ -4,14 +4,18 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { DeathZone } from './DeathZone';
+import { EdgeZone } from './EdgeZone';
+import { RandomZone } from './RandomZone';
+
 /**
  * @namespace Phaser.GameObjects.Particles.Zones
  */
 
 module.exports = {
 
-    DeathZone: require('./DeathZone'),
-    EdgeZone: require('./EdgeZone'),
-    RandomZone: require('./RandomZone')
+    DeathZone: DeathZone,
+    EdgeZone: EdgeZone,
+    RandomZone: RandomZone
 
 };

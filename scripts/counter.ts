@@ -8,21 +8,29 @@
  * - No cuenta carpetas
  * - Ignora carpetas llamadas "typedef" o "typedefs"
  * - Ordena namespaces de mayor a menor contenido
+ * - Muestra líneas del archivo más grande
  */
 
-import { readdir } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 const EXCLUDED_DIR_NAMES = new Set(["typedef", "typedefs"]);
 
-async function countNonTsFiles(dir: string): Promise<number> {
+type NamespaceStats = {
+  name: string;
+  count: number;
+  maxLines: number;
+};
+
+async function analyzeDirectory(dir: string): Promise<{ count: number; maxLines: number }> {
   let total = 0;
+  let maxLines = 0;
 
   let entries;
   try {
     entries = await readdir(dir, { withFileTypes: true });
   } catch {
-    return 0;
+    return { count: 0, maxLines: 0 };
   }
 
   for (const ent of entries) {
@@ -35,15 +43,30 @@ async function countNonTsFiles(dir: string): Promise<number> {
         continue;
       }
 
-      total += await countNonTsFiles(full);
+      const sub = await analyzeDirectory(full);
+      total += sub.count;
+      if (sub.maxLines > maxLines) {
+        maxLines = sub.maxLines;
+      }
+
     } else if (ent.isFile()) {
       if (!ent.name.endsWith(".ts")) {
         total += 1;
+
+        try {
+          const content = await readFile(full, "utf8");
+          const lines = content.split("\n").length;
+          if (lines > maxLines) {
+            maxLines = lines;
+          }
+        } catch {
+          // Ignorar errores de lectura
+        }
       }
     }
   }
 
-  return total;
+  return { count: total, maxLines };
 }
 
 async function main() {
@@ -63,16 +86,21 @@ async function main() {
       path: join(root, e.name),
     }));
 
-  const results: { name: string; count: number }[] = [];
+  const results: NamespaceStats[] = [];
 
   for (const ns of namespaces) {
     if (EXCLUDED_DIR_NAMES.has(ns.name)) {
-      results.push({ name: ns.name, count: 0 });
+      results.push({ name: ns.name, count: 0, maxLines: 0 });
       continue;
     }
 
-    const count = await countNonTsFiles(ns.path);
-    results.push({ name: ns.name, count });
+    const stats = await analyzeDirectory(ns.path);
+
+    results.push({
+      name: ns.name,
+      count: stats.count,
+      maxLines: stats.maxLines,
+    });
   }
 
   results.sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
@@ -82,11 +110,13 @@ async function main() {
     : 0;
 
   console.log(`Ordenado por contenido (sin contar .ts):`);
-  console.log(`${"namespace".padEnd(maxName)}  count`);
-  console.log(`${"-".repeat(maxName)}  -----`);
+  console.log(`${"namespace".padEnd(maxName)}  count   maxLines`);
+  console.log(`${"-".repeat(maxName)}  -----   --------`);
 
   for (const r of results) {
-    console.log(`${r.name.padEnd(maxName)}  ${String(r.count).padStart(5)}`);
+    console.log(
+      `${r.name.padEnd(maxName)}  ${String(r.count).padStart(5)}   ${String(r.maxLines).padStart(8)}`
+    );
   }
 }
 

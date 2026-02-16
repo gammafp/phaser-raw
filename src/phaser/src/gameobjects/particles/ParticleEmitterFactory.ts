@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { ParticleEmitter } from './ParticleEmitter';
+
 var GameObjectFactory = require('../GameObjectFactory');
-var ParticleEmitter = require('./ParticleEmitter');
 
 /**
  * Creates a new Particle Emitter Game Object and adds it to the Scene.
@@ -20,15 +21,8 @@ var ParticleEmitter = require('./ParticleEmitter');
  *
  * @method Phaser.GameObjects.GameObjectFactory#particles
  * @since 3.60.0
- *
- * @param {number} [x] - The horizontal position of this Game Object in the world.
- * @param {number} [y] - The vertical position of this Game Object in the world.
- * @param {(string|Phaser.Textures.Texture)} [texture] - The key, or instance of the Texture this Game Object will use to render with, as stored in the Texture Manager.
- * @param {Phaser.Types.GameObjects.Particles.ParticleEmitterConfig} [config] - Configuration settings for the Particle Emitter.
- *
- * @return {Phaser.GameObjects.Particles.ParticleEmitter} The Game Object that was created.
  */
-GameObjectFactory.register('particles', function (x, y, texture, config)
+export const ParticleEmitterFactory = function (this: any, x: any, y: any, texture: any, config: any): any
 {
     if (x !== undefined && typeof x === 'string')
     {
@@ -36,4 +30,6 @@ GameObjectFactory.register('particles', function (x, y, texture, config)
     }
 
     return this.displayList.add(new ParticleEmitter(this.scene, x, y, texture, config));
-});
+};
+
+GameObjectFactory.register('particles', ParticleEmitterFactory);

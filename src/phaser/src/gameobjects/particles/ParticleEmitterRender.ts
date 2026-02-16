@@ -5,12 +5,14 @@
  */
 
 import { NOOP } from '../../utils/NOOP';
-var renderWebGL = NOOP;
-var renderCanvas = NOOP;
+import { ParticleEmitterWebGLRenderer } from './ParticleEmitterWebGLRenderer';
+
+var renderWebGL: any = NOOP;
+var renderCanvas: any = NOOP;
 
 if (typeof WEBGL_RENDERER)
 {
-    renderWebGL = require('./ParticleEmitterWebGLRenderer');
+    renderWebGL = ParticleEmitterWebGLRenderer;
 }
 
 if (typeof CANVAS_RENDERER)

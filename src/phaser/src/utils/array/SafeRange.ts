@@ -13,19 +13,18 @@
  * @param {array} array - The array to check.
  * @param {number} startIndex - The start index.
  * @param {number} endIndex - The end index.
- * @param {boolean} [throwError=true] - Throw an error if the range is out of bounds.
+ * @param {boolean} [throwError=false] - Throw an error if the range is out of bounds.
  *
  * @return {boolean} True if the range is safe, otherwise false.
  */
-export const SafeRange = (array: any[], startIndex: number, endIndex: number, throwError: boolean = true): boolean =>
+export const SafeRange = (array: any[], startIndex: number, endIndex: number, throwError: boolean = false): boolean =>
 {
     const len = array.length;
 
     if (startIndex < 0 ||
-        startIndex > len ||
+        startIndex >= len ||
         startIndex >= endIndex ||
-        endIndex > len ||
-        startIndex + endIndex > len)
+        endIndex > len)
     {
         if (throwError)
         {

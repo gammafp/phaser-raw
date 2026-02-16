@@ -18,4 +18,4 @@
  * @param {Phaser.GameObjects.Particles.ParticleEmitter} emitter - A reference to the Particle Emitter that just completed.
  * @param {Phaser.GameObjects.Particles.Particle} particle - The most recently emitted Particle.
  */
-module.exports = 'explode';
+export const EXPLODE_EVENT: string = 'explode';

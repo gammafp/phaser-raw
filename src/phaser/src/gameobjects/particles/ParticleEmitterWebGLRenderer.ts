@@ -15,9 +15,9 @@ var calcMatrix = new TransformMatrix();
 var particleMatrix = new TransformMatrix();
 var managerMatrix = new TransformMatrix();
 
-var tempTexturer = {};
-var tempTinter = {};
-var tempTransformer = { quad: new Float32Array(8) };
+var tempTexturer: any = {};
+var tempTinter: any = {};
+var tempTransformer: any = { quad: new Float32Array(8) };
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -27,13 +27,8 @@ var tempTransformer = { quad: new Float32Array(8) };
  * @method Phaser.GameObjects.Particles.Emitter#renderWebGL
  * @since 3.60.0
  * @private
- *
- * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
- * @param {Phaser.GameObjects.Particles.ParticleEmitter} emitter - The Game Object being rendered in this call.
- * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The current drawing context.
- * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var ParticleEmitterWebGLRenderer = function (renderer, emitter, drawingContext, parentMatrix)
+export const ParticleEmitterWebGLRenderer = function (renderer: any, emitter: any, drawingContext: any, parentMatrix: any): void
 {
     var camera = drawingContext.camera;
 
@@ -148,5 +143,3 @@ var ParticleEmitterWebGLRenderer = function (renderer, emitter, drawingContext, 
         );
     }
 };
-
-module.exports = ParticleEmitterWebGLRenderer;

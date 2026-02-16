@@ -6,10 +6,10 @@
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { GetFastValue } from '../../utils/object/GetFastValue';
+import { ParticleEmitter } from './ParticleEmitter';
 
 var BuildGameObject = require('../BuildGameObject');
 var GameObjectCreator = require('../GameObjectCreator');
-var ParticleEmitter = require('./ParticleEmitter');
 
 /**
  * Creates a new Particle Emitter Game Object and returns it.
@@ -22,13 +22,8 @@ var ParticleEmitter = require('./ParticleEmitter');
  *
  * @method Phaser.GameObjects.GameObjectCreator#particles
  * @since 3.0.0
- *
- * @param {Phaser.Types.GameObjects.Particles.ParticleEmitterCreatorConfig} config - The configuration object this Game Object will use to create itself.
- * @param {boolean} [addToScene] - Add this Game Object to the Scene after creating it? If set this argument overrides the `add` property in the config object.
- *
- * @return {Phaser.GameObjects.Particles.ParticleEmitter} The Game Object that was created.
  */
-GameObjectCreator.register('particles', function (config, addToScene)
+export const ParticleEmitterCreator = function (this: any, config: any, addToScene?: boolean): any
 {
     if (config === undefined) { config = {}; }
 
@@ -50,4 +45,6 @@ GameObjectCreator.register('particles', function (config, addToScene)
     }
 
     return emitter;
-});
+};
+
+GameObjectCreator.register('particles', ParticleEmitterCreator);

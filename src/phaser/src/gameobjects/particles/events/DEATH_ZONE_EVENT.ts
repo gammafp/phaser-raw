@@ -21,4 +21,4 @@
  * @param {Phaser.GameObjects.Particles.Particle} particle - The Particle that has been killed.
  * @param {Phaser.GameObjects.Particles.Zones.DeathZone} zone - The Death Zone that killed the particle.
  */
-module.exports = 'deathzone';
+export const DEATH_ZONE_EVENT: string = 'deathzone';
