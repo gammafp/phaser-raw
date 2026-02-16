@@ -58,6 +58,7 @@ import { VideoCreator } from './video/VideoCreator';
 import { Graphics } from './graphics/Graphics';
 import { GraphicsFactory } from './graphics/GraphicsFactory';
 import { GraphicsCreator } from './graphics/GraphicsCreator';
+import { PathFollower } from './pathfollower/PathFollower';
 import { Blitter } from './blitter/Blitter';
 import { Bob } from './blitter/Bob';
 import { BlitterFactory } from './blitter/BlitterFactory';
@@ -77,6 +78,9 @@ import { PointLightCreator } from './pointlight/PointLightCreator';
 import { Rope } from './rope/Rope';
 import { RopeFactory } from './rope/RopeFactory';
 import { RopeCreator } from './rope/RopeCreator';
+import { Sprite } from './sprite/Sprite';
+import { SpriteFactory } from './sprite/SpriteFactory';
+import { SpriteCreator } from './sprite/SpriteCreator';
 import { Shader } from './shader/Shader';
 import { ShaderFactory } from './shader/ShaderFactory';
 import { ShaderCreator } from './shader/ShaderCreator';
@@ -112,11 +116,11 @@ var GameObjects = {
     Image: Image,
     Layer: require('./layer/Layer'),
     Particles: require('./particles'),
-    PathFollower: require('./pathfollower/PathFollower'),
+    PathFollower: PathFollower,
     RenderTexture: require('./rendertexture/RenderTexture'),
     RetroFont: RetroFont,
     Rope: Rope,
-    Sprite: require('./sprite/Sprite'),
+    Sprite: Sprite,
     Stamp: require('./stamp/Stamp'),
 
     Text: Text,
@@ -159,7 +163,7 @@ var GameObjects = {
         PathFollower: require('./pathfollower/PathFollowerFactory'),
         RenderTexture: require('./rendertexture/RenderTextureFactory'),
         Rope: RopeFactory,
-        Sprite: require('./sprite/SpriteFactory'),
+        Sprite: SpriteFactory,
         Stamp: require('./stamp/StampFactory'),
         StaticBitmapText: BitmapTextFactory,
         Text: TextFactory,
@@ -192,7 +196,7 @@ var GameObjects = {
         Particles: require('./particles/ParticleEmitterCreator'),
         RenderTexture: require('./rendertexture/RenderTextureCreator'),
         Rope: RopeCreator,
-        Sprite: require('./sprite/SpriteCreator'),
+        Sprite: SpriteCreator,
         Stamp: require('./stamp/StampCreator'),
         StaticBitmapText: BitmapTextCreator,
         Text: TextCreator,

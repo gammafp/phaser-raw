@@ -5,11 +5,11 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { Sprite } from './Sprite';
 
-var BuildGameObject = require('../BuildGameObject');
-var BuildGameObjectAnimation = require('../BuildGameObjectAnimation');
-var GameObjectCreator = require('../GameObjectCreator');
-var Sprite = require('./Sprite');
+const BuildGameObject = require('../BuildGameObject');
+const BuildGameObjectAnimation = require('../BuildGameObjectAnimation');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new Sprite Game Object and returns it.
@@ -24,14 +24,14 @@ var Sprite = require('./Sprite');
  *
  * @return {Phaser.GameObjects.Sprite} The Game Object that was created.
  */
-GameObjectCreator.register('sprite', function (config, addToScene)
+export const SpriteCreator = function (this: any, config: any, addToScene?: boolean): Sprite
 {
     if (config === undefined) { config = {}; }
 
-    var key = GetAdvancedValue(config, 'key', null);
-    var frame = GetAdvancedValue(config, 'frame', null);
+    const key = GetAdvancedValue(config, 'key', null);
+    const frame = GetAdvancedValue(config, 'frame', null);
 
-    var sprite = new Sprite(this.scene, 0, 0, key, frame);
+    const sprite = new Sprite(this.scene, 0, 0, key, frame);
 
     if (addToScene !== undefined)
     {
@@ -41,8 +41,9 @@ GameObjectCreator.register('sprite', function (config, addToScene)
     BuildGameObject(this.scene, sprite, config);
 
     //  Sprite specific config options:
-
     BuildGameObjectAnimation(sprite, config);
 
     return sprite;
-});
+};
+
+GameObjectCreator.register('sprite', SpriteCreator);

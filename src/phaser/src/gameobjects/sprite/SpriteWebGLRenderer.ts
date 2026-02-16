@@ -18,12 +18,12 @@
  * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The current drawing context.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var SpriteWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
+export const SpriteWebGLRenderer = (renderer: any, src: any, drawingContext: any, parentMatrix: any): void =>
 {
     drawingContext.camera.addToRenderList(src);
 
-    var customRenderNodes = src.customRenderNodes;
-    var defaultRenderNodes = src.defaultRenderNodes;
+    const customRenderNodes = src.customRenderNodes;
+    const defaultRenderNodes = src.defaultRenderNodes;
 
     (customRenderNodes.Submitter || defaultRenderNodes.Submitter).run(
         drawingContext,
@@ -34,5 +34,3 @@ var SpriteWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
         customRenderNodes.Transformer || defaultRenderNodes.Transformer
     );
 };
-
-module.exports = SpriteWebGLRenderer;

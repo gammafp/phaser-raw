@@ -19,8 +19,7 @@ import { Mass } from './components/Mass';
 import { Pushable } from './components/Pushable';
 import { Size } from './components/Size';
 import { Velocity } from './components/Velocity';
-
-const Sprite = require('../../gameobjects/sprite/Sprite');
+import { Sprite } from '../../gameobjects/sprite/Sprite';
 
 /**
  * @classdesc

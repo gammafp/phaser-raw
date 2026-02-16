@@ -11,12 +11,12 @@ import { GetFastValue } from '../../utils/object/GetFastValue';
 import { GetValue } from '../../utils/object/GetValue';
 import { HasValue } from '../../utils/object/HasValue';
 import { IsPlainObject } from '../../utils/object/IsPlainObject';
+import { Sprite } from '../sprite/Sprite';
 
 var Actions = require('../../actions/');
 var Class = require('../../utils/Class');
 var Events = require('../events');
 var EventEmitter = require('eventemitter3');
-var Sprite = require('../sprite/Sprite');
 
 /**
  * @classdesc

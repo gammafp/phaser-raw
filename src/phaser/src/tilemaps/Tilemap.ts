@@ -20,8 +20,7 @@ import { Rotate } from '../math/Rotate';
 import { Tileset } from './Tileset';
 import { Tile } from './Tile';
 import { ObjectHelper } from './ObjectHelper';
-
-const Sprite = require('../gameobjects/sprite/Sprite');
+import { Sprite } from '../gameobjects/sprite/Sprite';
 const TilemapComponents = require('./components');
 
 /**

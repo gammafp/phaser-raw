@@ -11,7 +11,7 @@ var Constraint = require('./lib/constraint/Constraint');
 var Svg = require('./lib/geometry/Svg');
 var MatterGameObject = require('./MatterGameObject');
 var MatterImage = require('./MatterImage');
-var MatterSprite = require('./MatterSprite');
+import { MatterSprite } from './MatterSprite';
 var MatterTileBody = require('./MatterTileBody');
 var PhysicsEditorParser = require('./PhysicsEditorParser');
 var PhysicsJSONParser = require('./PhysicsJSONParser');

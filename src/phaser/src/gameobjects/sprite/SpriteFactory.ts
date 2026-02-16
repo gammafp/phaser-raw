@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GameObjectFactory = require('../GameObjectFactory');
-var Sprite = require('./Sprite');
+import { Sprite } from './Sprite';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new Sprite Game Object and adds it to the Scene.
@@ -22,10 +23,12 @@ var Sprite = require('./Sprite');
  *
  * @return {Phaser.GameObjects.Sprite} The Game Object that was created.
  */
-GameObjectFactory.register('sprite', function (x, y, texture, frame)
+export const SpriteFactory = function (this: any, x: number, y: number, texture: string | any, frame?: string | number): Sprite
 {
     return this.displayList.add(new Sprite(this.scene, x, y, texture, frame));
-});
+};
+
+GameObjectFactory.register('sprite', SpriteFactory);
 
 //  When registering a factory function 'this' refers to the GameObjectFactory context.
 //

@@ -8,6 +8,8 @@
  * @namespace Phaser.Physics.Matter
  */
 
+import { MatterSprite } from './MatterSprite';
+
 module.exports = {
 
     BodyBounds: require('./BodyBounds'),
@@ -19,7 +21,7 @@ module.exports = {
     Matter: require('./CustomMain'),
     MatterPhysics: require('./MatterPhysics'),
     PolyDecomp: require('./poly-decomp'),
-    Sprite: require('./MatterSprite'),
+    Sprite: MatterSprite,
     TileBody: require('./MatterTileBody'),
     PhysicsEditorParser: require('./PhysicsEditorParser'),
     PhysicsJSONParser: require('./PhysicsJSONParser'),

@@ -5,7 +5,7 @@
  */
 
 var GameObjectFactory = require('../GameObjectFactory');
-var PathFollower = require('./PathFollower');
+import { PathFollower } from './PathFollower';
 
 /**
  * Creates a new PathFollower Game Object and adds it to the Scene.
