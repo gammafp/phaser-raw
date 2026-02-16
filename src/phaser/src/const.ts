@@ -10,8 +10,8 @@
  * @ignore
  */
 
-const BlendModes = require('./renderer/BlendModes');
-const ScaleModes = require('./renderer/ScaleModes');
+import { BlendModes } from './renderer/BlendModes';
+import { ScaleModes } from './renderer/ScaleModes';
 
 export const PHASER_CONST = {
 

@@ -8,7 +8,7 @@ import { TransformMatrix } from '../components/TransformMatrix';
 
 import { RectangleToRectangle } from '../../geom/intersects/RectangleToRectangle';
 
-var Utils = require('../../renderer/webgl/Utils');
+import { Utils } from '../../renderer/webgl/Utils';
 
 var camMatrix = new TransformMatrix();
 var calcMatrix = new TransformMatrix();

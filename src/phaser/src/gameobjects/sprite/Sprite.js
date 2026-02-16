@@ -5,8 +5,7 @@
  */
 
 import { AnimationState } from '../../animations/AnimationState';
-
-var DefaultImageNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultImageNodes');
+import { DefaultImageNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultImageNodes';
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');

@@ -11,7 +11,7 @@ import * as BlendModes from '../renderer/BlendModes';
 import * as CanvasPool from '../display/canvas/CanvasPool';
 import { PHASER_CONST as CONST } from '../const';
 // @ts-expect-error - DrawingContext is a CommonJS module without type declarations
-import DrawingContext from '../renderer/webgl/DrawingContext';
+import { DrawingContext } from '../renderer/webgl/DrawingContext';
 import { Texture } from './Texture';
 // @ts-expect-error - Utils is a CommonJS module without type declarations
 import * as Utils from '../renderer/webgl/Utils';

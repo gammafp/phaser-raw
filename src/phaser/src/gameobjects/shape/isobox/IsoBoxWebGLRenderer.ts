@@ -1,5 +1,5 @@
 var GetCalcMatrix = require('../../GetCalcMatrix');
-var Utils = require('../../../renderer/webgl/Utils');
+import { Utils } from '../../../renderer/webgl/Utils';
 
 export const IsoBoxWebGLRenderer = function (renderer: any, src: any, drawingContext: any, parentMatrix: any): void
 {

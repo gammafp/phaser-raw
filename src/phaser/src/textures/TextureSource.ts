@@ -7,8 +7,8 @@
 import { IsSizePowerOfTwo } from '../math/pow2/IsSizePowerOfTwo';
 
 import * as CanvasPool from '../display/canvas/CanvasPool';
-import ScaleModes from '../renderer/ScaleModes';
-import WebGLTextureWrapper from '../renderer/webgl/wrappers/WebGLTextureWrapper';
+import { ScaleModes } from '../renderer/ScaleModes';
+import { WebGLTextureWrapper } from '../renderer/webgl/wrappers/WebGLTextureWrapper';
 
 /**
  * @classdesc

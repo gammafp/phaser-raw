@@ -7,7 +7,7 @@
  */
 
 const GetCalcMatrix = require('../GetCalcMatrix');
-const Utils = require('../../renderer/webgl/Utils');
+import { Utils } from '../../renderer/webgl/Utils';
 
 const fixedRenderOptions = { multiTexturing: true };
 

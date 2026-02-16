@@ -1,0 +1,338 @@
+/**
+ * @author       Benjamin D. Richards <benjamindrichards@gmail.com>
+ * @copyright    2013-2026 Phaser Studio Inc.
+ * @license      {@link https://opensource.org/licenses/MIT|MIT License}
+ */
+
+import { SimpleTextureVert } from '../../shaders/SimpleTexture-vert';
+import { MakeBoundedSampler } from '../../shaders/additionMakers/MakeBoundedSampler';
+import { ProgramManager } from '../../ProgramManager';
+import { WebGLVertexBufferLayoutWrapper } from '../../wrappers/WebGLVertexBufferLayoutWrapper';
+import { BaseFilter } from './BaseFilter';
+
+/**
+ * @classdesc
+ * This is a base class for all filters that use a shader.
+ * Most filters will extend this class.
+ *
+ * It takes care of setting up the shader program and vertex buffer layout.
+ * It also provides the `run` method which handles the rendering of the filter.
+ * When rendering, it generates a new DrawingContext to render to,
+ * and releases the input DrawingContext.
+ *
+ * Note: be careful when using `gl_FragCoord` in shader code.
+ * This built-in variable gives you the "window relative" coordinate
+ * of the pixel being processed.
+ * But this is actually relative to the framebuffer size,
+ * and Phaser treats all framebuffers except the main canvas
+ * as being vertically flipped.
+ * This means that `gl_FragCoord.y = 0` in a shader will be the bottom of a framebuffer,
+ * but the top of the canvas.
+ * This means `gl_FragCoord` gives different results when it's inside a
+ * framebuffer (like a Render Texture or Filter) compared to the main canvas.
+ * Be aware of this restriction when writing shaders.
+ *
+ * @class BaseFilterShader
+ * @extends Phaser.Renderer.WebGL.RenderNodes.BaseFilter
+ * @memberof Phaser.Renderer.WebGL.RenderNodes
+ * @constructor
+ * @since 4.0.0
+ * @param {string} name - The name of the filter.
+ * @param {Phaser.Renderer.WebGL.RenderNodes.RenderNodeManager} manager - The manager that owns this filter.
+ * @param {string} [fragmentShaderKey] - The key of the fragment shader source in the shader cache. This will only be used if `fragmentShaderSource` is not set.
+ * @param {string} [fragmentShaderSource] - The fragment shader source.
+ * @param {?Phaser.Types.Renderer.WebGL.ShaderAdditionConfig[]} [shaderAdditions] - An array of shader additions to apply to the shader program.
+ */
+export class BaseFilterShader extends BaseFilter {
+
+    indexBuffer: Phaser.Renderer.WebGL.Wrappers.WebGLBufferWrapper;
+    vertexBufferLayout: WebGLVertexBufferLayoutWrapper;
+    programManager: ProgramManager;
+
+    constructor (name: string, manager: Phaser.Renderer.WebGL.RenderNodes.RenderNodeManager, fragmentShaderKey?: string, fragmentShaderSource?: string, shaderAdditions?: Phaser.Types.Renderer.WebGL.ShaderAdditionConfig[])
+    {
+        if (!fragmentShaderSource)
+        {
+            const baseShader = manager.renderer.game.cache.shader.get(fragmentShaderKey);
+            if (!(baseShader && baseShader.glsl))
+            {
+                throw new Error('BaseFilterShader: No fragment shader source provided and no shader found with key ' + fragmentShaderKey);
+            }
+            fragmentShaderSource = baseShader.glsl;
+        }
+
+        super(name, manager);
+
+        const renderer = manager.renderer;
+        const gl = renderer.gl;
+
+        const config = {
+            name: name,
+            shaderName: name,
+            vertexSource: SimpleTextureVert,
+            fragmentSource: fragmentShaderSource,
+            shaderAdditions: shaderAdditions || [],
+            vertexBufferLayout: {
+                usage: 'DYNAMIC_DRAW',
+                count: 4,
+                layout: [
+                    {
+                        name: 'inPosition',
+                        size: 2,
+                        type: gl.FLOAT,
+                        normalized: false
+                    },
+                    {
+                        name: 'inTexCoord',
+                        size: 2,
+                        type: gl.FLOAT,
+                        normalized: false
+                    }
+                ]
+            }
+        };
+
+        // Include the BoundedSampler addition.
+        config.shaderAdditions.push(MakeBoundedSampler());
+
+        /**
+         * The index buffer defining vertex order.
+         *
+         * @name Phaser.Renderer.WebGL.RenderNodes.BaseFilterShader#indexBuffer
+         * @type {Phaser.Renderer.WebGL.Wrappers.WebGLBufferWrapper}
+         * @since 4.0.0
+         */
+        this.indexBuffer = renderer.genericQuadIndexBuffer;
+
+        /**
+         * The vertex buffer layout for this RenderNode.
+         *
+         * This consists of 4 bytes, 0-3, forming corners of a quad instance.
+         *
+         * @name Phaser.Renderer.WebGL.RenderNodes.BaseFilterShader#vertexBufferLayout
+         * @type {Phaser.Renderer.WebGL.Wrappers.WebGLVertexBufferLayoutWrapper}
+         * @since 4.0.0
+         * @readonly
+         */
+        this.vertexBufferLayout = new WebGLVertexBufferLayoutWrapper(
+            renderer,
+            config.vertexBufferLayout,
+            null
+        );
+
+        /**
+         * The program manager used to create and manage shader programs.
+         * This contains shader variants.
+         *
+         * @name Phaser.Renderer.WebGL.RenderNodes.BaseFilterShader#programManager
+         * @type {Phaser.Renderer.WebGL.ProgramManager}
+         * @since 4.0.0
+         */
+        this.programManager = new ProgramManager(
+            renderer,
+            [ this.vertexBufferLayout ],
+            this.indexBuffer
+        );
+
+        // Fill in program configuration from config.
+        this.programManager.setBaseShader(
+            config.shaderName,
+            config.vertexSource,
+            config.fragmentSource
+        );
+        for (let i = 0; i < config.shaderAdditions.length; i++)
+        {
+            const addition = config.shaderAdditions[i];
+            this.programManager.addAddition(addition);
+        }
+
+        // Set the shader program to use texture unit 0.
+        this.programManager.setUniform('uMainSampler', 0);
+    }
+
+    run (controller: Phaser.Filters.Controller, inputDrawingContext: Phaser.Renderer.WebGL.DrawingContext, outputDrawingContext?: Phaser.Renderer.WebGL.DrawingContext, padding?: Phaser.Geom.Rectangle): Phaser.Renderer.WebGL.DrawingContext
+    {
+        const manager = this.manager;
+        const renderer = manager.renderer;
+
+        manager.startStandAloneRender();
+
+
+        // Get a new DrawingContext to render to.
+        if (!padding)
+        {
+            padding = controller.getPadding();
+        }
+        if (!outputDrawingContext)
+        {
+            outputDrawingContext = renderer.drawingContextPool.get(
+                inputDrawingContext.width + padding.width,
+                inputDrawingContext.height + padding.height
+            );
+        }
+
+        outputDrawingContext.use();
+
+        this.onRunBegin(outputDrawingContext);
+
+        // Assemble textures.
+        const textures = [ inputDrawingContext.texture ];
+        this.setupTextures(controller, textures, outputDrawingContext);
+
+        // Compute quad vertices.
+        let xBL = -1;
+        let yBL = -1;
+        let xTL = -1;
+        let yTL = 1;
+        let xTR = 1;
+        let yTR = 1;
+        let xBR = 1;
+        let yBR = -1;
+
+        // Account for padding.
+        if (padding.left)
+        {
+            const paddingLeft = 2 * padding.left / outputDrawingContext.width;
+            xBL -= paddingLeft;
+            xTL -= paddingLeft;
+        }
+        if (padding.right)
+        {
+            const paddingRight = 2 * padding.right / outputDrawingContext.width;
+            xBR -= paddingRight;
+            xTR -= paddingRight;
+        }
+        if (padding.top)
+        {
+            const paddingTop = 2 * padding.top / outputDrawingContext.height;
+            yTL += paddingTop;
+            yTR += paddingTop;
+        }
+        if (padding.bottom)
+        {
+            const paddingBottom = 2 * padding.bottom / outputDrawingContext.height;
+            yBL += paddingBottom;
+            yBR += paddingBottom;
+        }
+
+        // Populate vertex buffer.
+        const stride = this.vertexBufferLayout.layout.stride;
+        const vertexBuffer = this.vertexBufferLayout.buffer;
+        const vertexF32 = vertexBuffer.viewF32;
+        let offset32 = 0;
+
+        // Bottom Left.
+        vertexF32[offset32++] = -1;
+        vertexF32[offset32++] = -1;
+        vertexF32[offset32++] = remapCoord(0, xBL, xBR);
+        vertexF32[offset32++] = remapCoord(0, yBL, yBR);
+
+        // Top Left.
+        vertexF32[offset32++] = -1;
+        vertexF32[offset32++] = 1;
+        vertexF32[offset32++] = remapCoord(0, xTL, xTR);
+        vertexF32[offset32++] = remapCoord(1, yTL, yTR);
+
+        // Bottom Right.
+        vertexF32[offset32++] = 1;
+        vertexF32[offset32++] = -1;
+        vertexF32[offset32++] = remapCoord(1, xBL, xBR);
+        vertexF32[offset32++] = remapCoord(0, yBL, yBR);
+
+        // Top Right.
+        vertexF32[offset32++] = 1;
+        vertexF32[offset32++] = 1;
+        vertexF32[offset32++] = remapCoord(1, xTL, xTR);
+        vertexF32[offset32++] = remapCoord(1, yTL, yTR);
+
+        // Update vertex buffer.
+        // Because we frequently aren't filling the entire buffer,
+        // we need to update the buffer with the correct size.
+        vertexBuffer.update(stride * 4);
+
+
+        // Render.
+
+        const programManager = this.programManager;
+        this.updateShaderConfig(controller, outputDrawingContext);
+        const programSuite = programManager.getCurrentProgramSuite();
+
+        if (programSuite)
+        {
+            const program = programSuite.program;
+            const vao = programSuite.vao;
+
+            this.setupUniforms(controller, outputDrawingContext);
+            programManager.applyUniforms(program);
+
+            // Render layer.
+            renderer.drawElements(
+                outputDrawingContext,
+                textures,
+                program,
+                vao,
+                4,
+                0
+            );
+        }
+
+
+        // Complete render.
+        inputDrawingContext.release();
+        this.onRunEnd(outputDrawingContext);
+
+        return outputDrawingContext;
+    }
+
+    /**
+     * Set up the shader configuration for this shader.
+     * Override this method to handle shader configuration.
+     *
+     * @method Phaser.Renderer.WebGL.RenderNodes.BaseFilterShader#updateShaderConfig
+     * @since 4.0.0
+     * @param {Phaser.Filters.Controller} controller - The filter controller.
+     * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The drawing context in use.
+     */
+    updateShaderConfig (controller: Phaser.Filters.Controller, drawingContext: Phaser.Renderer.WebGL.DrawingContext): void
+    {
+        // NOOP
+    }
+
+    /**
+     * Run any necessary modifications on the textures array.
+     * Override this method to handle texture inputs.
+     *
+     * @method Phaser.Renderer.WebGL.RenderNodes.BaseFilterShader#setupTextures
+     * @since 4.0.0
+     * @param {Phaser.Filters.Controller} controller - The filter controller.
+     * @param {Phaser.Renderer.WebGL.Wrappers.WebGLTextureWrapper[]} textures - The array of textures to modify in-place.
+     * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The drawing context in use.
+     */
+    setupTextures (controller: Phaser.Filters.Controller, textures: Phaser.Renderer.WebGL.Wrappers.WebGLTextureWrapper[], drawingContext: Phaser.Renderer.WebGL.DrawingContext): void
+    {
+        // NOOP
+    }
+
+    /**
+     * Set up the uniforms for this shader, based on the controller.
+     *
+     * @method Phaser.Renderer.WebGL.RenderNodes.BaseFilterShader#setupUniforms
+     * @since 4.0.0
+     * @param {Phaser.Filters.Controller} controller - The filter controller.
+     * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The drawing context in use.
+     */
+    setupUniforms (controller: Phaser.Filters.Controller, drawingContext: Phaser.Renderer.WebGL.DrawingContext): void
+    {
+        // This is the base setupUniforms method that all filters should override
+    }
+}
+
+function remapCoord (coord: number, low: number, high: number): number
+{
+    // Low,high are in the range -1,1.
+    // Convert low,high to 0,1.
+    low = ((1 / low) + 1) * 0.5;
+    high = ((1 / high) + 1) * 0.5;
+
+    return low + coord * (high - low);
+}

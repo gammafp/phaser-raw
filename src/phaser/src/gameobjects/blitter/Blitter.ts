@@ -23,7 +23,7 @@ import { Visible } from '../components/Visible';
 import { BlitterRender } from './BlitterRender';
 import { Bob } from './Bob';
 
-const DefaultBlitterNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultBlitterNodes');
+import { DefaultBlitterNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultBlitterNodes';
 const GameObject = require('../GameObject');
 
 /**

@@ -8,8 +8,8 @@ import { Circle } from '../../geom/circle/Circle';
 import { Contains as CircleContains } from '../../geom/circle/Contains';
 import { Rectangle } from '../../geom/rectangle/Rectangle';
 import { Contains as RectangleContains } from '../../geom/rectangle/Contains';
+import { BlendModes } from '../../renderer/BlendModes';
 
-var BlendModes = require('../../renderer/BlendModes');
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');

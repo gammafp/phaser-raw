@@ -7,8 +7,8 @@
 import { TransformMatrix } from '../../components/TransformMatrix';
 
 var GetCalcMatrix = require('../../GetCalcMatrix');
-var TintModes = require('../../../renderer/TintModes');
-var Utils = require('../../../renderer/webgl/Utils');
+import { TintModes } from '../../../renderer/TintModes';
+import { Utils } from '../../../renderer/webgl/Utils';
 
 var tempMatrix = new TransformMatrix();
 

@@ -15,7 +15,7 @@ import { Mixin } from '../utils/MixinTS';
 
 
 const Rectangle = require('../geom/rectangle');
-const TintModes = require('../renderer/TintModes');
+import { TintModes } from '../renderer/TintModes';
 
 // export interface Tile extends AlphaSingle, Flip, Visible {}
 

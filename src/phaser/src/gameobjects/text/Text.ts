@@ -32,7 +32,7 @@ import { renderWebGL, renderCanvas } from './TextRender';
 import { GetTextSize } from './GetTextSize';
 import { TextStyle } from './TextStyle';
 
-var DefaultImageNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultImageNodes');
+import { DefaultImageNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultImageNodes';
 var GameObject = require('../GameObject');
 var Components = require('../components');
 

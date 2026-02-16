@@ -21,7 +21,7 @@ import { DataManager } from '../../data/DataManager';
 import { LayerRender } from './LayerRender';
 
 
-const BlendModes = require('../../renderer/BlendModes');
+import { BlendModes } from '../../renderer/BlendModes';
 const EventEmitter = require('eventemitter3');
 const GameObjectEvents = require('../events');
 const SceneEvents = require('../../scene/events');

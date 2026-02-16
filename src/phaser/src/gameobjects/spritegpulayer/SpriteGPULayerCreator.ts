@@ -7,7 +7,7 @@
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { SpriteGPULayer } from './SpriteGPULayer';
 
-var BlendModes = require('../../renderer/BlendModes');
+import { BlendModes } from '../../renderer/BlendModes';
 var GameObjectCreator = require('../GameObjectCreator');
 
 /**

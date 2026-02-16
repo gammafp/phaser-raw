@@ -7,12 +7,13 @@
 import { Vector2 } from '../../math/Vector2';
 import { AnimationState } from '../../animations/AnimationState';
 
-var DefaultRopeNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultRopeNodes');
+import { DefaultRopeNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultRopeNodes';
+
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');
 var RopeRender = require('./RopeRender');
-var TintModes = require('../../renderer/TintModes');
+var TintModes = require('../../renderer/TintModes').TintModes;
 
 /**
  * @classdesc

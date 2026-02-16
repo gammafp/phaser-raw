@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const TintModes = require('../renderer/TintModes');
-const Utils = require('../renderer/webgl/Utils');
+import { TintModes } from '../renderer/TintModes';
+import { Utils } from '../renderer/webgl/Utils';
 
 const getTint = Utils.getTintAppendFloatAlpha;
 

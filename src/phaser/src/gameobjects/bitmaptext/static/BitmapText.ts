@@ -25,10 +25,10 @@ import { GetBitmapTextSize } from '../GetBitmapTextSize';
 import { ParseFromAtlas } from '../ParseFromAtlas';
 import { ParseXMLBitmapFont } from '../ParseXMLBitmapFont';
 
-var DefaultBitmapTextNodes = require('../../../renderer/webgl/renderNodes/defaults/DefaultBitmapTextNodes');
+import { DefaultBitmapTextNodes } from '../../../renderer/webgl/renderNodes/defaults/DefaultBitmapTextNodes';
 var GameObject = require('../../GameObject');
 var Components = require('../../components');
-var TintModes = require('../../../renderer/TintModes');
+import { TintModes } from '../../../renderer/TintModes';
 
 /**
  * @classdesc

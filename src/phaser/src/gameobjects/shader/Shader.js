@@ -8,9 +8,9 @@ import { GetFastValue } from '../../utils/object/GetFastValue';
 
 import { Vector2 } from '../../math/Vector2';
 import { BaseCamera } from '../../cameras/2d/BaseCamera';
+import { ShaderQuad } from '../../renderer/webgl/renderNodes/ShaderQuad';
+import { DrawingContext } from '../../renderer/webgl/DrawingContext';
 
-var ShaderQuad = require('../../renderer/webgl/renderNodes/ShaderQuad');
-var DrawingContext = require('../../renderer/webgl/DrawingContext');
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject');

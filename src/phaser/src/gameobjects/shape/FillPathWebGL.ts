@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Utils = require('../../renderer/webgl/Utils');
+import { Utils } from '../../renderer/webgl/Utils';
 
 export const FillPathWebGL = function (drawingContext: any, submitter: any, calcMatrix: any, src: any, alpha: number, dx: number, dy: number): void
 {

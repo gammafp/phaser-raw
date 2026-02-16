@@ -10,8 +10,8 @@ import { Mixin } from '../utils/MixinTS';
 import { GetCullTilesFunction } from './components';
 import * as TilemapLayerRender from './TilemapLayerRender';
 
-const DefaultTilemapLayerNodes = require('../renderer/webgl/renderNodes/defaults/DefaultTilemapLayerNodes');
-const TintModes = require('../renderer/TintModes');
+import { DefaultTilemapLayerNodes } from '../renderer/webgl/renderNodes/defaults/DefaultTilemapLayerNodes';
+import { TintModes } from '../renderer/TintModes';
 
 /**
  * @classdesc

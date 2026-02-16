@@ -4,8 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var DrawingContext = require('../../renderer/webgl/DrawingContext.js');
-var DefaultQuadNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultQuadNodes');
+import { DrawingContext } from '../../renderer/webgl/DrawingContext';
+import { DefaultQuadNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultQuadNodes';
+
+
 var Class = require('../../utils/Class');
 var Components = require('../components');
 var GameObject = require('../GameObject.js');

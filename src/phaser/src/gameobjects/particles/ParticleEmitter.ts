@@ -39,12 +39,12 @@ import { RandomZone } from './zones/RandomZone';
 
 import { Mixin } from '../../utils/MixinTS';
 
-const DefaultParticleEmitterNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultParticleEmitterNodes');
+import { DefaultParticleEmitterNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultParticleEmitterNodes';
 const Components = require('../components');
 const GameObject = require('../GameObject');
 const Events = require('./events');
 const Render = require('./ParticleEmitterRender');
-const TintModes = require('../../renderer/TintModes');
+import { TintModes } from '../../renderer/TintModes';
 
 /**
  * Names of simple configuration properties.

@@ -6,7 +6,7 @@
 
 import { GetAdvancedValue } from '../utils/object/GetAdvancedValue';
 
-var BlendModes = require('../renderer/BlendModes');
+import { BlendModes } from '../renderer/BlendModes';    
 
 /**
  * Builds a Game Object using the provided configuration object.

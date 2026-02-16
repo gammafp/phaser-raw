@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const BlendModes = require('../../renderer/BlendModes');
+import { BlendModes } from '../../renderer/BlendModes';
 
 /**
  * Provides methods used for setting the blend mode of a Game Object.

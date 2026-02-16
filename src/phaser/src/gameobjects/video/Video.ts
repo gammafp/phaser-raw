@@ -25,7 +25,7 @@ import { Transform } from '../components/Transform';
 import { Visible } from '../components/Visible';
 import { renderWebGL, renderCanvas } from './VideoRender';
 
-const DefaultImageNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultImageNodes');
+import { DefaultImageNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultImageNodes';
 const GameObject = require('../GameObject');
 const Events = require('../events');
 const GameEvents = require('../../core/events/');

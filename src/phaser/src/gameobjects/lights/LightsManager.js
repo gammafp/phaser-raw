@@ -11,11 +11,11 @@ import { CircleToRectangle } from '../../geom/intersects/CircleToRectangle';
 
 import { DistanceBetween } from '../../math/distance/DistanceBetween';
 import { RGB } from '../../display/RGB';
+import { Utils } from '../../renderer/webgl/Utils';
 
 var Class = require('../../utils/Class');
 var Light = require('./Light');
 var PointLight = require('../pointlight/PointLight');
-var Utils = require('../../renderer/webgl/Utils');
 
 /**
  * @callback LightForEach

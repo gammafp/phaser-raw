@@ -27,7 +27,7 @@ import { GraphicsRender } from './GraphicsRender';
 
 
 const GameObject = require('../GameObject');
-const DefaultGraphicsNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultGraphicsNodes.js');
+import { DefaultGraphicsNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultGraphicsNodes';
 
 /**
  * @classdesc

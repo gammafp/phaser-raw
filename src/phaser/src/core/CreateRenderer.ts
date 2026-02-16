@@ -100,7 +100,7 @@ export const CreateRenderer = (game: Game): any =>
     if (typeof WEBGL_RENDERER && typeof CANVAS_RENDERER)
     {
         CanvasRenderer = require('../renderer/canvas/CanvasRenderer');
-        WebGLRenderer = require('../renderer/webgl/WebGLRenderer');
+        WebGLRenderer = require('../renderer/webgl/WebGLRenderer').WebGLRenderer;
 
         //  Let the config pick the renderer type, as both are included
         if (config.renderType === CONST.WEBGL)
@@ -116,7 +116,7 @@ export const CreateRenderer = (game: Game): any =>
 
     if (typeof WEBGL_RENDERER && !typeof CANVAS_RENDERER)
     {
-        WebGLRenderer = require('../renderer/webgl/WebGLRenderer');
+        WebGLRenderer = require('../renderer/webgl/WebGLRenderer').WebGLRenderer;
 
         //  Force the type to WebGL, regardless what was requested
         config.renderType = CONST.WEBGL;

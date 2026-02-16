@@ -22,7 +22,7 @@ import { Transform } from '../components/Transform';
 import { Visible } from '../components/Visible';
 import { renderWebGL, renderCanvas } from './ImageRender';
 
-const DefaultImageNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultImageNodes');
+import { DefaultImageNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultImageNodes';
 const GameObject = require('../GameObject');
 
 /**

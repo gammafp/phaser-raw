@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var BlendModes = require('../renderer/BlendModes');
+import { BlendModes } from '../renderer/BlendModes';
 
 import type { AddEffectBloomConfig } from './typedefs/AddEffectBloomConfig';
 import type { AddEffectBloomReturn } from './typedefs/AddEffectBloomReturn';

@@ -8,7 +8,7 @@
 
 import { TransformMatrix } from '../components/TransformMatrix';
 
-const Utils = require('../../renderer/webgl/Utils');
+import { Utils } from '../../renderer/webgl/Utils';
 
 const tempMatrix = new TransformMatrix();
 const tempTransformer = {

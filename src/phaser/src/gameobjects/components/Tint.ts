@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const TintModes = require('../../renderer/TintModes');
+import { TintModes } from '../../renderer/TintModes';
 
 /**
  * Provides methods used for setting the tint of a Game Object.

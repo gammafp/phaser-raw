@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const DefaultTilemapGPULayerNodes = require('../renderer/webgl/renderNodes/defaults/DefaultTilemapGPULayerNodes');
+import { DefaultTilemapGPULayerNodes } from '../renderer/webgl/renderNodes/defaults/DefaultTilemapGPULayerNodes';
 import { Mixin } from '../utils/MixinTS';
 import { TilemapLayerBase } from './TilemapLayerBase';
 import * as TilemapGPULayerRender from './TilemapGPULayerRender';

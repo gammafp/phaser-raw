@@ -6,7 +6,8 @@
 
 import { Image } from '../image/Image';
 
-var DefaultStampNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultStampNodes');
+import { DefaultStampNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultStampNodes';
+
 var Class = require('../../utils/Class');
 var StampRender = require('./StampRender');
 

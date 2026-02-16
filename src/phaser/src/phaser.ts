@@ -28,7 +28,7 @@ import * as Time from './time';
 import { Game } from './core/Game';
 
 // Not 100% converted - keep require()
-const BlendModes = require('./renderer/BlendModes');
+import { BlendModes } from './renderer/BlendModes';
 const Cameras = require('./cameras');
 const Core = require('./core');
 const Display = require('./display');
@@ -38,10 +38,10 @@ const Input = require('./input');
 const Loader = require('./loader');
 const Physics = require('./physics');
 const Renderer = require('./renderer');
-const ScaleModes = require('./renderer/ScaleModes');
+import { ScaleModes } from './renderer/ScaleModes';
 const Textures = require('./textures');
 const Tilemaps = require('./tilemaps');
-const TintModes = require('./renderer/TintModes');
+import { TintModes } from './renderer/TintModes';
 const Tweens = require('./tweens');
 const Utils = require('./utils');
 

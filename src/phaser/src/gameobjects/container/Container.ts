@@ -22,7 +22,7 @@ import { Visible } from '../components/Visible';
 import { ContainerRender } from './ContainerRender';
 
 const ArrayUtils = require('../../utils/array');
-const BlendModes = require('../../renderer/BlendModes');
+import { BlendModes } from '../../renderer/BlendModes';
 const Events = require('../events');
 const GameObject = require('../GameObject');
 

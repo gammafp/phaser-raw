@@ -19,8 +19,8 @@ import { EasingEncoding } from './EasingEncoding';
 import { EasingNaming } from './EasingNaming';
 
 var GameObject = require('../GameObject');
-var SubmitterSpriteGPULayer = require('../../renderer/webgl/renderNodes/submitter/SubmitterSpriteGPULayer');
-var Utils = require('../../renderer/webgl/Utils');
+import { SubmitterSpriteGPULayer } from '../../renderer/webgl/renderNodes/submitter/SubmitterSpriteGPULayer';
+import { Utils } from '../../renderer/webgl/Utils';
 
 var getTint = Utils.getTintAppendFloatAlpha;
 
