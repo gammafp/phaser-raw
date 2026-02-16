@@ -2,8 +2,6 @@
 
 This project is a community effort around a modern, TypeScript-based Phaser codebase that is easier to read and work with.
 
-Our goal is simple: make Phaser friendlier for teams building real games today.
-
 ![screenshot](./screenshot.png)
 
 ---
