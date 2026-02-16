@@ -21,37 +21,37 @@ import { Color } from '../../display/color/Color';
  * @param {HTMLCanvasElement} sourceCanvas - The canvas to take a snapshot of.
  * @param {Phaser.Types.Renderer.Snapshot.SnapshotState} config - The snapshot configuration object.
  */
-var CanvasSnapshot = function (canvas, config)
+export const CanvasSnapshot = function (canvas: HTMLCanvasElement, config: any): void
 {
-    var callback = GetFastValue(config, 'callback');
-    var type = GetFastValue(config, 'type', 'image/png');
-    var encoderOptions = GetFastValue(config, 'encoder', 0.92);
-    var x = Math.abs(Math.round(GetFastValue(config, 'x', 0)));
-    var y = Math.abs(Math.round(GetFastValue(config, 'y', 0)));
-    var width = Math.floor(GetFastValue(config, 'width', canvas.width));
-    var height = Math.floor(GetFastValue(config, 'height', canvas.height));
-    var getPixel = GetFastValue(config, 'getPixel', false);
+    const callback = GetFastValue(config, 'callback');
+    const type = GetFastValue(config, 'type', 'image/png');
+    const encoderOptions = GetFastValue(config, 'encoder', 0.92);
+    const x = Math.abs(Math.round(GetFastValue(config, 'x', 0)));
+    const y = Math.abs(Math.round(GetFastValue(config, 'y', 0)));
+    const width = Math.floor(GetFastValue(config, 'width', canvas.width));
+    const height = Math.floor(GetFastValue(config, 'height', canvas.height));
+    const getPixel = GetFastValue(config, 'getPixel', false);
 
     if (getPixel)
     {
-        var context = canvas.getContext('2d', { willReadFrequently: false });
-        var imageData = context.getImageData(x, y, 1, 1);
-        var data = imageData.data;
+        const context = canvas.getContext('2d', { willReadFrequently: false });
+        const imageData = context.getImageData(x, y, 1, 1);
+        const data = imageData.data;
 
         callback.call(null, new Color(data[0], data[1], data[2], data[3]));
     }
     else if (x !== 0 || y !== 0 || width !== canvas.width || height !== canvas.height)
     {
         //  Area Grab
-        var copyCanvas = CanvasPool.createWebGL(this, width, height);
-        var ctx = copyCanvas.getContext('2d', { willReadFrequently: true });
+        const copyCanvas = CanvasPool.createWebGL(this, width, height);
+        const ctx = copyCanvas.getContext('2d', { willReadFrequently: true });
 
         if (width > 0 && height > 0)
         {
             ctx.drawImage(canvas, x, y, width, height, 0, 0, width, height);
         }
 
-        var image1 = new Image();
+        const image1 = new Image();
 
         image1.onerror = function ()
         {
@@ -72,7 +72,7 @@ var CanvasSnapshot = function (canvas, config)
     else
     {
         //  Full Grab
-        var image2 = new Image();
+        const image2 = new Image();
 
         image2.onerror = function ()
         {
@@ -87,5 +87,3 @@ var CanvasSnapshot = function (canvas, config)
         image2.src = canvas.toDataURL(type, encoderOptions);
     }
 };
-
-module.exports = CanvasSnapshot;

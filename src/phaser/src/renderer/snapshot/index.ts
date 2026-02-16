@@ -8,7 +8,7 @@
  * @namespace Phaser.Renderer.Snapshot
  */
 
-const CanvasSnapshot = require('./CanvasSnapshot');
+import { CanvasSnapshot } from './CanvasSnapshot';
 import { WebGLSnapshot } from './WebGLSnapshot';
 
 module.exports = {

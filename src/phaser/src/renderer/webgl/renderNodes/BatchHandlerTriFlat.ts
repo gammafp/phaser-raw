@@ -232,6 +232,7 @@ export class BatchHandlerTriFlat extends BatchHandler {
         let vertexOffset32 = this.vertexCount * stride / vertexViewF32.BYTES_PER_ELEMENT;
 
         const passes: number[] = [];
+        let passOffset = 0;
         const vertexIndices: number[] = [];
         let vertexIndicesOffset = 0;
 
@@ -240,13 +241,13 @@ export class BatchHandlerTriFlat extends BatchHandler {
             const index = indexes[i];
             const vertexIndex = index * 2;
 
-            if (passes[index] !== passID)
+            if (passes[i] !== passID)
             {
                 vertexViewF32[vertexOffset32++] = vertices[vertexIndex];
                 vertexViewF32[vertexOffset32++] = vertices[vertexIndex + 1];
                 vertexViewU32[vertexOffset32++] = colors[index];
 
-                passes[index] = passID;
+                passes[passOffset++] = passID;
 
                 vertexIndices[vertexIndicesOffset++] = this.vertexCount;
 
@@ -273,6 +274,7 @@ export class BatchHandlerTriFlat extends BatchHandler {
 
                 indexOffset16 = this.instanceCount * this.indicesPerInstance;
                 vertexOffset32 = this.vertexCount * stride / vertexViewF32.BYTES_PER_ELEMENT;
+                passOffset = 0;
                 vertexIndicesOffset = 0;
             }
         }
