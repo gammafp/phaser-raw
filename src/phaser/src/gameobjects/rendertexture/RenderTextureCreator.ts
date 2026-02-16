@@ -5,10 +5,10 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { RenderTexture } from './RenderTexture';
 
-var BuildGameObject = require('../BuildGameObject');
-var GameObjectCreator = require('../GameObjectCreator');
-var RenderTexture = require('./RenderTexture');
+const BuildGameObject = require('../BuildGameObject');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new Render Texture Game Object and returns it.
@@ -36,16 +36,13 @@ var RenderTexture = require('./RenderTexture');
  *
  * @return {Phaser.GameObjects.RenderTexture} The Game Object that was created.
  */
-GameObjectCreator.register('renderTexture', function (config, addToScene)
-{
-    if (config === undefined) { config = {}; }
+export const RenderTextureCreator = function (this: any, config: any = {}, addToScene?: boolean): any {
+    const x = GetAdvancedValue(config, 'x', 0);
+    const y = GetAdvancedValue(config, 'y', 0);
+    const width = GetAdvancedValue(config, 'width', 32);
+    const height = GetAdvancedValue(config, 'height', 32);
 
-    var x = GetAdvancedValue(config, 'x', 0);
-    var y = GetAdvancedValue(config, 'y', 0);
-    var width = GetAdvancedValue(config, 'width', 32);
-    var height = GetAdvancedValue(config, 'height', 32);
-
-    var renderTexture = new RenderTexture(this.scene, x, y, width, height);
+    const renderTexture = new RenderTexture(this.scene, x, y, width, height);
 
     if (addToScene !== undefined)
     {
@@ -55,4 +52,6 @@ GameObjectCreator.register('renderTexture', function (config, addToScene)
     BuildGameObject(this.scene, renderTexture, config);
 
     return renderTexture;
-});
+};
+
+GameObjectCreator.register('renderTexture', RenderTextureCreator);

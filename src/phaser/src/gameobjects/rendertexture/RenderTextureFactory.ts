@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GameObjectFactory = require('../GameObjectFactory');
-var RenderTexture = require('./RenderTexture');
+import { RenderTexture } from './RenderTexture';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new Render Texture Game Object and adds it to the Scene.
@@ -35,7 +36,8 @@ var RenderTexture = require('./RenderTexture');
  *
  * @return {Phaser.GameObjects.RenderTexture} The Game Object that was created.
  */
-GameObjectFactory.register('renderTexture', function (x, y, width, height)
-{
+export const RenderTextureFactory = function (this: any, x: number, y: number, width: number = 32, height: number = 32): any {
     return this.displayList.add(new RenderTexture(this.scene, x, y, width, height));
-});
+};
+
+GameObjectFactory.register('renderTexture', RenderTextureFactory);

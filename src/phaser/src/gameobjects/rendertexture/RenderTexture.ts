@@ -5,12 +5,12 @@
  */
 
 import { Image } from '../image/Image';
+import { Mixin } from '../../utils/MixinTS';
+import { renderWebGL, renderCanvas } from './RenderTextureRender';
+import { RenderTextureRenderModes } from './RenderTextureRenderModes';
+import type { RenderTextureRenderMode } from './RenderTextureRenderModes';
 
 import { UUID } from '../../utils/string/UUID';
-
-var Class = require('../../utils/Class');
-var RenderTextureRender = require('./RenderTextureRender');
-var RenderTextureRenderModes = require('./RenderTextureRenderModes');
 
 /**
  * @classdesc
@@ -62,27 +62,25 @@ var RenderTextureRenderModes = require('./RenderTextureRenderModes');
  * @param {number} [height=32] - The height of the Render Texture.
  * @param {boolean} [forceEven=true] - Force the given width and height to be rounded to even values. This significantly improves the rendering quality. Set to false if you know you need an odd sized texture.
  */
-var RenderTexture = new Class({
+export class RenderTexture extends Image {
 
-    Extends: Image,
-
-    Mixins: [
-        RenderTextureRender
-    ],
-
-    initialize:
-
-    function RenderTexture (scene, x, y, width, height, forceEven)
+    static
     {
-        if (x === undefined) { x = 0; }
-        if (y === undefined) { y = 0; }
-        if (width === undefined) { width = 32; }
-        if (height === undefined) { height = 32; }
-        if (forceEven === undefined) { forceEven = true; }
+        Mixin(this, [
+            { renderWebGL, renderCanvas }
+        ]);
+    }
 
-        var dynamicTexture = scene.sys.textures.addDynamicTexture(UUID(), width, height, forceEven);
+    camera: Phaser.Cameras.Scene2D.BaseCamera | null;
+    _saved: boolean;
+    renderMode: RenderTextureRenderMode;
+    isCurrentlyRendering: boolean;
 
-        Image.call(this, scene, x, y, dynamicTexture);
+    constructor(scene: Phaser.Scene, x: number = 0, y: number = 0, width: number = 32, height: number = 32, forceEven: boolean = true)
+    {
+        const dynamicTexture = (scene.sys.textures as any).addDynamicTexture(UUID(), width, height, forceEven);
+
+        super(scene, x, y, dynamicTexture);
 
         this.type = 'RenderTexture';
 
@@ -140,7 +138,7 @@ var RenderTexture = new Class({
          * @since 4.0.0
          */
         this.isCurrentlyRendering = false;
-    },
+    }
 
     /**
      * Sets the internal size of this Render Texture, as used for frame or physics body creation.
@@ -162,14 +160,14 @@ var RenderTexture = new Class({
      *
      * @return {this} This Game Object instance.
      */
-    setSize: function (width, height)
+    setSize(width: number, height: number): this
     {
         this.width = width;
         this.height = height;
 
         this.updateDisplayOrigin();
 
-        var input = this.input;
+        const input = this.input;
 
         if (input && !input.customHitArea)
         {
@@ -178,7 +176,7 @@ var RenderTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Resizes the Render Texture to the new dimensions given.
@@ -202,14 +200,14 @@ var RenderTexture = new Class({
      *
      * @return {this} This Render Texture.
      */
-    resize: function (width, height, forceEven)
+    resize(width: number, height: number = width, forceEven: boolean = true): this
     {
         this.texture.setSize(width, height, forceEven);
 
         this.setSize(this.texture.width, this.texture.height);
 
         return this;
-    },
+    }
 
     /**
      * Stores a copy of this Render Texture in the Texture Manager using the given key.
@@ -246,9 +244,9 @@ var RenderTexture = new Class({
      *
      * @return {Phaser.Textures.DynamicTexture} The Texture that was saved.
      */
-    saveTexture: function (key)
+    saveTexture(key: string): Phaser.Textures.DynamicTexture
     {
-        var texture = this.texture;
+        const texture = this.texture;
 
         texture.key = key;
 
@@ -258,7 +256,7 @@ var RenderTexture = new Class({
         }
 
         return texture;
-    },
+    }
 
     /**
      * Set the `renderMode` of this Render Texture.
@@ -276,7 +274,7 @@ var RenderTexture = new Class({
      * @param {boolean} [preserve=false] - Whether to call `preserve(true)` to preserve the current command buffer.
      * @returns {this} This Render Texture instance.
      */
-    setRenderMode: function (mode, preserve)
+    setRenderMode(mode: RenderTextureRenderMode, preserve: boolean = false): this
     {
         this.renderMode = mode;
 
@@ -286,7 +284,7 @@ var RenderTexture = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Render the buffered drawing commands to this Dynamic Texture.
@@ -295,12 +293,12 @@ var RenderTexture = new Class({
      * @method Phaser.GameObjects.RenderTexture#render
      * @since 4.0.0
      */
-    render: function ()
+    render(): this
     {
         this.texture.render();
 
         return this;
-    },
+    }
 
     /**
      * Fills this Render Texture with the given color.
@@ -322,12 +320,12 @@ var RenderTexture = new Class({
      *
      * @return {this} This Render Texture instance.
      */
-    fill: function (rgb, alpha, x, y, width, height)
+    fill(rgb: number, alpha?: number, x?: number, y?: number, width?: number, height?: number): this
     {
         this.texture.fill(rgb, alpha, x, y, width, height);
 
         return this;
-    },
+    }
 
     /**
      * Clears a portion or everything from this Render Texture by erasing it and resetting it back to
@@ -343,12 +341,12 @@ var RenderTexture = new Class({
      *
      * @return {this} This Render Texture instance.
      */
-    clear: function (x, y, width, height)
+    clear(x?: number, y?: number, width?: number, height?: number): this
     {
         this.texture.clear(x, y, width, height);
 
         return this;
-    },
+    }
 
     /**
      * Takes the given texture key and frame and then stamps it at the given
@@ -374,12 +372,12 @@ var RenderTexture = new Class({
      *
      * @return {this} This Render Texture instance.
      */
-    stamp: function (key, frame, x, y, config)
+    stamp(key: string, frame?: string | number, x?: number, y?: number, config?: Phaser.Types.Textures.StampConfig): this
     {
         this.texture.stamp(key, frame, x, y, config);
 
         return this;
-    },
+    }
 
     /**
      * Draws the given object, or an array of objects, to this Render Texture using a blend mode of ERASE.
@@ -397,12 +395,12 @@ var RenderTexture = new Class({
      *
      * @return {this} This Render Texture instance.
      */
-    erase: function (entries, x, y)
+    erase(entries: any, x?: number, y?: number): this
     {
         this.texture.erase(entries, x, y);
 
         return this;
-    },
+    }
 
     /**
      * Draws the given object, or an array of objects, to this RenderTexture.
@@ -454,12 +452,12 @@ var RenderTexture = new Class({
      *
      * @return {this} This Render Texture instance.
      */
-    draw: function (entries, x, y, alpha, tint)
+    draw(entries: any, x?: number, y?: number, alpha?: number, tint?: number): this
     {
         this.texture.draw(entries, x, y, alpha, tint);
 
         return this;
-    },
+    }
 
     /**
      * Draws the given object to this Render Texture.
@@ -474,12 +472,12 @@ var RenderTexture = new Class({
      *
      * @return {this} This Dynamic Texture instance.
      */
-    capture: function (entry, config)
+    capture(entry: Phaser.GameObjects.GameObject, config: Phaser.Types.Textures.CaptureConfig): this
     {
         this.texture.capture(entry, config);
 
         return this;
-    },
+    }
 
     /**
      * Takes the given Texture Frame and draws it to this Dynamic Texture as a fill pattern,
@@ -509,12 +507,12 @@ var RenderTexture = new Class({
      *
      * @return {this} This Render Texture instance.
      */
-    repeat: function (key, frame, x, y, width, height, config)
+    repeat(key: string, frame?: string | number, x?: number, y?: number, width?: number, height?: number, config?: Phaser.Types.GameObjects.TileSprite.TileSpriteConfig): this
     {
         this.texture.repeat(key, frame, x, y, width, height, config);
 
         return this;
-    },
+    }
 
     /**
      * Sets the preserve flag for this Dynamic Texture.
@@ -530,12 +528,12 @@ var RenderTexture = new Class({
      * @param {boolean} preserve - Whether to preserve the command buffer after rendering.
      * @returns {this} This Render Texture instance.
      */
-    preserve: function (preserve)
+    preserve(preserve: boolean): this
     {
         this.texture.preserve(preserve);
 
         return this;
-    },
+    }
 
     /**
      * Adds a callback to run during the render process.
@@ -549,12 +547,12 @@ var RenderTexture = new Class({
      * @param {Function} callback - A callback function to run during the render process.
      * @returns {this} This Render Texture instance.
      */
-    callback: function (callback)
+    callback(callback: Function): this
     {
         this.texture.callback(callback);
 
         return this;
-    },
+    }
 
     /**
      * Takes a snapshot of the given area of this Render Texture.
@@ -584,12 +582,12 @@ var RenderTexture = new Class({
      *
      * @return {this} This Render Texture instance.
      */
-    snapshotArea: function (x, y, width, height, callback, type, encoderOptions)
+    snapshotArea(x: number, y: number, width: number, height: number, callback: Phaser.Types.Renderer.Snapshot.SnapshotCallback, type?: string, encoderOptions?: number): this
     {
         this.texture.snapshotArea(x, y, width, height, callback, type, encoderOptions);
 
         return this;
-    },
+    }
 
     /**
      * Takes a snapshot of the whole of this Render Texture.
@@ -615,10 +613,10 @@ var RenderTexture = new Class({
      *
      * @return {this} This Render Texture instance.
      */
-    snapshot: function (callback, type, encoderOptions)
+    snapshot(callback: Phaser.Types.Renderer.Snapshot.SnapshotCallback, type?: string, encoderOptions?: number): this
     {
         return this.texture.snapshot(callback, type, encoderOptions);
-    },
+    }
 
     /**
      * Takes a snapshot of the given pixel from this Render Texture.
@@ -641,10 +639,10 @@ var RenderTexture = new Class({
      *
      * @return {this} This Render Texture instance.
      */
-    snapshotPixel: function (x, y, callback)
+    snapshotPixel(x: number, y: number, callback: Phaser.Types.Renderer.Snapshot.SnapshotCallback): this
     {
         return this.texture.snapshotPixel(x, y, callback);
-    },
+    }
 
     /**
      * Internal destroy handler, called as part of the destroy process.
@@ -653,7 +651,7 @@ var RenderTexture = new Class({
      * @protected
      * @since 3.9.0
      */
-    preDestroy: function ()
+    preDestroy()
     {
         this.camera = null;
 
@@ -663,6 +661,4 @@ var RenderTexture = new Class({
         }
     }
 
-});
-
-module.exports = RenderTexture;
+}

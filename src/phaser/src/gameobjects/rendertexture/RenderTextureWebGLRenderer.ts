@@ -5,8 +5,7 @@
  */
 
 import { ImageWebGLRenderer } from '../image/ImageWebGLRenderer';
-
-var RenderTextureRenderModes = require('./RenderTextureRenderModes');
+import { RenderTextureRenderModes } from './RenderTextureRenderModes';
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -22,7 +21,7 @@ var RenderTextureRenderModes = require('./RenderTextureRenderModes');
  * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The current drawing context.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var RenderTextureWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
+export const RenderTextureWebGLRenderer = function (renderer: any, src: any, drawingContext: any, parentMatrix: any): void
 {
     if (src.isCurrentlyRendering)
     {
@@ -30,8 +29,8 @@ var RenderTextureWebGLRenderer = function (renderer, src, drawingContext, parent
     }
     src.isCurrentlyRendering = true;
 
-    var redraw = true;
-    var render = true;
+    let redraw = true;
+    let render = true;
     if (src.renderMode === RenderTextureRenderModes.REDRAW)
     {
         render = false;
@@ -53,5 +52,3 @@ var RenderTextureWebGLRenderer = function (renderer, src, drawingContext, parent
 
     src.isCurrentlyRendering = false;
 };
-
-module.exports = RenderTextureWebGLRenderer;

@@ -5,8 +5,7 @@
  */
 
 import { ImageCanvasRenderer } from '../image/ImageCanvasRenderer';
-
-var RenderTextureRenderModes = require('./RenderTextureRenderModes');
+import { RenderTextureRenderModes } from './RenderTextureRenderModes';
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
@@ -22,10 +21,10 @@ var RenderTextureRenderModes = require('./RenderTextureRenderModes');
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var RenderTextureCanvasRenderer = function (renderer, src, camera, parentMatrix)
+export const RenderTextureCanvasRenderer = function (renderer: any, src: any, camera: any, parentMatrix: any): void
 {
-    var redraw = true;
-    var render = true;
+    let redraw = true;
+    let render = true;
     if (src.renderMode === RenderTextureRenderModes.REDRAW)
     {
         render = false;
@@ -45,5 +44,3 @@ var RenderTextureCanvasRenderer = function (renderer, src, camera, parentMatrix)
         ImageCanvasRenderer(renderer, src, camera, parentMatrix);
     }
 };
-
-module.exports = RenderTextureCanvasRenderer;
