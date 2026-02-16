@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Layer = require('./Layer');
+import { Layer } from './Layer';
 var GameObjectFactory = require('../GameObjectFactory');
 
 /**
@@ -19,7 +19,9 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.Layer} The Game Object that was created.
  */
-GameObjectFactory.register('layer', function (children)
+export const LayerFactory = function (this: any, children?: any): any
 {
     return this.displayList.add(new Layer(this.scene, children));
-});
+};
+
+GameObjectFactory.register('layer', LayerFactory);

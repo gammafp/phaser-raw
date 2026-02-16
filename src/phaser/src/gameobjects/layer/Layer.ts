@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * @author       Richard Davey <rich@phaser.io>
  * @copyright    2013-2026 Phaser Studio Inc.
@@ -5,20 +7,24 @@
  */
 
 import { ToJSON as ComponentsToJSON } from '../components/ToJSON';
-
+import { Mixin } from '../../utils/MixinTS';
 import { StableSort } from '../../utils/array/StableSort';
-
+import { AlphaSingle } from '../components/AlphaSingle';
+import { BlendMode } from '../components/BlendMode';
+import { Depth } from '../components/Depth';
+import { Filters } from '../components/Filters';
+import { Mask } from '../components/Mask';
+import { RenderSteps } from '../components/RenderSteps';
+import { Visible } from '../components/Visible';
 import { List } from '../../structs/List';
 import { DataManager } from '../../data/DataManager';
+import { LayerRender } from './LayerRender';
 
 
-var BlendModes = require('../../renderer/BlendModes');
-var Class = require('../../utils/Class');
-var Components = require('../components');
-var EventEmitter = require('eventemitter3');
-var GameObjectEvents = require('../events');
-var Render = require('./LayerRender');
-var SceneEvents = require('../../scene/events');
+const BlendModes = require('../../renderer/BlendModes');
+const EventEmitter = require('eventemitter3');
+const GameObjectEvents = require('../events');
+const SceneEvents = require('../../scene/events');
 
 /**
  * @classdesc
@@ -77,27 +83,28 @@ var SceneEvents = require('../../scene/events');
  * @param {Phaser.Scene} scene - The Scene to which this Game Object belongs. A Game Object can only belong to one Scene at a time.
  * @param {Phaser.GameObjects.GameObject[]} [children] - An optional array of Game Objects to add to this Layer.
  */
-var Layer = new Class({
+export interface Layer extends AlphaSingle, BlendMode, Depth, Filters, Mask, RenderSteps, Visible, LayerRender {}
 
-    Extends: List,
+export class Layer extends List {
 
-    Mixins: [
-        Components.AlphaSingle,
-        Components.BlendMode,
-        Components.Depth,
-        Components.Filters,
-        Components.Mask,
-        Components.RenderSteps, // This does not extend GameObject so it must mixin RenderSteps here.
-        Components.Visible,
-        EventEmitter,
-        Render
-    ],
-
-    initialize:
-
-    function Layer (scene, children)
+    static
     {
-        List.call(this, scene);
+        Mixin(this, [
+            AlphaSingle,
+            BlendMode,
+            Depth,
+            Filters,
+            Mask,
+            RenderSteps, // This does not extend GameObject so it must mixin RenderSteps here.
+            Visible,
+            EventEmitter,
+            LayerRender
+        ]);
+    }
+
+    constructor(scene, children)
+    {
+        super(scene);
         EventEmitter.call(this);
 
         /**
@@ -323,7 +330,7 @@ var Layer = new Class({
 
         //  Tell the Scene to re-sort the children
         scene.sys.queueDepthSort();
-    },
+    }
 
     /**
      * Sets the `active` property of this Game Object and returns this Game Object for further chaining.
@@ -336,12 +343,12 @@ var Layer = new Class({
      *
      * @return {this} This GameObject.
      */
-    setActive: function (value)
+    setActive(value)
     {
         this.active = value;
 
         return this;
-    },
+    }
 
     /**
      * Sets the `name` property of this Game Object and returns this Game Object for further chaining.
@@ -354,12 +361,12 @@ var Layer = new Class({
      *
      * @return {this} This GameObject.
      */
-    setName: function (value)
+    setName(value)
     {
         this.name = value;
 
         return this;
-    },
+    }
 
     /**
      * Sets the current state of this Game Object.
@@ -378,12 +385,12 @@ var Layer = new Class({
      *
      * @return {this} This GameObject.
      */
-    setState: function (value)
+    setState(value)
     {
         this.state = value;
 
         return this;
-    },
+    }
 
     /**
      * Adds a Data Manager component to this Game Object.
@@ -394,7 +401,7 @@ var Layer = new Class({
      *
      * @return {this} This GameObject.
      */
-    setDataEnabled: function ()
+    setDataEnabled()
     {
         if (!this.data)
         {
@@ -402,7 +409,7 @@ var Layer = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Allows you to store a key value pair within this Game Objects Data Manager.
@@ -451,7 +458,7 @@ var Layer = new Class({
      *
      * @return {this} This GameObject.
      */
-    setData: function (key, value)
+    setData(key, value)
     {
         if (!this.data)
         {
@@ -461,7 +468,7 @@ var Layer = new Class({
         this.data.set(key, value);
 
         return this;
-    },
+    }
 
     /**
      * Increase a value for the given key within this Game Objects Data Manager. If the key doesn't already exist in the Data Manager then it is increased from 0.
@@ -481,7 +488,7 @@ var Layer = new Class({
      *
      * @return {this} This GameObject.
      */
-    incData: function (key, value)
+    incData(key, value)
     {
         if (!this.data)
         {
@@ -491,7 +498,7 @@ var Layer = new Class({
         this.data.inc(key, value);
 
         return this;
-    },
+    }
 
     /**
      * Toggle a boolean value for the given key within this Game Objects Data Manager. If the key doesn't already exist in the Data Manager then it is toggled from false.
@@ -510,7 +517,7 @@ var Layer = new Class({
      *
      * @return {this} This GameObject.
      */
-    toggleData: function (key)
+    toggleData(key)
     {
         if (!this.data)
         {
@@ -520,7 +527,7 @@ var Layer = new Class({
         this.data.toggle(key);
 
         return this;
-    },
+    }
 
     /**
      * Retrieves the value for the given key in this Game Objects Data Manager, or undefined if it doesn't exist.
@@ -552,7 +559,7 @@ var Layer = new Class({
      *
      * @return {*} The value belonging to the given key, or an array of values, the order of which will match the input array.
      */
-    getData: function (key)
+    getData(key)
     {
         if (!this.data)
         {
@@ -560,7 +567,7 @@ var Layer = new Class({
         }
 
         return this.data.get(key);
-    },
+    }
 
     /**
      * A Layer cannot be enabled for input.
@@ -573,10 +580,10 @@ var Layer = new Class({
      *
      * @return {this} This GameObject.
      */
-    setInteractive: function ()
+    setInteractive()
     {
         return this;
-    },
+    }
 
     /**
      * A Layer cannot be enabled for input.
@@ -589,10 +596,10 @@ var Layer = new Class({
      *
      * @return {this} This GameObject.
      */
-    disableInteractive: function ()
+    disableInteractive()
     {
         return this;
-    },
+    }
 
     /**
      * A Layer cannot be enabled for input.
@@ -605,10 +612,10 @@ var Layer = new Class({
      *
      * @return {this} This GameObject.
      */
-    removeInteractive: function ()
+    removeInteractive()
     {
         return this;
-    },
+    }
 
     /**
      * This callback is invoked when this Game Object is added to a Scene.
@@ -621,9 +628,9 @@ var Layer = new Class({
      * @method Phaser.GameObjects.Layer#addedToScene
      * @since 3.50.0
      */
-    addedToScene: function ()
+    addedToScene()
     {
-    },
+    }
 
     /**
      * This callback is invoked when this Game Object is removed from a Scene.
@@ -636,9 +643,9 @@ var Layer = new Class({
      * @method Phaser.GameObjects.Layer#removedFromScene
      * @since 3.50.0
      */
-    removedFromScene: function ()
+    removedFromScene()
     {
-    },
+    }
 
     /**
      * To be overridden by custom GameObjects. Allows base objects to be used in a Pool.
@@ -648,9 +655,9 @@ var Layer = new Class({
      *
      * @param {...*} [args] - args
      */
-    update: function ()
+    update()
     {
-    },
+    }
 
     /**
      * Returns a JSON representation of the Game Object.
@@ -660,10 +667,10 @@ var Layer = new Class({
      *
      * @return {Phaser.Types.GameObjects.JSONGameObject} A JSON representation of the Game Object.
      */
-    toJSON: function ()
+    toJSON()
     {
         return ComponentsToJSON(this);
-    },
+    }
 
     /**
      * Compares the renderMask with the renderFlags to see if this Game Object will render or not.
@@ -676,10 +683,10 @@ var Layer = new Class({
      *
      * @return {boolean} True if the Game Object should be rendered, otherwise false.
      */
-    willRender: function (camera)
+    willRender(camera)
     {
         return !(this.renderFlags !== 15 || this.list.length === 0 || (this.cameraFilter !== 0 && (this.cameraFilter & camera.id)));
-    },
+    }
 
     /**
      * Returns an array containing the display list index of either this Game Object, or if it has one,
@@ -694,7 +701,7 @@ var Layer = new Class({
      *
      * @return {number[]} An array of display list position indexes.
      */
-    getIndexList: function ()
+    getIndexList()
     {
         // eslint-disable-next-line consistent-this
         var child = this;
@@ -721,7 +728,7 @@ var Layer = new Class({
         indexes.unshift(this.displayList.getIndex(child));
 
         return indexes;
-    },
+    }
 
     /**
      * Internal method called from `List.addCallback`.
@@ -734,7 +741,7 @@ var Layer = new Class({
      *
      * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that was added to the list.
      */
-    addChildCallback: function (gameObject)
+    addChildCallback(gameObject)
     {
         var displayList = gameObject.displayList;
 
@@ -753,7 +760,7 @@ var Layer = new Class({
 
             this.events.emit(SceneEvents.ADDED_TO_SCENE, gameObject, this.scene);
         }
-    },
+    }
 
     /**
      * Internal method called from `List.removeCallback`.
@@ -766,7 +773,7 @@ var Layer = new Class({
      *
      * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that was removed from the list.
      */
-    removeChildCallback: function (gameObject)
+    removeChildCallback(gameObject)
     {
         this.queueDepthSort();
 
@@ -775,7 +782,7 @@ var Layer = new Class({
         gameObject.emit(GameObjectEvents.REMOVED_FROM_SCENE, gameObject, this.scene);
 
         this.events.emit(SceneEvents.REMOVED_FROM_SCENE, gameObject, this.scene);
-    },
+    }
 
     /**
      * Force a sort of the display list on the next call to depthSort.
@@ -783,10 +790,10 @@ var Layer = new Class({
      * @method Phaser.GameObjects.Layer#queueDepthSort
      * @since 3.50.0
      */
-    queueDepthSort: function ()
+    queueDepthSort()
     {
         this.sortChildrenFlag = true;
-    },
+    }
 
     /**
      * Immediately sorts the display list if the flag is set.
@@ -794,7 +801,7 @@ var Layer = new Class({
      * @method Phaser.GameObjects.Layer#depthSort
      * @since 3.50.0
      */
-    depthSort: function ()
+    depthSort()
     {
         if (this.sortChildrenFlag)
         {
@@ -802,7 +809,7 @@ var Layer = new Class({
 
             this.sortChildrenFlag = false;
         }
-    },
+    }
 
     /**
      * Compare the depth of two Game Objects.
@@ -815,10 +822,10 @@ var Layer = new Class({
      *
      * @return {number} The difference between the depths of each Game Object.
      */
-    sortByDepth: function (childA, childB)
+    sortByDepth(childA, childB)
     {
         return childA._depth - childB._depth;
-    },
+    }
 
     /**
      * Returns a reference to the array which contains all Game Objects in this Layer.
@@ -830,10 +837,10 @@ var Layer = new Class({
      *
      * @return {Phaser.GameObjects.GameObject[]} An array of Game Objects within this Layer.
      */
-    getChildren: function ()
+    getChildren()
     {
         return this.list;
-    },
+    }
 
     /**
      * Adds this Layer to the given Display List.
@@ -860,7 +867,7 @@ var Layer = new Class({
      *
      * @return {this} This Layer instance.
      */
-    addToDisplayList: function (displayList)
+    addToDisplayList(displayList)
     {
         if (displayList === undefined) { displayList = this.scene.sys.displayList; }
 
@@ -884,7 +891,7 @@ var Layer = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Removes this Layer from the Display List it is currently on.
@@ -904,7 +911,7 @@ var Layer = new Class({
      *
      * @return {this} This Layer instance.
      */
-    removeFromDisplayList: function ()
+    removeFromDisplayList()
     {
         var displayList = this.displayList || this.scene.sys.displayList;
 
@@ -922,7 +929,7 @@ var Layer = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Returns a reference to the underlying display list _array_ that contains this Game Object,
@@ -940,7 +947,7 @@ var Layer = new Class({
      *
      * @return {?Phaser.GameObjects.GameObject[]} The internal Display List array of Game Objects, or `null`.
      */
-    getDisplayList: function ()
+    getDisplayList()
     {
         var list = null;
 
@@ -954,7 +961,7 @@ var Layer = new Class({
         }
 
         return list;
-    },
+    }
 
     /**
      * Destroys this Layer removing it from the Display List and Update List and
@@ -976,7 +983,7 @@ var Layer = new Class({
      *
      * @param {boolean} [fromScene=false] - `True` if this Game Object is being destroyed by the Scene, `false` if not.
      */
-    destroy: function (fromScene)
+    destroy(fromScene)
     {
         //  This Game Object has already been destroyed
         if (!this.scene || this.ignoreDestroy)
@@ -1147,6 +1154,4 @@ var Layer = new Class({
      * @return {this} This Layer instance.
      */
 
-});
-
-module.exports = Layer;
+}

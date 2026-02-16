@@ -5,10 +5,10 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { Layer } from './Layer';
 
-var BuildGameObject = require('../BuildGameObject');
-var Layer = require('./Layer');
-var GameObjectCreator = require('../GameObjectCreator');
+const BuildGameObject = require('../BuildGameObject');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new Layer Game Object and returns it.
@@ -23,13 +23,13 @@ var GameObjectCreator = require('../GameObjectCreator');
  *
  * @return {Phaser.GameObjects.Layer} The Game Object that was created.
  */
-GameObjectCreator.register('layer', function (config, addToScene)
+export const LayerCreator = function (this: any, config?: any, addToScene?: boolean): any
 {
     if (config === undefined) { config = {}; }
 
-    var children = GetAdvancedValue(config, 'children', null);
+    const children = GetAdvancedValue(config, 'children', null);
 
-    var layer = new Layer(this.scene, children);
+    const layer = new Layer(this.scene, children);
 
     if (addToScene !== undefined)
     {
@@ -39,4 +39,6 @@ GameObjectCreator.register('layer', function (config, addToScene)
     BuildGameObject(this.scene, layer, config);
 
     return layer;
-});
+};
+
+GameObjectCreator.register('layer', LayerCreator);

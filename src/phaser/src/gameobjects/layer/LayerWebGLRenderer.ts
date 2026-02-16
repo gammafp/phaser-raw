@@ -23,22 +23,22 @@ import { PHASER_CONST as CONST } from '../../const';
  * * @param {Phaser.GameObjects.GameObject[]} displayList - The display list which is currently being rendered.
  * @param {number} displayListIndex - The index of the Game Object within the display list.
  */
-var LayerWebGLRenderer = function (renderer, layer, drawingContext, parentMatrix, renderStep, displayList, displayListIndex)
+export function LayerWebGLRenderer(renderer: any, layer: any, drawingContext: any, parentMatrix: any, renderStep: number, displayList: any[], displayListIndex: number): void
 {
-    var children = layer.list;
-    var childCount = children.length;
+    const children = layer.list;
+    const childCount = children.length;
 
     if (childCount === 0)
     {
         return;
     }
 
-    var currentContext = drawingContext;
-    var camera = currentContext.camera;
+    let currentContext = drawingContext;
+    const camera = currentContext.camera;
 
     layer.depthSort();
 
-    var layerHasBlendMode = (layer.blendMode !== CONST.BlendModes.SKIP_CHECK);
+    const layerHasBlendMode = (layer.blendMode !== CONST.BlendModes.SKIP_CHECK);
 
     if (!layerHasBlendMode && currentContext.blendMode !== 0)
     {
@@ -48,21 +48,21 @@ var LayerWebGLRenderer = function (renderer, layer, drawingContext, parentMatrix
         currentContext.use();
     }
 
-    var alpha = layer.alpha;
+    const alpha = layer.alpha;
 
-    for (var i = 0; i < childCount; i++)
+    for (let i = 0; i < childCount; i++)
     {
-        var child = children[i];
+        const child = children[i];
 
         if (!child.willRender(camera))
         {
             continue;
         }
 
-        var childAlphaTopLeft;
-        var childAlphaTopRight;
-        var childAlphaBottomLeft;
-        var childAlphaBottomRight;
+        let childAlphaTopLeft: number;
+        let childAlphaTopRight: number;
+        let childAlphaBottomLeft: number;
+        let childAlphaBottomRight: number;
 
         if (child.alphaTopLeft !== undefined)
         {
@@ -73,7 +73,7 @@ var LayerWebGLRenderer = function (renderer, layer, drawingContext, parentMatrix
         }
         else
         {
-            var childAlpha = child.alpha;
+            const childAlpha = child.alpha;
 
             childAlphaTopLeft = childAlpha;
             childAlphaTopRight = childAlpha;
@@ -107,6 +107,4 @@ var LayerWebGLRenderer = function (renderer, layer, drawingContext, parentMatrix
     {
         currentContext.release();
     }
-};
-
-module.exports = LayerWebGLRenderer;
+}
