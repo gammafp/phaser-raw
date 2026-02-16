@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Group = require('./Group');
-var GameObjectFactory = require('../GameObjectFactory');
+import { Group } from './Group';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new Group Game Object and adds it to the Scene.
@@ -20,7 +21,8 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.Group} The Game Object that was created.
  */
-GameObjectFactory.register('group', function (children, config)
-{
+export const GroupFactory = function (this: any, children?: any, config?: any): Group {
     return this.updateList.add(new Group(this.scene, children, config));
-});
+};
+
+GameObjectFactory.register('group', GroupFactory);

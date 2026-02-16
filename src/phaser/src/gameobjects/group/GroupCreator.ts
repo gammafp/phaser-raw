@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GameObjectCreator = require('../GameObjectCreator');
-var Group = require('./Group');
+import { Group } from './Group';
+
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new Group Game Object and returns it.
@@ -19,9 +20,10 @@ var Group = require('./Group');
  *
  * @return {Phaser.GameObjects.Group} The Game Object that was created.
  */
-GameObjectCreator.register('group', function (config)
-{
+export const GroupCreator = function (this: any, config: any): Group {
     return new Group(this.scene, null, config);
-});
+};
+
+GameObjectCreator.register('group', GroupCreator);
 
 //  When registering a factory function 'this' refers to the GameObjectCreator context.

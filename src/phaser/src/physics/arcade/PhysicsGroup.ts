@@ -11,7 +11,7 @@ import { ArcadeSprite } from './ArcadeSprite';
 import { Collision } from './components/Collision';
 import { DYNAMIC_BODY } from './const';
 
-const Group = require('../../gameobjects/group/Group');
+import { Group } from '../../gameobjects/group/Group';
 
 /**
  * @classdesc

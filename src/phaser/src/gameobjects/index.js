@@ -81,6 +81,9 @@ import { RopeCreator } from './rope/RopeCreator';
 import { Sprite } from './sprite/Sprite';
 import { SpriteFactory } from './sprite/SpriteFactory';
 import { SpriteCreator } from './sprite/SpriteCreator';
+import { Group } from './group/Group';
+import { GroupFactory } from './group/GroupFactory';
+import { GroupCreator } from './group/GroupCreator';
 import { Shader } from './shader/Shader';
 import { ShaderFactory } from './shader/ShaderFactory';
 import { ShaderCreator } from './shader/ShaderCreator';
@@ -112,7 +115,7 @@ var GameObjects = {
     DynamicBitmapText: DynamicBitmapText,
     Extern: require('./extern/Extern'),
     Graphics: Graphics,
-    Group: require('./group/Group'),
+    Group: Group,
     Image: Image,
     Layer: require('./layer/Layer'),
     Particles: require('./particles'),
@@ -156,7 +159,7 @@ var GameObjects = {
         DynamicBitmapText: DynamicBitmapTextFactory,
         Extern: require('./extern/ExternFactory'),
         Graphics: GraphicsFactory,
-        Group: require('./group/GroupFactory'),
+        Group: GroupFactory,
         Image: ImageFactory,
         Layer: require('./layer/LayerFactory'),
         Particles: require('./particles/ParticleEmitterFactory'),
@@ -190,7 +193,7 @@ var GameObjects = {
         Container: require('./container/ContainerCreator'),
         DynamicBitmapText: DynamicBitmapTextCreator,
         Graphics: GraphicsCreator,
-        Group: require('./group/GroupCreator'),
+        Group: GroupCreator,
         Image: ImageCreator,
         Layer: require('./layer/LayerCreator'),
         Particles: require('./particles/ParticleEmitterCreator'),
