@@ -474,7 +474,7 @@ export class AnimationManager extends EventEmitter {
                         yoyo: (direction === 'pingpong')
                     };
 
-                    let result: Animation | false;
+                    let result: Animation | false = false;
 
                     if (target)
                     {
@@ -528,7 +528,7 @@ export class AnimationManager extends EventEmitter {
 
         if (key)
         {
-            anim = this.get(key);
+            anim = this.get(key) || false;
 
             if (!anim)
             {
@@ -580,7 +580,12 @@ export class AnimationManager extends EventEmitter {
         {
             for (let i = 0; i < data.anims.length; i++)
             {
-                output.push(this.create(data.anims[i])!);
+                const created = this.create(data.anims[i]);
+
+                if (created)
+                {
+                    output.push(created);
+                }
             }
 
             if (data.hasOwnProperty('globalTimeScale'))
@@ -590,7 +595,12 @@ export class AnimationManager extends EventEmitter {
         }
         else if (data.hasOwnProperty('key') && data.type === 'frame')
         {
-            output.push(this.create(data)!);
+            const created = this.create(data);
+
+            if (created)
+            {
+                output.push(created);
+            }
         }
 
         return output;
@@ -1048,7 +1058,7 @@ export class AnimationManager extends EventEmitter {
         }
         else
         {
-            this.anims.each(function (animationKey, animation)
+            this.anims.each(function (_animationKey: string, animation: Animation)
             {
                 output.anims.push(animation.toJSON());
             });

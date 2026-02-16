@@ -167,7 +167,7 @@ export class Zone extends GameObject {
      *
      * @return {this} This Game Object.
      */
-    setSize(width, height, resizeInput)
+    setSize(width, height, resizeInput = true)
     {
         if (resizeInput === undefined) { resizeInput = true; }
 

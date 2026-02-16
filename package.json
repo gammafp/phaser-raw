@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
+    "build:types": "tsc && vite build",
     "typecheck": "tsc --noEmit --pretty",
     "typecheck:watch": "tsc --noEmit --watch --pretty",
     "typecheck:phaser": "tsc -p tsconfig.phaser.json --noEmit --pretty",

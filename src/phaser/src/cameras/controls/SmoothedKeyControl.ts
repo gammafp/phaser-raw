@@ -39,6 +39,26 @@ import { GetValue } from '../../utils/object/GetValue';
  * @param {Phaser.Types.Cameras.Controls.SmoothedKeyControlConfig} config - The Smoothed Key Control configuration object.
  */
 export class SmoothedKeyControl {
+    camera: any;
+    left: any;
+    right: any;
+    up: any;
+    down: any;
+    zoomIn: any;
+    zoomOut: any;
+    zoomSpeed: number;
+    minZoom: number;
+    maxZoom: number;
+    accelX: number;
+    accelY: number;
+    dragX: number;
+    dragY: number;
+    maxSpeedX: number;
+    maxSpeedY: number;
+    _speedX: number;
+    _speedY: number;
+    _zoom: number;
+    active: boolean;
 
     constructor(config: any)
     {
@@ -292,7 +312,7 @@ export class SmoothedKeyControl {
      *
      * @return {this} This Key Control instance.
      */
-    start()
+    start(): this
     {
         this.active = (this.camera !== null);
 
@@ -307,7 +327,7 @@ export class SmoothedKeyControl {
      *
      * @return {this} This Key Control instance.
      */
-    stop()
+    stop(): this
     {
         this.active = false;
 
@@ -324,7 +344,7 @@ export class SmoothedKeyControl {
      *
      * @return {this} This Key Control instance.
      */
-    setCamera(camera)
+    setCamera(camera: any): this
     {
         this.camera = camera;
 
@@ -341,14 +361,12 @@ export class SmoothedKeyControl {
      *
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    update(delta)
+    update(delta: number = 1): void
     {
         if (!this.active)
         {
             return;
         }
-
-        if (delta === undefined) { delta = 1; }
 
         var cam = this.camera;
 
@@ -480,7 +498,7 @@ export class SmoothedKeyControl {
      * @method Phaser.Cameras.Controls.SmoothedKeyControl#destroy
      * @since 3.0.0
      */
-    destroy()
+    destroy(): void
     {
         this.camera = null;
 

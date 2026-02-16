@@ -593,7 +593,7 @@ export class AnimationState {
      */
     getFrameName(): string
     {
-        return (this.currentFrame) ? this.currentFrame.textureFrame : '';
+        return (this.currentFrame) ? String(this.currentFrame.textureFrame) : '';
     }
 
     /**
@@ -1276,9 +1276,9 @@ export class AnimationState {
      * @param {string} [key] - The key of the removed Animation.
      * @param {Phaser.Animations.Animation} [animation] - The removed Animation.
      */
-    globalRemove(key?: string, animation?: Animation): void
+    globalRemove(_key?: string, animation?: Animation | null): void
     {
-        if (animation === undefined) { animation = this.currentAnim; }
+        if (animation == null) { animation = this.currentAnim; }
 
         if (this.isPlaying && animation && this.currentAnim && animation.key === this.currentAnim.key)
         {
@@ -1534,7 +1534,7 @@ export class AnimationState {
      * @param {number} time - The current timestamp.
      * @param {number} delta - The delta time, in ms, elapsed since the last frame.
      */
-    update(time: number, delta: number): void
+    update(_time: number, delta: number): void
     {
         const anim = this.currentAnim;
 
@@ -1627,9 +1627,11 @@ export class AnimationState {
             gameObject.frame.updateCropUVs(gameObject._crop, gameObject.flipX, gameObject.flipY);
         }
 
-        if (animationFrame.setAlpha)
+        const alphaFrame = animationFrame as any;
+
+        if (alphaFrame.setAlpha)
         {
-            gameObject.alpha = animationFrame.alpha;
+            gameObject.alpha = alphaFrame.alpha;
         }
 
         gameObject.setSizeToFrame();
@@ -1717,7 +1719,7 @@ export class AnimationState {
      */
     get(key: string): Animation | null
     {
-        return (this.anims) ? this.anims.get(key) : null;
+        return (this.anims) ? (this.anims.get(key) || null) : null;
     }
 
     /**
@@ -1767,7 +1769,7 @@ export class AnimationState {
 
         if (key)
         {
-            anim = this.get(key);
+            anim = this.get(key) || false;
 
             if (!anim)
             {

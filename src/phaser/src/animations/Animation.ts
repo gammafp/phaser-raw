@@ -384,8 +384,8 @@ export class Animation {
     {
         //  When is the first update due?
         state.accumulator = 0;
-        
-        state.nextTick = state.frameRate === state.currentAnim.frameRate ? state.currentFrame.duration || state.msPerFrame : state.msPerFrame;
+
+        state.nextTick = state.frameRate === state.currentAnim!.frameRate ? state.currentFrame!.duration || state.msPerFrame : state.msPerFrame;
     }
 
     /**
@@ -415,13 +415,13 @@ export class Animation {
      *
      * @return {Phaser.Animations.AnimationFrame[]} An array of newly created AnimationFrame instances.
      */
-    getFrames(textureManager: any, frames: string | any[], defaultTextureKey: string | null, sortFrames?: boolean): Frame[]
+    getFrames(textureManager: any, frames: string | any[], defaultTextureKey?: string | null, sortFrames?: boolean): Frame[]
     {
         if (sortFrames === undefined) { sortFrames = true; }
 
         const out: Frame[] = [];
         let prev: Frame | undefined;
-        let animationFrame: Frame;
+        let animationFrame: Frame | null = null;
         let index = 1;
         let i: number;
         let textureKey: string;
@@ -448,9 +448,9 @@ export class Animation {
 
             frames = [];
 
-            frameKeys.forEach(function (value)
+            frameKeys.forEach(function (value: string)
             {
-                frames.push({ key: textureKey, frame: value });
+                (frames as any[]).push({ key: textureKey, frame: value });
             });
         }
 
@@ -506,12 +506,12 @@ export class Animation {
 
         if (out.length > 0)
         {
-            animationFrame.isLast = true;
+            animationFrame!.isLast = true;
 
             //  Link them end-to-end, so they loop
-            animationFrame.nextFrame = out[0];
+            animationFrame!.nextFrame = out[0];
 
-            out[0].prevFrame = animationFrame;
+            out[0].prevFrame = animationFrame!;
 
             //  Generate the progress data
 
@@ -538,7 +538,7 @@ export class Animation {
     {
         state.accumulator -= state.nextTick;
 
-        state.nextTick = state.frameRate === state.currentAnim.frameRate ? state.currentFrame.duration || state.msPerFrame : state.msPerFrame;
+        state.nextTick = state.frameRate === state.currentAnim!.frameRate ? state.currentFrame!.duration || state.msPerFrame : state.msPerFrame;
     }
 
     /**
@@ -568,7 +568,7 @@ export class Animation {
      */
     nextFrame(state: AnimationState): void
     {
-        const frame = state.currentFrame;
+        const frame = state.currentFrame!;
 
         if (frame.isLast)
         {
@@ -638,7 +638,7 @@ export class Animation {
 
         state.forward = isReverse;
 
-        const frame = (isReverse) ? state.currentFrame.nextFrame : state.currentFrame.prevFrame;
+        const frame = (isReverse) ? state.currentFrame!.nextFrame : state.currentFrame!.prevFrame;
 
         this.updateAndGetNextTick(state, frame!);
     }
@@ -667,7 +667,7 @@ export class Animation {
      */
     previousFrame(state: AnimationState): void
     {
-        const frame = state.currentFrame;
+        const frame = state.currentFrame!;
 
         if (frame.isFirst)
         {
@@ -799,11 +799,11 @@ export class Animation {
 
             if (state.forward)
             {
-                state.setCurrentFrame(state.currentFrame.nextFrame!);
+                state.setCurrentFrame(state.currentFrame!.nextFrame!);
             }
             else
             {
-                state.setCurrentFrame(state.currentFrame.prevFrame!);
+                state.setCurrentFrame(state.currentFrame!.prevFrame!);
             }
 
             if (state.isPlaying)

@@ -33,6 +33,20 @@ import { GetValue } from '../../utils/object/GetValue';
  * @param {Phaser.Types.Cameras.Controls.FixedKeyControlConfig} config - The Fixed Key Control configuration object.
  */
 export class FixedKeyControl {
+    camera: any;
+    left: any;
+    right: any;
+    up: any;
+    down: any;
+    zoomIn: any;
+    zoomOut: any;
+    zoomSpeed: number;
+    minZoom: number;
+    maxZoom: number;
+    speedX: number;
+    speedY: number;
+    _zoom: number;
+    active: boolean;
 
     constructor(config: any)
     {
@@ -198,7 +212,7 @@ export class FixedKeyControl {
      *
      * @return {this} This Key Control instance.
      */
-    start()
+    start(): this
     {
         this.active = (this.camera !== null);
 
@@ -213,7 +227,7 @@ export class FixedKeyControl {
      *
      * @return {this} This Key Control instance.
      */
-    stop()
+    stop(): this
     {
         this.active = false;
 
@@ -230,7 +244,7 @@ export class FixedKeyControl {
      *
      * @return {this} This Key Control instance.
      */
-    setCamera(camera)
+    setCamera(camera: any): this
     {
         this.camera = camera;
 
@@ -247,14 +261,12 @@ export class FixedKeyControl {
      *
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    update(delta)
+    update(delta: number = 1): void
     {
         if (!this.active)
         {
             return;
         }
-
-        if (delta === undefined) { delta = 1; }
 
         var cam = this.camera;
 
@@ -304,7 +316,7 @@ export class FixedKeyControl {
      * @method Phaser.Cameras.Controls.FixedKeyControl#destroy
      * @since 3.0.0
      */
-    destroy()
+    destroy(): void
     {
         this.camera = null;
 

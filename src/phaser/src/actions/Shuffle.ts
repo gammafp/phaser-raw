@@ -24,5 +24,5 @@ import { Shuffle as ArrayShuffle } from '../utils/array/Shuffle';
  */
 export const Shuffle = <G extends any[]>(items: G): G =>
 {
-    return ArrayShuffle(items);
+    return ArrayShuffle(items) as G;
 };

@@ -282,11 +282,11 @@ export class Camera extends BaseCamera {
             if (this.deadzone)
             {
                 this.deadzone.width = width;
-                this.deadzone.height = height;
+                this.deadzone.height = height ?? width;
             }
             else
             {
-                this.deadzone = new Rectangle(0, 0, width, height);
+                this.deadzone = new Rectangle(0, 0, width, height ?? width);
             }
 
             if (this._follow)
@@ -671,8 +671,8 @@ export class Camera extends BaseCamera {
     {
         if (
             forceComposite || this.forceComposite ||
-            this.filters.external.length > 0 ||
-            this.filters.internal.length > 0
+            this.filters.external.list.length > 0 ||
+            this.filters.internal.list.length > 0
         )
         {
             return this.matrix;

@@ -246,7 +246,7 @@ export class CameraManager {
         if (makeMain === undefined) { makeMain = false; }
         if (name === undefined) { name = ''; }
 
-        var camera = new Camera(x, y, width, height);
+        var camera = new Camera(x, y, width!, height!);
 
         camera.setName(name);
         camera.setScene(this.scene);
@@ -688,7 +688,7 @@ export class CameraManager {
      * @param {Phaser.Structs.Size} gameSize - The default Game Size object. This is the un-modified game dimensions.
      * @param {Phaser.Structs.Size} baseSize - The base Size object. The game dimensions. The canvas width / height values match this.
      */
-    onResize(gameSize: any, baseSize: any, displaySize: any, previousWidth: number, previousHeight: number): void
+    onResize(_gameSize: any, baseSize: any, _displaySize: any, previousWidth: number, previousHeight: number): void
     {
         for (var i = 0; i < this.cameras.length; i++)
         {
@@ -758,7 +758,10 @@ export class CameraManager {
     {
         this.shutdown();
 
-        this.default.destroy();
+        if (this.default)
+        {
+            this.default.destroy();
+        }
 
         this.systems.events.off(SceneEvents.START, this.start, this);
         this.systems.events.off(SceneEvents.DESTROY, this.destroy, this);

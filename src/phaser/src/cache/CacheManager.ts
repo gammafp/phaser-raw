@@ -222,8 +222,8 @@ export class CacheManager {
 
         for (let i = 0; i < keys.length; i++)
         {
-            this[keys[i]].destroy();
-            this[keys[i]] = null;
+            (this as any)[keys[i]].destroy();
+            (this as any)[keys[i]] = null;
         }
 
         for (const key in this.custom)
@@ -231,7 +231,7 @@ export class CacheManager {
             this.custom[key].destroy();
         }
 
-        this.custom = null;
+        this.custom = {};
 
         this.game = null;
     }

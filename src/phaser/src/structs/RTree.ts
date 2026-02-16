@@ -4,7 +4,6 @@
  * @copyright    2013-2025 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
-
 import { QuickSelect as quickselect } from '../utils/array/QuickSelect';
 
 // import { QuickSelect as quickselect } from '../utils/array/QuickSelect';

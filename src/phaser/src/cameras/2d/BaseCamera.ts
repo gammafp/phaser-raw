@@ -74,10 +74,10 @@ export class BaseCamera extends EventEmitter {
     dirty: boolean = true;
 
     // Viewport
-    private _x: number;
-    private _y: number;
-    private _width: number;
-    private _height: number;
+    protected _x: number;
+    protected _y: number;
+    protected _width: number;
+    protected _height: number;
 
     // Bounds and scroll
     private _bounds: Rectangle;
@@ -97,6 +97,8 @@ export class BaseCamera extends EventEmitter {
     // Background
     transparent: boolean = true;
     backgroundColor: any;
+    alpha: number = 1;
+    visible: boolean = true;
 
     // Culling and render list
     disableCull: boolean = false;
@@ -113,7 +115,7 @@ export class BaseCamera extends EventEmitter {
 
     // Masking
     mask: any = null;
-    private _maskCamera: BaseCamera | null = null;
+    _maskCamera: BaseCamera | null = null;
 
     // Camera type and composition
     isSceneCamera: boolean = true;
@@ -170,7 +172,7 @@ export class BaseCamera extends EventEmitter {
      *
      * @param {Phaser.GameObjects.GameObject} child - The Game Object to add to the render list.
      */
-    addToRenderList(child)
+    addToRenderList(child: any): void
     {
         this.renderList.push(child);
     }
@@ -193,11 +195,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setOrigin(x?, y?)
+    setOrigin(x: number = 0.5, y: number = x): this
     {
-        if (x === undefined) { x = 0.5; }
-        if (y === undefined) { y = x; }
-
         this.originX = x;
         this.originY = y;
 
@@ -218,10 +217,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {Phaser.Math.Vector2} The scroll coordinates stored in the `x` and `y` properties.
      */
-    getScroll(x, y, out?)
+    getScroll(x: number, y: number, out: Vector2 = new Vector2()): Vector2
     {
-        if (out === undefined) { out = new Vector2(); }
-
         var originX = this.width * 0.5;
         var originY = this.height * 0.5;
 
@@ -248,7 +245,7 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    centerOnX(x)
+    centerOnX(x: number): this
     {
         var originX = this.width * 0.5;
 
@@ -275,7 +272,7 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    centerOnY(y)
+    centerOnY(y: number): this
     {
         var originY = this.height * 0.5;
 
@@ -302,7 +299,7 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    centerOn(x, y)
+    centerOn(x: number, y: number): this
     {
         this.centerOnX(x);
         this.centerOnY(y);
@@ -364,7 +361,7 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {Phaser.GameObjects.GameObject[]} An array of Game Objects visible to this Camera.
      */
-    cull(renderableObjects)
+    cull(renderableObjects: any[]): any[]
     {
         if (this.disableCull)
         {
@@ -444,10 +441,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {Phaser.Math.Vector2} An object holding the converted values in its `x` and `y` properties.
      */
-    getWorldPoint(x, y, output?)
+    getWorldPoint(x: number, y: number, output: Vector2 = new Vector2()): Vector2
     {
-        if (output === undefined) { output = new Vector2(); }
-
         var cameraMatrix = this.matrixCombined.matrix;
 
         var mva = cameraMatrix[0];
@@ -495,7 +490,7 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    ignore(entries)
+    ignore(entries: any): this
     {
         var id = this.id;
 
@@ -536,7 +531,7 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {number} The adjusted value to use as scrollX.
      */
-    clampX(x)
+    clampX(x: number): number
     {
         var bounds = this._bounds;
 
@@ -568,7 +563,7 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {number} The adjusted value to use as scrollY.
      */
-    clampY(y)
+    clampY(y: number): number
     {
         var bounds = this._bounds;
 
@@ -620,10 +615,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setAngle(value?)
+    setAngle(value: number = 0): this
     {
-        if (value === undefined) { value = 0; }
-
         this.rotation = DegToRad(value);
 
         return this;
@@ -644,10 +637,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setBackgroundColor(color?)
+    setBackgroundColor(color: any = 'rgba(0,0,0,0)'): this
     {
-        if (color === undefined) { color = 'rgba(0,0,0,0)'; }
-
         this.backgroundColor = ValueToColor(color);
 
         this.transparent = (this.backgroundColor.alpha === 0);
@@ -685,10 +676,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setBounds(x, y, width, height, centerOn?)
+    setBounds(x: number, y: number, width: number, height: number, centerOn: boolean = false): this
     {
-        if (centerOn === undefined) { centerOn = false; }
-
         this._bounds.setTo(x, y, width, height);
 
         this.dirty = true;
@@ -721,7 +710,7 @@ export class BaseCamera extends EventEmitter {
      *
      * @returns {this} This Camera instance.
      */
-    setForceComposite(value)
+    setForceComposite(value: boolean): this
     {
         this.forceComposite = value;
 
@@ -742,10 +731,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {Phaser.Geom.Rectangle} A rectangle containing the bounds of this Camera.
      */
-    getBounds(out?)
+    getBounds(out: Rectangle = new Rectangle()): Rectangle
     {
-        if (out === undefined) { out = new Rectangle(); }
-
         var source = this._bounds;
 
         out.setTo(source.x, source.y, source.width, source.height);
@@ -764,10 +751,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setName(value?)
+    setName(value: string = ''): this
     {
-        if (value === undefined) { value = ''; }
-
         this.name = value;
 
         return this;
@@ -786,10 +771,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setPosition(x, y?)
+    setPosition(x: number, y: number = x): this
     {
-        if (y === undefined) { y = x; }
-
         this.x = x;
         this.y = y;
 
@@ -808,10 +791,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setRotation(value?)
+    setRotation(value: number = 0): this
     {
-        if (value === undefined) { value = 0; }
-
         this.rotation = value;
 
         return this;
@@ -829,7 +810,7 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setRoundPixels(value)
+    setRoundPixels(value: boolean): this
     {
         this.roundPixels = value;
 
@@ -847,10 +828,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setScene(scene, isSceneCamera?)
+    setScene(scene: any, isSceneCamera: boolean = true): this
     {
-        if (isSceneCamera === undefined) { isSceneCamera = true; }
-
         if (this.scene && this._customViewport)
         {
             this.sceneManager.customViewports--;
@@ -885,10 +864,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setScroll(x, y?)
+    setScroll(x: number, y: number = x): this
     {
-        if (y === undefined) { y = x; }
-
         this.scrollX = x;
         this.scrollY = y;
 
@@ -910,10 +887,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setSize(width, height?)
+    setSize(width: number, height: number = width): this
     {
-        if (height === undefined) { height = width; }
-
         this.width = width;
         this.height = height;
 
@@ -951,12 +926,12 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setViewport(x, y, width, height?)
+    setViewport(x: number, y: number, width: number, height: number = width): this
     {
         this.x = x;
         this.y = y;
         this.width = width;
-        this.height = (height === undefined) ? width : height;
+        this.height = height;
 
         return this;
     }
@@ -981,11 +956,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setZoom(x?, y?)
+    setZoom(x: number = 1, y: number = x): this
     {
-        if (x === undefined) { x = 1; }
-        if (y === undefined) { y = x; }
-
         if (x === 0)
         {
             x = 0.001;
@@ -1022,10 +994,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    setMask(mask, fixedPosition?)
+    setMask(mask: any, fixedPosition: boolean = true): this
     {
-        if (fixedPosition === undefined) { fixedPosition = true; }
-
         this.mask = mask;
 
         this._maskCamera = (fixedPosition) ? this.cameraManager.default : this;
@@ -1043,10 +1013,8 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {this} This Camera instance.
      */
-    clearMask(destroyMask?)
+    clearMask(destroyMask: boolean = false): this
     {
-        if (destroyMask === undefined) { destroyMask = false; }
-
         if (destroyMask && this.mask)
         {
             this.mask.destroy();
@@ -1065,7 +1033,7 @@ export class BaseCamera extends EventEmitter {
      *
      * @return {Phaser.Types.Cameras.Scene2D.JSONCamera} A well-formed object suitable for conversion to JSON.
      */
-    toJSON()
+    toJSON(): any
     {
         var output: any = {
             name: this.name,
@@ -1104,7 +1072,7 @@ export class BaseCamera extends EventEmitter {
      * @param {number} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
      * @param {number} delta - The delta time, in ms, elapsed since the last frame.
      */
-    update()
+    update(_time: number = 0, _delta: number = 0): void
     {
         //  NOOP
     }
@@ -1118,7 +1086,7 @@ export class BaseCamera extends EventEmitter {
      *
      * @param {boolean} value - Is this being used as a Scene Camera, or a Texture camera?
      */
-    setIsSceneCamera(value)
+    setIsSceneCamera(value: boolean): this
     {
         this.isSceneCamera = value;
 
@@ -1171,7 +1139,7 @@ export class BaseCamera extends EventEmitter {
      * @fires Phaser.Cameras.Scene2D.Events#DESTROY
      * @since 3.0.0
      */
-    destroy()
+    destroy(): void
     {
         this.emit(Events.DESTROY, this);
 
@@ -1191,7 +1159,7 @@ export class BaseCamera extends EventEmitter {
 
         this.renderList = [];
 
-        this._bounds = null;
+        this._bounds.setEmpty();
 
         this.scene = null;
         this.scaleManager = null;

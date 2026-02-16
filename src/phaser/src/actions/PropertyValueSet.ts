@@ -29,7 +29,7 @@
 export const PropertyValueSet = <G extends any[]>(
     items: G,
     key: string,
-    value: number,
+    value: any,
     step: number = 0,
     index: number = 0,
     direction: number = 1

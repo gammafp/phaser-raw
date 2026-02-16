@@ -35,7 +35,7 @@ export const PlaceOnRectangle = <G extends any[]>(
     shift: number = 0
 ): G =>
 {
-    let points = MarchingAnts(rect, false, items.length);
+    let points = MarchingAnts(rect, undefined, items.length);
 
     if (shift > 0)
     {
