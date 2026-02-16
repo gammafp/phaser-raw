@@ -16,7 +16,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const BASE_DIR_DEFAULT = 'src_converted/phaser/src';
+const BASE_DIR_DEFAULT = 'src_converted/phaser/src_v4';
 
 // Match: import ... from 'specifier' or "specifier", capture specifier and quote
 const IMPORT_FROM_REGEX = /(?:from\s+|require\s*\(\s*)(['"])([^'"]+)\1/g;

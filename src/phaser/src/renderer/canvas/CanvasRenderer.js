@@ -9,7 +9,6 @@ import { TransformMatrix } from '../../gameobjects/components/TransformMatrix';
 
 var CameraEvents = require('../../cameras/2d/events');
 var CanvasSnapshot = require('../snapshot/CanvasSnapshot');
-var Class = require('../../utils/Class');
 import { PHASER_CONST as CONST } from '../../const';
 var EventEmitter = require('eventemitter3');
 var Events = require('../events');

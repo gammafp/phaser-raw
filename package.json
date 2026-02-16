@@ -15,8 +15,6 @@
     "detect-cycles": "bun scripts/detect-cycles.ts",
     "diff": "bun scripts/compare-src-versions.ts",
     "diff:folder": "bun scripts/compare-src-versions-folder.ts",
-    "review": "bun scripts/namespace-review-tracker.ts",
-    "review:stats": "bun scripts/namespace-review-tracker.ts --stats",
     "deps": "bun scripts/show-file-deps.ts",
     "deps:folder": "bun scripts/show-folder-deps.ts",
     "viewer": "bun conversor-viewer/build-graph.ts",

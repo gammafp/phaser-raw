@@ -22,7 +22,7 @@ import { TilemapGPULayer } from './TilemapGPULayer';
 
 const CONST = require('./const');
 const Components = require('./components');
-const Parsers = require('./parsers');
+import { Parsers } from './parsers';
 
 // Importar los factory/creator files para que se registren
 import './TilemapFactory';

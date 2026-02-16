@@ -15,9 +15,10 @@ type FolderStats = {
 };
 
 const TARGET_ROOT = join("src", "phaser", "src");
+const RENDERER_CANVAS_DIR = join(TARGET_ROOT, "renderer", "canvas");
 
 const isTs = (name: string) => name.endsWith(".ts") && !name.endsWith(".d.ts");
-const isJs = (name: string) => name.endsWith(".js");
+const isJs = (name: string) => name.endsWith(".js") && !name.includes("Canvas");
 
 const walk = async (dir: string, counts: Counts): Promise<void> => {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -26,6 +27,10 @@ const walk = async (dir: string, counts: Counts): Promise<void> => {
     const fullPath = join(dir, entry.name);
 
     if (entry.isDirectory()) {
+      // Skip renderer/canvas folder - legacy canvas renderer not part of TS conversion
+      if (fullPath === RENDERER_CANVAS_DIR) {
+        continue;
+      }
       // Skip typedefs folders - they contain JSDoc types that will be removed in TS
       if (entry.name === 'typedefs') {
         continue;
@@ -62,7 +67,7 @@ const getProgressBar = (percent: number, width: number = 30): string => {
 
 const main = async () => {
   console.log("\n╔══════════════════════════════════════════════════════════════╗");
-  console.log("║          PHASER TYPESCRIPT CONVERSION STATISTICS            ║");
+  console.log("║          PHASER TYPESCRIPT CONVERSION STATISTICS             ║");
   console.log("╚══════════════════════════════════════════════════════════════╝\n");
 
   // Global stats
@@ -81,6 +86,16 @@ const main = async () => {
   console.log(`\nConversion progress: ${formatPercent(percentTs)}`);
   console.log(getProgressBar(percentTs));
   console.log(`Remaining files: ${globalCounts.js}\n`);
+
+  console.log("🚫 IGNORED IN STATS");
+  console.log("─".repeat(64));
+  console.log(`Directories skipped:`);
+  console.log(`  - ${relative(TARGET_ROOT, RENDERER_CANVAS_DIR)} (legacy canvas renderer)`);
+  console.log(`  - **/matter-js (removed from conversion scope)`);
+  console.log(`  - **/typedefs (JSDoc-only type defs)`);
+  console.log(`Files skipped:`);
+  console.log(`  - *.js files with "Canvas" in filename`);
+  console.log("");
 
   // Per-folder stats
   console.log("\n📁 FOLDER STATISTICS");
