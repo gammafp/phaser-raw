@@ -17,11 +17,11 @@ import type { LayerData } from '../typedefs';
  * @function Phaser.Tilemaps.Components.SetCollisionFromCollisionGroup
  * @since 3.0.0
  *
- * @param {boolean} collides - If true it will enable collision. If false it will clear collision.
- * @param {boolean} recalculateFaces - Whether or not to recalculate the tile faces after the update.
- * @param {Phaser.Tilemaps.LayerData} layer - The Tilemap Layer to act upon.
+ * @param {boolean} [collides=true] - If true it will enable collision. If false it will clear collision.
+ * @param {boolean} [recalculateFaces=true] - Whether or not to recalculate the tile faces after the update.
+ * @param {Phaser.Tilemaps.LayerData} [layer] - The Tilemap Layer to act upon.
  */
-export const SetCollisionFromCollisionGroup = (collides: boolean, recalculateFaces: boolean, layer: LayerData): void => {
+export const SetCollisionFromCollisionGroup = (collides?: boolean, recalculateFaces?: boolean, layer?: LayerData): void => {
     if (collides === undefined) { collides = true; }
     if (recalculateFaces === undefined) { recalculateFaces = true; }
 

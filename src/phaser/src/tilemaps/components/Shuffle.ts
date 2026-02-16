@@ -17,13 +17,13 @@ import type { LayerData } from '../typedefs';
  * @function Phaser.Tilemaps.Components.Shuffle
  * @since 3.0.0
  *
- * @param {number} tileX - The left most tile index (in tile coordinates) to use as the origin of the area.
- * @param {number} tileY - The top most tile index (in tile coordinates) to use as the origin of the area.
- * @param {number} width - How many tiles wide from the `tileX` index the area will be.
- * @param {number} height - How many tiles tall from the `tileY` index the area will be.
- * @param {Phaser.Tilemaps.LayerData} layer - The Tilemap Layer to act upon.
+ * @param {number} [tileX] - The left most tile index (in tile coordinates) to use as the origin of the area.
+ * @param {number} [tileY] - The top most tile index (in tile coordinates) to use as the origin of the area.
+ * @param {number} [width] - How many tiles wide from the `tileX` index the area will be.
+ * @param {number} [height] - How many tiles tall from the `tileY` index the area will be.
+ * @param {Phaser.Tilemaps.LayerData} [layer] - The Tilemap Layer to act upon.
  */
-export const Shuffle = (tileX: number, tileY: number, width: number, height: number, layer: LayerData): void => {
+export const Shuffle = (tileX?: number, tileY?: number, width?: number, height?: number, layer?: LayerData): void => {
     var tiles = GetTilesWithin(tileX, tileY, width, height, null, layer);
 
     var indexes = tiles.map(function (tile: any) { return tile.index; });

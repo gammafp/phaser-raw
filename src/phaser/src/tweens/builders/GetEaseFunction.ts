@@ -25,6 +25,7 @@ import { EaseMap } from '../../math/easing/EaseMap';
 export const GetEaseFunction = (ease: string | Function, easeParams?: number[]): Function => {
     //  Default ease function
     let easeFunction: Function = EaseMap.Power0;
+    const easeMap = EaseMap as unknown as Record<string, Function>;
 
     //  Prepare ease function
     if (typeof ease === 'string')
@@ -32,9 +33,9 @@ export const GetEaseFunction = (ease: string | Function, easeParams?: number[]):
         //  String based look-up
 
         //  1) They specified it correctly
-        if (EaseMap.hasOwnProperty(ease))
+        if (Object.prototype.hasOwnProperty.call(easeMap, ease))
         {
-            easeFunction = EaseMap[ease];
+            easeFunction = easeMap[ease];
         }
         else
         {
@@ -67,9 +68,9 @@ export const GetEaseFunction = (ease: string | Function, easeParams?: number[]):
 
             ease = UppercaseFirst(ease.substring(0, ease.indexOf('.') + 1) + direction);
 
-            if (EaseMap.hasOwnProperty(ease))
+            if (Object.prototype.hasOwnProperty.call(easeMap, ease))
             {
-                easeFunction = EaseMap[ease];
+                easeFunction = easeMap[ease];
             }
         }
     }
@@ -91,7 +92,7 @@ export const GetEaseFunction = (ease: string | Function, easeParams?: number[]):
     cloneParams.unshift(0);
 
     //  Return ease function with custom ease parameters
-    return function (v: number): number {
+    return function (this: any, v: number): number {
         cloneParams[0] = v;
 
         return easeFunction.apply(this, cloneParams);
