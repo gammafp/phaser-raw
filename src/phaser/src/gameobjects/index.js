@@ -8,6 +8,31 @@ import { Image } from './image/Image';
 import { ImageFactory } from './image/ImageFactory';
 import { ImageCreator } from './image/ImageCreator';
 
+import { Shape } from './shape/Shape';
+import { Arc } from './shape/arc/Arc';
+import { Curve } from './shape/curve/Curve';
+import { Ellipse } from './shape/ellipse/Ellipse';
+import { Grid } from './shape/grid/Grid';
+import { IsoBox } from './shape/isobox/IsoBox';
+import { IsoTriangle } from './shape/isotriangle/IsoTriangle';
+import { Line } from './shape/line/Line';
+import { Polygon } from './shape/polygon/Polygon';
+import { Rectangle } from './shape/rectangle/Rectangle';
+import { Star } from './shape/star/Star';
+import { Triangle } from './shape/triangle/Triangle';
+
+import { ArcFactory } from './shape/arc/ArcFactory';
+import { CurveFactory } from './shape/curve/CurveFactory';
+import { EllipseFactory } from './shape/ellipse/EllipseFactory';
+import { GridFactory } from './shape/grid/GridFactory';
+import { IsoBoxFactory } from './shape/isobox/IsoBoxFactory';
+import { IsoTriangleFactory } from './shape/isotriangle/IsoTriangleFactory';
+import { LineFactory } from './shape/line/LineFactory';
+import { PolygonFactory } from './shape/polygon/PolygonFactory';
+import { RectangleFactory } from './shape/rectangle/RectangleFactory';
+import { StarFactory } from './shape/star/StarFactory';
+import { TriangleFactory } from './shape/triangle/TriangleFactory';
+
 /**
  * @namespace Phaser.GameObjects
  */
@@ -57,18 +82,18 @@ var GameObjects = {
 
     //  Shapes
 
-    Shape: require('./shape/Shape'),
-    Arc: require('./shape/arc/Arc'),
-    Curve: require('./shape/curve/Curve'),
-    Ellipse: require('./shape/ellipse/Ellipse'),
-    Grid: require('./shape/grid/Grid'),
-    IsoBox: require('./shape/isobox/IsoBox'),
-    IsoTriangle: require('./shape/isotriangle/IsoTriangle'),
-    Line: require('./shape/line/Line'),
-    Polygon: require('./shape/polygon/Polygon'),
-    Rectangle: require('./shape/rectangle/Rectangle'),
-    Star: require('./shape/star/Star'),
-    Triangle: require('./shape/triangle/Triangle'),
+    Shape: Shape,
+    Arc: Arc,
+    Curve: Curve,
+    Ellipse: Ellipse,
+    Grid: Grid,
+    IsoBox: IsoBox,
+    IsoTriangle: IsoTriangle,
+    Line: Line,
+    Polygon: Polygon,
+    Rectangle: Rectangle,
+    Star: Star,
+    Triangle: Triangle,
 
     //  Game Object Factories
 
@@ -95,17 +120,17 @@ var GameObjects = {
         Video: require('./video/VideoFactory'),
 
         //  Shapes
-        Arc: require('./shape/arc/ArcFactory'),
-        Curve: require('./shape/curve/CurveFactory'),
-        Ellipse: require('./shape/ellipse/EllipseFactory'),
-        Grid: require('./shape/grid/GridFactory'),
-        IsoBox: require('./shape/isobox/IsoBoxFactory'),
-        IsoTriangle: require('./shape/isotriangle/IsoTriangleFactory'),
-        Line: require('./shape/line/LineFactory'),
-        Polygon: require('./shape/polygon/PolygonFactory'),
-        Rectangle: require('./shape/rectangle/RectangleFactory'),
-        Star: require('./shape/star/StarFactory'),
-        Triangle: require('./shape/triangle/TriangleFactory')
+        Arc: ArcFactory,
+        Curve: CurveFactory,
+        Ellipse: EllipseFactory,
+        Grid: GridFactory,
+        IsoBox: IsoBoxFactory,
+        IsoTriangle: IsoTriangleFactory,
+        Line: LineFactory,
+        Polygon: PolygonFactory,
+        Rectangle: RectangleFactory,
+        Star: StarFactory,
+        Triangle: TriangleFactory
     },
 
     Creators: {
