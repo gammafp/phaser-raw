@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-// require('./polyfills/requestVideoFrame');
+import './polyfills/requestVideoFrame';
 
 import { PHASER_CONST as CONST } from './const';
 
@@ -26,24 +26,22 @@ import Sound from './sound';
 import * as Structs from './structs';
 import * as Time from './time';
 import { Game } from './core/Game';
-
-// Not 100% converted - keep require()
 import { BlendModes } from './renderer/BlendModes';
-const Cameras = require('./cameras');
-const Core = require('./core');
+import * as Cameras from './cameras';
+import * as Core from './core';
 import { Display } from './display';
-const Filters = require('./filters');
-const GameObjects = require('./gameobjects');
+import Filters from './filters';
+import { GameObjects } from './gameobjects';
 import { Input } from './input';
-const Loader = require('./loader');
+import Loader from './loader';
 import { Physics } from './physics';
-const Renderer = require('./renderer');
+import { Renderer } from './renderer';
 import { ScaleModes } from './renderer/ScaleModes';
-const Textures = require('./textures');
-const Tilemaps = require('./tilemaps');
+import * as Textures from './textures';
+import { Tilemaps } from './tilemaps';
 import { TintModes } from './renderer/TintModes';
-const Tweens = require('./tweens');
-const Utils = require('./utils');
+import * as Tweens from './tweens';
+import * as Utils from './utils';
 
 export { Actions };
 export { Animations };

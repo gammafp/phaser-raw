@@ -113,7 +113,7 @@ import { GameObject } from './GameObject';
  * @namespace Phaser.GameObjects
  */
 
-var GameObjects: any = {
+export const GameObjects: any = {
 
     Events: require('./events'),
 
@@ -257,4 +257,4 @@ if (typeof WEBGL_RENDERER)
     GameObjects.LightsPlugin = LightsPlugin;
 }
 
-module.exports = GameObjects;
+export default GameObjects;

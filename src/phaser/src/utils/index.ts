@@ -17,8 +17,3 @@ export * as String from './string';
 // Export simple utilities
 export { NOOP } from './NOOP';
 export { NULL } from './NULL';
-
-// Class system (still in JS)
-const Class = require('./Class');
-
-export { Class };

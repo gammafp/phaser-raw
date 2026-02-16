@@ -12,7 +12,7 @@
  * @namespace Phaser.Types.Renderer
  */
 
-const Renderer: any = {
+export const Renderer: any = {
 
     Events: require('./events'),
     Snapshot: require('./snapshot')
@@ -29,4 +29,4 @@ if (typeof WEBGL_RENDERER)
     Renderer.WebGL = require('./webgl');
 }
 
-module.exports = Renderer;
+export default Renderer;
