@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Blitter = require('./Blitter');
-var GameObjectFactory = require('../GameObjectFactory');
+import { Blitter } from './Blitter';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new Blitter Game Object and adds it to the Scene.
@@ -22,10 +23,12 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.Blitter} The Game Object that was created.
  */
-GameObjectFactory.register('blitter', function (x, y, texture, frame)
+export const BlitterFactory = function (this: any, x: number, y: number, texture: string | any, frame?: string | number): any
 {
     return this.displayList.add(new Blitter(this.scene, x, y, texture, frame));
-});
+};
+
+GameObjectFactory.register('blitter', BlitterFactory);
 
 //  When registering a factory function 'this' refers to the GameObjectFactory context.
 //

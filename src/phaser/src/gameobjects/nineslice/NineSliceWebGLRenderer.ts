@@ -1,13 +1,15 @@
+// @ts-nocheck
+
 /**
  * @author       Richard Davey <rich@phaser.io>
  * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GetCalcMatrix = require('../GetCalcMatrix');
-var Utils = require('../../renderer/webgl/Utils');
+const GetCalcMatrix = require('../GetCalcMatrix');
+const Utils = require('../../renderer/webgl/Utils');
 
-var fixedRenderOptions = { multiTexturing: true };
+const fixedRenderOptions = { multiTexturing: true };
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -23,30 +25,32 @@ var fixedRenderOptions = { multiTexturing: true };
  * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The current drawing context.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var NineSliceWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
+export const NineSliceWebGLRenderer = function (renderer: any, src: any, drawingContext: any, parentMatrix: any): void
 {
-    var verts = src.vertices;
-    var totalVerts = verts.length;
+    const verts = src.vertices;
+    const totalVerts = verts.length;
 
     if (totalVerts === 0)
     {
         return;
     }
 
-    var camera = drawingContext.camera;
+    const camera = drawingContext.camera;
 
     camera.addToRenderList(src);
 
-    var alpha = src.alpha;
-    var batchHandler = src.customRenderNodes.BatchHandler || src.defaultRenderNodes.BatchHandler;
-    var calcMatrix = GetCalcMatrix(src, camera, parentMatrix, !drawingContext.useCanvas).calc;
-    var color = Utils.getTintAppendFloatAlpha(src.tint, alpha);
-    var glTexture = src.frame.source.glTexture;
-    var tintEffect = src.tintFill;
+    const alpha = src.alpha;
+    const batchHandler = src.customRenderNodes.BatchHandler || src.defaultRenderNodes.BatchHandler;
+    const calcMatrix = GetCalcMatrix(src, camera, parentMatrix, !drawingContext.useCanvas).calc;
+    const color = Utils.getTintAppendFloatAlpha(src.tint, alpha);
+    const glTexture = src.frame.source.glTexture;
+    const tintEffect = src.tintFill;
 
-    var quad, vtl, vbr;
+    let quad;
+    let vtl;
+    let vbr;
 
-    for (var i = 0; i < totalVerts; i += 6)
+    for (let i = 0; i < totalVerts; i += 6)
     {
         // Of the 6 vertices, we only need these 2 to define a quad.
         // They are the top-left and bottom-right.
@@ -82,5 +86,3 @@ var NineSliceWebGLRenderer = function (renderer, src, drawingContext, parentMatr
         );
     }
 };
-
-module.exports = NineSliceWebGLRenderer;

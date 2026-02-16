@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GameObjectCreator = require('../GameObjectCreator');
-var Graphics = require('./Graphics');
+const GameObjectCreator = require('../GameObjectCreator');
+import { Graphics } from './Graphics';
 
 /**
  * Creates a new Graphics Game Object and returns it.
@@ -20,7 +20,7 @@ var Graphics = require('./Graphics');
  *
  * @return {Phaser.GameObjects.Graphics} The Game Object that was created.
  */
-GameObjectCreator.register('graphics', function (config, addToScene)
+export const GraphicsCreator = function (this: any, config?: any, addToScene?: boolean): any
 {
     if (config === undefined) { config = {}; }
 
@@ -29,7 +29,7 @@ GameObjectCreator.register('graphics', function (config, addToScene)
         config.add = addToScene;
     }
 
-    var graphics = new Graphics(this.scene, config);
+    const graphics = new Graphics(this.scene, config);
 
     if (config.add)
     {
@@ -37,6 +37,8 @@ GameObjectCreator.register('graphics', function (config, addToScene)
     }
 
     return graphics;
-});
+};
+
+GameObjectCreator.register('graphics', GraphicsCreator);
 
 //  When registering a factory function 'this' refers to the GameObjectCreator context.

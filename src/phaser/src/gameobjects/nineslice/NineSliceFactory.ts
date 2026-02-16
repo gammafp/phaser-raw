@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var NineSlice = require('./NineSlice');
-var GameObjectFactory = require('../GameObjectFactory');
+import { NineSlice } from './NineSlice';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * A Nine Slice Game Object allows you to display a texture-based object that
@@ -94,10 +95,12 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.NineSlice} The Game Object that was created.
  */
-if (typeof WEBGL_RENDERER)
+export const NineSliceFactory = function (this: any, x: number, y: number, texture: string | any, frame?: string | number, width?: number, height?: number, leftWidth?: number, rightWidth?: number, topHeight?: number, bottomHeight?: number): any
 {
-    GameObjectFactory.register('nineslice', function (x, y, texture, frame, width, height, leftWidth, rightWidth, topHeight, bottomHeight)
-    {
-        return this.displayList.add(new NineSlice(this.scene, x, y, texture, frame, width, height, leftWidth, rightWidth, topHeight, bottomHeight));
-    });
+    return this.displayList.add(new NineSlice(this.scene, x, y, texture, frame, width, height, leftWidth, rightWidth, topHeight, bottomHeight));
+};
+
+if (typeof WEBGL_RENDERER !== 'undefined')
+{
+    GameObjectFactory.register('nineslice', NineSliceFactory);
 }

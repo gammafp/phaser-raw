@@ -6,8 +6,6 @@
 
 import { Vector2 } from '../../math/Vector2';
 
-var Class = require('../../utils/Class');
-
 /**
  * @classdesc
  * Vertex data for the NineSlice Game Object.
@@ -25,15 +23,15 @@ var Class = require('../../utils/Class');
  * @param {number} u - The UV u coordinate of the vertex.
  * @param {number} v - The UV v coordinate of the vertex.
  */
-var Vertex = new Class({
+export class NineSliceVertex extends Vector2 {
+    vx: number;
+    vy: number;
+    u: number;
+    v: number;
 
-    Extends: Vector2,
-
-    initialize:
-
-    function Vertex (x, y, u, v)
+    constructor(x?: number, y?: number, u?: number, v?: number)
     {
-        Vector2.call(this, x, y);
+        super(x, y);
 
         /**
          * The projected x coordinate of this vertex.
@@ -70,7 +68,7 @@ var Vertex = new Class({
          * @since 4.0.0
          */
         this.v = v;
-    },
+    }
 
     /**
      * Sets the U and V properties.
@@ -83,13 +81,13 @@ var Vertex = new Class({
      *
      * @return {this} This Vertex.
      */
-    setUVs: function (u, v)
+    setUVs(u: number, v: number): this
     {
         this.u = u;
         this.v = v;
 
         return this;
-    },
+    }
 
     /**
      * Resizes this Vertex by setting the x and y coordinates, then transforms this vertex
@@ -107,7 +105,7 @@ var Vertex = new Class({
      *
      * @return {this} This Vertex.
      */
-    resize: function (x, y, width, height, originX, originY)
+    resize(x: number, y: number, width: number, height: number, originX: number, originY: number): this
     {
         this.x = x;
         this.y = y;
@@ -135,6 +133,4 @@ var Vertex = new Class({
 
         return this;
     }
-});
-
-module.exports = Vertex;
+}

@@ -5,10 +5,10 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { Blitter } from './Blitter';
 
-var Blitter = require('./Blitter');
-var BuildGameObject = require('../BuildGameObject');
-var GameObjectCreator = require('../GameObjectCreator');
+const BuildGameObject = require('../BuildGameObject');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new Blitter Game Object and returns it.
@@ -23,14 +23,14 @@ var GameObjectCreator = require('../GameObjectCreator');
  *
  * @return {Phaser.GameObjects.Blitter} The Game Object that was created.
  */
-GameObjectCreator.register('blitter', function (config, addToScene)
+export const BlitterCreator = function (this: any, config?: any, addToScene?: boolean): any
 {
     if (config === undefined) { config = {}; }
 
-    var key = GetAdvancedValue(config, 'key', null);
-    var frame = GetAdvancedValue(config, 'frame', null);
+    const key = GetAdvancedValue(config, 'key', null);
+    const frame = GetAdvancedValue(config, 'frame', null);
 
-    var blitter = new Blitter(this.scene, 0, 0, key, frame);
+    const blitter = new Blitter(this.scene, 0, 0, key, frame);
 
     if (addToScene !== undefined)
     {
@@ -40,6 +40,8 @@ GameObjectCreator.register('blitter', function (config, addToScene)
     BuildGameObject(this.scene, blitter, config);
 
     return blitter;
-});
+};
+
+GameObjectCreator.register('blitter', BlitterCreator);
 
 //  When registering a factory function 'this' refers to the GameObjectCreator context.

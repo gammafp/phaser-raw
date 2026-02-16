@@ -6,10 +6,10 @@
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { GetValue } from '../../utils/object/GetValue';
+import { NineSlice } from './NineSlice';
 
-var BuildGameObject = require('../BuildGameObject');
-var GameObjectCreator = require('../GameObjectCreator');
-var NineSlice = require('./NineSlice');
+const BuildGameObject = require('../BuildGameObject');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new Nine Slice Game Object and returns it.
@@ -24,20 +24,20 @@ var NineSlice = require('./NineSlice');
  *
  * @return {Phaser.GameObjects.NineSlice} The Game Object that was created.
  */
-GameObjectCreator.register('nineslice', function (config, addToScene)
+export const NineSliceCreator = function (this: any, config?: any, addToScene?: boolean): any
 {
     if (config === undefined) { config = {}; }
 
-    var key = GetAdvancedValue(config, 'key', null);
-    var frame = GetAdvancedValue(config, 'frame', null);
-    var width = GetValue(config, 'width', 256);
-    var height = GetValue(config, 'height', 256);
-    var leftWidth = GetValue(config, 'leftWidth', 10);
-    var rightWidth = GetValue(config, 'rightWidth', 10);
-    var topHeight = GetValue(config, 'topHeight', 0);
-    var bottomHeight = GetValue(config, 'bottomHeight', 0);
+    const key = GetAdvancedValue(config, 'key', null);
+    const frame = GetAdvancedValue(config, 'frame', null);
+    const width = GetValue(config, 'width', 256);
+    const height = GetValue(config, 'height', 256);
+    const leftWidth = GetValue(config, 'leftWidth', 10);
+    const rightWidth = GetValue(config, 'rightWidth', 10);
+    const topHeight = GetValue(config, 'topHeight', 0);
+    const bottomHeight = GetValue(config, 'bottomHeight', 0);
 
-    var nineslice = new NineSlice(this.scene, 0, 0, key, frame, width, height, leftWidth, rightWidth, topHeight, bottomHeight);
+    const nineslice = new NineSlice(this.scene, 0, 0, key, frame, width, height, leftWidth, rightWidth, topHeight, bottomHeight);
 
     if (addToScene !== undefined)
     {
@@ -47,4 +47,9 @@ GameObjectCreator.register('nineslice', function (config, addToScene)
     BuildGameObject(this.scene, nineslice, config);
 
     return nineslice;
-});
+};
+
+if (typeof WEBGL_RENDERER !== 'undefined')
+{
+    GameObjectCreator.register('nineslice', NineSliceCreator);
+}

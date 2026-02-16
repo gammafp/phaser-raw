@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * @author       Richard Davey <rich@phaser.io>
  * @copyright    2013-2026 Phaser Studio Inc.
@@ -10,14 +12,22 @@ import { GetValue } from '../../utils/object/GetValue';
 import { Ellipse } from '../../geom/ellipse/Ellipse';
 import { BaseCamera } from '../../cameras/2d/BaseCamera';
 import { MATH_CONST } from '../../math/const';
+import { Mixin } from '../../utils/MixinTS';
+import { AlphaSingle } from '../components/AlphaSingle';
+import { BlendMode } from '../components/BlendMode';
+import { Depth } from '../components/Depth';
+import { Lighting } from '../components/Lighting';
+import { Mask } from '../components/Mask';
+import { RenderNodes } from '../components/RenderNodes';
+import { ScrollFactor } from '../components/ScrollFactor';
+import { Transform } from '../components/Transform';
+import { Visible } from '../components/Visible';
+import { Commands } from './Commands';
+import { GraphicsRender } from './GraphicsRender';
 
 
-var Class = require('../../utils/Class');
-var Commands = require('./Commands');
-var Components = require('../components');
-var GameObject = require('../GameObject');
-var DefaultGraphicsNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultGraphicsNodes.js');
-var Render = require('./GraphicsRender');
+const GameObject = require('../GameObject');
+const DefaultGraphicsNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultGraphicsNodes.js');
 
 /**
  * @classdesc
@@ -84,31 +94,34 @@ var Render = require('./GraphicsRender');
  * @param {Phaser.Scene} scene - The Scene to which this Graphics object belongs.
  * @param {Phaser.Types.GameObjects.Graphics.Options} [options] - Options that set the position and default style of this Graphics object.
  */
-var Graphics = new Class({
+export interface Graphics extends AlphaSingle, BlendMode, Depth, Lighting, Mask, RenderNodes, Transform, Visible, ScrollFactor, GraphicsRender {}
 
-    Extends: GameObject,
+export class Graphics extends GameObject {
 
-    Mixins: [
-        Components.AlphaSingle,
-        Components.BlendMode,
-        Components.Depth,
-        Components.Lighting,
-        Components.Mask,
-        Components.RenderNodes,
-        Components.Transform,
-        Components.Visible,
-        Components.ScrollFactor,
-        Render
-    ],
+    static TargetCamera: BaseCamera;
 
-    initialize:
-
-    function Graphics (scene, options)
+    static
     {
-        var x = GetValue(options, 'x', 0);
-        var y = GetValue(options, 'y', 0);
+        Mixin(this, [
+            AlphaSingle,
+            BlendMode,
+            Depth,
+            Lighting,
+            Mask,
+            RenderNodes,
+            Transform,
+            Visible,
+            ScrollFactor,
+            GraphicsRender
+        ]);
+    }
 
-        GameObject.call(this, scene, 'Graphics');
+    constructor(scene, options)
+    {
+        const x = GetValue(options, 'x', 0);
+        const y = GetValue(options, 'y', 0);
+
+        super(scene, 'Graphics');
 
         this.setPosition(x, y);
         this.initRenderNodes(this._defaultRenderNodesMap);
@@ -238,7 +251,7 @@ var Graphics = new Class({
         this.fillStyle(0, 0);
 
         this.setDefaultStyles(options);
-    },
+    }
 
     /**
      * The default render nodes for this Game Object.
@@ -250,12 +263,11 @@ var Graphics = new Class({
      * @readonly
      * @since 4.0.0
      */
-    _defaultRenderNodesMap: {
-        get: function ()
-        {
-            return DefaultGraphicsNodes;
-        }
-    },
+
+    get _defaultRenderNodesMap()
+    {
+        return DefaultGraphicsNodes;
+    }
 
     /**
      * Set the default style settings for this Graphics object.
@@ -267,7 +279,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    setDefaultStyles: function (options)
+    setDefaultStyles(options)
     {
         if (GetValue(options, 'lineStyle', null))
         {
@@ -287,7 +299,7 @@ var Graphics = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Set the current line style. Used for all 'stroke' related functions.
@@ -301,7 +313,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    lineStyle: function (lineWidth, color, alpha)
+    lineStyle(lineWidth, color, alpha)
     {
         if (alpha === undefined) { alpha = 1; }
 
@@ -313,7 +325,7 @@ var Graphics = new Class({
         this._lineWidth = lineWidth;
 
         return this;
-    },
+    }
 
     /**
      * Set the current fill style. Used for all 'fill' related functions.
@@ -326,7 +338,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillStyle: function (color, alpha)
+    fillStyle(color, alpha)
     {
         if (alpha === undefined) { alpha = 1; }
 
@@ -336,7 +348,7 @@ var Graphics = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Sets a gradient fill style. This is a WebGL only feature.
@@ -368,7 +380,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillGradientStyle: function (topLeft, topRight, bottomLeft, bottomRight, alphaTopLeft, alphaTopRight, alphaBottomLeft, alphaBottomRight)
+    fillGradientStyle(topLeft, topRight, bottomLeft, bottomRight, alphaTopLeft, alphaTopRight, alphaBottomLeft, alphaBottomRight)
     {
         if (alphaTopLeft === undefined) { alphaTopLeft = 1; }
         if (alphaTopRight === undefined) { alphaTopRight = alphaTopLeft; }
@@ -382,7 +394,7 @@ var Graphics = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Sets a gradient line style. This is a WebGL only feature.
@@ -410,7 +422,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    lineGradientStyle: function (lineWidth, topLeft, topRight, bottomLeft, bottomRight, alpha)
+    lineGradientStyle(lineWidth, topLeft, topRight, bottomLeft, bottomRight, alpha)
     {
         if (alpha === undefined) { alpha = 1; }
 
@@ -420,7 +432,7 @@ var Graphics = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Start a new shape path.
@@ -430,14 +442,14 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    beginPath: function ()
+    beginPath()
     {
         this.commandBuffer.push(
             Commands.BEGIN_PATH
         );
 
         return this;
-    },
+    }
 
     /**
      * Close the current path.
@@ -447,14 +459,14 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    closePath: function ()
+    closePath()
     {
         this.commandBuffer.push(
             Commands.CLOSE_PATH
         );
 
         return this;
-    },
+    }
 
     /**
      * Fill the current path.
@@ -464,14 +476,14 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillPath: function ()
+    fillPath()
     {
         this.commandBuffer.push(
             Commands.FILL_PATH
         );
 
         return this;
-    },
+    }
 
     /**
      * Fill the current path.
@@ -484,14 +496,14 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fill: function ()
+    fill()
     {
         this.commandBuffer.push(
             Commands.FILL_PATH
         );
 
         return this;
-    },
+    }
 
     /**
      * Stroke the current path.
@@ -501,14 +513,14 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    strokePath: function ()
+    strokePath()
     {
         this.commandBuffer.push(
             Commands.STROKE_PATH
         );
 
         return this;
-    },
+    }
 
     /**
      * Stroke the current path.
@@ -521,14 +533,14 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    stroke: function ()
+    stroke()
     {
         this.commandBuffer.push(
             Commands.STROKE_PATH
         );
 
         return this;
-    },
+    }
 
     /**
      * Fill the given circle.
@@ -540,10 +552,10 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillCircleShape: function (circle)
+    fillCircleShape(circle)
     {
         return this.fillCircle(circle.x, circle.y, circle.radius);
-    },
+    }
 
     /**
      * Stroke the given circle.
@@ -555,10 +567,10 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    strokeCircleShape: function (circle)
+    strokeCircleShape(circle)
     {
         return this.strokeCircle(circle.x, circle.y, circle.radius);
-    },
+    }
 
     /**
      * Fill a circle with the given position and radius.
@@ -572,14 +584,14 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillCircle: function (x, y, radius)
+    fillCircle(x, y, radius)
     {
         this.beginPath();
         this.arc(x, y, radius, 0, MATH_CONST.TAU);
         this.fillPath();
 
         return this;
-    },
+    }
 
     /**
      * Stroke a circle with the given position and radius.
@@ -593,14 +605,14 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    strokeCircle: function (x, y, radius)
+    strokeCircle(x, y, radius)
     {
         this.beginPath();
         this.arc(x, y, radius, 0, MATH_CONST.TAU);
         this.strokePath();
 
         return this;
-    },
+    }
 
     /**
      * Fill the given rectangle.
@@ -612,10 +624,10 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillRectShape: function (rect)
+    fillRectShape(rect)
     {
         return this.fillRect(rect.x, rect.y, rect.width, rect.height);
-    },
+    }
 
     /**
      * Stroke the given rectangle.
@@ -627,10 +639,10 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    strokeRectShape: function (rect)
+    strokeRectShape(rect)
     {
         return this.strokeRect(rect.x, rect.y, rect.width, rect.height);
-    },
+    }
 
     /**
      * Fill a rectangle with the given position and size.
@@ -645,7 +657,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillRect: function (x, y, width, height)
+    fillRect(x, y, width, height)
     {
         this.commandBuffer.push(
             Commands.FILL_RECT,
@@ -653,7 +665,7 @@ var Graphics = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Stroke a rectangle with the given position and size.
@@ -668,11 +680,11 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    strokeRect: function (x, y, width, height)
+    strokeRect(x, y, width, height)
     {
-        var lineWidthHalf = this._lineWidth / 2;
-        var minx = x - lineWidthHalf;
-        var maxx = x + lineWidthHalf;
+        const lineWidthHalf = this._lineWidth / 2;
+        const minx = x - lineWidthHalf;
+        const maxx = x + lineWidthHalf;
 
         this.beginPath();
         this.moveTo(x, y);
@@ -695,7 +707,7 @@ var Graphics = new Class({
         this.strokePath();
 
         return this;
-    },
+    }
 
     /**
      * Fill a rounded rectangle with the given position, size and radius.
@@ -711,14 +723,14 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillRoundedRect: function (x, y, width, height, radius)
+    fillRoundedRect(x, y, width, height, radius)
     {
         if (radius === undefined) { radius = 20; }
 
-        var tl = radius;
-        var tr = radius;
-        var bl = radius;
-        var br = radius;
+        let tl = radius;
+        let tr = radius;
+        let bl = radius;
+        let br = radius;
 
         if (typeof radius !== 'number')
         {
@@ -728,10 +740,10 @@ var Graphics = new Class({
             br = GetFastValue(radius, 'br', 20);
         }
 
-        var convexTL = (tl >= 0);
-        var convexTR = (tr >= 0);
-        var convexBL = (bl >= 0);
-        var convexBR = (br >= 0);
+        const convexTL = (tl >= 0);
+        const convexTR = (tr >= 0);
+        const convexBL = (bl >= 0);
+        const convexBR = (br >= 0);
 
         tl = Math.abs(tl);
         tr = Math.abs(tr);
@@ -787,7 +799,7 @@ var Graphics = new Class({
         this.fillPath();
 
         return this;
-    },
+    }
 
     /**
      * Stroke a rounded rectangle with the given position, size and radius.
@@ -803,16 +815,16 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    strokeRoundedRect: function (x, y, width, height, radius)
+    strokeRoundedRect(x, y, width, height, radius)
     {
         if (radius === undefined) { radius = 20; }
 
-        var tl = radius;
-        var tr = radius;
-        var bl = radius;
-        var br = radius;
+        let tl = radius;
+        let tr = radius;
+        let bl = radius;
+        let br = radius;
 
-        var maxRadius = Math.min(width, height) / 2;
+        const maxRadius = Math.min(width, height) / 2;
 
         if (typeof radius !== 'number')
         {
@@ -822,10 +834,10 @@ var Graphics = new Class({
             br = GetFastValue(radius, 'br', 20);
         }
 
-        var convexTL = (tl >= 0);
-        var convexTR = (tr >= 0);
-        var convexBL = (bl >= 0);
-        var convexBR = (br >= 0);
+        const convexTL = (tl >= 0);
+        const convexTR = (tr >= 0);
+        const convexBL = (bl >= 0);
+        const convexBR = (br >= 0);
 
         tl = Math.min(Math.abs(tl), maxRadius);
         tr = Math.min(Math.abs(tr), maxRadius);
@@ -885,7 +897,7 @@ var Graphics = new Class({
         this.strokePath();
 
         return this;
-    },
+    }
 
     /**
      * Fill the given point.
@@ -900,10 +912,10 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillPointShape: function (point, size)
+    fillPointShape(point, size)
     {
         return this.fillPoint(point.x, point.y, size);
-    },
+    }
 
     /**
      * Fill a point at the given position.
@@ -919,7 +931,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillPoint: function (x, y, size)
+    fillPoint(x, y, size)
     {
         if (!size || size < 1)
         {
@@ -937,7 +949,7 @@ var Graphics = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Fill the given triangle.
@@ -949,10 +961,10 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillTriangleShape: function (triangle)
+    fillTriangleShape(triangle)
     {
         return this.fillTriangle(triangle.x1, triangle.y1, triangle.x2, triangle.y2, triangle.x3, triangle.y3);
-    },
+    }
 
     /**
      * Stroke the given triangle.
@@ -964,10 +976,10 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    strokeTriangleShape: function (triangle)
+    strokeTriangleShape(triangle)
     {
         return this.strokeTriangle(triangle.x1, triangle.y1, triangle.x2, triangle.y2, triangle.x3, triangle.y3);
-    },
+    }
 
     /**
      * Fill a triangle with the given points.
@@ -984,7 +996,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillTriangle: function (x0, y0, x1, y1, x2, y2)
+    fillTriangle(x0, y0, x1, y1, x2, y2)
     {
         this.commandBuffer.push(
             Commands.FILL_TRIANGLE,
@@ -992,7 +1004,7 @@ var Graphics = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Stroke a triangle with the given points.
@@ -1009,7 +1021,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    strokeTriangle: function (x0, y0, x1, y1, x2, y2)
+    strokeTriangle(x0, y0, x1, y1, x2, y2)
     {
         this.commandBuffer.push(
             Commands.STROKE_TRIANGLE,
@@ -1017,7 +1029,7 @@ var Graphics = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Draw the given line.
@@ -1029,10 +1041,10 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    strokeLineShape: function (line)
+    strokeLineShape(line)
     {
         return this.lineBetween(line.x1, line.y1, line.x2, line.y2);
-    },
+    }
 
     /**
      * Draw a line between the given points.
@@ -1047,7 +1059,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    lineBetween: function (x1, y1, x2, y2)
+    lineBetween(x1, y1, x2, y2)
     {
         this.beginPath();
         this.moveTo(x1, y1);
@@ -1055,7 +1067,7 @@ var Graphics = new Class({
         this.strokePath();
 
         return this;
-    },
+    }
 
     /**
      * Draw a line from the current drawing position to the given position.
@@ -1070,7 +1082,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    lineTo: function (x, y)
+    lineTo(x, y)
     {
         this.commandBuffer.push(
             Commands.LINE_TO,
@@ -1078,7 +1090,7 @@ var Graphics = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Move the current drawing position to the given position.
@@ -1091,7 +1103,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    moveTo: function (x, y)
+    moveTo(x, y)
     {
         this.commandBuffer.push(
             Commands.MOVE_TO,
@@ -1099,7 +1111,7 @@ var Graphics = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Stroke the shape represented by the given array of points.
@@ -1118,7 +1130,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    strokePoints: function (points, closeShape, closePath, endIndex)
+    strokePoints(points, closeShape, closePath, endIndex)
     {
         if (closeShape === undefined) { closeShape = false; }
         if (closePath === undefined) { closePath = false; }
@@ -1128,7 +1140,7 @@ var Graphics = new Class({
 
         this.moveTo(points[0].x, points[0].y);
 
-        for (var i = 1; i < endIndex; i++)
+        for (let i = 1; i < endIndex; i++)
         {
             this.lineTo(points[i].x, points[i].y);
         }
@@ -1146,7 +1158,7 @@ var Graphics = new Class({
         this.strokePath();
 
         return this;
-    },
+    }
 
     /**
      * Fill the shape represented by the given array of points.
@@ -1165,7 +1177,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillPoints: function (points, closeShape, closePath, endIndex)
+    fillPoints(points, closeShape, closePath, endIndex)
     {
         if (closeShape === undefined) { closeShape = false; }
         if (closePath === undefined) { closePath = false; }
@@ -1175,7 +1187,7 @@ var Graphics = new Class({
 
         this.moveTo(points[0].x, points[0].y);
 
-        for (var i = 1; i < endIndex; i++)
+        for (let i = 1; i < endIndex; i++)
         {
             this.lineTo(points[i].x, points[i].y);
         }
@@ -1193,7 +1205,7 @@ var Graphics = new Class({
         this.fillPath();
 
         return this;
-    },
+    }
 
     /**
      * Stroke the given ellipse.
@@ -1206,14 +1218,14 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    strokeEllipseShape: function (ellipse, smoothness)
+    strokeEllipseShape(ellipse, smoothness)
     {
         if (smoothness === undefined) { smoothness = 32; }
 
-        var points = ellipse.getPoints(smoothness);
+        const points = ellipse.getPoints(smoothness);
 
         return this.strokePoints(points, true);
-    },
+    }
 
     /**
      * Stroke an ellipse with the given position and size.
@@ -1229,16 +1241,16 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    strokeEllipse: function (x, y, width, height, smoothness)
+    strokeEllipse(x, y, width, height, smoothness)
     {
         if (smoothness === undefined) { smoothness = 32; }
 
-        var ellipse = new Ellipse(x, y, width, height);
+        const ellipse = new Ellipse(x, y, width, height);
 
-        var points = ellipse.getPoints(smoothness);
+        const points = ellipse.getPoints(smoothness);
 
         return this.strokePoints(points, true);
-    },
+    }
 
     /**
      * Fill the given ellipse.
@@ -1251,14 +1263,14 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillEllipseShape: function (ellipse, smoothness)
+    fillEllipseShape(ellipse, smoothness)
     {
         if (smoothness === undefined) { smoothness = 32; }
 
-        var points = ellipse.getPoints(smoothness);
+        const points = ellipse.getPoints(smoothness);
 
         return this.fillPoints(points, true);
-    },
+    }
 
     /**
      * Fill an ellipse with the given position and size.
@@ -1274,16 +1286,16 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    fillEllipse: function (x, y, width, height, smoothness)
+    fillEllipse(x, y, width, height, smoothness)
     {
         if (smoothness === undefined) { smoothness = 32; }
 
-        var ellipse = new Ellipse(x, y, width, height);
+        const ellipse = new Ellipse(x, y, width, height);
 
-        var points = ellipse.getPoints(smoothness);
+        const points = ellipse.getPoints(smoothness);
 
         return this.fillPoints(points, true);
-    },
+    }
 
     /**
      * Draw an arc.
@@ -1313,7 +1325,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    arc: function (x, y, radius, startAngle, endAngle, anticlockwise, overshoot)
+    arc(x, y, radius, startAngle, endAngle, anticlockwise, overshoot)
     {
         if (anticlockwise === undefined) { anticlockwise = false; }
         if (overshoot === undefined) { overshoot = 0; }
@@ -1324,7 +1336,7 @@ var Graphics = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Creates a pie-chart slice shape centered at `x`, `y` with the given radius.
@@ -1349,7 +1361,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    slice: function (x, y, radius, startAngle, endAngle, anticlockwise, overshoot)
+    slice(x, y, radius, startAngle, endAngle, anticlockwise, overshoot)
     {
         if (anticlockwise === undefined) { anticlockwise = false; }
         if (overshoot === undefined) { overshoot = 0; }
@@ -1363,7 +1375,7 @@ var Graphics = new Class({
         this.commandBuffer.push(Commands.CLOSE_PATH);
 
         return this;
-    },
+    }
 
     /**
      * Saves the state of the Graphics by pushing the current state onto a stack.
@@ -1375,14 +1387,14 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    save: function ()
+    save()
     {
         this.commandBuffer.push(
             Commands.SAVE
         );
 
         return this;
-    },
+    }
 
     /**
      * Restores the most recently saved state of the Graphics by popping from the state stack.
@@ -1396,14 +1408,14 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    restore: function ()
+    restore()
     {
         this.commandBuffer.push(
             Commands.RESTORE
         );
 
         return this;
-    },
+    }
 
     /**
      * Inserts a translation command into this Graphics objects command buffer.
@@ -1422,7 +1434,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    translateCanvas: function (x, y)
+    translateCanvas(x, y)
     {
         this.commandBuffer.push(
             Commands.TRANSLATE,
@@ -1430,7 +1442,7 @@ var Graphics = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Inserts a scale command into this Graphics objects command buffer.
@@ -1449,7 +1461,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    scaleCanvas: function (x, y)
+    scaleCanvas(x, y)
     {
         this.commandBuffer.push(
             Commands.SCALE,
@@ -1457,7 +1469,7 @@ var Graphics = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Inserts a rotation command into this Graphics objects command buffer.
@@ -1475,7 +1487,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    rotateCanvas: function (radians)
+    rotateCanvas(radians)
     {
         this.commandBuffer.push(
             Commands.ROTATE,
@@ -1483,7 +1495,7 @@ var Graphics = new Class({
         );
 
         return this;
-    },
+    }
 
     /**
      * Clear the command buffer and reset the fill style and line style to their defaults.
@@ -1493,7 +1505,7 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    clear: function ()
+    clear()
     {
         this.commandBuffer.length = 0;
 
@@ -1508,7 +1520,7 @@ var Graphics = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Generate a texture from this Graphics object.
@@ -1532,10 +1544,10 @@ var Graphics = new Class({
      *
      * @return {this} This Game Object.
      */
-    generateTexture: function (key, width, height)
+    generateTexture(key, width, height)
     {
-        var sys = this.scene.sys;
-        var renderer = sys.game.renderer;
+        const sys = this.scene.sys;
+        const renderer = sys.game.renderer;
 
         if (width === undefined) { width = sys.scale.width; }
         if (height === undefined) { height = sys.scale.height; }
@@ -1545,9 +1557,9 @@ var Graphics = new Class({
         Graphics.TargetCamera.scrollX = this.x;
         Graphics.TargetCamera.scrollY = this.y;
 
-        var texture;
-        var ctx;
-        var willRead = { willReadFrequently: true };
+        let texture;
+        let ctx;
+        const willRead = { willReadFrequently: true };
 
         if (typeof key === 'string')
         {
@@ -1557,7 +1569,7 @@ var Graphics = new Class({
 
                 texture = sys.textures.get(key);
 
-                var src = texture.getSourceImage();
+                const src = texture.getSourceImage();
 
                 if (src instanceof HTMLCanvasElement)
                 {
@@ -1582,7 +1594,7 @@ var Graphics = new Class({
 
         if (ctx)
         {
-            // var GraphicsCanvasRenderer = function (renderer, src, camera, parentMatrix, renderTargetCtx, allowClip)
+            // GraphicsCanvasRenderer(renderer, src, camera, parentMatrix, renderTargetCtx, allowClip)
             this.renderCanvas(renderer, this, Graphics.TargetCamera, null, ctx, false);
 
             if (texture)
@@ -1592,7 +1604,7 @@ var Graphics = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Internal destroy handler, called as part of the destroy process.
@@ -1601,12 +1613,12 @@ var Graphics = new Class({
      * @protected
      * @since 3.9.0
      */
-    preDestroy: function ()
+    preDestroy()
     {
         this.commandBuffer = [];
     }
 
-});
+}
 
 /**
  * A Camera used specifically by the Graphics system for rendering to textures.
@@ -1616,5 +1628,3 @@ var Graphics = new Class({
  * @since 3.1.0
  */
 Graphics.TargetCamera = new BaseCamera();
-
-module.exports = Graphics;

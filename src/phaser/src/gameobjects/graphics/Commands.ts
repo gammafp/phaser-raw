@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-module.exports = {
+export const Commands: Record<string, number> = {
 
     ARC: 0,
     BEGIN_PATH: 1,

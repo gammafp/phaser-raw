@@ -55,6 +55,16 @@ import { SpriteGPULayerCreator } from './spritegpulayer/SpriteGPULayerCreator';
 import { Video } from './video/Video';
 import { VideoFactory } from './video/VideoFactory';
 import { VideoCreator } from './video/VideoCreator';
+import { Graphics } from './graphics/Graphics';
+import { GraphicsFactory } from './graphics/GraphicsFactory';
+import { GraphicsCreator } from './graphics/GraphicsCreator';
+import { Blitter } from './blitter/Blitter';
+import { Bob } from './blitter/Bob';
+import { BlitterFactory } from './blitter/BlitterFactory';
+import { BlitterCreator } from './blitter/BlitterCreator';
+import { NineSlice } from './nineslice/NineSlice';
+import { NineSliceFactory } from './nineslice/NineSliceFactory';
+import { NineSliceCreator } from './nineslice/NineSliceCreator';
 
 /**
  * @namespace Phaser.GameObjects
@@ -76,13 +86,13 @@ var GameObjects = {
     BuildGameObjectAnimation: require('./BuildGameObjectAnimation'),
     GameObject: require('./GameObject'),
     BitmapText: BitmapText,
-    Blitter: require('./blitter/Blitter'),
-    Bob: require('./blitter/Bob'),
+    Blitter: Blitter,
+    Bob: Bob,
     Container: require('./container/Container'),
     DOMElement: require('./domelement/DOMElement'),
     DynamicBitmapText: DynamicBitmapText,
     Extern: require('./extern/Extern'),
-    Graphics: require('./graphics/Graphics'),
+    Graphics: Graphics,
     Group: require('./group/Group'),
     Image: Image,
     Layer: require('./layer/Layer'),
@@ -121,12 +131,12 @@ var GameObjects = {
     //  Game Object Factories
 
     Factories: {
-        Blitter: require('./blitter/BlitterFactory'),
+        Blitter: BlitterFactory,
         Container: require('./container/ContainerFactory'),
         DOMElement: require('./domelement/DOMElementFactory'),
         DynamicBitmapText: DynamicBitmapTextFactory,
         Extern: require('./extern/ExternFactory'),
-        Graphics: require('./graphics/GraphicsFactory'),
+        Graphics: GraphicsFactory,
         Group: require('./group/GroupFactory'),
         Image: ImageFactory,
         Layer: require('./layer/LayerFactory'),
@@ -157,10 +167,10 @@ var GameObjects = {
     },
 
     Creators: {
-        Blitter: require('./blitter/BlitterCreator'),
+        Blitter: BlitterCreator,
         Container: require('./container/ContainerCreator'),
         DynamicBitmapText: DynamicBitmapTextCreator,
-        Graphics: require('./graphics/GraphicsCreator'),
+        Graphics: GraphicsCreator,
         Group: require('./group/GroupCreator'),
         Image: ImageCreator,
         Layer: require('./layer/LayerCreator'),
@@ -183,19 +193,19 @@ if (typeof WEBGL_RENDERER)
 {
     GameObjects.CaptureFrame = require('./captureframe/CaptureFrame');
     GameObjects.Shader = require('./shader/Shader');
-    GameObjects.NineSlice = require('./nineslice/NineSlice');
+    GameObjects.NineSlice = NineSlice;
     GameObjects.PointLight = require('./pointlight/PointLight');
     GameObjects.SpriteGPULayer = SpriteGPULayer;
 
     GameObjects.Factories.CaptureFrame = require('./captureframe/CaptureFrameFactory');
     GameObjects.Factories.Shader = require('./shader/ShaderFactory');
-    GameObjects.Factories.NineSlice = require('./nineslice/NineSliceFactory');
+    GameObjects.Factories.NineSlice = NineSliceFactory;
     GameObjects.Factories.PointLight = require('./pointlight/PointLightFactory');
     GameObjects.Factories.SpriteGPULayer = SpriteGPULayerFactory;
 
     GameObjects.Creators.CaptureFrame = require('./captureframe/CaptureFrameCreator');
     GameObjects.Creators.Shader = require('./shader/ShaderCreator');
-    GameObjects.Creators.NineSlice = require('./nineslice/NineSliceCreator');
+    GameObjects.Creators.NineSlice = NineSliceCreator;
     GameObjects.Creators.PointLight = require('./pointlight/PointLightCreator');
     GameObjects.Creators.SpriteGPULayer = SpriteGPULayerCreator;
 

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * @author       Richard Davey <rich@phaser.io>
  * @copyright    2013-2026 Phaser Studio Inc.
@@ -5,14 +7,24 @@
  */
 
 import { List } from '../../structs/List';
-
-var BlitterRender = require('./BlitterRender');
-var Bob = require('./Bob');
-var DefaultBlitterNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultBlitterNodes');
-var Class = require('../../utils/Class');
-var Components = require('../components');
 import { Frame } from '../../textures/Frame';
-var GameObject = require('../GameObject');
+import { Mixin } from '../../utils/MixinTS';
+import { Alpha } from '../components/Alpha';
+import { BlendMode } from '../components/BlendMode';
+import { Depth } from '../components/Depth';
+import { Lighting } from '../components/Lighting';
+import { Mask } from '../components/Mask';
+import { RenderNodes } from '../components/RenderNodes';
+import { ScrollFactor } from '../components/ScrollFactor';
+import { Size } from '../components/Size';
+import { Texture } from '../components/Texture';
+import { Transform } from '../components/Transform';
+import { Visible } from '../components/Visible';
+import { BlitterRender } from './BlitterRender';
+import { Bob } from './Bob';
+
+const DefaultBlitterNodes = require('../../renderer/webgl/renderNodes/defaults/DefaultBlitterNodes');
+const GameObject = require('../GameObject');
 
 /**
  * @callback CreateCallback
@@ -61,30 +73,34 @@ var GameObject = require('../GameObject');
  * @param {string} [texture='__DEFAULT'] - The key of the texture this Game Object will use for rendering. The Texture must already exist in the Texture Manager.
  * @param {(string|number)} [frame=0] - The Frame of the Texture that this Game Object will use. Only set if the Texture has multiple frames, such as a Texture Atlas or Sprite Sheet.
  */
-var Blitter = new Class({
+export interface Blitter extends Alpha, BlendMode, Depth, Lighting, Mask, RenderNodes, ScrollFactor, Size, Texture, Transform, Visible, BlitterRender {}
 
-    Extends: GameObject,
+export class Blitter extends GameObject {
+    children: List;
+    renderList: Bob[];
+    dirty: boolean;
 
-    Mixins: [
-        Components.Alpha,
-        Components.BlendMode,
-        Components.Depth,
-        Components.Lighting,
-        Components.Mask,
-        Components.RenderNodes,
-        Components.ScrollFactor,
-        Components.Size,
-        Components.Texture,
-        Components.Transform,
-        Components.Visible,
-        BlitterRender
-    ],
-
-    initialize:
-
-    function Blitter (scene, x, y, texture, frame)
+    static
     {
-        GameObject.call(this, scene, 'Blitter');
+        Mixin(this, [
+            Alpha,
+            BlendMode,
+            Depth,
+            Lighting,
+            Mask,
+            RenderNodes,
+            ScrollFactor,
+            Size,
+            Texture,
+            Transform,
+            Visible,
+            BlitterRender
+        ]);
+    }
+
+    constructor(scene: any, x: number = 0, y: number = 0, texture: string = '__DEFAULT', frame: string | number = 0)
+    {
+        super(scene, 'Blitter');
 
         this.setTexture(texture, frame);
         this.setPosition(x, y);
@@ -121,7 +137,7 @@ var Blitter = new Class({
          * @since 3.0.0
          */
         this.dirty = false;
-    },
+    }
 
     /**
      * The default render nodes to use for this Game Object.
@@ -133,12 +149,10 @@ var Blitter = new Class({
      * @readonly
      * @since 4.0.0
      */
-    _defaultRenderNodesMap: {
-        get: function ()
-        {
-            return DefaultBlitterNodes;
-        }
-    },
+    get _defaultRenderNodesMap(): any
+    {
+        return DefaultBlitterNodes;
+    }
 
     /**
      * Creates a new Bob in this Blitter.
@@ -157,9 +171,8 @@ var Blitter = new Class({
      *
      * @return {Phaser.GameObjects.Bob} The newly created Bob object.
      */
-    create: function (x, y, frame, visible, index)
+    create(x: number, y: number, frame?: string | number | any, visible: boolean = true, index?: number): Bob
     {
-        if (visible === undefined) { visible = true; }
         if (index === undefined) { index = this.children.length; }
 
         if (frame === undefined)
@@ -171,14 +184,13 @@ var Blitter = new Class({
             frame = this.texture.get(frame);
         }
 
-        var bob = new Bob(this, x, y, frame, visible);
+        const bob = new Bob(this, x, y, frame, visible);
 
         this.children.addAt(bob, index, false);
-
         this.dirty = true;
 
         return bob;
-    },
+    }
 
     /**
      * Creates multiple Bob objects within this Blitter and then passes each of them to the specified callback.
@@ -193,19 +205,19 @@ var Blitter = new Class({
      *
      * @return {Phaser.GameObjects.Bob[]} An array of Bob objects that were created.
      */
-    createFromCallback: function (callback, quantity, frame, visible)
+    createFromCallback(callback: Function, quantity: number, frame?: string | number | any, visible: boolean = true): Bob[]
     {
-        var bobs = this.createMultiple(quantity, frame, visible);
+        const bobs = this.createMultiple(quantity, frame, visible);
 
-        for (var i = 0; i < bobs.length; i++)
+        for (let i = 0; i < bobs.length; i++)
         {
-            var bob = bobs[i];
+            const bob = bobs[i];
 
             callback.call(this, bob, i);
         }
 
         return bobs;
-    },
+    }
 
     /**
      * Creates multiple Bobs in one call.
@@ -224,29 +236,27 @@ var Blitter = new Class({
      *
      * @return {Phaser.GameObjects.Bob[]} An array of Bob objects that were created.
      */
-    createMultiple: function (quantity, frame, visible)
+    createMultiple(quantity: number, frame?: string | number | any | (string | number | any)[], visible: boolean = true): Bob[]
     {
         if (frame === undefined) { frame = this.frame.name; }
-        if (visible === undefined) { visible = true; }
 
         if (!Array.isArray(frame))
         {
             frame = [ frame ];
         }
 
-        var bobs = [];
-        var _this = this;
+        const bobs: Bob[] = [];
 
-        frame.forEach(function (singleFrame)
+        frame.forEach((singleFrame: any) =>
         {
-            for (var i = 0; i < quantity; i++)
+            for (let i = 0; i < quantity; i++)
             {
-                bobs.push(_this.create(0, 0, singleFrame, visible));
+                bobs.push(this.create(0, 0, singleFrame, visible));
             }
         });
 
         return bobs;
-    },
+    }
 
     /**
      * Checks if the given child can render or not, by checking its `visible` and `alpha` values.
@@ -258,10 +268,10 @@ var Blitter = new Class({
      *
      * @return {boolean} Returns `true` if the given child can render, otherwise `false`.
      */
-    childCanRender: function (child)
+    childCanRender(child: Bob): boolean
     {
         return (child.visible && child.alpha > 0);
-    },
+    }
 
     /**
      * Returns an array of Bobs to be rendered.
@@ -272,7 +282,7 @@ var Blitter = new Class({
      *
      * @return {Phaser.GameObjects.Bob[]} An array of Bob objects that will be rendered this frame.
      */
-    getRenderList: function ()
+    getRenderList(): Bob[]
     {
         if (this.dirty)
         {
@@ -281,7 +291,7 @@ var Blitter = new Class({
         }
 
         return this.renderList;
-    },
+    }
 
     /**
      * Removes all Bobs from the children List and clears the dirty flag.
@@ -289,11 +299,11 @@ var Blitter = new Class({
      * @method Phaser.GameObjects.Blitter#clear
      * @since 3.0.0
      */
-    clear: function ()
+    clear(): void
     {
         this.children.removeAll();
         this.dirty = true;
-    },
+    }
 
     /**
      * Internal destroy handler, called as part of the destroy process.
@@ -302,13 +312,9 @@ var Blitter = new Class({
      * @protected
      * @since 3.9.0
      */
-    preDestroy: function ()
+    preDestroy(): void
     {
         this.children.destroy();
-
         this.renderList = [];
     }
-
-});
-
-module.exports = Blitter;
+}

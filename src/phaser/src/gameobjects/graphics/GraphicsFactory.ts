@@ -4,8 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Graphics = require('./Graphics');
-var GameObjectFactory = require('../GameObjectFactory');
+import { Graphics } from './Graphics';
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new Graphics Game Object and adds it to the Scene.
@@ -19,10 +19,12 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.Graphics} The Game Object that was created.
  */
-GameObjectFactory.register('graphics', function (config)
+export const GraphicsFactory = function (this: any, config?: any): any
 {
     return this.displayList.add(new Graphics(this.scene, config));
-});
+};
+
+GameObjectFactory.register('graphics', GraphicsFactory);
 
 //  When registering a factory function 'this' refers to the GameObjectFactory context.
 //

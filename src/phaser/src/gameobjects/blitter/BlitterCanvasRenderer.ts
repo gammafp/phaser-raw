@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * @author       Richard Davey <rich@phaser.io>
  * @copyright    2013-2026 Phaser Studio Inc.
@@ -18,18 +20,17 @@
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var BlitterCanvasRenderer = function (renderer, src, camera, parentMatrix)
+export const BlitterCanvasRenderer = function (renderer: any, src: any, camera: any, parentMatrix: any): void
 {
-    var list = src.getRenderList();
+    const list = src.getRenderList();
 
     if (list.length === 0)
     {
         return;
     }
 
-    var ctx = renderer.currentContext;
-
-    var alpha = camera.alpha * src.alpha;
+    const ctx = renderer.currentContext;
+    const alpha = camera.alpha * src.alpha;
 
     if (alpha === 0)
     {
@@ -41,11 +42,10 @@ var BlitterCanvasRenderer = function (renderer, src, camera, parentMatrix)
 
     //  Blend Mode + Scale Mode
     ctx.globalCompositeOperation = renderer.blendModes[src.blendMode];
-
     ctx.imageSmoothingEnabled = !src.frame.source.scaleMode;
 
-    var cameraScrollX = src.x - camera.scrollX * src.scrollFactorX;
-    var cameraScrollY = src.y - camera.scrollY * src.scrollFactorY;
+    const cameraScrollX = src.x - camera.scrollX * src.scrollFactorX;
+    const cameraScrollY = src.y - camera.scrollY * src.scrollFactorY;
 
     ctx.save();
 
@@ -54,21 +54,21 @@ var BlitterCanvasRenderer = function (renderer, src, camera, parentMatrix)
         parentMatrix.copyToContext(ctx);
     }
 
-    var roundPixels = camera.roundPixels;
+    const roundPixels = camera.roundPixels;
 
     //  Render bobs
-    for (var i = 0; i < list.length; i++)
+    for (let i = 0; i < list.length; i++)
     {
-        var bob = list[i];
-        var flip = (bob.flipX || bob.flipY);
-        var frame = bob.frame;
-        var cd = frame.canvasData;
-        var dx = frame.x;
-        var dy = frame.y;
-        var fx = 1;
-        var fy = 1;
+        const bob = list[i];
+        const flip = (bob.flipX || bob.flipY);
+        const frame = bob.frame;
+        const cd = frame.canvasData;
+        let dx = frame.x;
+        let dy = frame.y;
+        let fx = 1;
+        let fy = 1;
 
-        var bobAlpha = bob.alpha * alpha;
+        const bobAlpha = bob.alpha * alpha;
 
         if (bobAlpha === 0)
         {
@@ -127,5 +127,3 @@ var BlitterCanvasRenderer = function (renderer, src, camera, parentMatrix)
 
     ctx.restore();
 };
-
-module.exports = BlitterCanvasRenderer;

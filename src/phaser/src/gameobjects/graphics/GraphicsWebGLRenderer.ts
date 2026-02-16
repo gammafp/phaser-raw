@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * @author       Richard Davey <rich@phaser.io>
  * @copyright    2013-2026 Phaser Studio Inc.
@@ -5,26 +7,26 @@
  */
 
 import { TransformMatrix } from '../components/TransformMatrix';
+import { Commands } from './Commands';
 
-var Commands = require('./Commands');
-var GetCalcMatrix = require('../GetCalcMatrix');
-var Utils = require('../../renderer/webgl/Utils');
+const GetCalcMatrix = require('../GetCalcMatrix');
+const Utils = require('../../renderer/webgl/Utils');
 
-var Point = function (x, y, width)
+const Point = function (x, y, width)
 {
     this.x = x;
     this.y = y;
     this.width = width;
 };
 
-var Path = function (x, y, width)
+const Path = function (x, y, width)
 {
     this.points = [];
     this.points[0] = new Point(x, y, width);
 
     this.addPoint = function (x, y, width)
     {
-        var point = this.points[this.points.length - 1];
+        const point = this.points[this.points.length - 1];
 
         if (point.x === x && point.y === y)
         {
@@ -35,12 +37,12 @@ var Path = function (x, y, width)
     };
 };
 
-var matrixStack = [];
-var tempMatrix = new TransformMatrix();
-var renderMatrix = new TransformMatrix();
-var fillTint = { TL: 0, TR: 0, BL: 0, BR: 0 };
-var strokeTint = { TL: 0, TR: 0, BL: 0, BR: 0 };
-var trianglePath = [
+const matrixStack = [];
+const tempMatrix = new TransformMatrix();
+const renderMatrix = new TransformMatrix();
+const fillTint = { TL: 0, TR: 0, BL: 0, BR: 0 };
+const strokeTint = { TL: 0, TR: 0, BL: 0, BR: 0 };
+const trianglePath = [
     { x: 0, y: 0, width: 0 },
     { x: 0, y: 0, width: 0 },
     { x: 0, y: 0, width: 0 },
@@ -61,54 +63,56 @@ var trianglePath = [
  * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The current drawing context.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var GraphicsWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
+export const GraphicsWebGLRenderer = function (renderer: any, src: any, drawingContext: any, parentMatrix: any): void
 {
     if (src.commandBuffer.length === 0)
     {
         return;
     }
 
-    var customRenderNodes = src.customRenderNodes;
-    var defaultRenderNodes = src.defaultRenderNodes;
-    var submitterNode = customRenderNodes.Submitter || defaultRenderNodes.Submitter;
-    var lighting = src.lighting;
+    const customRenderNodes = src.customRenderNodes;
+    const defaultRenderNodes = src.defaultRenderNodes;
+    const submitterNode = customRenderNodes.Submitter || defaultRenderNodes.Submitter;
+    const lighting = src.lighting;
 
-    var currentContext = drawingContext;
+    const currentContext = drawingContext;
 
-    var camera = currentContext.camera;
+    const camera = currentContext.camera;
     camera.addToRenderList(src);
 
-    var calcMatrix = GetCalcMatrix(src, camera, parentMatrix, !drawingContext.useCanvas).calc;
+    const calcMatrix = GetCalcMatrix(src, camera, parentMatrix, !drawingContext.useCanvas).calc;
 
-    var currentMatrix = tempMatrix.loadIdentity();
+    const currentMatrix = tempMatrix.loadIdentity();
 
-    var commands = src.commandBuffer;
-    var alpha = src.alpha;
+    const commands = src.commandBuffer;
+    const alpha = src.alpha;
 
-    var pathDetailThreshold = Math.max(
+    const pathDetailThreshold = Math.max(
         src.pathDetailThreshold,
         renderer.config.pathDetailThreshold,
         0
     );
 
-    var lineWidth = 1;
+    let lineWidth = 1;
 
-    var tx = 0;
-    var ty = 0;
-    var ta = 0;
-    var iterStep = 0.01;
-    var PI2 = Math.PI * 2;
+    let tx = 0;
+    let ty = 0;
+    let ta = 0;
+    const iterStep = 0.01;
+    const PI2 = Math.PI * 2;
+    let x = 0;
+    let y = 0;
 
-    var cmd;
+    let cmd;
 
-    var path = [];
-    var pathIndex = 0;
-    var pathOpen = true;
-    var lastPath = null;
+    const path = [];
+    let pathIndex = 0;
+    let pathOpen = true;
+    let lastPath = null;
 
-    var getTint = Utils.getTintAppendFloatAlpha;
+    const getTint = Utils.getTintAppendFloatAlpha;
 
-    for (var cmdIndex = 0; cmdIndex < commands.length; cmdIndex++)
+    for (let cmdIndex = 0; cmdIndex < commands.length; cmdIndex++)
     {
         cmd = commands[cmdIndex];
 
@@ -181,9 +185,9 @@ var GraphicsWebGLRenderer = function (renderer, src, drawingContext, parentMatri
             case Commands.LINE_STYLE:
             {
                 lineWidth = commands[++cmdIndex];
-                var strokeColor = commands[++cmdIndex];
-                var strokeAlpha = commands[++cmdIndex] * alpha;
-                var strokeTintColor = getTint(strokeColor, strokeAlpha);
+                const strokeColor = commands[++cmdIndex];
+                const strokeAlpha = commands[++cmdIndex] * alpha;
+                const strokeTintColor = getTint(strokeColor, strokeAlpha);
                 strokeTint.TL = strokeTintColor;
                 strokeTint.TR = strokeTintColor;
                 strokeTint.BL = strokeTintColor;
@@ -193,9 +197,9 @@ var GraphicsWebGLRenderer = function (renderer, src, drawingContext, parentMatri
 
             case Commands.FILL_STYLE:
             {
-                var fillColor = commands[++cmdIndex];
-                var fillAlpha = commands[++cmdIndex] * alpha;
-                var fillTintColor = getTint(fillColor, fillAlpha);
+                const fillColor = commands[++cmdIndex];
+                const fillAlpha = commands[++cmdIndex] * alpha;
+                const fillTintColor = getTint(fillColor, fillAlpha);
                 fillTint.TL = fillTintColor;
                 fillTint.TR = fillTintColor;
                 fillTint.BL = fillTintColor;
@@ -205,10 +209,10 @@ var GraphicsWebGLRenderer = function (renderer, src, drawingContext, parentMatri
 
             case Commands.GRADIENT_FILL_STYLE:
             {
-                var alphaTL = commands[++cmdIndex] * alpha;
-                var alphaTR = commands[++cmdIndex] * alpha;
-                var alphaBL = commands[++cmdIndex] * alpha;
-                var alphaBR = commands[++cmdIndex] * alpha;
+                const alphaTL = commands[++cmdIndex] * alpha;
+                const alphaTR = commands[++cmdIndex] * alpha;
+                const alphaBL = commands[++cmdIndex] * alpha;
+                const alphaBR = commands[++cmdIndex] * alpha;
 
                 fillTint.TL = getTint(commands[++cmdIndex], alphaTL);
                 fillTint.TR = getTint(commands[++cmdIndex], alphaTR);
@@ -220,7 +224,7 @@ var GraphicsWebGLRenderer = function (renderer, src, drawingContext, parentMatri
             case Commands.GRADIENT_LINE_STYLE:
             {
                 lineWidth = commands[++cmdIndex];
-                var gradientLineAlpha = commands[++cmdIndex] * alpha;
+                const gradientLineAlpha = commands[++cmdIndex] * alpha;
                 strokeTint.TL = getTint(commands[++cmdIndex], gradientLineAlpha);
                 strokeTint.TR = getTint(commands[++cmdIndex], gradientLineAlpha);
                 strokeTint.BL = getTint(commands[++cmdIndex], gradientLineAlpha);
@@ -230,14 +234,14 @@ var GraphicsWebGLRenderer = function (renderer, src, drawingContext, parentMatri
 
             case Commands.ARC:
             {
-                var iteration = 0;
-                var x = commands[++cmdIndex];
-                var y = commands[++cmdIndex];
-                var radius = commands[++cmdIndex];
-                var startAngle = commands[++cmdIndex];
-                var endAngle = commands[++cmdIndex];
-                var anticlockwise = commands[++cmdIndex];
-                var overshoot = commands[++cmdIndex];
+                let iteration = 0;
+                x = commands[++cmdIndex];
+                y = commands[++cmdIndex];
+                const radius = commands[++cmdIndex];
+                const startAngle = commands[++cmdIndex];
+                let endAngle = commands[++cmdIndex];
+                const anticlockwise = commands[++cmdIndex];
+                const overshoot = commands[++cmdIndex];
 
                 endAngle -= startAngle;
 
@@ -429,5 +433,3 @@ var GraphicsWebGLRenderer = function (renderer, src, drawingContext, parentMatri
         }
     }
 };
-
-module.exports = GraphicsWebGLRenderer;

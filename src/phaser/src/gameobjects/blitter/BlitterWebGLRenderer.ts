@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * @author       Richard Davey <rich@phaser.io>
  * @copyright    2013-2026 Phaser Studio Inc.
@@ -6,14 +8,14 @@
 
 import { TransformMatrix } from '../components/TransformMatrix';
 
-var Utils = require('../../renderer/webgl/Utils');
+const Utils = require('../../renderer/webgl/Utils');
 
-var tempMatrix = new TransformMatrix();
-var tempTransformer = {
+const tempMatrix = new TransformMatrix();
+const tempTransformer = {
     quad: new Float32Array(8)
 };
-var tempTexturer = {};
-var tempTinter = {};
+const tempTexturer = {};
+const tempTinter = {};
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -29,11 +31,11 @@ var tempTinter = {};
  * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The current drawing context.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var BlitterWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
+export const BlitterWebGLRenderer = function (renderer: any, src: any, drawingContext: any, parentMatrix: any): void
 {
-    var list = src.getRenderList();
-    var camera = drawingContext.camera;
-    var alpha = src.alpha;
+    const list = src.getRenderList();
+    const camera = drawingContext.camera;
+    const alpha = src.alpha;
 
     if (list.length === 0 || alpha === 0)
     {
@@ -43,7 +45,7 @@ var BlitterWebGLRenderer = function (renderer, src, drawingContext, parentMatrix
 
     camera.addToRenderList(src);
 
-    var calcMatrix = tempMatrix.copyWithScrollFactorFrom(
+    const calcMatrix = tempMatrix.copyWithScrollFactorFrom(
         camera.getViewMatrix(!drawingContext.useCanvas),
         camera.scrollX, camera.scrollY,
         src.scrollFactorX, src.scrollFactorY
@@ -54,28 +56,28 @@ var BlitterWebGLRenderer = function (renderer, src, drawingContext, parentMatrix
         calcMatrix.multiply(parentMatrix);
     }
 
-    var blitterX = src.x;
-    var blitterY = src.y;
+    const blitterX = src.x;
+    const blitterY = src.y;
 
-    var customRenderNodes = src.customRenderNodes;
-    var defaultRenderNodes = src.defaultRenderNodes;
+    const customRenderNodes = src.customRenderNodes;
+    const defaultRenderNodes = src.defaultRenderNodes;
 
-    for (var i = 0; i < list.length; i++)
+    for (let i = 0; i < list.length; i++)
     {
-        var bob = list[i];
-        var frame = bob.frame;
-        var bobAlpha = bob.alpha * alpha;
+        const bob = list[i];
+        const frame = bob.frame;
+        const bobAlpha = bob.alpha * alpha;
 
         if (bobAlpha === 0)
         {
             continue;
         }
 
-        var width = frame.width;
-        var height = frame.height;
+        let width = frame.width;
+        let height = frame.height;
 
-        var x = blitterX + bob.x + frame.x;
-        var y = blitterY + bob.y + frame.y;
+        let x = blitterX + bob.x + frame.x;
+        let y = blitterY + bob.y + frame.y;
 
         if (bob.flipX)
         {
@@ -94,7 +96,7 @@ var BlitterWebGLRenderer = function (renderer, src, drawingContext, parentMatrix
         tempTexturer.frame = frame;
         tempTexturer.uvSource = frame;
 
-        var tint = Utils.getTintAppendFloatAlpha(bob.tint, bobAlpha);
+        const tint = Utils.getTintAppendFloatAlpha(bob.tint, bobAlpha);
 
         tempTinter.tintTopLeft = tint;
         tempTinter.tintBottomLeft = tint;
@@ -116,5 +118,3 @@ var BlitterWebGLRenderer = function (renderer, src, drawingContext, parentMatrix
         );
     }
 };
-
-module.exports = BlitterWebGLRenderer;

@@ -1,11 +1,13 @@
+// @ts-nocheck
+
 /**
  * @author       Richard Davey <rich@phaser.io>
  * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Commands = require('./Commands');
-var SetTransform = require('../../renderer/canvas/utils/SetTransform');
+import { Commands } from './Commands';
+const SetTransform = require('../../renderer/canvas/utils/SetTransform');
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
@@ -23,12 +25,12 @@ var SetTransform = require('../../renderer/canvas/utils/SetTransform');
  * @param {CanvasRenderingContext2D} [renderTargetCtx] - The target rendering context.
  * @param {boolean} allowClip - If `true` then path operations will be used instead of fill operations.
  */
-var GraphicsCanvasRenderer = function (renderer, src, camera, parentMatrix, renderTargetCtx, allowClip)
+export const GraphicsCanvasRenderer = function (renderer: any, src: any, camera: any, parentMatrix: any, renderTargetCtx: any, allowClip: boolean): void
 {
-    var commandBuffer = src.commandBuffer;
-    var commandBufferLength = commandBuffer.length;
+    const commandBuffer = src.commandBuffer;
+    const commandBufferLength = commandBuffer.length;
 
-    var ctx = renderTargetCtx || renderer.currentContext;
+    const ctx = renderTargetCtx || renderer.currentContext;
 
     if (commandBufferLength === 0 || !SetTransform(renderer, ctx, src, camera, parentMatrix))
     {
@@ -37,21 +39,21 @@ var GraphicsCanvasRenderer = function (renderer, src, camera, parentMatrix, rend
 
     camera.addToRenderList(src);
 
-    var lineAlpha = 1;
-    var fillAlpha = 1;
-    var lineColor = 0;
-    var fillColor = 0;
-    var lineWidth = 1;
-    var red = 0;
-    var green = 0;
-    var blue = 0;
+    let lineAlpha = 1;
+    let fillAlpha = 1;
+    let lineColor = 0;
+    let fillColor = 0;
+    let lineWidth = 1;
+    let red = 0;
+    let green = 0;
+    let blue = 0;
 
     //  Reset any currently active paths
     ctx.beginPath();
 
-    for (var index = 0; index < commandBufferLength; ++index)
+    for (let index = 0; index < commandBufferLength; ++index)
     {
-        var commandID = commandBuffer[index];
+        const commandID = commandBuffer[index];
 
         switch (commandID)
         {
@@ -237,5 +239,3 @@ var GraphicsCanvasRenderer = function (renderer, src, camera, parentMatrix, rend
     //  Restore the context saved in SetTransform
     ctx.restore();
 };
-
-module.exports = GraphicsCanvasRenderer;
