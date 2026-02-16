@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var _warned = false;
+let warned = false;
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -19,15 +19,14 @@ var _warned = false;
  * @param {Phaser.GameObjects.CaptureFrame} src - The Game Object being rendered in this call.
  * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The current drawing context.
  */
-var CaptureFrameWebGLRenderer = function (renderer, src, drawingContext)
+export const CaptureFrameWebGLRenderer = function (_renderer: any, src: any, drawingContext: any): void
 {
     if (drawingContext.useCanvas)
     {
         // We can't derive a texture from the canvas.
-
-        if (!_warned)
+        if (!warned)
         {
-            _warned = true;
+            warned = true;
             console.warn('CaptureFrame: Cannot capture from main canvas. Activate `forceComposite` on the camera to use this feature. This warning will now mute.');
         }
 
@@ -36,11 +35,11 @@ var CaptureFrameWebGLRenderer = function (renderer, src, drawingContext)
 
     drawingContext.camera.addToRenderList(src);
 
-    var width = drawingContext.width;
-    var height = drawingContext.height;
+    const width = drawingContext.width;
+    const height = drawingContext.height;
 
-    var customRenderNodes = src.customRenderNodes;
-    var defaultRenderNodes = src.defaultRenderNodes;
+    const customRenderNodes = src.customRenderNodes;
+    const defaultRenderNodes = src.defaultRenderNodes;
 
     // Ensure capture drawing context is the same size as the current drawing context.
     src.drawingContext.resize(width, height);
@@ -76,5 +75,3 @@ var CaptureFrameWebGLRenderer = function (renderer, src, drawingContext)
 
     src.drawingContext.release();
 };
-
-module.exports = CaptureFrameWebGLRenderer;

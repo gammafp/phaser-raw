@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var CaptureFrame = require('./CaptureFrame');
-var GameObjectFactory = require('../GameObjectFactory');
+import { CaptureFrame } from './CaptureFrame';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new CaptureFrame Game Object and adds it to the Scene.
@@ -19,10 +20,11 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.CaptureFrame} The Game Object that was created.
  */
-GameObjectFactory.register('captureFrame', function (key)
-{
+export const CaptureFrameFactory = function (this: any, key: string): CaptureFrame {
     return this.displayList.add(new CaptureFrame(this.scene, key));
-});
+};
+
+GameObjectFactory.register('captureFrame', CaptureFrameFactory);
 
 //  When registering a factory function 'this' refers to the GameObjectFactory context.
 //

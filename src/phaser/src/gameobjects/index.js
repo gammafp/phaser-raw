@@ -65,6 +65,12 @@ import { BlitterCreator } from './blitter/BlitterCreator';
 import { NineSlice } from './nineslice/NineSlice';
 import { NineSliceFactory } from './nineslice/NineSliceFactory';
 import { NineSliceCreator } from './nineslice/NineSliceCreator';
+import { Light } from './lights/Light';
+import { LightsManager } from './lights/LightsManager';
+import { LightsPlugin } from './lights/LightsPlugin';
+import { CaptureFrame } from './captureframe/CaptureFrame';
+import { CaptureFrameFactory } from './captureframe/CaptureFrameFactory';
+import { CaptureFrameCreator } from './captureframe/CaptureFrameCreator';
 
 /**
  * @namespace Phaser.GameObjects
@@ -191,27 +197,27 @@ var GameObjects = {
 //  WebGL only Game Objects
 if (typeof WEBGL_RENDERER)
 {
-    GameObjects.CaptureFrame = require('./captureframe/CaptureFrame');
+    GameObjects.CaptureFrame = CaptureFrame;
     GameObjects.Shader = require('./shader/Shader');
     GameObjects.NineSlice = NineSlice;
     GameObjects.PointLight = require('./pointlight/PointLight');
     GameObjects.SpriteGPULayer = SpriteGPULayer;
 
-    GameObjects.Factories.CaptureFrame = require('./captureframe/CaptureFrameFactory');
+    GameObjects.Factories.CaptureFrame = CaptureFrameFactory;
     GameObjects.Factories.Shader = require('./shader/ShaderFactory');
     GameObjects.Factories.NineSlice = NineSliceFactory;
     GameObjects.Factories.PointLight = require('./pointlight/PointLightFactory');
     GameObjects.Factories.SpriteGPULayer = SpriteGPULayerFactory;
 
-    GameObjects.Creators.CaptureFrame = require('./captureframe/CaptureFrameCreator');
+    GameObjects.Creators.CaptureFrame = CaptureFrameCreator;
     GameObjects.Creators.Shader = require('./shader/ShaderCreator');
     GameObjects.Creators.NineSlice = NineSliceCreator;
     GameObjects.Creators.PointLight = require('./pointlight/PointLightCreator');
     GameObjects.Creators.SpriteGPULayer = SpriteGPULayerCreator;
 
-    GameObjects.Light = require('./lights/Light');
-    GameObjects.LightsManager = require('./lights/LightsManager');
-    GameObjects.LightsPlugin = require('./lights/LightsPlugin');
+    GameObjects.Light = Light;
+    GameObjects.LightsManager = LightsManager;
+    GameObjects.LightsPlugin = LightsPlugin;
 }
 
 module.exports = GameObjects;

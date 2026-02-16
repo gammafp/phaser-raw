@@ -5,9 +5,9 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { CaptureFrame } from './CaptureFrame';
 
-var GameObjectCreator = require('../GameObjectCreator');
-var CaptureFrame = require('./CaptureFrame');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new CaptureFrame Game Object and returns it.
@@ -22,32 +22,34 @@ var CaptureFrame = require('./CaptureFrame');
  *
  * @return {Phaser.GameObjects.CaptureFrame} The Game Object that was created.
  */
-GameObjectCreator.register('captureFrame', function (config, addToScene)
-{
+export const CaptureFrameCreator = function (this: any, config: any, addToScene?: boolean): CaptureFrame {
     if (config === undefined) { config = {}; }
 
-    var depth = GetAdvancedValue(config, 'depth', 0);
-    var key = GetAdvancedValue(config, 'key', null);
-    var visible = GetAdvancedValue(config, 'visible', true);
+    const depth = GetAdvancedValue(config, 'depth', 0);
+    const key = GetAdvancedValue(config, 'key', null);
+    const visible = GetAdvancedValue(config, 'visible', true);
 
-    var captureFrame = new CaptureFrame(this.scene, key);
+    const captureFrame = new CaptureFrame(this.scene, key);
 
     if (addToScene !== undefined)
     {
         config.add = addToScene;
     }
-    
+
     // This method does not use BuildGameObject, because most of the properties
     // are not settable on a CaptureFrame, and it doesn't render.
     captureFrame
         .setDepth(depth)
         .setVisible(visible);
+
     if (config.add)
     {
         this.scene.sys.displayList.add(captureFrame);
     }
 
     return captureFrame;
-});
+};
+
+GameObjectCreator.register('captureFrame', CaptureFrameCreator);
 
 //  When registering a factory function 'this' refers to the GameObjectCreator context.

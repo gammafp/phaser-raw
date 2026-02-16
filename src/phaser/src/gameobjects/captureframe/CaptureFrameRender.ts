@@ -5,17 +5,14 @@
  */
 
 import { NOOP } from '../../utils/NOOP';
-var renderWebGL = NOOP;
-var renderCanvas = NOOP;
+import { CaptureFrameWebGLRenderer } from './CaptureFrameWebGLRenderer';
+
+let renderWebGL: Function = NOOP;
+let renderCanvas: Function = NOOP;
 
 if (typeof WEBGL_RENDERER)
 {
-    renderWebGL = require('./CaptureFrameWebGLRenderer');
+    renderWebGL = CaptureFrameWebGLRenderer;
 }
 
-module.exports = {
-
-    renderWebGL: renderWebGL,
-    renderCanvas: renderCanvas
-
-};
+export { renderWebGL, renderCanvas };

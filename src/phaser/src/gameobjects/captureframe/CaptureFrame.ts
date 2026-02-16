@@ -6,12 +6,14 @@
 
 import { DrawingContext } from '../../renderer/webgl/DrawingContext';
 import { DefaultQuadNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultQuadNodes';
+import { Mixin } from '../../utils/MixinTS';
+import { BlendMode } from '../components/BlendMode';
+import { Depth } from '../components/Depth';
+import { RenderNodes } from '../components/RenderNodes';
+import { Visible } from '../components/Visible';
+import { renderWebGL, renderCanvas } from './CaptureFrameRender';
 
-
-var Class = require('../../utils/Class');
-var Components = require('../components');
-var GameObject = require('../GameObject.js');
-var CaptureFrameRender = require('./CaptureFrameRender.js');
+const GameObject = require('../GameObject');
 
 /**
  * @classdesc
@@ -68,98 +70,52 @@ var CaptureFrameRender = require('./CaptureFrameRender.js');
  * @param {Phaser.Scene} scene - The Scene to which this CaptureFrame belongs.
  * @param {string} key - The key of the texture to create from this CaptureFrame.
  */
-var CaptureFrame = new Class({
-    Extends: GameObject,
+export interface CaptureFrame extends BlendMode, Depth, RenderNodes, Visible {}
 
-    Mixins: [
-        Components.BlendMode,
-        Components.Depth,
-        Components.RenderNodes,
-        Components.Visible,
-        CaptureFrameRender
-    ],
+export class CaptureFrame extends GameObject
+{
+    drawingContext: DrawingContext;
+    captureTexture: any;
 
-    initialize: function CaptureFrame (scene, key)
+    static
     {
-        GameObject.call(this, scene, 'CaptureFrame');
+        Mixin(this, [
+            BlendMode,
+            Depth,
+            RenderNodes,
+            Visible,
+            { renderWebGL, renderCanvas }
+        ]);
+    }
 
-        var renderer = scene.renderer;
+    constructor (scene: any, key: string)
+    {
+        super(scene, 'CaptureFrame');
 
-        /**
-         * The drawing context of this CaptureFrame.
-         * This contains the WebGL framebuffer and texture data.
-         *
-         * @name Phaser.GameObjects.CaptureFrame#drawingContext
-         * @type {Phaser.Renderer.WebGL.DrawingContext}
-         * @webglOnly
-         * @since 4.0.0
-         */
+        const renderer = scene.renderer;
+
         this.drawingContext = new DrawingContext(renderer, {
             width: renderer.width,
             height: renderer.height
         });
 
-        /**
-         * A texture containing the captured frame.
-         * This is updated when the GameObject renders.
-         *
-         * @name Phaser.GameObjects.CaptureFrame#captureTexture
-         * @type {Phaser.Textures.Texture}
-         * @webglOnly
-         * @since 4.0.0
-         */
         this.captureTexture = scene.sys.textures.addGLTexture(key, this.drawingContext.texture);
 
         this.initRenderNodes(this._defaultRenderNodesMap);
-    },
+    }
 
-    /**
-     * The default render nodes for this Game Object.
-     *
-     * @name Phaser.GameObjects.CaptureFrame#_defaultRenderNodesMap
-     * @type {Map<string, string>}
-     * @private
-     * @webglOnly
-     * @readonly
-     * @since 4.0.0
-     */
-    _defaultRenderNodesMap: {
-        get: function ()
-        {
-            return DefaultQuadNodes;
-        }
-    },
-
-    /**
-     * Set the alpha value of this CaptureFrame.
-     * This has no effect and is only present for compatibility with other Game Objects.
-     *
-     * @method Phaser.GameObjects.CaptureFrame#setAlpha
-     * @since 4.0.0
-     * @webglOnly
-     * @param {number} alpha - The alpha value (not used).
-     * @returns {this}
-     */
-    setAlpha: function (alpha)
+    get _defaultRenderNodesMap (): any
     {
-        return this;
-    },
+        return DefaultQuadNodes;
+    }
 
-    /**
-     * Set the scroll factor of this CaptureFrame.
-     * This has no effect and is only present for compatibility with other Game Objects.
-     *
-     * @method Phaser.GameObjects.CaptureFrame#setScrollFactor
-     * @since 4.0.0
-     * @webglOnly
-     * @param {number} x - The horizontal scroll factor (not used).
-     * @param {number} y - The vertical scroll factor (not used).
-     * @returns {this}
-     */
-    setScrollFactor: function (x, y)
+    setAlpha (_alpha: number): this
     {
         return this;
     }
-});
 
-module.exports = CaptureFrame;
+    setScrollFactor (_x: number, _y: number): this
+    {
+        return this;
+    }
+}

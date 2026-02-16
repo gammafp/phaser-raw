@@ -4,10 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../../utils/Class');
-var LightsManager = require('./LightsManager');
+import { LightsManager } from './LightsManager';
 import { PluginCache } from '../../plugins/PluginCache';
-var SceneEvents = require('../../scene/events');
+const SceneEvents = require('../../scene/events');
 
 /**
  * @classdesc
@@ -39,39 +38,23 @@ var SceneEvents = require('../../scene/events');
  *
  * @param {Phaser.Scene} scene - The Scene that this Lights Plugin belongs to.
  */
-var LightsPlugin = new Class({
+export class LightsPlugin extends LightsManager
+{
+    scene: any;
+    systems: any;
 
-    Extends: LightsManager,
-
-    initialize:
-
-    function LightsPlugin (scene)
+    constructor (scene: any)
     {
-        /**
-         * A reference to the Scene that this Lights Plugin belongs to.
-         *
-         * @name Phaser.GameObjects.LightsPlugin#scene
-         * @type {Phaser.Scene}
-         * @since 3.0.0
-         */
-        this.scene = scene;
+        super();
 
-        /**
-         * A reference to the Scene's systems.
-         *
-         * @name Phaser.GameObjects.LightsPlugin#systems
-         * @type {Phaser.Scenes.Systems}
-         * @since 3.0.0
-         */
+        this.scene = scene;
         this.systems = scene.sys;
 
         if (!scene.sys.settings.isBooted)
         {
             scene.sys.events.once(SceneEvents.BOOT, this.boot, this);
         }
-
-        LightsManager.call(this);
-    },
+    }
 
     /**
      * Boot the Lights Plugin.
@@ -79,13 +62,13 @@ var LightsPlugin = new Class({
      * @method Phaser.GameObjects.LightsPlugin#boot
      * @since 3.0.0
      */
-    boot: function ()
+    boot (): void
     {
-        var eventEmitter = this.systems.events;
+        const eventEmitter = this.systems.events;
 
         eventEmitter.on(SceneEvents.SHUTDOWN, this.shutdown, this);
         eventEmitter.on(SceneEvents.DESTROY, this.destroy, this);
-    },
+    }
 
     /**
      * Destroy the Lights Plugin.
@@ -95,16 +78,13 @@ var LightsPlugin = new Class({
      * @method Phaser.GameObjects.LightsPlugin#destroy
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy (): void
     {
         this.shutdown();
 
         this.scene = undefined;
         this.systems = undefined;
     }
-
-});
+}
 
 PluginCache.register('LightsPlugin', LightsPlugin, 'lights');
-
-module.exports = LightsPlugin;
