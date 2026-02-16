@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var SpriteGPULayer = require('./SpriteGPULayer');
+import { SpriteGPULayer } from './SpriteGPULayer';
+
 var GameObjectFactory = require('../GameObjectFactory');
 
 /**
@@ -20,15 +21,9 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.SpriteGPULayer} The Game Object that was created.
  */
-GameObjectFactory.register('spriteGPULayer', function (texture, size)
+export const SpriteGPULayerFactory = function (this: any, texture: string | any, size?: number): any
 {
     return this.displayList.add(new SpriteGPULayer(this.scene, texture, size));
-});
+};
 
-//  When registering a factory function 'this' refers to the GameObjectFactory context.
-//
-//  There are several properties available to use:
-//
-//  this.scene - a reference to the Scene that owns the GameObjectFactory
-//  this.displayList - a reference to the Display List the Scene owns
-//  this.updateList - a reference to the Update List the Scene owns
+GameObjectFactory.register('spriteGPULayer', SpriteGPULayerFactory);

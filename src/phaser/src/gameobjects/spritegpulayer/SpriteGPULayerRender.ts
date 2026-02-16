@@ -5,12 +5,9 @@
  */
 
 import { NOOP } from '../../utils/NOOP';
-var renderWebGL = require('./SpriteGPULayerWebGLRenderer');
-var renderCanvas = NOOP;
+import { SpriteGPULayerWebGLRenderer } from './SpriteGPULayerWebGLRenderer';
 
-module.exports = {
+var renderWebGL: Function = SpriteGPULayerWebGLRenderer;
+var renderCanvas: Function = NOOP;
 
-    renderWebGL: renderWebGL,
-    renderCanvas: renderCanvas
-
-};
+export { renderWebGL, renderCanvas };

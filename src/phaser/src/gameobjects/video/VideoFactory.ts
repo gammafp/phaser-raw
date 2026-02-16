@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Video = require('./Video');
-var GameObjectFactory = require('../GameObjectFactory');
+import { Video } from './Video';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new Video Game Object and adds it to the Scene.
@@ -88,7 +89,9 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.Video} The Game Object that was created.
  */
-GameObjectFactory.register('video', function (x, y, key)
+export const VideoFactory = function (this: any, x: number, y: number, key?: string): any
 {
     return this.displayList.add(new Video(this.scene, x, y, key));
-});
+};
+
+GameObjectFactory.register('video', VideoFactory);

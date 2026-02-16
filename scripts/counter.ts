@@ -9,7 +9,7 @@
  * - No cuenta carpetas
  * - Ignora carpetas llamadas "typedef" o "typedefs"
  * - Ordena namespaces de mayor a menor contenido
- * - Muestra líneas del archivo más grande
+ * - Muestra líneas del archivo más grande y su nombre
  */
 
 import { readdir, readFile } from "node:fs/promises";
@@ -21,6 +21,7 @@ type NamespaceStats = {
   name: string;
   count: number;
   maxLines: number;
+  largestFile: string;
 };
 
 function shouldIgnoreFile(filename: string): boolean {
@@ -32,15 +33,20 @@ function shouldIgnoreFile(filename: string): boolean {
   return false;
 }
 
-async function analyzeDirectory(dir: string): Promise<{ count: number; maxLines: number }> {
+async function analyzeDirectory(dir: string): Promise<{
+  count: number;
+  maxLines: number;
+  largestFile: string;
+}> {
   let total = 0;
   let maxLines = 0;
+  let largestFile = "";
 
   let entries;
   try {
     entries = await readdir(dir, { withFileTypes: true });
   } catch {
-    return { count: 0, maxLines: 0 };
+    return { count: 0, maxLines: 0, largestFile: "" };
   }
 
   for (const ent of entries) {
@@ -52,9 +58,12 @@ async function analyzeDirectory(dir: string): Promise<{ count: number; maxLines:
       if (EXCLUDED_DIR_NAMES.has(ent.name)) continue;
 
       const sub = await analyzeDirectory(full);
+
       total += sub.count;
+
       if (sub.maxLines > maxLines) {
         maxLines = sub.maxLines;
+        largestFile = sub.largestFile;
       }
 
     } else if (ent.isFile()) {
@@ -65,8 +74,10 @@ async function analyzeDirectory(dir: string): Promise<{ count: number; maxLines:
       try {
         const content = await readFile(full, "utf8");
         const lines = content.split("\n").length;
+
         if (lines > maxLines) {
           maxLines = lines;
+          largestFile = full; // cambia a ent.name si solo quieres el nombre
         }
       } catch {
         // Ignorar errores de lectura
@@ -74,7 +85,7 @@ async function analyzeDirectory(dir: string): Promise<{ count: number; maxLines:
     }
   }
 
-  return { count: total, maxLines };
+  return { count: total, maxLines, largestFile };
 }
 
 async function main() {
@@ -98,7 +109,12 @@ async function main() {
 
   for (const ns of namespaces) {
     if (EXCLUDED_DIR_NAMES.has(ns.name)) {
-      results.push({ name: ns.name, count: 0, maxLines: 0 });
+      results.push({
+        name: ns.name,
+        count: 0,
+        maxLines: 0,
+        largestFile: ""
+      });
       continue;
     }
 
@@ -108,6 +124,7 @@ async function main() {
       name: ns.name,
       count: stats.count,
       maxLines: stats.maxLines,
+      largestFile: stats.largestFile
     });
   }
 
@@ -118,12 +135,16 @@ async function main() {
     : 0;
 
   console.log(`Ordenado por contenido (sin .ts ni Canvas*):`);
-  console.log(`${"namespace".padEnd(maxName)}  count   maxLines`);
-  console.log(`${"-".repeat(maxName)}  -----   --------`);
+  console.log(
+    `${"namespace".padEnd(maxName)}  count   maxLines   largestFile`
+  );
+  console.log(
+    `${"-".repeat(maxName)}  -----   --------   ----------------`
+  );
 
   for (const r of results) {
     console.log(
-      `${r.name.padEnd(maxName)}  ${String(r.count).padStart(5)}   ${String(r.maxLines).padStart(8)}`
+      `${r.name.padEnd(maxName)}  ${String(r.count).padStart(5)}   ${String(r.maxLines).padStart(8)}   ${r.largestFile}`
     );
   }
 }

@@ -5,10 +5,10 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { Video } from './Video';
 
-var BuildGameObject = require('../BuildGameObject');
-var GameObjectCreator = require('../GameObjectCreator');
-var Video = require('./Video');
+const BuildGameObject = require('../BuildGameObject');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new Video Game Object and returns it.
@@ -23,7 +23,7 @@ var Video = require('./Video');
  *
  * @return {Phaser.GameObjects.Video} The Game Object that was created.
  */
-GameObjectCreator.register('video', function (config, addToScene)
+export const VideoCreator = function (this: any, config: any, addToScene?: boolean): any
 {
     if (config === undefined) { config = {}; }
 
@@ -39,6 +39,8 @@ GameObjectCreator.register('video', function (config, addToScene)
     BuildGameObject(this.scene, video, config);
 
     return video;
-});
+};
+
+GameObjectCreator.register('video', VideoCreator);
 
 //  When registering a factory function 'this' refers to the GameObjectCreator context.

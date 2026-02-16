@@ -5,12 +5,14 @@
  */
 
 import { NOOP } from '../../utils/NOOP';
-var renderWebGL = NOOP;
-var renderCanvas = NOOP;
+import { TextWebGLRenderer } from './TextWebGLRenderer';
+
+var renderWebGL: Function = NOOP;
+var renderCanvas: Function = NOOP;
 
 if (typeof WEBGL_RENDERER)
 {
-    renderWebGL = require('./TextWebGLRenderer');
+    renderWebGL = TextWebGLRenderer;
 }
 
 if (typeof CANVAS_RENDERER)
@@ -18,9 +20,4 @@ if (typeof CANVAS_RENDERER)
     renderCanvas = require('./TextCanvasRenderer');
 }
 
-module.exports = {
-
-    renderWebGL: renderWebGL,
-    renderCanvas: renderCanvas
-
-};
+export { renderWebGL, renderCanvas };

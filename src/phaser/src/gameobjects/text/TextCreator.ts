@@ -5,10 +5,10 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { Text } from './Text';
 
 var BuildGameObject = require('../BuildGameObject');
 var GameObjectCreator = require('../GameObjectCreator');
-var Text = require('./Text');
 
 /**
  * Creates a new Text Game Object and returns it.
@@ -23,7 +23,7 @@ var Text = require('./Text');
  *
  * @return {Phaser.GameObjects.Text} The Game Object that was created.
  */
-GameObjectCreator.register('text', function (config, addToScene)
+export const TextCreator = function (this: any, config: any, addToScene?: boolean): any
 {
     if (config === undefined) { config = {}; }
 
@@ -77,6 +77,6 @@ GameObjectCreator.register('text', function (config, addToScene)
     text.resolution = GetAdvancedValue(config, 'resolution', 1);
 
     return text;
-});
+};
 
-//  When registering a factory function 'this' refers to the GameObjectCreator context.
+GameObjectCreator.register('text', TextCreator);

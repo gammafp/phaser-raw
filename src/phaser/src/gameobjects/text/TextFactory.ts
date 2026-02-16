@@ -4,7 +4,8 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Text = require('./Text');
+import { Text } from './Text';
+
 var GameObjectFactory = require('../GameObjectFactory');
 
 /**
@@ -45,15 +46,9 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.Text} The Game Object that was created.
  */
-GameObjectFactory.register('text', function (x, y, text, style)
+export const TextFactory = function (this: any, x: number, y: number, text: string | string[], style?: any): any
 {
     return this.displayList.add(new Text(this.scene, x, y, text, style));
-});
+};
 
-//  When registering a factory function 'this' refers to the GameObjectFactory context.
-//
-//  There are several properties available to use:
-//
-//  this.scene - a reference to the Scene that owns the GameObjectFactory
-//  this.displayList - a reference to the Display List the Scene owns
-//  this.updateList - a reference to the Update List the Scene owns
+GameObjectFactory.register('text', TextFactory);

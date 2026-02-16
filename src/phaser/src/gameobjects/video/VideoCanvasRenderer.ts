@@ -18,7 +18,7 @@
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var VideoCanvasRenderer = function (renderer, src, camera, parentMatrix)
+export const VideoCanvasRenderer = function (renderer: any, src: any, camera: any, parentMatrix: any): void
 {
     if (src.videoTexture)
     {
@@ -27,5 +27,3 @@ var VideoCanvasRenderer = function (renderer, src, camera, parentMatrix)
         renderer.batchSprite(src, src.frame, camera, parentMatrix);
     }
 };
-
-module.exports = VideoCanvasRenderer;

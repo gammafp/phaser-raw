@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var EasingEncoding = require('./EasingEncoding');
+import { EasingEncoding } from './EasingEncoding';
 
 /**
  * Easing function identifiers.
@@ -13,7 +13,7 @@ var EasingEncoding = require('./EasingEncoding');
  *
  * @ignore
  */
-var EasingNaming = {};
+export const EasingNaming: Record<number, string> = {};
 
 var animations = Object.keys(EasingEncoding);
 var animLen = animations.length;
@@ -24,5 +24,3 @@ for (var i = 0; i < animLen; i++)
     var value = EasingEncoding[key];
     EasingNaming[value] = key;
 }
-
-module.exports = EasingNaming;

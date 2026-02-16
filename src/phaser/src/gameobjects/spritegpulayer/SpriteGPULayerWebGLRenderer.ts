@@ -18,7 +18,7 @@
  * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The current drawing context.
  * @param {Phaser.GameObjects.Components.TransformMatrix} [parentMatrix] - This transform matrix is defined if the game object is nested.
  */
-var SpriteGPULayerWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
+export const SpriteGPULayerWebGLRenderer = function (renderer: any, src: any, drawingContext: any, parentMatrix?: any): void
 {
     drawingContext.camera.addToRenderList(src);
 
@@ -29,5 +29,3 @@ var SpriteGPULayerWebGLRenderer = function (renderer, src, drawingContext, paren
         drawingContext
     );
 };
-
-module.exports = SpriteGPULayerWebGLRenderer;

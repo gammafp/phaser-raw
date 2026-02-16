@@ -16,7 +16,7 @@ import * as CanvasPool from '../../display/canvas/CanvasPool';
  *
  * @return {Phaser.Types.GameObjects.Text.TextMetrics} An object containing the ascent, descent and fontSize of the TextStyle.
  */
-var MeasureText = function (textStyle)
+export const MeasureText = function (textStyle: any): any
 {
     var canvas = CanvasPool.create(this);
     var context = canvas.getContext('2d', { willReadFrequently: true });
@@ -140,5 +140,3 @@ var MeasureText = function (textStyle)
 
     return output;
 };
-
-module.exports = MeasureText;

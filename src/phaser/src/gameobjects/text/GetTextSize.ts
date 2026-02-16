@@ -16,13 +16,13 @@
  *
  * @return {Phaser.Types.GameObjects.Text.GetTextSizeObject} An object containing dimensions of the Text object.
  */
-var GetTextSize = function (text, size, lines)
+export const GetTextSize = function (text: any, size: any, lines: string[]): any
 {
     var canvas = text.canvas;
     var context = text.context;
     var style = text.style;
 
-    var lineWidths = [];
+    var lineWidths: number[] = [];
     var maxLineWidth = 0;
     var drawnLines = lines.length;
 
@@ -90,5 +90,3 @@ var GetTextSize = function (text, size, lines)
         lineHeight: lineHeight
     };
 };
-
-module.exports = GetTextSize;

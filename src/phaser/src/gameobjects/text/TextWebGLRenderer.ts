@@ -18,7 +18,7 @@
  * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The current drawing context.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var TextWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
+export const TextWebGLRenderer = function (renderer: any, src: any, drawingContext: any, parentMatrix: any): void
 {
     if (src.width === 0 || src.height === 0)
     {
@@ -39,5 +39,3 @@ var TextWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
         customRenderNodes.Transformer || defaultRenderNodes.Transformer
     );
 };
-
-module.exports = TextWebGLRenderer;

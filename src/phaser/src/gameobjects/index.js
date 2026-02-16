@@ -41,6 +41,21 @@ import { DynamicBitmapTextFactory } from './bitmaptext/dynamic/DynamicBitmapText
 import { DynamicBitmapTextCreator } from './bitmaptext/dynamic/DynamicBitmapTextCreator';
 import { RetroFont } from './bitmaptext/RetroFont';
 
+import { Text } from './text/Text';
+import { GetTextSize } from './text/GetTextSize';
+import { MeasureText } from './text/MeasureText';
+import { TextStyle } from './text/TextStyle';
+import { TextFactory } from './text/TextFactory';
+import { TextCreator } from './text/TextCreator';
+
+import { SpriteGPULayer } from './spritegpulayer/SpriteGPULayer';
+import { SpriteGPULayerFactory } from './spritegpulayer/SpriteGPULayerFactory';
+import { SpriteGPULayerCreator } from './spritegpulayer/SpriteGPULayerCreator';
+
+import { Video } from './video/Video';
+import { VideoFactory } from './video/VideoFactory';
+import { VideoCreator } from './video/VideoCreator';
+
 /**
  * @namespace Phaser.GameObjects
  */
@@ -79,14 +94,14 @@ var GameObjects = {
     Sprite: require('./sprite/Sprite'),
     Stamp: require('./stamp/Stamp'),
 
-    Text: require('./text/Text'),
-    GetTextSize: require('./text/GetTextSize'),
-    MeasureText: require('./text/MeasureText'),
-    TextStyle: require('./text/TextStyle'),
+    Text: Text,
+    GetTextSize: GetTextSize,
+    MeasureText: MeasureText,
+    TextStyle: TextStyle,
 
     TileSprite: require('./tilesprite/TileSprite'),
     Zone: require('./zone/Zone'),
-    Video: require('./video/Video'),
+    Video: Video,
 
     //  Shapes
 
@@ -122,10 +137,10 @@ var GameObjects = {
         Sprite: require('./sprite/SpriteFactory'),
         Stamp: require('./stamp/StampFactory'),
         StaticBitmapText: BitmapTextFactory,
-        Text: require('./text/TextFactory'),
+        Text: TextFactory,
         TileSprite: require('./tilesprite/TileSpriteFactory'),
         Zone: require('./zone/ZoneFactory'),
-        Video: require('./video/VideoFactory'),
+        Video: VideoFactory,
 
         //  Shapes
         Arc: ArcFactory,
@@ -155,10 +170,10 @@ var GameObjects = {
         Sprite: require('./sprite/SpriteCreator'),
         Stamp: require('./stamp/StampCreator'),
         StaticBitmapText: BitmapTextCreator,
-        Text: require('./text/TextCreator'),
+        Text: TextCreator,
         TileSprite: require('./tilesprite/TileSpriteCreator'),
         Zone: require('./zone/ZoneCreator'),
-        Video: require('./video/VideoCreator')
+        Video: VideoCreator
     }
 
 };
@@ -170,19 +185,19 @@ if (typeof WEBGL_RENDERER)
     GameObjects.Shader = require('./shader/Shader');
     GameObjects.NineSlice = require('./nineslice/NineSlice');
     GameObjects.PointLight = require('./pointlight/PointLight');
-    GameObjects.SpriteGPULayer = require('./spritegpulayer/SpriteGPULayer');
+    GameObjects.SpriteGPULayer = SpriteGPULayer;
 
     GameObjects.Factories.CaptureFrame = require('./captureframe/CaptureFrameFactory');
     GameObjects.Factories.Shader = require('./shader/ShaderFactory');
     GameObjects.Factories.NineSlice = require('./nineslice/NineSliceFactory');
     GameObjects.Factories.PointLight = require('./pointlight/PointLightFactory');
-    GameObjects.Factories.SpriteGPULayer = require('./spritegpulayer/SpriteGPULayerFactory');
+    GameObjects.Factories.SpriteGPULayer = SpriteGPULayerFactory;
 
     GameObjects.Creators.CaptureFrame = require('./captureframe/CaptureFrameCreator');
     GameObjects.Creators.Shader = require('./shader/ShaderCreator');
     GameObjects.Creators.NineSlice = require('./nineslice/NineSliceCreator');
     GameObjects.Creators.PointLight = require('./pointlight/PointLightCreator');
-    GameObjects.Creators.SpriteGPULayer = require('./spritegpulayer/SpriteGPULayerCreator');
+    GameObjects.Creators.SpriteGPULayer = SpriteGPULayerCreator;
 
     GameObjects.Light = require('./lights/Light');
     GameObjects.LightsManager = require('./lights/LightsManager');

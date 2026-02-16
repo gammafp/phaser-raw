@@ -5,10 +5,10 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { SpriteGPULayer } from './SpriteGPULayer';
 
 var BlendModes = require('../../renderer/BlendModes');
 var GameObjectCreator = require('../GameObjectCreator');
-var SpriteGPULayer = require('./SpriteGPULayer');
 
 /**
  * Creates a new SpriteGPULayer Game Object and returns it.
@@ -24,7 +24,7 @@ var SpriteGPULayer = require('./SpriteGPULayer');
  *
  * @return {Phaser.GameObjects.SpriteGPULayer} The Game Object that was created.
  */
-GameObjectCreator.register('spriteGPULayer', function (config, addToScene)
+export const SpriteGPULayerCreator = function (this: any, config: any, addToScene?: boolean): any
 {
     if (config === undefined) { config = {}; }
 
@@ -53,6 +53,6 @@ GameObjectCreator.register('spriteGPULayer', function (config, addToScene)
     }
 
     return gpuLayer;
-});
+};
 
-//  When registering a factory function 'this' refers to the GameObjectCreator context.
+GameObjectCreator.register('spriteGPULayer', SpriteGPULayerCreator);

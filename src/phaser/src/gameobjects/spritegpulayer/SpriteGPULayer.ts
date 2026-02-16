@@ -4,14 +4,23 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../../utils/Class');
-var Components = require('../components');
-var GameObject = require('../GameObject.js');
-var SubmitterSpriteGPULayer = require('../../renderer/webgl/renderNodes/submitter/SubmitterSpriteGPULayer.js');
-var Utils = require('../../renderer/webgl/Utils.js');
-var EasingEncoding = require('./EasingEncoding.js');
-var EasingNaming = require('./EasingNaming.js');
-var SpriteGPULayerRender = require('./SpriteGPULayerRender.js');
+import { Mixin } from '../../utils/MixinTS';
+import { Alpha } from '../components/Alpha';
+import { BlendMode } from '../components/BlendMode';
+import { Depth } from '../components/Depth';
+import { ElapseTimer } from '../components/ElapseTimer';
+import { Lighting } from '../components/Lighting';
+import { Mask } from '../components/Mask';
+import { RenderNodes } from '../components/RenderNodes';
+import { TextureCrop } from '../components/TextureCrop';
+import { Visible } from '../components/Visible';
+import { renderWebGL, renderCanvas } from './SpriteGPULayerRender';
+import { EasingEncoding } from './EasingEncoding';
+import { EasingNaming } from './EasingNaming';
+
+var GameObject = require('../GameObject');
+var SubmitterSpriteGPULayer = require('../../renderer/webgl/renderNodes/submitter/SubmitterSpriteGPULayer');
+var Utils = require('../../renderer/webgl/Utils');
 
 var getTint = Utils.getTintAppendFloatAlpha;
 
@@ -29,77 +38,6 @@ var getTint = Utils.getTintAppendFloatAlpha;
  * it is up to 100 times faster than rendering the objects individually.
  * Avoid changing the contents of the SpriteGPULayer frequently, as this
  * requires the whole buffer to be updated.
- *
- * The layer can generally perform well with a million small quads.
- * The exact performance will depend on the device and the size of the quads.
- * If the quads are large, the layer will be fill-rate limited.
- * Avoid drawing more than a few million pixels per frame.
- *
- * When populating the SpriteGPULayer, use `addMember` to add a new member
- * to the top of the layer. You should populate the layer all at once,
- * and leave it unchanged, rather than frequently adding and removing members,
- * because it is expensive to update the buffer.
- *
- * Rather than create a new `SpriteGPULayer.Member` object for each `addMember` call,
- * you can reuse the same object. This is more efficient,
- * because creating millions of objects has a major performance cost
- * and may cause garbage collection issues.
- *
- * Notes on modifying the SpriteGPULayer:
- *
- * The following operations are expensive. They require some or all of the
- * buffer to be updated:
- *
- * - `addData`
- * - `addMember`
- * - `editMember`
- * - `patchMember`
- * - `resize`
- * - `removeMembers`
- *
- * Members are added at the end of the buffer. Removed members are spliced out
- * of the buffer, causing the whole buffer to be updated.
- * The index of later members will change if you remove an earlier member.
- * If you need to maintain a structure, such as a grid of tiles,
- * it's best to "remove" a member by setting its scaleX, scaleY, and alpha to 0.
- * It is still rendered, but it does not fill any pixels.
- *
- * Changes to a small segment of the buffer are less expensive.
- * The buffer is split into several segments, and each segment can be updated
- * independently. Editing and patching members will only update the segments
- * that contain the members being edited.
- * Updating occurs at render time, so edits all happen at once.
- * This can reduce the amount of data that needs to be updated,
- * but it is still more expensive than not updating the buffer at all.
- * If you're updating a large number of segments, it may be more efficient
- * to call `setAllSegmentsNeedUpdate` and update the whole buffer at once
- * rather than make several segment updates in a row.
- *
- * The animations in the initial member data are used to compile the shader
- * and `frameDataTexture`. If you add new animations after the initial
- * compilation, the shader and texture will be rebuilt, which is expensive.
- *
- * Notes on textures:
- *
- * This layer gains much of its speed from inflexibility. It can only use one
- * texture, and that texture must be a single image.
- * It cannot use multi-atlas textures.
- *
- * Further, if the texture is not a power of two in size,
- * some texture seaming may occur if you line up sprites exactly.
- * This is because the GPU precision is limited by binary logic,
- * and texture coordinates will only be perfectly accurate for power of two textures.
- * This can be avoided by adding/extruding a pixel of padding around each frame
- * in the texture, or by using a power of two texture.
- *
- * Which should you use?
- *
- * - If you are using pixel art mode or round pixels,
- *   you should aim to use a power of two texture.
- * - If you are using smooth mode, you can use a non-power of two texture,
- *   but you should add padding around each frame to avoid seaming.
- * - If you are using a single image, or none of the frames in the texture
- *   need to tile, it doesn't matter.
  *
  * @class SpriteGPULayer
  * @extends Phaser.GameObjects.GameObject
@@ -119,133 +57,78 @@ var getTint = Utils.getTintAppendFloatAlpha;
  * @constructor
  * @since 4.0.0
  * @param {Phaser.Scene} scene - The Scene to which this SpriteGPULayer belongs.
- * @param {Phaser.Textures.Texture} texture - The texture that will be used to render the SpriteGPULayer. This must be sourced from a single image; a multi atlas will not work.
- * @param {number} size - The maximum number of quads that this SpriteGPULayer will hold. This can be increased later if necessary.
+ * @param {Phaser.Textures.Texture} texture - The texture that will be used to render the SpriteGPULayer.
+ * @param {number} size - The maximum number of quads that this SpriteGPULayer will hold.
  */
-var SpriteGPULayer = new Class({
-    Extends: GameObject,
 
-    Mixins: [
-        Components.Alpha,
-        Components.BlendMode,
-        Components.Depth,
-        Components.ElapseTimer,
-        Components.Lighting,
-        Components.Mask,
-        Components.RenderNodes,
-        Components.TextureCrop,
-        Components.Visible,
-        SpriteGPULayerRender
-    ],
+export interface SpriteGPULayer extends
+    Alpha,
+    BlendMode,
+    Depth,
+    ElapseTimer,
+    Lighting,
+    Mask,
+    RenderNodes,
+    TextureCrop,
+    Visible {}
 
-    initialize: function SpriteGPULayer (scene, texture, size)
+export class SpriteGPULayer extends GameObject
+{
+    static
     {
-        GameObject.call(this, scene, 'SpriteGPULayer');
+        Mixin(this, [
+            Alpha,
+            BlendMode,
+            Depth,
+            ElapseTimer,
+            Lighting,
+            Mask,
+            RenderNodes,
+            TextureCrop,
+            Visible,
+            { renderWebGL, renderCanvas }
+        ]);
+    }
 
-        /**
-         * The number of quad members in the SpriteGPULayer.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#memberCount
-         * @type {number}
-         * @since 4.0.0
-         */
+    memberCount: number;
+    size: number;
+    _segments: number;
+    MAX_BUFFER_UPDATE_SEGMENTS_FULL: number;
+    bufferUpdateSegments: number;
+    bufferUpdateSegmentSize: number;
+    gravity: number;
+    _animationsEnabled: Record<string, boolean>;
+    EASE: Record<string, number>;
+    EASE_CODES: Record<number, string>;
+    frameDataTexture: any;
+    frameDataIndices: Record<string, number>;
+    frameDataIndicesInv: Record<number, string>;
+    animationData: any[];
+    animationDataNames: Record<string, any>;
+    animationDataIndices: Record<number, any>;
+    submitterNode: any;
+    nextMember: ArrayBuffer;
+    nextMemberF32: Float32Array;
+    nextMemberU32: Uint32Array;
+
+    constructor (scene: any, texture: any, size: number)
+    {
+        super(scene, 'SpriteGPULayer');
+
         this.memberCount = 0;
 
-        /**
-         * The maximum number of quad members that can be in the SpriteGPULayer.
-         * This value is read-only. Change buffer size with `resize`.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#size
-         * @type {number}
-         * @since 4.0.0
-         * @readonly
-         */
         this.size = Math.max(size, 0);
 
-        /**
-         * The number of segments in the buffer.
-         * This helps to optimize buffer updates by dividing them into smaller segments.
-         * This is a constant value and should not be altered.
-         * If you do, all hell will break loose.
-         *
-         * Segments divide the buffer into sequential chunks.
-         * Only updated segments will be uploaded to the GPU.
-         * Each upload has a fixed cost, but reducing the total amount of data
-         * can improve performance.
-         *
-         * Don't change this value to anything higher than 31.
-         * Segment logic uses bitwise operations, which are limited to 32 bits,
-         * so going that high will cause overflows and break everything.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#_segments
-         * @type {number}
-         * @since 4.0.0
-         * @readonly
-         * @private
-         */
         this._segments = 24;
 
-        /**
-         * The state of `bufferUpdateSegments` when it's full.
-         * This is a constant value and should not be altered.
-         * If you do, all hell will break loose.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#MAX_BUFFER_UPDATE_SEGMENTS_FULL
-         * @type {number}
-         * @since 4.0.0
-         * @readonly
-         * @default 0xffffff
-         */
         this.MAX_BUFFER_UPDATE_SEGMENTS_FULL = 0xffffff;
 
-        /**
-         * Which segments of the buffer require updates.
-         * This is a bitfield with segments equal to `_segments`.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#bufferUpdateSegments
-         * @type {number}
-         * @since 4.0.0
-         */
         this.bufferUpdateSegments = 0;
 
-        /**
-         * The size of each segment of the buffer that requires updates.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#bufferUpdateSegmentSize
-         * @type {number}
-         * @since 4.0.0
-         */
         this.bufferUpdateSegmentSize = Math.ceil(this.size / this._segments);
 
-        /**
-         * The gravity used by member animations in 'Gravity' mode.
-         * This is the acceleration in pixels per second squared.
-         * The default is 1024 pixels per second squared.
-         *
-         * Any animation can be set to `ease: 'Gravity'` to use this value.
-         * Instead of `amplitude`, the animation takes
-         * `velocity` (a number of pixels) and
-         * `gravityFactor` (-1 to 1) parameters.
-         * Note that a `gravityFactor` of 0 is assumed to be a mistake,
-         * and will be converted to 1.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#gravity
-         * @type {number}
-         * @since 4.0.0
-         * @default 1024
-         */
         this.gravity = 1024;
 
-        /**
-         * The animations enabled for the SpriteGPULayer.
-         * This is a map of animation names from `this.EASE` to boolean values.
-         * Adjust these values with `setAnimationEnabled`.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#_animationsEnabled
-         * @type {object}
-         * @since 4.0.0
-         * @private
-         */
         this._animationsEnabled = {};
 
         var animations = Object.keys(EasingEncoding);
@@ -255,126 +138,27 @@ var SpriteGPULayer = new Class({
             this._animationsEnabled[animations[i]] = false;
         }
 
-        /**
-         * Strings for valid easing functions that can be assigned to
-         * the `ease` property of an SpriteGPULayerMemberAnimation.
-         * This is the reverse mapping of `this.EASE_CODES`.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#EASE
-         * @type {object}
-         * @since 4.0.0
-         * @readonly
-         */
         this.EASE = EasingEncoding;
 
-        /**
-         * Codes for valid easing functions that can be assigned to
-         * the `ease` property of an SpriteGPULayerMemberAnimation.
-         * This is the reverse mapping of `this.EASE`.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#EASE_CODES
-         * @type {object}
-         * @since 4.0.0
-         * @readonly
-         */
         this.EASE_CODES = EasingNaming;
 
         this.setTexture(texture);
         this.initRenderNodes(new Phaser.Structs.Map());
 
-        /**
-         * A texture containing the frame data for the SpriteGPULayer.
-         * This is used by the vertex shader.
-         *
-         * The texture is composed of pixel strides, where each stride
-         * is interpreted as 6 16-bit unsigned integers,
-         * representing the x, y, width, height, and origin x and y of a frame.
-         * The texture will be up to 4096 pixels wide and as tall as necessary.
-         *
-         * There are two sets of data in the texture: frames and animations.
-         * Frames are taken from the `texture`.
-         * Animations are defined by calling `setAnimations`,
-         * and consist of runs of frames suited to shader animation.
-         * Although the texture will be regenerated by `setAnimations`,
-         * the frames are stored first, so their indices won't change.
-         *
-         * If you change the `texture` of this layer, you will need to
-         * regenerate this by calling `generateFrameDataTexture`.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#frameDataTexture
-         * @type {Phaser.Renderer.WebGL.Wrappers.WebGLTextureWrapper}
-         * @since 4.0.0
-         */
         this.frameDataTexture = null;
 
-        /**
-         * A map of frame names to indices in the frame data texture.
-         * This is used to convert frame names to indices for the vertex shader.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#frameDataIndices
-         * @type {object}
-         * @since 4.0.0
-         */
         this.frameDataIndices = {};
 
-        /**
-         * A map of indices to frame names in the frame data texture.
-         * This is used to convert frame indices back to names for debugging.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#frameDataIndicesInv
-         * @type {object}
-         * @since 4.0.0
-         */
         this.frameDataIndicesInv = {};
 
-        /**
-         * An ordered list of animations in the frame data texture.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#animationData
-         * @type {object[]}
-         * @since 4.0.0
-         */
         this.animationData = [];
 
-        /**
-         * A map of animation names to animation parameters in
-         * the frame data texture.
-         * This is used to convert animation names to indices and durations
-         * for the vertex shader.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#animationDataNames
-         * @type {object}
-         * @since 4.0.0
-         */
         this.animationDataNames = {};
 
-        /**
-         * A map of frame indices to animation parameters in
-         * the frame data texture.
-         * These are the starting frame indices used by the vertex shader.
-         * They can be used to map back to names in `animationDataIndices`.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#animationDataIndices
-         * @type {object}
-         * @since 4.0.0
-         */
         this.animationDataIndices = {};
 
         this.generateFrameDataTexture();
 
-        /**
-         * The SubmitterSpriteGPULayer RenderNode for this SpriteGPULayer.
-         *
-         * This handles rendering the SpriteGPULayer to the GPU.
-         * It is created automatically when the SpriteGPULayer is initialized.
-         * Most RenderNodes are singletons stored in the RenderNodeManager,
-         * but because this one holds very specific data,
-         * it is stored in the SpriteGPULayer itself.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#submitterNode
-         * @type {Phaser.Renderer.WebGL.RenderNodes.SubmitterSpriteGPULayer}
-         * @since 4.0.0
-         */
         this.submitterNode = new SubmitterSpriteGPULayer(scene.renderer.renderNodes, {}, this);
 
         this.defaultRenderNodes['Submitter'] = this.submitterNode;
@@ -382,78 +166,51 @@ var SpriteGPULayer = new Class({
 
         this.resize(this.size);
 
-        /**
-         * The next member buffer, used to store member data
-         * before it is added to the GPU buffer.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#nextMember
-         * @type {ArrayBuffer}
-         * @since 4.0.0
-         */
         this.nextMember = new ArrayBuffer(this.getDataByteSize());
 
-        /**
-         * A Float32Array view of the next member buffer.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#nextMemberF32
-         * @type {Float32Array}
-         * @since 4.0.0
-         */
         this.nextMemberF32 = new Float32Array(this.nextMember);
 
-        /**
-         * A Uint32Array view of the next member buffer.
-         * This is used to write 32-bit integer data to the buffer.
-         * It is used for color data.
-         *
-         * @name Phaser.GameObjects.SpriteGPULayer#nextMemberU32
-         * @type {Uint32Array}
-         * @since 4.0.0
-         */
         this.nextMemberU32 = new Uint32Array(this.nextMember);
-    },
+    }
 
     //  Overrides Game Object method
-    addedToScene: function ()
+    addedToScene (): void
     {
         this.scene.sys.updateList.add(this);
-    },
+    }
 
     //  Overrides Game Object method
-    removedFromScene: function ()
+    removedFromScene (): void
     {
         this.scene.sys.updateList.remove(this);
-    },
+    }
 
-    preUpdate: function (time, delta)
+    preUpdate (time: number, delta: number): void
     {
         this.updateTimer(time, delta);
-    },
+    }
 
     /**
      * Get the number of bytes used to define a member.
-     * If you are directly editing the buffer, you will need this value
-     * as a 'stride' to move through the buffer.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#getDataByteSize
      * @returns {number} The number of bytes used for each member.
      */
-    getDataByteSize: function ()
+    getDataByteSize (): number
     {
         return this.submitterNode.instanceBufferLayout.layout.stride;
-    },
+    }
 
     /**
      * Return a list of features to enable in the shader program.
-     * This is used when the shader program is compiled.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#getShaderFeatures
      * @since 4.0.0
      * @return {string[]} An array of features to enable in the shader program.
      */
-    getShaderFeatures: function ()
+    getShaderFeatures (): string[]
     {
-        var features = [];
+        var features: string[] = [];
 
         // Add enabled animations.
         var animations = Object.keys(this._animationsEnabled);
@@ -467,29 +224,19 @@ var SpriteGPULayer = new Class({
         }
 
         return features;
-    },
+    }
 
     /**
      * Set the animations available to the SpriteGPULayer.
      * This will call `generateFrameDataTexture` to regenerate
      * `frameDataTexture`.
      *
-     * Each animation can be either an Animation object, or an object
-     * containing a name, duration, and an array of frame names/numbers.
-     * If an Animation is used, it will be converted to the object form,
-     * discarding any custom individual frame durations
-     * and using the animation's duration as default.
-     *
-     * This is not a Phaser Animation. It is intended to cycle automatically
-     * on the GPU without supervision or interaction. It will not emit events,
-     * allow you to pause the animation, set number of repeats, etc.
-     *
      * @method Phaser.GameObjects.SpriteGPULayer#setAnimations
      * @since 4.0.0
      * @param {Phaser.Animations.Animation[]|Phaser.Types.GameObjects.SpriteGPULayer.SetAnimation[]} animations - An array of animations to set.
      * @returns {this} This SpriteGPULayer object.
      */
-    setAnimations: function (animations)
+    setAnimations (animations: any[]): this
     {
         var animLen = animations.length;
 
@@ -500,7 +247,7 @@ var SpriteGPULayer = new Class({
         for (var i = 0; i < animLen; i++)
         {
             var anim = animations[i];
-            var data = {};
+            var data: any = {};
             if (anim.key)
             {
                 // This is a Phaser.Animations.Animation class.
@@ -529,16 +276,15 @@ var SpriteGPULayer = new Class({
         this.generateFrameDataTexture();
 
         return this;
-    },
+    }
 
     /**
      * Generate `frameDataTexture` for the SpriteGPULayer.
-     * This is used by the vertex shader to access frame data.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#generateFrameDataTexture
      * @since 4.0.0
      */
-    generateFrameDataTexture: function ()
+    generateFrameDataTexture (): void
     {
         // Get the frame data.
         var texture = this.texture;
@@ -548,10 +294,11 @@ var SpriteGPULayer = new Class({
         // Update the frame data indices.
         this.frameDataIndices = {};
         this.frameDataIndicesInv = {};
+        var frame;
         for (var i = 0; i < frameLen; i++)
         {
             var frameName = frames[i];
-            var frame = texture.get(frameName);
+            frame = texture.get(frameName);
             this.frameDataIndices[frameName] = i;
             this.frameDataIndicesInv[i] = frameName;
         }
@@ -612,8 +359,6 @@ var SpriteGPULayer = new Class({
             u16[offset + 3] = frame.cutHeight;
 
             // Pivot offset
-            // Multiplied by the size to convert to pixels.
-            // Offset by 32768 to effectively store as a 16-bit signed integer.
             var pivotX = 0.5;
             var pivotY = 0.5;
             if (frame.customPivot)
@@ -631,14 +376,10 @@ var SpriteGPULayer = new Class({
             this.frameDataTexture.destroy();
         }
         this.frameDataTexture = this.scene.renderer.createUint8ArrayTexture(u8, width, height, false, false);
-    },
+    }
 
     /**
      * Resizes the SpriteGPULayer buffer to a new size.
-     * Optionally, clears the buffer.
-     *
-     * This is an expensive operation, as it requires the whole buffer to be updated.
-     * It can take many frames to complete.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#resize
      * @since 4.0.0
@@ -646,7 +387,7 @@ var SpriteGPULayer = new Class({
      * @param {boolean} [clear=false] - Whether to clear the buffer.
      * @returns {this} This SpriteGPULayer object.
      */
-    resize: function (count, clear)
+    resize (count: number, clear?: boolean): this
     {
         var layout = this.submitterNode.instanceBufferLayout;
         var buffer = layout.buffer;
@@ -673,16 +414,16 @@ var SpriteGPULayer = new Class({
         this.setAllSegmentsNeedUpdate();
 
         return this;
-    },
+    }
 
     /**
      * Sets a segment of the buffer to require an update.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#setSegmentNeedsUpdate
      * @since 4.0.0
-     * @param {number} index - The index at which an update occurred, which requires the segment to be updated.
+     * @param {number} index - The index at which an update occurred.
      */
-    setSegmentNeedsUpdate: function (index)
+    setSegmentNeedsUpdate (index: number): void
     {
         if (
             index < 0 ||
@@ -694,7 +435,7 @@ var SpriteGPULayer = new Class({
         }
         var segment = Math.floor(index / this.bufferUpdateSegmentSize);
         this.bufferUpdateSegments |= (1 << segment);
-    },
+    }
 
     /**
      * Sets all segments of the buffer to require an update.
@@ -702,10 +443,10 @@ var SpriteGPULayer = new Class({
      * @method Phaser.GameObjects.SpriteGPULayer#setAllSegmentsNeedUpdate
      * @since 4.0.0
      */
-    setAllSegmentsNeedUpdate: function ()
+    setAllSegmentsNeedUpdate (): void
     {
         this.bufferUpdateSegments = this.MAX_BUFFER_UPDATE_SEGMENTS_FULL;
-    },
+    }
 
     /**
      * Clears all segments of the buffer that require an update.
@@ -713,33 +454,20 @@ var SpriteGPULayer = new Class({
      * @method Phaser.GameObjects.SpriteGPULayer#clearAllSegmentsNeedUpdate
      * @since 4.0.0
      */
-    clearAllSegmentsNeedUpdate: function ()
+    clearAllSegmentsNeedUpdate (): void
     {
         this.bufferUpdateSegments = 0;
-    },
+    }
 
     /**
      * Adds data to the SpriteGPULayer buffer.
-     * It is inserted at the end of the buffer.
-     *
-     * This is mostly used internally by the SpriteGPULayer.
-     * It takes raw data as a buffer, which is very efficient,
-     * but `addMember` is easier to use.
-     *
-     * Note that, if you add a member with an animation,
-     * the animation must either already be enabled,
-     * or you must enable it with `setAnimationEnabled`,
-     * e.g. `layer.setAnimationEnabled('Linear', true)` or
-     * `layer.setAnimationEnabled(layer.EASE_CODES[layer.EASE.Linear], true)`.
-     *
-     * This is a buffer modification, and is expensive.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#addData
      * @since 4.0.0
      * @param {Float32Array} member - The raw data to add to the buffer.
      * @returns {this} This SpriteGPULayer object.
      */
-    addData: function (member)
+    addData (member: Float32Array): this
     {
         if (this.memberCount >= this.size)
         {
@@ -756,20 +484,17 @@ var SpriteGPULayer = new Class({
         this.memberCount++;
 
         return this;
-    },
+    }
 
     /**
      * Adds a member to the SpriteGPULayer.
-     * This is the easiest way to add a member to the SpriteGPULayer.
-     *
-     * This is a buffer modification, and is expensive.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#addMember
      * @since 4.0.0
-     * @param {Partial<Phaser.Types.GameObjects.SpriteGPULayer.Member>} [member] - The member to add to the SpriteGPULayer.
+     * @param {Partial<Phaser.Types.GameObjects.SpriteGPULayer.Member>} [member] - The member to add.
      * @returns {this} This SpriteGPULayer object.
      */
-    addMember: function (member)
+    addMember (member?: any): this
     {
         if (this.memberCount >= this.size)
         {
@@ -784,7 +509,7 @@ var SpriteGPULayer = new Class({
             member = {};
         }
 
-        var frame = this.frame;
+        var frame: any = this.frame;
         if (member.frame !== undefined)
         {
             frame = member.frame.base ? member.frame.base : member.frame;
@@ -937,12 +662,10 @@ var SpriteGPULayer = new Class({
         this.addData(this.nextMemberF32);
 
         return this;
-    },
+    }
 
     /**
      * Edits a member of the SpriteGPULayer.
-     * This will update the member's data in the GPU buffer.
-     * This is an expensive operation, as it requires the whole buffer to be updated.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#editMember
      * @since 4.0.0
@@ -950,7 +673,7 @@ var SpriteGPULayer = new Class({
      * @param {Partial<Phaser.Types.GameObjects.SpriteGPULayer.Member>} member - The new member data.
      * @returns {this} This SpriteGPULayer object.
      */
-    editMember: function (index, member)
+    editMember (index: number, member: any): this
     {
         if (index < 0 || index >= this.memberCount)
         {
@@ -963,30 +686,18 @@ var SpriteGPULayer = new Class({
         this.memberCount = currentMemberCount;
 
         return this;
-    },
+    }
 
     /**
      * Update a member of the SpriteGPULayer with raw data.
-     * This will update the member's data in the GPU buffer.
-     * This is an expensive operation, as it requires the whole buffer to be updated.
-     *
-     * You can supply a mask to control which properties are updated.
-     * This can be useful for updating only a subset of properties.
-     * Try using `getMemberData` to copy an existing member's data,
-     * then modify the data you want to change.
-     *
-     * The data must be passed in as an Uint32Array.
-     * This will preserve data that other TypedArrays would not.
-     * As it uses an underlying ArrayBuffer, you can work on the data
-     * with any TypedArray view before submitting it.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#patchMember
      * @since 4.0.0
      * @param {number} index - The index of the member to patch.
      * @param {Uint32Array} member - The new member data.
-     * @param {number[]} [mask] - The mask to apply to the member data. A value of 1 will update the member data, a value of 0 will keep the existing member data.
+     * @param {number[]} [mask] - The mask to apply to the member data.
      */
-    patchMember: function (index, member, mask)
+    patchMember (index: number, member: Uint32Array, mask?: number[]): void
     {
         if (index < 0 || index >= this.memberCount)
         {
@@ -1017,29 +728,17 @@ var SpriteGPULayer = new Class({
         }
 
         this.setSegmentNeedsUpdate(index);
-    },
+    }
 
     /**
      * Returns a member of the SpriteGPULayer.
-     *
-     * This returns an object copied from the buffer.
-     * Editing it will not change anything in the SpriteGPULayer.
-     * The object will be functionally identical to the data used to
-     * create the buffer, but some values may be different.
-     *
-     * - Properties that support animation, but have no amplitude or duration or have easing 'None' (0), will be presented as numbers.
-     * - Animation easing values will be presented as numbers (the values
-     *   in `this.EASE`).
-     * - Animation delay values will be normalized to the duration,
-     *   e.g. a delay of 150 with a duration of 100 will return 50.
-     * - Some rounding may occur due to floating point precision.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#getMember
      * @since 4.0.0
      * @param {number} index - The index of the member to get.
      * @returns {?Phaser.Types.GameObjects.SpriteGPULayer.Member} The member data, or null if the index is out of bounds.
      */
-    getMember: function (index)
+    getMember (index: number): any
     {
         if (index < 0 || index >= this.memberCount)
         {
@@ -1053,7 +752,7 @@ var SpriteGPULayer = new Class({
         var f32 = buffer.viewF32;
         var u32 = buffer.viewU32;
 
-        var member = {};
+        var member: any = {};
 
         var offset = byteOffset / f32.BYTES_PER_ELEMENT;
 
@@ -1076,7 +775,7 @@ var SpriteGPULayer = new Class({
         offset += 4;
 
         // Determine frame or animation values.
-        var frame = this._getAnimatedValue(offset);
+        var frame: any = this._getAnimatedValue(offset);
         offset += 4;
 
         if (typeof frame !== 'number')
@@ -1125,72 +824,18 @@ var SpriteGPULayer = new Class({
         member.scrollFactorY = f32[offset++];
 
         return member;
-    },
+    }
 
     /**
      * Returns the raw data of a member of the SpriteGPULayer.
-     * This can be useful as the base of efficient editing operations,
-     * including calls to `addData` and `patchMember`,
-     * so no data has to be converted.
-     *
-     * This returns an Uint32Array copied from the buffer.
-     * Editing it will not change anything in the SpriteGPULayer.
-     * The array will be functionally identical to the data used to
-     * create the buffer.
-     *
-     * By default, the data is copied into `this.nextMember`.
-     * You can use the views `this.nextMemberF32` and `this.nextMemberU32`
-     * to access the data in different formats.
-     * If you provide an `out` parameter, the data will be copied to that array,
-     * and you must construct your own views.
-     *
-     * The primary data view is a 41-element array of 32-bit floats.
-     * Some values are grouped to form animations, of the form:
-     *
-     * - 0: base value
-     * - 1: amplitude
-     * - 2: duration (if negative, the animation will yoyo)
-     * - 3: delay (the integer part is the easing, the decimal part is the delay divided by 2 * duration; if negative, the animation will not loop)
-     *
-     * The overall structure is thus:
-     *
-     * - 0-3: x (animation)
-     * - 4-7: y (animation)
-     * - 8-11: rotation (animation)
-     * - 12-15: scaleX (animation)
-     * - 16-19: scaleY (animation)
-     * - 20-23: alpha (animation)
-     * - 24-27: frame index (animation)
-     * - 28-31: tintBlend (animation)
-     * - 32-35: no data
-     * - 36: originX
-     * - 37: originY
-     * - 38: tintFill
-     * - 39: creationTime
-     * - 40: scrollFactorX
-     * - 41: scrollFactorY
-     *
-     * Elements 32-35 are only visible in the Uint32Array view.
-     * They store 32-bit RGBA values for the four corners of the tint:
-     *
-     * - 32: bottom-left
-     * - 33: top-left
-     * - 34: bottom-right
-     * - 35: top-right
-     *
-     * If the ease for an animation is 'Gravity', the amplitude is replaced
-     * with a two-part value: the integer part is the `velocity`,
-     * and the fractional part is the remapped `gravityFactor`.
-     * To get the true `gravityFactor`, use `gravityFactor * 2 - 1` to map from [0,1] to [-1,1].
-     * An output `gravityFactor` of 0 actually means 1.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#getMemberData
      * @since 4.0.0
      * @param {number} index - The index of the member to get.
-     * @param {Uint32Array} [out] - An optional array to copy the data to. If not provided, `this.nextMember` will be populated, and `nextMemberU32` will be returned.
+     * @param {Uint32Array} [out] - An optional array to copy the data to.
      * @returns {?Uint32Array} The member data, or null if the index is out of bounds.
      */
-    getMemberData: function (index, out)
+    getMemberData (index: number, out?: Uint32Array): Uint32Array | null
     {
         if (index < 0 || index >= this.memberCount)
         {
@@ -1213,22 +858,18 @@ var SpriteGPULayer = new Class({
         out.set(viewU32.subarray(byteOffset / bytesPerElement, byteOffset / bytesPerElement + stride / bytesPerElement));
 
         return out;
-    },
+    }
 
     /**
      * Removes a member or a number of members from the SpriteGPULayer.
-     * This will update the GPU buffer.
-     * This is an expensive operation, as it requires the whole buffer to be updated.
-     *
-     * The buffer is not resized.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#removeMembers
      * @since 4.0.0
      * @param {number} index - The index of the member to remove.
-     * @param {number} [count=1] - The number of members to remove, default 1.
+     * @param {number} [count=1] - The number of members to remove.
      * @returns {this} This SpriteGPULayer object.
      */
-    removeMembers: function (index, count)
+    removeMembers (index: number, count?: number): this
     {
         if (index < 0 || index >= this.memberCount)
         {
@@ -1260,13 +901,10 @@ var SpriteGPULayer = new Class({
         this.memberCount -= count;
 
         return this;
-    },
+    }
 
     /**
      * Inserts members into the SpriteGPULayer.
-     * This will update the GPU buffer.
-     * This is an expensive operation, as it requires the whole buffer to be
-     * updated after the insertion point.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#insertMembers
      * @since 4.0.0
@@ -1274,7 +912,7 @@ var SpriteGPULayer = new Class({
      * @param {Phaser.Types.GameObjects.SpriteGPULayer.Member|Phaser.Types.GameObjects.SpriteGPULayer.Member[]} members - The members to insert.
      * @returns {this} This SpriteGPULayer object.
      */
-    insertMembers: function (index, members)
+    insertMembers (index: number, members: any | any[]): this
     {
         if (index < 0 || index > this.memberCount)
         {
@@ -1321,28 +959,10 @@ var SpriteGPULayer = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Inserts raw data into the SpriteGPULayer.
-     * This will update the GPU buffer.
-     * This is an expensive operation, as it requires the whole buffer to be
-     * updated after the insertion point.
-     *
-     * The data must be passed in as a Uint32Array.
-     * This will preserve data that other TypedArrays would not.
-     * As it uses an underlying ArrayBuffer, you can work on the data
-     * with any TypedArray view before submitting it.
-     *
-     * The buffer can contain 1 or more members.
-     * Ensure that the buffer is the correct size for the number of members.
-     * See `getMemberData` for the structure of the data.
-     *
-     * Note that, if you add a member with an animation,
-     * the animation must either already be enabled,
-     * or you must enable it with `setAnimationEnabled`,
-     * e.g. `layer.setAnimationEnabled('Linear', true)` or
-     * `layer.setAnimationEnabled(layer.EASE_CODES[layer.EASE.Linear], true)`.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#insertMembersData
      * @since 4.0.0
@@ -1350,7 +970,7 @@ var SpriteGPULayer = new Class({
      * @param {Uint32Array} data - The members to insert.
      * @returns {this} This SpriteGPULayer object.
      */
-    insertMembersData: function (index, data)
+    insertMembersData (index: number, data: Uint32Array): this
     {
         if (index < 0 || index > this.memberCount)
         {
@@ -1387,11 +1007,10 @@ var SpriteGPULayer = new Class({
         }
 
         return this;
-    },
+    }
 
     /**
      * Sets the values of an animation for a member of this SpriteGPULayer.
-     * The values are set on `nextMember`, used to add data.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#_setAnimatedValue
      * @since 4.0.0
@@ -1400,7 +1019,7 @@ var SpriteGPULayer = new Class({
      * @param {number} index - The offset in `nextMember` to write to.
      * @param {number} [defaultValue=0] - A default value to use if `value` is undefined.
      */
-    _setAnimatedValue: function (value, index, defaultValue)
+    _setAnimatedValue (value: any, index: number, defaultValue?: number): void
     {
         var f32 = this.nextMemberF32;
 
@@ -1452,9 +1071,6 @@ var SpriteGPULayer = new Class({
 
                 if (gravityFactor >= 1)
                 {
-                    // We encode the factor as a fraction, so we can't encode 1.
-                    // The shader decodes 0 as 1 if Gravity is used.
-                    // This means a value of 0 will be wrongly interpreted, but why set 0?
                     gravityFactor = 0;
                 }
                 else if (gravityFactor < -1)
@@ -1470,7 +1086,6 @@ var SpriteGPULayer = new Class({
             }
 
             // Normalize delay.
-            // We double the range of the delay to allow for yoyo.
             if (duration > 0)
             {
                 delay = (delay / duration) % 2;
@@ -1505,7 +1120,7 @@ var SpriteGPULayer = new Class({
             f32[index++] = duration;
             f32[index] = delay;
         }
-    },
+    }
 
     /**
      * Return the values of an animation for a member of this SpriteGPULayer
@@ -1517,7 +1132,7 @@ var SpriteGPULayer = new Class({
      * @param {number} index - The index where the animation begins in the buffer.
      * @returns {number|Phaser.Types.GameObjects.SpriteGPULayer.MemberAnimation} The animation values.
      */
-    _getAnimatedValue: function (index)
+    _getAnimatedValue (index: number): any
     {
         var f32 = this.submitterNode.instanceBufferLayout.buffer.viewF32;
 
@@ -1525,6 +1140,9 @@ var SpriteGPULayer = new Class({
         var amplitude = f32[index++];
         var duration = f32[index++];
         var delay = f32[index];
+
+        // Declare ease before the condition check so it's available in scope
+        var ease = Math.floor(Math.abs(delay));
 
         if (amplitude === 0 || duration === 0 || ease === 0)
         {
@@ -1544,7 +1162,6 @@ var SpriteGPULayer = new Class({
         }
 
         // Negate ease after duration, so duration has the correct sign.
-        var ease = Math.floor(delay);
         delay -= ease;
         delay = (delay * duration * 2) % duration;
 
@@ -1576,34 +1193,23 @@ var SpriteGPULayer = new Class({
             delay: delay,
             yoyo: yoyo
         };
-    },
+    }
 
     /**
      * Set the enabled state of an animation.
-     * This will enable or disable the animation in the shader program.
-     * This method is called automatically when animations are added with
-     * `addMember`, so you should not need to call it manually.
-     *
-     * Every enabled animation has a cost in the shader program.
-     * In particular, low-end devices may be unable to compile a large number
-     * of animations, so be careful when enabling many animations.
-     *
-     * Note that animations are not disabled automatically,
-     * even if they are not used by any members.
-     * There are probably too many members for this to be efficient.
      *
      * @method Phaser.GameObjects.SpriteGPULayer#setAnimationEnabled
      * @since 4.0.0
      * @param {string} name - The name of the animation to enable or disable.
      * @param {boolean} enabled - Whether to enable or disable the animation.
-     * @returns {this} This SpriteGPULayer object
+     * @returns {this} This SpriteGPULayer object.
      */
-    setAnimationEnabled: function (name, enabled)
+    setAnimationEnabled (name: string, enabled: boolean): this
     {
         this._animationsEnabled[name] = !!enabled;
 
         return this;
-    },
+    }
 
     /**
      * Internal destroy handler, called as part of the destroy process.
@@ -1612,12 +1218,10 @@ var SpriteGPULayer = new Class({
      * @protected
      * @since 4.0.0
      */
-    preDestroy: function ()
+    preDestroy (): void
     {
         this.frameDataTexture.destroy();
 
         // TODO: Destroy the Submitter RenderNode.
     }
-});
-
-module.exports = SpriteGPULayer;
+}

@@ -9,7 +9,7 @@
  *
  * @ignore
  */
-var EasingEncoding = {
+export const EasingEncoding: Record<string, number> = {
     None: 0,
 
     Power0: 1,
@@ -80,5 +80,3 @@ var EasingEncoding = {
     'Smoothstep.easeIn': 121,
     'Smoothstep.easeInOut': 122
 };
-
-module.exports = EasingEncoding;
