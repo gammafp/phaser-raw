@@ -15,7 +15,7 @@
  * @since 3.12.0
  */
 
-module.exports = [
+export const CSSBlendModes = [
     'normal',
     'multiply',
     'multiply',

@@ -5,13 +5,13 @@
  */
 
 import { TransformMatrix } from '../components/TransformMatrix';
+import { CSSBlendModes } from './CSSBlendModes';
 
-var CSSBlendModes = require('./CSSBlendModes');
-var GameObject = require('../GameObject');
+const GameObject = require('../GameObject');
 
-var tempMatrix1 = new TransformMatrix();
-var tempMatrix2 = new TransformMatrix();
-var tempMatrix3 = new TransformMatrix();
+const tempMatrix1 = new TransformMatrix();
+const tempMatrix2 = new TransformMatrix();
+const tempMatrix3 = new TransformMatrix();
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -27,7 +27,7 @@ var tempMatrix3 = new TransformMatrix();
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var DOMElementCSSRenderer = function (renderer, src, camera, parentMatrix)
+export const DOMElementCSSRenderer = function (renderer: any, src: any, camera: any, parentMatrix: any): void
 {
     if (!src.node)
     {
@@ -40,8 +40,8 @@ var DOMElementCSSRenderer = function (renderer, src, camera, parentMatrix)
         camera = camera.camera;
     }
 
-    var style = src.node.style;
-    var settings = src.scene.sys.settings;
+    const style = src.node.style;
+    const settings = src.scene.sys.settings;
 
     if (!style || !settings.visible || GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter !== 0 && (src.cameraFilter & camera.id)) || (src.parentContainer && !src.parentContainer.willRender()))
     {
@@ -50,23 +50,23 @@ var DOMElementCSSRenderer = function (renderer, src, camera, parentMatrix)
         return;
     }
 
-    var parent = src.parentContainer;
-    var alpha = camera.alpha * src.alpha;
+    const parent = src.parentContainer;
+    let alpha = camera.alpha * src.alpha;
 
     if (parent)
     {
         alpha *= parent.alpha;
     }
 
-    var camMatrix = tempMatrix1;
-    var srcMatrix = tempMatrix2;
-    var calcMatrix = tempMatrix3;
+    const camMatrix = tempMatrix1;
+    const srcMatrix = tempMatrix2;
+    const calcMatrix = tempMatrix3;
 
-    var dx = src.width * src.originX;
-    var dy = src.height * src.originY;
+    let dx = src.width * src.originX;
+    let dy = src.height * src.originY;
 
-    var tx = '0%';
-    var ty = '0%';
+    let tx = '0%';
+    let ty = '0%';
 
     camMatrix.copyWithScrollFactorFrom(
         camera.matrix,
@@ -114,5 +114,3 @@ var DOMElementCSSRenderer = function (renderer, src, camera, parentMatrix)
 
     style.transformOrigin = tx + ' ' + ty;
 };
-
-module.exports = DOMElementCSSRenderer;

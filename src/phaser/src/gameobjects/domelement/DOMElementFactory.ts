@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var DOMElement = require('./DOMElement');
+import { DOMElement } from './DOMElement';
 var GameObjectFactory = require('../GameObjectFactory');
 
 /**
@@ -73,11 +73,13 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.DOMElement} The Game Object that was created.
  */
-GameObjectFactory.register('dom', function (x, y, element, style, innerText)
+export const DOMElementFactory = function (this: any, x: number, y: number, element?: HTMLElement | string, style?: string | any, innerText?: string): any
 {
-    var gameObject = new DOMElement(this.scene, x, y, element, style, innerText);
+    const gameObject = new DOMElement(this.scene, x, y, element, style, innerText);
 
     this.displayList.add(gameObject);
 
     return gameObject;
-});
+};
+
+GameObjectFactory.register('dom', DOMElementFactory);
