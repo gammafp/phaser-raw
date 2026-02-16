@@ -6,6 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "typecheck": "tsc --noEmit --pretty",
+    "typecheck:watch": "tsc --noEmit --watch --pretty",
+    "typecheck:phaser": "tsc -p tsconfig.phaser.json --noEmit --pretty",
+    "typecheck:phaser:watch": "tsc -p tsconfig.phaser.json --noEmit --watch --pretty",
     "preview": "vite preview",
     "stats": "bun scripts/ts-js-stats.ts",
     "ts-js-stats": "bun scripts/ts-js-stats.ts",
