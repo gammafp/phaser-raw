@@ -5,12 +5,14 @@
  */
 
 import { NOOP } from '../../utils/NOOP';
-var renderWebGL = NOOP;
-var renderCanvas = NOOP;
+import { TileSpriteWebGLRenderer } from './TileSpriteWebGLRenderer';
+
+let renderWebGL: Function = NOOP;
+let renderCanvas: Function = NOOP;
 
 if (typeof WEBGL_RENDERER)
 {
-    renderWebGL = require('./TileSpriteWebGLRenderer');
+    renderWebGL = TileSpriteWebGLRenderer;
 }
 
 if (typeof CANVAS_RENDERER)
@@ -18,9 +20,4 @@ if (typeof CANVAS_RENDERER)
     renderCanvas = require('./TileSpriteCanvasRenderer');
 }
 
-module.exports = {
-
-    renderWebGL: renderWebGL,
-    renderCanvas: renderCanvas
-
-};
+export { renderWebGL, renderCanvas };

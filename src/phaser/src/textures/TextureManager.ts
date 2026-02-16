@@ -19,9 +19,7 @@ import { Image as ImageGameObject } from '../gameobjects/image/Image';
 import { IntegerToColor } from '../display/color/IntegerToColor';
 import * as Parser from './parsers';
 import { Texture } from './Texture';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import TileSprite from '../gameobjects/tilesprite/TileSprite';
+import { TileSprite } from '../gameobjects/tilesprite/TileSprite';
 
 /**
  * @callback EachTextureCallback

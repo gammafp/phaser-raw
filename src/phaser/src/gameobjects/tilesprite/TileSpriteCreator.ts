@@ -5,10 +5,10 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { TileSprite } from './TileSprite';
 
-var BuildGameObject = require('../BuildGameObject');
-var GameObjectCreator = require('../GameObjectCreator');
-var TileSprite = require('./TileSprite');
+const BuildGameObject = require('../BuildGameObject');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new TileSprite Game Object and returns it.
@@ -23,18 +23,17 @@ var TileSprite = require('./TileSprite');
  *
  * @return {Phaser.GameObjects.TileSprite} The Game Object that was created.
  */
-GameObjectCreator.register('tileSprite', function (config, addToScene)
-{
+export const TileSpriteCreator = function (this: any, config: any, addToScene?: boolean): TileSprite {
     if (config === undefined) { config = {}; }
 
-    var x = GetAdvancedValue(config, 'x', 0);
-    var y = GetAdvancedValue(config, 'y', 0);
-    var width = GetAdvancedValue(config, 'width', 512);
-    var height = GetAdvancedValue(config, 'height', 512);
-    var key = GetAdvancedValue(config, 'key', '');
-    var frame = GetAdvancedValue(config, 'frame', '');
+    const x = GetAdvancedValue(config, 'x', 0);
+    const y = GetAdvancedValue(config, 'y', 0);
+    const width = GetAdvancedValue(config, 'width', 512);
+    const height = GetAdvancedValue(config, 'height', 512);
+    const key = GetAdvancedValue(config, 'key', '');
+    const frame = GetAdvancedValue(config, 'frame', '');
 
-    var tile = new TileSprite(this.scene, x, y, width, height, key, frame);
+    const tile = new TileSprite(this.scene, x, y, width, height, key, frame);
 
     if (addToScene !== undefined)
     {
@@ -44,4 +43,6 @@ GameObjectCreator.register('tileSprite', function (config, addToScene)
     BuildGameObject(this.scene, tile, config);
 
     return tile;
-});
+};
+
+GameObjectCreator.register('tileSprite', TileSpriteCreator);

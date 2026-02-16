@@ -87,6 +87,9 @@ import { GroupCreator } from './group/GroupCreator';
 import { Shader } from './shader/Shader';
 import { ShaderFactory } from './shader/ShaderFactory';
 import { ShaderCreator } from './shader/ShaderCreator';
+import { TileSprite } from './tilesprite/TileSprite';
+import { TileSpriteFactory } from './tilesprite/TileSpriteFactory';
+import { TileSpriteCreator } from './tilesprite/TileSpriteCreator';
 
 /**
  * @namespace Phaser.GameObjects
@@ -131,7 +134,7 @@ var GameObjects = {
     MeasureText: MeasureText,
     TextStyle: TextStyle,
 
-    TileSprite: require('./tilesprite/TileSprite'),
+    TileSprite: TileSprite,
     Zone: require('./zone/Zone'),
     Video: Video,
 
@@ -170,7 +173,7 @@ var GameObjects = {
         Stamp: require('./stamp/StampFactory'),
         StaticBitmapText: BitmapTextFactory,
         Text: TextFactory,
-        TileSprite: require('./tilesprite/TileSpriteFactory'),
+        TileSprite: TileSpriteFactory,
         Zone: require('./zone/ZoneFactory'),
         Video: VideoFactory,
 
@@ -203,7 +206,7 @@ var GameObjects = {
         Stamp: require('./stamp/StampCreator'),
         StaticBitmapText: BitmapTextCreator,
         Text: TextCreator,
-        TileSprite: require('./tilesprite/TileSpriteCreator'),
+        TileSprite: TileSpriteCreator,
         Zone: require('./zone/ZoneCreator'),
         Video: VideoCreator
     }

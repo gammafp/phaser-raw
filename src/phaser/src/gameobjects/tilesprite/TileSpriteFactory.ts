@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var TileSprite = require('./TileSprite');
-var GameObjectFactory = require('../GameObjectFactory');
+import { TileSprite } from './TileSprite';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new TileSprite Game Object and adds it to the Scene.
@@ -24,10 +25,11 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.TileSprite} The Game Object that was created.
  */
-GameObjectFactory.register('tileSprite', function (x, y, width, height, texture, frame)
-{
+export const TileSpriteFactory = function (this: any, x: number, y: number, width: number, height: number, texture: string | any, frame?: string | number): TileSprite {
     return this.displayList.add(new TileSprite(this.scene, x, y, width, height, texture, frame));
-});
+};
+
+GameObjectFactory.register('tileSprite', TileSpriteFactory);
 
 //  When registering a factory function 'this' refers to the GameObjectFactory context.
 //

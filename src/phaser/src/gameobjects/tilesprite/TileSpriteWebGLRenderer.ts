@@ -18,21 +18,21 @@
  * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The current drawing context.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var TileSpriteWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
+export const TileSpriteWebGLRenderer = function (renderer: any, src: any, drawingContext: any, parentMatrix: any): void
 {
-    var width = src.width;
-    var height = src.height;
+    const width = src.width;
+    const height = src.height;
 
     if (width === 0 || height === 0)
     {
         return;
     }
 
-    var camera = drawingContext.camera;
+    const camera = drawingContext.camera;
     camera.addToRenderList(src);
 
-    var customRenderNodes = src.customRenderNodes;
-    var defaultRenderNodes = src.defaultRenderNodes;
+    const customRenderNodes = src.customRenderNodes;
+    const defaultRenderNodes = src.defaultRenderNodes;
 
     (customRenderNodes.Submitter || defaultRenderNodes.Submitter).run(
         drawingContext,
@@ -43,5 +43,3 @@ var TileSpriteWebGLRenderer = function (renderer, src, drawingContext, parentMat
         customRenderNodes.Transformer || defaultRenderNodes.Transformer
     );
 };
-
-module.exports = TileSpriteWebGLRenderer;
