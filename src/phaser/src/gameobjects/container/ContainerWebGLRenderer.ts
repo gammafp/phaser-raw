@@ -24,22 +24,22 @@ import { PHASER_CONST as CONST } from '../../const';
  * @param {Phaser.GameObjects.GameObject[]} displayList - The display list which is currently being rendered.
  * @param {number} displayListIndex - The index of the Game Object within the display list.
  */
-var ContainerWebGLRenderer = function (renderer, container, drawingContext, parentMatrix, renderStep, displayList, displayListIndex)
+export const ContainerWebGLRenderer = function (renderer: any, container: any, drawingContext: any, parentMatrix: any, renderStep: number, displayList: any[], displayListIndex: number): void
 {
-    var camera = drawingContext.camera;
+    const camera = drawingContext.camera;
     camera.addToRenderList(container);
 
-    var children = container.list;
-    var childCount = children.length;
+    const children = container.list;
+    const childCount = children.length;
 
     if (childCount === 0)
     {
         return;
     }
 
-    var baseContext = drawingContext;
+    let baseContext = drawingContext;
 
-    var transformMatrix = container.localTransform;
+    const transformMatrix = container.localTransform;
 
     if (parentMatrix)
     {
@@ -54,7 +54,7 @@ var ContainerWebGLRenderer = function (renderer, container, drawingContext, pare
         transformMatrix.applyITRS(container.x, container.y, container.rotation, container.scaleX, container.scaleY);
     }
 
-    var containerHasBlendMode = (container.blendMode !== -1);
+    const containerHasBlendMode = (container.blendMode !== -1);
 
     if (!containerHasBlendMode && baseContext.blendMode !== 0)
     {
@@ -64,26 +64,26 @@ var ContainerWebGLRenderer = function (renderer, container, drawingContext, pare
         baseContext.use();
     }
 
-    var currentContext = baseContext;
+    let currentContext = baseContext;
 
-    var alpha = container.alpha;
+    const alpha = container.alpha;
 
-    var scrollFactorX = container.scrollFactorX;
-    var scrollFactorY = container.scrollFactorY;
+    const scrollFactorX = container.scrollFactorX;
+    const scrollFactorY = container.scrollFactorY;
 
-    for (var i = 0; i < childCount; i++)
+    for (let i = 0; i < childCount; i++)
     {
-        var child = children[i];
+        const child = children[i];
 
         if (!child.willRender(camera))
         {
             continue;
         }
 
-        var childAlphaTopLeft;
-        var childAlphaTopRight;
-        var childAlphaBottomLeft;
-        var childAlphaBottomRight;
+        let childAlphaTopLeft: number;
+        let childAlphaTopRight: number;
+        let childAlphaBottomLeft: number;
+        let childAlphaBottomRight: number;
 
         if (child.alphaTopLeft !== undefined)
         {
@@ -94,7 +94,7 @@ var ContainerWebGLRenderer = function (renderer, container, drawingContext, pare
         }
         else
         {
-            var childAlpha = child.alpha;
+            const childAlpha = child.alpha;
 
             childAlphaTopLeft = childAlpha;
             childAlphaTopRight = childAlpha;
@@ -102,8 +102,8 @@ var ContainerWebGLRenderer = function (renderer, container, drawingContext, pare
             childAlphaBottomRight = childAlpha;
         }
 
-        var childScrollFactorX = child.scrollFactorX;
-        var childScrollFactorY = child.scrollFactorY;
+        const childScrollFactorX = child.scrollFactorX;
+        const childScrollFactorY = child.scrollFactorY;
 
         if (
             !containerHasBlendMode &&
@@ -138,5 +138,3 @@ var ContainerWebGLRenderer = function (renderer, container, drawingContext, pare
         currentContext.release();
     }
 };
-
-module.exports = ContainerWebGLRenderer;

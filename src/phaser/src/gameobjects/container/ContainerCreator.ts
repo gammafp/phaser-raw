@@ -7,9 +7,9 @@
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { GetFastValue } from '../../utils/object/GetFastValue';
+import { Container } from './Container';
 
 var BuildGameObject = require('../BuildGameObject');
-var Container = require('./Container');
 var GameObjectCreator = require('../GameObjectCreator');
 
 /**
@@ -25,15 +25,15 @@ var GameObjectCreator = require('../GameObjectCreator');
  *
  * @return {Phaser.GameObjects.Container} The Game Object that was created.
  */
-GameObjectCreator.register('container', function (config, addToScene)
+export const ContainerCreator = function (this: any, config?: any, addToScene?: boolean): any
 {
     if (config === undefined) { config = {}; }
 
-    var x = GetAdvancedValue(config, 'x', 0);
-    var y = GetAdvancedValue(config, 'y', 0);
-    var children = GetFastValue(config, 'children', null);
+    const x = GetAdvancedValue(config, 'x', 0);
+    const y = GetAdvancedValue(config, 'y', 0);
+    const children = GetFastValue(config, 'children', null);
 
-    var container = new Container(this.scene, x, y, children);
+    const container = new Container(this.scene, x, y, children);
 
     if (addToScene !== undefined)
     {
@@ -43,4 +43,6 @@ GameObjectCreator.register('container', function (config, addToScene)
     BuildGameObject(this.scene, container, config);
 
     return container;
-});
+};
+
+GameObjectCreator.register('container', ContainerCreator);

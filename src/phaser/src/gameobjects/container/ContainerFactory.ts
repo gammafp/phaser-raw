@@ -5,7 +5,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Container = require('./Container');
+import { Container } from './Container';
 var GameObjectFactory = require('../GameObjectFactory');
 
 /**
@@ -22,7 +22,9 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.Container} The Game Object that was created.
  */
-GameObjectFactory.register('container', function (x, y, children)
+export const ContainerFactory = function (this: any, x: number = 0, y: number = 0, children?: any): any
 {
     return this.displayList.add(new Container(this.scene, x, y, children));
-});
+};
+
+GameObjectFactory.register('container', ContainerFactory);
