@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GetCalcMatrix = require('../GetCalcMatrix');
+const GetCalcMatrix = require('../GetCalcMatrix');
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -20,36 +20,36 @@ var GetCalcMatrix = require('../GetCalcMatrix');
  * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The current drawing context.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var PointLightWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
+export const PointLightWebGLRenderer = function (_renderer: any, src: any, drawingContext: any, parentMatrix: any): void
 {
-    var camera = drawingContext.camera;
+    const camera = drawingContext.camera;
     camera.addToRenderList(src);
 
-    var calcMatrix = GetCalcMatrix(src, camera, parentMatrix, !drawingContext.useCanvas).calc;
+    const calcMatrix = GetCalcMatrix(src, camera, parentMatrix, !drawingContext.useCanvas).calc;
 
-    var width = src.width;
-    var height = src.height;
+    const width = src.width;
+    const height = src.height;
 
-    var x = -src._radius;
-    var y = -src._radius;
+    const x = -src._radius;
+    const y = -src._radius;
 
-    var xw = x + width;
-    var yh = y + height;
+    const xw = x + width;
+    const yh = y + height;
 
-    var lightX = calcMatrix.getX(0, 0);
-    var lightY = calcMatrix.getY(0, 0);
+    const lightX = calcMatrix.getX(0, 0);
+    const lightY = calcMatrix.getY(0, 0);
 
-    var txTL = calcMatrix.getX(x, y);
-    var tyTL = calcMatrix.getY(x, y);
+    const txTL = calcMatrix.getX(x, y);
+    const tyTL = calcMatrix.getY(x, y);
 
-    var txBL = calcMatrix.getX(x, yh);
-    var tyBL = calcMatrix.getY(x, yh);
+    const txBL = calcMatrix.getX(x, yh);
+    const tyBL = calcMatrix.getY(x, yh);
 
-    var txBR = calcMatrix.getX(xw, yh);
-    var tyBR = calcMatrix.getY(xw, yh);
+    const txBR = calcMatrix.getX(xw, yh);
+    const tyBR = calcMatrix.getY(xw, yh);
 
-    var txTR = calcMatrix.getX(xw, y);
-    var tyTR = calcMatrix.getY(xw, y);
+    const txTR = calcMatrix.getX(xw, y);
+    const tyTR = calcMatrix.getY(xw, y);
 
     (src.customRenderNodes.BatchHandler || src.defaultRenderNodes.BatchHandler).batch(
         drawingContext,
@@ -61,5 +61,3 @@ var PointLightWebGLRenderer = function (renderer, src, drawingContext, parentMat
         lightX, lightY
     );
 };
-
-module.exports = PointLightWebGLRenderer;

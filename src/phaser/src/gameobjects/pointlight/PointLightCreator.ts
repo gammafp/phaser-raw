@@ -5,10 +5,10 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { PointLight } from './PointLight';
 
-var BuildGameObject = require('../BuildGameObject');
-var GameObjectCreator = require('../GameObjectCreator');
-var PointLight = require('./PointLight');
+const BuildGameObject = require('../BuildGameObject');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new Point Light Game Object and returns it.
@@ -23,16 +23,15 @@ var PointLight = require('./PointLight');
  *
  * @return {Phaser.GameObjects.PointLight} The Game Object that was created.
  */
-GameObjectCreator.register('pointlight', function (config, addToScene)
-{
+export const PointLightCreator = function (this: any, config: any, addToScene?: boolean): PointLight {
     if (config === undefined) { config = {}; }
 
-    var color = GetAdvancedValue(config, 'color', 0xffffff);
-    var radius = GetAdvancedValue(config, 'radius', 128);
-    var intensity = GetAdvancedValue(config, 'intensity', 1);
-    var attenuation = GetAdvancedValue(config, 'attenuation', 0.1);
+    const color = GetAdvancedValue(config, 'color', 0xffffff);
+    const radius = GetAdvancedValue(config, 'radius', 128);
+    const intensity = GetAdvancedValue(config, 'intensity', 1);
+    const attenuation = GetAdvancedValue(config, 'attenuation', 0.1);
 
-    var layer = new PointLight(this.scene, 0, 0, color, radius, intensity, attenuation);
+    const layer = new PointLight(this.scene, 0, 0, color, radius, intensity, attenuation);
 
     if (addToScene !== undefined)
     {
@@ -42,4 +41,6 @@ GameObjectCreator.register('pointlight', function (config, addToScene)
     BuildGameObject(this.scene, layer, config);
 
     return layer;
-});
+};
+
+GameObjectCreator.register('pointlight', PointLightCreator);

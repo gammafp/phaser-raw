@@ -71,6 +71,9 @@ import { LightsPlugin } from './lights/LightsPlugin';
 import { CaptureFrame } from './captureframe/CaptureFrame';
 import { CaptureFrameFactory } from './captureframe/CaptureFrameFactory';
 import { CaptureFrameCreator } from './captureframe/CaptureFrameCreator';
+import { PointLight } from './pointlight/PointLight';
+import { PointLightFactory } from './pointlight/PointLightFactory';
+import { PointLightCreator } from './pointlight/PointLightCreator';
 
 /**
  * @namespace Phaser.GameObjects
@@ -200,19 +203,19 @@ if (typeof WEBGL_RENDERER)
     GameObjects.CaptureFrame = CaptureFrame;
     GameObjects.Shader = require('./shader/Shader');
     GameObjects.NineSlice = NineSlice;
-    GameObjects.PointLight = require('./pointlight/PointLight');
+    GameObjects.PointLight = PointLight;
     GameObjects.SpriteGPULayer = SpriteGPULayer;
 
     GameObjects.Factories.CaptureFrame = CaptureFrameFactory;
     GameObjects.Factories.Shader = require('./shader/ShaderFactory');
     GameObjects.Factories.NineSlice = NineSliceFactory;
-    GameObjects.Factories.PointLight = require('./pointlight/PointLightFactory');
+    GameObjects.Factories.PointLight = PointLightFactory;
     GameObjects.Factories.SpriteGPULayer = SpriteGPULayerFactory;
 
     GameObjects.Creators.CaptureFrame = CaptureFrameCreator;
     GameObjects.Creators.Shader = require('./shader/ShaderCreator');
     GameObjects.Creators.NineSlice = NineSliceCreator;
-    GameObjects.Creators.PointLight = require('./pointlight/PointLightCreator');
+    GameObjects.Creators.PointLight = PointLightCreator;
     GameObjects.Creators.SpriteGPULayer = SpriteGPULayerCreator;
 
     GameObjects.Light = Light;

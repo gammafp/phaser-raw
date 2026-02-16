@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GameObjectFactory = require('../GameObjectFactory');
-var PointLight = require('./PointLight');
+import { PointLight } from './PointLight';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new Point Light Game Object and adds it to the Scene.
@@ -48,7 +49,8 @@ var PointLight = require('./PointLight');
  *
  * @return {Phaser.GameObjects.PointLight} The Game Object that was created.
  */
-GameObjectFactory.register('pointlight', function (x, y, color, radius, intensity, attenuation)
-{
+export const PointLightFactory = function (this: any, x: number, y: number, color?: number, radius?: number, intensity?: number, attenuation?: number): PointLight {
     return this.displayList.add(new PointLight(this.scene, x, y, color, radius, intensity, attenuation));
-});
+};
+
+GameObjectFactory.register('pointlight', PointLightFactory);

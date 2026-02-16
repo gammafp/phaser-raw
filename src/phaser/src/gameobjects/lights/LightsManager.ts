@@ -14,7 +14,7 @@ import { RGB } from '../../display/RGB';
 import { Utils } from '../../renderer/webgl/Utils';
 
 import { Light } from './Light';
-const PointLight = require('../pointlight/PointLight');
+import { PointLight } from '../pointlight/PointLight';
 
 interface LightDistanceEntry
 {

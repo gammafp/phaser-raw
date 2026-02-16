@@ -5,11 +5,19 @@
  */
 
 import { DefaultPointLightNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultPointLightNodes';
-var Class = require('../../utils/Class');
-var Components = require('../components');
-var GameObject = require('../GameObject');
+import { Mixin } from '../../utils/MixinTS';
+import { AlphaSingle } from '../components/AlphaSingle';
+import { BlendMode } from '../components/BlendMode';
+import { Depth } from '../components/Depth';
+import { Mask } from '../components/Mask';
+import { RenderNodes } from '../components/RenderNodes';
+import { ScrollFactor } from '../components/ScrollFactor';
+import { Transform } from '../components/Transform';
+import { Visible } from '../components/Visible';
 import { IntegerToColor } from '../../display/color/IntegerToColor';
-var Render = require('./PointLightRender');
+import { renderWebGL, renderCanvas } from './PointLightRender';
+
+const GameObject = require('../GameObject');
 
 /**
  * @classdesc
@@ -61,70 +69,48 @@ var Render = require('./PointLightRender');
  * @param {number} [intensity=1] - The intensity, or color blend, of the Point Light.
  * @param {number} [attenuation=0.1] - The attenuation  of the Point Light. This is the reduction of light from the center point.
  */
-var PointLight = new Class({
+export interface PointLight extends
+    AlphaSingle,
+    BlendMode,
+    Depth,
+    Mask,
+    RenderNodes,
+    ScrollFactor,
+    Transform,
+    Visible {}
 
-    Extends: GameObject,
+export class PointLight extends GameObject
+{
+    color: any;
+    intensity: number;
+    attenuation: number;
+    _radius: number;
 
-    Mixins: [
-        Components.AlphaSingle,
-        Components.BlendMode,
-        Components.Depth,
-        Components.Mask,
-        Components.RenderNodes,
-        Components.ScrollFactor,
-        Components.Transform,
-        Components.Visible,
-        Render
-    ],
-
-    initialize:
-
-    function PointLight (scene, x, y, color, radius, intensity, attenuation)
+    static
     {
-        if (color === undefined) { color = 0xffffff; }
-        if (radius === undefined) { radius = 128; }
-        if (intensity === undefined) { intensity = 1; }
-        if (attenuation === undefined) { attenuation = 0.1; }
+        Mixin(this, [
+            AlphaSingle,
+            BlendMode,
+            Depth,
+            Mask,
+            RenderNodes,
+            ScrollFactor,
+            Transform,
+            Visible,
+            { renderWebGL, renderCanvas }
+        ]);
+    }
 
-        GameObject.call(this, scene, 'PointLight');
+    constructor (scene: any, x: number, y: number, color: number = 0xffffff, radius: number = 128, intensity: number = 1, attenuation: number = 0.1)
+    {
+        super(scene, 'PointLight');
 
         this.initRenderNodes(this._defaultRenderNodesMap);
 
         this.setPosition(x, y);
 
-        /**
-         * The color of this Point Light. This property is an instance of a
-         * Color object, so you can use the methods within it, such as `setTo(r, g, b)`
-         * to change the color value.
-         *
-         * @name Phaser.GameObjects.PointLight#color
-         * @type {Phaser.Display.Color}
-         * @since 3.50.0
-         */
         this.color = IntegerToColor(color);
-
-        /**
-         * The intensity of the Point Light.
-         *
-         * The colors of the light are multiplied by this value during rendering.
-         *
-         * @name Phaser.GameObjects.PointLight#intensity
-         * @type {number}
-         * @since 3.50.0
-         */
         this.intensity = intensity;
-
-        /**
-         * The attenuation of the Point Light.
-         *
-         * This value controls the force with which the light falls-off from the center of the light.
-         *
-         * Use small float-based values, i.e. 0.1.
-         *
-         * @name Phaser.GameObjects.PointLight#attenuation
-         * @type {number}
-         * @since 3.50.0
-         */
         this.attenuation = attenuation;
 
         //  read only:
@@ -132,84 +118,42 @@ var PointLight = new Class({
         this.height = radius * 2;
 
         this._radius = radius;
-    },
-
-    /**
-     * The default render nodes for this Game Object.
-     *
-     * @name Phaser.GameObjects.PointLight#_defaultRenderNodesMap
-     * @type {Map<string, string>}
-     * @private
-     * @webglOnly
-     * @readonly
-     * @since 4.0.0
-     */
-    _defaultRenderNodesMap: {
-        get: function ()
-        {
-            return DefaultPointLightNodes;
-        }
-    },
-
-    /**
-     * The radius of the Point Light.
-     *
-     * @name Phaser.GameObjects.PointLight#radius
-     * @type {number}
-     * @since 3.50.0
-     */
-    radius: {
-
-        get: function ()
-        {
-            return this._radius;
-        },
-
-        set: function (value)
-        {
-            this._radius = value;
-            this.width = value * 2;
-            this.height = value * 2;
-        }
-
-    },
-
-    originX: {
-
-        get: function ()
-        {
-            return 0.5;
-        }
-
-    },
-
-    originY: {
-
-        get: function ()
-        {
-            return 0.5;
-        }
-
-    },
-
-    displayOriginX: {
-
-        get: function ()
-        {
-            return this._radius;
-        }
-
-    },
-
-    displayOriginY: {
-
-        get: function ()
-        {
-            return this._radius;
-        }
-
     }
 
-});
+    get _defaultRenderNodesMap (): any
+    {
+        return DefaultPointLightNodes;
+    }
 
-module.exports = PointLight;
+    get radius (): number
+    {
+        return this._radius;
+    }
+
+    set radius (value: number)
+    {
+        this._radius = value;
+        this.width = value * 2;
+        this.height = value * 2;
+    }
+
+    get originX (): number
+    {
+        return 0.5;
+    }
+
+    get originY (): number
+    {
+        return 0.5;
+    }
+
+    get displayOriginX (): number
+    {
+        return this._radius;
+    }
+
+    get displayOriginY (): number
+    {
+        return this._radius;
+    }
+}
