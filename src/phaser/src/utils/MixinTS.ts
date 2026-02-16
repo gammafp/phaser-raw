@@ -16,7 +16,12 @@ const getPropertyDescriptor = (source: any, key: string): PropertyDescriptor | f
     if (!desc) return false;
 
     if (desc.value && typeof desc.value === 'object') {
-        return desc.value;
+        const nested = desc.value as PropertyDescriptor;
+
+        // Support legacy pattern: property value is itself a descriptor object.
+        if (hasGetterOrSetter(nested) || 'value' in nested || 'writable' in nested || 'enumerable' in nested || 'configurable' in nested) {
+            return nested;
+        }
     }
 
     if (hasGetterOrSetter(desc)) {
@@ -27,7 +32,12 @@ const getPropertyDescriptor = (source: any, key: string): PropertyDescriptor | f
         };
     }
 
-    return false;
+    return {
+        ...desc,
+        enumerable: desc.enumerable ?? true,
+        configurable: desc.configurable ?? true,
+        writable: desc.writable ?? true
+    };
 };
 
 const copyToPrototype = (target: any, source: any): void => {
@@ -44,8 +54,6 @@ const copyToPrototype = (target: any, source: any): void => {
         
         if (descriptor !== false) {
             Object.defineProperty(target.prototype, key, descriptor);
-        } else {
-            target.prototype[key] = source[key];
         }
     }
 };
