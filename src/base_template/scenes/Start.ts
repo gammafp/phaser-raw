@@ -23,17 +23,17 @@ export class Start extends Phaser.Scene {
 
         this.load.image('star', 'star3.png');
 
-        // Cargar modelo 3D OBJ para el ejemplo de Mesh
+        // Load 3D OBJ model for the Mesh example
         // this.load.obj('skull', 'skull.obj');
         
-        // Nota: Para mejor visualización del mesh, puedes usar cualquier textura.
-        // El logo de Phaser funcionará como textura base.
+        // Note: For better mesh visualization, you can use any texture.
+        // The Phaser logo works as the base texture.
 
         // ============================================================
-        // EJEMPLO FUNCIONAL: Crear fuente bitmap desde el logo
+        // WORKING EXAMPLE: Create a bitmap font from the logo
         // ============================================================
-        // Usaremos la imagen del logo de Phaser para crear una fuente RetroFont
-        // que genera caracteres bitmap de forma programática
+        // We use the Phaser logo image to create a RetroFont
+        // that generates bitmap characters programmatically
     }
 
     create() {
@@ -44,7 +44,7 @@ export class Start extends Phaser.Scene {
 
         const logo = this.add.image(640, 200, 'logo');
 
-        // Test Lights - iluminación 2D
+        // Test Lights - 2D lighting
         this.lights.enable();
         this.lights.setAmbientColor(0xff0000);
         
@@ -79,25 +79,25 @@ export class Start extends Phaser.Scene {
             gravityY: 200
         });
         // ============================================================
-        // EJEMPLO: BitmapText (COMENTADO - Requiere conversión completa)
+        // EXAMPLE: BitmapText (COMMENTED - Requires full conversion)
         // ============================================================
-        // BitmapText.js tiene problemas con instanceof porque usa require()
-        // para componentes TypeScript. Requiere convertir BitmapText a TypeScript.
+        // BitmapText.js has instanceof issues because it uses require()
+        // for TypeScript components. It requires BitmapText conversion to TypeScript.
         
         // const textureKey = 'retroFont';
         // const graphics = this.make.graphics({ x: 0, y: 0, add: false });
         // const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!?.,: ';
-        // ... código de RetroFont ...
+        // ... RetroFont code ...
         // this.bitmapText = this.add.bitmapText(640, 550, 'retroFont', 'HELLO', 16);
 
         // ============================================================
-        // EJEMPLO: PathFollower - Objeto que sigue un camino
+        // EXAMPLE: PathFollower - Object that follows a path
         // ============================================================
         
-        // Crear un path (camino) con curvas
+        // Create a path with curves
         const path = this.add.path(100, 300);
         
-        // Añadir segmentos al path
+        // Add path segments
         path.lineTo(300, 300);
         path.lineTo(300, 500);
         path.lineTo(500, 500);
@@ -114,13 +114,13 @@ export class Start extends Phaser.Scene {
         
         // Hacer que el follower siga el path
         follower.startFollow({
-            duration: 8000,        // Duración en milisegundos
-            repeat: -1,            // Repetir infinitamente
-            rotateToPath: true,    // Rotar el sprite según la dirección del path
-            yoyo: false            // No volver hacia atrás
+            duration: 8000,        // Duration in milliseconds
+            repeat: -1,            // Repeat forever
+            rotateToPath: true,    // Rotate sprite based on path direction
+            yoyo: false            // Do not move backward
         });
         
-        // EJEMPLO 2: PathFollower con curvas suaves
+        // EXAMPLE 2: PathFollower with smooth curves
         const curvedPath = this.add.path(640, 100);
         curvedPath.splineTo([
             { x: 740, y: 200 },
@@ -139,14 +139,14 @@ export class Start extends Phaser.Scene {
         });
 
         // ============================================================
-        // EJEMPLO: Zone - Áreas invisibles para detección
+        // EXAMPLE: Zone - Invisible detection areas
         // ============================================================
         
-        // EJEMPLO 1: Zone rectangular para drag & drop
+        // EXAMPLE 1: Rectangular Zone for drag & drop
         const dropZone = this.add.zone(400, 300, 200, 150);
         dropZone.setRectangleDropZone(200, 150);
         
-        // Visual debug de la zona
+        // Visual debug for the zone
         const dropGraphics = this.add.graphics();
         dropGraphics.lineStyle(2, 0x00ff00);
         dropGraphics.strokeRect(300, 225, 200, 150);
@@ -157,7 +157,7 @@ export class Start extends Phaser.Scene {
             align: 'center'
         }).setOrigin(0.5);
         
-        // EJEMPLO 2: Zone con interacción (hover)
+        // EXAMPLE 2: Interactive Zone (hover)
         const interactiveZone = this.add.zone(900, 300, 150, 150)
             .setInteractive();
         
@@ -191,11 +191,11 @@ export class Start extends Phaser.Scene {
             zoneText.setText('Clicked!');
         });
         
-        // EJEMPLO 3: Zone circular para drag & drop
+        // EXAMPLE 3: Circular Zone for drag & drop
         const circularZone = this.add.zone(1100, 500, 100, 100);
         circularZone.setCircleDropZone(50);
         
-        // Visual debug círculo
+        // Circle visual debug
         const circleGraphics = this.add.graphics();
         circleGraphics.lineStyle(2, 0x0000ff);
         circleGraphics.strokeCircle(1100, 500, 50);
@@ -207,7 +207,7 @@ export class Start extends Phaser.Scene {
         }).setOrigin(0.5);
         
         // ============================================================
-        // EJEMPLO 4: Objetos arrastrables para las drop zones
+        // EXAMPLE 4: Draggable objects for drop zones
         // ============================================================
         
         // Crear sprites arrastrables
@@ -221,7 +221,7 @@ export class Start extends Phaser.Scene {
         draggable3.setInteractive({ draggable: true });
         
         // Texto de instrucciones
-        this.add.text(250, 450, 'Arrastra los logos a las zonas!', { 
+        this.add.text(250, 450, 'Drag the logos into the zones!', { 
             fontSize: '16px', 
             color: '#ffffff' 
         }).setOrigin(0.5);
@@ -237,18 +237,18 @@ export class Start extends Phaser.Scene {
         });
         
         this.input.on('dragend', (pointer: any, gameObject: any) => {
-            // Restaurar tint original
+        // Restore original tint
             if (gameObject === draggable1) gameObject.setTint(0xffffff);
             if (gameObject === draggable2) gameObject.setTint(0xff0000);
             if (gameObject === draggable3) gameObject.setTint(0x00ff00);
         });
         
-        // Evento cuando se suelta en una drop zone
+        // Event fired when dropped on a drop zone
         this.input.on('drop', (pointer: any, gameObject: any, dropZone: any) => {
             gameObject.x = dropZone.x;
             gameObject.y = dropZone.y;
             
-            // Feedback visual
+            // Visual feedback
             if (dropZone === dropZone) {
                 dropGraphics.clear();
                 dropGraphics.lineStyle(2, 0x00ff00);
@@ -282,23 +282,23 @@ export class Start extends Phaser.Scene {
             }
         });
         
-        // NOTA: Zone es útil para:
-        // - Áreas de drop (drag and drop) ✓
-        // - Trigger zones (detectar cuando el jugador entra/sale) ✓
-        // - Áreas de interacción sin sprite visible ✓
-        // - Optimización (no renderiza, solo lógica) ✓
+        // NOTE: Zone is useful for:
+        // - Drop areas (drag and drop) ✓
+        // - Trigger zones (detect enter/exit) ✓
+        // - Interaction areas without a visible sprite ✓
+        // - Optimization (no rendering, logic only) ✓
 
         // ============================================================
-        // EJEMPLO: PointLight - Luces rápidas sin shader costoso
+        // EXAMPLE: PointLight - Fast lights without expensive shaders
         // ============================================================
         
-        // EJEMPLO 1: PointLight básico estático
+        // EXAMPLE 1: Basic static PointLight
         const pointLight1 = this.add.pointlight(200, 600, 0xffffff, 128, 1, 0.1);
         
-        // EJEMPLO 2: PointLight de color con mayor intensidad
+        // EXAMPLE 2: Colored PointLight with higher intensity
         const pointLight2 = this.add.pointlight(400, 600, 0xff0000, 150, 2, 0.05);
         
-        // EJEMPLO 3: PointLight animado (parpadeando)
+        // EXAMPLE 3: Animated PointLight (flickering)
         const flickeringLight = this.add.pointlight(600, 600, 0xffaa00, 100, 1.5, 0.1);
         
         this.tweens.add({
@@ -310,7 +310,7 @@ export class Start extends Phaser.Scene {
             ease: 'Sine.inOut'
         });
         
-        // EJEMPLO 4: PointLight que sigue al cursor
+        // EXAMPLE 4: PointLight that follows the cursor
         const cursorLight = this.add.pointlight(0, 0, 0x00ffff, 200, 2, 0.08);
         
         this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
@@ -318,7 +318,7 @@ export class Start extends Phaser.Scene {
             cursorLight.y = pointer.y;
         });
         
-        // EJEMPLO 5: PointLight animado moviéndose
+        // EXAMPLE 5: Moving animated PointLight
         const movingLight = this.add.pointlight(800, 600, 0xff00ff, 120, 1.8, 0.1);
         
         this.tweens.add({
@@ -331,7 +331,7 @@ export class Start extends Phaser.Scene {
             ease: 'Sine.inOut'
         });
         
-        // EJEMPLO 6: PointLight con cambio de color
+        // EXAMPLE 6: PointLight with color changes
         const colorLight = this.add.pointlight(1000, 600, 0xff0000, 130, 1.5, 0.1);
         
         let colorIndex = 0;
@@ -347,63 +347,63 @@ export class Start extends Phaser.Scene {
         });
         
         // Texto informativo
-        this.add.text(640, 650, 'PointLights: Estático | Rojo | Parpadeante | Cursor | Móvil | Color cambiante', {
+        this.add.text(640, 650, 'PointLights: Static | Red | Flicker | Cursor | Moving | Color cycle', {
             fontSize: '14px',
             color: '#ffffff'
         }).setOrigin(0.5);
         
-        // NOTA: PointLight es ideal para:
-        // - Efectos rápidos de luz sin shaders costosos ✓
+        // NOTE: PointLight is ideal for:
+        // - Fast lighting effects without expensive shaders ✓
         // - Antorchas parpadeantes, disparos, explosiones ✓
         // - Mejor rendimiento que Light normal ✓
         // - No afecta otros GameObjects (solo efecto visual) ✓
 
         // ============================================================
-        // EJEMPLO: Mesh - Renderizar modelos 3D (.obj)
+        // EXAMPLE: Mesh - Render 3D models (.obj)
         // ============================================================
         
-        // Crear mesh 3D con el cráneo (usando el logo de Phaser como textura)
+        // Create 3D mesh with the skull (using the Phaser logo as texture)
         // const mesh = this.add.mesh(640, 360, 'logo');
         
-        // Cargar vértices desde el archivo OBJ (escala 0.1 como en el ejemplo oficial)
+        // Load vertices from OBJ file (scale 0.1 as in the official example)
         // mesh.addVerticesFromObj('skull', 0.1);
         
-        // Configurar posición en Z y rotación inicial
+        // Set Z position and initial rotation
         // mesh.panZ(7); // Zoom out (mismo valor que ejemplo oficial)
-        // mesh.modelRotation.y += 0.5; // Rotación inicial
+        // mesh.modelRotation.y += 0.5; // Initial rotation
         
-        // Graphics para debug (opcional)
+        // Graphics for debug (optional)
         const debugGraphics = this.add.graphics();
         
-        // Control con mouse
+        // Mouse controls
         const rotateRate = 1;
         const panRate = 1;
         const zoomRate = 4;
         
-        // Rotación con mouse (arrastrando)
+        // Rotate with mouse (dragging)
         this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
             if (!pointer.isDown) return;
             
             if (!pointer.event?.shiftKey)
             {
-                // Rotar el modelo
+                // Rotate model
                 // mesh.modelRotation.y += pointer.velocity.x * (rotateRate / 800);
                 // mesh.modelRotation.x += pointer.velocity.y * (rotateRate / 600);
             }
             else
             {
-                // Pan con Shift presionado
+                // Pan while holding Shift
                 // mesh.panX(pointer.velocity.x * (panRate / 800));
                 // mesh.panY(pointer.velocity.y * (panRate / 600));
             }
         });
         
-        // Zoom con rueda del mouse
+        // Zoom with mouse wheel
         this.input.on('wheel', (pointer: any, gameObjects: any, deltaX: number, deltaY: number, deltaZ: number) => {
             // mesh.panZ(deltaY * (zoomRate / 600));
         });
         
-        // Toggle debug con tecla D
+        // Toggle debug with D key
         this.input.keyboard?.on('keydown-D', () => {
             // if (mesh.debugCallback)
             // {
@@ -415,16 +415,16 @@ export class Start extends Phaser.Scene {
             // }
         });
         
-        // Texto informativo
-        this.add.text(640, 680, 'Mesh 3D: Arrastra para rotar | Shift+Arrastra para mover | Rueda para zoom | D para debug', {
+        // Informational text
+        this.add.text(640, 680, 'Mesh 3D: Drag to rotate | Shift+Drag to pan | Wheel to zoom | D for debug', {
             fontSize: '14px',
             color: '#ffffff',
             align: 'center'
         }).setOrigin(0.5);
         
-        // NOTA: Mesh es ideal para:
+        // NOTE: Mesh is ideal for:
         // - Renderizar modelos 3D (.obj) en WebGL ✓
-        // - Geometría personalizada con vértices ✓
+        // - Custom geometry with vertices ✓
         // - Texturas aplicadas a modelos 3D ✓
         // - Rotaciones 3D (modelRotation.x, .y, .z) ✓
         // - Pan (panX, panY, panZ) y perspectiva ✓

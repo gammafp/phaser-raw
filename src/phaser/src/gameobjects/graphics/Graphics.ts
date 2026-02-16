@@ -587,7 +587,7 @@ export class Graphics extends GameObject {
     fillCircle(x, y, radius)
     {
         this.beginPath();
-        this.arc(x, y, radius, 0, MATH_CONST.TAU);
+        this.arc(x, y, radius, 0, MATH_CONST.PI2);
         this.fillPath();
 
         return this;
@@ -608,7 +608,7 @@ export class Graphics extends GameObject {
     strokeCircle(x, y, radius)
     {
         this.beginPath();
-        this.arc(x, y, radius, 0, MATH_CONST.TAU);
+        this.arc(x, y, radius, 0, MATH_CONST.PI2);
         this.strokePath();
 
         return this;
@@ -756,44 +756,44 @@ export class Graphics extends GameObject {
 
         if (convexTR)
         {
-            this.arc(x + width - tr, y + tr, tr, -MATH_CONST.PI_OVER_2, 0);
+            this.arc(x + width - tr, y + tr, tr, -MATH_CONST.TAU, 0);
         }
         else
         {
-            this.arc(x + width, y, tr, Math.PI, MATH_CONST.PI_OVER_2, true);
+            this.arc(x + width, y, tr, Math.PI, MATH_CONST.TAU, true);
         }
 
         this.lineTo(x + width, y + height - br);
 
         if (convexBR)
         {
-            this.arc(x + width - br, y + height - br, br, 0, MATH_CONST.PI_OVER_2);
+            this.arc(x + width - br, y + height - br, br, 0, MATH_CONST.TAU);
         }
         else
         {
-            this.arc(x + width, y + height, br, -MATH_CONST.PI_OVER_2, Math.PI, true);
+            this.arc(x + width, y + height, br, -MATH_CONST.TAU, Math.PI, true);
         }
 
         this.lineTo(x + bl, y + height);
 
         if (convexBL)
         {
-            this.arc(x + bl, y + height - bl, bl, MATH_CONST.PI_OVER_2, Math.PI);
+            this.arc(x + bl, y + height - bl, bl, MATH_CONST.TAU, Math.PI);
         }
         else
         {
-            this.arc(x, y + height, bl, 0, -MATH_CONST.PI_OVER_2, true);
+            this.arc(x, y + height, bl, 0, -MATH_CONST.TAU, true);
         }
 
         this.lineTo(x, y + tl);
 
         if (convexTL)
         {
-            this.arc(x + tl, y + tl, tl, -Math.PI, -MATH_CONST.PI_OVER_2);
+            this.arc(x + tl, y + tl, tl, -Math.PI, -MATH_CONST.TAU);
         }
         else
         {
-            this.arc(x, y, tl, MATH_CONST.PI_OVER_2, 0, true);
+            this.arc(x, y, tl, MATH_CONST.TAU, 0, true);
         }
 
         this.fillPath();
@@ -851,11 +851,11 @@ export class Graphics extends GameObject {
 
         if (convexTR)
         {
-            this.arc(x + width - tr, y + tr, tr, -MATH_CONST.PI_OVER_2, 0);
+            this.arc(x + width - tr, y + tr, tr, -MATH_CONST.TAU, 0);
         }
         else
         {
-            this.arc(x + width, y, tr, Math.PI, MATH_CONST.PI_OVER_2, true);
+            this.arc(x + width, y, tr, Math.PI, MATH_CONST.TAU, true);
         }
 
         this.lineTo(x + width, y + height - br);
@@ -863,11 +863,11 @@ export class Graphics extends GameObject {
 
         if (convexBR)
         {
-            this.arc(x + width - br, y + height - br, br, 0, MATH_CONST.PI_OVER_2);
+            this.arc(x + width - br, y + height - br, br, 0, MATH_CONST.TAU);
         }
         else
         {
-            this.arc(x + width, y + height, br, -MATH_CONST.PI_OVER_2, Math.PI, true);
+            this.arc(x + width, y + height, br, -MATH_CONST.TAU, Math.PI, true);
         }
 
         this.lineTo(x + bl, y + height);
@@ -875,11 +875,11 @@ export class Graphics extends GameObject {
 
         if (convexBL)
         {
-            this.arc(x + bl, y + height - bl, bl, MATH_CONST.PI_OVER_2, Math.PI);
+            this.arc(x + bl, y + height - bl, bl, MATH_CONST.TAU, Math.PI);
         }
         else
         {
-            this.arc(x, y + height, bl, 0, -MATH_CONST.PI_OVER_2, true);
+            this.arc(x, y + height, bl, 0, -MATH_CONST.TAU, true);
         }
 
         this.lineTo(x, y + tl);
@@ -887,11 +887,11 @@ export class Graphics extends GameObject {
 
         if (convexTL)
         {
-            this.arc(x + tl, y + tl, tl, -Math.PI, -MATH_CONST.PI_OVER_2);
+            this.arc(x + tl, y + tl, tl, -Math.PI, -MATH_CONST.TAU);
         }
         else
         {
-            this.arc(x, y, tl, MATH_CONST.PI_OVER_2, 0, true);
+            this.arc(x, y, tl, MATH_CONST.TAU, 0, true);
         }
 
         this.strokePath();
