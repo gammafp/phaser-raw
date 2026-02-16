@@ -7,8 +7,8 @@
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { RenderTexture } from './RenderTexture';
 
-const BuildGameObject = require('../BuildGameObject');
-const GameObjectCreator = require('../GameObjectCreator');
+import { BuildGameObject } from '../BuildGameObject';
+import { GameObjectCreator } from '../GameObjectCreator';
 
 /**
  * Creates a new Render Texture Game Object and returns it.

@@ -19,7 +19,7 @@ import { Transform } from '../components/Transform';
 import { Visible } from '../components/Visible';
 import { DOMElementRender } from './DOMElementRender';
 
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 const SCENE_EVENTS = require('../../scene/events');
 
 /**

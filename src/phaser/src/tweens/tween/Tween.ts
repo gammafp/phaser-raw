@@ -8,8 +8,8 @@ import { MATH_CONST } from '../../math/const';
 
 import { BaseTween } from './BaseTween';
 import * as Events from '../events';
-const GameObjectCreator = require('../../gameobjects/GameObjectCreator');
-const GameObjectFactory = require('../../gameobjects/GameObjectFactory');
+import { GameObjectCreator } from '../../gameobjects/GameObjectCreator';
+import { GameObjectFactory } from '../../gameobjects/GameObjectFactory';
 import { TWEEN_CONST } from './const';
 import { TweenData } from './TweenData';
 import { TweenFrameData } from './TweenFrameData';

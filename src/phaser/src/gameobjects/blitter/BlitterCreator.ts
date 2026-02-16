@@ -7,8 +7,8 @@
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { Blitter } from './Blitter';
 
-const BuildGameObject = require('../BuildGameObject');
-const GameObjectCreator = require('../GameObjectCreator');
+import { BuildGameObject } from '../BuildGameObject';
+import { GameObjectCreator } from '../GameObjectCreator';
 
 /**
  * Creates a new Blitter Game Object and returns it.

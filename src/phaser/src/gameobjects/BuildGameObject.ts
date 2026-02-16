@@ -20,7 +20,7 @@ import { BlendModes } from '../renderer/BlendModes';
  *
  * @return {Phaser.GameObjects.GameObject} The built Game Object.
  */
-var BuildGameObject = function (scene, gameObject, config)
+export const BuildGameObject = function (scene: any, gameObject: any, config: any): any
 {
     //  Position
 
@@ -36,7 +36,7 @@ var BuildGameObject = function (scene, gameObject, config)
     //  Scale
     //  Either: { scale: 2 } or { scale: { x: 2, y: 2 }}
 
-    var scale = GetAdvancedValue(config, 'scale', null);
+    const scale = GetAdvancedValue(config, 'scale', null);
 
     if (typeof scale === 'number')
     {
@@ -51,7 +51,7 @@ var BuildGameObject = function (scene, gameObject, config)
     //  ScrollFactor
     //  Either: { scrollFactor: 2 } or { scrollFactor: { x: 2, y: 2 }}
 
-    var scrollFactor = GetAdvancedValue(config, 'scrollFactor', null);
+    const scrollFactor = GetAdvancedValue(config, 'scrollFactor', null);
 
     if (typeof scrollFactor === 'number')
     {
@@ -67,7 +67,7 @@ var BuildGameObject = function (scene, gameObject, config)
 
     gameObject.rotation = GetAdvancedValue(config, 'rotation', 0);
 
-    var angle = GetAdvancedValue(config, 'angle', null);
+    const angle = GetAdvancedValue(config, 'angle', null);
 
     if (angle !== null)
     {
@@ -81,7 +81,7 @@ var BuildGameObject = function (scene, gameObject, config)
     //  Origin
     //  Either: { origin: 0.5 } or { origin: { x: 0.5, y: 0.5 }}
 
-    var origin = GetAdvancedValue(config, 'origin', null);
+    const origin = GetAdvancedValue(config, 'origin', null);
 
     if (typeof origin === 'number')
     {
@@ -89,8 +89,8 @@ var BuildGameObject = function (scene, gameObject, config)
     }
     else if (origin !== null)
     {
-        var ox = GetAdvancedValue(origin, 'x', 0.5);
-        var oy = GetAdvancedValue(origin, 'y', 0.5);
+        const ox = GetAdvancedValue(origin, 'x', 0.5);
+        const oy = GetAdvancedValue(origin, 'y', 0.5);
 
         gameObject.setOrigin(ox, oy);
     }
@@ -105,7 +105,7 @@ var BuildGameObject = function (scene, gameObject, config)
 
     //  Add to Scene
 
-    var add = GetAdvancedValue(config, 'add', true);
+    const add = GetAdvancedValue(config, 'add', true);
 
     if (add)
     {
@@ -119,5 +119,3 @@ var BuildGameObject = function (scene, gameObject, config)
 
     return gameObject;
 };
-
-module.exports = BuildGameObject;

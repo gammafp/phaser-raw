@@ -1,6 +1,6 @@
 import { StrokePathWebGL } from '../StrokePathWebGL';
 
-var GetCalcMatrix = require('../../GetCalcMatrix');
+import { GetCalcMatrix } from '../../GetCalcMatrix';
 import { Utils } from '../../../renderer/webgl/Utils';
 
 export const TriangleWebGLRenderer = function (renderer: any, src: any, drawingContext: any, parentMatrix: any): void

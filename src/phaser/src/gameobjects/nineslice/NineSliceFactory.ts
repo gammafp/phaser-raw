@@ -6,7 +6,7 @@
 
 import { NineSlice } from './NineSlice';
 
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * A Nine Slice Game Object allows you to display a texture-based object that

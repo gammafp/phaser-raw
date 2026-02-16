@@ -1,6 +1,6 @@
 import { Grid } from './Grid';
 
-var GameObjectFactory = require('../../GameObjectFactory');
+import { GameObjectFactory } from '../../GameObjectFactory';
 
 export const GridFactory = function (this: any, x: number, y: number, width: number, height: number, cellWidth: number, cellHeight: number, fillColor: number, fillAlpha: number, outlineFillColor: number, outlineFillAlpha: number): any
 {

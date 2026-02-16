@@ -7,7 +7,7 @@
 import { TransformMatrix } from '../components/TransformMatrix';
 import { CSSBlendModes } from './CSSBlendModes';
 
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 
 const tempMatrix1 = new TransformMatrix();
 const tempMatrix2 = new TransformMatrix();

@@ -7,8 +7,8 @@
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { TileSprite } from './TileSprite';
 
-const BuildGameObject = require('../BuildGameObject');
-const GameObjectCreator = require('../GameObjectCreator');
+import { BuildGameObject } from '../BuildGameObject';
+import { GameObjectCreator } from '../GameObjectCreator';
 
 /**
  * Creates a new TileSprite Game Object and returns it.

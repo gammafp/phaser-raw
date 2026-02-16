@@ -6,7 +6,7 @@
  */
 
 import { Container } from './Container';
-var GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new Container Game Object and adds it to the Scene.

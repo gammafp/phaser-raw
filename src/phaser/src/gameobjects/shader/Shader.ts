@@ -21,7 +21,7 @@ import { Transform } from '../components/Transform';
 import { Visible } from '../components/Visible';
 import { renderWebGL, renderCanvas } from './ShaderRender';
 
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 
 export interface Shader extends
     BlendMode,

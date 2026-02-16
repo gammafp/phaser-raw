@@ -100,25 +100,34 @@ import { Stamp } from './stamp/Stamp';
 import { StampFactory } from './stamp/StampFactory';
 import { StampCreator } from './stamp/StampCreator';
 
+import { DisplayList } from './DisplayList';
+import { GameObjectCreator } from './GameObjectCreator';
+import { GameObjectFactory } from './GameObjectFactory';
+import { UpdateList } from './UpdateList';
+import { GetCalcMatrix } from './GetCalcMatrix';
+import { BuildGameObject } from './BuildGameObject';
+import { BuildGameObjectAnimation } from './BuildGameObjectAnimation';
+import { GameObject } from './GameObject';
+
 /**
  * @namespace Phaser.GameObjects
  */
 
-var GameObjects = {
+var GameObjects: any = {
 
     Events: require('./events'),
 
-    DisplayList: require('./DisplayList'),
-    GameObjectCreator: require('./GameObjectCreator'),
-    GameObjectFactory: require('./GameObjectFactory'),
-    UpdateList: require('./UpdateList'),
+    DisplayList: DisplayList,
+    GameObjectCreator: GameObjectCreator,
+    GameObjectFactory: GameObjectFactory,
+    UpdateList: UpdateList,
 
     Components: require('./components'),
-    GetCalcMatrix: require('./GetCalcMatrix'),
+    GetCalcMatrix: GetCalcMatrix,
 
-    BuildGameObject: require('./BuildGameObject'),
-    BuildGameObjectAnimation: require('./BuildGameObjectAnimation'),
-    GameObject: require('./GameObject'),
+    BuildGameObject: BuildGameObject,
+    BuildGameObjectAnimation: BuildGameObjectAnimation,
+    GameObject: GameObject,
     BitmapText: BitmapText,
     Blitter: Blitter,
     Bob: Bob,

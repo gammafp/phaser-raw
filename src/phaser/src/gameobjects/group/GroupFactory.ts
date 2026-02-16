@@ -6,7 +6,7 @@
 
 import { Group } from './Group';
 
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new Group Game Object and adds it to the Scene.

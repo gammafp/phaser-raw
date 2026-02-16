@@ -6,7 +6,7 @@
 
 import { Extern } from './Extern';
 
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new Extern Game Object and adds it to the Scene.

@@ -1,6 +1,6 @@
 import { IsoTriangle } from './IsoTriangle';
 
-var GameObjectFactory = require('../../GameObjectFactory');
+import { GameObjectFactory } from '../../GameObjectFactory';
 
 export const IsoTriangleFactory = function (this: any, x: number, y: number, size: number, height: number, reversed: boolean, fillTop: number, fillLeft: number, fillRight: number): any
 {

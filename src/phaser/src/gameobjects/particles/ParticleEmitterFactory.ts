@@ -6,7 +6,7 @@
 
 import { ParticleEmitter } from './ParticleEmitter';
 
-var GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new Particle Emitter Game Object and adds it to the Scene.

@@ -6,7 +6,7 @@
 
 import { PointLight } from './PointLight';
 
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new Point Light Game Object and adds it to the Scene.

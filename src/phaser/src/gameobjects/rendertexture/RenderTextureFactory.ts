@@ -6,7 +6,7 @@
 
 import { RenderTexture } from './RenderTexture';
 
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new Render Texture Game Object and adds it to the Scene.

@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GameObject = require('../gameobjects/GameObject');
+import { GameObject } from '../gameobjects/GameObject';
 import { Rectangle } from '../geom/rectangle/Rectangle';
 import { FitToRegion } from './FitToRegion';
 import type { AddMaskShapeConfig } from './typedefs/AddMaskShapeConfig';

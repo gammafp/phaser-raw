@@ -8,7 +8,7 @@ import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { SpriteGPULayer } from './SpriteGPULayer';
 
 import { BlendModes } from '../../renderer/BlendModes';
-var GameObjectCreator = require('../GameObjectCreator');
+import { GameObjectCreator } from '../GameObjectCreator';
 
 /**
  * Creates a new SpriteGPULayer Game Object and returns it.

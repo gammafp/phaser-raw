@@ -12,7 +12,7 @@ import { Vector2 } from '../../math/Vector2';
 
 var Class = require('../../utils/Class');
 var Components = require('./components');
-var GameObject = require('../../gameobjects/GameObject');
+import { GameObject } from '../../gameobjects/GameObject';
 
 /**
  * @classdesc

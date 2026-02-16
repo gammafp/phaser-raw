@@ -1,6 +1,6 @@
 import { Polygon } from './Polygon';
 
-var GameObjectFactory = require('../../GameObjectFactory');
+import { GameObjectFactory } from '../../GameObjectFactory';
 
 export const PolygonFactory = function (this: any, x: number, y: number, points: any, fillColor: number, fillAlpha: number): any
 {

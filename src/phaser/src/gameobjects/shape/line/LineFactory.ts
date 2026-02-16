@@ -1,6 +1,6 @@
 import { Line } from './Line';
 
-var GameObjectFactory = require('../../GameObjectFactory');
+import { GameObjectFactory } from '../../GameObjectFactory';
 
 export const LineFactory = function (this: any, x: number, y: number, x1: number, y1: number, x2: number, y2: number, strokeColor: number, strokeAlpha: number): any
 {

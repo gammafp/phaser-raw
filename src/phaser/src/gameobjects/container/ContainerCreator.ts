@@ -9,8 +9,8 @@ import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { GetFastValue } from '../../utils/object/GetFastValue';
 import { Container } from './Container';
 
-var BuildGameObject = require('../BuildGameObject');
-var GameObjectCreator = require('../GameObjectCreator');
+import { BuildGameObject } from '../BuildGameObject';
+import { GameObjectCreator } from '../GameObjectCreator';
 
 /**
  * Creates a new Container Game Object and returns it.

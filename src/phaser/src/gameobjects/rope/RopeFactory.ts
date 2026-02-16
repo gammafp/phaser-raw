@@ -6,7 +6,7 @@
 
 import { Rope } from './Rope';
 
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new Rope Game Object and adds it to the Scene.

@@ -7,8 +7,8 @@
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { Video } from './Video';
 
-const BuildGameObject = require('../BuildGameObject');
-const GameObjectCreator = require('../GameObjectCreator');
+import { BuildGameObject } from '../BuildGameObject';
+import { GameObjectCreator } from '../GameObjectCreator';
 
 /**
  * Creates a new Video Game Object and returns it.

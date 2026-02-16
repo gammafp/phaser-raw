@@ -19,7 +19,7 @@ import { Transform } from '../components/Transform';
 import { Visible } from '../components/Visible';
 
 import { DefaultGraphicsNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultGraphicsNodes';
-var GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 
 export interface Shape extends AlphaSingle, BlendMode, Depth, GetBounds, Lighting, Mask, Origin, RenderNodes, ScrollFactor, Transform, Visible {}
 

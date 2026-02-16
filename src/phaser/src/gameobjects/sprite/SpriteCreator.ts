@@ -7,9 +7,9 @@
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { Sprite } from './Sprite';
 
-const BuildGameObject = require('../BuildGameObject');
-const BuildGameObjectAnimation = require('../BuildGameObjectAnimation');
-const GameObjectCreator = require('../GameObjectCreator');
+import { BuildGameObject } from '../BuildGameObject';
+import { BuildGameObjectAnimation } from '../BuildGameObjectAnimation';
+import { GameObjectCreator } from '../GameObjectCreator';
 
 /**
  * Creates a new Sprite Game Object and returns it.

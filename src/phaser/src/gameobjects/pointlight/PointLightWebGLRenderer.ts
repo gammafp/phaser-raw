@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const GetCalcMatrix = require('../GetCalcMatrix');
+import { GetCalcMatrix } from '../GetCalcMatrix';
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.

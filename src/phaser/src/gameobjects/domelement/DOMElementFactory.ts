@@ -5,7 +5,7 @@
  */
 
 import { DOMElement } from './DOMElement';
-var GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * DOM Element Game Objects are a way to control and manipulate HTML Elements over the top of your game.

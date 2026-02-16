@@ -6,7 +6,7 @@
 
 import { TileSprite } from './TileSprite';
 
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new TileSprite Game Object and adds it to the Scene.

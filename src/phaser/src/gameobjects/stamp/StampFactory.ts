@@ -6,7 +6,7 @@
 
 import { Stamp } from './Stamp';
 
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new Stamp Game Object and adds it to the Scene.

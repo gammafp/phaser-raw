@@ -6,7 +6,7 @@
 
 import { TransformMatrix } from '../../components/TransformMatrix';
 
-var GetCalcMatrix = require('../../GetCalcMatrix');
+import { GetCalcMatrix } from '../../GetCalcMatrix';
 import { TintModes } from '../../../renderer/TintModes';
 import { Utils } from '../../../renderer/webgl/Utils';
 

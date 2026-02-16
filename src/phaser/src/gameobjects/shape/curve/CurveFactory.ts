@@ -6,7 +6,7 @@
 
 import { Curve } from './Curve';
 
-var GameObjectFactory = require('../../GameObjectFactory');
+import { GameObjectFactory } from '../../GameObjectFactory';
 
 export const CurveFactory = function (this: any, x: number, y: number, curve: any, fillColor: number, fillAlpha: number): any
 {

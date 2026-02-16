@@ -17,7 +17,7 @@ import { Visible } from '../components/Visible';
 import { IntegerToColor } from '../../display/color/IntegerToColor';
 import { renderWebGL, renderCanvas } from './PointLightRender';
 
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 
 /**
  * @classdesc

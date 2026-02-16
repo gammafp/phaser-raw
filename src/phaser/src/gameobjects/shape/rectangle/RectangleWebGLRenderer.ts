@@ -1,7 +1,7 @@
 import { FillPathWebGL } from '../FillPathWebGL';
 import { StrokePathWebGL } from '../StrokePathWebGL';
 
-var GetCalcMatrix = require('../../GetCalcMatrix');
+import { GetCalcMatrix } from '../../GetCalcMatrix';
 import { Utils } from '../../../renderer/webgl/Utils';
 
 export const RectangleWebGLRenderer = function (renderer: any, src: any, drawingContext: any, parentMatrix: any): void

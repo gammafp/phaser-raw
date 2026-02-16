@@ -6,7 +6,7 @@
 
 import { Arc } from './Arc';
 
-var GameObjectFactory = require('../../GameObjectFactory');
+import { GameObjectFactory } from '../../GameObjectFactory';
 
 export const ArcFactory = function (this: any, x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: boolean, fillColor: number, fillAlpha: number): any
 {

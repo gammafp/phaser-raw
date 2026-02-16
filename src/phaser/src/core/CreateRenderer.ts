@@ -97,6 +97,7 @@ export const CreateRenderer = (game: Game): any =>
     var CanvasRenderer;
     var WebGLRenderer;
 
+    // TODO: Remove CANVAS RENDERER
     if (typeof WEBGL_RENDERER && typeof CANVAS_RENDERER)
     {
         CanvasRenderer = require('../renderer/canvas/CanvasRenderer');

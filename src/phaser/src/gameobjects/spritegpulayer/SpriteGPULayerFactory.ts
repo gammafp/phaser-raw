@@ -6,7 +6,7 @@
 
 import { SpriteGPULayer } from './SpriteGPULayer';
 
-var GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new SpriteGPULayer Game Object and adds it to the Scene.

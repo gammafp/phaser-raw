@@ -4,10 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../utils/Class');
 import { ProcessQueue } from '../structs/ProcessQueue';
 import { PluginCache } from '../plugins/PluginCache';
-var SceneEvents = require('../scene/events');
+
+const SceneEvents = require('../scene/events');
 
 /**
  * @classdesc
@@ -25,9 +25,12 @@ var SceneEvents = require('../scene/events');
  *
  * @param {Phaser.Scene} scene - The Scene that the Update List belongs to.
  */
-var UpdateList = class extends ProcessQueue {
+export class UpdateList extends ProcessQueue {
 
-    constructor(scene)
+    scene: any;
+    systems: any;
+
+    constructor(scene: any)
     {
         super();
 
@@ -120,7 +123,7 @@ var UpdateList = class extends ProcessQueue {
      */
     start()
     {
-        var eventEmitter = this.systems.events;
+        const eventEmitter = this.systems.events;
 
         eventEmitter.on(SceneEvents.PRE_UPDATE, this.update, this);
         eventEmitter.on(SceneEvents.UPDATE, this.sceneUpdate, this);
@@ -138,14 +141,14 @@ var UpdateList = class extends ProcessQueue {
      * @param {number} time - The current timestamp.
      * @param {number} delta - The delta time elapsed since the last frame.
      */
-    sceneUpdate(time, delta)
+    sceneUpdate(time: number, delta: number)
     {
-        var list = this._active;
-        var length = list.length;
+        const list = this._active;
+        const length = list.length;
 
-        for (var i = 0; i < length; i++)
+        for (let i = 0; i < length; i++)
         {
-            var gameObject = list[i];
+            const gameObject = list[i];
 
             if (gameObject.active)
             {
@@ -164,7 +167,7 @@ var UpdateList = class extends ProcessQueue {
      */
     shutdown()
     {
-        var i = this._active.length;
+        let i = this._active.length;
 
         while (i--)
         {
@@ -193,7 +196,7 @@ var UpdateList = class extends ProcessQueue {
 
         this.removeAllListeners();
 
-        var eventEmitter = this.systems.events;
+        const eventEmitter = this.systems.events;
 
         eventEmitter.off(SceneEvents.PRE_UPDATE, this.update, this);
         eventEmitter.off(SceneEvents.UPDATE, this.sceneUpdate, this);
@@ -287,8 +290,6 @@ var UpdateList = class extends ProcessQueue {
      * @readonly
      * @since 3.20.0
      */
-};
+}
 
 PluginCache.register('UpdateList', UpdateList, 'updateList');
-
-module.exports = UpdateList;

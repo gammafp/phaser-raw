@@ -9,8 +9,7 @@
 import { MATH_CONST } from '../../math/const';
 import { CubicBezierCurve } from '../CubicBezierCurve';
 import { EllipseCurve } from '../EllipseCurve';
-// import { GameObjectFactory } from '../../gameobjects/GameObjectFactory';
-var GameObjectFactory = require('../../gameobjects/GameObjectFactory');
+import { GameObjectFactory } from '../../gameobjects/GameObjectFactory';
 import { LineCurve } from '../LineCurve';
 // import { MoveTo } from './MoveTo';
 import { QuadraticBezier as QuadraticBezierCurve } from '../QuadraticBezierCurve';

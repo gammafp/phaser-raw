@@ -23,7 +23,7 @@ import { Visible } from '../components/Visible';
 import { renderWebGL, renderCanvas } from './ImageRender';
 
 import { DefaultImageNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultImageNodes';
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 
 /**
  * @classdesc

@@ -6,7 +6,7 @@
 
 import { Sprite } from './Sprite';
 
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new Sprite Game Object and adds it to the Scene.

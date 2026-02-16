@@ -25,7 +25,7 @@ import { Transform } from '../components/Transform';
 import { Visible } from '../components/Visible';
 import { renderWebGL, renderCanvas } from './SpriteRender';
 
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 
 export interface Sprite extends
     Alpha,

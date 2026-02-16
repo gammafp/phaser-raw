@@ -24,7 +24,7 @@ import { ContainerRender } from './ContainerRender';
 const ArrayUtils = require('../../utils/array');
 import { BlendModes } from '../../renderer/BlendModes';
 const Events = require('../events');
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 
 const tempTransformMatrix = new TransformMatrix();
 

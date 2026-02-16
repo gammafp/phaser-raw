@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-const GameObjectCreator = require('../GameObjectCreator');
+import { GameObjectCreator } from '../GameObjectCreator';
 import { Graphics } from './Graphics';
 
 /**

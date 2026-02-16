@@ -26,7 +26,7 @@ import { Commands } from './Commands';
 import { GraphicsRender } from './GraphicsRender';
 
 
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 import { DefaultGraphicsNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultGraphicsNodes';
 
 /**

@@ -5,7 +5,7 @@
  */
 
 import { Layer } from './Layer';
-var GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new Layer Game Object and adds it to the Scene.

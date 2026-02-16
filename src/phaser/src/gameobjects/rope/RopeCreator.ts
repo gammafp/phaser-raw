@@ -8,8 +8,8 @@ import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { GetValue } from '../../utils/object/GetValue';
 import { Rope } from './Rope';
 
-const BuildGameObject = require('../BuildGameObject');
-const GameObjectCreator = require('../GameObjectCreator');
+import { BuildGameObject } from '../BuildGameObject';
+import { GameObjectCreator } from '../GameObjectCreator';
 
 /**
  * Creates a new Rope Game Object and returns it.

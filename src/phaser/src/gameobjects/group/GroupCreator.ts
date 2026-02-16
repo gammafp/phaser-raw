@@ -6,7 +6,7 @@
 
 import { Group } from './Group';
 
-const GameObjectCreator = require('../GameObjectCreator');
+import { GameObjectCreator } from '../GameObjectCreator';
 
 /**
  * Creates a new Group Game Object and returns it.

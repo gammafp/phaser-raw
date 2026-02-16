@@ -18,7 +18,7 @@ import { renderWebGL, renderCanvas } from './SpriteGPULayerRender';
 import { EasingEncoding } from './EasingEncoding';
 import { EasingNaming } from './EasingNaming';
 
-var GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 import { SubmitterSpriteGPULayer } from '../../renderer/webgl/renderNodes/submitter/SubmitterSpriteGPULayer';
 import { Utils } from '../../renderer/webgl/Utils';
 

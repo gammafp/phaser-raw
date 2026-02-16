@@ -6,7 +6,7 @@
 
 import { DynamicBitmapText } from './DynamicBitmapText';
 
-var GameObjectFactory = require('../../GameObjectFactory');
+import { GameObjectFactory } from '../../GameObjectFactory';
 
 /**
  * Creates a new Dynamic Bitmap Text Game Object and adds it to the Scene.

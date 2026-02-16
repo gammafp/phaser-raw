@@ -5,14 +5,11 @@
  */
 
 import { StableSort } from '../utils/array/StableSort';
-
-var Class = require('../utils/Class');
-
 import { List } from '../structs/List';
 import { PluginCache } from '../plugins/PluginCache';
 
-var GameObjectEvents = require('./events');
-var SceneEvents = require('../scene/events');
+const GameObjectEvents = require('./events');
+const SceneEvents = require('../scene/events');
 
 /**
  * @classdesc
@@ -30,9 +27,14 @@ var SceneEvents = require('../scene/events');
  *
  * @param {Phaser.Scene} scene - The Scene that this Display List belongs to.
  */
-var DisplayList = class extends List {
+export class DisplayList extends List {
 
-    constructor(scene)
+    sortChildrenFlag: boolean;
+    scene: any;
+    systems: any;
+    events: any;
+
+    constructor(scene: any)
     {
         super(scene);
 
@@ -105,7 +107,7 @@ var DisplayList = class extends List {
      *
      * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that was added to the list.
      */
-    addChildCallback(gameObject)
+    addChildCallback(gameObject: any)
     {
         if (gameObject.displayList && gameObject.displayList !== this)
         {
@@ -140,7 +142,7 @@ var DisplayList = class extends List {
      *
      * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that was removed from the list.
      */
-    removeChildCallback(gameObject)
+    removeChildCallback(gameObject: any)
     {
         this.queueDepthSort();
 
@@ -203,7 +205,7 @@ var DisplayList = class extends List {
      *
      * @return {number} The difference between the depths of each Game Object.
      */
-    sortByDepth(childA, childB)
+    sortByDepth(childA: any, childB: any): number
     {
         return childA._depth - childB._depth;
     }
@@ -217,7 +219,7 @@ var DisplayList = class extends List {
      *
      * @return {Phaser.GameObjects.GameObject[]} The group members.
      */
-    getChildren()
+    getChildren(): any[]
     {
         return this.list;
     }
@@ -233,8 +235,8 @@ var DisplayList = class extends List {
      */
     shutdown()
     {
-        var list = this.list;
-        var i = list.length;
+        const list = this.list;
+        let i = list.length;
 
         while (i--)
         {
@@ -268,8 +270,6 @@ var DisplayList = class extends List {
         this.events = null;
     }
 
-};
+}
 
 PluginCache.register('DisplayList', DisplayList, 'displayList');
-
-module.exports = DisplayList;

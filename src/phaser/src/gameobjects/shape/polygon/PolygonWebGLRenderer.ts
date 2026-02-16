@@ -1,7 +1,7 @@
 import { FillPathWebGL } from '../FillPathWebGL';
 import { StrokePathWebGL } from '../StrokePathWebGL';
 
-var GetCalcMatrix = require('../../GetCalcMatrix');
+import { GetCalcMatrix } from '../../GetCalcMatrix';
 
 export const PolygonWebGLRenderer = function (renderer: any, src: any, drawingContext: any, parentMatrix: any): void
 {

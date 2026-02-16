@@ -1,6 +1,6 @@
 import { IsoBox } from './IsoBox';
 
-var GameObjectFactory = require('../../GameObjectFactory');
+import { GameObjectFactory } from '../../GameObjectFactory';
 
 export const IsoBoxFactory = function (this: any, x: number, y: number, size: number, height: number, fillTop: number, fillLeft: number, fillRight: number): any
 {

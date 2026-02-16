@@ -7,8 +7,8 @@
 import { GetAdvancedValue } from '../../../utils/object/GetAdvancedValue';
 import { DynamicBitmapText } from './DynamicBitmapText';
 
-var BuildGameObject = require('../../BuildGameObject');
-var GameObjectCreator = require('../../GameObjectCreator');
+import { BuildGameObject } from '../../BuildGameObject';
+import { GameObjectCreator } from '../../GameObjectCreator';
 
 /**
  * Creates a new Dynamic Bitmap Text Game Object and returns it.

@@ -6,7 +6,7 @@
 
 import { Blitter } from './Blitter';
 
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new Blitter Game Object and adds it to the Scene.

@@ -24,7 +24,7 @@ import { BlitterRender } from './BlitterRender';
 import { Bob } from './Bob';
 
 import { DefaultBlitterNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultBlitterNodes';
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 
 /**
  * @callback CreateCallback

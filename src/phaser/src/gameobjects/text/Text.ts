@@ -33,7 +33,7 @@ import { GetTextSize } from './GetTextSize';
 import { TextStyle } from './TextStyle';
 
 import { DefaultImageNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultImageNodes';
-var GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 var Components = require('../components');
 
 /**

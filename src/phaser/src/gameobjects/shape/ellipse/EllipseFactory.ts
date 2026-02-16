@@ -6,7 +6,7 @@
 
 import { Ellipse } from './Ellipse';
 
-var GameObjectFactory = require('../../GameObjectFactory');
+import { GameObjectFactory } from '../../GameObjectFactory';
 
 export const EllipseFactory = function (this: any, x: number, y: number, width: number, height: number, fillColor: number, fillAlpha: number): any
 {

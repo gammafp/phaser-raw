@@ -7,7 +7,7 @@
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { CaptureFrame } from './CaptureFrame';
 
-const GameObjectCreator = require('../GameObjectCreator');
+import { GameObjectCreator } from '../GameObjectCreator';
 
 /**
  * Creates a new CaptureFrame Game Object and returns it.

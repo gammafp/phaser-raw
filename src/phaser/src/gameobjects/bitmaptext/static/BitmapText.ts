@@ -26,7 +26,7 @@ import { ParseFromAtlas } from '../ParseFromAtlas';
 import { ParseXMLBitmapFont } from '../ParseXMLBitmapFont';
 
 import { DefaultBitmapTextNodes } from '../../../renderer/webgl/renderNodes/defaults/DefaultBitmapTextNodes';
-var GameObject = require('../../GameObject');
+import { GameObject } from '../../GameObject';
 var Components = require('../../components');
 import { TintModes } from '../../../renderer/TintModes';
 

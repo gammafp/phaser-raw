@@ -1,4 +1,4 @@
-var GetCalcMatrix = require('../../GetCalcMatrix');
+import { GetCalcMatrix } from '../../GetCalcMatrix';
 import { Utils } from '../../../renderer/webgl/Utils';
 
 var tempPath = [

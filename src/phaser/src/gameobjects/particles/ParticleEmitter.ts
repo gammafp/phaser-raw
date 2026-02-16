@@ -41,7 +41,7 @@ import { Mixin } from '../../utils/MixinTS';
 
 import { DefaultParticleEmitterNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultParticleEmitterNodes';
 const Components = require('../components');
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 const Events = require('./events');
 const Render = require('./ParticleEmitterRender');
 import { TintModes } from '../../renderer/TintModes';

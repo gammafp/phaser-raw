@@ -18,9 +18,9 @@ import { GetAdvancedValue } from '../utils/object/GetAdvancedValue';
  *
  * @return {Phaser.GameObjects.Sprite} The updated Sprite.
  */
-var BuildGameObjectAnimation = function (sprite, config)
+export const BuildGameObjectAnimation = function (sprite: any, config: any): any
 {
-    var animConfig = GetAdvancedValue(config, 'anims', null);
+    const animConfig = GetAdvancedValue(config, 'anims', null);
 
     if (animConfig === null)
     {
@@ -46,23 +46,23 @@ var BuildGameObjectAnimation = function (sprite, config)
         //           }
         //  }
 
-        var anims = sprite.anims;
+        const anims = sprite.anims;
 
-        var key = GetAdvancedValue(animConfig, 'key', undefined);
+        const key = GetAdvancedValue(animConfig, 'key', undefined);
 
         if (key)
         {
-            var startFrame = GetAdvancedValue(animConfig, 'startFrame', undefined);
+            const startFrame = GetAdvancedValue(animConfig, 'startFrame', undefined);
 
-            var delay = GetAdvancedValue(animConfig, 'delay', 0);
-            var repeat = GetAdvancedValue(animConfig, 'repeat', 0);
-            var repeatDelay = GetAdvancedValue(animConfig, 'repeatDelay', 0);
-            var yoyo = GetAdvancedValue(animConfig, 'yoyo', false);
+            const delay = GetAdvancedValue(animConfig, 'delay', 0);
+            const repeat = GetAdvancedValue(animConfig, 'repeat', 0);
+            const repeatDelay = GetAdvancedValue(animConfig, 'repeatDelay', 0);
+            const yoyo = GetAdvancedValue(animConfig, 'yoyo', false);
 
-            var play = GetAdvancedValue(animConfig, 'play', false);
-            var delayedPlay = GetAdvancedValue(animConfig, 'delayedPlay', 0);
+            const play = GetAdvancedValue(animConfig, 'play', false);
+            const delayedPlay = GetAdvancedValue(animConfig, 'delayedPlay', 0);
 
-            var playConfig = {
+            const playConfig = {
                 key: key,
                 delay: delay,
                 repeat: repeat,
@@ -88,5 +88,3 @@ var BuildGameObjectAnimation = function (sprite, config)
 
     return sprite;
 };
-
-module.exports = BuildGameObjectAnimation;

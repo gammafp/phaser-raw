@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GetCalcMatrix = require('../../../gameobjects/GetCalcMatrix');
+import { GetCalcMatrix } from '../../../gameobjects/GetCalcMatrix';
 
 /**
  * Takes a reference to the Canvas Renderer, a Canvas Rendering Context, a Game Object, a Camera and a parent matrix

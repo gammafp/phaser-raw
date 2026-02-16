@@ -31,7 +31,7 @@ import { Transform } from '../components/Transform';
 import { Visible } from '../components/Visible';
 import { renderWebGL, renderCanvas } from './TileSpriteRender';
 
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 
 //  bitmask flag for GameObject.renderMask
 const _FLAG = 8; // 1000

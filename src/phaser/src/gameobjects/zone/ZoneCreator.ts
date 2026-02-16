@@ -7,7 +7,7 @@
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { Zone } from './Zone';
 
-const GameObjectCreator = require('../GameObjectCreator');
+import { GameObjectCreator } from '../GameObjectCreator';
 
 /**
  * Creates a new Zone Game Object and returns it.

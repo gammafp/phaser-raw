@@ -22,7 +22,7 @@ import { NineSliceRender } from './NineSliceRender';
 import { NineSliceVertex } from './NineSliceVertex';
 
 import { DefaultQuadNodes as DefaultNineSliceNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultQuadNodes';
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 import { TintModes } from '../../renderer/TintModes';
 
 export interface NineSlice extends AlphaSingle, BlendMode, Depth, GetBounds, Mask, Origin, RenderNodes, ScrollFactor, Texture, Transform, Visible, NineSliceRender {}

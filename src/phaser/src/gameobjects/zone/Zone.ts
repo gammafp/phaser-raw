@@ -19,7 +19,7 @@ import { Transform } from '../components/Transform';
 import { ScrollFactor } from '../components/ScrollFactor';
 import { Visible } from '../components/Visible';
 
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 
 /**
  * @classdesc

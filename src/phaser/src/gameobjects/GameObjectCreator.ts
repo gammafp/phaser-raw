@@ -6,8 +6,7 @@
 
 import { PluginCache } from '../plugins/PluginCache';
 
-var Class = require('../utils/Class');
-var SceneEvents = require('../scene/events');
+const SceneEvents = require('../scene/events');
 
 /**
  * @classdesc
@@ -25,11 +24,17 @@ var SceneEvents = require('../scene/events');
  *
  * @param {Phaser.Scene} scene - The Scene to which this Game Object Factory belongs.
  */
-var GameObjectCreator = new Class({
+export class GameObjectCreator {
 
-    initialize:
+    scene: any;
+    systems: any;
+    events: any;
+    displayList: any;
+    updateList: any;
 
-    function GameObjectCreator (scene)
+    [key: string]: any;
+
+    constructor(scene: any)
     {
         /**
          * The Scene to which this Game Object Creator belongs.
@@ -83,7 +88,7 @@ var GameObjectCreator = new Class({
 
         this.events.once(SceneEvents.BOOT, this.boot, this);
         this.events.on(SceneEvents.START, this.start, this);
-    },
+    }
 
     /**
      * This method is called automatically, only once, when the Scene is first created.
@@ -93,13 +98,13 @@ var GameObjectCreator = new Class({
      * @private
      * @since 3.5.1
      */
-    boot: function ()
+    boot()
     {
         this.displayList = this.systems.displayList;
         this.updateList = this.systems.updateList;
 
         this.events.once(SceneEvents.DESTROY, this.destroy, this);
-    },
+    }
 
     /**
      * This method is called automatically by the Scene when it is starting up.
@@ -110,10 +115,10 @@ var GameObjectCreator = new Class({
      * @private
      * @since 3.5.0
      */
-    start: function ()
+    start()
     {
         this.events.once(SceneEvents.SHUTDOWN, this.shutdown, this);
-    },
+    }
 
     /**
      * The Scene that owns this plugin is shutting down.
@@ -123,10 +128,10 @@ var GameObjectCreator = new Class({
      * @private
      * @since 3.0.0
      */
-    shutdown: function ()
+    shutdown()
     {
         this.events.off(SceneEvents.SHUTDOWN, this.shutdown, this);
-    },
+    }
 
     /**
      * The Scene that owns this plugin is being destroyed.
@@ -136,7 +141,7 @@ var GameObjectCreator = new Class({
      * @private
      * @since 3.0.0
      */
-    destroy: function ()
+    destroy()
     {
         this.shutdown();
 
@@ -150,49 +155,46 @@ var GameObjectCreator = new Class({
         this.updateList = null;
     }
 
-});
-
-/**
- * Static method called directly by the Game Object creator functions.
- * With this method you can register a custom GameObject factory in the GameObjectCreator,
- * providing a name (`factoryType`) and the constructor (`factoryFunction`) in order
- * to be called when you invoke Phaser.Scene.make[ factoryType ] method.
- *
- * @method Phaser.GameObjects.GameObjectCreator.register
- * @static
- * @since 3.0.0
- *
- * @param {string} factoryType - The key of the factory that you will use to call to Phaser.Scene.make[ factoryType ] method.
- * @param {function} factoryFunction - The constructor function to be called when you invoke to the Phaser.Scene.make method.
- */
-GameObjectCreator.register = function (factoryType, factoryFunction)
-{
-    if (!GameObjectCreator.prototype.hasOwnProperty(factoryType))
+    /**
+     * Static method called directly by the Game Object creator functions.
+     * With this method you can register a custom GameObject factory in the GameObjectCreator,
+     * providing a name (`factoryType`) and the constructor (`factoryFunction`) in order
+     * to be called when you invoke Phaser.Scene.make[ factoryType ] method.
+     *
+     * @method Phaser.GameObjects.GameObjectCreator.register
+     * @static
+     * @since 3.0.0
+     *
+     * @param {string} factoryType - The key of the factory that you will use to call to Phaser.Scene.make[ factoryType ] method.
+     * @param {function} factoryFunction - The constructor function to be called when you invoke to the Phaser.Scene.make method.
+     */
+    static register(factoryType: string, factoryFunction: Function)
     {
-        GameObjectCreator.prototype[factoryType] = factoryFunction;
+        if (!GameObjectCreator.prototype.hasOwnProperty(factoryType))
+        {
+            (GameObjectCreator.prototype as any)[factoryType] = factoryFunction;
+        }
     }
-};
 
-/**
- * Static method called directly by the Game Object Creator functions.
- *
- * With this method you can remove a custom Game Object Creator that has been previously
- * registered in the Game Object Creator. Pass in its `factoryType` in order to remove it.
- *
- * @method Phaser.GameObjects.GameObjectCreator.remove
- * @static
- * @since 3.0.0
- *
- * @param {string} factoryType - The key of the factory that you want to remove from the GameObjectCreator.
- */
-GameObjectCreator.remove = function (factoryType)
-{
-    if (GameObjectCreator.prototype.hasOwnProperty(factoryType))
+    /**
+     * Static method called directly by the Game Object Creator functions.
+     *
+     * With this method you can remove a custom Game Object Creator that has been previously
+     * registered in the Game Object Creator. Pass in its `factoryType` in order to remove it.
+     *
+     * @method Phaser.GameObjects.GameObjectCreator.remove
+     * @static
+     * @since 3.0.0
+     *
+     * @param {string} factoryType - The key of the factory that you want to remove from the GameObjectCreator.
+     */
+    static remove(factoryType: string)
     {
-        delete GameObjectCreator.prototype[factoryType];
+        if (GameObjectCreator.prototype.hasOwnProperty(factoryType))
+        {
+            delete (GameObjectCreator.prototype as any)[factoryType];
+        }
     }
-};
+}
 
 PluginCache.register('GameObjectCreator', GameObjectCreator, 'make');
-
-module.exports = GameObjectCreator;

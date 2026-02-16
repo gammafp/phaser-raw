@@ -7,12 +7,12 @@
 
 import { TransformMatrix } from './components/TransformMatrix';
 
-var camMatrix = new TransformMatrix();
-var spriteMatrix = new TransformMatrix();
-var calcMatrix = new TransformMatrix();
-var camExternalMatrix = new TransformMatrix();
+const camMatrix = new TransformMatrix();
+const spriteMatrix = new TransformMatrix();
+const calcMatrix = new TransformMatrix();
+const camExternalMatrix = new TransformMatrix();
 
-var result = {
+const result = {
     camera: camMatrix,
     sprite: spriteMatrix,
     calc: calcMatrix,
@@ -39,7 +39,7 @@ var result = {
  *
  * @return {Phaser.Types.GameObjects.GetCalcMatrixResults} The results object containing the updated transform matrices.
  */
-var GetCalcMatrix = function (src, camera, parentMatrix, ignoreCameraPosition)
+export const GetCalcMatrix = function (src: any, camera: any, parentMatrix?: any, ignoreCameraPosition?: boolean): any
 {
     if (ignoreCameraPosition)
     {
@@ -69,5 +69,3 @@ var GetCalcMatrix = function (src, camera, parentMatrix, ignoreCameraPosition)
 
     return result;
 };
-
-module.exports = GetCalcMatrix;

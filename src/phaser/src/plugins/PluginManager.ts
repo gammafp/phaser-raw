@@ -14,8 +14,8 @@ import { PluginCache } from './PluginCache';
 import { PHASER_CONST as CONST } from '../const';
 
 var GameEvents = require('../core/events');
-var GameObjectCreator = require('../gameobjects/GameObjectCreator');
-var GameObjectFactory = require('../gameobjects/GameObjectFactory');
+import { GameObjectCreator } from '../gameobjects/GameObjectCreator';
+import { GameObjectFactory } from '../gameobjects/GameObjectFactory';
 
 /**
  * @classdesc

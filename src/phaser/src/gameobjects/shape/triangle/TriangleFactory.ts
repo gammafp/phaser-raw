@@ -1,6 +1,6 @@
 import { Triangle } from './Triangle';
 
-var GameObjectFactory = require('../../GameObjectFactory');
+import { GameObjectFactory } from '../../GameObjectFactory';
 
 export const TriangleFactory = function (this: any, x: number, y: number, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, fillColor: number, fillAlpha: number): any
 {

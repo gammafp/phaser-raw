@@ -6,7 +6,7 @@
 
 import { BitmapText } from './BitmapText';
 
-var GameObjectFactory = require('../../GameObjectFactory');
+import { GameObjectFactory } from '../../GameObjectFactory';
 
 /**
  * Creates a new Bitmap Text Game Object and adds it to the Scene.

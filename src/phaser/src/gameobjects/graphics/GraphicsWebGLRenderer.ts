@@ -9,7 +9,7 @@
 import { TransformMatrix } from '../components/TransformMatrix';
 import { Commands } from './Commands';
 
-const GetCalcMatrix = require('../GetCalcMatrix');
+import { GetCalcMatrix } from '../GetCalcMatrix';
 import { Utils } from '../../renderer/webgl/Utils';
 
 const Point = function (x, y, width)

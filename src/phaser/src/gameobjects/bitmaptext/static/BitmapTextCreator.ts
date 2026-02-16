@@ -8,8 +8,8 @@ import { GetAdvancedValue } from '../../../utils/object/GetAdvancedValue';
 import { GetValue } from '../../../utils/object/GetValue';
 import { BitmapText } from './BitmapText';
 
-var BuildGameObject = require('../../BuildGameObject');
-var GameObjectCreator = require('../../GameObjectCreator');
+import { BuildGameObject } from '../../BuildGameObject';
+import { GameObjectCreator } from '../../GameObjectCreator';
 
 /**
  * Creates a new Bitmap Text Game Object and returns it.

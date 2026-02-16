@@ -6,7 +6,7 @@
 
 import { GetFastValue } from '../utils/object/GetFastValue';
 
-var GameObjectFactory = require('../gameobjects/GameObjectFactory');
+import { GameObjectFactory } from '../gameobjects/GameObjectFactory';
 var SceneEvents = require('../scene/events');
 
 import { EventEmitter } from 'eventemitter3';

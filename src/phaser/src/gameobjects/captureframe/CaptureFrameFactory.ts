@@ -6,7 +6,7 @@
 
 import { CaptureFrame } from './CaptureFrame';
 
-const GameObjectFactory = require('../GameObjectFactory');
+import { GameObjectFactory } from '../GameObjectFactory';
 
 /**
  * Creates a new CaptureFrame Game Object and adds it to the Scene.

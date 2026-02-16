@@ -13,7 +13,7 @@ import { RenderNodes } from '../components/RenderNodes';
 import { Visible } from '../components/Visible';
 import { renderWebGL, renderCanvas } from './CaptureFrameRender';
 
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 
 /**
  * @classdesc

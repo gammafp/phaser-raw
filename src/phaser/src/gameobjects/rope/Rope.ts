@@ -22,7 +22,7 @@ import { ScrollFactor } from '../components/ScrollFactor';
 import * as RopeRender from './RopeRender';
 import { TintModes } from '../../renderer/TintModes';
 
-const GameObject = require('../GameObject');
+import { GameObject } from '../GameObject';
 
 export interface Rope extends
     AlphaSingle,

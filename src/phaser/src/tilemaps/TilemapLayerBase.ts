@@ -10,7 +10,7 @@ import * as TilemapComponents from './components';
 
 const CollisionComponent = require('../physics/arcade/components/Collision');
 const Components = require('../gameobjects/components');
-const GameObject = require('../gameobjects/GameObject');
+import { GameObject } from '../gameobjects/GameObject';
 
 export interface TilemapLayerBase {}
 
