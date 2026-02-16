@@ -4,34 +4,30 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GameObjectFactory = require('../GameObjectFactory');
-import { PathFollower } from './PathFollower';
+import { Stamp } from './Stamp';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
- * Creates a new PathFollower Game Object and adds it to the Scene.
+ * Creates a new Stamp Game Object and adds it to the Scene.
  *
- * Note: This method will only be available if the PathFollower Game Object has been built into Phaser.
+ * Note: This method will only be available if the Stamp Game Object has been built into Phaser.
  *
- * @method Phaser.GameObjects.GameObjectFactory#follower
+ * @method Phaser.GameObjects.GameObjectFactory#stamp
  * @since 3.0.0
  *
- * @param {Phaser.Curves.Path} path - The Path this PathFollower is connected to.
  * @param {number} x - The horizontal position of this Game Object in the world.
  * @param {number} y - The vertical position of this Game Object in the world.
  * @param {(string|Phaser.Textures.Texture)} texture - The key, or instance of the Texture this Game Object will use to render with, as stored in the Texture Manager.
  * @param {(string|number)} [frame] - An optional frame from the Texture this Game Object is rendering with.
  *
- * @return {Phaser.GameObjects.PathFollower} The Game Object that was created.
+ * @return {Phaser.GameObjects.Stamp} The Game Object that was created.
  */
-GameObjectFactory.register('follower', function (path, x, y, key, frame)
-{
-    var sprite = new PathFollower(this.scene, path, x, y, key, frame);
+export const StampFactory = function (this: any, x: number, y: number, texture: string | any, frame?: string | number): Stamp {
+    return this.displayList.add(new Stamp(this.scene, x, y, texture, frame));
+};
 
-    this.displayList.add(sprite);
-    this.updateList.add(sprite);
-
-    return sprite;
-});
+GameObjectFactory.register('stamp', StampFactory);
 
 //  When registering a factory function 'this' refers to the GameObjectFactory context.
 //

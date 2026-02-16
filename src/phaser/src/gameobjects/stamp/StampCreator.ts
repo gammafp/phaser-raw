@@ -5,10 +5,10 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { Stamp } from './Stamp';
 
-var BuildGameObject = require('../BuildGameObject');
-var GameObjectCreator = require('../GameObjectCreator');
-var Stamp = require('./Stamp');
+const BuildGameObject = require('../BuildGameObject');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new Stamp Game Object and returns it.
@@ -23,14 +23,13 @@ var Stamp = require('./Stamp');
  *
  * @return {Phaser.GameObjects.Stamp} The Game Object that was created.
  */
-GameObjectCreator.register('stamp', function (config, addToScene)
-{
+export const StampCreator = function (this: any, config: any, addToScene?: boolean): Stamp {
     if (config === undefined) { config = {}; }
 
-    var key = GetAdvancedValue(config, 'key', null);
-    var frame = GetAdvancedValue(config, 'frame', null);
+    const key = GetAdvancedValue(config, 'key', null);
+    const frame = GetAdvancedValue(config, 'frame', null);
 
-    var stamp = new Stamp(this.scene, 0, 0, key, frame);
+    const stamp = new Stamp(this.scene, 0, 0, key, frame);
 
     if (addToScene !== undefined)
     {
@@ -40,6 +39,8 @@ GameObjectCreator.register('stamp', function (config, addToScene)
     BuildGameObject(this.scene, stamp, config);
 
     return stamp;
-});
+};
+
+GameObjectCreator.register('stamp', StampCreator);
 
 //  When registering a factory function 'this' refers to the GameObjectCreator context.

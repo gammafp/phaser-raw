@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Zone = require('./Zone');
-var GameObjectFactory = require('../GameObjectFactory');
+import { Zone } from './Zone';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new Zone Game Object and adds it to the Scene.
@@ -22,10 +23,11 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.Zone} The Game Object that was created.
  */
-GameObjectFactory.register('zone', function (x, y, width, height)
-{
+export const ZoneFactory = function (this: any, x: number, y: number, width: number, height: number): Zone {
     return this.displayList.add(new Zone(this.scene, x, y, width, height));
-});
+};
+
+GameObjectFactory.register('zone', ZoneFactory);
 
 //  When registering a factory function 'this' refers to the GameObjectFactory context.
 //

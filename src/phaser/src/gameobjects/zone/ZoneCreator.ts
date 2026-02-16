@@ -5,9 +5,9 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { Zone } from './Zone';
 
-var GameObjectCreator = require('../GameObjectCreator');
-var Zone = require('./Zone');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new Zone Game Object and returns it.
@@ -21,14 +21,15 @@ var Zone = require('./Zone');
  *
  * @return {Phaser.GameObjects.Zone} The Game Object that was created.
  */
-GameObjectCreator.register('zone', function (config)
-{
-    var x = GetAdvancedValue(config, 'x', 0);
-    var y = GetAdvancedValue(config, 'y', 0);
-    var width = GetAdvancedValue(config, 'width', 1);
-    var height = GetAdvancedValue(config, 'height', width);
+export const ZoneCreator = function (this: any, config: any): Zone {
+    const x = GetAdvancedValue(config, 'x', 0);
+    const y = GetAdvancedValue(config, 'y', 0);
+    const width = GetAdvancedValue(config, 'width', 1);
+    const height = GetAdvancedValue(config, 'height', width);
 
     return new Zone(this.scene, x, y, width, height);
-});
+};
+
+GameObjectCreator.register('zone', ZoneCreator);
 
 //  When registering a factory function 'this' refers to the GameObjectCreator context.

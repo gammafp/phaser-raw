@@ -4,7 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GetCalcMatrix = require('../GetCalcMatrix');
+const GetCalcMatrix = require('../GetCalcMatrix');
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -23,15 +23,13 @@ var GetCalcMatrix = require('../GetCalcMatrix');
  * @param {Phaser.GameObjects.GameObject[]} displayList - The display list which is currently being rendered.
  * @param {number} displayListIndex - The index of the Game Object within the display list.
  */
-var ExternWebGLRenderer = function (renderer, src, drawingContext, parentMatrix, renderStep, displayList, displayListIndex)
+export const ExternWebGLRenderer = function (renderer: any, src: any, drawingContext: any, parentMatrix: any, renderStep: number, displayList: any[], displayListIndex: number): void
 {
     renderer.renderNodes.getNode('YieldContext').run(drawingContext);
 
-    var calcMatrix = GetCalcMatrix(src, drawingContext.camera, parentMatrix, !drawingContext.useCanvas).calc;
+    const calcMatrix = GetCalcMatrix(src, drawingContext.camera, parentMatrix, !drawingContext.useCanvas).calc;
 
     src.render.call(src, renderer, drawingContext, calcMatrix, displayList, displayListIndex);
 
     renderer.renderNodes.getNode('RebindContext').run(drawingContext);
 };
-
-module.exports = ExternWebGLRenderer;

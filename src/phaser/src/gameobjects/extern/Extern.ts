@@ -1,13 +1,26 @@
+// @ts-nocheck
+
 /**
  * @author       Richard Davey <rich@phaser.io>
  * @copyright    2013-2026 Phaser Studio Inc.
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Class = require('../../utils/Class');
-var Components = require('../components');
-var GameObject = require('../GameObject');
-var ExternRender = require('./ExternRender');
+import { Mixin } from '../../utils/MixinTS';
+import { Alpha } from '../components/Alpha';
+import { BlendMode } from '../components/BlendMode';
+import { Depth } from '../components/Depth';
+import { Flip } from '../components/Flip';
+import { Origin } from '../components/Origin';
+import { ScrollFactor } from '../components/ScrollFactor';
+import { Size } from '../components/Size';
+import { Texture } from '../components/Texture';
+import { Tint } from '../components/Tint';
+import { Transform } from '../components/Transform';
+import { Visible } from '../components/Visible';
+import { renderWebGL, renderCanvas } from './ExternRender';
+
+const GameObject = require('../GameObject');
 
 /**
  * @classdesc
@@ -75,56 +88,66 @@ var ExternRender = require('./ExternRender');
  *
  * @param {Phaser.Scene} scene - The Scene to which this Game Object belongs. A Game Object can only belong to one Scene at a time.
  */
-var Extern = new Class({
+export interface Extern extends
+    Alpha,
+    BlendMode,
+    Depth,
+    Flip,
+    Origin,
+    ScrollFactor,
+    Size,
+    Texture,
+    Tint,
+    Transform,
+    Visible {}
 
-    Extends: GameObject,
+export class Extern extends GameObject {
 
-    Mixins: [
-        Components.Alpha,
-        Components.BlendMode,
-        Components.Depth,
-        Components.Flip,
-        Components.Origin,
-        Components.ScrollFactor,
-        Components.Size,
-        Components.Texture,
-        Components.Tint,
-        Components.Transform,
-        Components.Visible,
-        ExternRender
-    ],
-
-    initialize:
-
-    function Extern (scene)
+    static
     {
-        GameObject.call(this, scene, 'Extern');
-    },
+        Mixin(this, [
+            Alpha,
+            BlendMode,
+            Depth,
+            Flip,
+            Origin,
+            ScrollFactor,
+            Size,
+            Texture,
+            Tint,
+            Transform,
+            Visible,
+            { renderWebGL, renderCanvas }
+        ]);
+    }
+
+    constructor(scene)
+    {
+        super(scene, 'Extern');
+    }
 
     //  Overrides Game Object method
-    addedToScene: function ()
+    addedToScene()
     {
         this.scene.sys.updateList.add(this);
-    },
+    }
 
     //  Overrides Game Object method
-    removedFromScene: function ()
+    removedFromScene()
     {
         this.scene.sys.updateList.remove(this);
-    },
+    }
 
-    preUpdate: function ()
+    preUpdate()
     {
         //  override this!
         //  Arguments: time, delta
-    },
+    }
 
-    render: function ()
+    render()
     {
         //  override this!
         //  Arguments: renderer, drawingContext, calcMatrix, displayList, displayListIndex
     }
 
-});
-
-module.exports = Extern;
+}

@@ -5,12 +5,14 @@
  */
 
 import { NOOP } from '../../utils/NOOP';
-var renderWebGL = NOOP;
-var renderCanvas = NOOP;
+import { ExternWebGLRenderer } from './ExternWebGLRenderer';
+
+let renderWebGL: Function = NOOP;
+let renderCanvas: Function = NOOP;
 
 if (typeof WEBGL_RENDERER)
 {
-    renderWebGL = require('./ExternWebGLRenderer');
+    renderWebGL = ExternWebGLRenderer;
 }
 
 if (typeof CANVAS_RENDERER)
@@ -18,9 +20,4 @@ if (typeof CANVAS_RENDERER)
     renderCanvas = require('./ExternCanvasRenderer');
 }
 
-module.exports = {
-
-    renderWebGL: renderWebGL,
-    renderCanvas: renderCanvas
-
-};
+export { renderWebGL, renderCanvas };

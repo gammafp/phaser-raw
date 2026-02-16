@@ -7,9 +7,8 @@
 import { GetFastValue } from '../utils/object/GetFastValue';
 import { QuickSet as AlignIn } from '../display/align/in/QuickSet';
 import { ALIGN_CONST as CONST } from '../display/align/const';
+import { Zone } from '../gameobjects/zone/Zone';
 
-var Zone = require('../gameobjects/zone/Zone');
-// import { Zone } from '../gameobjects/zone/Zone';
 import { NOOP } from '../utils/NOOP';
 
 import type { GridAlignConfig } from './typedefs/GridAlignConfig';

@@ -5,11 +5,9 @@
  */
 
 import { Image } from '../image/Image';
-
 import { DefaultStampNodes } from '../../renderer/webgl/renderNodes/defaults/DefaultStampNodes';
-
-var Class = require('../../utils/Class');
-var StampRender = require('./StampRender');
+import { Mixin } from '../../utils/MixinTS';
+import { renderCanvas } from './StampRender';
 
 /**
  * @classdesc
@@ -49,26 +47,25 @@ var StampRender = require('./StampRender');
  * @param {(string|Phaser.Textures.Texture)} texture - The key, or instance of the Texture this Game Object will use to render with, as stored in the Texture Manager.
  * @param {(string|number)} [frame] - An optional frame from the Texture this Game Object is rendering with.
  */
-var Stamp = new Class({
-    Extends: Image,
+export class Stamp extends Image {
 
-    Mixins: [
-        StampRender
-    ],
-
-    initialize: function Stamp (scene, x, y, texture, frame)
+    static
     {
-        Image.call(this, scene, x, y, texture, frame);
+        Mixin(this, [
+            { renderCanvas }
+        ]);
+    }
+
+    constructor(scene, x, y, texture, frame)
+    {
+        super(scene, x, y, texture, frame);
 
         this.type = 'Stamp';
-    },
-
-    _defaultRenderNodesMap: {
-        get: function ()
-        {
-            return DefaultStampNodes;
-        }
     }
-});
 
-module.exports = Stamp;
+
+    get _defaultRenderNodesMap()
+    {
+        return DefaultStampNodes;
+    }
+}

@@ -7,15 +7,12 @@
 // The Stamp inherits WebGL rendering properties from the Image class.
 
 import { NOOP } from '../../utils/NOOP';
-var renderCanvas = NOOP;
+
+let renderCanvas: Function = NOOP;
 
 if (typeof CANVAS_RENDERER)
 {
     renderCanvas = require('./StampCanvasRenderer');
 }
 
-module.exports = {
-
-    renderCanvas: renderCanvas
-
-};
+export { renderCanvas };

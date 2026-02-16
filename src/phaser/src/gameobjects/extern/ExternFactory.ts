@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Extern = require('./Extern');
-var GameObjectFactory = require('../GameObjectFactory');
+import { Extern } from './Extern';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new Extern Game Object and adds it to the Scene.
@@ -17,14 +18,15 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.Extern} The Game Object that was created.
  */
-GameObjectFactory.register('extern', function ()
-{
-    var extern = new Extern(this.scene);
+export const ExternFactory = function (this: any): Extern {
+    const extern = new Extern(this.scene);
 
     this.displayList.add(extern);
 
     return extern;
-});
+};
+
+GameObjectFactory.register('extern', ExternFactory);
 
 //  When registering a factory function 'this' refers to the GameObjectFactory context.
 //

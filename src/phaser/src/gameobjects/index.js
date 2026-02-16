@@ -84,12 +84,21 @@ import { SpriteCreator } from './sprite/SpriteCreator';
 import { Group } from './group/Group';
 import { GroupFactory } from './group/GroupFactory';
 import { GroupCreator } from './group/GroupCreator';
+import { Zone } from './zone/Zone';
+import { ZoneFactory } from './zone/ZoneFactory';
+import { ZoneCreator } from './zone/ZoneCreator';
+import { PathFollowerFactory } from './pathfollower/PathFollowerFactory';
 import { Shader } from './shader/Shader';
 import { ShaderFactory } from './shader/ShaderFactory';
 import { ShaderCreator } from './shader/ShaderCreator';
 import { TileSprite } from './tilesprite/TileSprite';
 import { TileSpriteFactory } from './tilesprite/TileSpriteFactory';
 import { TileSpriteCreator } from './tilesprite/TileSpriteCreator';
+import { Extern } from './extern/Extern';
+import { ExternFactory } from './extern/ExternFactory';
+import { Stamp } from './stamp/Stamp';
+import { StampFactory } from './stamp/StampFactory';
+import { StampCreator } from './stamp/StampCreator';
 
 /**
  * @namespace Phaser.GameObjects
@@ -116,7 +125,7 @@ var GameObjects = {
     Container: require('./container/Container'),
     DOMElement: require('./domelement/DOMElement'),
     DynamicBitmapText: DynamicBitmapText,
-    Extern: require('./extern/Extern'),
+    Extern: Extern,
     Graphics: Graphics,
     Group: Group,
     Image: Image,
@@ -127,7 +136,7 @@ var GameObjects = {
     RetroFont: RetroFont,
     Rope: Rope,
     Sprite: Sprite,
-    Stamp: require('./stamp/Stamp'),
+    Stamp: Stamp,
 
     Text: Text,
     GetTextSize: GetTextSize,
@@ -135,7 +144,7 @@ var GameObjects = {
     TextStyle: TextStyle,
 
     TileSprite: TileSprite,
-    Zone: require('./zone/Zone'),
+    Zone: Zone,
     Video: Video,
 
     //  Shapes
@@ -160,21 +169,21 @@ var GameObjects = {
         Container: require('./container/ContainerFactory'),
         DOMElement: require('./domelement/DOMElementFactory'),
         DynamicBitmapText: DynamicBitmapTextFactory,
-        Extern: require('./extern/ExternFactory'),
+        Extern: ExternFactory,
         Graphics: GraphicsFactory,
         Group: GroupFactory,
         Image: ImageFactory,
         Layer: require('./layer/LayerFactory'),
         Particles: require('./particles/ParticleEmitterFactory'),
-        PathFollower: require('./pathfollower/PathFollowerFactory'),
+        PathFollower: PathFollowerFactory,
         RenderTexture: require('./rendertexture/RenderTextureFactory'),
         Rope: RopeFactory,
         Sprite: SpriteFactory,
-        Stamp: require('./stamp/StampFactory'),
+        Stamp: StampFactory,
         StaticBitmapText: BitmapTextFactory,
         Text: TextFactory,
         TileSprite: TileSpriteFactory,
-        Zone: require('./zone/ZoneFactory'),
+        Zone: ZoneFactory,
         Video: VideoFactory,
 
         //  Shapes
@@ -203,11 +212,11 @@ var GameObjects = {
         RenderTexture: require('./rendertexture/RenderTextureCreator'),
         Rope: RopeCreator,
         Sprite: SpriteCreator,
-        Stamp: require('./stamp/StampCreator'),
+        Stamp: StampCreator,
         StaticBitmapText: BitmapTextCreator,
         Text: TextCreator,
         TileSprite: TileSpriteCreator,
-        Zone: require('./zone/ZoneCreator'),
+        Zone: ZoneCreator,
         Video: VideoCreator
     }
 
