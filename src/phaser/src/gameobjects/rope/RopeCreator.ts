@@ -6,10 +6,10 @@
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
 import { GetValue } from '../../utils/object/GetValue';
+import { Rope } from './Rope';
 
-var BuildGameObject = require('../BuildGameObject');
-var GameObjectCreator = require('../GameObjectCreator');
-var Rope = require('./Rope');
+const BuildGameObject = require('../BuildGameObject');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new Rope Game Object and returns it.
@@ -24,18 +24,17 @@ var Rope = require('./Rope');
  *
  * @return {Phaser.GameObjects.Rope} The Game Object that was created.
  */
-GameObjectCreator.register('rope', function (config, addToScene)
-{
+export const RopeCreator = function (this: any, config: any, addToScene?: boolean): Rope {
     if (config === undefined) { config = {}; }
 
-    var key = GetAdvancedValue(config, 'key', null);
-    var frame = GetAdvancedValue(config, 'frame', null);
-    var horizontal = GetAdvancedValue(config, 'horizontal', true);
-    var points = GetValue(config, 'points', undefined);
-    var colors = GetValue(config, 'colors', undefined);
-    var alphas = GetValue(config, 'alphas', undefined);
+    const key = GetAdvancedValue(config, 'key', null);
+    const frame = GetAdvancedValue(config, 'frame', null);
+    const horizontal = GetAdvancedValue(config, 'horizontal', true);
+    const points = GetValue(config, 'points', undefined);
+    const colors = GetValue(config, 'colors', undefined);
+    const alphas = GetValue(config, 'alphas', undefined);
 
-    var rope = new Rope(this.scene, 0, 0, key, frame, points, horizontal, colors, alphas);
+    const rope = new Rope(this.scene, 0, 0, key, frame, points, horizontal, colors, alphas);
 
     if (addToScene !== undefined)
     {
@@ -45,6 +44,8 @@ GameObjectCreator.register('rope', function (config, addToScene)
     BuildGameObject(this.scene, rope, config);
 
     return rope;
-});
+};
+
+GameObjectCreator.register('rope', RopeCreator);
 
 //  When registering a factory function 'this' refers to the GameObjectCreator context.

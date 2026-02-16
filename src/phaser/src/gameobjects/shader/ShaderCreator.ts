@@ -5,10 +5,10 @@
  */
 
 import { GetAdvancedValue } from '../../utils/object/GetAdvancedValue';
+import { Shader } from './Shader';
 
-var BuildGameObject = require('../BuildGameObject');
-var GameObjectCreator = require('../GameObjectCreator');
-var Shader = require('./Shader');
+const BuildGameObject = require('../BuildGameObject');
+const GameObjectCreator = require('../GameObjectCreator');
 
 /**
  * Creates a new Shader Game Object and returns it.
@@ -23,17 +23,16 @@ var Shader = require('./Shader');
  *
  * @return {Phaser.GameObjects.Shader} The Game Object that was created.
  */
-GameObjectCreator.register('shader', function (config, addToScene)
-{
+export const ShaderCreator = function (this: any, config: any, addToScene?: boolean): Shader {
     if (config === undefined) { config = {}; }
 
-    var quadConfig = GetAdvancedValue(config, 'config', null);
-    var x = GetAdvancedValue(config, 'x', 0);
-    var y = GetAdvancedValue(config, 'y', 0);
-    var width = GetAdvancedValue(config, 'width', 128);
-    var height = GetAdvancedValue(config, 'height', 128);
+    const quadConfig = GetAdvancedValue(config, 'config', null);
+    const x = GetAdvancedValue(config, 'x', 0);
+    const y = GetAdvancedValue(config, 'y', 0);
+    const width = GetAdvancedValue(config, 'width', 128);
+    const height = GetAdvancedValue(config, 'height', 128);
 
-    var shader = new Shader(this.scene, quadConfig, x, y, width, height);
+    const shader = new Shader(this.scene, quadConfig, x, y, width, height);
 
     if (addToScene !== undefined)
     {
@@ -43,6 +42,8 @@ GameObjectCreator.register('shader', function (config, addToScene)
     BuildGameObject(this.scene, shader, config);
 
     return shader;
-});
+};
+
+GameObjectCreator.register('shader', ShaderCreator);
 
 //  When registering a factory function 'this' refers to the GameObjectCreator context.

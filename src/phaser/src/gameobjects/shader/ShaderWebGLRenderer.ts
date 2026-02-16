@@ -18,9 +18,9 @@
  * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The current drawing context.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var ShaderWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
+export const ShaderWebGLRenderer = function (_renderer: any, src: any, drawingContext: any, parentMatrix: any): void
 {
-    var camera = drawingContext.camera;
+    const camera = drawingContext.camera;
 
     camera.addToRenderList(src);
 
@@ -30,8 +30,9 @@ var ShaderWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
 
         if (drawingContext.width !== src.width || drawingContext.height !== src.height)
         {
-            var width = src.width;
-            var height = src.height;
+            const width = src.width;
+            const height = src.height;
+
             drawingContext.resize(width, height);
             drawingContext.camera.setSize(width, height);
         }
@@ -46,5 +47,3 @@ var ShaderWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
         drawingContext.release();
     }
 };
-
-module.exports = ShaderWebGLRenderer;

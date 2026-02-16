@@ -4,9 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var GetCalcMatrix = require('../GetCalcMatrix');
+const GetCalcMatrix = require('../GetCalcMatrix');
 
-var renderOptions = {
+const renderOptions = {
     multiTexturing: false,
     smoothPixelArt: false
 };
@@ -25,12 +25,12 @@ var renderOptions = {
  * @param {Phaser.Renderer.WebGL.DrawingContext} drawingContext - The current drawing context.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var RopeWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
+export const RopeWebGLRenderer = function (_renderer: any, src: any, drawingContext: any, parentMatrix: any): void
 {
-    var camera = drawingContext.camera;
+    const camera = drawingContext.camera;
     camera.addToRenderList(src);
 
-    var calcMatrix = GetCalcMatrix(src, camera, parentMatrix, !drawingContext.useCanvas).calc;
+    const calcMatrix = GetCalcMatrix(src, camera, parentMatrix, !drawingContext.useCanvas).calc;
 
     if (src.dirty)
     {
@@ -38,8 +38,9 @@ var RopeWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
     }
 
     // Get smooth pixel art option.
-    var smoothPixelArt;
-    var srcTexture = src.texture;
+    let smoothPixelArt;
+    const srcTexture = src.texture;
+
     if (srcTexture && srcTexture.smoothPixelArt !== null)
     {
         smoothPixelArt = srcTexture.smoothPixelArt;
@@ -48,6 +49,7 @@ var RopeWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
     {
         smoothPixelArt = src.scene.sys.game.config.smoothPixelArt;
     }
+
     renderOptions.smoothPixelArt = smoothPixelArt;
 
     (src.customRenderNodes.BatchHandler || src.defaultRenderNodes.BatchHandler).batchStrip(
@@ -65,5 +67,3 @@ var RopeWebGLRenderer = function (renderer, src, drawingContext, parentMatrix)
         src.debugCallback
     );
 };
-
-module.exports = RopeWebGLRenderer;

@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Rope = require('./Rope');
-var GameObjectFactory = require('../GameObjectFactory');
+import { Rope } from './Rope';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new Rope Game Object and adds it to the Scene.
@@ -27,10 +28,11 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.Rope} The Game Object that was created.
  */
+export const RopeFactory = function (this: any, x: number, y: number, texture: any, frame?: string | number, points?: any, horizontal?: boolean, colors?: number[], alphas?: number[]): Rope {
+    return this.displayList.add(new Rope(this.scene, x, y, texture, frame, points, horizontal, colors, alphas));
+};
+
 if (typeof WEBGL_RENDERER)
 {
-    GameObjectFactory.register('rope', function (x, y, texture, frame, points, horizontal, colors, alphas)
-    {
-        return this.displayList.add(new Rope(this.scene, x, y, texture, frame, points, horizontal, colors, alphas));
-    });
+    GameObjectFactory.register('rope', RopeFactory);
 }

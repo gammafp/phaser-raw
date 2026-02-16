@@ -5,18 +5,16 @@
  */
 
 /**
- * This is a stub function for Rope.Render. There is no Canvas renderer for Rope objects.
+ * This is a stub function for Shader.Render. There is no Canvas renderer for Shader objects.
  *
- * @method Phaser.GameObjects.Rope#renderCanvas
- * @since 3.23.0
+ * @method Phaser.GameObjects.Shader#renderCanvas
+ * @since 3.17.0
  * @private
  *
  * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
- * @param {Phaser.GameObjects.Rope} src - The Game Object being rendered in this call.
+ * @param {Phaser.GameObjects.Shader} src - The Game Object being rendered in this call.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  */
-var RopeCanvasRenderer = function ()
+export const ShaderCanvasRenderer = function (): void
 {
 };
-
-module.exports = RopeCanvasRenderer;

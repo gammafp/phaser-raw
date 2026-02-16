@@ -4,8 +4,9 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var Shader = require('./Shader');
-var GameObjectFactory = require('../GameObjectFactory');
+import { Shader } from './Shader';
+
+const GameObjectFactory = require('../GameObjectFactory');
 
 /**
  * Creates a new Shader Game Object and adds it to the Scene.
@@ -26,10 +27,11 @@ var GameObjectFactory = require('../GameObjectFactory');
  *
  * @return {Phaser.GameObjects.Shader} The Game Object that was created.
  */
+export const ShaderFactory = function (this: any, config: string | any, x?: number, y?: number, width?: number, height?: number, textures?: string[], textureData?: any): Shader {
+    return this.displayList.add(new Shader(this.scene, config, x, y, width, height, textures, textureData));
+};
+
 if (typeof WEBGL_RENDERER)
 {
-    GameObjectFactory.register('shader', function (config, x, y, width, height, textures, textureData)
-    {
-        return this.displayList.add(new Shader(this.scene, config, x, y, width, height, textures, textureData));
-    });
+    GameObjectFactory.register('shader', ShaderFactory);
 }

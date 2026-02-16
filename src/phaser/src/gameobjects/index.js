@@ -74,6 +74,12 @@ import { CaptureFrameCreator } from './captureframe/CaptureFrameCreator';
 import { PointLight } from './pointlight/PointLight';
 import { PointLightFactory } from './pointlight/PointLightFactory';
 import { PointLightCreator } from './pointlight/PointLightCreator';
+import { Rope } from './rope/Rope';
+import { RopeFactory } from './rope/RopeFactory';
+import { RopeCreator } from './rope/RopeCreator';
+import { Shader } from './shader/Shader';
+import { ShaderFactory } from './shader/ShaderFactory';
+import { ShaderCreator } from './shader/ShaderCreator';
 
 /**
  * @namespace Phaser.GameObjects
@@ -109,7 +115,7 @@ var GameObjects = {
     PathFollower: require('./pathfollower/PathFollower'),
     RenderTexture: require('./rendertexture/RenderTexture'),
     RetroFont: RetroFont,
-    Rope: require('./rope/Rope'),
+    Rope: Rope,
     Sprite: require('./sprite/Sprite'),
     Stamp: require('./stamp/Stamp'),
 
@@ -152,7 +158,7 @@ var GameObjects = {
         Particles: require('./particles/ParticleEmitterFactory'),
         PathFollower: require('./pathfollower/PathFollowerFactory'),
         RenderTexture: require('./rendertexture/RenderTextureFactory'),
-        Rope: require('./rope/RopeFactory'),
+        Rope: RopeFactory,
         Sprite: require('./sprite/SpriteFactory'),
         Stamp: require('./stamp/StampFactory'),
         StaticBitmapText: BitmapTextFactory,
@@ -185,7 +191,7 @@ var GameObjects = {
         Layer: require('./layer/LayerCreator'),
         Particles: require('./particles/ParticleEmitterCreator'),
         RenderTexture: require('./rendertexture/RenderTextureCreator'),
-        Rope: require('./rope/RopeCreator'),
+        Rope: RopeCreator,
         Sprite: require('./sprite/SpriteCreator'),
         Stamp: require('./stamp/StampCreator'),
         StaticBitmapText: BitmapTextCreator,
@@ -201,19 +207,19 @@ var GameObjects = {
 if (typeof WEBGL_RENDERER)
 {
     GameObjects.CaptureFrame = CaptureFrame;
-    GameObjects.Shader = require('./shader/Shader');
+    GameObjects.Shader = Shader;
     GameObjects.NineSlice = NineSlice;
     GameObjects.PointLight = PointLight;
     GameObjects.SpriteGPULayer = SpriteGPULayer;
 
     GameObjects.Factories.CaptureFrame = CaptureFrameFactory;
-    GameObjects.Factories.Shader = require('./shader/ShaderFactory');
+    GameObjects.Factories.Shader = ShaderFactory;
     GameObjects.Factories.NineSlice = NineSliceFactory;
     GameObjects.Factories.PointLight = PointLightFactory;
     GameObjects.Factories.SpriteGPULayer = SpriteGPULayerFactory;
 
     GameObjects.Creators.CaptureFrame = CaptureFrameCreator;
-    GameObjects.Creators.Shader = require('./shader/ShaderCreator');
+    GameObjects.Creators.Shader = ShaderCreator;
     GameObjects.Creators.NineSlice = NineSliceCreator;
     GameObjects.Creators.PointLight = PointLightCreator;
     GameObjects.Creators.SpriteGPULayer = SpriteGPULayerCreator;
